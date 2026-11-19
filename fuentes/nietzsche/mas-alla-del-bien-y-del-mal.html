@@ -1,0 +1,2380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>Más allá del bien y del mal — Guía interactiva de Friedrich Nietzsche</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Broadsheet palette and tokens */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      --primary: #990f3d;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* 2. Shared semantic, scale, spacing, and motion tokens */
+      --positive: #1f6f50;
+      --positive-container: #dfece6;
+      --warning: #9a6312;
+      --focus: var(--primary);
+
+      --display-size: clamp(2.5rem, 1.5rem + 3.8vw, 4.35rem);
+      --headline-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.45rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.22vw, 1.15rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      font-optical-sizing: auto;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      position: static !important;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-lg) var(--space-xl) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .page-grid * {
+      min-width: 0;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    h1 {
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.2;
+    }
+
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 65ch;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    .lede {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: clamp(1.1875rem, 1.08rem + 0.45vw, 1.4rem);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 58ch;
+      margin-top: var(--space-md);
+    }
+
+    /* Links & focus */
+    a {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+      transition: text-decoration-thickness var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+
+    a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Masthead (Treatment 1) */
+    .masthead-line {
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm) var(--space-lg);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+
+    .masthead-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-lg);
+      padding-top: var(--space-md);
+      margin-top: var(--space-lg);
+      border-top: var(--rule-column);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .masthead-nav a {
+      text-decoration: none;
+      color: var(--on-surface-variant);
+      padding: var(--space-xs) 0;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+    }
+
+    .masthead-nav a:hover,
+    .masthead-nav a.is-current {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* Key figures strip (Treatment 3: column hairlines) */
+    .columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-lg);
+    }
+
+    .columns > * {
+      flex: 1 1 200px;
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    .stat-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+    }
+
+    .stat-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.65rem, 1.3rem + 1.1vw, 2.1rem);
+      line-height: 1.1;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      margin-bottom: var(--space-xs);
+    }
+
+    .stat-note {
+      font-size: 0.9375rem;
+      line-height: 1.45;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    /* Section openers (Treatment 4) */
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-md);
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .section-header {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    /* Bare teal tags (Treatment 5 — ONLY on --background!) */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+    }
+
+    .tag-claret {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      background: transparent;
+      padding: 0;
+    }
+
+    /* Asymmetric editorial splits */
+    .split-editorial {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .split-wide {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Pull quotes */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+      margin-block: var(--space-md);
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem);
+      line-height: 1.38;
+      color: var(--on-surface);
+      max-width: 44ch;
+    }
+
+    .pull-quote cite {
+      display: block;
+      margin-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    /* Tables (Broadsheet spec) */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.96875rem;
+    }
+
+    thead th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      vertical-align: bottom;
+    }
+
+    tbody td {
+      border-bottom: var(--rule-column);
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: var(--rule-ink);
+    }
+
+    .num-col {
+      font-variant-numeric: lining-nums tabular-nums;
+      white-space: nowrap;
+      font-family: var(--font-headline);
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* Interactive Concept Grid & Cross-link Diagram */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+    }
+
+    .concept-cell {
+      padding: var(--space-lg) var(--space-lg) var(--space-lg) 0;
+      border-bottom: var(--rule-column);
+      border-right: var(--rule-column);
+      padding-left: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-short) var(--ease-out);
+    }
+
+    .concept-cell.is-highlighted {
+      background-color: var(--primary-container);
+    }
+
+    .concept-cell h3 {
+      margin-top: var(--space-xs);
+    }
+
+    .concept-meta {
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+      border-top: var(--rule-column);
+      padding-top: var(--space-sm);
+      margin-top: auto;
+    }
+
+    /* Filled editorial panels (rare, for interactive tools/forms) */
+    .dossier-panel {
+      background-color: var(--surface-container-low);
+      border: var(--rule-ink);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .dossier-panel-deep {
+      background-color: var(--surface-container);
+      border: var(--rule-ink);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    /* Buttons (square, no shadows) */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    button {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-radius: var(--rounded);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      cursor: pointer;
+      border: 1px solid var(--outline);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--surface-container-high);
+    }
+
+    button:active:not(:disabled) {
+      background-color: var(--outline);
+      color: var(--background);
+    }
+
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    button.btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    button.btn-primary:hover:not(:disabled) {
+      background-color: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+    }
+
+    button.is-active {
+      background-color: var(--on-surface);
+      color: var(--background);
+      border-color: var(--on-surface);
+    }
+
+    button.btn-danger-armed {
+      background-color: var(--error);
+      color: var(--on-error);
+      border-color: var(--error);
+    }
+
+    /* Inputs & Controls */
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: end;
+    }
+
+    .field-group {
+      display: grid;
+      gap: var(--space-xs);
+      flex: 1 1 220px;
+    }
+
+    label.field-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      display: block;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--on-surface);
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      width: 100%;
+    }
+
+    select {
+      padding-right: var(--space-xl);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+      border-color: var(--primary);
+    }
+
+    /* SVG Schematics */
+    .diagram-box {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+      background-color: var(--background);
+    }
+
+    .diagram-box svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .diagram-caption {
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+      margin-top: var(--space-sm);
+    }
+
+    /* Aphorism entries */
+    .aphorism-list {
+      display: grid;
+      gap: 0;
+      border-top: var(--rule-ink);
+    }
+
+    .aphorism-item {
+      border-bottom: var(--rule-column);
+      padding-block: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .aphorism-item.is-bookmarked {
+      border-left: 3px solid var(--primary);
+      padding-left: var(--space-md);
+    }
+
+    .aphorism-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .aphorism-num {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--primary);
+    }
+
+    .aphorism-quote {
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.62;
+      color: var(--on-surface);
+      max-width: 68ch;
+    }
+
+    .aphorism-commentary {
+      font-size: 0.96875rem;
+      color: var(--on-surface-variant);
+      border-left: 2px solid var(--outline-variant);
+      padding-left: var(--space-md);
+      max-width: 65ch;
+    }
+
+    /* Quiz & Assessment */
+    .quiz-card {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .quiz-opt {
+      text-align: left;
+      text-transform: none;
+      letter-spacing: 0;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.45;
+      padding: var(--space-md);
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      color: var(--on-surface);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+    }
+
+    .quiz-opt:hover:not(:disabled) {
+      background-color: var(--surface-container-low);
+    }
+
+    .quiz-opt.is-correct {
+      background-color: var(--positive-container);
+      border-color: var(--positive);
+      color: var(--on-surface);
+    }
+
+    .quiz-opt.is-wrong {
+      background-color: var(--primary-container);
+      border-color: var(--error);
+      color: var(--on-surface);
+    }
+
+    .opt-letter {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      color: var(--primary);
+      min-width: 1.5rem;
+      padding-top: 0.15rem;
+    }
+
+    .feedback-box {
+      padding: var(--space-md);
+      border-left: 3px solid var(--outline);
+      background-color: var(--background);
+      font-size: 0.96875rem;
+    }
+
+    .feedback-box.is-correct {
+      border-left-color: var(--positive);
+    }
+
+    .feedback-box.is-wrong {
+      border-left-color: var(--error);
+    }
+
+    .checklist {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      cursor: pointer;
+      min-height: 44px;
+      padding-block: var(--space-xs);
+    }
+
+    .check-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 0.15rem;
+      accent-color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .status-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: var(--rule-column);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+
+    .footer-colophon {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-lg);
+      color: var(--on-surface-variant);
+      font-size: 0.9375rem;
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 820px) {
+      .split-editorial,
+      .split-wide {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .columns > * {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-md) 0;
+      }
+      .columns > :first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .concept-cell {
+        border-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- CABECERA EDITORIAL (Masthead) -->
+    <header class="masthead">
+      <div class="masthead-line">
+        <span>Archivo Filosófico · Edición Crítica Interactiva</span>
+        <span>Sils-Maria, Alta Engadina · Junio de 1885 — 1886</span>
+      </div>
+      <div style="padding-top: var(--space-lg);">
+        <h1>Más allá del bien y del mal</h1>
+        <p class="lede">
+          <em>Preludio de una filosofía del futuro</em>: una cartografía crítica sobre los prejuicios metafísicos, el espíritu libre, la anatomía del sentimiento religioso, la dicotomía entre moral de señores y de esclavos, el perspectivismo y la voluntad de poder en Friedrich Nietzsche.
+        </p>
+      </div>
+      <nav class="masthead-nav" aria-label="Navegación por secciones">
+        <a href="#arquitectura" class="is-current">I. Base de conocimientos</a>
+        <a href="#conceptos">II. Conceptos clave</a>
+        <a href="#moral-comparada">III. Moral de señores y esclavos</a>
+        <a href="#perspectivismo-lab">IV. Perspectivismo</a>
+        <a href="#aforismos">V. Aforismos</a>
+        <a href="#evaluacion">VI. Evaluación didáctica</a>
+      </nav>
+    </header>
+
+    <!-- CIFRAS Y DATOS ESTRUCTURALES EN COLUMNAS CON FILETES -->
+    <section aria-label="Ficha de contexto de la obra">
+      <div class="columns">
+        <div>
+          <div class="stat-label">Génesis editorial</div>
+          <div class="stat-value">1885–1886</div>
+          <p class="stat-note">Primer libro publicado tras la edición privada en 40 ejemplares de la cuarta parte de <em>Así habló Zaratustra</em>.</p>
+        </div>
+        <div>
+          <div class="stat-label">Estructura en índice</div>
+          <div class="stat-value">9 secciones</div>
+          <p class="stat-note">Reproduce casi el mismo índice temático que <em>Humano, demasiado humano</em>, pero transformado tras contemplar al superhombre.</p>
+        </div>
+        <div>
+          <div class="stat-label">Extensión de referencia</div>
+          <div class="stat-value">191 páginas</div>
+          <p class="stat-note">Edición española de referencia (Ed. Tomo, 2005), articulada en aforismos desde el Prólogo de Sils-Maria hasta el epílogo.</p>
+        </div>
+        <div>
+          <div class="stat-label">Progreso de estudio</div>
+          <div class="stat-value" id="hero-progress-val">0 / 8</div>
+          <p class="stat-note" id="hero-progress-note">Preguntas de evaluación resueltas y guardadas en tu sesión.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN I: BASE DE CONOCIMIENTOS ESTRUCTURADA -->
+    <section id="arquitectura" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">Sección I · Base de conocimientos estructurada</span>
+        <h2>El giro posterior a Zaratustra: de la Ilustración escéptica a la crítica transvaloradora</h2>
+      </div>
+
+      <div class="split-editorial">
+        <div>
+          <p>
+            Publicada tras la distribución privada de cuarenta ejemplares de la cuarta parte de <em>Así habló Zaratustra</em>, <em>Más allá del bien y del mal</em> (<em>Jenseits von Gut und Böse</em>) vuelve sobre las cuestiones que Nietzsche había abordado en su etapa ilustrada. Quien compare el índice de <em>Humano, demasiado humano</em> con el de esta obra advertirá que sus capítulos parecen casi idénticos. Sin embargo, el ángulo desde el que se interroga cada problema ha cambiado de raíz.
+          </p>
+          <p>
+            El vínculo entre ambas épocas es el concepto capital de <strong>«espíritu libre»</strong>. Si antes designaba al mero librepensador que desconfía de la tradición, ahora nombra a un espíritu que habita decididamente más allá de la antítesis entre el «bien» y el «mal». Desde esa altura, la verdad deja de ser un ídolo solemne para revelarse como una mujer esquiva que jamás se deja conquistar por la torpe seriedad de los filósofos dogmáticos.
+          </p>
+          <blockquote class="pull-quote">
+            «Hablar del espíritu y del bien como lo hizo Platón significaría poner la verdad cabeza abajo y negar el perspectivismo, el cual es condición fundamental de toda vida.»
+            <cite>Friedrich Nietzsche · Prólogo (Sils-Maria, junio de 1885)</cite>
+          </blockquote>
+        </div>
+
+        <div>
+          <div class="diagram-box">
+            <span class="tag">Mapa estructural de los ejes tratados</span>
+            <svg viewBox="0 0 540 310" role="img" aria-labelledby="svg-arch-title" style="margin-top: var(--space-sm);">
+              <title id="svg-arch-title">Arquitectura temática de Más allá del bien y del mal</title>
+              <!-- Axis lines -->
+              <line x1="30" y1="265" x2="510" y2="265" stroke="var(--outline)" stroke-width="1.5"/>
+              <line x1="30" y1="35" x2="510" y2="35" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="4 4"/>
+              <line x1="30" y1="150" x2="510" y2="150" stroke="var(--outline-variant)" stroke-width="1"/>
+
+              <!-- Progression arrow path -->
+              <path d="M 75 210 L 185 170 L 295 130 L 405 90 L 485 62" fill="none" stroke="var(--data-1)" stroke-width="2"/>
+              <polygon points="485,62 473,61 478,72" fill="var(--data-1)"/>
+
+              <!-- Nodes -->
+              <rect x="40" y="188" width="98" height="44" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5"/>
+              <text x="89" y="207" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--primary)">PRÓLOGO &amp; SEC. I</text>
+              <text x="89" y="222" text-anchor="middle" font-family="Source Serif 4, serif" font-size="11" fill="var(--on-surface)">Prejuicios (§§ 1–23)</text>
+
+              <rect x="148" y="148" width="98" height="44" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5"/>
+              <text x="197" y="167" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--secondary)">SECCIÓN II</text>
+              <text x="197" y="182" text-anchor="middle" font-family="Source Serif 4, serif" font-size="11" fill="var(--on-surface)">Espíritu libre (§§ 24–44)</text>
+
+              <rect x="256" y="108" width="98" height="44" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5"/>
+              <text x="305" y="127" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--tertiary)">SECCIÓN III</text>
+              <text x="305" y="142" text-anchor="middle" font-family="Source Serif 4, serif" font-size="11" fill="var(--on-surface)">Ser religioso (§§ 45–62)</text>
+
+              <rect x="364" y="68" width="110" height="44" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5"/>
+              <text x="419" y="87" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--primary)">SECS. V–IX</text>
+              <text x="419" y="102" text-anchor="middle" font-family="Source Serif 4, serif" font-size="11" fill="var(--on-surface)">Rebaño y nobleza (§ 260)</text>
+
+              <!-- Bottom labels -->
+              <text x="40" y="285" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--on-surface-variant)">1. DESMONTAJE EPISTEMOLÓGICO</text>
+              <text x="295" y="285" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--on-surface-variant)">2. CRÍTICA PSICOLÓGICA Y MORAL</text>
+              <text x="30" y="24" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--primary)">TENSIÓN DEL ARCO EUROPEO: DE LA DOGMÁTICA A LA LEGISLACIÓN DE VALORES</text>
+            </svg>
+            <p class="diagram-caption">
+              Secuencia argumentativa: la obra avanza desde la sospecha sobre la «voluntad de verdad» y la gramática del sujeto hasta la tipología política y moral de la aristocracia y el rebaño.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Bloque textual</th>
+              <th>Rango</th>
+              <th>Objeto de disección</th>
+              <th>Tesis de ruptura en la obra</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Prólogo</strong></td>
+              <td class="num-col">1885</td>
+              <td>El platonismo y el cristianismo («platonismo para el pueblo»)</td>
+              <td>La lucha contra el error dogmático creó en Europa una magnífica «tensión del arco»; no hay que aflojarla mediante el jesuitismo ni la ilustración democrática.</td>
+            </tr>
+            <tr>
+              <td><strong>Sección primera</strong></td>
+              <td class="num-col">§§ 1–23</td>
+              <td><em>De los prejuicios de los filósofos</em></td>
+              <td>Cuestiona el valor de la voluntad de verdad, desenmascara las filosofías como autoconfesiones morales (§ 6) y postula la psicología como morfología de la voluntad de poder (§ 23).</td>
+            </tr>
+            <tr>
+              <td><strong>Sección segunda</strong></td>
+              <td class="num-col">§§ 24–44</td>
+              <td><em>El espíritu libre</em></td>
+              <td>Separa al verdadero espíritu libre —solitario, enmascarado y «tentador»— de los falsos «librepensadores» niveladores que anhelan el bienestar del rebaño (§ 44).</td>
+            </tr>
+            <tr>
+              <td><strong>Sección tercera</strong></td>
+              <td class="num-col">§§ 45–62</td>
+              <td><em>El ser religioso</em></td>
+              <td>Examina la neurosis religiosa (soledad, ayuno, abstinencia), la escalera de los sacrificios hasta sacrificar a Dios por la nada (§ 55) y la afirmación eterna del <em>da capo</em> (§ 56).</td>
+            </tr>
+            <tr>
+              <td><strong>Secciones V–VII</strong></td>
+              <td class="num-col">§§ 199–230</td>
+              <td>Historia natural de la moral, doctos y virtudes</td>
+              <td>Diagnostica la obediencia gregaria (§ 199), la hipocresía de quienes mandan fingiendo servir, al hombre objetivo como mero «espejo» (§ 207) y la tarea de retraducir al hombre en <em>homo natura</em> (§ 230).</td>
+            </tr>
+            <tr>
+              <td><strong>Sección novena</strong></td>
+              <td class="num-col">§§ 257–291</td>
+              <td><em>¿Qué es aristocrático?</em></td>
+              <td>Establece el <em>pathos de la distancia</em> como origen de toda elevación humana (§ 257), la vida como apropiación (§ 259) y la distinción capital entre moral de señores y moral de esclavos (§ 260).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECCIÓN II: EXPLORACIÓN DE CONCEPTOS FUNDAMENTALES -->
+    <section id="conceptos" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">Sección II · Exploración de conceptos fundamentales</span>
+        <h2>Seis ejes para pensar más allá de las antítesis morales</h2>
+        <p class="lede">
+          Cada concepto desmonta una superstición heredada de la metafísica, la gramática o el instinto gregario. Pulsa cualquier eje para resaltar sus conexiones con los demás en la matriz inferior.
+        </p>
+      </div>
+
+      <div class="btn-row" role="group" aria-label="Resaltar relaciones conceptuales">
+        <button type="button" class="is-active" id="btn-rel-all" onclick="highlightConcept('all')">Ver todos los ejes</button>
+        <button type="button" id="btn-rel-prejuicios" onclick="highlightConcept('prejuicios')">1. Prejuicios (§§ 1–23)</button>
+        <button type="button" id="btn-rel-espiritu" onclick="highlightConcept('espiritu')">2. Espíritu libre (§§ 24–44)</button>
+        <button type="button" id="btn-rel-religion" onclick="highlightConcept('religion')">3. Fenómeno religioso (§§ 45–62)</button>
+        <button type="button" id="btn-rel-morales" onclick="highlightConcept('morales')">4. Señores y esclavos (§ 260)</button>
+        <button type="button" id="btn-rel-perspectivismo" onclick="highlightConcept('perspectivismo')">5. Perspectivismo</button>
+        <button type="button" id="btn-rel-poder" onclick="highlightConcept('poder')">6. Voluntad de poder</button>
+      </div>
+
+      <div class="status-strip" id="concept-relation-banner" aria-live="polite">
+        <span>Vista completa: los seis conceptos forman una red crítica interdependiente. Selecciona uno para rastrear sus conexiones directas.</span>
+      </div>
+
+      <div class="concept-grid">
+        <article class="concept-cell" id="card-prejuicios" data-concept="prejuicios">
+          <span class="tag-claret">Eje I · Sección primera (§§ 1–23)</span>
+          <h3>Los prejuicios de los filósofos</h3>
+          <p>
+            Los metafísicos creen en «antítesis de valores» (verdad frente a error, desinterés frente a egoísmo) y postulan un origen puro en la «cosa en sí» (§ 2). Nietzsche muestra que la mayor parte del pensar consciente está guiada en secreto por instintos fisiológicos (§ 3): cada gran filosofía es una <em>autoconfesión</em> moral involuntaria (§ 6).
+          </p>
+          <p>
+            Critica así la «tartufería» de Kant —cuya respuesta a los juicios sintéticos <em>a priori</em> equivale a explicar el sueño por una <em>virtus dormitiva</em> (§ 11)—, la coraza matemática de Spinoza (§ 5) y la supuesta «certeza inmediata» del «yo pienso» cartesiano, mero hábito gramatical (§§ 16–17).
+          </p>
+          <div class="concept-meta">
+            <strong>Antídoto nietzscheano:</strong> sustituir el «atomismo psíquico» del alma indivisible por el «alma mortal» como «estructura social de los instintos y afectos» (§ 12).
+          </div>
+        </article>
+
+        <article class="concept-cell" id="card-espiritu" data-concept="espiritu">
+          <span class="tag-claret">Eje II · Sección segunda (§§ 24–44)</span>
+          <h3>El espíritu libre</h3>
+          <p>
+            Nietzsche traza una frontera tajante frente a los falsos «espíritus libres» (<em>librepensadores</em> democráticos de Europa y América), a quienes llama «niveladores» (§ 44): buscan una sociedad sin peligro ni sufrimiento, un «verde prado del rebaño».
+          </p>
+          <p>
+            El verdadero espíritu libre, junto con los «filósofos del futuro» bautizados como <em>tentadores</em> (§ 42), crece bajo la presión, el peligro, la soledad y la severidad consigo mismo. Huye del martirio teatral (§ 25), cultiva el pudor de su máscara y distingue lo <em>esotérico</em> (ver de arriba abajo) de lo <em>exotérico</em> (ver de abajo arriba, § 30).
+          </p>
+          <div class="concept-meta">
+            <strong>Rasgo decisivo:</strong> «Mi juicio es mi juicio: no es fácil que también otro tenga derecho a él» (§ 43).
+          </div>
+        </article>
+
+        <article class="concept-cell" id="card-religion" data-concept="religion">
+          <span class="tag-claret">Eje III · Sección tercera (§§ 45–62)</span>
+          <h3>El fenómeno religioso</h3>
+          <p>
+            La «neurosis religiosa» aparece ligada a tres prácticas dietéticas —soledad, ayuno y abstinencia sexual— y engendra la apariencia de milagro en el «santo» (§ 47). Aunque los poderosos respetan al asceta porque intuyen en su autovencimiento una extraña fuerza de voluntad (§ 51), las religiones soberanas han conservado demasiado de lo enfermo y doliente (§ 62).
+          </p>
+          <p>
+            En el § 55 describe tres peldaños de la crueldad religiosa: sacrificar seres humanos al dios; sacrificarle los propios instintos fuertes; y, finalmente, sacrificar a Dios mismo por la nada. Como réplica al pesimismo negador de Schopenhauer, el § 56 abre el ideal opuesto: afirmar el mundo eternamente, gritando <em>da capo</em> («¡que se repita!»).
+          </p>
+          <div class="concept-meta">
+            <strong>Diagnóstico del presente:</strong> la laboriosidad moderna y burguesa extingue el instinto religioso más por prisa y distracción que por lucidez (§ 58).
+          </div>
+        </article>
+
+        <article class="concept-cell" id="card-morales" data-concept="morales">
+          <span class="tag-claret">Eje IV · Sección novena (§§ 257–260)</span>
+          <h3>Moral de señores y moral de esclavos</h3>
+          <p>
+            Toda elevación del tipo «hombre» nace de una sociedad aristocrática y del <em>pathos de la distancia</em> (§ 257). En la <strong>moral de señores</strong>, la clase dominante crea los valores por autoglorificación: «bueno» significa noble, orgulloso, veraz y poderoso; «malo» significa vulgar, cobarde y despreciable (§ 260).
+          </p>
+          <p>
+            En la <strong>moral de esclavos</strong>, los oprimidos y dolientes miran con suspicacia las virtudes del poderoso y exaltan aquello que alivia su existencia: compasión, humildad, paciencia, utilidad. Surge así la antítesis «bueno» (inofensivo, fácil de engañar) frente a «malvado» (temible y poderoso). Ambas morales coexisten hoy mezcladas incluso dentro de una misma alma.
+          </p>
+          <div class="concept-meta">
+            <strong>Desembocadura gregaria:</strong> cuando domina el miedo al prójimo (§ 201), todo instinto que eleva al individuo sobre el promedio es estigmatizado como «malvado».
+          </div>
+        </article>
+
+        <article class="concept-cell" id="card-perspectivismo" data-concept="perspectivismo">
+          <span class="tag-claret">Eje V · Prólogo y §§ 4, 14, 22, 34</span>
+          <h3>El perspectivismo</h3>
+          <p>
+            Negar el perspectivismo es negar la condición fundamental de toda vida (Prólogo). La cuestión decisiva frente a un juicio no es si resulta «verdadero» en abstracto, sino hasta qué punto favorece, conserva o selecciona la vida (§ 4). Incluso las ficciones lógicas y matemáticas son indispensables porque la no-verdad es condición vital.
+          </p>
+          <p>
+            Incluso la física moderna no es una explicación del mundo, sino una «interpretación y un amaño» adaptado al sensualismo popular (§ 14). La pretendida «regularidad de la naturaleza» es «mala filología» democrática que proyecta la consigna <em>ni dieu, ni maître</em> sobre un mundo carente de leyes (§ 22).
+          </p>
+          <div class="concept-meta">
+            <strong>Tarea radical:</strong> desechar los «tonos» ilusorios y devolver al hombre al texto básico <em>homo natura</em> con «impertérritos ojos de Edipo» (§ 230).
+          </div>
+        </article>
+
+        <article class="concept-cell" id="card-poder" data-concept="poder">
+          <span class="tag-claret">Eje VI · §§ 9, 13, 19, 36, 211, 259</span>
+          <h3>La voluntad de poder</h3>
+          <p>
+            Frente a Spinoza y los fisiólogos que ponen la autoconservación como impulso cardinal, Nietzsche afirma que «algo vivo quiere, antes que nada, dar libre curso a su fuerza: la vida misma es voluntad de poder» (§ 13). Cada instinto aspira a dominar y filosofar a su modo (§ 6); incluso el estoicismo que pide «vivir según la naturaleza» es voluntad tiránica de imponer su moral al mundo (§ 9).
+          </p>
+          <p>
+            En el § 36 propone la hipótesis metódica radical: si toda fuerza eficiente es fuerza de voluntad, el mundo visto desde dentro sería íntegramente «voluntad de poder». Lejos de ser un mero espejo pasivo como el «hombre objetivo» (§ 207), el auténtico filósofo es un legislador cuya voluntad de verdad es voluntad de poder creadora (§ 211).
+          </p>
+          <div class="concept-meta">
+            <strong>En la vida orgánica (§ 259):</strong> vivir es apropiación, imposición de formas propias y crecimiento; absolutizar la abstención mutua equivale a negar la vida.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCIÓN III: COMPARADOR GENEALÓGICO DE MORALES -->
+    <section id="moral-comparada" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">Sección III · Anatomía de la moral (§ 260 y §§ 199–202)</span>
+        <h2>Moral de señores frente a moral de esclavos: la inversión semántica del «bien»</h2>
+        <p class="lede">
+          En el aforismo 260, Nietzsche distingue dos matrices morales opuestas y advierte que las culturas modernas mezclan ambas en conflicto, a menudo dentro de un mismo individuo.
+        </p>
+      </div>
+
+      <div class="split-wide">
+        <div class="dossier-panel">
+          <div>
+            <span class="tag-claret">Analizador genealógico · § 260</span>
+            <h3 style="margin-top: var(--space-xs);">Diagnóstico de valores y actitudes</h3>
+            <p style="font-size: 0.96875rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">
+              Selecciona un rasgo o virtud descrita en el texto para examinar cómo la interpreta cada moral y qué instinto la produce.
+            </p>
+          </div>
+
+          <div class="field-group" style="flex: none;">
+            <label class="field-label" for="moral-trait-select">Rasgo o noción moral por diagnosticar</label>
+            <select id="moral-trait-select" onchange="renderMoralDiagnosis()">
+              <option value="compasion">La compasión y el «corazón cálido»</option>
+              <option value="veracidad">La veracidad y la mentira</option>
+              <option value="dureza">La dureza consigo mismo y el orgullo</option>
+              <option value="igualdad">La igualdad de derechos y la obediencia</option>
+              <option value="peligro">La audacia, el peligro y el ansia de dominio</option>
+              <option value="deber">Los deberes frente a iguales vs. inferiores</option>
+            </select>
+          </div>
+
+          <div id="moral-diagnosis-output" aria-live="polite" style="display: grid; gap: var(--space-md); border-top: var(--rule-ink); padding-top: var(--space-md);">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Dimensión (§ 260)</th>
+                <th>Moral de señores</th>
+                <th>Moral de esclavos</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Sujeto creador</strong></td>
+                <td>Especie dominante consciente de su rango y plenitud.</td>
+                <td>Oprimidos, dolientes, inseguros y cansados de sí mismos.</td>
+              </tr>
+              <tr>
+                <td><strong>Par antitético</strong></td>
+                <td><em>Bueno</em> (aristocrático) vs. <em>Malo</em> (despreciable).</td>
+                <td><em>Bueno</em> (útil, manso) vs. <em>Malvado</em> (temible, poderoso).</td>
+              </tr>
+              <tr>
+                <td><strong>Origen del valor</strong></td>
+                <td>Autoglorificación; el noble determina qué otorga dignidad.</td>
+                <td>Desconfianza y reacción frente a la felicidad del poderoso.</td>
+              </tr>
+              <tr>
+                <td><strong>Estatuto del «bueno»</strong></td>
+                <td>Inspira temor, rigor y respeto; es veraz y dueño de sí.</td>
+                <td>Debe ser inofensivo, bonachón, «un poco estúpido» (<em>bonhomme</em>).</td>
+              </tr>
+              <tr>
+                <td><strong>Actitud hacia el otro</strong></td>
+                <td>Deberes rigurosos solo entre iguales; exceso que reparte.</td>
+                <td>Alivio mutuo, compasión universal, utilidad colectiva.</td>
+              </tr>
+              <tr>
+                <td><strong>Horizonte temporal</strong></td>
+                <td>Veneración por la vejez, los antepasados y la tradición.</td>
+                <td>Fe instintiva en el «progreso», el «futuro» y el igualitarismo.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="diagram-box" style="margin-top: var(--space-lg);">
+            <span class="tag">Desplazamiento semántico de la palabra «bueno»</span>
+            <svg viewBox="0 0 560 175" role="img" aria-labelledby="svg-moral-shift" style="margin-top: var(--space-sm);">
+              <title id="svg-moral-shift">Contraste entre la antítesis Bueno/Malo y Bueno/Malvado en el parágrafo 260</title>
+              <!-- Master track -->
+              <text x="10" y="24" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700" fill="var(--primary)">MORAL DE SEÑORES (AUTOGLORIFICACIÓN)</text>
+              <rect x="10" y="34" width="245" height="36" fill="var(--background)" stroke="var(--primary)" stroke-width="1.5"/>
+              <text x="22" y="56" font-family="Bitter, serif" font-size="13" font-weight="700" fill="var(--primary)">BUENO = Noble, fuerte, veraz</text>
+              <line x1="255" y1="52" x2="295" y2="52" stroke="var(--outline)" stroke-width="1.5"/>
+              <rect x="295" y="34" width="255" height="36" fill="var(--background)" stroke="var(--outline-variant)" stroke-width="1.5"/>
+              <text x="307" y="56" font-family="Source Serif 4, serif" font-size="13" fill="var(--on-surface-variant)">MALO = Cobarde, servil, mentiroso</text>
+
+              <!-- Crossing arrow -->
+              <path d="M 132 70 C 132 100, 422 86, 422 114" fill="none" stroke="var(--secondary)" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <text x="278" y="96" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--secondary)">INVERSIÓN POR RESENTIMIENTO Y TEMOR</text>
+
+              <!-- Slave track -->
+              <text x="10" y="108" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700" fill="var(--on-surface)">MORAL DE ESCLAVOS (UTILIDAD Y ALIVIO)</text>
+              <rect x="10" y="118" width="245" height="36" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5"/>
+              <text x="22" y="140" font-family="Bitter, serif" font-size="13" font-weight="700" fill="var(--on-surface)">BUENO = Compasivo, dócil, inofensivo</text>
+              <line x1="255" y1="136" x2="295" y2="136" stroke="var(--outline)" stroke-width="1.5"/>
+              <rect x="295" y="118" width="255" height="36" fill="var(--background)" stroke="var(--primary)" stroke-width="1.5"/>
+              <text x="307" y="140" font-family="Source Serif 4, serif" font-size="13" font-weight="600" fill="var(--primary)">MALVADO = Poderoso, temible, duro</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN IV: LABORATORIO INTERACTIVO DE PERSPECTIVISMO -->
+    <section id="perspectivismo-lab" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">Sección IV · Laboratorio del perspectivismo (§§ 2, 14, 22, 47, 230)</span>
+        <h2>«Esto es interpretación, no texto»: simulador de ópticas filosóficas</h2>
+        <p class="lede">
+          Para Nietzsche, ni la física ni la metafísica ni la moral acceden a un hecho puro sin ángulo. Elige un fenómeno y observa cómo tres voluntades distintas lo reescriben.
+        </p>
+      </div>
+
+      <div class="dossier-panel">
+        <div class="control-row">
+          <div class="field-group">
+            <label class="field-label" for="persp-phenomenon">1. Fenómeno por interpretar</label>
+            <select id="persp-phenomenon" onchange="renderPerspectivism()">
+              <option value="naturaleza">Las «leyes de la naturaleza» (§§ 9, 22)</option>
+              <option value="sujeto">El «yo pienso» y la «voluntad libre» (§§ 16, 17, 19, 21)</option>
+              <option value="santo">El fenómeno del «santo» ascético (§§ 47, 51, 55)</option>
+              <option value="compasion">La «igualdad de derechos» y el rebaño (§§ 44, 199, 201)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">2. Lente interpretativa activa</label>
+            <div class="btn-row" role="group" aria-label="Seleccionar lente interpretativa">
+              <button type="button" id="lens-dogmatica" class="is-active" onclick="setLens('dogmatica')">Dogmático-metafísica</button>
+              <button type="button" id="lens-gregaria" onclick="setLens('gregaria')">Mecanicista / Gregaria</button>
+              <button type="button" id="lens-libre" onclick="setLens('libre')">Espíritu libre (Homo natura)</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="persp-output" aria-live="polite" style="border-top: var(--rule-ink); padding-top: var(--space-md); display: grid; gap: var(--space-md);">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN V: AFORISMOS DESTACADOS -->
+    <section id="aforismos" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">Sección V · Antología comentada</span>
+        <h2>Aforismos destacados de la edición crítica</h2>
+        <p class="lede">
+          Filtra por sección o busca conceptos clave dentro de los pasajes literales del texto. Puedes marcar aforismos para tu estudio y guardar anotaciones propias.
+        </p>
+      </div>
+
+      <div class="dossier-panel-deep">
+        <div class="control-row">
+          <div class="field-group">
+            <label class="field-label" for="aph-search">Buscar palabra o filósofo (ej. Kant, Spinoza, Edipo, espejo)</label>
+            <input type="text" id="aph-search" oninput="filterAphorisms()">
+          </div>
+          <div class="field-group" style="flex: 0 1 260px;">
+            <label class="field-label" for="aph-section-filter">Filtrar por eje o sección</label>
+            <select id="aph-section-filter" onchange="filterAphorisms()">
+              <option value="all">Todas las secciones (15)</option>
+              <option value="prologo">Prólogo</option>
+              <option value="prejuicios">I. Prejuicios de los filósofos</option>
+              <option value="espiritu">II. El espíritu libre</option>
+              <option value="religion">III. El ser religioso</option>
+              <option value="moral">V–VII. Moral, rebaño y doctos</option>
+              <option value="aristocracia">IX. ¿Qué es aristocrático?</option>
+            </select>
+          </div>
+          <div>
+            <button type="button" id="btn-toggle-bookmarks" onclick="toggleBookmarkFilter()">Solo marcados (<span id="bookmark-count">0</span>)</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="aphorism-empty" style="display: none; padding: var(--space-lg); border: var(--rule-ink);">
+        <p><strong>No hay aforismos que coincidan con ese filtro.</strong></p>
+        <p style="color: var(--on-surface-variant);">Prueba otra palabra clave o restablece todos los filtros para explorar los 15 pasajes seleccionados.</p>
+        <button type="button" onclick="resetAphorismFilters()">Restablecer filtros</button>
+      </div>
+
+      <div class="aphorism-list" id="aphorism-list">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN VI: RECURSOS DIDÁCTICOS DE EVALUACIÓN -->
+    <section id="evaluacion" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">Sección VI · Recursos didácticos de evaluación</span>
+        <h2>Comprobación de lectura y seminario de escritura filosófica</h2>
+        <p class="lede">
+          Pon a prueba tu comprensión de los argumentos de Nietzsche y redacta un comentario crítico guiado. Tus respuestas, notas y progreso se conservan automáticamente en la sesión.
+        </p>
+      </div>
+
+      <div class="status-strip" id="persistence-status" aria-live="polite">
+        <span id="persistence-text">Estado inicial: aún no hay respuestas guardadas. Elige una opción abajo para empezar.</span>
+        <button type="button" id="btn-reset-all" onclick="handleResetProgress(this)">Reiniciar progreso</button>
+      </div>
+
+      <div class="split-editorial">
+        <!-- Columna izquierda: Cuestionario de 8 preguntas -->
+        <div>
+          <h3>1. Cuestionario de análisis textual (8 ítems)</h3>
+          <p style="color: var(--on-surface-variant); font-size: 0.96875rem;">
+            Cada pregunta exige identificar la tesis precisa de un aforismo o sección, evitando confusiones habituales sobre el pensamiento nietzscheano.
+          </p>
+          <div id="quiz-container" style="display: grid; gap: var(--space-lg); margin-top: var(--space-md);">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Columna derecha: Taller de comentario filosófico con rúbrica -->
+        <div class="dossier-panel">
+          <div>
+            <span class="tag-claret">Taller de escritura y autoevaluación</span>
+            <h3 style="margin-top: var(--space-xs);">2. Cuaderno de comentario crítico</h3>
+          </div>
+
+          <div class="field-group" style="flex: none;">
+            <label class="field-label" for="essay-prompt-select">Consigna de seminario</label>
+            <select id="essay-prompt-select" onchange="changeEssayPrompt()">
+              <option value="p1">Consigna A (§ 4): ¿Por qué la falsedad de un juicio no es objeción contra él?</option>
+              <option value="p2">Consigna B (§§ 16–19): Desmontaje del «yo pienso» y la «voluntad libre»</option>
+              <option value="p3">Consigna C (§ 260): «Bueno/malo» frente a «bueno/malvado»</option>
+            </select>
+          </div>
+
+          <p id="essay-prompt-guide" style="font-size: 0.96875rem; color: var(--on-surface-variant); border-left: 2px solid var(--primary); padding-left: var(--space-md);">
+            <!-- Populated by JS -->
+          </p>
+
+          <div class="field-group" style="flex: none;">
+            <label class="field-label" for="essay-textarea">Tu borrador de análisis (se guarda automáticamente)</label>
+            <textarea id="essay-textarea" oninput="onEssayInput()"></textarea>
+            <div style="display: flex; justify-content: space-between; font-family: var(--font-label); font-size: var(--label-size); text-transform: uppercase; letter-spacing: 0.06em; color: var(--on-surface-variant);">
+              <span id="essay-word-count">0 palabras</span>
+              <span id="essay-save-indicator">Sin cambios</span>
+            </div>
+          </div>
+
+          <div style="border-top: var(--rule-column); padding-top: var(--space-md);">
+            <span class="field-label" style="margin-bottom: var(--space-xs);">Rúbrica de autoevaluación filosófica</span>
+            <div class="checklist" id="rubric-checklist">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <div class="btn-row" style="border-top: var(--rule-ink); padding-top: var(--space-md);">
+            <button type="button" class="btn-primary" onclick="exportStudyNotes()">Exportar cuaderno (.txt)</button>
+            <span id="export-feedback" style="font-size: 0.9rem; color: var(--on-surface-variant);" aria-live="polite"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOFÓN Y FUENTES -->
+    <footer class="footer-colophon">
+      <div class="section-label">Fuentes y criterio editorial</div>
+      <p>
+        Todo el contenido doctrinal, las referencias de parágrafos (§§ 1–291), las citas textuales y los datos bibliográficos proceden directamente del estudio introductorio y los extractos de Friedrich Nietzsche, <em>Más allá del bien y del mal</em> (prólogo fechado en Sils-Maria, Alta Engadina, en junio de 1885; edición española de referencia: Editorial Tomo, México, 2005, ISBN 970-666-535-8, 191 páginas).
+      </p>
+    </footer>
+
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    /* =========================================================================
+       DATA CATALOGUES (Template literals throughout to prevent escaping errors)
+       ========================================================================= */
+
+    const MORAL_TRAITS = {
+      compasion: {
+        title: `La compasión y el «corazón cálido»`,
+        ref: `§§ 201, 225, 260`,
+        masterView: `El hombre aristocrático socorre al desgraciado no por lástima pasiva, sino por un impulso engendrado por el exceso de poder y riqueza que desea desbordarse. Desconfía de la compasión sentimental y mantiene cautela ante el «corazón cálido» (§ 260).`,
+        slaveView: `Es el valor supremo porque alivia la presión de una existencia sufrida. Junto con la mano afable, la paciencia y la humildad, la compasión constituye uno de los medios más útiles para hacer soportable la vida del oprimido (§ 260).`,
+        genealogy: `En la época romana clásica una acción compasiva era extramoral; solo cuando la sociedad se asegura contra enemigos externos, el instinto de rebaño convierte la compasión en criterio moral dominante (§ 201).`
+      },
+      veracidad: {
+        title: `La veracidad y la mentira`,
+        ref: `§§ 260, 291`,
+        masterView: `Los nobles de la antigua Grecia se llamaban a sí mismos «nosotros los veraces». Consideran que la mentira, el rebajamiento servil y la adulación que pordiosea son rasgos propios del pueblo vulgar y despreciable (§ 260).`,
+        slaveView: `Tiende a sospechar de la felicidad y grandeza de los poderosos, intentando convencerse de que esa alegría no es auténtica. Al mismo tiempo, la moral entera funciona como una prolongada falsificación para gozar del alma como si fuera sencilla (§ 291).`,
+        genealogy: `Para Nietzsche, la oposición entre veracidad y mentira no nace de un imperativo lógico puro, sino del orgullo estamental de quien no necesita disimular su rango frente a nadie.`
+      },
+      dureza: {
+        title: `La dureza consigo mismo y el orgullo`,
+        ref: `§§ 257, 260`,
+        masterView: `El hombre noble honra en sí mismo al poderoso, al que es riguroso y duro consigo mismo y venera todo lo duro («Wotan me ha puesto un corazón duro en el pecho», cita de la saga escandinava en el § 260).`,
+        slaveView: `Percibe la dureza y el rigor aristocráticos como crueldad temible («maldad»). Prefiere la indulgencia, la deferencia y la moderación que garantizan la convivencia pacífica del grupo.`,
+        genealogy: `La continua lucha contra condiciones desfavorables endurece y fija un tipo humano superior; cuando esa tensión se relaja por exceso de seguridad, surge tanto el florecimiento individual como la disolución en la mediocridad (§ 262 / Sección IX).`
+      },
+      igualdad: {
+        title: `La igualdad de derechos y la obediencia`,
+        ref: `§§ 44, 199, 202`,
+        masterView: `Cree en una larga escala de jerarquía y diferencia de valor entre un hombre y otro (§ 257). Solo reconoce deberes rigurosos frente a sus iguales, y considera la igualdad universal como un principio de disolución de la vida (§ 259).`,
+        slaveView: `El hombre gregario ensalza sus cualidades dóciles como las únicas virtudes humanas permitidas y reclama «igualdad de derechos» y «compasión con todo lo que sufre» (§ 44).`,
+        genealogy: `La obediencia ha sido cultivada durante tanto tiempo que hoy los propios gobernantes europeos sufren mala conciencia al mandar y simulan ser meros «primeros servidores» del bien común (§ 199).`
+      },
+      peligro: {
+        title: `La audacia, el peligro y el ansia de dominio`,
+        ref: `§§ 44, 201`,
+        masterView: `Mientras la comunidad estaba amenazada desde fuera, instintos como la audacia loca, la astucia, el placer de emprender y la sed de poder eran honrados y cultivados como necesarios para defender el todo (§ 201).`,
+        slaveView: `Una vez consolidada la sociedad, esos mismos instintos carecen de cauce y se vuelven peligrosos para el promedio: entonces son calificados de «malvados» (böse) y sometidos a difamación moral.`,
+        genealogy: `El miedo al prójimo vuelve a ser aquí «el padre de la moral»: lo que eleva al individuo por encima de la conciencia gregaria es estigmatizado como peligroso (§ 201).`
+      },
+      deber: {
+        title: `Deberes entre iguales frente a los inferiores`,
+        ref: `§§ 226, 260`,
+        masterView: `Tesis escandalosa para el gusto moderno: solo se tienen deberes frente a los iguales; frente a los seres de rango inferior o lo extraño es lícito actuar «más allá del bien y del mal». Incluso el agradecimiento y la venganza prolongadas son virtudes entre pares (§ 260).`,
+        slaveView: `Exige deberes universales y recíprocos aplicables a todo ser humano sin distinción de rango («no dañes a nadie, ayuda a todos en lo que puedas», fórmula que Nietzsche critica en Schopenhauer).`,
+        genealogy: `También los «inmoralistas» viven atados a una rigurosa «red y camisa de deberes» sutiles e invisibles para el espectador obtuso (§ 226), pero no son deberes dictados por el rebaño.`
+      }
+    };
+
+    const PERSPECTIVISM_DATA = {
+      naturaleza: {
+        dogmatica: {
+          label: `Lente dogmático-metafísica`,
+          reading: `Lee la naturaleza como un orden racional, teleológico o moral donde habitan «causas finales» o una armonía estoica a la que el sabio debe conformarse.`,
+          prejudice: `Proyecta el propio orgullo moral sobre el cosmos: los estoicos fingen leer su ley en la naturaleza, cuando en realidad quieren tiranizarla a su imagen (§ 9).`,
+          quote: `«Mientras simuláis leer embelesados el canon de vuestra ley en la naturaleza, lo que queréis es algo opuesto, vosotros extraños comediantes y engañadores de vosotros mismos.» (§ 9)`
+        },
+        gregaria: {
+          label: `Lente mecanicista / democrática`,
+          reading: `Reduce la naturaleza a «igualdad ante la ley» y a un mecanismo de conservación («instinto de autoconservación» y leyes naturales inviolables).`,
+          prejudice: `Hace «mala filología»: complace los instintos democráticos modernos («ni Dios, ni amo») disfrazando una consigna política de ley física objetiva (§ 22).`,
+          quote: `«Esa "regularidad de la naturaleza" de que vosotros los físicos habláis con tanto orgullo no existe más que gracias a vuestra interpretación y a vuestra mala "filología".» (§ 22)`
+        },
+        libre: {
+          label: `Lente del espíritu libre (Homo natura)`,
+          reading: `La naturaleza es derrochadora sin medida, indiferente sin piedad ni justicia; en ella no gobiernan «leyes» rígidas, sino que cada poder saca en cada instante su última consecuencia.`,
+          prejudice: `Asume conscientemente su carácter de interpretación en términos de voluntad de poder, sin pretender ocultar el ángulo vital desde el que juzga (§§ 22, 36).`,
+          quote: `«Faltan absolutamente las leyes, y todo poder saca en cada instante su última consecuencia. Suponiendo que también esto sea nada más que interpretación —bien, tanto mejor.» (§ 22)`
+        }
+      },
+      sujeto: {
+        dogmatica: {
+          label: `Lente dogmático-metafísica`,
+          reading: `Afirma «certezas inmediatas» como el «yo pienso» (Descartes) o el «yo quiero» (Schopenhauer), y concibe el alma como una mónada eterna e indivisible.`,
+          prejudice: `Queda presa del «hechizo de determinadas funciones gramaticales»: deduce que, si pensar es una actividad, debe existir un sujeto sustancial llamado «yo» que la cause (§§ 16, 17, 20).`,
+          quote: `«Un pensamiento viene cuando "él" quiere, y no cuando "yo" quiero; de modo que es un falseamiento de los hechos decir: el sujeto "yo" es la condición del predicado "pienso".» (§ 17)`
+        },
+        gregaria: {
+          label: `Lente mecanicista / de la «voluntad no libre»`,
+          reading: `Cosifica «causa» y «efecto» como fuerzas que empujan y presionan, o bien abraza el fatalismo de la «voluntad no libre» para eludir toda responsabilidad y culpa.`,
+          prejudice: `Usa la causalidad mecanicista como ficción mitológica y, en el caso de los débiles de voluntad, busca echar su carga sobre el entorno o la sociedad (§ 21).`,
+          quote: `«La "voluntad no libre" es mitología: en la vida real no hay más que voluntad fuerte y voluntad débil.» (§ 21)`
+        },
+        libre: {
+          label: `Lente del espíritu libre (Homo natura)`,
+          reading: `Descompone la volición en una pluralidad de sentimientos, un pensamiento rector y el afecto del mando; concibe el cuerpo y el alma como «estructura social de muchas almas» (§ 19).`,
+          prejudice: `Emplea «causa» y «efecto» únicamente como ficciones convencionales de designación, no como explicaciones metafísicas de algo «en sí» (§ 21).`,
+          quote: `«Toda volición consiste sencillamente en mandar y obedecer, sobre la base de una estructura social de muchas "almas".» (§ 19)`
+        }
+      },
+      santo: {
+        dogmatica: {
+          label: `Lente dogmático-metafísica`,
+          reading: `Ve en el santo un «milagro» moral: el paso inmediato e inexplicable de un hombre malo a un hombre bueno mediante la negación pura de la voluntad.`,
+          prejudice: `Proyecta la creencia en antítesis morales absolutas sobre los fenómenos psíquicos, naufragando por falta de filología psicológica (§ 47).`,
+          quote: `«¿Cómo? ¿Sería el "milagro" tan sólo un error de interpretación? ¿Una carencia de filología?» (§ 47)`
+        },
+        gregaria: {
+          label: `Lente de la piedad eclesiástica o moderna`,
+          reading: `Venera la renuncia del santo como un ideal redentor o, desde la laboriosidad moderna, lo contempla con obtuso asombro y condescendencia histórica (§§ 58, 62).`,
+          prejudice: `No advierte cómo la exaltación unilateral de los dolientes invierte las valoraciones y conserva lo que debería perecer, debilitando al tipo superior (§ 62).`,
+          quote: `«Las religiones soberanas cuéntanse entre las causas principales que han mantenido al tipo "hombre" en un nivel bastante bajo.» (§ 62)`
+        },
+        libre: {
+          label: `Lente del espíritu libre (Homo natura)`,
+          reading: `Analiza la neurosis religiosa en sus condiciones fisiológicas (soledad, ayuno, abstinencia) y descubre que los poderosos respetaban al santo porque atisbaban en él voluntad de poder y autovencimiento (§ 51).`,
+          prejudice: `Acepta el reto de retraducir incluso la sublimidad religiosa al texto básico de la economía de los instintos y abre paso a la afirmación eterna del mundo (§ 56).`,
+          quote: `«Honraban algo de sí mismos cuando honraban al santo. La "voluntad de poder" era la que los obligaba a detenerse delante del santo.» (§ 51)`
+        }
+      },
+      compasion: {
+        dogmatica: {
+          label: `Lente dogmático-metafísica`,
+          reading: `Presenta la compasión y el altruismo («no dañes a nadie, ayuda a todos») como el fundamento eterno, evidente e indiscutible de toda ética (Schopenhauer).`,
+          prejudice: `Confunde el encanto azucarado del «por los otros» con una verdad absoluta, sin someter a juicio los motivos ocultos de la abnegación (§ 33).`,
+          quote: `«Quien haya percibido a fondo la falsedad y el sentimentalismo de esa tesis en un mundo cuya esencia es voluntad de poder, recuerde que Schopenhauer propiamente tocaba la flauta.»`
+        },
+        gregaria: {
+          label: `Lente de las «ideas modernas» y el rebaño`,
+          reading: `Identifica el progreso moral con la igualdad de derechos, la eliminación del sufrimiento y la sumisión del individuo a la utilidad comunitaria (§§ 44, 202).`,
+          prejudice: `El animal gregario se glorifica a sí mismo como la única especie humana permitida y califica todo instinto solitario o superior como «malvado» (§§ 201–202).`,
+          quote: `«A lo que ellos querrían aspirar con todas sus fuerzas es a la universal y verde felicidad-prado del rebaño, llena de seguridad, libre de peligro.» (§ 44)`
+        },
+        libre: {
+          label: `Lente del espíritu libre (Homo natura)`,
+          reading: `Sostiene que la «planta hombre» solo ha crecido vigorosamente hacia lo alto en condiciones opuestas: peligro, severidad, tensión del espíritu y diferencia jerárquica (§§ 44, 257).`,
+          prejudice: `Defiende que la grandeza en una época de voluntad debilitada consiste en la amplitud, la multiplicidad y la capacidad de asumir responsabilidades más allá del promedio (§ 212).`,
+          quote: `«La dureza, la violencia, el peligro en la calle y en los corazones, el estoicismo y el arte de tentador sirven a la elevación de la especie "hombre" tanto como su contrario.» (§ 44)`
+        }
+      }
+    };
+
+    const APHORISMS = [
+      {
+        id: `prologo`,
+        num: `Prólogo`,
+        section: `prologo`,
+        sectionLabel: `Prólogo · Sils-Maria, junio de 1885`,
+        title: `La verdad como mujer y la tensión del arco europeo`,
+        quote: `«Suponiendo que la verdad sea una mujer —, ¿cómo?, ¿no está justificada la sospecha de que todos los filósofos, en la medida en que han sido dogmáticos, han entendido poco de mujeres? […] El peor, el más duradero y peligroso de todos los errores ha sido hasta ahora un error de dogmáticos, a saber, la invención por Platón del espíritu puro y del bien en sí.»`,
+        commentary: `Abre la obra atacando el núcleo del dogmatismo occidental: la separación platónica (popularizada luego por el cristianismo) entre un mundo verdadero suprasensible y el mundo perspectivista de la vida.`
+      },
+      {
+        id: `s1`,
+        num: `§ 1`,
+        section: `prejuicios`,
+        sectionLabel: `Sección I · De los prejuicios de los filósofos`,
+        title: `El valor de la voluntad de verdad`,
+        quote: `«Suponiendo que nosotros queramos la verdad: ¿por qué no, más bien, la no verdad? ¿Y la incertidumbre? ¿Y aun la ignorancia? —El problema del valor de la verdad se plantó delante de nosotros —¿o fuimos nosotros quienes nos plantamos delante del problema? ¿Quién de nosotros es aquí Edipo? ¿Quién Esfinge?»`,
+        commentary: `Inaugura la pregunta genealógica más radical: no basta con buscar la verdad; hay que interrogar qué impulso dentro de nosotros quiere la verdad y por qué vale más que la apariencia.`
+      },
+      {
+        id: `s2`,
+        num: `§ 2`,
+        section: `prejuicios`,
+        sectionLabel: `Sección I · De los prejuicios de los filósofos`,
+        title: `Contra las antítesis de los valores`,
+        quote: `«La creencia básica de los metafísicos es la creencia en las antítesis de los valores. […] Sería incluso posible que lo que constituye el valor de aquellas cosas buenas y veneradas consistiese precisamente en el hecho de hallarse emparentadas, vinculadas, entreveradas de manera capciosa con estas cosas malas, aparentemente antitéticas.»`,
+        commentary: `Desmonta la «perspectiva de rana» metafísica que exige un origen divino o puro para lo valioso. Anticipa la llegada de los «filósofos del peligroso quizá».`
+      },
+      {
+        id: `s4`,
+        num: `§ 4`,
+        section: `prejuicios`,
+        sectionLabel: `Sección I · De los prejuicios de los filósofos`,
+        title: `La falsedad como condición de la vida`,
+        quote: `«La falsedad de un juicio no es para nosotros ya una objeción contra él; acaso sea en esto en lo que más extraño suene nuestro nuevo lenguaje. La cuestión está en saber hasta qué punto ese juicio favorece la vida, conserva la vida, conserva la especie, quizá incluso selecciona la especie.»`,
+        commentary: `Fórmula clave del perspectivismo vital: renunciar a las ficciones lógicas y al número sería negar la vida misma; admitir esto sitúa a la filosofía más allá del bien y del mal.`
+      },
+      {
+        id: `s6`,
+        num: `§ 6`,
+        section: `prejuicios`,
+        sectionLabel: `Sección I · De los prejuicios de los filósofos`,
+        title: `Toda gran filosofía como autoconfesión`,
+        quote: `«Poco a poco se me ha ido manifestando qué es lo que ha sido hasta ahora toda gran filosofía, a saber: la autoconfesión de su autor y una especie de mémoires no queridos y no advertidos; asimismo, que las intenciones morales (o inmorales) han constituido en toda filosofía el auténtico germen vital del que ha brotado siempre la planta entera.»`,
+        commentary: `Propone la regla hermenéutica para leer a cualquier filósofo: antes de discutir sus silogismos, preguntar «¿a qué moral quiere esto (quiere él) llegar?».`
+      },
+      {
+        id: `s11`,
+        num: `§ 11`,
+        section: `prejuicios`,
+        sectionLabel: `Sección I · De los prejuicios de los filósofos`,
+        title: `Kant y la «virtus dormitiva» de las facultades`,
+        quote: `«¿Cómo son posibles los juicios sintéticos a priori?, se preguntó Kant, —¿y qué respondió propiamente? Por la facultad de una facultad […]. Pero tales respuestas tienen su lugar en la comedia, y por fin ya es hora de sustituir la pregunta kantiana por una pregunta distinta: "¿por qué es necesaria la creencia en tales juicios?"»`,
+        commentary: `Compara la metafísica kantiana de las facultades con el médico de Molière que explica el sueño del opio por su «fuerza dormitiva», desplazando la pregunta del plano lógico al biológico-perspectivista.`
+      },
+      {
+        id: `s13`,
+        num: `§ 13`,
+        section: `prejuicios`,
+        sectionLabel: `Sección I · De los prejuicios de los filósofos`,
+        title: `La vida como voluntad de poder, no de conservación`,
+        quote: `«Los fisiólogos deberían pensárselo bien antes de afirmar que el instinto de autoconservación es el instinto cardinal de un ser orgánico. Algo vivo quiere, antes que nada, dar libre curso a su fuerza —la vida misma es voluntad de poder—: la autoconservación es tan sólo una de las consecuencias indirectas y más frecuentes de esto.»`,
+        commentary: `Corrige tanto a Spinoza como a los darwinistas reactivos: el organismo no busca meramente mantenerse, sino descargar y expandir su fuerza.`
+      },
+      {
+        id: `s17`,
+        num: `§ 17`,
+        section: `prejuicios`,
+        sectionLabel: `Sección I · De los prejuicios de los filósofos`,
+        title: `La superstición gramatical del «yo pienso»`,
+        quote: `«Un pensamiento viene cuando "él" quiere, y no cuando "yo" quiero; de modo que es un falseamiento de los hechos decir: el sujeto "yo" es la condición del predicado "pienso". Ello piensa: pero que ese "ello" sea precisamente aquel antiguo y famoso "yo", eso es nada más que una hipótesis.»`,
+        commentary: `Disuelve el cogito cartesiano mostrando que proyecta el hábito gramatical sujeto-verbo sobre el flujo involuntario del pensar, igual que el viejo atomismo buscaba un pedacito material tras la fuerza.`
+      },
+      {
+        id: `s19`,
+        num: `§ 19`,
+        section: `prejuicios`,
+        sectionLabel: `Sección I · De los prejuicios de los filósofos`,
+        title: `La voluntad como mandar y obedecer`,
+        quote: `«Nuestro cuerpo, en efecto, no es más que una estructura social de muchas almas. L'effet c'est moi: ocurre aquí lo que ocurre en toda colectividad bien estructurada y feliz, a saber: que la clase gobernante se identifica con los éxitos de la colectividad. Toda volición consiste sencillamente en mandar y obedecer.»`,
+        commentary: `Rechaza la ilusión schopenhaueriana de que la voluntad sea simple e inmediatamente conocida: querer es un fenómeno complejo de sensaciones, pensamiento rector y afecto de mando.`
+      },
+      {
+        id: `s23`,
+        num: `§ 23`,
+        section: `prejuicios`,
+        sectionLabel: `Sección I · De los prejuicios de los filósofos`,
+        title: `La psicología como morfología de la voluntad de poder`,
+        quote: `«Concebirla como morfología y como teoría de la evolución de la voluntad de poder, tal como yo la concibo —eso es algo que nadie ha rozado siquiera en sus pensamientos […]. A partir de ahora vuelve a ser la psicología el camino que conduce a los problemas fundamentales.»`,
+        commentary: `Corona la Sección Primera reivindicando una fisio-psicología capaz de aceptar que afectos como el odio, la envidia o el ansia de dominio condicionan la economía global de la vida.`
+      },
+      {
+        id: `s36`,
+        num: `§ 36`,
+        section: `espiritu`,
+        sectionLabel: `Sección II · El espíritu libre`,
+        title: `El mundo visto desde dentro`,
+        quote: `«Suponiendo que fuese posible reducir todas las funciones orgánicas a esa voluntad de poder […], entonces habríamos adquirido el derecho a definir inequívocamente toda fuerza agente como: voluntad de poder. El mundo visto desde dentro, el mundo definido y designado en su "carácter inteligible", —sería cabalmente "voluntad de poder" y nada más.»`,
+        commentary: `Aplica la «moral del método» (economía de principios) para formular la hipótesis monista de la voluntad de poder como única causalidad inteligible.`
+      },
+      {
+        id: `s44`,
+        num: `§ 44`,
+        section: `espiritu`,
+        sectionLabel: `Sección II · El espíritu libre`,
+        title: `Los falsos librepensadores frente al espíritu libre`,
+        quote: `«A lo que ellos querrían aspirar con todas sus fuerzas es a la universal y verde felicidad-prado del rebaño, llena de seguridad, libre de peligro, repleta de bienestar y de facilidad de vivir para todo el mundo: sus dos canciones y doctrinas más repetidamente canturreadas se llaman "igualdad de derechos" y "compasión con todo lo que sufre".»`,
+        commentary: `Define por contraste al espíritu libre auténtico: «curiosos hasta el vicio, investigadores hasta la crueldad», antípodas de los niveladores modernos.`
+      },
+      {
+        id: `s56`,
+        num: `§ 56`,
+        section: `religion`,
+        sectionLabel: `Sección III · El ser religioso`,
+        title: `El ideal afirmador del «da capo»`,
+        quote: `«Quien ha escrutado el interior y la hondura del modo de pensar más negador del mundo […] quizá haya abierto sus ojos para ver el ideal opuesto: el ideal del hombre totalmente lleno de vida y totalmente afirmador del mundo, que no sólo ha aprendido a soportar todo lo que ha sido y es, sino que quiere volver a tenerlo por toda la eternidad, gritando insaciablemente da capo.»`,
+        commentary: `Punto de inflexión tras el análisis de la neurosis religiosa y el pesimismo de Buda y Schopenhauer: la fórmula del eterno retorno como afirmación suprema desde más allá del bien y del mal.`
+      },
+      {
+        id: `s207`,
+        num: `§ 207`,
+        section: `moral`,
+        sectionLabel: `Sección VI · Nosotros los doctos`,
+        title: `El hombre objetivo como mero espejo`,
+        quote: `«El hombre objetivo es de hecho un espejo: habituado a someterse a todo lo que quiere ser conocido, sin ningún otro placer que el que le proporciona el "reflejar" […]. Su alma reflectante y que eternamente está alisándose no sabe ya afirmar, no sabe ya negar; no da órdenes; tampoco destruye.»`,
+        commentary: `Reconoce la utilidad instrumental del científico objetivo, pero advierte que es solo un instrumento en manos de alguien más poderoso: el filósofo creador y legislador (§ 211).`
+      },
+      {
+        id: `s260`,
+        num: `§ 260`,
+        section: `aristocracia`,
+        sectionLabel: `Sección IX · ¿Qué es aristocrático?`,
+        title: `Tipología de la moral de señores y de esclavos`,
+        quote: `«Hay una moral de señores y hay una moral de esclavos […]. En esta primera especie de moral la antítesis "bueno" y "malo" es sinónima de "aristocrático" y "despreciable": la antítesis "bueno" y "malvado" es de otra procedencia. […] La moral de esclavos es, en lo esencial, una moral de la utilidad.»`,
+        commentary: `El texto fundacional de la genealogía moral nietzscheana: distingue entre el creador de valores por plenitud y la moral reactiva nacida para aliviar la existencia del oprimido.`
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        id: `q1`,
+        ref: `Prólogo`,
+        question: `¿Por qué compara Nietzsche la verdad con una mujer en el Prólogo?`,
+        options: [
+          `Para sugerir que la verdad es irracional y que solo la intuición mística puede poseerla.`,
+          `Para denunciar que la torpe solemnidad de los filósofos dogmáticos no ha logrado conquistarla y que el platonismo negó el perspectivismo.`,
+          `Para defender que las mujeres están excluidas de la filosofía académica europea.`
+        ],
+        correct: 1,
+        explanation: `En el Prólogo, Nietzsche ironiza sobre la «estremecedora seriedad» y la «torpe insistencia» de los dogmáticos (cuyo peor error fue la invención platónica del espíritu puro y del bien en sí, que niega el perspectivismo).`
+      },
+      {
+        id: `q2`,
+        ref: `§ 4`,
+        question: `Según el aforismo 4, ¿qué determina realmente el valor de un juicio?`,
+        options: [
+          `Su absoluta correspondencia matemática con la «cosa en sí».`,
+          `El consenso democrático de la comunidad científica europea.`,
+          `Hasta qué punto ese juicio favorece la vida, conserva la vida o selecciona la especie, aun siendo lógicamente falso.`
+        ],
+        correct: 2,
+        explanation: `Nietzsche afirma que «la falsedad de un juicio no es para nosotros ya una objeción contra él» (§ 4): los juicios sintéticos a priori y las ficciones lógicas pueden ser falsos y, sin embargo, imprescindibles como condición vital.`
+      },
+      {
+        id: `q3`,
+        ref: `§ 11`,
+        question: `¿Qué critica Nietzsche a Kant al evocar la «virtus dormitiva» de Molière?`,
+        options: [
+          `Que explicar los juicios sintéticos a priori apelando a una «facultad» repite la pregunta en lugar de responder por qué necesitamos creer en ellos.`,
+          `Que Kant no utilizó el método matemático geométrico de Spinoza en sus críticas.`,
+          `Que Kant defendía el sensualismo materialista frente al idealismo alemán.`
+        ],
+        correct: 0,
+        explanation: `Responder «por la facultad de una facultad» es una comedia tautológica equivalente a decir que el opio adormece por su «fuerza dormitiva». La verdadera pregunta es: «¿por qué es necesaria la creencia en tales juicios?» (§ 11).`
+      },
+      {
+        id: `q4`,
+        ref: `§§ 16–17`,
+        question: `¿Cuál es la objeción central contra la supuesta «certeza inmediata» del «yo pienso»?`,
+        options: [
+          `Que pensar es imposible sin ayuda de los sentidos externos corporales.`,
+          `Que proyecta el hábito gramatical sujeto-predicado sobre un pensar que ocurre cuando «él» quiere, no cuando «yo» quiero.`,
+          `Que Descartes copió esa fórmula de los antiguos estoicos griegos.`
+        ],
+        correct: 1,
+        explanation: `El «yo pienso» presupone comparar estados previos y asumir que hay un «yo» que actúa como causa del pensar; incluso decir «ello piensa» introduce ya una interpretación gramatical en el proceso (§§ 16–17).`
+      },
+      {
+        id: `q5`,
+        ref: `§ 44`,
+        question: `¿En qué se distingue el «espíritu libre» nietzscheano de los «librepensadores» modernos?`,
+        options: [
+          `Los librepensadores son «niveladores» que buscan la seguridad y el bienestar del rebaño; el espíritu libre crece en la soledad, el peligro y la severidad.`,
+          `El espíritu libre rechaza toda forma de estudio científico, mientras que los librepensadores aman la filología.`,
+          `El espíritu libre promueve la igualdad de derechos como única vía hacia el superhombre.`
+        ],
+        correct: 0,
+        explanation: `En el § 44 Nietzsche rechaza ser confundido con los «libres-penseurs» niveladores que canturrean «igualdad de derechos» y «compasión con todo lo que sufre», buscando un prado seguro para el rebaño.`
+      },
+      {
+        id: `q6`,
+        ref: `§ 55`,
+        question: `¿Cuál es el tercer y último peldaño en la escalera de la crueldad religiosa?`,
+        options: [
+          `El sacrificio ritual de los primogénitos en las religiones prehistóricas.`,
+          `El sacrificio de los propios instintos fuertes durante la época moral de la humanidad.`,
+          `Sacrificar a Dios mismo y todo consuelo, adorando en su lugar la piedra, el destino o la nada.`
+        ],
+        correct: 2,
+        explanation: `El § 55 describe tres peldaños: 1) sacrificar seres humanos al dios; 2) sacrificarle los instintos propios; 3) sacrificar a Dios mismo por la nada, misterio paradójico reservado a la generación moderna.`
+      },
+      {
+        id: `q7`,
+        ref: `§ 207`,
+        question: `¿Por qué describe Nietzsche al «hombre objetivo» (el docto ideal) como un «espejo»?`,
+        options: [
+          `Porque refleja con imparcialidad lo que llega a él, pero ha perdido el yo y no sabe afirmar, negar, mandar ni crear valores.`,
+          `Porque todo científico se contempla con vanidad narcisista en sus propios descubrimientos.`,
+          `Porque la ciencia moderna imita fielmente la metafísica platónica.`
+        ],
+        correct: 0,
+        explanation: `Aunque valioso como instrumento, el hombre objetivo del § 207 se limita a reflejar figuras ajenas y «no es una finalidad por sí misma»; debe ser manejado por alguien más poderoso: el filósofo legislador (§ 211).`
+      },
+      {
+        id: `q8`,
+        ref: `§ 260`,
+        question: `En la moral de señores, ¿qué significa la pareja antitética «bueno» y «malo»?`,
+        options: [
+          `«Bueno» equivale a compasivo y útil para la comunidad; «malo» equivale a egoísta y peligroso.`,
+          `«Bueno» equivale a aristocrático, noble y creador de valores; «malo» equivale a cobarde, servil y despreciable.`,
+          `Ambas morales comparten el mismo concepto de «bueno», pero discrepan sobre el castigo.`
+        ],
+        correct: 1,
+        explanation: `En la moral de señores (§ 260), «bueno» y «malo» equivalen a «aristocrático» y «despreciable». La pareja «bueno» (inofensivo, útil) frente a «malvado» (poderoso, temible) pertenece a la moral de esclavos.`
+      }
+    ];
+
+    const ESSAY_PROMPTS = {
+      p1: {
+        guide: `Explica cómo el § 4 sustituye el criterio lógico de verdad/falsedad por un criterio vital y perspectivista, relacionándolo con la crítica a Kant (§ 11) y con la ilusión gramatical (§ 20).`,
+        rubric: [
+          `Distingo entre el valor lógico de un juicio y su función conservadora o estimulante para la vida (§ 4).`,
+          `Evito interpretar a Nietzsche como un relativista frívolo: señalo que las ficciones lógicas son necesarias para conservar cierto tipo de ser.`,
+          `Conecto la crítica a los juicios sintéticos a priori (§ 11) con la idea de perspectivismo vital.`
+        ]
+      },
+      p2: {
+        guide: `Analiza cómo los §§ 16, 17 y 19 disuelven la unidad del «yo» y la «voluntad libre», proponiendo en cambio el cuerpo y el alma como una «estructura social de muchas almas» (§ 12 y § 19).`,
+        rubric: [
+          `Explico por qué «yo pienso» no es una certeza inmediata, sino una cadena de supuestos gramaticales (§§ 16–17).`,
+          `Enumero los ingredientes de la volición según el § 19: sentir múltiple, pensamiento rector y afecto del mando.`,
+          `Muestro por qué la dicotomía «voluntad libre / no libre» (§ 21) debe reemplazarse por voluntad fuerte y voluntad débil.`
+        ]
+      },
+      p3: {
+        guide: `Compara el proceso de valoración en la moral de señores (autoglorificación) y en la moral de esclavos (suspicacia y utilidad), mostrando cómo coexisten en tensión dentro del mundo moderno (§ 260).`,
+        rubric: [
+          `Contrasté con precisión «bueno / malo» (señores) frente a «bueno / malvado» (esclavos).`,
+          `Expliqué por qué para el esclavo el «bueno» tiende a ser visto como inofensivo o bonhomme.`,
+          `Mencioné la presencia simultánea o confusa de ambas morales incluso dentro de una misma alma moderna (§ 260).`
+        ]
+      }
+    };
+
+    const CONCEPT_RELATIONS = {
+      all: {
+        banner: `Vista completa: los seis conceptos forman una red crítica interdependiente. Selecciona uno para rastrear sus conexiones directas.`,
+        related: []
+      },
+      prejuicios: {
+        banner: `Eje 1 (Prejuicios) conecta directamente con Perspectivismo (§§ 2, 4, 11) y Voluntad de poder (§§ 6, 9, 13, 23): la lógica dogmática encubre instintos que buscan dominar.`,
+        related: [`prejuicios`, `perspectivismo`, `poder`]
+      },
+      espiritu: {
+        banner: `Eje 2 (Espíritu libre) conecta con Prejuicios (ruptura con el dogma), Morales (§ 44 vs. el rebaño) y Perspectivismo (§ 34): es quien soporta vivir sin certezas consoladoras.`,
+        related: [`espiritu`, `prejuicios`, `morales`, `perspectivismo`]
+      },
+      religion: {
+        banner: `Eje 3 (Fenómeno religioso) conecta con Morales (§§ 46, 62: rebelión de los esclavos y conservación de lo doliente) y Voluntad de poder (§ 51: respeto de los poderosos ante el asceta).`,
+        related: [`religion`, `morales`, `poder`]
+      },
+      morales: {
+        banner: `Eje 4 (Señores y esclavos) conecta con Espíritu libre (§ 44), Fenómeno religioso (§ 62) y Voluntad de poder (§§ 259–260): los señores crean valores desde la plenitud de su fuerza.`,
+        related: [`morales`, `espiritu`, `religion`, `poder`]
+      },
+      perspectivismo: {
+        banner: `Eje 5 (Perspectivismo) atraviesa Prejuicios (§§ 2, 4), Espíritu libre (Prólogo, § 34) y Voluntad de poder (§§ 22, 36): toda interpretación expresa un centro de fuerza situado.`,
+        related: [`perspectivismo`, `prejuicios`, `espiritu`, `poder`]
+      },
+      poder: {
+        banner: `Eje 6 (Voluntad de poder) vertebra toda la obra: impulsa a cada filosofía (§§ 6, 9), redefine la vida (§§ 13, 259), explica la atracción del santo (§ 51) y legitima al filósofo legislador (§ 211).`,
+        related: [`poder`, `prejuicios`, `religion`, `morales`, `perspectivismo`]
+      }
+    };
+
+    /* =========================================================================
+       STATE MANAGEMENT (Persisted via Gemini Notebook Shim API)
+       ========================================================================= */
+
+    const appState = {
+      currentLens: `dogmatica`,
+      currentPhenomenon: `naturaleza`,
+      currentTrait: `compasion`,
+      bookmarks: [],
+      aphorismNotes: {},
+      onlyBookmarked: false,
+      quizAnswers: {},
+      essayPrompt: `p1`,
+      essayText: ``,
+      rubricChecks: {}
+    };
+
+    let saveTimer = null;
+
+    async function persistState() {
+      updateProgressSummary();
+      const api = window.notebookAppApi;
+      if (!api || typeof api.setAppState !== `function`) return;
+      try {
+        await api.setAppState({
+          currentLens: appState.currentLens,
+          currentPhenomenon: appState.currentPhenomenon,
+          currentTrait: appState.currentTrait,
+          bookmarks: appState.bookmarks,
+          aphorismNotes: appState.aphorismNotes,
+          quizAnswers: appState.quizAnswers,
+          essayPrompt: appState.essayPrompt,
+          essayText: appState.essayText,
+          rubricChecks: appState.rubricChecks
+        });
+      } catch (err) {
+        // Silent fail if outside host sandbox
+      }
+    }
+
+    function applyRestoredState(saved) {
+      if (!saved || typeof saved !== `object`) return;
+      if (saved.currentLens && [`dogmatica`, `gregaria`, `libre`].includes(saved.currentLens)) {
+        appState.currentLens = saved.currentLens;
+      }
+      if (saved.currentPhenomenon && PERSPECTIVISM_DATA[saved.currentPhenomenon]) {
+        appState.currentPhenomenon = saved.currentPhenomenon;
+      }
+      if (saved.currentTrait && MORAL_TRAITS[saved.currentTrait]) {
+        appState.currentTrait = saved.currentTrait;
+      }
+      if (Array.isArray(saved.bookmarks)) {
+        appState.bookmarks = saved.bookmarks;
+      }
+      if (saved.aphorismNotes && typeof saved.aphorismNotes === `object`) {
+        appState.aphorismNotes = saved.aphorismNotes;
+      }
+      if (saved.quizAnswers && typeof saved.quizAnswers === `object`) {
+        appState.quizAnswers = saved.quizAnswers;
+      }
+      if (saved.essayPrompt && ESSAY_PROMPTS[saved.essayPrompt]) {
+        appState.essayPrompt = saved.essayPrompt;
+      }
+      if (typeof saved.essayText === `string`) {
+        appState.essayText = saved.essayText;
+      }
+      if (saved.rubricChecks && typeof saved.rubricChecks === `object`) {
+        appState.rubricChecks = saved.rubricChecks;
+      }
+    }
+
+    /* =========================================================================
+       INTERACTIVE MODULE 1: CONCEPT RELATIONS
+       ========================================================================= */
+
+    function highlightConcept(key) {
+      const cfg = CONCEPT_RELATIONS[key] || CONCEPT_RELATIONS.all;
+      const banner = document.getElementById(`concept-relation-banner`);
+      if (banner) {
+        banner.innerHTML = `<span>${cfg.banner}</span>`;
+      }
+
+      const btnIds = [`all`, `prejuicios`, `espiritu`, `religion`, `morales`, `perspectivismo`, `poder`];
+      btnIds.forEach(function (id) {
+        const b = document.getElementById(`btn-rel-${id}`);
+        if (b) {
+          if (id === key) b.classList.add(`is-active`);
+          else b.classList.remove(`is-active`);
+        }
+      });
+
+      const cards = document.querySelectorAll(`.concept-cell`);
+      cards.forEach(function (card) {
+        const cKey = card.getAttribute(`data-concept`);
+        if (key !== `all` && cfg.related.includes(cKey)) {
+          card.classList.add(`is-highlighted`);
+        } else {
+          card.classList.remove(`is-highlighted`);
+        }
+      });
+    }
+
+    /* =========================================================================
+       INTERACTIVE MODULE 2: MORAL DIAGNOSIS (§ 260)
+       ========================================================================= */
+
+    function renderMoralDiagnosis() {
+      const sel = document.getElementById(`moral-trait-select`);
+      if (sel && MORAL_TRAITS[sel.value]) {
+        appState.currentTrait = sel.value;
+        persistState();
+      }
+      const data = MORAL_TRAITS[appState.currentTrait];
+      const out = document.getElementById(`moral-diagnosis-output`);
+      if (!out || !data) return;
+
+      out.innerHTML = `
+        <div>
+          <span class="tag-claret">${data.ref}</span>
+          <h4 style="font-size: 1.15rem; margin-top: var(--space-xs);">${data.title}</h4>
+        </div>
+        <div>
+          <div class="stat-label" style="color: var(--primary);">Lectura desde la moral de señores</div>
+          <p style="font-size: 0.96875rem;">${data.masterView}</p>
+        </div>
+        <div>
+          <div class="stat-label" style="color: var(--on-surface);">Lectura desde la moral de esclavos</div>
+          <p style="font-size: 0.96875rem;">${data.slaveView}</p>
+        </div>
+        <div style="border-top: var(--rule-column); padding-top: var(--space-sm);">
+          <div class="stat-label">Clave genealógica de Nietzsche</div>
+          <p style="font-size: 0.9375rem; color: var(--on-surface-variant);">${data.genealogy}</p>
+        </div>
+      `;
+    }
+
+    /* =========================================================================
+       INTERACTIVE MODULE 3: PERSPECTIVISM LAB
+       ========================================================================= */
+
+    function setLens(lensKey) {
+      if (![`dogmatica`, `gregaria`, `libre`].includes(lensKey)) return;
+      appState.currentLens = lensKey;
+      renderPerspectivism();
+      persistState();
+    }
+
+    function renderPerspectivism() {
+      const sel = document.getElementById(`persp-phenomenon`);
+      if (sel && PERSPECTIVISM_DATA[sel.value]) {
+        if (appState.currentPhenomenon !== sel.value) {
+          appState.currentPhenomenon = sel.value;
+          persistState();
+        }
+      }
+
+      [`dogmatica`, `gregaria`, `libre`].forEach(function (k) {
+        const btn = document.getElementById(`lens-${k}`);
+        if (btn) {
+          if (k === appState.currentLens) btn.classList.add(`is-active`);
+          else btn.classList.remove(`is-active`);
+        }
+      });
+
+      const group = PERSPECTIVISM_DATA[appState.currentPhenomenon];
+      const entry = group ? group[appState.currentLens] : null;
+      const out = document.getElementById(`persp-output`);
+      if (!out || !entry) return;
+
+      out.innerHTML = `
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: var(--space-lg);">
+          <div>
+            <div class="stat-label" style="color: var(--primary);">${entry.label}</div>
+            <p>${entry.reading}</p>
+          </div>
+          <div>
+            <div class="stat-label">Prejuicio o impulso oculto que opera</div>
+            <p style="color: var(--on-surface-variant);">${entry.prejudice}</p>
+          </div>
+        </div>
+        <blockquote class="pull-quote" style="margin: 0; max-width: 65ch; font-size: 1.125rem;">
+          ${entry.quote}
+        </blockquote>
+      `;
+    }
+
+    /* =========================================================================
+       INTERACTIVE MODULE 4: APHORISM ARCHIVE + BOOKMARKS + NOTES
+       ========================================================================= */
+
+    function filterAphorisms() {
+      renderAphorisms();
+    }
+
+    function toggleBookmarkFilter() {
+      appState.onlyBookmarked = !appState.onlyBookmarked;
+      const btn = document.getElementById(`btn-toggle-bookmarks`);
+      if (btn) {
+        if (appState.onlyBookmarked) btn.classList.add(`is-active`);
+        else btn.classList.remove(`is-active`);
+      }
+      renderAphorisms();
+    }
+
+    function resetAphorismFilters() {
+      const searchEl = document.getElementById(`aph-search`);
+      const secEl = document.getElementById(`aph-section-filter`);
+      if (searchEl) searchEl.value = ``;
+      if (secEl) secEl.value = `all`;
+      appState.onlyBookmarked = false;
+      const btn = document.getElementById(`btn-toggle-bookmarks`);
+      if (btn) btn.classList.remove(`is-active`);
+      renderAphorisms();
+    }
+
+    function toggleAphorismBookmark(id) {
+      const idx = appState.bookmarks.indexOf(id);
+      if (idx === -1) appState.bookmarks.push(id);
+      else appState.bookmarks.splice(idx, 1);
+      renderAphorisms();
+      persistState();
+    }
+
+    function saveAphorismNote(id, val) {
+      if (val && val.trim().length > 0) {
+        appState.aphorismNotes[id] = val;
+      } else {
+        delete appState.aphorismNotes[id];
+      }
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function () {
+        persistState();
+      }, 300);
+    }
+
+    function toggleNoteEditor(id) {
+      const box = document.getElementById(`note-box-${id}`);
+      if (!box) return;
+      box.style.display = box.style.display === `none` ? `grid` : `none`;
+    }
+
+    function renderAphorisms() {
+      const listEl = document.getElementById(`aphorism-list`);
+      const emptyEl = document.getElementById(`aphorism-empty`);
+      const countEl = document.getElementById(`bookmark-count`);
+      const searchEl = document.getElementById(`aph-search`);
+      const secEl = document.getElementById(`aph-section-filter`);
+
+      if (countEl) countEl.textContent = String(appState.bookmarks.length);
+      if (!listEl) return;
+
+      const query = searchEl ? searchEl.value.trim().toLowerCase() : ``;
+      const sectionVal = secEl ? secEl.value : `all`;
+
+      const filtered = APHORISMS.filter(function (item) {
+        if (sectionVal !== `all` && item.section !== sectionVal) return false;
+        if (appState.onlyBookmarked && !appState.bookmarks.includes(item.id)) return false;
+        if (query) {
+          const haystack = `${item.num} ${item.title} ${item.quote} ${item.commentary} ${item.sectionLabel}`.toLowerCase();
+          if (!haystack.includes(query)) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = ``;
+        if (emptyEl) emptyEl.style.display = `block`;
+        return;
+      }
+      if (emptyEl) emptyEl.style.display = `none`;
+
+      listEl.innerHTML = filtered.map(function (item) {
+        const isMarked = appState.bookmarks.includes(item.id);
+        const existingNote = appState.aphorismNotes[item.id] || ``;
+        const safeNote = existingNote.replace(/&/g, `&amp;`).replace(/</g, `&lt;`).replace(/>/g, `&gt;`);
+        return `
+          <article class="aphorism-item ${isMarked ? `is-bookmarked` : ``}">
+            <div class="aphorism-head">
+              <div>
+                <span class="aphorism-num">${item.num}</span>
+                <span class="tag" style="margin-left: var(--space-sm);">${item.sectionLabel}</span>
+              </div>
+              <div class="btn-row">
+                <button type="button" onclick="toggleNoteEditor('${item.id}')">${existingNote ? `Editar nota` : `Añadir nota`}</button>
+                <button type="button" class="${isMarked ? `btn-primary` : ``}" onclick="toggleAphorismBookmark('${item.id}')">${isMarked ? `Marcado` : `Marcar`}</button>
+              </div>
+            </div>
+            <h3>${item.title}</h3>
+            <p class="aphorism-quote">${item.quote}</p>
+            <p class="aphorism-commentary"><strong>Clave crítica:</strong> ${item.commentary}</p>
+            <div id="note-box-${item.id}" style="display: ${existingNote ? `grid` : `none`}; gap: var(--space-xs); margin-top: var(--space-xs); max-width: 65ch;">
+              <label class="field-label" for="note-input-${item.id}">Nota personal sobre ${item.num}</label>
+              <textarea id="note-input-${item.id}" style="min-height: 76px;" oninput="saveAphorismNote('${item.id}', this.value)">${safeNote}</textarea>
+            </div>
+          </article>
+        `;
+      }).join(``);
+    }
+
+    /* =========================================================================
+       INTERACTIVE MODULE 5: DIDACTIC QUIZ & SEMINAR ESSAY WORKBOOK
+       ========================================================================= */
+
+    function selectQuizOption(qId, optIndex) {
+      appState.quizAnswers[qId] = optIndex;
+      renderQuiz();
+      persistState();
+    }
+
+    function renderQuiz() {
+      const container = document.getElementById(`quiz-container`);
+      if (!container) return;
+
+      const letters = [`A`, `B`, `C`];
+      container.innerHTML = QUIZ_QUESTIONS.map(function (q, idx) {
+        const chosen = appState.quizAnswers[q.id];
+        const hasAnswered = typeof chosen === `number`;
+        const isCorrect = hasAnswered && chosen === q.correct;
+
+        const optionsHtml = q.options.map(function (optText, oIdx) {
+          let cls = `quiz-opt`;
+          if (hasAnswered) {
+            if (oIdx === q.correct) cls += ` is-correct`;
+            else if (oIdx === chosen) cls += ` is-wrong`;
+          }
+          return `
+            <button type="button" class="${cls}" onclick="selectQuizOption('${q.id}', ${oIdx})">
+              <span class="opt-letter">${letters[oIdx]}</span>
+              <span>${optText}</span>
+            </button>
+          `;
+        }).join(``);
+
+        const feedbackHtml = hasAnswered ? `
+          <div class="feedback-box ${isCorrect ? `is-correct` : `is-wrong`}">
+            <strong>${isCorrect ? `Correcto (${q.ref}):` : `Revisa el pasaje (${q.ref}):`}</strong> ${q.explanation}
+          </div>
+        ` : ``;
+
+        return `
+          <div class="quiz-card">
+            <div>
+              <span class="tag">Pregunta ${idx + 1} de ${QUIZ_QUESTIONS.length} · ${q.ref}</span>
+              <h4 style="font-size: 1.125rem; margin-top: var(--space-xs);">${q.question}</h4>
+            </div>
+            <div class="quiz-options">${optionsHtml}</div>
+            ${feedbackHtml}
+          </div>
+        `;
+      }).join(``);
+    }
+
+    function changeEssayPrompt() {
+      const sel = document.getElementById(`essay-prompt-select`);
+      if (sel && ESSAY_PROMPTS[sel.value]) {
+        appState.essayPrompt = sel.value;
+        renderEssayPanel();
+        persistState();
+      }
+    }
+
+    function onEssayInput() {
+      const ta = document.getElementById(`essay-textarea`);
+      const ind = document.getElementById(`essay-save-indicator`);
+      if (ta) appState.essayText = ta.value;
+      updateEssayWordCount();
+      if (ind) ind.textContent = `Guardando…`;
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function () {
+        persistState();
+        if (ind) ind.textContent = `Guardado en sesión`;
+      }, 280);
+    }
+
+    function toggleRubricCheck(idx) {
+      const key = `${appState.essayPrompt}_${idx}`;
+      appState.rubricChecks[key] = !appState.rubricChecks[key];
+      persistState();
+    }
+
+    function updateEssayWordCount() {
+      const wcEl = document.getElementById(`essay-word-count`);
+      if (!wcEl) return;
+      const trimmed = appState.essayText.trim();
+      const count = trimmed ? trimmed.split(/\s+/).length : 0;
+      wcEl.textContent = `${count} ${count === 1 ? `palabra` : `palabras`}`;
+    }
+
+    function renderEssayPanel() {
+      const sel = document.getElementById(`essay-prompt-select`);
+      const guideEl = document.getElementById(`essay-prompt-guide`);
+      const ta = document.getElementById(`essay-textarea`);
+      const rubricEl = document.getElementById(`rubric-checklist`);
+
+      if (sel) sel.value = appState.essayPrompt;
+      const cfg = ESSAY_PROMPTS[appState.essayPrompt];
+      if (!cfg) return;
+
+      if (guideEl) guideEl.textContent = cfg.guide;
+      if (ta && ta.value !== appState.essayText) ta.value = appState.essayText;
+      updateEssayWordCount();
+
+      if (rubricEl) {
+        rubricEl.innerHTML = cfg.rubric.map(function (criterion, idx) {
+          const key = `${appState.essayPrompt}_${idx}`;
+          const checked = Boolean(appState.rubricChecks[key]);
+          return `
+            <label class="check-item">
+              <input type="checkbox" ${checked ? `checked` : ``} onchange="toggleRubricCheck(${idx})">
+              <span style="font-size: 0.9375rem;">${criterion}</span>
+            </label>
+          `;
+        }).join(``);
+      }
+    }
+
+    function updateProgressSummary() {
+      const answeredCount = Object.keys(appState.quizAnswers).length;
+      const correctCount = QUIZ_QUESTIONS.reduce(function (acc, q) {
+        return acc + (appState.quizAnswers[q.id] === q.correct ? 1 : 0);
+      }, 0);
+
+      const heroVal = document.getElementById(`hero-progress-val`);
+      const heroNote = document.getElementById(`hero-progress-note`);
+      const statusText = document.getElementById(`persistence-text`);
+
+      if (heroVal) heroVal.textContent = `${answeredCount} / ${QUIZ_QUESTIONS.length}`;
+      if (heroNote) {
+        if (answeredCount === 0) {
+          heroNote.textContent = `Preguntas de evaluación resueltas y guardadas en tu sesión.`;
+        } else {
+          heroNote.textContent = `${correctCount} aciertos en el cuestionario · ${appState.bookmarks.length} aforismos marcados.`;
+        }
+      }
+
+      if (statusText) {
+        if (answeredCount === 0 && appState.bookmarks.length === 0 && !appState.essayText.trim()) {
+          statusText.textContent = `Estado inicial: aún no hay respuestas guardadas. Elige una opción abajo para empezar.`;
+        } else {
+          statusText.textContent = `Sesión activa: ${answeredCount}/${QUIZ_QUESTIONS.length} preguntas (${correctCount} correctas) · ${appState.bookmarks.length} aforismos marcados.`;
+        }
+      }
+    }
+
+    function handleResetProgress(btn) {
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.classList.add(`btn-danger-armed`);
+        btn.textContent = `Pulsa otra vez para confirmar`;
+        setTimeout(function () {
+          if (btn.dataset.armed === `true`) {
+            btn.dataset.armed = `false`;
+            btn.classList.remove(`btn-danger-armed`);
+            btn.textContent = `Reiniciar progreso`;
+          }
+        }, 4500);
+        return;
+      }
+
+      btn.dataset.armed = `false`;
+      btn.classList.remove(`btn-danger-armed`);
+      btn.textContent = `Reiniciar progreso`;
+
+      appState.bookmarks = [];
+      appState.aphorismNotes = {};
+      appState.quizAnswers = {};
+      appState.essayText = ``;
+      appState.rubricChecks = {};
+
+      renderAphorisms();
+      renderQuiz();
+      renderEssayPanel();
+      persistState();
+    }
+
+    function exportStudyNotes() {
+      const feedback = document.getElementById(`export-feedback`);
+      const answeredCount = Object.keys(appState.quizAnswers).length;
+      const correctCount = QUIZ_QUESTIONS.reduce(function (acc, q) {
+        return acc + (appState.quizAnswers[q.id] === q.correct ? 1 : 0);
+      }, 0);
+
+      const lines = [
+        `CUADERNO DE ESTUDIO — MÁS ALLÁ DEL BIEN Y DEL MAL (FRIEDRICH NIETZSCHE)`,
+        `=========================================================================`,
+        ``,
+        `1. RESULTADO EN EL CUESTIONARIO DE COMPRENSIÓN`,
+        `Respondidas: ${answeredCount} / ${QUIZ_QUESTIONS.length} | Aciertos: ${correctCount}`,
+        ``,
+        `2. CONSIGNA DE SEMINARIO SELECCIONADA`,
+        `${ESSAY_PROMPTS[appState.essayPrompt].guide}`,
+        ``,
+        `BORRADOR PERSONAL:`,
+        appState.essayText.trim() ? appState.essayText.trim() : `(Sin texto redactado todavía.)`,
+        ``,
+        `3. AFORISMOS MARCADOS Y ANOTACIONES`
+      ];
+
+      APHORISMS.forEach(function (a) {
+        const marked = appState.bookmarks.includes(a.id);
+        const note = appState.aphorismNotes[a.id];
+        if (marked || note) {
+          lines.push(`- ${a.num}: ${a.title} ${marked ? `[MARCADO]` : ``}`);
+          if (note) lines.push(`  Nota: ${note}`);
+        }
+      });
+
+      const content = lines.join(`\n`);
+      const api = window.notebookAppApi;
+      if (api && typeof api.triggerFileDownload === `function`) {
+        api.triggerFileDownload({
+          content: content,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `cuaderno_mas_alla_del_bien_y_del_mal.txt`
+        });
+        if (feedback) feedback.textContent = `Cuaderno exportado como archivo .txt.`;
+      } else {
+        if (feedback) feedback.textContent = `La exportación requiere el entorno de Notebook; tu texto sigue guardado aquí.`;
+      }
+    }
+
+    /* =========================================================================
+       SCROLL REVEAL & INITIALIZATION
+       ========================================================================= */
+
+    function setupScrollReveal() {
+      const targets = document.querySelectorAll(`.reveal`);
+      if (!(`IntersectionObserver` in window)) {
+        targets.forEach(function (el) { el.classList.add(`is-visible`); });
+        return;
+      }
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(`is-visible`);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      targets.forEach(function (el) { observer.observe(el); });
+    }
+
+    async function initApp() {
+      const api = window.notebookAppApi;
+      if (api && typeof api.getAppState === `function`) {
+        try {
+          const saved = await api.getAppState();
+          applyRestoredState(saved);
+        } catch (err) {
+          // Proceed with defaults
+        }
+      }
+
+      const traitSel = document.getElementById(`moral-trait-select`);
+      if (traitSel) traitSel.value = appState.currentTrait;
+      const phenSel = document.getElementById(`persp-phenomenon`);
+      if (phenSel) phenSel.value = appState.currentPhenomenon;
+
+      renderMoralDiagnosis();
+      renderPerspectivism();
+      renderAphorisms();
+      renderQuiz();
+      renderEssayPanel();
+      updateProgressSummary();
+      setupScrollReveal();
+
+      if (api && typeof api.notifyAppReady === `function`) {
+        api.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>

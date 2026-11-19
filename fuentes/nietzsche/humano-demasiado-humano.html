@@ -1,0 +1,2230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>Humano, demasiado humano — Dossier filosófico interactivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      /* Ink */
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      /* Rules */
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      /* Accents */
+      --primary: #990f3d;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      /* Fonts */
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* Semantic */
+      --positive: #0d7680;
+      --warning: #9a6312;
+      --focus: var(--primary);
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.45rem, 1.4rem + 3.8vw, 4.35rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.8vw, 2.35rem);
+      --subhead-size: clamp(1.1875rem, 1.05rem + 0.5vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.15rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { overflow-x: clip; margin: 0; padding: 0; }
+    header { position: static !important; }
+
+    body {
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      font-optical-sizing: auto;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.18;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 66ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .lede {
+      font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.32rem);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 58ch;
+      margin-top: var(--space-md);
+    }
+
+    .label-text {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+    }
+
+    /* Links & Buttons */
+    a {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+      transition: text-decoration-thickness var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    a:hover { text-decoration-thickness: 2px; }
+
+    button {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-radius: var(--rounded);
+      cursor: pointer;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border: 1px solid var(--outline);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    button:hover:not(:disabled) {
+      background-color: var(--surface-container-high);
+    }
+    button:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    button.btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    button.btn-primary:hover:not(:disabled) {
+      background-color: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+    }
+    button.is-active {
+      background-color: var(--on-surface);
+      color: var(--background);
+      border-color: var(--on-surface);
+    }
+
+    /* Masthead */
+    .masthead-line {
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm) var(--space-lg);
+    }
+    .masthead-meta {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+    .masthead-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-md);
+      align-items: center;
+    }
+    .masthead-nav a {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      text-decoration: none;
+      padding: var(--space-xs) 0;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+    }
+    .masthead-nav a:hover,
+    .masthead-nav a.nav-current {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg) var(--space-xl);
+    }
+    .masthead-kicker {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      margin-bottom: var(--space-sm);
+      display: block;
+    }
+
+    /* Column hairlines */
+    .columns {
+      display: flex;
+      gap: 0;
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-md);
+    }
+    .columns > * {
+      flex: 1 1 0;
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .columns > :last-child {
+      padding-right: 0;
+    }
+
+    .key-fig-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .key-fig-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.05rem);
+      line-height: 1.1;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .key-fig-note {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: var(--on-surface-variant);
+      line-height: 1.38;
+      display: block;
+    }
+
+    /* Sections */
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-md);
+    }
+    .section-header {
+      margin-bottom: var(--space-lg);
+    }
+    .section-header p {
+      margin-top: var(--space-sm);
+      color: var(--on-surface-variant);
+      max-width: 64ch;
+    }
+
+    /* Editorial layout grids */
+    .two-col-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .asymmetric-wide {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.95fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .col-ruled-right {
+      border-right: var(--rule-column);
+      padding-right: var(--space-xl);
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-md) 0;
+      margin: var(--space-lg) 0;
+    }
+    .pull-quote blockquote {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.55rem);
+      line-height: 1.35;
+      color: var(--on-surface);
+    }
+    .pull-quote cite {
+      display: block;
+      margin-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    /* Filled reading panel (rare newsprint box) */
+    .dossier-panel {
+      background-color: var(--surface-container-low);
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg);
+    }
+
+    /* Interactive Timeline */
+    .timeline-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: var(--rule-ink);
+    }
+    .timeline-btn {
+      width: 100%;
+      justify-content: flex-start;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      border-bottom: var(--rule-column);
+      padding: var(--space-md) var(--space-sm);
+      min-height: 52px;
+      text-transform: none;
+      letter-spacing: 0;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 1rem;
+      color: var(--on-surface);
+      display: grid;
+      grid-template-columns: 7.5rem minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: baseline;
+    }
+    .timeline-btn:hover:not(:disabled) {
+      background-color: var(--surface-container-low);
+    }
+    .timeline-btn.is-active {
+      background-color: var(--primary-container);
+      color: var(--on-surface);
+      border-left: 3px solid var(--primary);
+      padding-left: calc(var(--space-sm) - 3px);
+    }
+    .timeline-year {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--primary);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .timeline-title-short {
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+
+    /* Dissection Lab */
+    .lab-selector-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .dissection-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 0;
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+    }
+    .dissection-col {
+      padding: var(--space-lg) var(--space-lg) var(--space-lg) 0;
+    }
+    .dissection-col + .dissection-col {
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+      padding-right: 0;
+    }
+    .dissection-kicker {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--space-xs);
+      display: block;
+    }
+    .dissection-kicker.illusion { color: var(--on-surface-variant); }
+    .dissection-kicker.genealogy { color: var(--primary); }
+
+    /* Broadsheet Table */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: var(--space-lg);
+    }
+    table.broadsheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.96rem;
+    }
+    .broadsheet-table thead th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-sm) var(--space-md);
+    }
+    .broadsheet-table thead th:first-child,
+    .broadsheet-table tbody td:first-child {
+      padding-left: 0;
+    }
+    .broadsheet-table tbody td {
+      padding: var(--space-md);
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+    }
+    .broadsheet-table tbody tr:last-child td {
+      border-bottom: var(--rule-ink);
+    }
+    .broadsheet-table td.num {
+      text-align: right;
+      font-variant-numeric: lining-nums tabular-nums;
+      font-family: var(--font-headline);
+      font-weight: 700;
+    }
+
+    /* Interactive Concept Map SVG */
+    .map-container {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-md) 0;
+      background: transparent;
+    }
+    .concept-svg {
+      width: 100%;
+      height: auto;
+      min-height: 360px;
+      display: block;
+    }
+    .svg-edge {
+      stroke: var(--data-context);
+      stroke-width: 1.5;
+      fill: none;
+      transition: stroke var(--dur-short) var(--ease-out), stroke-width var(--dur-short) var(--ease-out), opacity var(--dur-short) var(--ease-out);
+    }
+    .svg-edge.edge-active {
+      stroke: var(--primary);
+      stroke-width: 2.5;
+    }
+    .svg-edge.edge-secondary {
+      stroke: var(--secondary);
+      stroke-width: 2.2;
+    }
+    .svg-edge.edge-dim {
+      opacity: 0.25;
+    }
+    .svg-edge-label {
+      font-family: var(--font-label);
+      font-size: 11px;
+      font-weight: 700;
+      fill: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .svg-node {
+      cursor: pointer;
+    }
+    .svg-node-box {
+      fill: var(--background);
+      stroke: var(--outline);
+      stroke-width: 1.5;
+      transition: fill var(--dur-micro) var(--ease-out), stroke var(--dur-micro) var(--ease-out), stroke-width var(--dur-micro) var(--ease-out);
+    }
+    .svg-node:hover .svg-node-box,
+    .svg-node:focus-visible .svg-node-box {
+      fill: var(--surface-container-low);
+      stroke: var(--primary);
+      stroke-width: 2;
+    }
+    .svg-node.node-selected .svg-node-box {
+      fill: var(--primary);
+      stroke: var(--primary);
+      stroke-width: 2;
+    }
+    .svg-node.node-connected .svg-node-box {
+      fill: var(--primary-container);
+      stroke: var(--primary);
+      stroke-width: 1.8;
+    }
+    .svg-node-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 13px;
+      fill: var(--on-surface);
+      pointer-events: none;
+    }
+    .svg-node-sub {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 10.5px;
+      fill: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      pointer-events: none;
+    }
+    .svg-node.node-selected .svg-node-title,
+    .svg-node.node-selected .svg-node-sub {
+      fill: var(--on-primary);
+    }
+    .svg-node.node-connected .svg-node-sub {
+      fill: var(--on-primary-container);
+    }
+
+    /* Concept Map Quick-Select Bar for mobile/keyboard parity */
+    .concept-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Free Spirit Stages */
+    .stages-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      margin-bottom: var(--space-lg);
+    }
+    .stage-tab {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      border-left: var(--rule-column);
+      padding: var(--space-md);
+      text-transform: none;
+      letter-spacing: 0;
+      min-height: 96px;
+    }
+    .stage-tab:first-child { border-left: 0; padding-left: 0; }
+    .stage-tab:hover:not(:disabled) { background-color: var(--surface-container-low); }
+    .stage-tab.is-active {
+      background-color: var(--surface-container-low);
+      border-top: 3px solid var(--primary);
+      color: var(--on-surface);
+    }
+    .stage-num {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+    .stage-name {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.05rem;
+      line-height: 1.2;
+      color: var(--on-surface);
+    }
+
+    /* Spirit Comparison Cards / Rows */
+    .spirit-toggle-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Search & Filter Inputs */
+    .filter-toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-md) var(--space-lg);
+      align-items: end;
+      margin-bottom: var(--space-lg);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--rule-ink);
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field-group label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .field-group input[type="text"],
+    .field-group select {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      padding: 0.625rem var(--space-md);
+      min-height: 44px;
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      background-color: var(--background);
+      color: var(--on-surface);
+    }
+    .field-group select {
+      padding-right: 2.25rem;
+    }
+    .field-group input:focus,
+    .field-group select:focus {
+      border-color: var(--primary);
+    }
+
+    .aphorism-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-lg) var(--space-xl);
+    }
+    .aphorism-item {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+    }
+    .aphorism-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-xs);
+    }
+    .aphorism-num {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--primary);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .aphorism-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.18rem;
+      line-height: 1.25;
+      margin-bottom: var(--space-sm);
+    }
+    .aphorism-quote {
+      font-style: italic;
+      color: var(--on-surface);
+      border-left: 2px solid var(--primary);
+      padding-left: var(--space-md);
+      margin: var(--space-sm) 0;
+      font-size: 0.98rem;
+    }
+    .aphorism-synthesis {
+      font-size: 0.96rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Self-check Quiz */
+    .quiz-panel {
+      background-color: var(--surface-container-low);
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-xl);
+      margin-top: var(--space-xl);
+    }
+    .quiz-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-md);
+    }
+    .quiz-score {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.2rem;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--primary);
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+      margin: var(--space-md) 0;
+    }
+    .quiz-option-btn {
+      width: 100%;
+      justify-content: flex-start;
+      text-align: left;
+      text-transform: none;
+      letter-spacing: 0;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 1rem;
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      padding: var(--space-md);
+      color: var(--on-surface);
+    }
+    .quiz-option-btn:hover:not(:disabled) {
+      background-color: var(--surface-container);
+    }
+    .quiz-option-btn.opt-correct {
+      background-color: var(--primary-container);
+      border-color: var(--primary);
+      color: var(--on-primary-container);
+      font-weight: 600;
+    }
+    .quiz-option-btn.opt-wrong {
+      border-color: var(--error);
+      color: var(--error);
+    }
+    .quiz-feedback {
+      border-left: 3px solid var(--primary);
+      padding: var(--space-sm) var(--space-md);
+      margin-top: var(--space-md);
+      background-color: var(--background);
+    }
+    .quiz-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      border-top: var(--rule-ink);
+    }
+    .faq-item {
+      border-bottom: var(--rule-column);
+    }
+    .faq-item:last-child {
+      border-bottom: var(--rule-ink);
+    }
+    .faq-trigger {
+      width: 100%;
+      justify-content: space-between;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      padding: var(--space-md) 0;
+      min-height: 52px;
+      text-transform: none;
+      letter-spacing: 0;
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.12rem;
+      line-height: 1.3;
+      color: var(--on-surface);
+    }
+    .faq-trigger:hover:not(:disabled) {
+      background: transparent;
+      color: var(--primary);
+    }
+    .faq-icon {
+      flex-shrink: 0;
+      transition: transform var(--dur-short) var(--ease-in-out);
+    }
+    .faq-trigger[aria-expanded="true"] .faq-icon {
+      transform: rotate(45deg);
+    }
+    .faq-panel {
+      padding-bottom: var(--space-lg);
+      color: var(--on-surface-variant);
+      max-width: 68ch;
+    }
+    .faq-panel[hidden] { display: none; }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--rule-section);
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-2xl);
+      color: var(--on-surface-variant);
+      font-size: 0.94rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .two-col-split,
+      .asymmetric-wide,
+      .site-footer {
+        grid-template-columns: 1fr;
+      }
+      .col-ruled-right {
+        border-right: 0;
+        padding-right: 0;
+        border-bottom: var(--rule-column);
+        padding-bottom: var(--space-lg);
+      }
+      .stages-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .stage-tab:nth-child(3) {
+        border-left: 0;
+        padding-left: 0;
+      }
+      .stage-tab:nth-child(3),
+      .stage-tab:nth-child(4) {
+        border-top: var(--rule-column);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .columns {
+        flex-direction: column;
+      }
+      .columns > * {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-md) 0;
+      }
+      .columns > :first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .dissection-grid,
+      .stages-grid,
+      .filter-toolbar {
+        grid-template-columns: 1fr;
+      }
+      .dissection-col,
+      .dissection-col + .dissection-col {
+        border-left: 0;
+        padding: var(--space-md) 0;
+      }
+      .dissection-col + .dissection-col {
+        border-top: var(--rule-column);
+      }
+      .stage-tab {
+        border-left: 0;
+        padding-left: 0;
+        border-top: var(--rule-column);
+      }
+      .stage-tab:first-child { border-top: 0; }
+      .timeline-btn {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+      }
+      .quiz-panel {
+        padding: var(--space-lg);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- HEADER & NAVEGACIÓN -->
+    <header id="inicio">
+      <div class="masthead-line">
+        <span class="masthead-meta">Dossier de Filosofía · Obra de 1878 · Basilea / Sorrento / Niza</span>
+        <nav class="masthead-nav" aria-label="Navegación principal del estudio">
+          <a href="#inicio" class="nav-current">Inicio</a>
+          <a href="#genesis">Génesis</a>
+          <a href="#metodo">Método</a>
+          <a href="#mapa-ideas">Mapa de ideas</a>
+          <a href="#espiritu-libre">Espíritu libre</a>
+          <a href="#archivo">Aforismos</a>
+          <a href="#faq">Preguntas</a>
+        </nav>
+      </div>
+
+      <div class="masthead">
+        <span class="masthead-kicker">Friedrich Nietzsche · «Un libro para espíritus libres»</span>
+        <h1>Humano, demasiado humano</h1>
+        <p class="lede">
+          En 1878, en el centenario de la muerte de Voltaire, Friedrich Nietzsche rompió con la metafísica, con el romanticismo wagneriano y con diez años de erudición filológica. Su propósito: congelar los ideales absolutos con la luz cruda de la observación histórica y psicológica.
+        </p>
+      </div>
+
+      <!-- Cifras e hitos clave en columnas con filetes -->
+      <div class="columns" aria-label="Datos clave de la obra">
+        <div>
+          <span class="key-fig-label">Publicación original</span>
+          <span class="key-fig-value">1878</span>
+          <span class="key-fig-note">Año del centenario de Voltaire, reivindicado como «gran señor del espíritu».</span>
+        </div>
+        <div>
+          <span class="key-fig-label">Horizonte del error filosófico</span>
+          <span class="key-fig-value">4.000 años</span>
+          <span class="key-fig-note">Lapso reciente que los filósofos toman erróneamente como la medida eterna del hombre.</span>
+        </div>
+        <div>
+          <span class="key-fig-label">Estadios de liberación</span>
+          <span class="key-fig-value">4 fases</span>
+          <span class="key-fig-note">Del espíritu esclavo al terremoto interior, la convalecencia y la gran salud.</span>
+        </div>
+        <div>
+          <span class="key-fig-label">Ejes de disección</span>
+          <span class="key-fig-value">5 ámbitos</span>
+          <span class="key-fig-note">Metafísica, moral, religión, cultura europea y vida cotidiana del caminante.</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECCIÓN 1: TESIS CENTRAL Y GÉNESIS HISTÓRICA -->
+    <section id="genesis" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">I · Contexto biográfico y tesis central</span>
+        <h2>«El ideal no es refutado, es helado»: el monumento de una crisis</h2>
+        <p>
+          Lejos de redactar un tratado sistemático, Nietzsche concibió <em>Humano, demasiado humano</em> como un instrumento de emancipación personal e intelectual frente a sus propios ídolos juveniles.
+        </p>
+      </div>
+
+      <div class="asymmetric-wide">
+        <div class="col-ruled-right">
+          <p>
+            Nacido el 15 de octubre de 1844 en Roecken (Alemania) en el seno de una familia de pastores protestantes y fallecido el 25 de agosto de 1900 tras su internación en Basilea, Nietzsche inaugura con este libro su período ilustrado y anti-metafísico. En <em>Ecce Homo</em> define la obra como <strong>«el monumento de una crisis»</strong>: casi cada frase expresa una victoria sobre lo que no pertenecía a su naturaleza.
+          </p>
+          <p>
+            Frente al platonismo y al cristianismo —a los que acusa de inventar un «mundo verdadero» o un Ser eterno ajeno al dolor para calumniar la existencia terrenal—, Nietzsche afirma que su filosofía es un <strong>«platonismo invertido»</strong>. El título condensa su giro realista: donde otros veneran ideales celestiales o esencias inmutables, él detecta impulsos, intereses y errores humanos, demasiado humanos.
+          </p>
+
+          <div class="pull-quote">
+            <blockquote>«Allí donde vosotros veis cosas ideales, yo veo cosas humanas, demasiado humanas… Se va depositando sobre hielo un error sobre otro: el ideal no es refutado, es helado.»</blockquote>
+            <cite>Friedrich Nietzsche — Referente a Humano, demasiado humano en Ecce Homo</cite>
+          </div>
+
+          <p>
+            Para ello despliega el <strong>método genealógico</strong>: preguntar por el <em>«quién»</em> habla detrás de cada verdad supuestamente universal, a quién beneficia una norma moral y qué interacción silenciosa de fuerzas —que denomina <em>Voluntad de Poder</em>— interpreta y acomoda la realidad a sus intereses.
+          </p>
+        </div>
+
+        <!-- Cronología interactiva -->
+        <div>
+          <span class="tag">Cronología interactiva de la ruptura</span>
+          <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-md);">De Bayreuth a la bandera de Voltaire</h3>
+
+          <div class="timeline-controls" role="tablist" aria-label="Hitos biográficos de Humano, demasiado humano">
+            <button type="button" class="timeline-btn is-active" onclick="selectTimeline(0)" data-tl-idx="0">
+              <span class="timeline-year">1866–1876</span>
+              <span class="timeline-title-short">Diez años de filología en Basilea</span>
+            </button>
+            <button type="button" class="timeline-btn" onclick="selectTimeline(1)" data-tl-idx="1">
+              <span class="timeline-year">Verano 1876</span>
+              <span class="timeline-title-short">Bayreuth y el retiro a Klingenbrunn</span>
+            </button>
+            <button type="button" class="timeline-btn" onclick="selectTimeline(2)" data-tl-idx="2">
+              <span class="timeline-year">1876–1878</span>
+              <span class="timeline-title-short">Sorrento, la enfermedad y Peter Gast</span>
+            </button>
+            <button type="button" class="timeline-btn" onclick="selectTimeline(3)" data-tl-idx="3">
+              <span class="timeline-year">1878</span>
+              <span class="timeline-title-short">Publicación y cruce con Parsifal</span>
+            </button>
+            <button type="button" class="timeline-btn" onclick="selectTimeline(4)" data-tl-idx="4">
+              <span class="timeline-year">1886</span>
+              <span class="timeline-title-short">Prefacio de Niza: los espíritus libres</span>
+            </button>
+          </div>
+
+          <div id="timeline-detail" class="dossier-panel" style="margin-top: var(--space-md);" aria-live="polite">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: MÉTODO GENEALÓGICO Y QUÍMICA DE LAS IDEAS -->
+    <section id="metodo" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">II · Epistemología y crítica a la metafísica</span>
+        <h2>La química de las ideas: nada nace de un milagro metafísico</h2>
+        <p>
+          En el capítulo primero («Las cosas primeras y las últimas»), Nietzsche sustituye la especulación sobre la «cosa en sí» por una filosofía histórica unida a las ciencias naturales y a la disección psicológica.
+        </p>
+      </div>
+
+      <p>
+        Durante dos mil años la filosofía preguntó cómo puede surgir lo racional de lo irracional, la lógica del ilogismo o el altruismo del egoísmo. La metafísica respondía negando el tránsito y postulando un origen milagroso en la <strong>«cosa en sí»</strong>. La filosofía histórica replica que <strong>no existen contrarios absolutos</strong>, sino exageraciones de la razón y <em>sublimaciones</em> graduales. Selecciona un concepto para someterlo a la mesa de disección psicológica de Nietzsche:
+      </p>
+
+      <!-- Laboratorio interactivo de sublimación -->
+      <div style="margin-top: var(--space-lg);">
+        <div class="lab-selector-row" role="group" aria-label="Seleccionar concepto para disección genealógica">
+          <button type="button" class="is-active" onclick="selectDissection(0)" data-dis-idx="0">Altruismo y amor</button>
+          <button type="button" onclick="selectDissection(1)" data-dis-idx="1">La «cosa en sí»</button>
+          <button type="button" onclick="selectDissection(2)" data-dis-idx="2">El bien y el mal</button>
+          <button type="button" onclick="selectDissection(3)" data-dis-idx="3">Lenguaje y número</button>
+          <button type="button" onclick="selectDissection(4)" data-dis-idx="4">Sueños y religión</button>
+          <button type="button" onclick="selectDissection(5)" data-dis-idx="5">Culpa y redención</button>
+        </div>
+
+        <div id="dissection-output" class="dissection-grid" aria-live="polite">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Tabla comparativa de métodos -->
+      <div class="table-wrap">
+        <table class="broadsheet-table">
+          <caption>
+            <span class="section-label" style="margin-bottom: var(--space-xs);">Comparación estructural · Aforismos 1, 2, 3, 9, 16 y 37</span>
+          </caption>
+          <thead>
+            <tr>
+              <th>Criterio</th>
+              <th>Filosofía Metafísica</th>
+              <th>Filosofía Histórica (Nietzsche)</th>
+              <th style="text-align: right;">Ref.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Imagen del ser humano</strong></td>
+              <td>Toma al hombre de los últimos cuatro mil años como una verdad eterna y medida fija de todas las cosas.</td>
+              <td>Sostiene que el hombre y la facultad cognoscitiva han evolucionado: no hay hechos ni verdades eternas.</td>
+              <td class="num">Af. 2</td>
+            </tr>
+            <tr>
+              <td><strong>Origen de los valores</strong></td>
+              <td>Atribuye las cosas valiosas a una esencia superior o comunicación milagrosa desde la «cosa en sí».</td>
+              <td>Propone una «química» que rastrea cómo los colores más bellos surgen de materias viles e impulsos básicos.</td>
+              <td class="num">Af. 1</td>
+            </tr>
+            <tr>
+              <td><strong>Jerarquía de verdades</strong></td>
+              <td>Prefiere errores deslumbrantes, solemnes y consoladores del arte o de la metafísica.</td>
+              <td>Valora las pequeñas verdades sin apariencia, modestas y duraderas, obtenidas con método estricto.</td>
+              <td class="num">Af. 3</td>
+            </tr>
+            <tr>
+              <td><strong>Realidad y representación</strong></td>
+              <td>Lee el mundo de la experiencia como un cuadro fijo pintado por un creador incondicionado.</td>
+              <td>Muestra que ese cuadro ha sido pintado por nuestros apetitos y errores heredados; la «cosa en sí» mueve a risa homérica.</td>
+              <td class="num">Af. 16</td>
+            </tr>
+            <tr>
+              <td><strong>Observación moral</strong></td>
+              <td>Evita investigar el origen psicológico de la ética y proyecta fantasmas morales sobre la física.</td>
+              <td>Aplica el bisturí psicológico: el hombre moral no está más cerca del mundo inteligible que el hombre físico.</td>
+              <td class="num">Af. 37</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: MAPA RELACIONAL DE IDEAS -->
+    <section id="mapa-ideas" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">III · Arquitectura de la obra</span>
+        <h2>Relaciones entre ideas: cómo se conectan los conceptos</h2>
+        <p>
+          Los aforismos de <em>Humano, demasiado humano</em> forman una red coherente donde la crítica al conocimiento prepara la crítica a la moral, y esta abre paso al espíritu libre y al proyecto europeo. Selecciona cualquier nodo en el diagrama o en la barra superior para examinar sus vínculos.
+        </p>
+      </div>
+
+      <div class="concept-pill-row" role="group" aria-label="Nodos del mapa conceptual">
+        <button type="button" class="is-active" onclick="selectConcept('historico')" data-node-btn="historico">1. Sentido histórico</button>
+        <button type="button" onclick="selectConcept('quimica')" data-node-btn="quimica">2. Química de las ideas</button>
+        <button type="button" onclick="selectConcept('ilusion')" data-node-btn="ilusion">3. Lenguaje y sueño</button>
+        <button type="button" onclick="selectConcept('inocencia')" data-node-btn="inocencia">4. Inocencia del devenir</button>
+        <button type="button" onclick="selectConcept('espiritu')" data-node-btn="espiritu">5. Espíritu libre</button>
+        <button type="button" onclick="selectConcept('europeo')" data-node-btn="europeo">6. Buen europeo</button>
+        <button type="button" onclick="selectConcept('transmutacion')" data-node-btn="transmutacion">7. Transmutación</button>
+      </div>
+
+      <div class="asymmetric-wide">
+        <div class="map-container">
+          <svg class="concept-svg" viewBox="0 0 720 430" role="img" aria-label="Diagrama interactivo de relaciones entre los siete conceptos principales de Humano, demasiado humano">
+            <defs>
+              <marker id="arrow-ctx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--data-context)"></path>
+              </marker>
+              <marker id="arrow-pri" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--primary)"></path>
+              </marker>
+              <marker id="arrow-sec" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--secondary)"></path>
+              </marker>
+            </defs>
+
+            <!-- Edges -->
+            <g id="svg-edges">
+              <path class="svg-edge" data-from="historico" data-to="quimica" d="M 195 65 L 265 65" marker-end="url(#arrow-ctx)"></path>
+              <path class="svg-edge" data-from="historico" data-to="ilusion" d="M 110 95 L 110 175" marker-end="url(#arrow-ctx)"></path>
+              <path class="svg-edge" data-from="quimica" data-to="inocencia" d="M 360 95 L 360 175" marker-end="url(#arrow-ctx)"></path>
+              <path class="svg-edge" data-from="ilusion" data-to="inocencia" d="M 195 215 L 265 215" marker-end="url(#arrow-ctx)"></path>
+              <path class="svg-edge" data-from="quimica" data-to="espiritu" d="M 455 65 L 525 65" marker-end="url(#arrow-ctx)"></path>
+              <path class="svg-edge" data-from="inocencia" data-to="espiritu" d="M 455 195 L 535 95" marker-end="url(#arrow-ctx)"></path>
+              <path class="svg-edge" data-from="espiritu" data-to="europeo" d="M 615 95 L 615 175" marker-end="url(#arrow-ctx)"></path>
+              <path class="svg-edge" data-from="espiritu" data-to="transmutacion" d="M 555 95 L 405 330" marker-end="url(#arrow-ctx)"></path>
+              <path class="svg-edge" data-from="inocencia" data-to="transmutacion" d="M 360 250 L 360 330" marker-end="url(#arrow-ctx)"></path>
+              <path class="svg-edge" data-from="europeo" data-to="transmutacion" d="M 530 240 L 445 330" marker-end="url(#arrow-ctx)"></path>
+            </g>
+
+            <!-- Nodes -->
+            <g class="svg-node" data-node="historico" tabindex="0" role="button" aria-label="Sentido histórico" onclick="selectConcept('historico')" onkeydown="handleNodeKey(event, 'historico')">
+              <rect class="svg-node-box" x="20" y="30" width="175" height="65"></rect>
+              <text class="svg-node-sub" x="32" y="50">AF. 2 · MÉTODO</text>
+              <text class="svg-node-title" x="32" y="74">Sentido histórico</text>
+            </g>
+
+            <g class="svg-node" data-node="quimica" tabindex="0" role="button" aria-label="Química de las ideas" onclick="selectConcept('quimica')" onkeydown="handleNodeKey(event, 'quimica')">
+              <rect class="svg-node-box" x="268" y="30" width="185" height="65"></rect>
+              <text class="svg-node-sub" x="280" y="50">AF. 1 Y 16 · ANÁLISIS</text>
+              <text class="svg-node-title" x="280" y="74">Química de las ideas</text>
+            </g>
+
+            <g class="svg-node" data-node="ilusion" tabindex="0" role="button" aria-label="Lenguaje y sueño" onclick="selectConcept('ilusion')" onkeydown="handleNodeKey(event, 'ilusion')">
+              <rect class="svg-node-box" x="20" y="180" width="175" height="68"></rect>
+              <text class="svg-node-sub" x="32" y="200">AF. 5, 11, 13 · ORIGEN</text>
+              <text class="svg-node-title" x="32" y="224">Lenguaje y sueño</text>
+            </g>
+
+            <g class="svg-node" data-node="inocencia" tabindex="0" role="button" aria-label="Inocencia e irresponsabilidad" onclick="selectConcept('inocencia')" onkeydown="handleNodeKey(event, 'inocencia')">
+              <rect class="svg-node-box" x="268" y="180" width="185" height="68"></rect>
+              <text class="svg-node-sub" x="280" y="200">AF. 45, 57, 107 · MORAL</text>
+              <text class="svg-node-title" x="280" y="224">Inocencia del devenir</text>
+            </g>
+
+            <g class="svg-node" data-node="espiritu" tabindex="0" role="button" aria-label="Espíritu libre" onclick="selectConcept('espiritu')" onkeydown="handleNodeKey(event, 'espiritu')">
+              <rect class="svg-node-box" x="528" y="30" width="172" height="65"></rect>
+              <text class="svg-node-sub" x="540" y="50">PREFACIO Y AF. 225</text>
+              <text class="svg-node-title" x="540" y="74">Espíritu libre</text>
+            </g>
+
+            <g class="svg-node" data-node="europeo" tabindex="0" role="button" aria-label="El buen europeo" onclick="selectConcept('europeo')" onkeydown="handleNodeKey(event, 'europeo')">
+              <rect class="svg-node-box" x="528" y="180" width="172" height="68"></rect>
+              <text class="svg-node-sub" x="540" y="200">AF. 23 Y 475 · CULTURA</text>
+              <text class="svg-node-title" x="540" y="224">Buen europeo</text>
+            </g>
+
+            <g class="svg-node" data-node="transmutacion" tabindex="0" role="button" aria-label="Transmutación de valores" onclick="selectConcept('transmutacion')" onkeydown="handleNodeKey(event, 'transmutacion')">
+              <rect class="svg-node-box" x="258" y="335" width="205" height="68"></rect>
+              <text class="svg-node-sub" x="270" y="355">ESTUDIO Y AF. 292</text>
+              <text class="svg-node-title" x="270" y="379">Transmutación cultural</text>
+            </g>
+          </svg>
+        </div>
+
+        <aside id="concept-detail" class="dossier-panel" aria-live="polite">
+          <!-- Populated by JS -->
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: EL ESPÍRITU LIBRE Y LA CULTURA -->
+    <section id="espiritu-libre" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">IV · Psicología de la emancipación y crítica cultural</span>
+        <h2>Maduración del espíritu libre frente al espíritu sometido</h2>
+        <p>
+          En el Prefacio de Niza (1886) y en el capítulo quinto («Síntomas de alta y de baja cultura»), Nietzsche traza la anatomía psicológica de quien logra pensar más allá de la costumbre, la religión de masas y el nacionalismo.
+        </p>
+      </div>
+
+      <!-- 4 fases del Prefacio -->
+      <div class="stages-grid" role="tablist" aria-label="Fases de maduración del espíritu libre">
+        <button type="button" class="stage-tab is-active" onclick="selectStage(0)" data-stage-idx="0">
+          <span class="stage-num">Fase 01 · Prefacio §3</span>
+          <span class="stage-name">El espíritu esclavo</span>
+        </button>
+        <button type="button" class="stage-tab" onclick="selectStage(1)" data-stage-idx="1">
+          <span class="stage-num">Fase 02 · Prefacio §3</span>
+          <span class="stage-name">La gran liberación</span>
+        </button>
+        <button type="button" class="stage-tab" onclick="selectStage(2)" data-stage-idx="2">
+          <span class="stage-num">Fase 03 · Prefacio §4–5</span>
+          <span class="stage-name">Desierto y convalecencia</span>
+        </button>
+        <button type="button" class="stage-tab" onclick="selectStage(3)" data-stage-idx="3">
+          <span class="stage-num">Fase 04 · Prefacio §6–7 y Af. 638</span>
+          <span class="stage-name">Gran salud y caminante</span>
+        </button>
+      </div>
+
+      <div id="stage-detail" class="two-col-split" style="padding-bottom: var(--space-lg); border-bottom: var(--rule-column);" aria-live="polite">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Diagnóstico: Espíritu libre vs Espíritu sometido -->
+      <div style="margin-top: var(--space-xl);">
+        <span class="tag">Diagnóstico comparativo · Aforismos 225, 227, 229, 283 y 475</span>
+        <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-md);">¿Cómo operan en la sociedad ambos tipos de espíritu?</h3>
+
+        <div class="spirit-toggle-row" role="group" aria-label="Cambiar ámbito de comparación">
+          <button type="button" class="is-active" onclick="selectSpiritAxis(0)" data-axis-idx="0">Verdad frente a utilidad</button>
+          <button type="button" onclick="selectSpiritAxis(1)" data-axis-idx="1">Las 4 reglas del sometido</button>
+          <button type="button" onclick="selectSpiritAxis(2)" data-axis-idx="2">Hombres activos y ocio</button>
+          <button type="button" onclick="selectSpiritAxis(3)" data-axis-idx="3">Matrimonio y costumbre</button>
+          <button type="button" onclick="selectSpiritAxis(4)" data-axis-idx="4">Nacionalismo y «buen europeo»</button>
+        </div>
+
+        <div id="spirit-comparison" class="dissection-grid" aria-live="polite">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: ARCHIVO INTERACTIVO DE AFORISMOS Y AUTOEVALUACIÓN -->
+    <section id="archivo" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">V · Base de conocimiento textual</span>
+        <h2>Archivo comentado de aforismos y verificación de lectura</h2>
+        <p>
+          Filtra por tema o busca por palabra clave los aforismos centrales incluidos en las fuentes, y pon a prueba tu comprensión con cinco preguntas razonadas.
+        </p>
+      </div>
+
+      <div class="filter-toolbar">
+        <div class="field-group">
+          <label for="aphorism-search">Buscar por concepto, autor o palabra clave</label>
+          <input type="text" id="aphorism-search" placeholder="Ej. Voltaire, sueño, altruismo, caminante, Wagner…" oninput="filterAphorisms()">
+        </div>
+        <div class="field-group">
+          <label for="aphorism-topic">Filtrar por eje temático</label>
+          <select id="aphorism-topic" onchange="filterAphorisms()">
+            <option value="todos">Todos los ejes (12 aforismos)</option>
+            <option value="metafisica">Metafísica y ciencia</option>
+            <option value="moral">Moral y religión</option>
+            <option value="cultura">Cultura e historia</option>
+            <option value="espiritu">Espíritu libre y vida</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="aphorism-count" class="label-text" style="color: var(--on-surface-variant); margin-bottom: var(--space-md);"></div>
+
+      <div id="aphorism-list" class="aphorism-grid">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Autoevaluación interactiva -->
+      <div class="quiz-panel" id="quiz-section">
+        <div class="quiz-header">
+          <div>
+            <span class="section-label">Autoevaluación · 5 cuestiones basadas en el texto</span>
+            <h3>Comprueba tu dominio de <em>Humano, demasiado humano</em></h3>
+          </div>
+          <div class="quiz-score" id="quiz-score-display">Aciertos: 0 / 5</div>
+        </div>
+
+        <div id="quiz-body" aria-live="polite">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 6: PREGUNTAS FRECUENTES -->
+    <section id="faq" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">VI · Preguntas frecuentes</span>
+        <h2>Claves rápidas para el estudio filosófico</h2>
+        <p>
+          Respuestas directas a las dudas más habituales al abordar <em>Humano, demasiado humano</em> a partir del Estudio Preliminar, <em>Ecce Homo</em>, el Prefacio y los aforismos.
+        </p>
+      </div>
+
+      <div class="faq-list" id="faq-accordion">
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="true" aria-controls="faq-ans-1" onclick="toggleFaq(this)">
+            <span>1. ¿Por qué dedica Nietzsche el libro a los «espíritus libres» y evoca a Voltaire?</span>
+            <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div id="faq-ans-1" class="faq-panel">
+            <p>
+              Según explica en <em>Ecce Homo</em> (§1) y en el Prefacio (§2), en 1878 no existían tales «espíritus libres» a su alrededor: los inventó como compañeros imaginarios para resistir la enfermedad, el aislamiento y la acedia. Justificó la publicación en el centenario de la muerte de Voltaire porque veía en él a un «gran señor del espíritu» ilustrado, libre de prejuicios metafísicos y cercano a la bandera ilustrada de Petrarca, Erasmo y el propio Voltaire (Af. 26).
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-2" onclick="toggleFaq(this)">
+            <span>2. ¿Qué quiere decir Nietzsche con «mi filosofía es un platonismo invertido»?</span>
+            <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div id="faq-ans-2" class="faq-panel" hidden>
+            <p>
+              Tal como expone el Estudio Preliminar, Platón situó la realidad superior en un «mundo verdadero» inmutable y eterno, desvalorizando el mundo sensible y cambiante. Nietzsche invierte esa jerarquía: ese Ser eterno, perfecto y ajeno al dolor es una ficción consoladora —en realidad «pura Nada»— creada por mentes fatigadas para redimir una existencia que no aceptan tal como es, con su devenir de crear, destruir, placer y dolor.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-3" onclick="toggleFaq(this)">
+            <span>3. ¿Por qué afirma que «el hombre no es responsable de nada»?</span>
+            <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div id="faq-ans-3" class="faq-panel" hidden>
+            <p>
+              En los aforismos sobre la moral y en el Af. 107 («Irresponsabilidad e inocencia»), Nietzsche sostiene que el ser de cada persona es la consecuencia necesaria de elementos e influencias pasadas y presentes. La noción de «voluntad libre» y responsabilidad moral nace de un error primitivo (Af. 18 y 39). Al descubrirlo, el pensador ya no tiene derecho a alabar ni censurar moralmente los actos humanos, sino que los observa como observa la fuerza de una planta o un fenómeno químico.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-4" onclick="toggleFaq(this)">
+            <span>4. ¿Cuál es la relación entre el sueño, el lenguaje y el origen de la metafísica?</span>
+            <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div id="faq-ans-4" class="faq-panel" hidden>
+            <p>
+              En las culturas rudimentarias, quien soñaba creía visitar un segundo mundo real y ver en sueños a los muertos vivos, lo que originó la división entre cuerpo y alma y la creencia en espíritus y dioses (Af. 5). Además, en el sueño la mente inventa causas fantásticas para sensaciones fisiológicas reales (Af. 13). De modo paralelo, el creador del lenguaje creyó que las palabras revelaban verdades eternas sobre «cosas idénticas» (Af. 11 y 19), sembrando los supuestos de la lógica y la metafísica.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-5" onclick="toggleFaq(this)">
+            <span>5. ¿Qué postura adopta Nietzsche frente al nacionalismo europeo y al antisemitismo?</span>
+            <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div id="faq-ans-5" class="faq-panel" hidden>
+            <p>
+              En el aforismo 475 («El hombre europeo y la destrucción de las naciones»), denuncia el nacionalismo como un «estado de sitio» artificial decretado por dinastías y clases mercantiles mediante mentiras y odios. Invita a declararse «buen europeo» y colaborar en la fusión de las naciones. En ese marco rechaza la literatura antisemita que convierte a los judíos en chivos expiatorios, recordando que los sabios y librepensadores judíos medievales mantuvieron viva la antorcha de la Ilustración y enlazaron a Europa con la antigüedad grecorromana.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-6" onclick="toggleFaq(this)">
+            <span>6. ¿Es pesimista el final de la obra con la figura del «caminante»?</span>
+            <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div id="faq-ans-6" class="faq-panel" hidden>
+            <p>
+              Como señala el Estudio Preliminar y muestra el aforismo 638, el último tramo tiene un tono melancólico y solitario, pero no implica pasividad ni resignación. El «caminante» que ha alcanzado la libertad de la razón no persigue un destino definitivo porque sabe que no existe; sin embargo, mira el mundo con ojos abiertos, sin atar su corazón en exceso, soportando noches duras ante puertas cerradas como parte de un esfuerzo constante de superación.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUENTES Y NOTA DE EDICIÓN -->
+    <footer class="site-footer">
+      <div>
+        <span class="section-label">Fuentes utilizadas</span>
+        <p>
+          Todo el contenido, citas, referencias aforísticas y marco histórico de este sitio proceden exclusivamente de los extractos de <em>Humano, demasiado humano. Un libro para espíritus libres</em> de Friedrich Nietzsche (título original: <em>Menschliches, Allzumenschliches. Ein Buch für freie Geister</em>; traducción de Carlos Vergara), incluyendo su Estudio Preliminar, la sección autobiográfica sobre la obra en <em>Ecce Homo</em>, el Prefacio de Niza (1886) y los aforismos seleccionados de los capítulos primero, quinto y secciones morales y finales.
+        </p>
+      </div>
+      <div>
+        <span class="section-label">Guía de uso del dossier</span>
+        <p>
+          Navega por la barra superior para ir a cada bloque temático, pulsa los hitos cronológicos, disecciona los conceptos en la «Química de las ideas», explora las conexiones causales en el diagrama SVG y valida tu lectura en el archivo de aforismos y la autoevaluación.
+        </p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // 1. Datos de la cronología biográfica (Ecce Homo y Prefacio)
+    const timelineData = [
+      {
+        period: `1866–1876 · Basilea`,
+        title: `Diez años de erudición filológica contra el propio instinto`,
+        body: `Nietzsche mira atrás y advierte que pasó diez años como profesor de filología clásica en Basilea caminando «a paso de tortuga entre los métricos griegos» con ojos enfermos. Siente que su nutrición espiritual estuvo suspendida entre una «polvorienta erudición» carente de realidades e idealidades sin valor, generando una sed abrasadora de fisiología, medicina y ciencias naturales.`
+      },
+      {
+        period: `Verano de 1876 · Bayreuth y Klingenbrunn`,
+        title: `Ruptura con el wagnerismo y notas de «La reja del arado»`,
+        body: `Durante la primera solemnidad bayreuthiana se siente profundamente ajeno: Wagner había sido «traducido al alemán» y convertido en arte nacionalista, cerveza y antisemitismo de las Hojas de Bayreuth. Nietzsche huye bruscamente mediante un telegrama y se refugia en Klingenbrunn (Boehmerwald), donde redacta duras observaciones psicológicas bajo el título «La reja del arado», germen directo de este libro.`
+      },
+      {
+        period: `1876–1878 · Sorrento y Basilea`,
+        title: `La enfermedad como liberación y el dictado a Peter Gast`,
+        body: `La enfermedad ocular y física que hereda lo emancipa de los libros y de la cátedra: durante años enteros deja de leer, lo que permite que su «yo interior» vuelva a hablar. Redacta la mayor parte de la obra en Sorrento y le da forma definitiva un invierno en Basilea, dictando con la cabeza cubierta de compresas a su discípulo Peter Gast, quien transcribía y corregía.`
+      },
+      {
+        period: `1878 · Centenario de Voltaire`,
+        title: `Publicación y el «chasquido de dos espadas» con Parsifal`,
+        body: `El libro se publica en 1878 bajo la advocación del centenario de la muerte de Voltaire, frente al idealismo alemán. Al enviar dos ejemplares a Bayreuth, recibe exactamente en la misma fecha el libreto de Parsifal dedicado por «Richard Wagner, consejero eclesiástico». Nietzsche escucha en ese cruce postal el chasquido de dos espadas: «¡Oh prodigio: Wagner se había vuelto piadoso!»`
+      },
+      {
+        period: `Primavera de 1886 · Niza`,
+        title: `El Prefacio retrospectivo sobre los «espíritus libres»`,
+        body: `Ocho años después, Nietzsche escribe en Niza el Prefacio donde explica que inventó la figura de los «espíritus libres» porque necesitaba compañeros alegres y atrevidos frente a la enfermedad, el destierro y la acedia, y describe las etapas de la gran liberación, la convalecencia y el problema de la jerarquía.`
+      }
+    ];
+
+    function selectTimeline(idx) {
+      const buttons = document.querySelectorAll('[data-tl-idx]');
+      buttons.forEach(function (btn, i) {
+        if (i === idx) {
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-selected', 'true');
+        } else {
+          btn.classList.remove('is-active');
+          btn.setAttribute('aria-selected', 'false');
+        }
+      });
+      const item = timelineData[idx];
+      const target = document.getElementById('timeline-detail');
+      if (!target || !item) return;
+      target.innerHTML = `
+        <span class="section-label">${item.period}</span>
+        <h4 style="font-size: 1.2rem; margin-bottom: var(--space-sm);">${item.title}</h4>
+        <p>${item.body}</p>
+      `;
+    }
+
+    // 2. Laboratorio de disección (Química de las ideas)
+    const dissectionData = [
+      {
+        title: `El altruismo y los actos de amor`,
+        ref: `Aforismos 1, 57 y 133`,
+        illusion: `La ética metafísica (como en Schopenhauer) considera que la abnegación de la madre, del soldado o del enamorado son actos puramente no egoístas, casi milagros morales inexplicables desde el interés propio.`,
+        genealogy: `No existe acción absolutamente no egoísta: el «ego» no puede obrar sin «ego». En realidad el hombre no es un <em>individuum</em> indivisible sino un <em>dividuum</em> que divide su ser y sacrifica una parte a otra que ama más (una idea, un hijo, una victoria). Como señalan Lichtenberg y La Rochefoucauld, amamos los sentimientos agradables que los otros nos producen.`
+      },
+      {
+        title: `La «cosa en sí» y el mundo verdadero`,
+        ref: `Estudio Preliminar y Aforismos 9, 10, 16`,
+        illusion: `La metafísica parte del mundo de la experiencia como si fuera un cuadro pintado de una vez para siempre, buscando deducir tras él un Ser incondicionado, eterno y perfecto (el «mundo verdadero» de Platón o la «cosa en sí»).`,
+        genealogy: `Ese cuadro ha sido pintado paulatinamente por la inteligencia humana, proyectando durante milenios sus apetitos, miedos y errores morales o estéticos. Si el mundo metafísico existiera, su conocimiento sería tan inútil como saber el análisis químico del agua en medio de una tempestad; la «cosa en sí» está vacía de sentido y es digna de una «risa homérica».`
+      },
+      {
+        title: `La doble prehistoria del bien y del mal`,
+        ref: `Aforismo 45`,
+        illusion: `La moral tradicional presenta «bueno» y «malo» como categorías universales, absolutas e idénticas desde el origen de la humanidad.`,
+        genealogy: `Existen dos prehistorias contrapuestas: en las tribus y castas señoriales (como en Homero), «bueno» equivale a noble y capaz de devolver bien por bien o mal por mal, mientras «malo» es el impotente y despreciable. En el alma de los oprimidos, en cambio, todo hombre y hasta dios aparece como hostil y explotador, de modo que las muestras de bondad se reciben con angustia como engaños refinados.`
+      },
+      {
+        title: `El lenguaje, la lógica y los números`,
+        ref: `Aforismos 11, 18 y 19`,
+        illusion: `El creador de palabras y los lógicos creyeron que nombrar las cosas equivalía a captar su esencia eterna, y que en el mundo real existen objetos idénticos a sí mismos, sustancias inmóviles y líneas rectas exactas.`,
+        genealogy: `El lenguaje colocó un mundo propio al lado del mundo real: dio nombres, no ciencia suprema. La lógica y las matemáticas reposan en errores constantes heredados de organismos inferiores que solo percibían lo idéntico en relación con el placer y el dolor. En la naturaleza no hay ni cosas idénticas, ni verdaderos círculos, ni medidas absolutas: las leyes numéricas solo rigen en el terreno humano.`
+      },
+      {
+        title: `El sueño y el origen de las religiones`,
+        ref: `Aforismos 5, 12 y 13`,
+        illusion: `La tradición metafísica y religiosa concibe el alma separada del cuerpo, los espíritus y un segundo mundo sobrenatural como realidades reveladas directamente al espíritu humano.`,
+        genealogy: `En culturas primitivas, soñar era la única vía para creer en un segundo mundo real: al aparecerse el difunto en sueños se concluyó que seguía vivo y se dividió al hombre en cuerpo y alma. Además, al soñar, la mente inventa causas fantásticas para explicar excitaciones físicas reales (como soñar con dos serpientes al tener los pies vendados), repitiendo el razonamiento arcaico de la humanidad en vigilia.`
+      },
+      {
+        title: `La culpa, el ascetismo y la redención`,
+        ref: `Aforismos 107, 132, 137 y 140`,
+        illusion: `La teología cristiana explica la necesidad de redención por una pecaminosidad real del alma y atribuye el ascetismo o la mortificación a una virtud santa que acerca a Dios.`,
+        genealogy: `El hombre no llega a ese malestar por «pecado», sino por un espejo defectuoso de la razón y por la exageración deliberada de exigencias morales imposibles para que se sienta pecador. El ascetismo y el autodesprecio esconden una voluntad de dominar que, a falta de otros objetos, tiraniza fragmentos de sí mismo para combatir el cansancio de los nervios.`
+      }
+    ];
+
+    function selectDissection(idx) {
+      const buttons = document.querySelectorAll('[data-dis-idx]');
+      buttons.forEach(function (btn, i) {
+        if (i === idx) {
+          btn.classList.add('is-active');
+        } else {
+          btn.classList.remove('is-active');
+        }
+      });
+      const item = dissectionData[idx];
+      const out = document.getElementById('dissection-output');
+      if (!out || !item) return;
+      out.innerHTML = `
+        <div class="dissection-col">
+          <span class="dissection-kicker illusion">Lectura metafísica / idealista · ${item.ref}</span>
+          <h4 style="font-size: 1.25rem; margin-bottom: var(--space-sm);">${item.title}</h4>
+          <p>${item.illusion}</p>
+        </div>
+        <div class="dissection-col">
+          <span class="dissection-kicker genealogy">Disección genealógica e histórica · Nietzsche</span>
+          <h4 style="font-size: 1.25rem; margin-bottom: var(--space-sm);">Sublimación humana subyacente</h4>
+          <p>${item.genealogy}</p>
+        </div>
+      `;
+    }
+
+    // 3. Mapa relacional de conceptos
+    const conceptMapData = {
+      historico: {
+        tag: `Aforismo 2 · El pecado original`,
+        title: `Sentido histórico`,
+        summary: `Supera la ilusión filosófica de que el hombre actual —observado apenas en los últimos cuatro mil años— sea una medida eterna e inmutable.`,
+        connections: [
+          `Funda la <strong>Química de las ideas</strong> al exigir investigar el devenir de todo sentimiento.`,
+          `Desenmascara <strong>Lenguaje y sueño</strong> como residuos evolutivos de épocas arcaicas de la humanidad.`
+        ],
+        quote: `«Todo ha evolucionado; no hay hechos eternos, como no hay verdades eternas.»`
+      },
+      quimica: {
+        tag: `Aforismos 1, 9 y 16 · Disolución de opuestos`,
+        title: `Química de las ideas`,
+        summary: `Muestra que entre el bien y el mal, la verdad y el error, o el altruismo y el egoísmo no existen abismos metafísicos, sino sublimaciones graduales.`,
+        connections: [
+          `Recibe impulso del <strong>Sentido histórico</strong> para rastrear orígenes bajos de ideales sublimes.`,
+          `Desarma la culpa moral abriendo paso a la <strong>Inocencia del devenir</strong> y arma intelectualmente al <strong>Espíritu libre</strong>.`
+        ],
+        quote: `«¿Qué sucedería si esta química llegara a la conclusión de que también los colores más bellos son producto de materias viles?»`
+      },
+      ilusion: {
+        tag: `Aforismos 5, 11, 13 y 19 · Errores originarios`,
+        title: `Lenguaje y sueño`,
+        summary: `Tanto el lenguaje (al suponer palabras e identidades eternas) como el sueño (al duplicar el mundo en cuerpo y alma) edificaron los supuestos falsos de la metafísica.`,
+        connections: [
+          `Explicados genéticamente desde el <strong>Sentido histórico</strong>.`,
+          `Al revelar que la idea de voluntad libre nace de este error lógico primitivo, conducen a la <strong>Inocencia del devenir</strong>.`
+        ],
+        quote: `«Así al dormir y al soñar rehacemos una vez más la tarea de la humanidad anterior.»`
+      },
+      inocencia: {
+        tag: `Aforismos 45, 57, 107 y 133 · Crítica moral`,
+        title: `Inocencia del devenir`,
+        summary: `Si todo ser y todo acto es consecuencia necesaria de influencias previas y no existe un «acto puramente no egoísta», desaparece la culpa moral y el derecho a condenar.`,
+        connections: [
+          `Se apoya en la <strong>Química de las ideas</strong> y en la crítica a las ilusiones de <strong>Lenguaje y sueño</strong>.`,
+          `Libera al <strong>Espíritu libre</strong> del remordimiento y prepara la <strong>Transmutación cultural</strong>.`
+        ],
+        quote: `«El hombre no es responsable de nada: ni de su ser, ni de sus motivos, ni de sus actos.»`
+      },
+      espiritu: {
+        tag: `Prefacio y Aforismos 225, 291, 638`,
+        title: `Espíritu libre`,
+        summary: `Quien ha roto las cadenas de la tradición y del «deber», atraviesa la soledad y la convalecencia, y aprende a exigir razones en lugar de creencias.`,
+        connections: [
+          `Se nutre de la <strong>Química de las ideas</strong> y de la <strong>Inocencia del devenir</strong>.`,
+          `Proyecta en la historia al <strong>Buen europeo</strong> y encarna la <strong>Transmutación cultural</strong>.`
+        ],
+        quote: `«Mientras el espíritu libre quiere razones, los otros quieren creencias.»`
+      },
+      europeo: {
+        tag: `Aforismos 23 y 475 · Época de la comparación`,
+        title: `Buen europeo`,
+        summary: `Frente al nacionalismo artificial que enfrenta a los pueblos por intereses dinásticos y mercantiles, propone asumir la mezcla y polifonía cultural de Europa.`,
+        connections: [
+          `Nace de la independencia del <strong>Espíritu libre</strong> respecto a su localidad y costumbre natal.`,
+          `Contribuye a la <strong>Transmutación cultural</strong> superando las morales locales estrechas.`
+        ],
+        quote: `«No queda sino proclamarse sin miedo buen europeo y colaborar con nuestros actos a la fusión de las naciones.»`
+      },
+      transmutacion: {
+        tag: `Estudio Preliminar y Aforismos 25, 292`,
+        title: `Transmutación cultural`,
+        summary: `El fin último de la obra: reemplazar la moral negadora de la vida por fines ecuménicos autoconscientes y una cultura superior acorde con la salud y la verdad.`,
+        connections: [
+          `Sintetiza las consecuencias de la <strong>Inocencia del devenir</strong>, del <strong>Espíritu libre</strong> y del <strong>Buen europeo</strong>.`,
+          `Culmina el tránsito desde el idealismo metafísico hacia la afirmación lúcida de la existencia.`
+        ],
+        quote: `«La afirmación de una voluntad de poder capaz de transmutar todos los valores que informan la cultura occidental.»`
+      }
+    };
+
+    function handleNodeKey(evt, nodeId) {
+      if (evt.key === 'Enter' || evt.key === ' ') {
+        evt.preventDefault();
+        selectConcept(nodeId);
+      }
+    }
+
+    function selectConcept(nodeId) {
+      const data = conceptMapData[nodeId];
+      if (!data) return;
+
+      // Update pill buttons
+      const pills = document.querySelectorAll('[data-node-btn]');
+      pills.forEach(function (btn) {
+        if (btn.getAttribute('data-node-btn') === nodeId) {
+          btn.classList.add('is-active');
+        } else {
+          btn.classList.remove('is-active');
+        }
+      });
+
+      // Highlight edges and collect connected nodes
+      const connected = new Set();
+      const edges = document.querySelectorAll('#svg-edges .svg-edge');
+      edges.forEach(function (edge) {
+        const from = edge.getAttribute('data-from');
+        const to = edge.getAttribute('data-to');
+        edge.classList.remove('edge-active', 'edge-secondary', 'edge-dim');
+        if (from === nodeId) {
+          edge.classList.add('edge-active');
+          edge.setAttribute('marker-end', 'url(#arrow-pri)');
+          connected.add(to);
+        } else if (to === nodeId) {
+          edge.classList.add('edge-secondary');
+          edge.setAttribute('marker-end', 'url(#arrow-sec)');
+          connected.add(from);
+        } else {
+          edge.classList.add('edge-dim');
+          edge.setAttribute('marker-end', 'url(#arrow-ctx)');
+        }
+      });
+
+      // Highlight SVG nodes
+      const nodes = document.querySelectorAll('.svg-node');
+      nodes.forEach(function (node) {
+        const id = node.getAttribute('data-node');
+        node.classList.remove('node-selected', 'node-connected');
+        if (id === nodeId) {
+          node.classList.add('node-selected');
+        } else if (connected.has(id)) {
+          node.classList.add('node-connected');
+        }
+      });
+
+      // Render detail panel
+      const panel = document.getElementById('concept-detail');
+      if (!panel) return;
+      const connList = data.connections.map(function (c) {
+        return `<li style="margin-bottom: var(--space-xs);">${c}</li>`;
+      }).join('');
+
+      panel.innerHTML = `
+        <span class="section-label">${data.tag}</span>
+        <h3 style="margin-bottom: var(--space-sm);">${data.title}</h3>
+        <p>${data.summary}</p>
+        <p style="font-style: italic; color: var(--on-surface); border-left: 2px solid var(--primary); padding-left: var(--space-sm); margin: var(--space-md) 0;">${data.quote}</p>
+        <span class="label-text" style="color: var(--on-surface-variant); display: block; margin-bottom: var(--space-xs);">Conexiones en el sistema:</span>
+        <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.96rem;">${connList}</ul>
+      `;
+    }
+
+    // 4. Fases del espíritu libre (Prefacio §§ 3–7 y Af. 638)
+    const stagesData = [
+      {
+        label: `Estadio I · Antes de la ruptura`,
+        title: `El espíritu esclavo encadenado a su columna`,
+        left: `Al comienzo, el espíritu joven —especialmente entre hombres raros y exquisitos— permanece atado por el vínculo más sólido de todos: los deberes, el respeto, la timidez y la gratitud hacia el suelo que lo alimentó, la mano que lo guió y el santuario donde aprendió a rezar.`,
+        right: `No se trata de vulgaridad, sino de devoción sincera hacia lo antiguo y venerable. Sin embargo, mientras no cuestione esa herencia, sigue siendo un espíritu sometido que repite valores recibidos sin haberlos examinado.`
+      },
+      {
+        label: `Estadio II · El terremoto interior`,
+        title: `La gran liberación: «Antes morir que vivir aquí»`,
+        left: `La ruptura estalla súbitamente como un temblor de tierra: el alma se siente arrancada de raíz y una voz imperiosa grita «Antes morir que vivir aquí», siendo ese «aquí» todo lo que amaba hasta entonces. Aparece un odio hacia el propio amor, un impulso volcánico de expatriarse y darle la vuelta a todo.`,
+        right: `En esa primera explosión de autodeterminación lanza preguntas peligrosas: «¿No cabría invertir todos los valores? ¿No podría el bien ser el mal?» Es una enfermedad que puede aniquilarlo mientras la terrible diosa de la soledad cierra sus anillos a su alrededor.`
+      },
+      {
+        label: `Estadio III · Años de prueba y luz pálida`,
+        title: `El desierto y la lenta convalecencia`,
+        left: `Tras el aislamiento enfermizo llegan largos años de convalecencia donde se mezclan dolor y encanto, dominados por una voluntad férrea de sanar. El espíritu vive sin estar encadenado ya por amor u odio, con la vista y la insolencia del pájaro que sobrevuela las alturas heladas.`,
+        right: `La propia enfermedad y las recaídas funcionan como terapia contra el pesimismo. Poco a poco los ojos se abren con gratitud hacia las cosas cercanas, «como estos lagartos que han vuelto a medias a la vida» bajo un sol pálido de invierno.`
+      },
+      {
+        label: `Estadio IV · Madurez y horizonte abierto`,
+        title: `La gran salud, el problema de la jerarquía y el caminante`,
+        left: `Entre destellos de salud descubre el sentido del enigma: debía hacerse dueño de sus virtudes —que antes lo dominaban— para usarlas como instrumentos, comprender el carácter perspectivista de toda valoración y afrontar el verdadero problema de los espíritus libres: la jerarquía.`,
+        right: `En el aforismo 638 culmina en la figura del caminante: quien alcanza la libertad de la razón camina sin un destino final fijo, con los ojos bien abiertos, sin atar en exceso el corazón y dispuesto a soportar malas noches ante puertas cerradas en el umbral del alba.`
+      }
+    ];
+
+    function selectStage(idx) {
+      const tabs = document.querySelectorAll('[data-stage-idx]');
+      tabs.forEach(function (tab, i) {
+        if (i === idx) {
+          tab.classList.add('is-active');
+        } else {
+          tab.classList.remove('is-active');
+        }
+      });
+      const st = stagesData[idx];
+      const out = document.getElementById('stage-detail');
+      if (!out || !st) return;
+      out.innerHTML = `
+        <div>
+          <span class="section-label">${st.label}</span>
+          <h3 style="margin-bottom: var(--space-sm);">${st.title}</h3>
+          <p>${st.left}</p>
+        </div>
+        <div class="dossier-panel">
+          <span class="section-label">Significado filosófico</span>
+          <p>${st.right}</p>
+        </div>
+      `;
+    }
+
+    // 5. Ejes comparativos: Espíritu libre vs Espíritu sometido
+    const spiritAxes = [
+      {
+        ref: `Aforismos 225 y 227`,
+        freeTitle: `Espíritu libre: exige razones`,
+        freeText: `Piensa distinto a lo que cabría esperar por su origen, medio o época. Sabe que lo decisivo en el conocimiento es poseer la verdad o buscarla con rigor, sin confundir el consuelo o la utilidad personal de una idea con su certeza intelectual.`,
+        boundTitle: `Espíritu sometido: exige creencias y provecho`,
+        boundText: `Constituye la regla que sostiene al Estado, el matrimonio, la educación y el derecho. Rechaza la petición de razones y argumenta por utilidad («cree esto y verás que te va bien»), como un acusado que dijera al tribunal que su abogado dice la verdad porque pide su absolución.`
+      },
+      {
+        ref: `Aforismo 229`,
+        freeTitle: `El dilema ante el tribunal público`,
+        freeText: `Aunque el espíritu libre demuestre que siempre ha habido pensadores independientes (duración) y que no pretende importunar, no puede prometer un beneficio inmediato a los sometidos, por lo que su causa rara vez convence a la mayoría.`,
+        boundTitle: `Las cuatro medidas de lo justificado`,
+        boundText: `Los espíritus sometidos solo consideran justificadas cuatro cosas: 1) lo que tiene duración; 2) lo que no les importuna; 3) lo que les procura beneficio; y 4) aquello por lo que ya han hecho sacrificios (como una guerra impopular que despierta entusiasmo en cuanto cuesta sangre).`
+      },
+      {
+        ref: `Aforismos 283, 286 y 291`,
+        freeTitle: `El «domingo de libertad» y la sobriedad`,
+        freeText: `El espíritu libre se contenta con un pequeño empleo o lo justo para vivir, sin quedar enredado en los pliegues de la política o las finanzas. Dedica su energía acumulada a sumergirse en el océano del conocimiento y defiende su opinión individual frente a la pereza común.`,
+        boundTitle: `La mecánica de los hombres activos`,
+        boundText: `Quienes solo actúan como funcionarios, banqueros o expertos «ruedan como una piedra según el absurdo de la mecánica». Su actividad compulsiva carece de razón individual y de pausa meditativa: son perezosos para extraer agua de su propio manantial.`
+      },
+      {
+        ref: `Aforismos 426, 427, 429, 432 y 433`,
+        freeTitle: `Volar solo y desgarrar la telaraña`,
+        freeText: `Como los pájaros proféticos antiguos, el espíritu libre prefiere volar solo y no quiere ser servido ni encerrado en la «jaula de oro» de una solicitud maternal asfixiante. Odia la costumbre porque se convierte en red; incluso Sócrates necesitó una casa inhóspita con Jantipa para hacerse dialéctico de las calles.`,
+        boundTitle: `La red de hábitos y el deseo de servir`,
+        boundText: `Toda costumbre teje hilos de araña cada vez más tupidos que terminan aprisionando al individuo. Nietzsche contrapone el impulso tradicional femenino de servir y cuidar —donde encuentra su dicha— frente al espíritu libre cuya dicha reside en no ser servido.`
+      },
+      {
+        ref: `Aforismos 23 y 475`,
+        freeTitle: `El «buen europeo» en la época de la comparación`,
+        freeText: `En la época de la comparación coexisten estilos, morales y culturas diversas. El espíritu libre colabora con la fusión europea y reconoce el papel crucial de los librepensadores y sabios judíos medievales para preservar la razón grecorromana frente al oscurantismo.`,
+        boundTitle: `Nacionalismo artificial y chivos expiatorios`,
+        boundText: `El nacionalismo es un estado de sitio impuesto por dinastías reales y élites mercantiles mediante mentira y violencia. En los Estados nacionales cerrados brota la envidia y esa literatura aborrecible que usa a los judíos como chivos expiatorios de todos los males públicos.`
+      }
+    ];
+
+    function selectSpiritAxis(idx) {
+      const buttons = document.querySelectorAll('[data-axis-idx]');
+      buttons.forEach(function (btn, i) {
+        if (i === idx) {
+          btn.classList.add('is-active');
+        } else {
+          btn.classList.remove('is-active');
+        }
+      });
+      const axis = spiritAxes[idx];
+      const out = document.getElementById('spirit-comparison');
+      if (!out || !axis) return;
+      out.innerHTML = `
+        <div class="dissection-col">
+          <span class="dissection-kicker genealogy">${axis.ref} · Perspectiva emancipada</span>
+          <h4 style="font-size: 1.2rem; margin-bottom: var(--space-sm);">${axis.freeTitle}</h4>
+          <p>${axis.freeText}</p>
+        </div>
+        <div class="dissection-col">
+          <span class="dissection-kicker illusion">${axis.ref} · Perspectiva convencional</span>
+          <h4 style="font-size: 1.2rem; margin-bottom: var(--space-sm);">${axis.boundTitle}</h4>
+          <p>${axis.boundText}</p>
+        </div>
+      `;
+    }
+
+    // 6. Archivo de aforismos
+    const aphorismsData = [
+      {
+        num: `Af. 1`,
+        topic: `metafisica`,
+        topicLabel: `Metafísica y ciencia`,
+        title: `Química de las ideas y de los sentimientos`,
+        quote: `«No hay contrarios, a excepción de la habitual exageración de la concepción popular o metafísica… no existe, en un sentido estricto, ni conducta no egoísta, ni contemplación totalmente desinteresada.»`,
+        synthesis: `Inaugura el libro oponiendo la filosofía histórica —inseparable de la ciencia natural— a la metafísica tradicional.`
+      },
+      {
+        num: `Af. 2`,
+        topic: `metafisica`,
+        topicLabel: `Metafísica y ciencia`,
+        title: `El pecado original de los filósofos`,
+        quote: `«La falta de sentido histórico es el pecado original de todos los filósofos… todo ha evolucionado; no hay hechos eternos, como no hay verdades eternas.»`,
+        synthesis: `Critica que los pensadores tomen al hombre de los últimos cuatro mil años y sus facultades actuales como datos inmutables.`
+      },
+      {
+        num: `Af. 3`,
+        topic: `metafisica`,
+        topicLabel: `Metafísica y ciencia`,
+        title: `La estimación de las verdades sin apariencia`,
+        quote: `«Una civilización superior se caracteriza por estimar más las pequeñas verdades sin apariencia que han sido descubiertas con un método estricto, que los errores bienhechores y deslumbrantes.»`,
+        synthesis: `Defiende la honradez y templanza científica frente al prestigio fácil de los símbolos metafísicos y artísticos.`
+      },
+      {
+        num: `Af. 9`,
+        topic: `metafisica`,
+        topicLabel: `Metafísica y ciencia`,
+        title: `El mundo metafísico`,
+        quote: `«Su conocimiento es para nosotros el más indiferente, más aún de lo que es para quien navega en medio de una tempestad conocer el análisis químico del agua.»`,
+        synthesis: `Aunque no pueda descartarse lógicamente la posibilidad de un mundo metafísico, los peores métodos cognoscitivos lo inventaron y carece de valor práctico para la vida.`
+      },
+      {
+        num: `Af. 13`,
+        topic: `metafisica`,
+        topicLabel: `Metafísica y ciencia`,
+        title: `La lógica del sueño`,
+        quote: `«Durante el sueño sigue actuando en nosotros ese residuo muy antiguo de humanidad… el sueño nos conduce a lejanos estados de la civilización humana.»`,
+        synthesis: `Explica cómo la mente dormida deduce al revés causas imaginarias a partir de estímulos físicos (como el sonido de una campana o unas vendas), tal como razonaba la humanidad arcaica.`
+      },
+      {
+        num: `Af. 23`,
+        topic: `cultura`,
+        topicLabel: `Cultura e historia`,
+        title: `La época de la comparación`,
+        quote: `«En ella pueden compararse y vivirse unas junto a otras concepciones del mundo, costumbres y culturas diferentes… ¡Es la época de la comparación! Éste es su orgullo, pero también su desgracia.»`,
+        synthesis: `Al romperse la sujeción local de la tradición, las distintas culturas y morales compiten abiertamente entre sí.`
+      },
+      {
+        num: `Af. 37`,
+        topic: `moral`,
+        topicLabel: `Moral y religión`,
+        title: `La mesa de disección psicológica`,
+        quote: `«El hombre moral no está más cerca del mundo inteligible (metafísico) que el hombre físico.»`,
+        synthesis: `Cita esta proposición afilada «bajo los martillazos de la ciencia histórica» como el hacha dirigida contra la raíz de la necesidad metafísica.`
+      },
+      {
+        num: `Af. 45`,
+        topic: `moral`,
+        topicLabel: `Moral y religión`,
+        title: `La doble prehistoria del bien y del mal`,
+        quote: `«En el alma de las tribus y de las castas señoriales, se llama bueno a quien puede pagar con la misma moneda… En el alma de los oprimidos se considera que todo hombre es hostil y pérfido.»`,
+        synthesis: `Traza el origen histórico de la moral de señores (Homero) frente a la moral nacida del temor y la impotencia.`
+      },
+      {
+        num: `Af. 57`,
+        topic: `moral`,
+        topicLabel: `Moral y religión`,
+        title: `La moral como autodivisión del hombre`,
+        quote: `«En moral, el hombre no se trata como un individuum, sino como un dividuum.»`,
+        synthesis: `El autor, la enamorada, el soldado y la madre sacrifican una parte de sí en favor de otra que desean más intensamente; no hay milagro altruista.`
+      },
+      {
+        num: `Af. 107`,
+        topic: `moral`,
+        topicLabel: `Moral y religión`,
+        title: `Irresponsabilidad e inocencia`,
+        quote: `«La irresponsabilidad total del hombre respecto a sus actos y a su ser es la gota más amarga que ha de tragar el hombre del conocimiento.»`,
+        synthesis: `Superar la idea de culpa permite mirar las acciones humanas como fenómenos necesarios de la naturaleza, con dolores de parto hacia la libertad.`
+      },
+      {
+        num: `Af. 225`,
+        topic: `espiritu`,
+        topicLabel: `Espíritu libre y vida`,
+        title: `El espíritu libre, un concepto relativo`,
+        quote: `«Llamamos espíritu libre a quien piensa de un modo diferente a como cabía esperar atendiendo su origen, su medio ambiente, su situación… mientras el espíritu libre quiere razones, los otros quieren creencias.»`,
+        synthesis: `Define el carácter relativo del espíritu libre por su emancipación de la tradición y su compromiso con la búsqueda racional.`
+      },
+      {
+        num: `Af. 475`,
+        topic: `cultura`,
+        topicLabel: `Cultura e historia`,
+        title: `El hombre europeo y la destrucción de las naciones`,
+        quote: `«No queda sino proclamarse sin miedo buen europeo y colaborar con nuestros actos a la fusión de las naciones.»`,
+        synthesis: `Critica el nacionalismo artificial y reivindica el mestizaje europeo y el legado ilustrado transmitido por los sabios judíos.`
+      },
+      {
+        num: `Af. 638`,
+        topic: `espiritu`,
+        topicLabel: `Espíritu libre y vida`,
+        title: `El caminante`,
+        quote: `«Quien ha alcanzado la libertad de la razón, aunque sólo sea en cierta medida, no puede menos que sentirse en la tierra como un caminante, pero un caminante que no se dirige hacia un punto de destino, porque no lo hay.»`,
+        synthesis: `Cierra el horizonte existencial de la obra: lucidez sin anclas dogmáticas, atenta a todo lo que ocurre en el mundo.`
+      }
+    ];
+
+    function filterAphorisms() {
+      const searchEl = document.getElementById('aphorism-search');
+      const topicEl = document.getElementById('aphorism-topic');
+      const listEl = document.getElementById('aphorism-list');
+      const countEl = document.getElementById('aphorism-count');
+      if (!searchEl || !topicEl || !listEl || !countEl) return;
+
+      const q = searchEl.value.trim().toLowerCase();
+      const topic = topicEl.value;
+
+      const filtered = aphorismsData.filter(function (a) {
+        const matchTopic = topic === 'todos' || a.topic === topic;
+        const haystack = `${a.num} ${a.title} ${a.quote} ${a.synthesis} ${a.topicLabel}`.toLowerCase();
+        const matchQuery = q === '' || haystack.indexOf(q) !== -1;
+        return matchTopic && matchQuery;
+      });
+
+      countEl.textContent = `Mostrando ${filtered.length} de ${aphorismsData.length} aforismos seleccionados`;
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = `
+          <div style="grid-column: 1 / -1; border-top: var(--rule-ink); padding: var(--space-lg) 0;">
+            <p><strong>Sin coincidencias.</strong> Ningún aforismo del archivo contiene «${searchEl.value.trim()}» en este eje temático.</p>
+            <button type="button" onclick="resetAphorismFilters()">Restablecer filtros</button>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = filtered.map(function (a) {
+        return `
+          <article class="aphorism-item">
+            <div class="aphorism-head">
+              <span class="aphorism-num">${a.num}</span>
+              <span class="tag">${a.topicLabel}</span>
+            </div>
+            <h3 class="aphorism-title">${a.title}</h3>
+            <p class="aphorism-quote">${a.quote}</p>
+            <p class="aphorism-synthesis">${a.synthesis}</p>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function resetAphorismFilters() {
+      const searchEl = document.getElementById('aphorism-search');
+      const topicEl = document.getElementById('aphorism-topic');
+      if (searchEl) searchEl.value = '';
+      if (topicEl) topicEl.value = 'todos';
+      filterAphorisms();
+    }
+
+    // 7. Autoevaluación interactiva (5 preguntas estrictamente basadas en la fuente)
+    const quizQuestions = [
+      {
+        q: `Según <em>Ecce Homo</em> (§1), ¿qué significa el título «Humano, demasiado humano» y cómo actúa el libro frente a los ideales tradicionales?`,
+        options: [
+          `Significa que debemos conservar los ideales platónicos aunque resulten difíciles de alcanzar.`,
+          `Significa que donde otros ven cosas ideales, Nietzsche ve cosas humanas; y no refuta el ideal con polémica patética, sino que lo «hiela».`,
+          `Significa que el arte wagneriano es la única vía para redimir las miserias humanas.`
+        ],
+        correct: 1,
+        explanation: `Correcto. En Ecce Homo (§1) afirma: «Allí donde vosotros veis cosas ideales, yo veo cosas humanas, demasiado humanas» y explica que «el ideal no es refutado, es helado» bajo una capa de hielo.`
+      },
+      {
+        q: `En el aforismo 2 («El pecado original de los filósofos»), ¿cuál es el defecto común de toda la filosofía tradicional?`,
+        options: [
+          `Su falta de sentido histórico: toma al hombre de los últimos cuatro mil años como una verdad eterna e inmutable.`,
+          `Haber estudiado demasiado las ciencias naturales y la fisiología.`,
+          `No haber leído con suficiente detalle los diálogos socráticos.`
+        ],
+        correct: 0,
+        explanation: `Exacto. Nietzsche sostiene en el Af. 2 que todo ha evolucionado y que no hay hechos eternos ni verdades eternas, por lo que urge la filosofía histórica y la modestia.`
+      },
+      {
+        q: `¿Por qué sostiene Nietzsche en el aforismo 57 que en la moral el hombre no se trata como un «individuum», sino como un «dividuum»?`,
+        options: [
+          `Porque la sociedad divide jurídicamente a las castas señoriales de los esclavos.`,
+          `Porque en actos llamados altruistas (como la madre, el soldado o el autor) el individuo divide su ser y sacrifica una parte por otra que ama más.`,
+          `Porque durante el sueño la memoria se fragmenta en múltiples recuerdos.`
+        ],
+        correct: 1,
+        explanation: `Muy bien. Frente a Schopenhauer, el Af. 57 muestra que ceder a un deseo o inclinación hacia otro ser o idea no es un milagro no-egoísta, sino autodivisión.`
+      },
+      {
+        q: `Según el aforismo 225, ¿qué rasgo distingue esencialmente al «espíritu libre» del «espíritu sometido»?`,
+        options: [
+          `El espíritu libre siempre tiene opiniones moralmente más consoladoras.`,
+          `El espíritu libre vive únicamente de sus rentas y evita toda actividad intelectual.`,
+          `El espíritu libre se ha liberado de las tradiciones y quiere razones, mientras los sometidos quieren creencias.`
+        ],
+        correct: 2,
+        explanation: `Correcto. Af. 225: el espíritu libre piensa distinto a lo esperado según su origen o época; puede incluso equivocarse, pero exige razones frente a la fe en la utilidad o la tradición.`
+      },
+      {
+        q: `En el aforismo 475 («El hombre europeo y la destrucción de las naciones»), ¿qué postura defiende Nietzsche frente al nacionalismo de su época?`,
+        options: [
+          `Denuncia el nacionalismo como un estado de sitio artificial y llama a proclamarse «buen europeo», valorando la contribución ilustrada de los sabios judíos.`,
+          `Propone reforzar las fronteras de los Estados nacionales para proteger el arte alemán.`,
+          `Defiende que Europa debe regresar al aislamiento cultural de las ciudades antiguas.`
+        ],
+        correct: 0,
+        explanation: `Exacto. Nietzsche califica el nacionalismo de estado de sitio artificial impuesto por dinastías y élites mercantiles, y aboga por la fusión europea como continuación de la Ilustración grecorromana.`
+      }
+    ];
+
+    let currentQ = 0;
+    const userAnswers = [null, null, null, null, null];
+
+    function renderQuiz() {
+      const bodyEl = document.getElementById('quiz-body');
+      const scoreEl = document.getElementById('quiz-score-display');
+      if (!bodyEl || !scoreEl) return;
+
+      const totalCorrect = userAnswers.reduce(function (acc, ans, idx) {
+        return acc + (ans === quizQuestions[idx].correct ? 1 : 0);
+      }, 0);
+      scoreEl.textContent = `Aciertos: ${totalCorrect} / ${quizQuestions.length}`;
+
+      const item = quizQuestions[currentQ];
+      const chosen = userAnswers[currentQ];
+      const answered = chosen !== null;
+
+      const optionsHtml = item.options.map(function (opt, idx) {
+        let cls = 'quiz-option-btn';
+        if (answered) {
+          if (idx === item.correct) cls += ' opt-correct';
+          else if (idx === chosen) cls += ' opt-wrong';
+        }
+        return `
+          <button type="button" class="${cls}" ${answered ? 'disabled' : ''} onclick="answerQuiz(${idx})">
+            <span><strong>${String.fromCharCode(65 + idx)}.</strong> ${opt}</span>
+          </button>
+        `;
+      }).join('');
+
+      let feedbackHtml = '';
+      if (answered) {
+        const isRight = chosen === item.correct;
+        feedbackHtml = `
+          <div class="quiz-feedback" style="border-left-color: ${isRight ? 'var(--positive)' : 'var(--error)'};">
+            <span class="label-text" style="color: ${isRight ? 'var(--positive)' : 'var(--error)'}; display: block; margin-bottom: var(--space-xs);">
+              ${isRight ? 'Respuesta correcta' : 'Revisa este punto'}
+            </span>
+            <p style="font-size: 0.96rem;">${item.explanation}</p>
+          </div>
+        `;
+      }
+
+      bodyEl.innerHTML = `
+        <span class="label-text" style="color: var(--on-surface-variant);">Pregunta ${currentQ + 1} de ${quizQuestions.length}</span>
+        <p style="font-family: var(--font-headline); font-weight: 700; font-size: 1.15rem; margin-top: var(--space-xs); color: var(--on-surface);">${item.q}</p>
+        <div class="quiz-options">${optionsHtml}</div>
+        ${feedbackHtml}
+        <div class="quiz-nav">
+          <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap;">
+            <button type="button" onclick="prevQuiz()" ${currentQ === 0 ? 'disabled' : ''}>Anterior</button>
+            <button type="button" class="btn-primary" onclick="nextQuiz()" ${currentQ === quizQuestions.length - 1 ? 'disabled' : ''}>Siguiente</button>
+          </div>
+          <button type="button" id="quiz-reset-btn" data-armed="false" onclick="resetQuiz(this)">Reiniciar cuestionario</button>
+        </div>
+      `;
+    }
+
+    function answerQuiz(optIdx) {
+      if (userAnswers[currentQ] !== null) return;
+      userAnswers[currentQ] = optIdx;
+      renderQuiz();
+    }
+
+    function prevQuiz() {
+      if (currentQ > 0) {
+        currentQ--;
+        renderQuiz();
+      }
+    }
+
+    function nextQuiz() {
+      if (currentQ < quizQuestions.length - 1) {
+        currentQ++;
+        renderQuiz();
+      }
+    }
+
+    function resetQuiz(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = 'Pulsa de nuevo para reiniciar';
+        return;
+      }
+      btn.dataset.armed = 'false';
+      for (let i = 0; i < userAnswers.length; i++) {
+        userAnswers[i] = null;
+      }
+      currentQ = 0;
+      renderQuiz();
+    }
+
+    // 8. Acordeón FAQ
+    function toggleFaq(btn) {
+      if (!btn) return;
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      const panelId = btn.getAttribute('aria-controls');
+      const panel = panelId ? document.getElementById(panelId) : null;
+      btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      if (panel) {
+        if (expanded) panel.setAttribute('hidden', '');
+        else panel.removeAttribute('hidden');
+      }
+    }
+
+    // 9. Observador de aparición suave (IntersectionObserver)
+    function initRevealObserver() {
+      const els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+      const obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      els.forEach(function (el) { obs.observe(el); });
+    }
+
+    // Inicialización al cargar el DOM
+    document.addEventListener('DOMContentLoaded', function () {
+      selectTimeline(0);
+      selectDissection(0);
+      selectConcept('historico');
+      selectStage(0);
+      selectSpiritAxis(0);
+      filterAphorisms();
+      renderQuiz();
+      initRevealObserver();
+    });
+  </script>
+</body>
+</html>

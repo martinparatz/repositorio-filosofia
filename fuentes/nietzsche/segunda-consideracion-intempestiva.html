@@ -1,0 +1,2117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>Segunda consideración intempestiva — Base de conocimientos filosófica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Broadsheet tokens */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      --primary: #990f3d;
+      --primary-hover: #750b2e;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* 3. Shared tokens */
+      --positive: #0d7680;
+      --warning: #9a6312;
+      --focus: #990f3d;
+
+      /* Narrative type scale */
+      --display-size:  clamp(2.2rem, 1.3rem + 3.4vw, 3.85rem);
+      --headline-size: clamp(1.6rem, 1.15rem + 1.6vw, 2.3rem);
+      --subhead-size:  clamp(1.18rem, 1.05rem + 0.5vw, 1.42rem);
+      --body-size:     clamp(1.0625rem, 1rem + 0.2vw, 1.14rem);
+      --label-size:    clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long:  420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      font-optical-sizing: auto;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.07;
+      letter-spacing: -0.015em;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.2;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 66ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .lede {
+      font-family: var(--font-body);
+      font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.32rem);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 58ch;
+      margin-top: var(--space-md);
+    }
+
+    .label, .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1.3;
+    }
+    .section-label {
+      color: var(--primary);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+    }
+
+    .tabular-nums {
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    /* Masthead (Treatment 1) */
+    .masthead-line {
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      color: var(--on-surface-variant);
+    }
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+    .masthead-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .epigraph-box {
+      border-left: 2px solid var(--primary);
+      padding-left: var(--space-md);
+      margin-top: var(--space-xs);
+    }
+    .epigraph-quote {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.06rem, 1rem + 0.3vw, 1.22rem);
+      line-height: 1.45;
+      color: var(--on-surface);
+      margin-bottom: var(--space-xs);
+    }
+    .epigraph-source {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+
+    /* Key figures row (Treatment 3: Column hairlines) */
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      margin-top: var(--space-lg);
+      padding-top: var(--space-md);
+      border-top: var(--rule-column);
+    }
+    .columns > * {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-md);
+      background: transparent;
+    }
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .kpi-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      display: block;
+    }
+    .kpi-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.75rem);
+      line-height: 1.15;
+      color: var(--on-surface);
+      margin: var(--space-xs) 0;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .kpi-delta {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      line-height: 1.35;
+    }
+
+    /* Section Navigation Index */
+    .section-nav {
+      border-bottom: var(--rule-ink);
+      padding-bottom: var(--space-md);
+    }
+    .section-nav-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:hover {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .nav-link.is-active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* Section Openings (Treatment 4) */
+    .section-block {
+      border-top: var(--rule-section);
+      padding-top: var(--space-md);
+      scroll-margin-top: var(--space-lg);
+    }
+    .section-head {
+      margin-bottom: var(--space-lg);
+    }
+    .section-head p {
+      margin-top: var(--space-sm);
+      color: var(--on-surface-variant);
+      max-width: 62ch;
+    }
+
+    /* Asymmetric Editorial Grid */
+    .editorial-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .editorial-split-wide {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Key points list with hairlines */
+    .key-points {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: var(--rule-ink);
+    }
+    .key-points li {
+      padding: var(--space-md) 0;
+      border-bottom: var(--rule-column);
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: baseline;
+    }
+    .point-num {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--primary);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .point-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--on-surface);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .point-desc {
+      font-size: 0.96rem;
+      color: var(--on-surface-variant);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Interactive Panel (rare filled newsprint container for tools) */
+    .dossier-panel {
+      background-color: var(--surface-container-low);
+      border: var(--rule-ink);
+      padding: var(--space-lg);
+    }
+    .dossier-panel-head {
+      border-bottom: var(--rule-ink);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+
+    /* Buttons (square, no shadows, >= 44px touch targets) */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      background-color: var(--background);
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover {
+      background-color: var(--surface-container);
+    }
+    .btn:active {
+      background-color: var(--surface-container-high);
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      border-color: var(--primary-hover);
+      color: var(--on-primary);
+    }
+    .btn-secondary {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+    }
+    .btn-secondary:hover {
+      background-color: var(--surface-container-high);
+    }
+    .btn-is-selected {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-is-selected:hover {
+      background-color: var(--primary-hover);
+      color: var(--on-primary);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: end;
+    }
+
+    /* Form Controls */
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+    }
+    .control-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+    .control-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface);
+    }
+    .control-val {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--primary);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    input[type="range"] {
+      width: 100%;
+      min-height: 44px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      margin: 0;
+    }
+    .text-input {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--on-surface);
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+    }
+    .text-input:focus {
+      border-color: var(--primary);
+    }
+
+    /* Pull quotes */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+      margin-block: var(--space-lg);
+    }
+    .pull-quote blockquote {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.55rem);
+      line-height: 1.4;
+      color: var(--on-surface);
+    }
+    .pull-quote cite {
+      display: block;
+      margin-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    /* 3-Column Ruled Comparison */
+    .three-cols {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      margin-top: var(--space-md);
+    }
+    .three-cols > * {
+      border-left: var(--rule-column);
+      padding: var(--space-lg) var(--space-lg);
+    }
+    .three-cols > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .three-cols > :last-child {
+      padding-right: 0;
+    }
+
+    /* Broadsheet Table */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: var(--space-md);
+    }
+    table.bs-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.96rem;
+    }
+    table.bs-table thead th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-sm) var(--space-md);
+    }
+    table.bs-table tbody td {
+      padding: var(--space-md);
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+      color: var(--on-surface);
+    }
+    table.bs-table tbody tr:last-child td {
+      border-bottom: var(--rule-ink);
+    }
+    table.bs-table th:first-child,
+    table.bs-table td:first-child {
+      padding-left: 0;
+    }
+
+    /* SVG & Chart containers */
+    .viz-frame {
+      width: 100%;
+      min-height: 290px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .viz-caption {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      border-top: var(--rule-column);
+      padding-top: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+    .arch-node {
+      cursor: pointer;
+      transition: opacity var(--dur-micro) var(--ease-out);
+    }
+    .arch-node:hover rect {
+      stroke: var(--primary);
+      stroke-width: 2;
+    }
+    .arch-node.is-active rect {
+      fill: var(--primary-container);
+      stroke: var(--primary);
+      stroke-width: 2;
+    }
+
+    /* Simulator metric strip */
+    .sim-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      margin-top: var(--space-md);
+      padding-block: var(--space-sm);
+    }
+    .sim-metrics > * {
+      border-left: var(--rule-column);
+      padding-inline: var(--space-sm);
+    }
+    .sim-metrics > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    /* Symptom Inspector */
+    .symptom-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .symptom-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      border-top: var(--rule-ink);
+      padding-top: var(--space-sm);
+    }
+    .symptom-btn {
+      width: 100%;
+      min-height: 48px;
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      background: transparent;
+      color: var(--on-surface);
+      border: 0;
+      border-bottom: var(--rule-column);
+      border-left: 3px solid transparent;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .symptom-btn:hover {
+      background-color: var(--surface-container-low);
+    }
+    .symptom-btn.is-active {
+      background-color: var(--surface-container-low);
+      border-left-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Glossary & Quote Cards (Rule-separated, 2-col grid) */
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg) var(--space-xl);
+      margin-top: var(--space-lg);
+    }
+    .glossary-entry {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+    }
+    .glossary-entry-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-xs);
+    }
+    .glossary-quote {
+      font-style: italic;
+      color: var(--on-surface-variant);
+      border-left: 2px solid var(--outline-variant);
+      padding-left: var(--space-sm);
+      margin-top: var(--space-sm);
+      font-size: 0.95rem;
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      border-top: var(--rule-ink);
+    }
+    .faq-item {
+      border-bottom: var(--rule-column);
+    }
+    .faq-trigger {
+      width: 100%;
+      min-height: 52px;
+      padding: var(--space-md) 0;
+      background: transparent;
+      border: 0;
+      text-align: left;
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.08rem, 1rem + 0.3vw, 1.25rem);
+      color: var(--on-surface);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    .faq-trigger:hover {
+      color: var(--primary);
+    }
+    .faq-icon {
+      flex-shrink: 0;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--primary);
+      width: 24px;
+      text-align: center;
+    }
+    .faq-panel {
+      padding-bottom: var(--space-md);
+      color: var(--on-surface-variant);
+      max-width: 68ch;
+    }
+    .faq-panel[hidden] {
+      display: none;
+    }
+
+    /* Footer */
+    .colophon {
+      border-top: var(--rule-masthead);
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-2xl);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-md);
+      color: var(--on-surface-variant);
+      font-size: 0.92rem;
+    }
+
+    /* Subtle reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .masthead-grid,
+      .editorial-split,
+      .editorial-split-wide,
+      .symptom-layout,
+      .glossary-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-md) 0;
+      }
+      .columns > :nth-child(3) {
+        border-left: 0;
+        padding-left: 0;
+      }
+      .three-cols {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .three-cols > * {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-md) 0;
+      }
+      .three-cols > :first-child {
+        border-top: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: minmax(0, 1fr);
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .columns,
+      .sim-metrics {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-sm);
+      }
+      .columns > *,
+      .sim-metrics > * {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-sm) 0 0 0;
+      }
+      .columns > :first-child,
+      .sim-metrics > :first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- MASTHEAD -->
+    <header>
+      <div class="masthead-line">
+        <span>Archivo Filosófico · Edición Analítica</span>
+        <span>Friedrich Nietzsche · Basilea, 1874</span>
+      </div>
+
+      <div class="masthead">
+        <div class="masthead-grid">
+          <div>
+            <span class="section-label">Segunda consideración intempestiva</span>
+            <h1>Sobre la utilidad y el perjuicio de la historia para la vida</h1>
+            <p class="lede">
+              Un tratado contra la «fiebre histórica» de la modernidad: por qué la memoria sin olvido paraliza la acción, cómo la <em>fuerza plástica</em> transforma el pasado en vitalidad y en qué condiciones la historia monumental, anticuaria y crítica sirven o destruyen a una cultura.
+            </p>
+          </div>
+          <aside class="epigraph-box" aria-label="Epígrafe de Goethe">
+            <p class="epigraph-quote">
+              «Por cierto, me resulta odioso todo aquello que sólo me instruye, sin alimentar a su vez mi actividad o vitalizarme de forma inminente.»
+            </p>
+            <span class="epigraph-source">Goethe — Cita inaugural del Prólogo (§1)</span>
+          </aside>
+        </div>
+
+        <div class="columns" aria-label="Cifras estructurales de la obra">
+          <div>
+            <span class="kpi-label">Principio rector</span>
+            <div class="kpi-value">Vida &gt; Saber</div>
+            <div class="kpi-delta">La historia sólo vale al servicio de la acción</div>
+          </div>
+          <div>
+            <span class="kpi-label">Modos historiográficos</span>
+            <div class="kpi-value">3 Formas</div>
+            <div class="kpi-delta">Monumental, anticuaria y crítica</div>
+          </div>
+          <div>
+            <span class="kpi-label">Peligros del exceso</span>
+            <div class="kpi-value">5 Síntomas</div>
+            <div class="kpi-delta">De la escisión interior al cinismo moderno</div>
+          </div>
+          <div>
+            <span class="kpi-label">Higiene vital</span>
+            <div class="kpi-value">2 Antídotos</div>
+            <div class="kpi-delta">Lo ahistórico (olvido) y lo suprahistórico</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- NAVEGACIÓN POR SECCIONES -->
+    <nav class="section-nav" aria-label="Navegación por secciones del tratado">
+      <ul class="section-nav-list">
+        <li><a class="nav-link is-active" href="#vista-principal">Vista principal</a></li>
+        <li><a class="nav-link" href="#ahistorico-suprahistorico">Ahistórico y suprahistórico</a></li>
+        <li><a class="nav-link" href="#fuerza-plastica">Fuerza plástica</a></li>
+        <li><a class="nav-link" href="#tres-historias">Tres modos de historia</a></li>
+        <li><a class="nav-link" href="#enfermedad-historica">Enfermedad histórica</a></li>
+        <li><a class="nav-link" href="#explorador-textual">Glosario y citas</a></li>
+        <li><a class="nav-link" href="#preguntas-frecuentes">Preguntas frecuentes</a></li>
+      </ul>
+    </nav>
+
+    <main id="contenido-principal">
+
+      <!-- SECCIÓN I: VISTA PRINCIPAL -->
+      <section id="vista-principal" class="section-block reveal">
+        <div class="section-head">
+          <span class="section-label">I. Vista principal · Prólogo y tesis central</span>
+          <h2>La historia debe servir a la vida y no enterrar el presente</h2>
+          <p>
+            Nietzsche escribe en 1874 en sentido contrario al orgullo de su época —la erudición histórica— para diagnosticar una virtud hipertrófica que amenaza con arruinar a los pueblos modernos.
+          </p>
+        </div>
+
+        <div class="editorial-split">
+          <div>
+            <p>
+              Necesitamos la historia, pero no como el «hombre mimado que deambula ociosamente en el jardín del saber», sino para la vida y para la acción. Cuando el estudio del pasado se convierte en un lujo superfluo o en una ciencia pura y soberana —bajo la divisa <em>fiat veritas, pereat vita</em>—, el conocimiento deja de alimentar la voluntad humana y degenera en parálisis.
+            </p>
+            <p>
+              Como filólogo clásico y discípulo de la Antigüedad helénica, Nietzsche asume una postura deliberadamente <strong>intempestiva</strong>: actuar contra el espíritu contemporáneo para sanar la «fiebre histórica». Donde su siglo celebra la acumulación de erudición, él ve a «gallinas exhaustas» que cacarean más que nunca y ponen huevos cada vez más pequeños, aunque sus libros sean cada vez más voluminosos.
+            </p>
+
+            <h3 style="margin-top: var(--space-lg); margin-bottom: var(--space-sm);">Puntos clave del argumento</h3>
+            <ul class="key-points">
+              <li>
+                <span class="point-num">01</span>
+                <div>
+                  <span class="point-title">Subordinación del saber a la vida</span>
+                  <p class="point-desc">Todo conocimiento histórico es curativo únicamente cuando está dominado y conducido por una fuerza vital mayor; si la ciencia domina sola, se destruye la vida y, con ella, el propio conocimiento.</p>
+                </div>
+              </li>
+              <li>
+                <span class="point-num">02</span>
+                <div>
+                  <span class="point-title">La necesidad biológica del olvido</span>
+                  <p class="point-desc">Es posible vivir casi sin recuerdos (como el animal), pero es «determinantemente imposible vivir sin olvido». Toda acción exige cerrar un horizonte y suspender el devenir infinito.</p>
+                </div>
+              </li>
+              <li>
+                <span class="point-num">03</span>
+                <div>
+                  <span class="point-title">Tres usos y tres corrupciones</span>
+                  <p class="point-desc">Las perspectivas monumental, anticuaria y crítica responden a necesidades reales de quien actúa, venera o busca liberación; fuera de su «suelo materno» se vuelven hierbas devastadoras.</p>
+                </div>
+              </li>
+              <li>
+                <span class="point-num">04</span>
+                <div>
+                  <span class="point-title">Cultura verdadera frente a «culturalismo»</span>
+                  <p class="point-desc">Una cultura auténtica es unidad de estilo y unanimidad entre vida, pensamiento, apariencia y voluntad (modelo helénico), no una «enciclopedia caminante» dividida entre interior caótico y exterior bárbaro.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Esquema Interactivo de la Obra -->
+          <div class="dossier-panel">
+            <div class="dossier-panel-head">
+              <span class="label">Mapa interactivo del tratado</span>
+              <span class="label" style="color: var(--primary);">Pulse un nodo</span>
+            </div>
+            <div class="viz-frame" style="min-height: 290px;">
+              <svg viewBox="0 0 420 300" width="100%" height="290" role="img" aria-label="Esquema conceptual interactivo de la Segunda consideración intempestiva">
+                <!-- Líneas conectoras -->
+                <line x1="210" y1="54" x2="210" y2="104" stroke="var(--outline)" stroke-width="1.5" />
+                <line x1="210" y1="156" x2="80" y2="212" stroke="var(--outline)" stroke-width="1.5" />
+                <line x1="210" y1="156" x2="210" y2="212" stroke="var(--outline)" stroke-width="1.5" />
+                <line x1="210" y1="156" x2="340" y2="212" stroke="var(--outline)" stroke-width="1.5" />
+
+                <!-- Nodo superior: Vida y Fuerza Plástica -->
+                <g class="arch-node is-active" data-node="vida" tabindex="0" role="button" aria-label="Nodo: Vida y fuerza plástica" onclick="selectArchNode('vida')" onkeydown="handleArchKey(event, 'vida')">
+                  <rect x="85" y="10" width="250" height="44" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="210" y="29" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700" fill="var(--primary)">EJE CENTRAL · CAP. 1</text>
+                  <text x="210" y="45" text-anchor="middle" font-family="Bitter, serif" font-size="13" font-weight="700" fill="var(--on-surface)">Vida, olvido y fuerza plástica</text>
+                </g>
+
+                <!-- Nodo medio: Tres Modos -->
+                <g class="arch-node" data-node="modos" tabindex="0" role="button" aria-label="Nodo: Tres concepciones de la historia" onclick="selectArchNode('modos')" onkeydown="handleArchKey(event, 'modos')">
+                  <rect x="65" y="104" width="290" height="52" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="210" y="123" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700" fill="var(--primary)">HISTORIOGRAFÍA · CAP. 2–3</text>
+                  <text x="210" y="140" text-anchor="middle" font-family="Bitter, serif" font-size="13" font-weight="700" fill="var(--on-surface)">Monumental · Anticuaria · Crítica</text>
+                </g>
+
+                <!-- Nodo inferior izquierdo: Patología -->
+                <g class="arch-node" data-node="fiebre" tabindex="0" role="button" aria-label="Nodo: Fiebre histórica y 5 males" onclick="selectArchNode('fiebre')" onkeydown="handleArchKey(event, 'fiebre')">
+                  <rect x="10" y="212" width="132" height="62" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="76" y="232" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--error)">CAP. 4–9</text>
+                  <text x="76" y="249" text-anchor="middle" font-family="Bitter, serif" font-size="12" font-weight="700" fill="var(--on-surface)">Enfermedad</text>
+                  <text x="76" y="264" text-anchor="middle" font-family="Bitter, serif" font-size="12" font-weight="700" fill="var(--on-surface)">histórica</text>
+                </g>
+
+                <!-- Nodo inferior centro: Antídotos -->
+                <g class="arch-node" data-node="antidotos" tabindex="0" role="button" aria-label="Nodo: Lo ahistórico y lo suprahistórico" onclick="selectArchNode('antidotos')" onkeydown="handleArchKey(event, 'antidotos')">
+                  <rect x="148" y="212" width="124" height="62" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="210" y="232" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--primary)">CAP. 10</text>
+                  <text x="210" y="249" text-anchor="middle" font-family="Bitter, serif" font-size="12" font-weight="700" fill="var(--on-surface)">Ahistórico y</text>
+                  <text x="210" y="264" text-anchor="middle" font-family="Bitter, serif" font-size="12" font-weight="700" fill="var(--on-surface)">Suprahistórico</text>
+                </g>
+
+                <!-- Nodo inferior derecho: Physis -->
+                <g class="arch-node" data-node="physis" tabindex="0" role="button" aria-label="Nodo: Cultura como physis helénica" onclick="selectArchNode('physis')" onkeydown="handleArchKey(event, 'physis')">
+                  <rect x="278" y="212" width="132" height="62" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="344" y="232" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--primary)">CAP. 10 (§17)</text>
+                  <text x="344" y="249" text-anchor="middle" font-family="Bitter, serif" font-size="12" font-weight="700" fill="var(--on-surface)">Cultura como</text>
+                  <text x="344" y="264" text-anchor="middle" font-family="Bitter, serif" font-size="12" font-weight="700" fill="var(--on-surface)">Physis</text>
+                </g>
+              </svg>
+            </div>
+            <div id="arch-detail" style="border-top: var(--rule-ink); padding-top: var(--space-md); margin-top: var(--space-sm);">
+              <span class="label" style="color: var(--primary);" id="arch-detail-kicker">Eje central · Capítulo 1</span>
+              <h3 id="arch-detail-title" style="margin-top: var(--space-xs);">Vida, olvido y fuerza plástica</h3>
+              <p id="arch-detail-body" style="margin-top: var(--space-xs); font-size: 0.96rem; color: var(--on-surface-variant);">
+                La salud de un individuo, un pueblo o una cultura depende de saber olvidar y recordar en el momento justo, según la capacidad plástica de asimilar el pasado sin quedar aplastado por él.
+              </p>
+              <a id="arch-detail-link" href="#fuerza-plastica" class="btn btn-secondary" style="margin-top: var(--space-sm); text-decoration: none;">Ir a Fuerza plástica</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN II: LO AHISTÓRICO Y LO SUPRAHISTÓRICO -->
+      <section id="ahistorico-suprahistorico" class="section-block reveal">
+        <div class="section-head">
+          <span class="section-label">II. Horizonte temporal · Capítulos 1 y 10</span>
+          <h2>Lo ahistórico, lo histórico y lo suprahistórico</h2>
+          <p>
+            Frente al animal amarrado al instante, el ser humano carga con la cadena del «érase una vez». Nietzsche distingue tres modos de situarse ante el tiempo y señala dos antídotos contra la saturación histórica.
+          </p>
+        </div>
+
+        <p>
+          El tratado abre con la imagen del rebaño pastando: el animal vive de manera <strong>no histórica</strong>, sin ayer ni hoy, sincero en cada instante y libre de tedio porque olvida de inmediato. El niño juega «entre los alambrados del pasado y del futuro con insolente ceguera» hasta que aprende la consigna humana del «érase una vez», que anuncia lucha, sufrimiento y el recuerdo de una existencia que es «un imperfecto siempre inconcluso». Sin embargo, quien quisiera sentir <em>únicamente</em> de manera histórica sería como alguien privado del sueño o un discípulo de Heráclito disuelto en el flujo del devenir, incapaz «ni de levantar un dedo».
+        </p>
+
+        <div class="three-cols" role="region" aria-label="Comparación entre lo ahistórico, lo histórico y lo suprahistórico">
+          <div>
+            <span class="tag">Modo I · Olvido creador</span>
+            <h3 style="margin-top: var(--space-xs);">Lo Ahistórico</h3>
+            <p style="margin-top: var(--space-sm); font-size: 0.96rem;">
+              Es el arte y la fuerza de poder olvidar y encerrarse en un horizonte limitado. Constituye una «atmósfera hermética» en la cual la vida es engendrada.
+            </p>
+            <p style="font-size: 0.94rem; color: var(--on-surface-variant);">
+              <strong>Cuna de toda hazaña:</strong> Ningún artista obtiene su obra, ningún general su victoria y ningún pueblo su libertad sin haberlo ambicionado antes en esta condición ciega e injusta respecto del pasado (Cap. 1 §6).
+            </p>
+          </div>
+          <div>
+            <span class="tag">Modo II · Proceso y devenir</span>
+            <h3 style="margin-top: var(--space-xs);">Lo Histórico</h3>
+            <p style="margin-top: var(--space-sm); font-size: 0.96rem;">
+              El hombre histórico restringe el elemento no histórico mediante la reflexión, la comparación y la distinción, transformando lo acaecido en historia para la vida.
+            </p>
+            <p style="font-size: 0.94rem; color: var(--on-surface-variant);">
+              <strong>Promesa y peligro:</strong> Cree que el sentido de la existencia se revela en un proceso futuro («los próximos veinte años serán mejores», objeto del desdén de Hume); si se hipertrofia, mata los instintos y el futuro.
+            </p>
+          </div>
+          <div>
+            <span class="tag">Modo III · Lo eterno</span>
+            <h3 style="margin-top: var(--space-xs);">Lo Suprahistórico</h3>
+            <p style="margin-top: var(--space-sm); font-size: 0.96rem;">
+              Concibe el mundo como un todo siempre concluso en cada instante; niega la redención por el proceso porque el pasado y el presente revelan los mismos tipos inmutables.
+            </p>
+            <p style="font-size: 0.94rem; color: var(--on-surface-variant);">
+              <strong>Potencias eternizantes:</strong> Aunque puede conducir a la fatiga de Leopardi, sus fuerzas —el <strong>arte</strong> y la <strong>religión</strong>— desvían la mirada del devenir hacia lo perdurable y actúan como antídoto contra la ciencia historicista (Cap. 10 §11).
+            </p>
+          </div>
+        </div>
+
+        <div class="pull-quote">
+          <blockquote>
+            «Lo ahistórico y lo suprahistórico son los antídotos naturales contra el sofocamiento que la Historia causa a la vida y, con ello, contra la enfermedad histórica.»
+          </blockquote>
+          <cite>Capítulo 10 (§12) — Higiene vital frente al terremoto de los conceptos</cite>
+        </div>
+      </section>
+
+      <!-- SECCIÓN III: FUERZA PLÁSTICA Y SIMULADOR -->
+      <section id="fuerza-plastica" class="section-block reveal">
+        <div class="section-head">
+          <span class="section-label">III. Salud y límite vital · Capítulo 1 (§4–6)</span>
+          <h2>La fuerza plástica y la ley universal del horizonte</h2>
+          <p>
+            La medida exacta entre memoria y olvido depende de la <em>fuerza plástica</em>: la potencia orgánica de digerir el pasado, sanar heridas y recomponer formas quebrantadas dentro de un horizonte propio.
+          </p>
+        </div>
+
+        <div class="editorial-split-wide">
+          <div>
+            <p>
+              Nietzsche define la <strong>fuerza plástica</strong> de cada ser humano, pueblo o cultura como «aquella fuerza de crecer de sí mismo y de manera propia, de transformar lo pasado y lo desconocido y de incorporarlo, de sanar las heridas, recuperar lo perdido y recomponer desde sí mismo las formas quebrantadas».
+            </p>
+            <p>
+              Existen individuos que carecen hasta tal punto de esta potencia que se desangran irremediablemente por un pequeño rasguño o una sola injusticia. En cambio, una naturaleza poderosa atrae y absorbe todo lo pasado y ajeno para «transformarlo en sangre», mientras olvida aquello que no logra vencer.
+            </p>
+            <p>
+              De ahí deriva una ley universal: <strong>lo viviente sólo puede tornarse sano, fuerte y fértil dentro de un horizonte determinado</strong>. Tanto la perspectiva histórica como la no histórica son igualmente necesarias; si el horizonte se desplaza sin descanso por exceso de erudición, el individuo pierde su instinto y cae en la languidez.
+            </p>
+
+            <h3 style="margin-top: var(--space-lg); margin-bottom: var(--space-sm);">Escenarios del texto (Cap. 1 y 4)</h3>
+            <div class="btn-row" role="group" aria-label="Cargar escenarios filosóficos en el simulador">
+              <button type="button" class="btn btn-secondary" onclick="applyPlasticPreset('animal')">Animal en el pastizal</button>
+              <button type="button" class="btn btn-secondary" onclick="applyPlasticPreset('pasion')">Pasión creadora</button>
+              <button type="button" class="btn btn-secondary" onclick="applyPlasticPreset('helenico')">Auge helénico</button>
+              <button type="button" class="btn btn-secondary" onclick="applyPlasticPreset('erudito')">Erudito moderno</button>
+            </div>
+          </div>
+
+          <!-- Simulador Interactivo de Fuerza Plástica -->
+          <div class="dossier-panel">
+            <div class="dossier-panel-head">
+              <span class="label">Laboratorio del horizonte vital</span>
+              <span class="label" style="color: var(--primary);" id="sim-badge">Estado: Equilibrio plástico</span>
+            </div>
+
+            <div class="control-group">
+              <div class="control-label-row">
+                <label class="control-label" for="slider-load">Carga del pasado (afluencia histórica)</label>
+                <span class="control-val" id="val-load">55%</span>
+              </div>
+              <input type="range" id="slider-load" min="0" max="100" value="55" oninput="updatePlasticSim()">
+            </div>
+
+            <div class="control-group">
+              <div class="control-label-row">
+                <label class="control-label" for="slider-plastic">Fuerza plástica (capacidad de asimilación)</label>
+                <span class="control-val" id="val-plastic">72%</span>
+              </div>
+              <input type="range" id="slider-plastic" min="5" max="100" value="72" oninput="updatePlasticSim()">
+            </div>
+
+            <div class="control-group" style="margin-bottom: var(--space-sm);">
+              <div class="control-label-row">
+                <label class="control-label" for="slider-forget">Velo del olvido (atmósfera ahistórica)</label>
+                <span class="control-val" id="val-forget">48%</span>
+              </div>
+              <input type="range" id="slider-forget" min="0" max="100" value="48" oninput="updatePlasticSim()">
+            </div>
+
+            <div class="viz-frame" style="min-height: 220px; background-color: var(--background); border: var(--rule-ink); padding: var(--space-sm);">
+              <svg id="horizon-svg" viewBox="0 0 380 210" width="100%" height="210" role="img" aria-label="Diagrama dinámico del horizonte vital y la asimilación histórica"></svg>
+            </div>
+
+            <div class="sim-metrics">
+              <div>
+                <span class="kpi-label">Transformado en sangre</span>
+                <div class="kpi-value" id="sim-blood" style="font-size: 1.35rem;">55%</div>
+              </div>
+              <div>
+                <span class="kpi-label">Piedras indigestas</span>
+                <div class="kpi-value" id="sim-stones" style="font-size: 1.35rem; color: var(--primary);">0%</div>
+              </div>
+              <div>
+                <span class="kpi-label">Integridad del horizonte</span>
+                <div class="kpi-value" id="sim-horizon" style="font-size: 1.35rem;">92%</div>
+              </div>
+            </div>
+
+            <div style="margin-top: var(--space-md);">
+              <h3 id="sim-verdict-title" style="font-size: 1.1rem;">Salud histórica y plasticidad fecunda</h3>
+              <p id="sim-verdict-desc" style="font-size: 0.95rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">
+                El pasado es atraído, digerido y convertido en energía para la acción presente. Lo que excede la capacidad del sujeto queda envuelto en el olvido protector de un horizonte firme.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN IV: LAS TRES HISTORIAS -->
+      <section id="tres-historias" class="section-block reveal">
+        <div class="section-head">
+          <span class="section-label">IV. Tipología historiográfica · Capítulos 2 y 3</span>
+          <h2>Historia monumental, anticuaria y crítica</h2>
+          <p>
+            Cada una de las tres perspectivas sólo está justificada sobre su suelo materno y en un clima específico; trasplantada o dominante sobre las demás, degenera en una hierba devastadora.
+          </p>
+        </div>
+
+        <div class="btn-row" role="group" aria-label="Seleccionar clima de las tres historias" style="margin-bottom: var(--space-md);">
+          <button type="button" id="btn-climate-healthy" class="btn btn-is-selected" onclick="setHistoryClimate('healthy')">Al servicio de la vida (Suelo materno)</button>
+          <button type="button" id="btn-climate-degen" class="btn" onclick="setHistoryClimate('degen')">Degeneración y exceso (Hierba mala)</button>
+          <button type="button" id="btn-climate-compare" class="btn" onclick="setHistoryClimate('compare')">Tabla comparativa completa</button>
+        </div>
+
+        <div id="history-columns-view" class="three-cols">
+          <div>
+            <span class="tag" id="tag-monumental">Hombre de acción · Cap. 2</span>
+            <h3 style="margin-top: var(--space-xs);">Historia Monumental</h3>
+            <p id="desc-monumental" style="margin-top: var(--space-sm); font-size: 0.96rem;"></p>
+            <p id="quote-monumental" style="font-size: 0.92rem; color: var(--on-surface-variant); font-style: italic;"></p>
+          </div>
+          <div>
+            <span class="tag" id="tag-anticuaria">Conservación y pietas · Cap. 3</span>
+            <h3 style="margin-top: var(--space-xs);">Historia Anticuaria</h3>
+            <p id="desc-anticuaria" style="margin-top: var(--space-sm); font-size: 0.96rem;"></p>
+            <p id="quote-anticuaria" style="font-size: 0.92rem; color: var(--on-surface-variant); font-style: italic;"></p>
+          </div>
+          <div>
+            <span class="tag" id="tag-critica">Liberación y juicio · Cap. 3</span>
+            <h3 style="margin-top: var(--space-xs);">Historia Crítica</h3>
+            <p id="desc-critica" style="margin-top: var(--space-sm); font-size: 0.96rem;"></p>
+            <p id="quote-critica" style="font-size: 0.92rem; color: var(--on-surface-variant); font-style: italic;"></p>
+          </div>
+        </div>
+
+        <div id="history-table-view" class="table-wrap" hidden>
+          <table class="bs-table">
+            <thead>
+              <tr>
+                <th>Concepción</th>
+                <th>Necesidad vital</th>
+                <th>Utilidad cuando sirve a la vida</th>
+                <th>Peligro y forma degenerada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Monumental</strong><br><span class="tag">Cap. 2 (§2–8)</span></td>
+                <td>Hombre activo y pujante que busca modelos y maestros frente a la resignación (ej. Schiller, Polibio).</td>
+                <td>Da la certeza de que lo grande que fue posible una vez volverá a ser posible en el futuro (ej. el Renacimiento).</td>
+                <td>Fabrica «efectos en sí» sin causas, acerca el pasado a la ficción mística e incita al fanatismo. Los frágiles la usan contra el arte vivo: «¡dejad que los muertos entierren a los vivos!». <em>Conocedor sin aptitud para lo grande.</em></td>
+              </tr>
+              <tr>
+                <td><strong>Anticuaria</strong><br><span class="tag">Cap. 3 (§1–6)</span></td>
+                <td>Quien conserva y venera con <em>pietas</em> el hogar, linaje, murallas y costumbres de donde procede (ej. Goethe ante Steinbach, Niebuhr).</td>
+                <td>Arraiga incluso a los pueblos menos privilegiados, protegiéndolos del desarraigo cosmopolita; transforma lo humilde en dicha heredada.</td>
+                <td>Estrecha el horizonte, iguala todo lo antiguo y repudia lo nuevo. Cuando falta frescura vital, momifica el pasado y degenera en ciega voracidad recolectora de polvo bibliográfico. <em>Anticuario sin pietas.</em></td>
+              </tr>
+              <tr>
+                <td><strong>Crítica</strong><br><span class="tag">Cap. 3 (§7–8)</span></td>
+                <td>Quien sufre bajo una opresión presente (privilegios, castas, dinastías) y necesita liberarse a toda costa.</td>
+                <td>Juzga, quiebra y disuelve un pasado ilegítimo para implantar una «segunda naturaleza» (nuevo hábito e instinto) que permita vivir.</td>
+                <td>Desentierra las raíces con un cuchillo; su fallo es impiadoso e injusto (brota de la vida impulsiva, no de la justicia pura), y la segunda naturaleza suele nacer más débil que la heredada. <em>Crítico sin angustia.</em></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECCIÓN V: CRÍTICA A LA ENFERMEDAD HISTÓRICA -->
+      <section id="enfermedad-historica" class="section-block reveal">
+        <div class="section-head">
+          <span class="section-label">V. Patología de la modernidad · Capítulos 4 a 9</span>
+          <h2>La enfermedad histórica y sus cinco síntomas</h2>
+          <p>
+            Al interponerse la ciencia entre la vida y la historia, el hombre moderno ingiere conocimiento sin hambre y padece cinco trastornos que paralizan su fuerza creadora.
+          </p>
+        </div>
+
+        <div class="symptom-layout">
+          <div>
+            <span class="label" style="color: var(--on-surface-variant);">Seleccione un síntoma (Cap. 5 §1)</span>
+            <div class="symptom-list" role="tablist" aria-label="Cinco peligros de la sobresaturación histórica">
+              <button type="button" class="symptom-btn is-active" role="tab" aria-selected="true" onclick="selectSymptom(0)">
+                <span>1. Escisión interior / exterior y debilidad</span>
+                <span class="label">Cap. 4–5</span>
+              </button>
+              <button type="button" class="symptom-btn" role="tab" aria-selected="false" onclick="selectSymptom(1)">
+                <span>2. Falsa virtud de la «objetividad»</span>
+                <span class="label">Cap. 6</span>
+              </button>
+              <button type="button" class="symptom-btn" role="tab" aria-selected="false" onclick="selectSymptom(2)">
+                <span>3. Perturbación del instinto y la juventud</span>
+                <span class="label">Cap. 7</span>
+              </button>
+              <button type="button" class="symptom-btn" role="tab" aria-selected="false" onclick="selectSymptom(3)">
+                <span>4. Vejez de la humanidad y hegelianismo</span>
+                <span class="label">Cap. 8</span>
+              </button>
+              <button type="button" class="symptom-btn" role="tab" aria-selected="false" onclick="selectSymptom(4)">
+                <span>5. Ironía de sí mismo y cinismo práctico</span>
+                <span class="label">Cap. 9</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="dossier-panel" role="tabpanel" id="symptom-detail-panel">
+            <div class="dossier-panel-head">
+              <span class="label" id="symp-chapter">Capítulos 4 y 5 · Primer peligro</span>
+              <span class="label" style="color: var(--primary);" id="symp-metaphor">«Enciclopedias caminantes»</span>
+            </div>
+            <h3 id="symp-title">Personalidad debilitada y divorcio entre forma y contenido</h3>
+            <p id="symp-body" style="margin-top: var(--space-sm);"></p>
+            <div style="border-top: var(--rule-column); padding-top: var(--space-sm); margin-top: var(--space-md);">
+              <span class="label" style="color: var(--primary);">Blancos y figuras clave en el texto</span>
+              <p id="symp-targets" style="margin-top: var(--space-xs); font-size: 0.95rem; color: var(--on-surface-variant);"></p>
+            </div>
+            <div style="border-top: var(--rule-column); padding-top: var(--space-sm); margin-top: var(--space-sm);">
+              <span class="label" style="color: var(--on-surface);">Cita textual de diagnóstico</span>
+              <p id="symp-quote" style="margin-top: var(--space-xs); font-style: italic; font-size: 0.96rem;"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráfico conceptual de umbral histórico -->
+        <div style="margin-top: var(--space-2xl); border-top: var(--rule-ink); padding-top: var(--space-lg);">
+          <div class="editorial-split">
+            <div>
+              <h3>Umbral de saturación: cuándo el sentido histórico vitaliza y cuándo asfixia</h3>
+              <p style="color: var(--on-surface-variant); font-size: 0.96rem; margin-top: var(--space-xs);">
+                Diagrama conceptual del argumento nietzscheano (Cap. 1 §3–4 y Cap. 10 §12). Pulse los puntos críticos del eje para inspeccionar el tránsito desde la inocencia animal hasta la hipertrofia científica y su curación.
+              </p>
+              <div class="btn-row" role="group" aria-label="Puntos del umbral histórico" style="margin-top: var(--space-md);">
+                <button type="button" class="btn btn-is-selected" data-curve-pt="0" onclick="selectCurvePoint(0)">1. Punto animal</button>
+                <button type="button" class="btn" data-curve-pt="1" onclick="selectCurvePoint(1)">2. Equilibrio helénico</button>
+                <button type="button" class="btn" data-curve-pt="2" onclick="selectCurvePoint(2)">3. Fiebre histórica</button>
+                <button type="button" class="btn" data-curve-pt="3" onclick="selectCurvePoint(3)">4. Colapso cínico</button>
+              </div>
+              <div id="curve-readout" style="border-top: var(--rule-ink); margin-top: var(--space-md); padding-top: var(--space-sm);">
+                <span class="label" style="color: var(--primary);" id="curve-pt-label">Umbral 1 · Estado no histórico puro</span>
+                <p id="curve-pt-desc" style="margin-top: var(--space-xs); font-size: 0.95rem;">
+                  Sin recuerdo del pasado, el animal vive en dicha puntual y absoluta sinceridad, pero carece aún de lo propiamente humano, que nace al restringir lo no histórico mediante la reflexión.
+                </p>
+              </div>
+            </div>
+
+            <div class="viz-frame" style="min-height: 270px;">
+              <svg id="threshold-chart" viewBox="0 0 480 245" width="100%" height="245" role="img" aria-label="Curva conceptual de vitalidad cultural frente al grado de sentido histórico">
+                <!-- Rejilla horizontal -->
+                <line x1="48" y1="35" x2="455" y2="35" stroke="var(--outline-variant)" stroke-width="1" />
+                <line x1="48" y1="85" x2="455" y2="85" stroke="var(--outline-variant)" stroke-width="1" />
+                <line x1="48" y1="135" x2="455" y2="135" stroke="var(--outline-variant)" stroke-width="1" />
+                <line x1="48" y1="185" x2="455" y2="185" stroke="var(--outline)" stroke-width="1.2" />
+
+                <!-- Etiquetas eje Y -->
+                <text x="40" y="39" text-anchor="end" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--on-surface-variant)">ALTA</text>
+                <text x="40" y="112" text-anchor="end" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--on-surface-variant)">MEDIA</text>
+                <text x="40" y="188" text-anchor="end" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--on-surface-variant)">NULA</text>
+
+                <!-- Etiquetas eje X -->
+                <text x="65" y="206" text-anchor="start" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--on-surface-variant)">OLVIDO TOTAL</text>
+                <text x="235" y="206" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--on-surface-variant)">LÍMITE PLÁSTICO</text>
+                <text x="448" y="206" text-anchor="end" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--on-surface-variant)">HIPERTROFIA HISTÓRICA</text>
+
+                <!-- Línea umbral vertical -->
+                <line x1="215" y1="24" x2="215" y2="185" stroke="var(--data-context)" stroke-width="1.5" stroke-dasharray="4 3" />
+
+                <!-- Serie de contexto: acumulación de datos históricos -->
+                <path d="M 65 178 L 215 110 L 340 62 L 435 32" fill="none" stroke="var(--data-context)" stroke-width="2" />
+                <text x="438" y="28" text-anchor="end" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--on-surface-variant)">Erudición acumulada</text>
+
+                <!-- Serie principal: vitalidad y fuerza creadora (claret) -->
+                <path d="M 65 92 C 120 44, 170 36, 215 38 C 265 40, 305 112, 340 138 C 378 166, 412 174, 435 176" fill="none" stroke="var(--data-1)" stroke-width="2.5" />
+                <text x="435" y="164" text-anchor="end" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--data-1)">Vitalidad cultural</text>
+
+                <!-- Serie rescate con antídotos (teal) -->
+                <path d="M 340 138 C 368 118, 405 76, 435 58" fill="none" stroke="var(--data-2)" stroke-width="2" stroke-dasharray="5 3" />
+                <text x="435" y="50" text-anchor="end" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--data-2)">Con antídotos (Cap. 10)</text>
+
+                <!-- Puntos interactivos -->
+                <g class="arch-node" onclick="selectCurvePoint(0)">
+                  <circle id="pt-ring-0" cx="65" cy="92" r="9" fill="none" stroke="var(--primary)" stroke-width="1.5" opacity="1" />
+                  <circle cx="65" cy="92" r="4.5" fill="var(--data-1)" />
+                </g>
+                <g class="arch-node" onclick="selectCurvePoint(1)">
+                  <circle id="pt-ring-1" cx="215" cy="38" r="9" fill="none" stroke="var(--primary)" stroke-width="1.5" opacity="0" />
+                  <circle cx="215" cy="38" r="4.5" fill="var(--data-1)" />
+                </g>
+                <g class="arch-node" onclick="selectCurvePoint(2)">
+                  <circle id="pt-ring-2" cx="340" cy="138" r="9" fill="none" stroke="var(--primary)" stroke-width="1.5" opacity="0" />
+                  <circle cx="340" cy="138" r="4.5" fill="var(--data-1)" />
+                </g>
+                <g class="arch-node" onclick="selectCurvePoint(3)">
+                  <circle id="pt-ring-3" cx="435" cy="176" r="9" fill="none" stroke="var(--primary)" stroke-width="1.5" opacity="0" />
+                  <circle cx="435" cy="176" r="4.5" fill="var(--data-1)" />
+                </g>
+              </svg>
+              <div class="viz-caption">
+                Modelo cualitativo basado en Cap. 1 (§3–4), Cap. 4 (§2) y Cap. 10 (§10–12). No representa datos estadísticos empíricos sino la relación estructural entre memoria y vitalidad.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN VI: EXPLORADOR DE CONCEPTOS Y CITAS -->
+      <section id="explorador-textual" class="section-block reveal">
+        <div class="section-head">
+          <span class="section-label">VI. Léxico y archivo textual · 1874</span>
+          <h2>Explorador interactivo de conceptos y citas</h2>
+          <p>
+            Filtre por eje temático o busque términos clave y pasajes literales del tratado para revisar con precisión el vocabulario nietzscheano.
+          </p>
+        </div>
+
+        <div class="dossier-panel">
+          <div class="editorial-split" style="align-items: end; gap: var(--space-md);">
+            <div class="control-group" style="margin-bottom: 0;">
+              <label class="control-label" for="glossary-search">Buscar concepto, autor citado o palabra del texto</label>
+              <input type="text" id="glossary-search" class="text-input" placeholder="Ej.: physis, Goethe, olvido, Hartmann, eunucos…" oninput="filterGlossary()">
+            </div>
+            <div>
+              <span class="control-label" style="display: block; margin-bottom: var(--space-xs);">Filtrar por eje temático</span>
+              <div class="btn-row" role="group" aria-label="Filtrar glosario por tema">
+                <button type="button" class="btn btn-is-selected" data-cat="todos" onclick="setGlossaryCategory('todos')">Todos</button>
+                <button type="button" class="btn" data-cat="tiempo" onclick="setGlossaryCategory('tiempo')">Tiempo y olvido</button>
+                <button type="button" class="btn" data-cat="modos" onclick="setGlossaryCategory('modos')">Tres historias</button>
+                <button type="button" class="btn" data-cat="patologia" onclick="setGlossaryCategory('patologia')">Patología</button>
+                <button type="button" class="btn" data-cat="curacion" onclick="setGlossaryCategory('curacion')">Curación</button>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: var(--space-sm); font-family: var(--font-label); font-size: var(--label-size); font-weight: 700; color: var(--on-surface-variant);" id="glossary-count">
+            Mostrando 10 conceptos fundamentales
+          </div>
+        </div>
+
+        <div id="glossary-grid" class="glossary-grid"></div>
+        <div id="glossary-empty" style="display: none; border-top: var(--rule-ink); padding-block: var(--space-xl);">
+          <p style="color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+            Ningún concepto del archivo coincide con su búsqueda actual. Pruebe otro término o restablezca los filtros.
+          </p>
+          <button type="button" class="btn btn-primary" onclick="resetGlossaryFilters()">Restablecer filtros</button>
+        </div>
+      </section>
+
+      <!-- SECCIÓN VII: PREGUNTAS FRECUENTES -->
+      <section id="preguntas-frecuentes" class="section-block reveal">
+        <div class="section-head">
+          <span class="section-label">VII. Preguntas frecuentes · Síntesis crítica</span>
+          <h2>Cuestiones esenciales sobre la Segunda consideración intempestiva</h2>
+          <p>
+            Respuestas breves y fundamentadas en el texto ante las objeciones y dudas más habituales al leer el tratado de 1874.
+          </p>
+        </div>
+
+        <div class="faq-list" id="faq-container">
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>1. ¿Propone Nietzsche suprimir la enseñanza y el estudio de la historia?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" hidden>
+              <p>
+                No. Nietzsche afirma explícitamente que «necesitamos la Historia para la vida y para la acción» (Prólogo §1) y que el ser humano sólo se vuelve verdaderamente humano cuando restringe lo no histórico mediante la reflexión y convierte lo acaecido en historia (Cap. 1 §6). Su crítica no se dirige contra la historia misma, sino contra su hipertrofia científica que pretende convertirse en juez soberano por encima de la vida.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>2. ¿Por qué sostiene que es imposible vivir sin olvido y que toda acción es «injusta»?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" hidden>
+              <p>
+                Porque quien lo percibe todo en un devenir incesante pierde la fe en su propia existencia y queda paralizado. Actuar exige concentrar el amor y la energía en aquello que «ha de ser ahora», olvidando la multitud de motivos del pasado y siendo ciego ante sus reclamos (Cap. 1 §3 y §6). Por eso cita a Goethe: «aquel que actúa reniega de la conciencia».
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>3. ¿En qué se distinguen lo «ahistórico» y lo «suprahistórico»?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" hidden>
+              <p>
+                Lo <strong>ahistórico</strong> es la capacidad de olvidar y encerrarse en un horizonte limitado (como el animal o el ímpetu creador). Lo <strong>suprahistórico</strong>, en cambio, no consiste en olvidar, sino en desviar la mirada del flujo del devenir para dirigirla hacia lo que otorga a la existencia un carácter eterno y perdurable: específicamente el arte y la religión (Cap. 10 §11). Ambos operan como antídotos contra la enfermedad histórica.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>4. ¿Cómo se relacionan la «primera» y la «segunda naturaleza» en la historia crítica?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" hidden>
+              <p>
+                Somos herederos de las pasiones, errores e incluso delitos de quienes nos precedieron; no podemos romper esa cadena por decreto. Sin embargo, la historia crítica permite cultivar un nuevo hábito e instinto —una <strong>segunda naturaleza</strong>— para que la primera se diseque. Aunque esa segunda naturaleza nace más débil y riesgosa, Nietzsche recuerda un consuelo decisivo: toda primera naturaleza fue alguna vez una segunda naturaleza triunfante (Cap. 3 §8).
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>5. ¿Por qué ataca con tanta dureza a Hegel y a Eduard von Hartmann?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" hidden>
+              <p>
+                Porque la filosofía hegeliana habituó a su época a venerar el «proceso del mundo», convirtiendo el éxito fáctico en prueba de racionalidad y enseñando a «doblar el lomo» ante todo poder establecido (Cap. 8 §9). En Hartmann (<em>Filosofía del inconsciente</em>), Nietzsche lee una parodia involuntaria o grotesca de ese mismo culto: la exhortación cínica a entregar la personalidad al «proceso del mundo» hacia una mediocre «edad viril» y una repugnancia final (Cap. 9 §5–10).
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>6. ¿Cuál es la alternativa positiva que Nietzsche propone para la juventud?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" hidden>
+              <p>
+                Exige abandonar la «cultura decorativa» y la fábrica precoz de eruditos para «organizar el caos que lleva adentro» a partir de necesidades genuinas. La meta es restaurar el concepto helénico de cultura como una <em>physis</em> nueva y mejorada: «sin interior ni exterior, sin simulación ni convención», una unanimidad viva entre vida, pensamiento, apariencia y voluntad (Cap. 10 §17).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- COLOFÓN -->
+    <footer class="colophon">
+      <div>
+        <strong>Fuente primaria:</strong> Friedrich Nietzsche, <em>Segunda consideración intempestiva</em> (<em>Unzeitgemässe Betrachtungen II. Vom Nutzen und Nachteil der Historie für das Leben</em>), 1874. Traducción al español de Joaquín Etorena (edición digital Titivillus, r1.0).
+      </div>
+      <div>
+        <a href="#vista-principal" style="color: var(--primary); font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: var(--label-size); text-underline-offset: 3px;">Volver al inicio</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    /* --- 1. Datos del Mapa Arquitectónico --- */
+    var ARCH_NODES = {
+      vida: {
+        kicker: `Eje central · Capítulo 1 (§1–6)`,
+        title: `Vida, olvido y fuerza plástica`,
+        body: `La salud de un individuo, un pueblo o una cultura depende de saber olvidar y recordar en el momento justo, según la capacidad plástica de asimilar el pasado dentro de un horizonte determinado.`,
+        href: `#fuerza-plastica`,
+        btnText: `Explorar Fuerza plástica`
+      },
+      modos: {
+        kicker: `Historiografía · Capítulos 2 y 3`,
+        title: `Monumental, Anticuaria y Crítica`,
+        body: `Tres modos en que la historia sirve a la vida (al hombre activo, al conservador con pietas y al que busca liberación). Fuera de su suelo materno degeneran en idolatría monumental, momificación o corte destructivo.`,
+        href: `#tres-historias`,
+        btnText: `Explorar Tres modos`
+      },
+      fiebre: {
+        kicker: `Patología moderna · Capítulos 4 a 9`,
+        title: `La enfermedad histórica y sus cinco males`,
+        body: `La ciencia convertida en astro hostil desata una avalancha de conocimiento indigesto: escisión interior/exterior, ilusión de objetividad, parálisis juvenil, epigonismo hegeliano y cinismo.`,
+        href: `#enfermedad-historica`,
+        btnText: `Ver los 5 síntomas`
+      },
+      antidotos: {
+        kicker: `Higiene vital · Capítulo 10 (§10–12)`,
+        title: `Lo ahistórico y lo suprahistórico`,
+        body: `Los dos antídotos naturales contra el sofocamiento histórico: la fuerza protectora del olvido (ahistórico) y las potencias eternizantes del arte y la religión (suprahistórico).`,
+        href: `#ahistorico-suprahistorico`,
+        btnText: `Comparar horizontes`
+      },
+      physis: {
+        kicker: `Curación · Capítulo 10 (§14–17)`,
+        title: `La cultura como physis helénica`,
+        body: `Cada uno debe organizar el caos interior según sus necesidades genuinas, superando la «cultura decorativa» para conquistar una unanimidad viva entre vida, pensamiento, apariencia y voluntad.`,
+        href: `#preguntas-frecuentes`,
+        btnText: `Leer síntesis final`
+      }
+    };
+
+    function selectArchNode(key) {
+      var data = ARCH_NODES[key];
+      if (!data) return;
+      var nodes = document.querySelectorAll('.arch-node');
+      for (var i = 0; i < nodes.length; i++) {
+        if (nodes[i].getAttribute('data-node') === key) {
+          nodes[i].classList.add('is-active');
+        } else {
+          nodes[i].classList.remove('is-active');
+        }
+      }
+      var kicker = document.getElementById('arch-detail-kicker');
+      var title = document.getElementById('arch-detail-title');
+      var body = document.getElementById('arch-detail-body');
+      var link = document.getElementById('arch-detail-link');
+      if (kicker) kicker.textContent = data.kicker;
+      if (title) title.textContent = data.title;
+      if (body) body.textContent = data.body;
+      if (link) {
+        link.setAttribute('href', data.href);
+        link.textContent = data.btnText;
+      }
+    }
+
+    function handleArchKey(evt, key) {
+      if (evt.key === 'Enter' || evt.key === ' ') {
+        evt.preventDefault();
+        selectArchNode(key);
+      }
+    }
+
+    /* --- 2. Simulador de Fuerza Plástica y Horizonte Vital --- */
+    var PLASTIC_PRESETS = {
+      animal: { load: 5, plastic: 35, forget: 96 },
+      pasion: { load: 30, plastic: 85, forget: 82 },
+      helenico: { load: 55, plastic: 90, forget: 58 },
+      erudito: { load: 95, plastic: 28, forget: 10 }
+    };
+
+    function applyPlasticPreset(name) {
+      var p = PLASTIC_PRESETS[name];
+      if (!p) return;
+      var sLoad = document.getElementById('slider-load');
+      var sPlastic = document.getElementById('slider-plastic');
+      var sForget = document.getElementById('slider-forget');
+      if (sLoad) sLoad.value = p.load;
+      if (sPlastic) sPlastic.value = p.plastic;
+      if (sForget) sForget.value = p.forget;
+      updatePlasticSim();
+    }
+
+    function updatePlasticSim() {
+      var sLoad = document.getElementById('slider-load');
+      var sPlastic = document.getElementById('slider-plastic');
+      var sForget = document.getElementById('slider-forget');
+      if (!sLoad || !sPlastic || !sForget) return;
+
+      var load = parseInt(sLoad.value, 10);
+      var plastic = parseInt(sPlastic.value, 10);
+      var forget = parseInt(sForget.value, 10);
+
+      var vLoad = document.getElementById('val-load');
+      var vPlastic = document.getElementById('val-plastic');
+      var vForget = document.getElementById('val-forget');
+      if (vLoad) vLoad.textContent = load + '%';
+      if (vPlastic) vPlastic.textContent = plastic + '%';
+      if (vForget) vForget.textContent = forget + '%';
+
+      /* Cálculo conceptual grounded en Cap. 1 §4 */
+      var effectiveCapacity = Math.min(100, Math.round(plastic * 0.85 + forget * 0.25));
+      var absorbed = Math.min(load, effectiveCapacity);
+      var stones = Math.max(0, load - effectiveCapacity);
+      var horizonScore = Math.max(8, Math.min(100, Math.round(100 - stones * 1.15 - Math.max(0, (35 - forget) * 0.45))));
+
+      var elBlood = document.getElementById('sim-blood');
+      var elStones = document.getElementById('sim-stones');
+      var elHorizon = document.getElementById('sim-horizon');
+      if (elBlood) elBlood.textContent = absorbed + '%';
+      if (elStones) elStones.textContent = stones + '%';
+      if (elHorizon) elHorizon.textContent = horizonScore + '%';
+
+      var badge = document.getElementById('sim-badge');
+      var vTitle = document.getElementById('sim-verdict-title');
+      var vDesc = document.getElementById('sim-verdict-desc');
+
+      var stateCode = 'equilibrio';
+      if (load <= 15 && forget >= 75) {
+        stateCode = 'animal';
+        if (badge) badge.textContent = `Estado: Inocencia no histórica`;
+        if (vTitle) vTitle.textContent = `Horizonte puntual sin historia (Cap. 1 §1–2)`;
+        if (vDesc) vDesc.textContent = `Como el rebaño amarrado al poste del instante o el niño antes del «érase una vez»: no hay dolor por el pasado ni melancolía, pero tampoco obra histórica consciente.`;
+      } else if (stones >= 28 || horizonScore < 48) {
+        stateCode = 'indigestion';
+        if (badge) badge.textContent = `Estado: Fiebre e indigestión histórica`;
+        if (vTitle) vTitle.textContent = `Personalidad débil y piedras indigestas (Cap. 4 §3–4)`;
+        if (vDesc) vDesc.textContent = `La avalancha del pasado supera la fuerza plástica y el olvido es insuficiente. Se acumulan «piedras de conocimiento indigestas» que dividen el interior caótico de un exterior indolente.`;
+      } else if (forget >= 70 && plastic >= 65) {
+        stateCode = 'pasion';
+        if (badge) badge.textContent = `Estado: Atmósfera de pasión creadora`;
+        if (vTitle) vTitle.textContent = `Neblina ahistórica fecunda para la acción (Cap. 1 §6)`;
+        if (vDesc) vDesc.textContent = `Como el artista, el general o el pueblo que conquista su libertad: olvida casi todo para entregarse plenamente a la hazaña presente, bajo un horizonte íntegro y cerrado.`;
+      } else if (load >= 40 && stones <= 12 && plastic >= 60) {
+        stateCode = 'equilibrio';
+        if (badge) badge.textContent = `Estado: Cultura sana y plástica`;
+        if (vTitle) vTitle.textContent = `El pasado transformado en sangre (Cap. 1 §4)`;
+        if (vDesc) vDesc.textContent = `Equilibrio entre sentido histórico y no histórico: la fuerza plástica incorpora el pasado como alimento propio y mantiene firme la línea entre lo visible y lo oculto.`;
+      } else {
+        stateCode = 'fragil';
+        if (badge) badge.textContent = `Estado: Horizonte vulnerable`;
+        if (vTitle) vTitle.textContent = `Tensión latente en el límite plástico`;
+        if (vDesc) vDesc.textContent = `Aún no hay colapso abierto, pero la escasez de fuerza plástica o de olvido protector vuelve frágil al sujeto ante heridas nuevas o sobrecargas de erudición.`;
+      }
+
+      renderHorizonSvg(load, plastic, forget, absorbed, stones, horizonScore, stateCode);
+    }
+
+    function renderHorizonSvg(load, plastic, forget, absorbed, stones, horizonScore, stateCode) {
+      var svg = document.getElementById('horizon-svg');
+      if (!svg) return;
+
+      var cx = 190;
+      var cy = 105;
+      var outerR = 82;
+      var coreR = Math.max(16, Math.round(14 + (plastic / 100) * 28));
+      var dashArray = horizonScore < 60 ? `6 5` : (horizonScore < 85 ? `18 4` : `none`);
+      var ringColor = stones >= 28 ? `var(--error)` : `var(--on-surface)`;
+
+      var parts = [];
+      /* Atmósfera protectora del olvido */
+      var fogOpacity = (0.08 + (forget / 100) * 0.28).toFixed(2);
+      parts.push(`<circle cx="${cx}" cy="${cy}" r="${outerR}" fill="var(--surface-container-high)" fill-opacity="${fogOpacity}" stroke="${ringColor}" stroke-width="2" stroke-dasharray="${dashArray}" />`);
+
+      /* Núcleo plástico */
+      parts.push(`<circle cx="${cx}" cy="${cy}" r="${coreR}" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2" />`);
+      parts.push(`<text x="${cx}" y="${cy + 4}" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--primary)">NÚCLEO</text>`);
+
+      /* Partículas asimiladas (en órbita interna, teal) */
+      var bloodCount = Math.min(10, Math.round(absorbed / 10));
+      for (var i = 0; i < bloodCount; i++) {
+        var ang = (i / Math.max(1, bloodCount)) * Math.PI * 2;
+        var br = coreR + 16;
+        var bx = Math.round(cx + Math.cos(ang) * br);
+        var by = Math.round(cy + Math.sin(ang) * br);
+        parts.push(`<circle cx="${bx}" cy="${by}" r="4" fill="var(--data-2)" />`);
+      }
+
+      /* Piedras indigestas (rombos o cuadrados en borde exterior, claret/error) */
+      var stoneCount = Math.min(12, Math.round(stones / 6));
+      for (var j = 0; j < stoneCount; j++) {
+        var ang2 = (j / Math.max(1, stoneCount)) * Math.PI * 2 + 0.3;
+        var sr = outerR - 8;
+        var sx = Math.round(cx + Math.cos(ang2) * sr);
+        var sy = Math.round(cy + Math.sin(ang2) * sr);
+        parts.push(`<rect x="${sx - 4}" y="${sy - 4}" width="8" height="8" fill="var(--error)" />`);
+      }
+
+      /* Etiquetas descriptivas laterales */
+      parts.push(`<text x="12" y="20" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--on-surface-variant)">HORIZONTE DETERMINADO</text>`);
+      parts.push(`<circle cx="18" cy="182" r="4" fill="var(--data-2)" />`);
+      parts.push(`<text x="27" y="186" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--on-surface)">Pasado asimilado</text>`);
+      parts.push(`<rect x="14" y="194" width="8" height="8" fill="var(--error)" />`);
+      parts.push(`<text x="27" y="202" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--on-surface)">Piedras indigestas</text>`);
+
+      svg.innerHTML = parts.join('');
+    }
+
+    /* --- 3. Brújula de las Tres Historias --- */
+    var HISTORY_MODES = {
+      healthy: {
+        monumental: {
+          tag: `Uso vital · Hombre de acción (Cap. 2 §2–5)`,
+          desc: `Pertenece al que lucha y necesita modelos y maestros que no halla en su época. Le da la certeza de que lo grande que fue posible una vez volverá a ser posible en el futuro, salvándolo de la resignación.`,
+          quote: `«Que los grandes momentos en la lucha de los individuos formen una cadena, que en ellos se unan las cumbres milenarias de la humanidad…»`
+        },
+        anticuaria: {
+          tag: `Uso vital · Conservación y pietas (Cap. 3 §1–3)`,
+          desc: `Pertenece a quien venera con gratitud el origen de su existencia. Arraiga a las comunidades en su tierra y costumbres, evitando el desarraigo cosmopolita y dando sentido de hogar a lo humilde.`,
+          quote: `«Aquí se ha vivido bien, se dice a sí mismo, porque se vive bien y se vivirá bien, dado que somos tenaces…»`
+        },
+        critica: {
+          tag: `Uso vital · Sufrimiento y liberación (Cap. 3 §7–8)`,
+          desc: `Pertenece a quien está oprimido por un malestar presente. Lleva el pasado ante el tribunal para quebrar privilegios o castas ilegítimas e implantar una «segunda naturaleza» capaz de vivir.`,
+          quote: `«Para poder vivir, ha de tener la fuerza de quebrar y disolver una parte de su pasado…»`
+        }
+      },
+      degen: {
+        monumental: {
+          tag: `Hierba mala · Conocedor sin aptitud (Cap. 2 §6–9)`,
+          desc: `Unifica forzadamente lo desigual fabricando «efectos en sí» sin causas e incitando al fanatismo. En manos de los perezosos y estetas inoperantes, sirve para aplastar toda grandeza nueva del presente.`,
+          quote: `«Lo sepan o no, actúan como si su lema fuese: ¡dejad que los muertos entierren a los vivos!»`
+        },
+        anticuaria: {
+          tag: `Hierba mala · Anticuario sin pietas (Cap. 3 §4–6)`,
+          desc: `Estrecha la mirada y momifica el pasado. Al faltar la frescura del presente, todo lo viejo recibe igual valor, se repudia lo nuevo y la veneración degenera en ciega voracidad recolectora de polvo bibliográfico.`,
+          quote: `«El árbol comienza entonces a morirse de un modo innatural, descendiendo de la corona a las raíces…»`
+        },
+        critica: {
+          tag: `Hierba mala · Crítico sin angustia (Cap. 3 §7–8)`,
+          desc: `Desentierra las raíces con un cuchillo sin un impulso constructivo ni verdadera necesidad vital. Condena por mero afán destructor, ignorando que seguimos siendo herederos de nuestros ancestros.`,
+          quote: `«Este proceso es siempre peligroso, especialmente peligroso para la vida misma…»`
+        }
+      }
+    };
+
+    function setHistoryClimate(mode) {
+      var bHealthy = document.getElementById('btn-climate-healthy');
+      var bDegen = document.getElementById('btn-climate-degen');
+      var bCompare = document.getElementById('btn-climate-compare');
+      var colsView = document.getElementById('history-columns-view');
+      var tableView = document.getElementById('history-table-view');
+
+      if (bHealthy) bHealthy.classList.toggle('btn-is-selected', mode === 'healthy');
+      if (bDegen) bDegen.classList.toggle('btn-is-selected', mode === 'degen');
+      if (bCompare) bCompare.classList.toggle('btn-is-selected', mode === 'compare');
+
+      if (mode === 'compare') {
+        if (colsView) colsView.style.display = 'none';
+        if (tableView) tableView.hidden = false;
+        return;
+      }
+
+      if (colsView) colsView.style.display = 'grid';
+      if (tableView) tableView.hidden = true;
+
+      var set = HISTORY_MODES[mode];
+      if (!set) return;
+
+      var keys = ['monumental', 'anticuaria', 'critica'];
+      for (var i = 0; i < keys.length; i++) {
+        var k = keys[i];
+        var tEl = document.getElementById('tag-' + k);
+        var dEl = document.getElementById('desc-' + k);
+        var qEl = document.getElementById('quote-' + k);
+        if (tEl) {
+          tEl.textContent = set[k].tag;
+          tEl.style.color = mode === 'degen' ? 'var(--primary)' : 'var(--secondary)';
+        }
+        if (dEl) dEl.textContent = set[k].desc;
+        if (qEl) qEl.textContent = set[k].quote;
+      }
+    }
+
+    /* --- 4. Cinco Síntomas de la Enfermedad Histórica --- */
+    var SYMPTOMS = [
+      {
+        chapter: `Capítulos 4 y 5 (§1–8) · Primer peligro`,
+        metaphor: `«Enciclopedias caminantes»`,
+        title: `Personalidad debilitada y divorcio entre interior y exterior`,
+        body: `Ingerir conocimiento histórico sin hambre ni necesidad vital produce «piedras de conocimiento indigestas». El hombre moderno se convierte en un «manual de cultura interior para bárbaros exteriores»: posee un caos erudito oculto dentro de sí que jamás se traduce en estilo ni acción viva, reduciendo la cultura a mera convención y máscara teatral.`,
+        targets: `La «cultura histórica» alemana frente a la unidad helénica; Grillparzer sobre sentir de forma abstracta («nos ha corrompido Shakespeare»); críticos literarios y «generación de eunucos» que custodian el harén de la historia sin poder crear.`,
+        quote: `«¡Quitaos los chalecos o sed lo que queréis parecer!» — Capítulo 5 (§3)`
+      },
+      {
+        chapter: `Capítulo 6 (§1–9) · Segundo peligro`,
+        metaphor: `«Fríos demonios del saber»`,
+        title: `La ilusión de poseer la más rara de las virtudes: la justicia`,
+        body: `La época cree ser justa por su pretendida «objetividad» histórica. Nietzsche desmonta ese orgullo: a menudo esa objetividad no es sino adaptar el pasado a la trivialidad de las opiniones presentes, o bien una composición artística subjetiva (como el dramaturgo que impone un plan al azar), o pura indiferencia vanidosa que oculta falta de temple.`,
+        targets: `Sócrates sobre creer poseer una virtud inexistente; eruditos indiferentes respecto a los helenos; Grillparzer y Schiller sobre la causalidad inventada por el historiador.`,
+        quote: `«Sólo las personalidades fuertes son capaces de soportar la Historia; los débiles serán arrasados por ella.» — Capítulo 5 (§6)`
+      },
+      {
+        chapter: `Capítulo 7 (§1–5) · Tercer peligro`,
+        metaphor: `«Fábrica de la ciencia»`,
+        title: `Perturbación de los instintos y atrofia de la maduración juvenil`,
+        body: `Todo lo vivo requiere una atmósfera protectora y «una pizca de ilusión» (Hans Sachs) para crear. La disección microscópica mata lo vital —asfixia la religión bajo conocimiento histórico y sofoca a genios como Mozart o Beethoven en biografías impertinentes— mientras desarraiga a los jóvenes con masas de datos («en horrendos amasijos»), transformándolos en esclavos prematuros de la fábrica académica.`,
+        targets: `La teología liberal protestante; biógrafos eruditos; lamento de Hölderlin leyendo a Diógenes Laercio; la juventud sobreformada cuya erudición «lleva un gusano».`,
+        quote: `«Todo lo vivo necesita una atmósfera, un aura misteriosa… deja de vivir cuando es completamente seccionado.» — Capítulo 7 (§3)`
+      },
+      {
+        chapter: `Capítulo 8 (§1–11) · Cuarto peligro`,
+        metaphor: `«Canas innatas»`,
+        title: `La creencia en la vejez de la humanidad y la idolatría hegeliana del éxito`,
+        body: `Quienes nacen marcados por la educación historicista cumplen la profecía de Hesíodo de nacer con cabellos plateados: se creen «epígonos» y retoños tardíos de un mundo senil (herencia del memento mori medieval convertido en teología encubierta). La filosofía de Hegel agrava este mal al deificar el «proceso del mundo» como culminación y enseñar a arrodillarse ante todo hecho consumado.`,
+        targets: `Hesíodo y el memento mori frente al memento vivere; Wilhelm Wackernagel («pueblo de descendientes»); Hegel y la admiración servil del éxito («corresponder a los hechos»).`,
+        quote: `«El hombre es virtuoso en cuanto se rebela contra el poder ciego del factum, contra la tiranía de lo real.» — Capítulo 8 (§11)`
+      },
+      {
+        chapter: `Capítulo 9 (§1–14) · Quinto peligro`,
+        metaphor: `«Entrega al proceso del mundo»`,
+        title: `Ironía de sí mismo y cinismo utilitarista`,
+        body: `Al intuir en secreto su esterilidad, la época oscila entre la autoironía crepuscular y un cinismo cómodo que justifica el statu quo mediante «la entrega de la personalidad al proceso del mundo». El egoísmo inteligente y la historia escrita desde las masas estadísticas reemplazan la búsqueda de la grandeza individual.`,
+        targets: `Sátira contra Eduard von Hartmann (Filosofía del inconsciente y la «edad viril» de sólida mediocridad); David Strauss; historiografía de las masas frente a la «república de genios» de Schopenhauer.`,
+        quote: `«No es posible hallar el objetivo de la humanidad en su final, sino únicamente en sus ejemplares más destacados.» — Capítulo 9 (§8)`
+      }
+    ];
+
+    function selectSymptom(idx) {
+      var data = SYMPTOMS[idx];
+      if (!data) return;
+
+      var btns = document.querySelectorAll('.symptom-btn');
+      for (var i = 0; i < btns.length; i++) {
+        var active = i === idx;
+        btns[i].classList.toggle('is-active', active);
+        btns[i].setAttribute('aria-selected', active ? 'true' : 'false');
+      }
+
+      var cEl = document.getElementById('symp-chapter');
+      var mEl = document.getElementById('symp-metaphor');
+      var tEl = document.getElementById('symp-title');
+      var bEl = document.getElementById('symp-body');
+      var tgEl = document.getElementById('symp-targets');
+      var qEl = document.getElementById('symp-quote');
+
+      if (cEl) cEl.textContent = data.chapter;
+      if (mEl) mEl.textContent = data.metaphor;
+      if (tEl) tEl.textContent = data.title;
+      if (bEl) bEl.textContent = data.body;
+      if (tgEl) tgEl.textContent = data.targets;
+      if (qEl) qEl.textContent = data.quote;
+    }
+
+    /* --- 5. Curva Conceptual de Umbral Histórico --- */
+    var CURVE_POINTS = [
+      {
+        label: `Umbral 1 · Estado no histórico puro (Cap. 1 §1–3)`,
+        desc: `Sin recuerdo del pasado, el animal vive en dicha puntual y absoluta sinceridad, pero carece aún de lo propiamente humano, que nace al restringir lo no histórico mediante la reflexión.`
+      },
+      {
+        label: `Umbral 2 · Límite plástico y equilibrio helénico (Cap. 1 §4–6, Cap. 4 §6)`,
+        desc: `Punto óptimo: la cultura utiliza la memoria histórica dentro de un horizonte firme y la transforma en sangre propia, preservando el vigor creador y la unidad entre interior y exterior.`
+      },
+      {
+        label: `Umbral 3 · Fiebre histórica e indigestión (Cap. 4 §2–4, Cap. 7)`,
+        desc: `Al desbordarse el límite plástico, la ciencia impone una afluencia incesante de hechos. La vitalidad cae por disección crítica, pérdida de ilusiones protectoras y parálisis juvenil.`
+      },
+      {
+        label: `Umbral 4 · Colapso cínico vs. curación por antídotos (Cap. 9–10)`,
+        desc: `Sin intervención, el exceso desemboca en ironía y cinismo («entrega al proceso del mundo»). Sólo la aplicación de los antídotos —lo ahistórico y lo suprahistórico— restaura la salud vital.`
+      }
+    ];
+
+    function selectCurvePoint(idx) {
+      var pt = CURVE_POINTS[idx];
+      if (!pt) return;
+      var btns = document.querySelectorAll('[data-curve-pt]');
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.toggle('btn-is-selected', i === idx);
+      }
+      for (var j = 0; j < 4; j++) {
+        var ring = document.getElementById('pt-ring-' + j);
+        if (ring) ring.setAttribute('opacity', j === idx ? '1' : '0');
+      }
+      var lbl = document.getElementById('curve-pt-label');
+      var desc = document.getElementById('curve-pt-desc');
+      if (lbl) lbl.textContent = pt.label;
+      if (desc) desc.textContent = pt.desc;
+    }
+
+    /* --- 6. Explorador de Conceptos y Citas --- */
+    var GLOSSARY_ITEMS = [
+      {
+        term: `Fuerza plástica`,
+        cat: `tiempo`,
+        ref: `Cap. 1 (§4)`,
+        def: `Potencia de un individuo, pueblo o cultura para crecer desde sí mismo, asimilar lo pasado y ajeno transformándolo en sangre, sanar heridas y recomponer formas quebrantadas.`,
+        quote: `«Cuanto más fuertes sean las raíces de la naturaleza interior de un ser humano, tanto mayor es su capacidad de apropiarse o de subyugar el pasado.»`
+      },
+      {
+        term: `Lo ahistórico`,
+        cat: `tiempo`,
+        ref: `Cap. 1 (§3–6) y Cap. 10 (§11)`,
+        def: `Arte y fuerza de poder olvidar y encerrarse en un horizonte limitado. Constituye la atmósfera indispensable donde nacen la felicidad y toda gran acción creadora.`,
+        quote: `«Toda acción demanda olvido, tal como toda vida orgánica no sólo demanda luz sino también oscuridad.»`
+      },
+      {
+        term: `Lo suprahistórico`,
+        cat: `curacion`,
+        ref: `Cap. 1 (§7–10) y Cap. 10 (§11)`,
+        def: `Posición y fuerzas (específicamente el arte y la religión) que desvían la mirada del flujo del devenir para orientarla hacia lo eterno, concluso y perdurable en valor.`,
+        quote: `«Llamo “suprahistóricos” a los poderes que distraen la mirada del devenir y la dirigen a lo que da a la existencia el carácter de lo eterno.»`
+      },
+      {
+        term: `Historia monumental`,
+        cat: `modos`,
+        ref: `Cap. 2 (§2–8)`,
+        def: `Contemplación del pasado propia del hombre de acción que busca modelos sublimes. Si domina o cae en manos de los débiles, falsifica las causas y sirve para impedir nuevas grandezas.`,
+        quote: `«¡Dejad que los muertos entierren a los vivos!»`
+      },
+      {
+        term: `Historia anticuaria`,
+        cat: `modos`,
+        ref: `Cap. 3 (§1–6)`,
+        def: `Veneración fiel (pietas) de los orígenes, costumbres y ciudad propios. Sostiene el arraigo, pero al perder impulso vital presente momifica la vida y se vuelve ciega manía recolectora.`,
+        quote: `«El árbol comienza entonces a morirse de un modo innatural, descendiendo de la corona a las raíces…»`
+      },
+      {
+        term: `Historia crítica`,
+        cat: `modos`,
+        ref: `Cap. 3 (§7–8)`,
+        def: `Juicio y disolución de una parte del pasado opresivo para poder vivir. Instaura una «segunda naturaleza» frente a la heredada, asumiendo el riesgo de cortar las propias raíces.`,
+        quote: `«Cuando el pasado comienza a ser estudiado desde un punto de vista crítico se desentierran las raíces con un cuchillo…»`
+      },
+      {
+        term: `Fiebre histórica y «gallinas exhaustas»`,
+        cat: `patologia`,
+        ref: `Prólogo (§3) y Fragmento inicial`,
+        def: `Hipertrofia del sentido histórico convertida en enfermedad de la época. Los eruditos producen volúmenes interminables pero cada vez más pobres en vitalidad.`,
+        quote: `«Sólo saben cacarear más que nunca, porque ponen huevos con mayor frecuencia: sin embargo, los huevos se han vuelto cada vez más pequeños.»`
+      },
+      {
+        term: `Enciclopedias caminantes`,
+        cat: `patologia`,
+        ref: `Cap. 4 (§4–7)`,
+        def: `Caricatura del hombre moderno repleto de culturas, religiones y saberes ajenos indigestos, incapaz de expresar una forma propia exterior.`,
+        quote: `«Manual de cultura interior para bárbaros exteriores.»`
+      },
+      {
+        term: `Generación de eunucos y objetividad`,
+        cat: `patologia`,
+        ref: `Cap. 5 (§4–7) y Cap. 6`,
+        def: `Crítica a quienes confunden la neutralidad impotente e indiferente ante el pasado con una supuesta justicia histórica superior.`,
+        quote: `«¿O es que acaso se necesita una generación de eunucos para custodiar el gran harén universal de la Historia?»`
+      },
+      {
+        term: `Cultura como physis helénica`,
+        cat: `curacion`,
+        ref: `Cap. 4 (§8) y Cap. 10 (§17)`,
+        def: `Ideal terapéutico de Nietzsche: abandonar la cultura como ornamento hipócrita y restaurar la unidad viva entre interior y exterior, pensamiento y voluntad.`,
+        quote: `«El concepto de la cultura como physis nueva y mejorada, sin interior ni exterior, sin simulación ni convención…»`
+      }
+    ];
+
+    var currentGlossaryCategory = 'todos';
+
+    function setGlossaryCategory(cat) {
+      currentGlossaryCategory = cat;
+      var btns = document.querySelectorAll('[data-cat]');
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.toggle('btn-is-selected', btns[i].getAttribute('data-cat') === cat);
+      }
+      filterGlossary();
+    }
+
+    function resetGlossaryFilters() {
+      var input = document.getElementById('glossary-search');
+      if (input) input.value = '';
+      setGlossaryCategory('todos');
+    }
+
+    function filterGlossary() {
+      var input = document.getElementById('glossary-search');
+      var query = input ? input.value.trim().toLowerCase() : '';
+      var grid = document.getElementById('glossary-grid');
+      var emptyEl = document.getElementById('glossary-empty');
+      var countEl = document.getElementById('glossary-count');
+      if (!grid) return;
+
+      var matched = [];
+      for (var i = 0; i < GLOSSARY_ITEMS.length; i++) {
+        var item = GLOSSARY_ITEMS[i];
+        var catOk = currentGlossaryCategory === 'todos' || item.cat === currentGlossaryCategory;
+        var textHaystack = (item.term + ' ' + item.def + ' ' + item.quote + ' ' + item.ref).toLowerCase();
+        var queryOk = !query || textHaystack.indexOf(query) !== -1;
+        if (catOk && queryOk) matched.push(item);
+      }
+
+      if (countEl) {
+        countEl.textContent = matched.length === 1
+          ? `Mostrando 1 concepto del tratado`
+          : `Mostrando ${matched.length} conceptos del tratado`;
+      }
+
+      if (matched.length === 0) {
+        grid.innerHTML = '';
+        if (emptyEl) emptyEl.style.display = 'block';
+        return;
+      }
+
+      if (emptyEl) emptyEl.style.display = 'none';
+      var html = [];
+      for (var j = 0; j < matched.length; j++) {
+        var m = matched[j];
+        html.push(`
+          <article class="glossary-entry">
+            <div class="glossary-entry-head">
+              <h3>${m.term}</h3>
+              <span class="tag">${m.ref}</span>
+            </div>
+            <p style="font-size: 0.96rem; margin-bottom: 0;">${m.def}</p>
+            <p class="glossary-quote">${m.quote}</p>
+          </article>
+        `);
+      }
+      grid.innerHTML = html.join('');
+    }
+
+    /* --- 7. Acordeón de Preguntas Frecuentes --- */
+    function toggleFaq(btn) {
+      if (!btn) return;
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      var panel = btn.nextElementSibling;
+      var icon = btn.querySelector('.faq-icon');
+      btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      if (panel) panel.hidden = expanded;
+      if (icon) icon.textContent = expanded ? '+' : '−';
+    }
+
+    /* --- 8. Navegación Activa y Animaciones de Entrada --- */
+    function initObservers() {
+      var reveals = document.querySelectorAll('.reveal');
+      var navLinks = document.querySelectorAll('.nav-link');
+      var sections = document.querySelectorAll('main section[id]');
+
+      if ('IntersectionObserver' in window) {
+        var revObserver = new IntersectionObserver(function(entries, obs) {
+          for (var i = 0; i < entries.length; i++) {
+            if (entries[i].isIntersecting) {
+              entries[i].target.classList.add('is-visible');
+              obs.unobserve(entries[i].target);
+            }
+          }
+        }, { threshold: 0.08 });
+
+        for (var r = 0; r < reveals.length; r++) {
+          revObserver.observe(reveals[r]);
+        }
+
+        var secObserver = new IntersectionObserver(function(entries) {
+          for (var i = 0; i < entries.length; i++) {
+            if (entries[i].isIntersecting) {
+              var id = entries[i].target.getAttribute('id');
+              for (var k = 0; k < navLinks.length; k++) {
+                var href = navLinks[k].getAttribute('href');
+                navLinks[k].classList.toggle('is-active', href === '#' + id);
+              }
+            }
+          }
+        }, { rootMargin: '-25% 0px -60% 0px' });
+
+        for (var s = 0; s < sections.length; s++) {
+          secObserver.observe(sections[s]);
+        }
+      } else {
+        for (var r2 = 0; r2 < reveals.length; r2++) {
+          reveals[r2].classList.add('is-visible');
+        }
+      }
+    }
+
+    /* Inicialización */
+    updatePlasticSim();
+    setHistoryClimate('healthy');
+    selectSymptom(0);
+    selectCurvePoint(0);
+    filterGlossary();
+    initObservers();
+  </script>
+</body>
+</html>

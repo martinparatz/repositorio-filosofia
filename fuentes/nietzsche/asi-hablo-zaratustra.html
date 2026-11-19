@@ -1,0 +1,2455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="sonnet">
+  <title>Así habló Zaratustra — Base de Conocimiento e Hipertexto Filosófico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Sonnet style tokens */
+      --background: #f5efe0;
+      --surface-container-low: #f8f3e7;
+      --surface-container: #ece3cf;
+      --surface-container-high: #e4d8bf;
+
+      --on-surface: #1f1a17;
+      --on-surface-variant: #4a3f38;
+
+      --outline: #a8843f;
+      --outline-variant: #d8c7a3;
+
+      --primary: #6b1424;
+      --primary-hover: #510d1a;
+      --on-primary: #f5efe0;
+      --primary-container: #efe0dc;
+      --on-primary-container: #4a0d18;
+      --secondary: #2f4a3a;
+      --secondary-container: #e3ebe5;
+      --tertiary: #a8843f;
+      --error: #9b2c1f;
+      --on-error: #f5efe0;
+      --error-container: #f4dfdc;
+
+      --data-1: #6b1424;
+      --data-2: #2f4a3a;
+      --data-3: #a8843f;
+      --data-4: #3d5a73;
+      --data-context: #b9ad9c;
+
+      --font-headline: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Crimson Pro', Georgia, serif;
+      --font-label: 'Cormorant Garamond', Georgia, serif;
+
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 9999px;
+
+      --gilt-rule: 1px solid var(--outline);
+      --gilt-rule-pale: 1px solid var(--outline-variant);
+      --ink-rule: 1px solid var(--on-surface-variant);
+      --gilt-frame-inset: 5px;
+      --paper-vignette: inset 0 0 90px rgb(120 90 40 / 0.16);
+
+      /* 3. Shared tokens */
+      --positive: #2f4a3a;
+      --warning: #7a4b12;
+      --warning-container: #f3e8d2;
+      --focus: #6b1424;
+
+      /* Narrative type scale (stepped up slightly for Cormorant's small x-height) */
+      --display-size: clamp(2.85rem, 1.6rem + 4.5vw, 5.1rem);
+      --headline-size: clamp(1.95rem, 1.35rem + 2.1vw, 2.85rem);
+      --subhead-size: clamp(1.3rem, 1.1rem + 0.6vw, 1.6rem);
+      --body-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.15vw, 0.85rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { overflow-x: clip; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.68;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    .page-shell {
+      min-height: 100vh;
+      box-shadow: var(--paper-vignette);
+      padding-block-end: var(--space-3xl);
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-lg);
+      max-width: 1120px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography helpers */
+    .label-voice {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-style: normal;
+      font-size: var(--label-size);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .kicker {
+      display: block;
+      text-align: center;
+      margin-bottom: var(--space-sm);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin-top: 0;
+    }
+
+    .display-title {
+      font-size: var(--display-size);
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.06;
+      letter-spacing: -0.005em;
+      text-align: center;
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-heading {
+      font-size: var(--headline-size);
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.15;
+      letter-spacing: -0.005em;
+      text-align: center;
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--gilt-rule-pale);
+    }
+
+    .sub-heading {
+      font-size: var(--subhead-size);
+      font-weight: 600;
+      font-style: normal;
+      line-height: 1.25;
+      margin-bottom: var(--space-sm);
+    }
+
+    .prose {
+      max-width: 65ch;
+      margin-inline: auto;
+    }
+
+    .prose p {
+      margin-top: 0;
+      margin-bottom: var(--space-md);
+      text-align: left;
+    }
+
+    .oldstyle-nums {
+      font-variant-numeric: oldstyle-nums;
+    }
+
+    .tabular-nums {
+      font-variant-numeric: tabular-nums lining-nums;
+    }
+
+    /* Sonnet Defining Treatments */
+    .gilt-frame {
+      border: var(--gilt-rule);
+      outline: var(--gilt-rule);
+      outline-offset: calc(-1 * var(--gilt-frame-inset));
+      padding: var(--space-2xl) var(--space-xl);
+      background-color: var(--surface-container-low);
+      text-align: center;
+    }
+
+    .drop-cap::first-letter {
+      float: left;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 3.6em;
+      line-height: 0.85;
+      padding: 0.06em 0.09em 0 0;
+      color: var(--primary);
+    }
+
+    .ruled {
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-md);
+    }
+
+    .verse {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.25em;
+      line-height: 1.5;
+      color: var(--secondary);
+      border-left: var(--gilt-rule);
+      padding-left: var(--space-md);
+      max-width: 40ch;
+      margin: var(--space-lg) auto;
+      text-align: left;
+    }
+
+    .verse-attribution {
+      display: block;
+      margin-top: var(--space-xs);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+
+    /* Site Navigation */
+    .site-header {
+      padding-top: var(--space-lg);
+    }
+
+    .site-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-xs) var(--space-sm);
+      border-bottom: var(--gilt-rule-pale);
+      padding-bottom: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      color: var(--primary);
+      text-decoration: none;
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-bottom: 1px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+
+    .nav-link:hover {
+      color: var(--on-surface);
+      border-bottom-color: var(--outline);
+    }
+
+    .nav-middot {
+      color: var(--on-surface-variant);
+      user-select: none;
+    }
+
+    /* Hero details */
+    .hero-subtitle {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: var(--subhead-size);
+      color: var(--on-surface-variant);
+      margin: 0 auto var(--space-md);
+      max-width: 48ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-sm) var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-lg);
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: var(--rounded);
+      cursor: pointer;
+      border: 1px solid var(--primary);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), outline-color var(--dur-micro) var(--ease-out);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--primary-container);
+    }
+
+    .btn-small {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+    }
+
+    .btn[aria-pressed="true"],
+    .btn.is-active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* Key figures row */
+    .figures-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+      gap: var(--space-lg);
+      text-align: center;
+      margin-top: var(--space-xl);
+    }
+
+    .figure-item {
+      padding: var(--space-sm);
+    }
+
+    .figure-value {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(2rem, 1.5rem + 1.5vw, 2.75rem);
+      line-height: 1.1;
+      color: var(--on-surface);
+      margin-block: var(--space-xs);
+    }
+
+    .figure-caption {
+      font-style: italic;
+      font-size: 0.95em;
+      color: var(--on-surface-variant);
+    }
+
+    /* Tags & Hyperlinks */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--secondary);
+      border-radius: var(--rounded-full);
+      padding: var(--space-xs) var(--space-md);
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--secondary);
+    }
+
+    .hyper-ref {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--outline);
+      padding: 0 var(--space-xs);
+      margin: 0;
+      font-family: inherit;
+      font-size: inherit;
+      font-style: italic;
+      color: var(--primary);
+      cursor: pointer;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+
+    .hyper-ref:hover {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .inline-link {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-color: var(--outline);
+      text-underline-offset: 3px;
+    }
+
+    .inline-link:hover {
+      color: var(--on-primary-container);
+      background-color: var(--primary-container);
+    }
+
+    /* Section framing */
+    .editorial-section {
+      padding-top: var(--space-xl);
+    }
+
+    .section-lead {
+      max-width: 60ch;
+      margin: 0 auto var(--space-xl);
+      text-align: center;
+      font-style: italic;
+      color: var(--on-surface-variant);
+      font-size: 1.12em;
+    }
+
+    /* Two-column interactive layout (Spatial Contiguity) */
+    .split-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.15fr);
+      gap: var(--space-xl);
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+
+    .panel-box {
+      background-color: var(--surface-container-low);
+      border-block: var(--gilt-rule);
+      padding: var(--space-lg);
+    }
+
+    .panel-inset {
+      background-color: var(--surface-container);
+      border-left: 2px solid var(--primary);
+      padding: var(--space-lg);
+    }
+
+    /* Interactive Genesis Timeline */
+    .timeline-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .genesis-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .genesis-meta-list {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-md) 0 0;
+      border-top: var(--gilt-rule-pale);
+    }
+
+    .genesis-meta-list li {
+      padding-block: var(--space-sm);
+      border-bottom: var(--gilt-rule-pale);
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    /* Interactive Ring of Concepts SVG */
+    .ring-diagram-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .ring-svg {
+      width: 100%;
+      max-width: 460px;
+      height: auto;
+      display: block;
+    }
+
+    .ring-node {
+      cursor: pointer;
+    }
+
+    .ring-node circle.node-bg {
+      transition: fill var(--dur-short) var(--ease-out), stroke-width var(--dur-short) var(--ease-out);
+    }
+
+    .ring-node-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-sm);
+    }
+
+    .concept-relations {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    /* Three Metamorphoses interactive stepper */
+    .metamorphosis-bar {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .stage-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-md);
+      background-color: var(--surface-container-low);
+      border: var(--gilt-rule-pale);
+      border-bottom: 2px solid var(--outline);
+      color: var(--on-surface);
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+
+    .stage-btn:hover {
+      background-color: var(--surface-container);
+    }
+
+    .stage-btn[aria-pressed="true"] {
+      background-color: var(--primary-container);
+      border-color: var(--primary);
+    }
+
+    .stage-btn .stage-title {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.45rem;
+      color: var(--on-surface);
+    }
+
+    /* Tables (Sonnet: no vertical lines, gilt hairlines) */
+    .table-wrap {
+      overflow-x: auto;
+      margin-block: var(--space-xl);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--gilt-rule);
+    }
+
+    td {
+      padding: var(--space-md);
+      border-bottom: var(--gilt-rule-pale);
+      vertical-align: top;
+    }
+
+    /* Parts & Discourses navigation */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-xl);
+    }
+
+    .parts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-xl);
+    }
+
+    .part-card {
+      border-top: var(--gilt-rule);
+      border-bottom: var(--gilt-rule-pale);
+      padding-block: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .part-card.is-dimmed {
+      opacity: 0.42;
+    }
+
+    .discourse-list {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-sm) 0 0;
+    }
+
+    .discourse-item {
+      padding-block: var(--space-sm);
+      border-top: var(--gilt-rule-pale);
+    }
+
+    .discourse-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .discourse-title {
+      font-family: var(--font-headline);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--on-surface);
+    }
+
+    /* Higher Men grid */
+    .higher-men-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    .higher-man-card {
+      border-top: var(--gilt-rule);
+      padding-top: var(--space-sm);
+      padding-bottom: var(--space-md);
+    }
+
+    /* Passages & Hypertextual Glosses */
+    .passages-list {
+      display: grid;
+      gap: var(--space-xl);
+    }
+
+    .passage-card {
+      border-block: var(--gilt-rule-pale);
+      padding-block: var(--space-lg);
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .passage-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .gloss-box {
+      background-color: var(--surface-container-low);
+      border-left: 2px solid var(--secondary);
+      padding: var(--space-md);
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      max-width: 72ch;
+      margin-inline: auto;
+      border-top: var(--gilt-rule);
+    }
+
+    .faq-item {
+      border-bottom: var(--gilt-rule-pale);
+    }
+
+    .faq-trigger {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-md) 0;
+      background: transparent;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      text-align: left;
+      cursor: pointer;
+      font-family: var(--font-headline);
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--on-surface);
+    }
+
+    .faq-trigger:hover {
+      color: var(--primary);
+    }
+
+    .faq-answer {
+      padding-bottom: var(--space-md);
+      color: var(--on-surface-variant);
+    }
+
+    .faq-answer[hidden] {
+      display: none;
+    }
+
+    /* Didactic Learning Lab */
+    .lab-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+      margin-block: var(--space-md);
+    }
+
+    .quiz-option {
+      width: 100%;
+      min-height: 44px;
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: var(--gilt-rule-pale);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+
+    .quiz-option:hover {
+      background-color: var(--surface-container);
+      border-color: var(--outline);
+    }
+
+    .quiz-option.is-correct {
+      background-color: var(--secondary-container);
+      border-color: var(--positive);
+      color: var(--on-surface);
+    }
+
+    .quiz-option.is-wrong {
+      background-color: var(--error-container);
+      border-color: var(--error);
+      color: var(--on-surface);
+    }
+
+    .feedback-banner {
+      padding: var(--space-md);
+      border-left: 2px solid var(--secondary);
+      background-color: var(--surface-container-low);
+      margin-top: var(--space-md);
+    }
+
+    .feedback-banner.is-error {
+      border-left-color: var(--error);
+      background-color: var(--error-container);
+    }
+
+    /* Inputs */
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+    }
+
+    .field-input,
+    .field-textarea,
+    .field-select {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm);
+      background-color: transparent;
+      border: none;
+      border-bottom: var(--ink-rule);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 1rem;
+    }
+
+    .field-select {
+      padding-right: var(--space-xl);
+    }
+
+    .field-textarea {
+      min-height: 110px;
+      resize: vertical;
+      border: var(--gilt-rule-pale);
+      background-color: var(--surface-container-low);
+    }
+
+    .field-input:focus,
+    .field-textarea:focus,
+    .field-select:focus {
+      border-bottom-color: var(--primary);
+    }
+
+    .progress-meter {
+      width: 100%;
+      height: 6px;
+      background-color: var(--surface-container);
+      border: var(--gilt-rule-pale);
+      overflow: hidden;
+      margin-block: var(--space-sm);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      width: 0%;
+      transition: width var(--dur-short) var(--ease-out);
+    }
+
+    /* Classification Challenge */
+    .classify-row {
+      padding-block: var(--space-md);
+      border-bottom: var(--gilt-rule-pale);
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+      gap: var(--space-md);
+      align-items: end;
+    }
+
+    .status-note {
+      font-style: italic;
+      color: var(--on-surface-variant);
+      font-size: 0.95rem;
+      margin-top: var(--space-xs);
+    }
+
+    .status-note.is-positive {
+      color: var(--positive);
+      font-weight: 600;
+    }
+
+    .status-note.is-error {
+      color: var(--error);
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--gilt-rule);
+      padding-top: var(--space-xl);
+      text-align: center;
+      color: var(--on-surface-variant);
+      font-size: 0.95rem;
+    }
+
+    /* Subtle reveal animation */
+    .reveal {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 820px) {
+      .split-panel,
+      .genesis-grid,
+      .passage-card,
+      .lab-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: 1fr;
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .gilt-frame {
+        padding: var(--space-lg) var(--space-md);
+      }
+      .metamorphosis-bar,
+      .classify-row {
+        grid-template-columns: 1fr;
+      }
+      .nav-middot {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="page-grid">
+
+      <!-- HEADER & NAVIGATION -->
+      <header class="site-header" id="inicio">
+        <nav class="site-nav" aria-label="Navegación principal de la obra">
+          <a class="nav-link" href="#inicio">Inicio</a>
+          <span class="nav-middot" aria-hidden="true">·</span>
+          <a class="nav-link" href="#genesis">Génesis</a>
+          <span class="nav-middot" aria-hidden="true">·</span>
+          <a class="nav-link" href="#conceptos">Conceptos Eje</a>
+          <span class="nav-middot" aria-hidden="true">·</span>
+          <a class="nav-link" href="#transformaciones">Transformaciones</a>
+          <span class="nav-middot" aria-hidden="true">·</span>
+          <a class="nav-link" href="#partes">Partes y Discursos</a>
+          <span class="nav-middot" aria-hidden="true">·</span>
+          <a class="nav-link" href="#pasajes">Pasajes Clave</a>
+          <span class="nav-middot" aria-hidden="true">·</span>
+          <a class="nav-link" href="#faq">Preguntas</a>
+          <span class="nav-middot" aria-hidden="true">·</span>
+          <a class="nav-link" href="#taller">Taller</a>
+        </nav>
+
+        <!-- Opening Gilt Double Frame (Single one in view) -->
+        <div class="gilt-frame">
+          <span class="label-voice kicker">Friedrich Nietzsche · Archivo Filosófico e Hipertextual</span>
+          <h1 class="display-title">Así habló Zaratustra</h1>
+          <p class="hero-subtitle"><em>Also sprach Zarathustra. Ein Buch für Alle und Keinen</em> — Un libro para todos y para nadie</p>
+          <p class="prose" style="text-align: center; color: var(--on-surface-variant);">
+            Base de conocimientos estructurada sobre la doctrina filosófica, la triple génesis, los discursos y los símbolos líricos de la obra, basada en la edición, traducción y aparato crítico de Andrés Sánchez Pascual (Alianza Editorial).
+          </p>
+
+          <blockquote class="verse">
+            «Yo os enseño el superhombre. El hombre es algo que debe ser superado. El superhombre es el sentido de la tierra.»
+            <span class="verse-attribution">Prólogo de Zaratustra, 3</span>
+          </blockquote>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#conceptos">Explorar los conceptos eje</a>
+            <a class="btn btn-secondary" href="#taller">Ir al taller de aprendizaje</a>
+          </div>
+        </div>
+
+        <!-- Key Figures Row -->
+        <div class="figures-row ruled" aria-label="Datos fundamentales de la obra">
+          <div class="figure-item">
+            <span class="label-voice">Estructura</span>
+            <div class="figure-value tabular-nums">4 Partes + Prólogo</div>
+            <div class="figure-caption">Capítulos narrativos, doctrinales y líricos</div>
+          </div>
+          <div class="figure-item">
+            <span class="label-voice">Redacción</span>
+            <div class="figure-value tabular-nums">1883 – 1885</div>
+            <div class="figure-caption">Partes I y II escritas en diez días cada una</div>
+          </div>
+          <div class="figure-item">
+            <span class="label-voice">Núcleo Doctrinal</span>
+            <div class="figure-value tabular-nums">4 Ejes</div>
+            <div class="figure-caption">Superhombre, Muerte de Dios, Voluntad y Retorno</div>
+          </div>
+          <div class="figure-item">
+            <span class="label-voice">Primera Edición 4.ª Parte</span>
+            <div class="figure-value tabular-nums">40 Ejemplares</div>
+            <div class="figure-caption">Impresión privada; solo 7 destinatarios</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- INTRODUCTORY PROSE WITH DROP CAP -->
+      <section class="editorial-section" aria-labelledby="titulo-sentido">
+        <span class="label-voice kicker">Sentido de la figura de Zoroastro</span>
+        <h2 class="section-heading" id="titulo-sentido">La autosuperación de la moral por veracidad</h2>
+        <div class="prose">
+          <p class="drop-cap oldstyle-nums">
+            Nietzsche se sirve de la figura semilegendaria del pensador persa Zoroastro (siglo VI antes de nuestra era, nacido junto al lago Urmi en la provincia Aria) para exponer su propia doctrina. Según los himnos del <em>Avesta</em> y el relato que el propio Nietzsche recoge en <em>Ecce homo</em>, Zaratustra abandonó su patria a los treinta años, se retiró diez años a la soledad de las montañas acompañado por su águila —símbolo del orgullo— y su serpiente —símbolo de la inteligencia—, y bajó después entre los hombres para anunciar un nuevo horizonte.
+          </p>
+          <p>
+            ¿Por qué eligió el «primer inmoralista» precisamente a quien fundó la distinción metafísica entre el bien y el mal? Nietzsche responde en <em>Ecce homo</em>: Zaratustra creó ese error fatal al trasponer la moral al orden del cosmos; por ello, siendo el pensador más veraz —«decir la verdad y disparar bien con flechas» era la virtud persa—, le corresponde ser el primero en reconocer y superar su propio error. Su obra quiere ser así, tanto en lo doctrinal como en lo literario, la antítesis de la Biblia luterana: un libro «para todos», porque cuestiona los límites actuales de la humanidad, y «para nadie», porque nadie ha traspasado todavía esos límites.
+          </p>
+        </div>
+      </section>
+
+      <!-- SECTION 1: GENESIS TIMELINE -->
+      <section class="editorial-section" id="genesis" aria-labelledby="titulo-genesis">
+        <span class="label-voice kicker">Historia y composición · 1880 – 1892</span>
+        <h2 class="section-heading" id="titulo-genesis">La triple génesis de la obra</h2>
+        <p class="section-lead">
+          Según la autobiografía intelectual de <em>Ecce homo</em> y las cartas de Nietzsche, <em>Así habló Zaratustra</em> brotó de tres momentos previos —afectivo, conceptual y figurativo— antes de su redacción eruptiva.
+        </p>
+
+        <div class="timeline-controls" role="group" aria-label="Etapas de la génesis de Así habló Zaratustra">
+          <button type="button" class="btn btn-secondary btn-small is-active" id="gen-btn-0" aria-pressed="true" onclick="selectGenesis(0)">1. Invierno en Génova (1880–1881)</button>
+          <button type="button" class="btn btn-secondary btn-small" id="gen-btn-1" aria-pressed="false" onclick="selectGenesis(1)">2. Génesis Afectiva · Recoaro (1881)</button>
+          <button type="button" class="btn btn-secondary btn-small" id="gen-btn-2" aria-pressed="false" onclick="selectGenesis(2)">3. Génesis Conceptual · Sils-Maria (1881)</button>
+          <button type="button" class="btn btn-secondary btn-small" id="gen-btn-3" aria-pressed="false" onclick="selectGenesis(3)">4. Génesis Figurativa · Rapallo (1883)</button>
+          <button type="button" class="btn btn-secondary btn-small" id="gen-btn-4" aria-pressed="false" onclick="selectGenesis(4)">5. Partes II a IV y Edición Completa (1883–1892)</button>
+        </div>
+
+        <div class="genesis-grid">
+          <div class="panel-box" id="genesis-detail" aria-live="polite">
+            <!-- Populated dynamically and initialized with stage 0 -->
+          </div>
+          <aside class="panel-inset" aria-label="Documento histórico de Sils-Maria">
+            <span class="label-voice">Documento conservado · Agosto de 1881</span>
+            <h3 class="sub-heading" style="margin-top: var(--space-xs);">Esbozo: «El retorno de lo idéntico»</h3>
+            <p style="font-style: italic; color: var(--on-surface-variant);">
+              Anotado en Sils-Maria junto al lago de Silvaplana, al pie de una roca en forma de pirámide cerca de Surlei:
+            </p>
+            <ol class="oldstyle-nums" style="padding-left: var(--space-lg); margin-bottom: var(--space-md);">
+              <li>La asimilación de los errores fundamentales.</li>
+              <li>La asimilación de las pasiones.</li>
+              <li>La asimilación del saber, incluso del saber que renuncia. (Pasión del conocimiento.)</li>
+              <li>El inocente. El individuo como experimento. El aligeramiento, el rebajamiento, la debilitación de la vida — transición.</li>
+              <li>El nuevo centro de gravedad: el eterno retorno de lo idéntico. Importancia infinita de nuestro saber, de nuestro errar, de nuestros hábitos y modos de vivir, para todo lo venidero.</li>
+            </ol>
+            <p class="verse" style="margin-block: var(--space-sm); font-size: 1.05em;">
+              «Primeros de agosto de 1881 en Sils-Maria, a 6.000 pies sobre el nivel del mar y mucho más alto aún sobre todas las cosas humanas.»
+            </p>
+            <p style="font-size: 0.92rem; color: var(--on-surface-variant); margin-top: var(--space-sm); margin-bottom: 0;">
+              <strong>Nota sobre la fuente del esbozo:</strong> En su punto 5, Nietzsche añade la pregunta clave: «¿Qué hacemos con el resto de nuestra vida — nosotros los que hemos pasado su mayor parte en la más esencial ignorancia? Nos dedicamos a enseñar esta doctrina».
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- SECTION 2: CORE CONCEPTS & RING OF ETERNAL RETURN -->
+      <section class="editorial-section" id="conceptos" aria-labelledby="titulo-conceptos">
+        <span class="label-voice kicker">Base de conocimientos estructurada</span>
+        <h2 class="section-heading" id="titulo-conceptos">El anillo de los conceptos fundamentales</h2>
+        <p class="section-lead">
+          Los grandes pensamientos de la obra no aparecen aislados ni se comunican por igual a todo el mundo: forman entre sí un anillo solidario. Pulsa cada nodo del esquema o su etiqueta para explorar su definición, su destinatario y sus vínculos internos.
+        </p>
+
+        <div class="split-panel">
+          <!-- Interactive Vector Ring Schematic -->
+          <div class="ring-diagram-wrap panel-box">
+            <span class="label-voice">Esquema relacional de la doctrina</span>
+            <svg class="ring-svg" viewBox="0 0 440 440" role="img" aria-label="Anillo interactivo de los conceptos clave de Así habló Zaratustra">
+              <!-- Outer and inner gilt rings -->
+              <circle cx="220" cy="220" r="154" fill="none" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="4 4" />
+              <circle cx="220" cy="220" r="76" fill="none" stroke="var(--outline-variant)" stroke-width="1" />
+
+              <!-- Connecting lines between core thoughts -->
+              <line x1="220" y1="66" x2="353" y2="143" stroke="var(--outline-variant)" stroke-width="1.5" />
+              <line x1="353" y1="143" x2="353" y2="297" stroke="var(--outline-variant)" stroke-width="1.5" />
+              <line x1="353" y1="297" x2="220" y2="374" stroke="var(--outline-variant)" stroke-width="1.5" />
+              <line x1="220" y1="374" x2="87" y2="297" stroke="var(--outline-variant)" stroke-width="1.5" />
+              <line x1="87" y1="297" x2="87" y2="143" stroke="var(--outline-variant)" stroke-width="1.5" />
+              <line x1="87" y1="143" x2="220" y2="66" stroke="var(--outline-variant)" stroke-width="1.5" />
+
+              <!-- Center hub -->
+              <text x="220" y="212" text-anchor="middle" font-family="var(--font-headline)" font-style="italic" font-size="18" fill="var(--on-surface)">Anillo del</text>
+              <text x="220" y="234" text-anchor="middle" font-family="var(--font-headline)" font-style="italic" font-size="18" fill="var(--primary)">Eterno Retorno</text>
+
+              <!-- Node 0: Superhombre (top) -->
+              <g class="ring-node" id="svg-node-superhombre" onclick="selectConcept('superhombre')" tabindex="0" role="button" aria-label="Seleccionar concepto El Superhombre" onkeydown="handleNodeKey(event, 'superhombre')">
+                <circle class="node-bg" cx="220" cy="66" r="40" fill="var(--primary)" stroke="var(--outline)" stroke-width="2" />
+                <text x="220" y="63" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--on-primary)">EL SUPER-</text>
+                <text x="220" y="76" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--on-primary)">HOMBRE</text>
+              </g>
+
+              <!-- Node 1: Muerte de Dios (top right) -->
+              <g class="ring-node" id="svg-node-muerte_dios" onclick="selectConcept('muerte_dios')" tabindex="0" role="button" aria-label="Seleccionar concepto La Muerte de Dios" onkeydown="handleNodeKey(event, 'muerte_dios')">
+                <circle class="node-bg" cx="353" cy="143" r="40" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+                <text x="353" y="140" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--on-surface)">MUERTE</text>
+                <text x="353" y="153" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--on-surface)">DE DIOS</text>
+              </g>
+
+              <!-- Node 2: Tres transformaciones (bottom right) -->
+              <g class="ring-node" id="svg-node-transformaciones" onclick="selectConcept('transformaciones')" tabindex="0" role="button" aria-label="Seleccionar concepto Tres Transformaciones" onkeydown="handleNodeKey(event, 'transformaciones')">
+                <circle class="node-bg" cx="353" cy="297" r="40" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+                <text x="353" y="294" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--on-surface)">TRES TRANS-</text>
+                <text x="353" y="307" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--on-surface)">FORMACIONES</text>
+              </g>
+
+              <!-- Node 3: Voluntad de poder (bottom) -->
+              <g class="ring-node" id="svg-node-voluntad_poder" onclick="selectConcept('voluntad_poder')" tabindex="0" role="button" aria-label="Seleccionar concepto Voluntad de Poder" onkeydown="handleNodeKey(event, 'voluntad_poder')">
+                <circle class="node-bg" cx="220" cy="374" r="40" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+                <text x="220" y="371" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--on-surface)">VOLUNTAD</text>
+                <text x="220" y="384" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--on-surface)">DE PODER</text>
+              </g>
+
+              <!-- Node 4: Eterno retorno (bottom left) -->
+              <g class="ring-node" id="svg-node-eterno_retorno" onclick="selectConcept('eterno_retorno')" tabindex="0" role="button" aria-label="Seleccionar concepto Eterno Retorno" onkeydown="handleNodeKey(event, 'eterno_retorno')">
+                <circle class="node-bg" cx="87" cy="297" r="40" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+                <text x="87" y="294" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--on-surface)">ETERNO</text>
+                <text x="87" y="307" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--on-surface)">RETORNO</text>
+              </g>
+
+              <!-- Node 5: Hombres superiores (top left) -->
+              <g class="ring-node" id="svg-node-hombres_superiores" onclick="selectConcept('hombres_superiores')" tabindex="0" role="button" aria-label="Seleccionar concepto Hombres Superiores" onkeydown="handleNodeKey(event, 'hombres_superiores')">
+                <circle class="node-bg" cx="87" cy="143" r="40" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+                <text x="87" y="140" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--on-surface)">HOMBRES</text>
+                <text x="87" y="153" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--on-surface)">SUPERIORES</text>
+              </g>
+            </svg>
+
+            <div class="ring-node-buttons" role="group" aria-label="Selector rápido de conceptos">
+              <button type="button" class="btn btn-secondary btn-small is-active" id="cbtn-superhombre" aria-pressed="true" onclick="selectConcept('superhombre')">Superhombre</button>
+              <button type="button" class="btn btn-secondary btn-small" id="cbtn-muerte_dios" aria-pressed="false" onclick="selectConcept('muerte_dios')">Muerte de Dios</button>
+              <button type="button" class="btn btn-secondary btn-small" id="cbtn-transformaciones" aria-pressed="false" onclick="selectConcept('transformaciones')">Transformaciones</button>
+              <button type="button" class="btn btn-secondary btn-small" id="cbtn-voluntad_poder" aria-pressed="false" onclick="selectConcept('voluntad_poder')">Voluntad de poder</button>
+              <button type="button" class="btn btn-secondary btn-small" id="cbtn-eterno_retorno" aria-pressed="false" onclick="selectConcept('eterno_retorno')">Eterno retorno</button>
+              <button type="button" class="btn btn-secondary btn-small" id="cbtn-hombres_superiores" aria-pressed="false" onclick="selectConcept('hombres_superiores')">Hombres superiores</button>
+            </div>
+          </div>
+
+          <!-- Concept Knowledge Card (Driven by selection) -->
+          <div class="panel-inset" id="concept-detail" aria-live="polite">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Comparison Table: Último hombre vs Hombres superiores vs Superhombre -->
+        <div class="table-wrap">
+          <span class="label-voice">Cuadro comparativo · La escala antropológica de Zaratustra</span>
+          <table>
+            <thead>
+              <tr>
+                <th>Figura</th>
+                <th>Relación con la moral y la tierra</th>
+                <th>Actitud ante el riesgo y el dolor</th>
+                <th>Lugar en el itinerario de Zaratustra</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>El Último Hombre</strong></td>
+                <td>Todo lo empequeñece; busca un «lamentable bienestar» y calor gregario («ningún pastor y un solo rebaño»).</td>
+                <td>Considera pecaminoso enfermar o desconfiar; toma un poco de veneno para tener sueños agradables y un morir suave.</td>
+                <td>Despreciado en el Prólogo (5); el pueblo del mercado prefiere al último hombre antes que al superhombre.</td>
+              </tr>
+              <tr>
+                <td><strong>Los Hombres Superiores</strong></td>
+                <td>Han perdido los ídolos antiguos y sienten náusea del mundo moderno, pero aún buscan seguridad o recaen en la idolatría (la fiesta del asno).</td>
+                <td>Lanzan un «grito de socorro» desde su desesperación; incapaces de sostener la risa creadora del mediodía.</td>
+                <td>Acuden a la caverna en la Cuarta Parte; suscitan la última tentación de Zaratustra: la compasión.</td>
+              </tr>
+              <tr>
+                <td><strong>El Superhombre (<em>Übermensch</em>)</strong></td>
+                <td>Fiel a la tierra y al cuerpo («gran razón»); creador de valores nuevos más allá del bien y del mal heredados.</td>
+                <td>Ama su propio ocaso (<em>Untergang</em>) como puente hacia el futuro; afirma la vida incluso en el dolor y el eterno retorno.</td>
+                <td>Sentido y meta de la tierra anunciada desde el Prólogo; anunciado por el signo del león riente y las palomas.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 3: THE THREE METAMORPHOSES INTERACTIVE STEPPER -->
+      <section class="editorial-section" id="transformaciones" aria-labelledby="titulo-transformaciones">
+        <span class="label-voice kicker">Primera Parte · Primer discurso de Zaratustra</span>
+        <h2 class="section-heading" id="titulo-transformaciones">Las tres transformaciones del espíritu</h2>
+        <p class="section-lead">
+          El discurso inaugural de la Primera Parte describe la metamorfosis necesaria para dejar atrás la obediencia moral heredada y alcanzar la capacidad creadora de nuevos valores.
+        </p>
+
+        <div class="metamorphosis-bar" role="group" aria-label="Fases de la transformación del espíritu">
+          <button type="button" class="stage-btn" id="stage-btn-0" aria-pressed="true" onclick="selectStage(0)">
+            <span class="label-voice">Estadio I</span>
+            <span class="stage-title">El Camello</span>
+            <span style="color: var(--on-surface-variant); font-size: 0.95rem;">Espíritu de carga y veneración</span>
+          </button>
+          <button type="button" class="stage-btn" id="stage-btn-1" aria-pressed="false" onclick="selectStage(1)">
+            <span class="label-voice">Estadio II</span>
+            <span class="stage-title">El León</span>
+            <span style="color: var(--on-surface-variant); font-size: 0.95rem;">Conquista de la libertad negativa</span>
+          </button>
+          <button type="button" class="stage-btn" id="stage-btn-2" aria-pressed="false" onclick="selectStage(2)">
+            <span class="label-voice">Estadio III</span>
+            <span class="stage-title">El Niño</span>
+            <span style="color: var(--on-surface-variant); font-size: 0.95rem;">Inocencia y creación lúdica</span>
+          </button>
+        </div>
+
+        <div class="panel-box" id="stage-detail" aria-live="polite">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- SECTION 4: THEMATIC NAVIGATION BY PARTS & DISCOURSES -->
+      <section class="editorial-section" id="partes" aria-labelledby="titulo-partes">
+        <span class="label-voice kicker">Arquitectura literaria y filosófica</span>
+        <h2 class="section-heading" id="titulo-partes">Navegación temática por partes y discursos</h2>
+        <p class="section-lead">
+          Andrés Sánchez Pascual distingue tres tipos de capítulos en la obra: <strong>narrativos</strong> (donde avanza la fábula), <strong>doctrinales</strong> (remansos de reflexión filosófica) y <strong>líricos</strong> (cumbres poéticas). Filtra por eje temático para destacar su recorrido.
+        </p>
+
+        <div class="filter-bar" role="group" aria-label="Filtrar partes y discursos por tema">
+          <button type="button" class="btn btn-secondary btn-small is-active" id="fbtn-all" aria-pressed="true" onclick="filterDiscourses('all')">Toda la obra</button>
+          <button type="button" class="btn btn-secondary btn-small" id="fbtn-superhombre" aria-pressed="false" onclick="filterDiscourses('superhombre')">Superhombre y Tierra</button>
+          <button type="button" class="btn btn-secondary btn-small" id="fbtn-muerte_dios" aria-pressed="false" onclick="filterDiscourses('muerte_dios')">Muerte de Dios y Moral</button>
+          <button type="button" class="btn btn-secondary btn-small" id="fbtn-voluntad_poder" aria-pressed="false" onclick="filterDiscourses('voluntad_poder')">Voluntad de Poder</button>
+          <button type="button" class="btn btn-secondary btn-small" id="fbtn-eterno_retorno" aria-pressed="false" onclick="filterDiscourses('eterno_retorno')">Eterno Retorno</button>
+          <button type="button" class="btn btn-secondary btn-small" id="fbtn-hombres_superiores" aria-pressed="false" onclick="filterDiscourses('hombres_superiores')">Hombres Superiores</button>
+        </div>
+
+        <div class="parts-grid" id="parts-container">
+          <!-- Populated by JS with all 5 blocks visible, dimmed/highlighted dynamically -->
+        </div>
+
+        <!-- Gallery of the 8 Higher Men -->
+        <div style="margin-top: var(--space-2xl);">
+          <span class="label-voice kicker">Cuarta Parte · Los huéspedes de la caverna</span>
+          <h3 class="sub-heading" style="text-align: center; font-family: var(--font-headline); font-style: italic; font-size: var(--headline-size);">
+            El cortejo de los hombres superiores
+          </h3>
+          <p class="prose" style="text-align: center; color: var(--on-surface-variant);">
+            Atraídos por el canto y el grito de socorro, acuden a las montañas ocho figuras que encarnan el agotamiento de la cultura europea, pero que todavía no son el Superhombre:
+          </p>
+          <div class="higher-men-grid">
+            <div class="higher-man-card">
+              <span class="label-voice">01</span>
+              <h4 class="sub-heading">El Adivino</h4>
+              <p>Anuncia el nihilismo pasivo («todo es vanidad», eco del Eclesiastés) y vaticina la llegada del grito de socorro.</p>
+            </div>
+            <div class="higher-man-card">
+              <span class="label-voice">02</span>
+              <h4 class="sub-heading">Los Dos Reyes</h4>
+              <p>Abandonaron su trono asqueados por la «chusma» y el «relumbrón» moderno; recuerdan las palabras bélicas de Zaratustra.</p>
+            </div>
+            <div class="higher-man-card">
+              <span class="label-voice">03</span>
+              <h4 class="sub-heading">El Concienzudo del Espíritu</h4>
+              <p>Representante de la exactitud escrupulosa que acude al grito de socorro de Zaratustra y dialoga con los demás huéspedes en la caverna (también llamado «el penitente del espíritu» en la tradición de sus títulos manuscritos).</p>
+            </div>
+            <div class="higher-man-card">
+              <span class="label-voice">04</span>
+              <h4 class="sub-heading">El Mago</h4>
+              <p>El «penitente del espíritu», actor que finge grandeza y confiesa su falsedad en el único instante en que es auténtico.</p>
+            </div>
+            <div class="higher-man-card">
+              <span class="label-voice">05</span>
+              <h4 class="sub-heading">El Papa Jubilado</h4>
+              <p>Sirvió al Dios antiguo hasta el final; dialoga con Zaratustra sobre cómo Dios «murió de compasión» y se declara «el más ateo».</p>
+            </div>
+            <div class="higher-man-card">
+              <span class="label-voice">06</span>
+              <h4 class="sub-heading">El Más Feo de los Hombres</h4>
+              <p>El asesino de Dios: no soportaba que un testigo «super-compasivo y super-indiscreto» viera sus rincones más sucios.</p>
+            </div>
+            <div class="higher-man-card">
+              <span class="label-voice">07</span>
+              <h4 class="sub-heading">El Mendigo Voluntario</h4>
+              <p>Antiguo rico que arrojó lejos su riqueza; en el diálogo con Zaratustra («predicador de la montaña») habla con dureza pese a la suavidad de su carácter.</p>
+            </div>
+            <div class="higher-man-card">
+              <span class="label-voice">08</span>
+              <h4 class="sub-heading">El Viajero y Sombra</h4>
+              <p>Antiguo seguidor de Zaratustra que ha perseguido «todo lo prohibido» y ahora busca seguridad y reposo en su caverna.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: EXPLORABLE KEY PASSAGES & HYPERTEXT GLOSSES -->
+      <section class="editorial-section" id="pasajes" aria-labelledby="titulo-pasajes">
+        <span class="label-voice kicker">Lectura hipertextual comentada</span>
+        <h2 class="section-heading" id="titulo-pasajes">Pasajes, aforismos y glosas del traductor</h2>
+        <p class="section-lead">
+          Explora fragmentos literales de la obra (traducción de Andrés Sánchez Pascual). Pulsa los términos subrayados en oro dentro de cada pasaje para desplegar su nota filológica y su vínculo doctrinal.
+        </p>
+
+        <div class="passages-list" id="passages-container">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- SECTION 6: FAQ -->
+      <section class="editorial-section" id="faq" aria-labelledby="titulo-faq">
+        <span class="label-voice kicker">Consultas esenciales</span>
+        <h2 class="section-heading" id="titulo-faq">Preguntas frecuentes</h2>
+        <p class="section-lead">
+          Respuestas directas sustentadas en la introducción, el texto y las notas críticas de la edición de referencia.
+        </p>
+
+        <div class="faq-list" id="faq-container">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- SECTION 7: INTERACTIVE LEARNING LAB (QUIZ + CLASSIFIER + PERSISTENT STUDY NOTES) -->
+      <section class="editorial-section" id="taller" aria-labelledby="titulo-taller">
+        <span class="label-voice kicker">Componentes didácticos interactivos</span>
+        <h2 class="section-heading" id="titulo-taller">Taller filosófico y cuaderno de estudio</h2>
+        <p class="section-lead">
+          Comprueba tu comprensión de las doctrinas, clasifica los discursos según el público al que Zaratustra los dirige y guarda tu síntesis personal de lectura.
+        </p>
+
+        <!-- Study Progress Summary -->
+        <div class="panel-box" style="margin-bottom: var(--space-xl);">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: var(--space-md);">
+            <div>
+              <span class="label-voice">Progreso de lectura hipertextual</span>
+              <div id="study-summary-text" style="margin-top: var(--space-xs);">
+                Has marcado 0 de 6 pasajes clave como estudiados y completado 0 de 6 preguntas del examen.
+              </div>
+            </div>
+            <button type="button" class="btn btn-secondary btn-small" id="reset-progress-btn" onclick="handleResetProgress(this)">Reiniciar progreso</button>
+          </div>
+          <div class="progress-meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="study-progress-bar">
+            <div class="progress-fill" id="study-progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="lab-grid">
+          <!-- Left: Comprehension Quiz -->
+          <div class="panel-box">
+            <span class="label-voice">Actividad 1 · Autoevaluación doctrinal</span>
+            <h3 class="sub-heading" style="margin-top: var(--space-xs);">Comprobación de lectura (<span id="quiz-counter" class="tabular-nums">1 / 6</span>)</h3>
+            <p id="quiz-question" style="font-weight: 600;"></p>
+            <div class="quiz-options" id="quiz-options"></div>
+            <div id="quiz-feedback" aria-live="polite"></div>
+            <div style="display: flex; gap: var(--space-sm); margin-top: var(--space-md); flex-wrap: wrap;">
+              <button type="button" class="btn btn-secondary btn-small" id="quiz-prev-btn" onclick="prevQuestion()">Anterior</button>
+              <button type="button" class="btn btn-primary btn-small" id="quiz-next-btn" onclick="nextQuestion()">Siguiente pregunta</button>
+            </div>
+          </div>
+
+          <!-- Right: Persistent Study Notebook -->
+          <div class="panel-inset">
+            <span class="label-voice">Cuaderno personal · Guardado automático</span>
+            <h3 class="sub-heading" style="margin-top: var(--space-xs);">Síntesis del lector</h3>
+            <p style="font-size: 0.95rem; color: var(--on-surface-variant);">
+              Anota aquí tus conclusiones sobre los ejes de la obra. El texto y tus marcas de lectura persisten entre sesiones.
+            </p>
+            <div class="field-group">
+              <label class="label-voice" for="note-focus-select">Eje filosófico de tu nota</label>
+              <select class="field-select" id="note-focus-select" onchange="saveNotebookMeta()">
+                <option value="General">Visión general de la obra</option>
+                <option value="El Superhombre">El Superhombre y la fidelidad a la tierra</option>
+                <option value="Muerte de Dios">La muerte de Dios y las virtudes</option>
+                <option value="Voluntad de poder">La voluntad de poder y el espíritu de venganza</option>
+                <option value="Eterno retorno">El eterno retorno de lo idéntico</option>
+                <option value="Tres transformaciones">Camello, león y niño</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="label-voice" for="study-note-area">Tus apuntes filosóficos</label>
+              <textarea class="field-textarea" id="study-note-area" placeholder="Escribe aquí tu interpretación de algún pasaje o concepto..." oninput="scheduleNoteSave()"></textarea>
+            </div>
+            <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap; align-items: center;">
+              <button type="button" class="btn btn-primary btn-small" onclick="exportStudyNotes()">Exportar síntesis (.txt)</button>
+              <span id="save-status" class="status-note" aria-live="polite">Sin cambios pendientes.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity 2: Audience / Speaker Classification (E. Fink) -->
+        <div class="panel-box" style="margin-top: var(--space-xl);">
+          <span class="label-voice">Actividad 2 · Hermenéutica de los destinatarios (Eugen Fink)</span>
+          <h3 class="sub-heading" style="margin-top: var(--space-xs);">¿A quién dirige Zaratustra cada enseñanza?</h3>
+          <p style="color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+            Como señala E. Fink en la introducción, Zaratustra no expone sus pensamientos de manera indiscriminada. Asigna el destinatario o figura correcta a cada enunciado:
+          </p>
+          <div id="classifier-container">
+            <!-- Populated by JS -->
+          </div>
+          <div style="margin-top: var(--space-md); display: flex; gap: var(--space-md); align-items: center; flex-wrap: wrap;">
+            <button type="button" class="btn btn-primary btn-small" onclick="checkClassifier()">Verificar clasificaciones</button>
+            <span id="classifier-result" class="status-note" aria-live="polite"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="site-footer">
+        <p class="prose" style="text-align: center; margin-inline: auto;">
+          <strong>Fuente única de este recurso:</strong> Friedrich Nietzsche, <em>Así habló Zaratustra</em> (<em>Also sprach Zarathustra. Ein Buch für Alle und Keinen</em>), introducción, traducción y notas de Andrés Sánchez Pascual (Alianza Editorial, traducción de 1972 revisada en 1997), junto con las citas documentadas de <em>Ecce homo</em>, Stefan Zweig y Lou von Salomé recogidas en dicha introducción.
+        </p>
+        <p style="margin-top: var(--space-sm);">
+          <a class="inline-link" href="#inicio">Volver a la portada</a>
+        </p>
+      </footer>
+
+    </div>
+  </div>
+
+  <api-shim></api-shim>
+
+  <script>
+    /* =====================================================================
+       1. STRUCTURED DATA (All string literals in backticks)
+       ===================================================================== */
+
+    const GENESIS_STAGES = [
+      {
+        label: `Preludio biográfico · Invierno de 1880–1881`,
+        title: `Soledad y padecimiento en Génova`,
+        body: `En noviembre de 1880 Nietzsche se instala en Génova en una modesta pensión de seis francos al día, sin estufa, ordenando los borradores de <em>Aurora</em>. El retrato de Stefan Zweig («Imagen del hombre») describe su silueta cargada, con «seis séptimas de ciego», alimentándose con extrema precaución por sus calambres estomacales y combatiendo jaquecas e insomnio con cloral y veronal. En marzo de 1881 concluye el manuscrito de <em>Aurora</em> con ayuda de Peter Gast.`,
+        meta: [
+          [`Lugar`, `Génova (ribera de Liguria)`],
+          [`Obra previa`, `Aurora (manuscrito listo en marzo de 1881)`],
+          [`Testigo citado`, `Stefan Zweig («Imagen del hombre»)`]
+        ]
+      },
+      {
+        label: `Primera Génesis · Afectiva · Primavera de 1881`,
+        title: `El «fénix Música» en Recoaro`,
+        body: `Frustrado el proyecto de viajar a Túnez por el conflicto franco-tunecino, Nietzsche acude el 1 de mayo de 1881 a la estación termal de Recoaro, cerca de Vicenza, junto con su amigo y maestro Peter Gast. Allí experimenta un «cambio súbito y, en lo más hondo, decisivo de mi gusto, sobre todo en la música»: describe en <em>Ecce homo</em> la visión del «fénix Música» volando con un plumaje más ligero y luminoso que nunca. Es el presentimiento afectivo, todavía sin concepto ni figura.`,
+        meta: [
+          [`Lugar`, `Recoaro, cerca de Vicenza`],
+          [`Tipo de génesis`, `Afectiva (signo precursor musical)`],
+          [`Testigo y compañero`, `Peter Gast`]
+        ]
+      },
+      {
+        label: `Segunda Génesis · Conceptual · Agosto de 1881`,
+        title: `La revelación del Eterno Retorno en Sils-Maria`,
+        body: `Durante el verano suizo en la Alta Engadina, caminando junto al lago de Silvaplana entre los bosques y deteniéndose ante una imponente roca en forma de pirámide cerca de Surlei, asalta a Nietzsche el pensamiento del eterno retorno de lo idéntico, «esa fórmula suprema de afirmación a que se puede llegar en absoluto». Anota el célebre esbozo en una hoja fechada «a 6.000 pies más allá del hombre y del tiempo».`,
+        meta: [
+          [`Lugar`, `Sils-Maria · Lago de Silvaplana (Surlei)`],
+          [`Tipo de génesis`, `Conceptual (el eterno retorno)`],
+          [`Altitud simbólica`, `6.000 pies sobre las cosas humanas`]
+        ]
+      },
+      {
+        label: `Tercera Génesis · Figurativa · Enero–febrero de 1883`,
+        title: `La aparición de Zaratustra en Rapallo`,
+        body: `Tras la convulsiva experiencia de 1882 con Lou von Salomé (quien lo retrata en su libro de 1894 como dueño de manos nobles y ojos que «reproducían sólo aquello que cruzaba por su interior») y tras anticipar la figura de Zaratustra en el aforismo 342 de <em>La gaya ciencia</em>, Nietzsche pasa un invierno frío y lluvioso en Rapallo. Subiendo hacia Zoagli o rodeando Santa Margherita hacia Portofino, el «tipo» de Zaratustra lo asalta («el que era uno se convirtió en dos — Y Zaratustra pasó a mi lado»). Del 1 al 10 de febrero de 1883 redacta la Primera Parte; concluye la copia en limpio la noche del 13 de febrero, exactamente a la hora en que Richard Wagner moría en Venecia.`,
+        meta: [
+          [`Lugar`, `Bahía de Rapallo (entre Chiavari y Portofino)`],
+          [`Redacción Parte I`, `1 al 10 de febrero de 1883 (10 días)`],
+          [`Coincidencia histórica`, `Muerte de Richard Wagner (13 de febrero de 1883)`]
+        ]
+      },
+      {
+        label: `Publicación y recepción · 1883 – 1892`,
+        title: `De la soledad total a la edición completa`,
+        body: `En Sils-Maria (26 de junio al 6 de julio de 1883) redacta la Segunda Parte; en Niza (8 al 20 de enero de 1884) escribe la Tercera, subiendo al nido de águilas de Eza para componer «De las tablas viejas y nuevas». Las tres primeras partes no hallaron eco ni entre amigos ni enemigos («la soledad tiene siete pieles»). La Cuarta Parte, pensada originalmente como inicio de <em>Mediodía y eternidad</em>, se imprimió a costa de Nietzsche en 40 ejemplares privados (apenas 7 destinatarios, entre ellos Overbeck, Burckhardt, Peter Gast y Rohde). Solo se publicó al público en 1890, y la primera edición completa de las cuatro partes vio la luz en 1892.`,
+        meta: [
+          [`Parte II y III`, `Julio 1883 (Sils-Maria) y enero 1884 (Niza)`],
+          [`Edición privada Parte IV`, `40 ejemplares costeados por el autor`],
+          [`Edición completa`, `1892 (las cuatro partes reunidas)`]
+        ]
+      }
+    ];
+
+    const CONCEPTS = {
+      superhombre: {
+        kicker: `Eje I · Comunicado a todos (en el mercado)`,
+        title: `El Superhombre (Übermensch)`,
+        audience: `Proclamado públicamente ante la multitud reunida en el mercado (Prólogo, 3–4).`,
+        definition: `«El hombre es algo que debe ser superado.» Frente a las esperanzas sobreterrenales que desprecian el cuerpo, el superhombre representa el «sentido de la tierra»: la afirmación plena de este mundo y la creación de valores propios. El hombre actual no es una meta, sino una cuerda tendida sobre un abismo entre el animal y el superhombre; su grandeza consiste en ser un tránsito (Übergang) y un ocaso (Untergang).`,
+        warning: `Aclaración de Nietzsche en Ecce homo: ha sido malentendido con frecuencia como un tipo «idealista», mitad «santo» y mitad «genio», cuando en realidad designa un tipo de óptima constitución opuesto a los valores cristianos, modernos y nihilistas.`,
+        quote: `«Yo os conjuro, hermanos míos, permaneced fieles a la tierra y no creáis a quienes os hablan de esperanzas sobreterrenales.»`,
+        relations: [`muerte_dios`, `transformaciones`, `hombres_superiores`],
+        targetSection: `#pasajes`
+      },
+      muerte_dios: {
+        kicker: `Eje II · Anunciado a los discípulos (Parte I)`,
+        title: `La Muerte de Dios y la crítica a las falsas virtudes`,
+        audience: `Anunciada inicialmente ante la constatación del viejo santo en el bosque («¿Será posible? ¡Este viejo santo no ha oído todavía nada de que Dios ha muerto!») y desarrollada ante los discípulos en la Primera Parte.`,
+        definition: `Con la muerte de Dios se derrumba la ordenación moral metafísica del mundo y pierde sentido el delito contra lo divino; ahora, el máximo delito es «delinquir contra la tierra». En la Primera Parte Zaratustra combate a los «trasmundanos», a los despreciadores del cuerpo (afirmando que «el cuerpo es una gran razón») y a las virtudes tradicionales entendidas como «adormideras» («el sueño del justo») y al Estado como «nuevo ídolo». En la Cuarta Parte, el papa jubilado y el más feo de los hombres revelan que Dios murió por compasión indiscreta.`,
+        warning: `Matar a Dios no basta por sí solo: el pueblo del mercado y muchos hombres superiores corren el riesgo de caer en la mediocridad del último hombre o adorar un asno si no crean nuevas tablas de valores.`,
+        quote: `«En otro tiempo el delito contra Dios era el máximo delito, pero Dios ha muerto y con Él han muerto también esos delincuentes. ¡Ahora lo más horrible es delinquir contra la tierra!»`,
+        relations: [`superhombre`, `transformaciones`, `hombres_superiores`],
+        targetSection: `#partes`
+      },
+      transformaciones: {
+        kicker: `Dinámica del espíritu · Primera Parte`,
+        title: `Las Tres Transformaciones del Espíritu`,
+        audience: `Primer discurso de Zaratustra a sus discípulos y a quienes abandonan la multitud del mercado.`,
+        definition: `El espíritu atraviesa tres estadios necesarios para la autosuperación moral: primero el Camello, que soporta voluntariamente las cargas pesadas de la moral tradicional y la veneración; luego el León, que en el desierto conquista su libertad enfrentando al dragón del «Tú debes» con su «Yo quiero»; finalmente el Niño, que encarna la inocencia, el olvido, el juego y el «santo decir sí» indispensable para crear nuevos valores.`,
+        warning: `El León por sí solo es insuficiente: puede conquistar libertad frente a los viejos valores, pero no crear valores nuevos; necesita aún convertirse en Niño.`,
+        quote: `«Inocencia es el niño, y olvido; un nuevo comienzo, un juego, una rueda que se mueve por sí misma, un primer movimiento, un santo decir sí.»`,
+        relations: [`muerte_dios`, `voluntad_poder`, `superhombre`],
+        targetSection: `#transformaciones`
+      },
+      voluntad_poder: {
+        kicker: `Eje III · Anunciado a los discípulos (Parte II)`,
+        title: `La Voluntad de Poder`,
+        audience: `Reservada a unos pocos —discípulos y amigos— como tema central de la Segunda Parte (especialmente en «De la superación de sí mismo»).`,
+        definition: `Allí donde hay vida, hay voluntad; no mera «voluntad de vida» o conservación, sino voluntad de poder: impulso de crecimiento, mando, obediencia y autosuperación continua. Por ello no existen un bien y un mal imperecederos, sino tablas de valores creadas y superadas por sí mismas. En la Segunda Parte Zaratustra ataca a quienes niegan este impulso vital por resentimiento o «espíritu de venganza» contra el tiempo («Fue»): compasivos, sacerdotes, virtuosos, sabios famosos, chusma y tarántulas.`,
+        warning: `La voluntad creadora encuentra su prisión en el pasado («Fue»), incapaz de querer hacia atrás, hasta que logra redimirlo diciendo «Así lo quise yo», lo que prepara el pensamiento del eterno retorno.`,
+        quote: `«Sólo donde hay vida hay también voluntad: pero no voluntad de vida, sino —así te lo enseño yo— ¡voluntad de poder!»`,
+        relations: [`transformaciones`, `eterno_retorno`, `superhombre`],
+        targetSection: `#pasajes`
+      },
+      eterno_retorno: {
+        kicker: `Eje IV · Pensamiento abismal (Partes II y III)`,
+        title: `El Eterno Retorno de lo Idéntico`,
+        audience: `Según E. Fink, Zaratustra no lo proclama al pueblo ni a los discípulos: habla de él exclusivamente a sí mismo, hasta que logra afrontarlo como el centro de gravedad de toda su filosofía.`,
+        definition: `Es la «fórmula suprema de afirmación» concebida en Sils-Maria (1881): «Todo va, todo vuelve; eternamente rueda la rueda del ser.» Cada instante y cada existencia retornan idénticos en lo más grande y en lo más pequeño; «el centro está en todas partes; curvo es el sendero de la eternidad». Al final de la Segunda Parte este pensamiento le produce terror y lo hace callar («No quiero»). En la Tercera Parte emerge mediante símbolos («De la visión y del enigma», la culebra en la garganta cuya cabeza debe morder) y en «El convaleciente» se convierte en aceptación alegre de la eternidad («todo placer quiere profunda eternidad»).`,
+        warning: `Implica aceptar incluso el retorno de lo pequeño, del dolor y del último hombre: superar la náusea exige morder la cabeza de la serpiente y reír.`,
+        quote: `«Todo se rompe, todo se recompone; eternamente se construye a sí misma la misma casa del ser. Todo se despide, todo vuelve a saludarse; eternamente permanece fiel a sí el anillo del ser.»`,
+        relations: [`voluntad_poder`, `superhombre`, `muerte_dios`],
+        targetSection: `#pasajes`
+      },
+      hombres_superiores: {
+        kicker: `Última tentación · Cuarta Parte`,
+        title: `Los Hombres Superiores y la Compasión`,
+        audience: `Representados en la Cuarta Parte en la caverna de Zaratustra (adivino, reyes, concienzudo, mago, papa jubilado, hombre más feo, mendigo voluntario, viajero y sombra).`,
+        definition: `Aunque han superado la vulgaridad común y lanzan un «grito de socorro», estos personajes desesperados encarnan la transición inacabada: todavía buscan consuelo, seguridad o recaen en la idolatría ridícula durante «la fiesta del asno». Frente a ellos, Zaratustra enfrenta su última prueba: la tentación de la compasión por el hombre superior. Al llegar «el signo» (el león riente y la bandada de palomas), los hombres superiores huyen y Zaratustra renuncia a su compasión para partir hacia su obra y el «gran mediodía».`,
+        warning: `No deben confundirse con el Superhombre: en la Cuarta Parte son precisamente la prueba final de que Zaratustra no debe detenerse en la compasión por los espíritus quebrados.`,
+        quote: `«¡Compasión! ¡La compasión por el hombre superior! ¿Aspiro yo acaso a la felicidad? ¡Yo aspiro a mi obra!»`,
+        relations: [`superhombre`, `muerte_dios`, `eterno_retorno`],
+        targetSection: `#partes`
+      }
+    };
+
+    const CONCEPT_NAMES = {
+      superhombre: `El Superhombre`,
+      muerte_dios: `La Muerte de Dios`,
+      transformaciones: `Las Tres Transformaciones`,
+      voluntad_poder: `La Voluntad de Poder`,
+      eterno_retorno: `El Eterno Retorno`,
+      hombres_superiores: `Los Hombres Superiores`
+    };
+
+    const METAMORPHOSIS_STAGES = [
+      {
+        numeral: `Estadio I`,
+        name: `El Camello (Espíritu de carga)`,
+        motto: `«¿Qué es lo más pesado, héroes?»`,
+        description: `Es el espíritu fuerte en el que habita la veneración y el respeto. Se arrodilla para que lo carguen bien con las pruebas más arduas: humillarse para herir la propia soberbia, alimentarse de la hierba del conocimiento, amar a quienes nos desprecian o aceptar verdades amargas. Con toda esa carga moral heredada, el camello corre hacia su desierto.`,
+        limit: `Soportar el dominio de la moral tradicional demuestra fortaleza, pero mantiene al espíritu sometido a un mandato ajeno.`
+      },
+      {
+        numeral: `Estadio II`,
+        name: `El León (Libertad frente al deber)`,
+        motto: `«Yo quiero» frente al gran dragón «Tú debes»`,
+        description: `En lo más solitario del desierto ocurre la segunda metamorfosis. El espíritu quiere conquistar su libertad como se conquista una presa y ser señor en su propio desierto. Allí combate contra su último señor y último dios: el gran dragón escamado de oro llamado «Tú debes», en cuyas escamas brillan valores milenarios. El león opone un sagrado «no» y afirma su «Yo quiero».`,
+        limit: `El león rapaz conquista la libertad para una creación nueva, pero aún no puede crear nuevos valores por sí mismo.`
+      },
+      {
+        numeral: `Estadio III`,
+        name: `El Niño (Inocencia y juego creador)`,
+        motto: `«Un santo decir sí»`,
+        description: `¿Por qué el león tiene que convertirse todavía en niño? Porque «inocencia es el niño, y olvido; un nuevo comienzo, un juego, una rueda que se mueve por sí misma, un primer movimiento, un santo decir sí». Para el juego del crear se precisa afirmar el mundo sin resentimiento contra el pasado; el retirado del mundo conquista entonces su propio mundo.`,
+        limit: `Culmina el tránsito: superado el peso del deber y la mera rebeldía, el espíritu crea valores propios.`
+      }
+    ];
+
+    const BOOK_PARTS = [
+      {
+        id: `prologo`,
+        kicker: `Umbral de la obra · Apartados 1–10`,
+        title: `Prólogo de Zaratustra`,
+        summary: `Salida de la caverna tras diez años de soledad, descenso a los valles y primer fracaso ante el pueblo en el mercado.`,
+        themes: [`superhombre`, `muerte_dios`],
+        discourses: [
+          { title: `1–2. Invocación al sol y el eremita del bosque`, type: `Narrativo`, theme: `muerte_dios`, note: `Zaratustra decide «hundirse en su ocaso» como el sol; el viejo santo ignora aún que Dios ha muerto.` },
+          { title: `3–5. El Superhombre y el Último Hombre`, type: `Doctrinal`, theme: `superhombre`, note: `Discurso en el mercado: el hombre como puente sobre el abismo; la multitud se burla y reclama al último hombre.` },
+          { title: `6–10. El volatinero, compañeros vivos y los animales`, type: `Narrativo`, theme: `superhombre`, note: `Entierra al equilibrista caído, comprende que debe buscar «compañeros en la creación» y reencuentra al águila y la serpiente.` }
+        ]
+      },
+      {
+        id: `parte1`,
+        kicker: `Primera Parte · Redactada en 10 días (Rapallo, feb. 1883)`,
+        title: `Los discursos de Zaratustra`,
+        summary: `Crítica frontal a la moral heredada, los trasmundanos, las virtudes como adormideras y el Estado, bajo el eje de la muerte de Dios.`,
+        themes: [`muerte_dios`, `superhombre`],
+        discourses: [
+          { title: `De las tres transformaciones`, type: `Doctrinal`, theme: `muerte_dios`, note: `Metamorfosis del espíritu: camello, león y niño creador.` },
+          { title: `De los trasmundanos y despreciadores del cuerpo`, type: `Doctrinal`, theme: `superhombre`, note: `Defensa de la tierra y del cuerpo («una gran razón») frente a quienes inventan otros mundos.` },
+          { title: `Del nuevo ídolo, de la guerra y de las mil metas`, type: `Doctrinal`, theme: `muerte_dios`, note: `Crítica al Estado como «monstruo frío» y genealogía de los valores bueno/malvado entre los pueblos.` },
+          { title: `De la muerte libre y la virtud que hace regalos`, type: `Lírico / Doctrinal`, theme: `superhombre`, note: `Morir a tiempo y despedida de los discípulos: «ahora os ordeno que me perdáis a mí y que os encontréis a vosotros».` }
+        ]
+      },
+      {
+        id: `parte2`,
+        kicker: `Segunda Parte · Sils-Maria (jun.–jul. 1883)`,
+        title: `La Voluntad de Poder y el temor al Abismo`,
+        summary: `Zaratustra baja de nuevo al temer que su doctrina sea desfigurada. Despliega la voluntad de poder y retrocede ante el eterno retorno.`,
+        themes: [`voluntad_poder`, `eterno_retorno`],
+        discourses: [
+          { title: `El niño del espejo y ataques a compasivos y sacerdotes`, type: `Narrativo / Doctrinal`, theme: `voluntad_poder`, note: `Denuncia el espíritu de venganza en compasivos, virtuosos, sabios famosos y tarántulas.` },
+          { title: `La canción de la noche, del baile y de los sepulcros`, type: `Lírico`, theme: `voluntad_poder`, note: `Tres cumbres líricas sobre la soledad luminosa, el ritmo vital y las ilusiones perdidas.` },
+          { title: `De la superación de sí mismo y De la redención`, type: `Doctrinal`, theme: `voluntad_poder`, note: `Formula la voluntad de poder como esencia de lo vivo y plantea la liberación del querer frente al «Fue».` },
+          { title: `La más silenciosa de todas las horas`, type: `Narrativo / Lírico`, theme: `eterno_retorno`, note: `Emerge el pensamiento abismal del eterno retorno; Zaratustra grita «No quiero» y parte en silencio.` }
+        ]
+      },
+      {
+        id: `parte3`,
+        kicker: `Tercera Parte · Niza y Eza (ene. 1884)`,
+        title: `Visión, Enigma y Eterno Retorno`,
+        summary: `Culminación original de la obra: Zaratustra enfrenta su pensamiento abismal a través de símbolos marinos, montañosos y canciones cósmicas.`,
+        themes: [`eterno_retorno`, `superhombre`],
+        discourses: [
+          { title: `De la visión y del enigma`, type: `Narrativo / Simbólico`, theme: `eterno_retorno`, note: `Ascenso cargando al espíritu de la pesadez y visión del pastor que muerde la cabeza de la serpiente.` },
+          { title: `Antes de la salida del sol`, type: `Lírico`, theme: `eterno_retorno`, note: `Canto de afirmación incondicional del cielo inocente y libre de finalidad moral.` },
+          { title: `De las tablas viejas y nuevas`, type: `Doctrinal`, theme: `superhombre`, note: `Compuesto subiendo a Eza; contrapone las viejas normas al imperativo de los creadores («¡endureceos!»).` },
+          { title: `El convaleciente y Los siete sellos`, type: `Doctrinal / Lírico`, theme: `eterno_retorno`, note: `Sus animales proclaman «eternamente rueda la rueda del ser»; culmina con el «Sí y Amén» y la canción de medianoche.` }
+        ]
+      },
+      {
+        id: `parte4`,
+        kicker: `Cuarta Parte · Edición privada (1885) / Pública (1890)`,
+        title: `Los Hombres Superiores y el Signo`,
+        summary: `Un Zaratustra anciano acoge en su caverna a ocho figuras desencantadas, supera su última tentación —la compasión— y parte al gran mediodía.`,
+        themes: [`hombres_superiores`, `superhombre`, `muerte_dios`],
+        discourses: [
+          { title: `La ofrenda de la miel y El grito de socorro`, type: `Narrativo`, theme: `hombres_superiores`, note: `La pesca simbólica en las altas montañas y la advertencia del adivino sobre el último pecado.` },
+          { title: `Coloquio con los reyes, El mago, Jubilado y El más feo`, type: `Narrativo / Doctrinal`, theme: `muerte_dios`, note: `Encuentros con las figuras superiores y revelación de por qué tuvo que morir el Dios testigo de todo.` },
+          { title: `La Cena, La canción de la melancolía y La fiesta del asno`, type: `Narrativo / Lírico`, theme: `hombres_superiores`, note: `Reunión en la caverna y recaída burlesca de los hombres superiores en el culto al asno.` },
+          { title: `La canción del noctámbulo y El signo`, type: `Lírico / Narrativo`, theme: `superhombre`, note: `Canto a la profunda eternidad; llegan el león riente y las palomas; Zaratustra parte ardiente como un sol matinal.` }
+        ]
+      }
+    ];
+
+    const PASSAGES = [
+      {
+        id: `p1`,
+        source: `Prólogo de Zaratustra, 1 y 4`,
+        themeLabel: `Ocaso y Tránsito`,
+        html: `«Yo, lo mismo que tú, tengo que <button type="button" class="hyper-ref" onclick="showGloss('p1', 'ocaso')">hundirme en mi ocaso</button>, como dicen los hombres a quienes quiero bajar. […] El hombre es una cuerda tendida entre el animal y el superhombre; una cuerda sobre un abismo. La grandeza del hombre está en ser un puente y no una meta: lo que en el hombre se puede amar es que es un <button type="button" class="hyper-ref" onclick="showGloss('p1', 'transito')">tránsito y un ocaso</button>.»`,
+        glosses: {
+          default: `Pulsa «hundirme en mi ocaso» o «tránsito y un ocaso» para ver las notas filológicas de Andrés Sánchez Pascual sobre el verbo alemán Untergehen.`,
+          ocaso: `<strong>Untergehen (hundirse en su ocaso):</strong> Verbo clave de Zaratustra que reúne tres sentidos simultáneos en alemán: caminar hacia abajo (bajar de la montaña), ponerse el sol (ocaso) y destruirse o fracasar en la propia tarea.`,
+          transito: `<strong>Übergang y Untergang:</strong> Nietzsche enlaza «pasar al otro lado» (Übergang, transición) con «ocaso» (Untergang). Al descender y consumirse por el futuro, el hombre prepara el camino al superhombre.`
+        }
+      },
+      {
+        id: `p2`,
+        source: `Primera Parte · De los despreciadores del cuerpo`,
+        themeLabel: `Cuerpo y Sí-mismo`,
+        html: `««Cuerpo soy yo y alma», así habla el niño. ¿Y por qué no hablar como los niños? Pero el despierto, el sapiente, dice: cuerpo soy yo íntegramente, y ninguna otra cosa; y alma es sólo una palabra para designar algo en el cuerpo. El cuerpo es una <button type="button" class="hyper-ref" onclick="showGloss('p2', 'cuerpo')">gran razón</button>, una pluralidad dotada de un único sentido…» <span style="display: block; margin-top: var(--space-xs); font-style: normal; font-size: 0.9em; color: var(--on-surface-variant);">Nota filológica asociada: contraposición entre <em>Ich</em> (yo) y <button type="button" class="hyper-ref" onclick="showGloss('p2', 'simismo')"><em>Selbst</em> (sí-mismo)</button>.</span>`,
+        glosses: {
+          default: `Pulsa «gran razón» o «Selbst (sí-mismo)» para explorar la inversión antropológica frente a los «trasmundanos».`,
+          cuerpo: `<strong>El cuerpo como gran razón:</strong> Frente a la tradición que desprecia la carne para huir a un «más allá», Zaratustra sitúa en la totalidad corpórea la inteligencia originaria y creadora de la vida.`,
+          simismo: `<strong>Selbst (sí-mismo) frente a Ich (yo):</strong> Andrés Sánchez Pascual señala en su nota crítica que Nietzsche contrapone en todo este capítulo el <em>Ich</em> («yo») y el <em>Selbst</em> («sí-mismo»), que habita en la unidad del cuerpo.`
+        }
+      },
+      {
+        id: `p3`,
+        source: `Segunda Parte · De la superación de sí mismo`,
+        themeLabel: `Voluntad de Poder`,
+        html: `«En todos los lugares donde encontré seres vivos encontré <button type="button" class="hyper-ref" onclick="showGloss('p3', 'voluntad')">voluntad de poder</button>; e incluso en la voluntad del que sirve encontré voluntad de ser señor. […] Sólo donde hay vida hay también voluntad: pero no voluntad de vida, sino —así te lo enseño yo— ¡voluntad de poder! […] En verdad, yo os digo: ¡Un bien y un mal que sean <button type="button" class="hyper-ref" onclick="showGloss('p3', 'valores')">imperecederos</button> — no existen! Por sí mismos deben una y otra vez superarse a sí mismos.»`,
+        glosses: {
+          default: `Pulsa «voluntad de poder» o «imperecederos» para examinar el núcleo de la Segunda Parte.`,
+          voluntad: `<strong>Voluntad de poder vs. voluntad de vida:</strong> Nietzsche corrige explícitamente la noción schopenhaueriana de mera conservación vital: lo vivo no busca simplemente durar, sino desplegarse, mandar, obedecer y superarse.`,
+          valores: `<strong>Mutabilidad del bien y del mal:</strong> Los valores no son verdades eternas dictadas desde fuera, sino estimaciones nacidas de la vida que deben ser quebradas y superadas cuando se anquilosan.`
+        }
+      },
+      {
+        id: `p4`,
+        source: `Tercera Parte · El convaleciente, 2`,
+        themeLabel: `Eterno Retorno`,
+        html: `«Todo va, todo vuelve; eternamente rueda la <button type="button" class="hyper-ref" onclick="showGloss('p4', 'rueda')">rueda del ser</button>. Todo muere, todo vuelve a florecer, eternamente corre el año del ser. Todo se rompe, todo se recompone; eternamente se construye a sí misma la misma casa del ser. Todo se despide, todo vuelve a saludarse; eternamente permanece fiel a sí el <button type="button" class="hyper-ref" onclick="showGloss('p4', 'anillo')">anillo del ser</button>. En cada instante comienza el ser; en torno a todo «Aquí» gira la esfera «Allá». El centro está en todas partes. Curvo es el sendero de la eternidad.»`,
+        glosses: {
+          default: `Pulsa «rueda del ser» o «anillo del ser» para consultar el diálogo con el águila y la serpiente.`,
+          rueda: `<strong>La rueda y el gran año del devenir:</strong> Aquí los animales de Zaratustra le recuerdan la doctrina tras su convalecencia de siete días: no hay meta lineal ni reposo final, sino retorno idéntico de cada instante.`,
+          anillo: `<strong>El sendero curvo y el centro ubicuo:</strong> Si el tiempo es curvo y cíclico, ningún momento queda reducido a mero medio para un fin remoto; cada «Aquí» posee peso eterno.`
+        }
+      },
+      {
+        id: `p5`,
+        source: `Tercera Parte · La otra canción del baile / Cuarta Parte · La canción del noctámbulo`,
+        themeLabel: `Poética de la Eternidad`,
+        html: `«¡Oh hombre! ¡Presta atención!<br>¿Qué dice la <button type="button" class="hyper-ref" onclick="showGloss('p5', 'medianoche')">profunda medianoche</button>?<br>«Yo dormía, dormía, — De un profundo soñar me he despertado: — El mundo es profundo Y más profundo de lo que el día ha pensado. Profundo es su dolor —, El <button type="button" class="hyper-ref" onclick="showGloss('p5', 'placer')">placer</button> — es más profundo aún que el sufrimiento: El dolor dice: ¡Pasa! Mas todo placer quiere eternidad —, — ¡Quiere profunda, profunda eternidad!»»`,
+        glosses: {
+          default: `Pulsa «profunda medianoche» o «placer» para leer la clave lírica que une la Tercera y Cuarta Parte.`,
+          medianoche: `<strong>La medianoche y el despertar:</strong> El poema aparece primero al cierre de la Tercera Parte y vuelve a sonar en la Cuarta tras los doce tañidos de la campana de medianoche, marcando el paso de la noche al gran mediodía.`,
+          placer: `<strong>El placer quiere eternidad:</strong> Mientras el dolor desea que el instante desaparezca («¡Pasa!»), el gozo afirmativo de la existencia desea el eterno retorno de todo lo que es, incluso del dolor inseparable de la vida.`
+        }
+      },
+      {
+        id: `p6`,
+        source: `Cuarta Parte · El signo`,
+        themeLabel: `Superación de la compasión`,
+        html: `««¡Compasión! ¡La compasión por el hombre superior!», gritó, y su rostro se endureció como el bronce. «¡Bien! ¡Eso tuvo su tiempo! Mi sufrimiento y mi compasión ¡qué importan! ¿Aspiro yo acaso a la felicidad? <button type="button" class="hyper-ref" onclick="showGloss('p6', 'obra')">¡Yo aspiro a mi obra!</button> ¡Bien! El <button type="button" class="hyper-ref" onclick="showGloss('p6', 'signo')">león ha llegado</button>, mis hijos están cerca, Zaratustra está ya maduro, mi hora ha llegado: Ésta es mi mañana, mi día comienza: ¡asciende, pues, asciende tú, gran mediodía!»»`,
+        glosses: {
+          default: `Pulsa «¡Yo aspiro a mi obra!» o «león ha llegado» para comprender el desenlace de la obra.`,
+          obra: `<strong>Superación del último pecado:</strong> El adivino había acudido para tentar a Zaratustra con la compasión por los hombres superiores. Renunciar a esa piedad paralizante es la prueba final de su fuerza.`,
+          signo: `<strong>El león riente y las palomas:</strong> El signo anunciado desde la Tercera Parte se cumple al amanecer: un león poderoso que ríe rodeado de palomas amorosas anuncia la cercanía de los verdaderos creadores («mis hijos») frente a los hombres superiores que huyen.`
+        }
+      }
+    ];
+
+    const FAQS = [
+      {
+        q: `¿Por qué eligió Nietzsche el nombre de Zaratustra (Zoroastro)?`,
+        a: `Aunque el Zoroastro histórico persa (siglo VI a.C.) fue el primero en convertir la lucha moral entre el bien y el mal en motor metafísico del universo, Nietzsche explica en Ecce homo que precisamente quien creó ese error debe ser el primero en reconocerlo y superarlo. Como la virtud persa consistía en decir la verdad y disparar bien con flechas, Zaratustra encarna «la autosuperación de la moral por veracidad».`
+      },
+      {
+        q: `¿Qué significa el subtítulo «Un libro para todos y para nadie»?`,
+        a: `Tal como señala la introducción apoyándose en Heidegger y el propio texto, es un libro «para todos» en cuanto resulta comprensible y urgente para todo ser humano que cuestione los límites de su humanidad actual; pero es «para nadie» porque todavía nadie ha traspasado esos límites hacia el superhombre, y porque el pueblo del mercado se burla de él sin comprenderlo.`
+      },
+      {
+        q: `¿Es el Superhombre un «genio» o «santo» idealista?`,
+        a: `No. Nietzsche protesta expresamente en Ecce homo contra esa lectura inocente: el superhombre no es un idealismo mitad «santo» y mitad «genio», sino un tipo de óptima constitución afirmativa frente a los valores cristianos, modernos y nihilistas. Es fidelidad al cuerpo y a la tierra.`
+      },
+      {
+        q: `¿Por qué Zaratustra tiene miedo de enunciar el Eterno Retorno?`,
+        a: `Como observa Eugen Fink, es el pensamiento más abismal de la obra: implica aceptar que todo retorna idéntico eternamente —lo grandioso y también lo mezquino y doloroso—. Zaratustra se niega a decirlo al final de la Segunda Parte («No quiero»), y en la Tercera sólo logra superarlo simbólicamente al morder y escupir la cabeza de la serpiente que ahogaba al pastor.`
+      },
+      {
+        q: `¿Los «hombres superiores» de la Cuarta Parte son ya el superhombre?`,
+        a: `No. Son figuras desencantadas (el adivino, los reyes, el concienzudo, el mago, el papa jubilado, el más feo de los hombres, el mendigo voluntario y la sombra) que han roto con la mediocridad común pero siguen atrapados en la nostalgia, la seguridad o la falsedad, llegando incluso a adorar a un asno. Representan la última tentación de Zaratustra —la compasión—, no su meta.`
+      },
+      {
+        q: `¿Qué relación literaria guarda la obra con la Biblia?`,
+        a: `Andrés Sánchez Pascual subraya que Así habló Zaratustra quiere ser la antítesis doctrinal y estilística de la Biblia, específicamente de la traducción alemana de Lutero. Emplea innumerables «citas escondidas», inversiones paródicas (la Cena, los discípulos, el abandono de los apóstoles, el «habrá un solo rebaño» convertido en «ningún pastor y un solo rebaño») y un tono lírico-profético propio.`
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        question: `¿Cuál fue la llamada «génesis conceptual» de Así habló Zaratustra en agosto de 1881?`,
+        options: [
+          `El encuentro con el «fénix Música» en Recoaro junto a Peter Gast.`,
+          `La intuición del eterno retorno de lo idéntico en Sils-Maria, «a 6.000 pies más allá del hombre y del tiempo».`,
+          `La aparición súbita de la figura de Zaratustra caminando hacia Portofino en 1883.`,
+          `La lectura de los himnos del Avesta durante el invierno genovés.`
+        ],
+        correct: 1,
+        explanation: `Exacto: la génesis afectiva ocurrió en Recoaro (1881), la conceptual fue la revelación del eterno retorno en Sils-Maria junto al lago de Silvaplana (agosto de 1881) y la figurativa tuvo lugar en Rapallo en enero de 1883.`
+      },
+      {
+        question: `En «De las tres transformaciones», ¿qué función cumple el León frente al gran dragón «Tú debes»?`,
+        options: [
+          `Se arrodilla para cargar con las virtudes más pesadas de la tradición.`,
+          `Crea inmediatamente los nuevos valores mediante el juego inocente.`,
+          `Conquista la libertad frente a los mandatos heredados oponiéndoles su «Yo quiero», aunque aún no puede crear valores nuevos.`,
+          `Predica la compasión por los hombres superiores en la caverna.`
+        ],
+        correct: 2,
+        explanation: `Correcto: el León derrota al «Tú debes» con su «Yo quiero» y conquista la libertad para crear, pero sólo el Niño —inocencia, olvido y «santo decir sí»— puede crear valores nuevos.`
+      },
+      {
+        question: `¿Qué simbolizan los dos animales heráldicos que acompañan a Zaratustra?`,
+        options: [
+          `El águila simboliza el orgullo (voluntad) y la serpiente la inteligencia.`,
+          `El águila simboliza la compasión y la serpiente la venganza.`,
+          `El asno simboliza la paciencia y el león la melancolía.`,
+          `El águila representa el Estado y la serpiente al último hombre.`
+        ],
+        correct: 0,
+        explanation: `Correcto: el águila es el animal más orgulloso bajo el sol y la serpiente el más inteligente; al aparecer volando en amplios círculos con la serpiente enroscada al cuello, prefiguran el eterno retorno.`
+      },
+      {
+        question: `En «De la superación de sí mismo» (Segunda Parte), ¿cómo define Zaratustra la esencia de todo ser vivo?`,
+        options: [
+          `Como mera voluntad de supervivencia y conservación pasiva.`,
+          `Como voluntad de poder, presente incluso en quien sirve.`,
+          `Como obediencia a un bien y un mal imperecederos.`,
+          `Como búsqueda del bienestar tranquilo sin riesgo.`
+        ],
+        correct: 1,
+        explanation: `Correcto: «Sólo donde hay vida hay también voluntad: pero no voluntad de vida, sino —¡voluntad de poder!», de modo que el bien y el mal no son eternos y deben superarse continuamente.`
+      },
+      {
+        question: `¿Cuál es la última tentación y «último pecado» que Zaratustra debe vencer en la Cuarta Parte?`,
+        options: [
+          `El deseo de volver a predicar en el mercado al último hombre.`,
+          `El temor a la muerte física tras el accidente del volatinero.`,
+          `La compasión por los hombres superiores.`,
+          `La admiración ciega hacia los sabios famosos de las cátedras.`
+        ],
+        correct: 2,
+        explanation: `Correcto: el adivino le vaticina que viene a seducirlo a su último pecado: la compasión por los hombres superiores. Al llegar el signo del león riente y las palomas, Zaratustra responde: «¡Yo aspiro a mi obra!»`
+      },
+      {
+        question: `¿Qué diferencia expresa el juego alemán entre «Untergang» (ocaso) y «Übergang» (tránsito) en el Prólogo?`,
+        options: [
+          `Que el hombre debe rehuir el peligro para alcanzar la felicidad del último hombre.`,
+          `Que la grandeza del hombre consiste en ser un puente y consumirse descendiendo para preparar al superhombre.`,
+          `Que la muerte física destruye todo vínculo con la tierra.`,
+          `Que el filósofo debe permanecer aislado en la montaña sin descender jamás.`
+        ],
+        correct: 1,
+        explanation: `Correcto: Zaratustra desciende («se hunde en su ocaso») como el sol para regalar su sabiduría, y define al hombre como puente, tránsito (Übergang) y ocaso (Untergang) hacia el superhombre.`
+      }
+    ];
+
+    const CLASSIFIER_ITEMS = [
+      {
+        id: `cl1`,
+        statement: `«Yo os enseño el superhombre. El hombre es algo que debe ser superado. ¡Permaneced fieles a la tierra!»`,
+        correct: `todos`,
+        hint: `Proclamado en el mercado (Prólogo, 3).`
+      },
+      {
+        id: `cl2`,
+        statement: `«Sólo donde hay vida hay también voluntad: pero no voluntad de vida, sino voluntad de poder.»`,
+        correct: `discipulos`,
+        hint: `Idea central de la Segunda Parte reservada a los discípulos y amigos.`
+      },
+      {
+        id: `cl3`,
+        statement: `«Todo va, todo vuelve; eternamente rueda la rueda del ser…» (el pensamiento abismal).`,
+        correct: `simismo`,
+        hint: `Según E. Fink, Zaratustra habla de este pensamiento ante todo a sí mismo y en diálogo con su alma y animales.`
+      },
+      {
+        id: `cl4`,
+        statement: `«Nosotros hemos inventado la felicidad — dicen y parpadean; ningún pastor y un solo rebaño.»`,
+        correct: `ultimo_hombre`,
+        hint: `Retrato de lo más despreciable mostrado al pueblo del mercado.`
+      },
+      {
+        id: `cl5`,
+        statement: `«El Dios que veía todo, también al hombre: ¡ese Dios tenía que morir!»`,
+        correct: `hombre_feo`,
+        hint: `Pronunciado por el más feo de los hombres en la Cuarta Parte.`
+      }
+    ];
+
+    /* =====================================================================
+       2. STATE & PERSISTENCE (notebookAppApi)
+       ===================================================================== */
+
+    let appState = {
+      selectedGenesis: 0,
+      selectedConcept: `superhombre`,
+      selectedStage: 0,
+      activeFilter: `all`,
+      studiedPassages: [],
+      quizIndex: 0,
+      quizAnswers: {},
+      classifierSelections: {},
+      noteFocus: `General`,
+      studyNote: ``
+    };
+
+    let saveTimer = null;
+
+    function getCompletedQuizCount() {
+      return Object.keys(appState.quizAnswers).length;
+    }
+
+    async function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+          const statusEl = document.getElementById(`save-status`);
+          if (statusEl) statusEl.textContent = `Progreso y notas guardados.`;
+        } catch (err) {
+          const statusEl = document.getElementById(`save-status`);
+          if (statusEl) statusEl.textContent = `No se pudo guardar en el entorno.`;
+        }
+      }
+    }
+
+    /* =====================================================================
+       3. RENDERING FUNCTIONS
+       ===================================================================== */
+
+    function selectGenesis(index) {
+      appState.selectedGenesis = index;
+      for (let i = 0; i < GENESIS_STAGES.length; i++) {
+        const btn = document.getElementById(`gen-btn-` + i);
+        if (btn) {
+          const active = i === index;
+          btn.setAttribute(`aria-pressed`, active ? `true` : `false`);
+          btn.classList.toggle(`is-active`, active);
+        }
+      }
+      const box = document.getElementById(`genesis-detail`);
+      const stage = GENESIS_STAGES[index];
+      if (!box || !stage) return;
+
+      let metaHtml = `<ul class="genesis-meta-list">`;
+      for (let m = 0; m < stage.meta.length; m++) {
+        metaHtml += `<li><span class="label-voice">${stage.meta[m][0]}</span><span>${stage.meta[m][1]}</span></li>`;
+      }
+      metaHtml += `</ul>`;
+
+      box.innerHTML = `
+        <span class="label-voice">${stage.label}</span>
+        <h3 class="sub-heading" style="margin-top: var(--space-xs); font-family: var(--font-headline); font-style: italic; font-size: 1.75rem;">${stage.title}</h3>
+        <p>${stage.body}</p>
+        ${metaHtml}
+      `;
+      persistState();
+    }
+
+    function handleNodeKey(event, key) {
+      if (event.key === `Enter` || event.key === ` `) {
+        event.preventDefault();
+        selectConcept(key);
+      }
+    }
+
+    function selectConcept(key) {
+      if (!CONCEPTS[key]) return;
+      appState.selectedConcept = key;
+
+      const keys = Object.keys(CONCEPTS);
+      for (let i = 0; i < keys.length; i++) {
+        const k = keys[i];
+        const isCurrent = k === key;
+        const btn = document.getElementById(`cbtn-` + k);
+        if (btn) {
+          btn.setAttribute(`aria-pressed`, isCurrent ? `true` : `false`);
+          btn.classList.toggle(`is-active`, isCurrent);
+        }
+        const svgGroup = document.getElementById(`svg-node-` + k);
+        if (svgGroup) {
+          const circle = svgGroup.querySelector(`circle.node-bg`);
+          const texts = svgGroup.querySelectorAll(`text`);
+          if (circle) {
+            circle.setAttribute(`fill`, isCurrent ? `var(--primary)` : `var(--surface-container-low)`);
+            circle.setAttribute(`stroke-width`, isCurrent ? `2` : `1.5`);
+          }
+          for (let t = 0; t < texts.length; t++) {
+            texts[t].setAttribute(`fill`, isCurrent ? `var(--on-primary)` : `var(--on-surface)`);
+          }
+        }
+      }
+
+      const c = CONCEPTS[key];
+      const detail = document.getElementById(`concept-detail`);
+      if (!detail) return;
+
+      let relButtons = ``;
+      for (let r = 0; r < c.relations.length; r++) {
+        const relKey = c.relations[r];
+        relButtons += `<button type="button" class="btn btn-secondary btn-small" onclick="selectConcept('${relKey}')">${CONCEPT_NAMES[relKey]}</button>`;
+      }
+
+      detail.innerHTML = `
+        <span class="label-voice">${c.kicker}</span>
+        <h3 class="sub-heading" style="margin-top: var(--space-xs); font-family: var(--font-headline); font-style: italic; font-size: 1.9rem;">${c.title}</h3>
+        <p><span class="tag">${c.audience}</span></p>
+        <p>${c.definition}</p>
+        <blockquote class="verse" style="margin-block: var(--space-md); font-size: 1.15em;">
+          ${c.quote}
+        </blockquote>
+        <p style="font-size: 0.98rem; color: var(--on-surface-variant);">
+          <strong>Matiz crítico:</strong> ${c.warning}
+        </p>
+        <div style="border-top: var(--gilt-rule-pale); padding-top: var(--space-md); margin-top: var(--space-md);">
+          <span class="label-voice">Conceptos vinculados en el anillo</span>
+          <div class="concept-relations">${relButtons}</div>
+        </div>
+      `;
+      persistState();
+    }
+
+    function selectStage(index) {
+      if (index < 0 || index >= METAMORPHOSIS_STAGES.length) return;
+      appState.selectedStage = index;
+
+      for (let i = 0; i < METAMORPHOSIS_STAGES.length; i++) {
+        const btn = document.getElementById(`stage-btn-` + i);
+        if (btn) {
+          btn.setAttribute(`aria-pressed`, i === index ? `true` : `false`);
+        }
+      }
+
+      const st = METAMORPHOSIS_STAGES[index];
+      const box = document.getElementById(`stage-detail`);
+      if (!box) return;
+
+      const prevBtn = index > 0 ? `<button type="button" class="btn btn-secondary btn-small" onclick="selectStage(${index - 1})">Estadio anterior</button>` : ``;
+      const nextBtn = index < METAMORPHOSIS_STAGES.length - 1 ? `<button type="button" class="btn btn-primary btn-small" onclick="selectStage(${index + 1})">Siguiente transformación</button>` : ``;
+
+      box.innerHTML = `
+        <div class="prose">
+          <span class="label-voice">${st.numeral}</span>
+          <h3 class="sub-heading" style="margin-top: var(--space-xs); font-family: var(--font-headline); font-style: italic; font-size: 1.85rem;">${st.name}</h3>
+          <p class="verse" style="margin-block: var(--space-md);">${st.motto}</p>
+          <p>${st.description}</p>
+          <p style="color: var(--on-surface-variant); border-top: var(--gilt-rule-pale); padding-top: var(--space-sm);">
+            <strong>Alcance y límite:</strong> ${st.limit}
+          </p>
+          <div style="display: flex; gap: var(--space-sm); margin-top: var(--space-md); flex-wrap: wrap;">
+            ${prevBtn}
+            ${nextBtn}
+          </div>
+        </div>
+      `;
+      persistState();
+    }
+
+    function filterDiscourses(theme) {
+      appState.activeFilter = theme;
+      const filters = [`all`, `superhombre`, `muerte_dios`, `voluntad_poder`, `eterno_retorno`, `hombres_superiores`];
+      for (let i = 0; i < filters.length; i++) {
+        const f = filters[i];
+        const btn = document.getElementById(`fbtn-` + f);
+        if (btn) {
+          const active = f === theme;
+          btn.setAttribute(`aria-pressed`, active ? `true` : `false`);
+          btn.classList.toggle(`is-active`, active);
+        }
+      }
+      renderParts();
+      persistState();
+    }
+
+    function renderParts() {
+      const container = document.getElementById(`parts-container`);
+      if (!container) return;
+
+      let html = ``;
+      for (let i = 0; i < BOOK_PARTS.length; i++) {
+        const part = BOOK_PARTS[i];
+        const matchesPart = appState.activeFilter === `all` || part.themes.indexOf(appState.activeFilter) !== -1;
+
+        let discHtml = `<ul class="discourse-list">`;
+        for (let d = 0; d < part.discourses.length; d++) {
+          const disc = part.discourses[d];
+          const matchesDisc = appState.activeFilter === `all` || disc.theme === appState.activeFilter;
+          const itemOpacity = matchesDisc ? `` : `style="opacity: 0.4;"`;
+          discHtml += `
+            <li class="discourse-item" ${itemOpacity}>
+              <div class="discourse-header">
+                <span class="discourse-title">${disc.title}</span>
+                <span class="label-voice">${disc.type}</span>
+              </div>
+              <p style="margin: var(--space-xs) 0 0; font-size: 0.98rem; color: var(--on-surface-variant);">${disc.note}</p>
+            </li>
+          `;
+        }
+        discHtml += `</ul>`;
+
+        html += `
+          <article class="part-card ${matchesPart ? `` : `is-dimmed`}">
+            <span class="label-voice">${part.kicker}</span>
+            <h3 class="sub-heading" style="font-family: var(--font-headline); font-style: italic; font-size: 1.7rem; margin-bottom: 0;">${part.title}</h3>
+            <p style="margin: 0; color: var(--on-surface-variant);">${part.summary}</p>
+            ${discHtml}
+          </article>
+        `;
+      }
+      container.innerHTML = html;
+    }
+
+    function renderPassages() {
+      const container = document.getElementById(`passages-container`);
+      if (!container) return;
+
+      let html = ``;
+      for (let i = 0; i < PASSAGES.length; i++) {
+        const p = PASSAGES[i];
+        const isStudied = appState.studiedPassages.indexOf(p.id) !== -1;
+        html += `
+          <article class="passage-card" id="passage-${p.id}">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-sm); flex-wrap: wrap; margin-bottom: var(--space-sm);">
+                <span class="label-voice">${p.source}</span>
+                <span class="tag">${p.themeLabel}</span>
+              </div>
+              <blockquote class="verse" style="max-width: 58ch; margin-inline: 0; margin-block: var(--space-sm);">
+                ${p.html}
+              </blockquote>
+              <div class="passage-footer">
+                <button type="button" class="btn btn-secondary btn-small ${isStudied ? `is-active` : ``}" aria-pressed="${isStudied ? `true` : `false`}" onclick="togglePassageStudied('${p.id}')">
+                  ${isStudied ? `Pasaje estudiado` : `Marcar como estudiado`}
+                </button>
+              </div>
+            </div>
+            <div class="gloss-box" id="gloss-${p.id}" aria-live="polite">
+              <span class="label-voice">Glosa hipertextual</span>
+              <p style="margin-top: var(--space-xs); margin-bottom: 0;">${p.glosses.default}</p>
+            </div>
+          </article>
+        `;
+      }
+      container.innerHTML = html;
+    }
+
+    function showGloss(passageId, glossKey) {
+      const target = document.getElementById(`gloss-` + passageId);
+      if (!target) return;
+      for (let i = 0; i < PASSAGES.length; i++) {
+        if (PASSAGES[i].id === passageId && PASSAGES[i].glosses[glossKey]) {
+          target.innerHTML = `
+            <span class="label-voice">Glosa filológica</span>
+            <p style="margin-top: var(--space-xs); margin-bottom: 0;">${PASSAGES[i].glosses[glossKey]}</p>
+          `;
+          break;
+        }
+      }
+    }
+
+    function togglePassageStudied(passageId) {
+      const idx = appState.studiedPassages.indexOf(passageId);
+      if (idx === -1) {
+        appState.studiedPassages.push(passageId);
+      } else {
+        appState.studiedPassages.splice(idx, 1);
+      }
+      renderPassages();
+      updateStudyProgress();
+      persistState();
+    }
+
+    function renderFaqs() {
+      const container = document.getElementById(`faq-container`);
+      if (!container) return;
+
+      let html = ``;
+      for (let i = 0; i < FAQS.length; i++) {
+        const item = FAQS[i];
+        html += `
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" id="faq-btn-${i}" aria-expanded="false" aria-controls="faq-ans-${i}" onclick="toggleFaq(${i})">
+              <span>${item.q}</span>
+              <span class="label-voice" id="faq-icon-${i}" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-ans-${i}" hidden>
+              <p style="margin: 0;">${item.a}</p>
+            </div>
+          </div>
+        `;
+      }
+      container.innerHTML = html;
+    }
+
+    function toggleFaq(index) {
+      const btn = document.getElementById(`faq-btn-` + index);
+      const ans = document.getElementById(`faq-ans-` + index);
+      const icon = document.getElementById(`faq-icon-` + index);
+      if (!btn || !ans || !icon) return;
+
+      const isOpen = btn.getAttribute(`aria-expanded`) === `true`;
+      btn.setAttribute(`aria-expanded`, isOpen ? `false` : `true`);
+      ans.hidden = isOpen;
+      icon.textContent = isOpen ? `+` : `−`;
+    }
+
+    function renderQuiz() {
+      const qIndex = appState.quizIndex;
+      const qData = QUIZ_QUESTIONS[qIndex];
+      const counter = document.getElementById(`quiz-counter`);
+      const qEl = document.getElementById(`quiz-question`);
+      const optWrap = document.getElementById(`quiz-options`);
+      const fbWrap = document.getElementById(`quiz-feedback`);
+      const prevBtn = document.getElementById(`quiz-prev-btn`);
+      const nextBtn = document.getElementById(`quiz-next-btn`);
+
+      if (!qData || !counter || !qEl || !optWrap || !fbWrap) return;
+
+      counter.textContent = `${qIndex + 1} / ${QUIZ_QUESTIONS.length}`;
+      qEl.textContent = qData.question;
+
+      const chosen = appState.quizAnswers[qIndex];
+      const hasAnswered = typeof chosen === `number`;
+
+      let optsHtml = ``;
+      for (let i = 0; i < qData.options.length; i++) {
+        let cls = `quiz-option`;
+        if (hasAnswered) {
+          if (i === qData.correct) cls += ` is-correct`;
+          else if (i === chosen) cls += ` is-wrong`;
+        }
+        optsHtml += `<button type="button" class="${cls}" onclick="answerQuiz(${i})">${qData.options[i]}</button>`;
+      }
+      optWrap.innerHTML = optsHtml;
+
+      if (hasAnswered) {
+        const isRight = chosen === qData.correct;
+        fbWrap.innerHTML = `
+          <div class="feedback-banner ${isRight ? `` : `is-error`}">
+            <strong>${isRight ? `Respuesta correcta.` : `Revisa este punto.`}</strong> ${qData.explanation}
+          </div>
+        `;
+      } else {
+        fbWrap.innerHTML = ``;
+      }
+
+      if (prevBtn) prevBtn.disabled = qIndex === 0;
+      if (nextBtn) nextBtn.textContent = qIndex === QUIZ_QUESTIONS.length - 1 ? `Volver a la primera` : `Siguiente pregunta`;
+    }
+
+    function answerQuiz(optionIndex) {
+      appState.quizAnswers[appState.quizIndex] = optionIndex;
+      renderQuiz();
+      updateStudyProgress();
+      persistState();
+    }
+
+    function prevQuestion() {
+      if (appState.quizIndex > 0) {
+        appState.quizIndex -= 1;
+        renderQuiz();
+        persistState();
+      }
+    }
+
+    function nextQuestion() {
+      appState.quizIndex = (appState.quizIndex + 1) % QUIZ_QUESTIONS.length;
+      renderQuiz();
+      persistState();
+    }
+
+    function renderClassifier() {
+      const container = document.getElementById(`classifier-container`);
+      if (!container) return;
+
+      let html = ``;
+      for (let i = 0; i < CLASSIFIER_ITEMS.length; i++) {
+        const item = CLASSIFIER_ITEMS[i];
+        const val = appState.classifierSelections[item.id] || ``;
+        html += `
+          <div class="classify-row">
+            <div>
+              <p style="margin: 0; font-style: italic;">${item.statement}</p>
+              <div class="status-note" id="cl-msg-${item.id}"></div>
+            </div>
+            <div class="field-group" style="margin-bottom: 0;">
+              <label class="label-voice" for="cl-sel-${item.id}">Voz o destinatario</label>
+              <select class="field-select" id="cl-sel-${item.id}" onchange="setClassifierChoice('${item.id}', this.value)">
+                <option value="" ${val === `` ? `selected` : ``}>Selecciona una opción…</option>
+                <option value="todos" ${val === `todos` ? `selected` : ``}>A todos (pueblo en el mercado)</option>
+                <option value="discipulos" ${val === `discipulos` ? `selected` : ``}>A unos pocos (discípulos y amigos)</option>
+                <option value="simismo" ${val === `simismo` ? `selected` : ``}>A sí mismo (diálogo interior)</option>
+                <option value="ultimo_hombre" ${val === `ultimo_hombre` ? `selected` : ``}>Retrato del Último Hombre</option>
+                <option value="hombre_feo" ${val === `hombre_feo` ? `selected` : ``}>El más feo de los hombres</option>
+              </select>
+            </div>
+          </div>
+        `;
+      }
+      container.innerHTML = html;
+    }
+
+    function setClassifierChoice(itemId, value) {
+      appState.classifierSelections[itemId] = value;
+      persistState();
+    }
+
+    function checkClassifier() {
+      let score = 0;
+      let answered = 0;
+      for (let i = 0; i < CLASSIFIER_ITEMS.length; i++) {
+        const item = CLASSIFIER_ITEMS[i];
+        const chosen = appState.classifierSelections[item.id] || ``;
+        const msgEl = document.getElementById(`cl-msg-` + item.id);
+        if (!msgEl) continue;
+
+        if (!chosen) {
+          msgEl.className = `status-note is-error`;
+          msgEl.textContent = `Selecciona una opción antes de verificar.`;
+        } else if (chosen === item.correct) {
+          answered++;
+          score++;
+          msgEl.className = `status-note is-positive`;
+          msgEl.textContent = `Correcto. ` + item.hint;
+        } else {
+          answered++;
+          msgEl.className = `status-note is-error`;
+          msgEl.textContent = `No coincide. Pista: ` + item.hint;
+        }
+      }
+      const resEl = document.getElementById(`classifier-result`);
+      if (resEl) {
+        if (answered < CLASSIFIER_ITEMS.length) {
+          resEl.textContent = `Has completado ${answered} de ${CLASSIFIER_ITEMS.length} enunciados (${score} aciertos).`;
+        } else {
+          resEl.textContent = `Resultado: ${score} de ${CLASSIFIER_ITEMS.length} aciertos.`;
+        }
+      }
+    }
+
+    function updateStudyProgress() {
+      const passagesDone = appState.studiedPassages.length;
+      const quizDone = getCompletedQuizCount();
+      let quizCorrect = 0;
+      const qKeys = Object.keys(appState.quizAnswers);
+      for (let i = 0; i < qKeys.length; i++) {
+        const k = Number(qKeys[i]);
+        if (appState.quizAnswers[k] === QUIZ_QUESTIONS[k].correct) quizCorrect++;
+      }
+
+      const totalSteps = PASSAGES.length + QUIZ_QUESTIONS.length;
+      const completed = passagesDone + quizDone;
+      const pct = Math.round((completed / totalSteps) * 100);
+
+      const summary = document.getElementById(`study-summary-text`);
+      const fill = document.getElementById(`study-progress-fill`);
+      const bar = document.getElementById(`study-progress-bar`);
+      if (summary) {
+        summary.textContent = `Has marcado ${passagesDone} de ${PASSAGES.length} pasajes clave como estudiados y completado ${quizDone} de ${QUIZ_QUESTIONS.length} preguntas (${quizCorrect} aciertos).`;
+      }
+      if (fill) fill.style.width = `${pct}%`;
+      if (bar) bar.setAttribute(`aria-valuenow`, String(pct));
+    }
+
+    function saveNotebookMeta() {
+      const sel = document.getElementById(`note-focus-select`);
+      if (sel) appState.noteFocus = sel.value;
+      persistState();
+    }
+
+    function scheduleNoteSave() {
+      const area = document.getElementById(`study-note-area`);
+      const statusEl = document.getElementById(`save-status`);
+      if (!area) return;
+      appState.studyNote = area.value;
+      if (statusEl) statusEl.textContent = `Guardando…`;
+      if (saveTimer) clearTimeout(saveTimer);
+      saveTimer = setTimeout(function () {
+        persistState();
+      }, 350);
+    }
+
+    function exportStudyNotes() {
+      const area = document.getElementById(`study-note-area`);
+      const noteText = area ? area.value.trim() : ``;
+      const statusEl = document.getElementById(`save-status`);
+
+      const lines = [
+        `SÍNTESIS DE ESTUDIO — ASÍ HABLÓ ZARATUSTRA (FRIEDRICH NIETZSCHE)`,
+        `Eje seleccionado: ${appState.noteFocus}`,
+        `Pasajes estudiados: ${appState.studiedPassages.length} / ${PASSAGES.length}`,
+        `Preguntas respondidas: ${getCompletedQuizCount()} / ${QUIZ_QUESTIONS.length}`,
+        ``,
+        `APUNTES PERSONALES:`,
+        noteText || `(Sin apuntes escritos todavía.)`
+      ].join(`\n`);
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: lines,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `sintesis-zaratustra.txt`
+        });
+        if (statusEl) statusEl.textContent = `Archivo sintesis-zaratustra.txt descargado.`;
+      } else {
+        if (statusEl) statusEl.textContent = `La exportación requiere el entorno de cuaderno.`;
+      }
+    }
+
+    function handleResetProgress(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Pulsa otra vez para confirmar`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reiniciar progreso`;
+
+      appState = {
+        selectedGenesis: 0,
+        selectedConcept: `superhombre`,
+        selectedStage: 0,
+        activeFilter: `all`,
+        studiedPassages: [],
+        quizIndex: 0,
+        quizAnswers: {},
+        classifierSelections: {},
+        noteFocus: `General`,
+        studyNote: ``
+      };
+
+      const sel = document.getElementById(`note-focus-select`);
+      const area = document.getElementById(`study-note-area`);
+      const resEl = document.getElementById(`classifier-result`);
+      if (sel) sel.value = `General`;
+      if (area) area.value = ``;
+      if (resEl) resEl.textContent = ``;
+
+      selectGenesis(0);
+      selectConcept(`superhombre`);
+      selectStage(0);
+      filterDiscourses(`all`);
+      renderPassages();
+      renderQuiz();
+      renderClassifier();
+      updateStudyProgress();
+      persistState();
+    }
+
+    function restoreFromState(saved) {
+      if (!saved || typeof saved !== `object`) return;
+      if (typeof saved.selectedGenesis === `number`) appState.selectedGenesis = saved.selectedGenesis;
+      if (typeof saved.selectedConcept === `string` && CONCEPTS[saved.selectedConcept]) appState.selectedConcept = saved.selectedConcept;
+      if (typeof saved.selectedStage === `number`) appState.selectedStage = saved.selectedStage;
+      if (typeof saved.activeFilter === `string`) appState.activeFilter = saved.activeFilter;
+      if (Array.isArray(saved.studiedPassages)) appState.studiedPassages = saved.studiedPassages;
+      if (typeof saved.quizIndex === `number`) appState.quizIndex = saved.quizIndex;
+      if (saved.quizAnswers && typeof saved.quizAnswers === `object`) appState.quizAnswers = saved.quizAnswers;
+      if (saved.classifierSelections && typeof saved.classifierSelections === `object`) appState.classifierSelections = saved.classifierSelections;
+      if (typeof saved.noteFocus === `string`) appState.noteFocus = saved.noteFocus;
+      if (typeof saved.studyNote === `string`) appState.studyNote = saved.studyNote;
+    }
+
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved) restoreFromState(saved);
+        } catch (err) {
+          /* Continúa con el estado inicial si no hay estado previo */
+        }
+      }
+
+      const sel = document.getElementById(`note-focus-select`);
+      const area = document.getElementById(`study-note-area`);
+      if (sel) sel.value = appState.noteFocus;
+      if (area) area.value = appState.studyNote;
+
+      selectGenesis(appState.selectedGenesis);
+      selectConcept(appState.selectedConcept);
+      selectStage(appState.selectedStage);
+      filterDiscourses(appState.activeFilter);
+      renderPassages();
+      renderFaqs();
+      renderQuiz();
+      renderClassifier();
+      updateStudyProgress();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>

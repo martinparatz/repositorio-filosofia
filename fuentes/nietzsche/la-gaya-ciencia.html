@@ -1,0 +1,2503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>La gaya ciencia — Friedrich Nietzsche | Mapa Conceptual y Estudio Interactivo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (Broadsheet) */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      /* Ink */
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      /* Rules */
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      /* Accents */
+      --primary: #990f3d;
+      --primary-hover: #7a0b30;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      /* Semantic tokens */
+      --positive: #1f6b43;
+      --positive-container: #dfece4;
+      --warning: #8f580a;
+      --warning-container: #f4e8d2;
+      --error-container: #f6dedd;
+      --focus: #990f3d;
+
+      /* Fonts */
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+      --rule-primary: 2px solid var(--primary);
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.5rem, 1.4rem + 3.8vw, 4.4rem);
+      --headline-size: clamp(1.75rem, 1.25rem + 1.8vw, 2.5rem);
+      --subhead-size: clamp(1.25rem, 1.1rem + 0.55vw, 1.55rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.14vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      font-optical-sizing: auto;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-xl);
+      padding: var(--space-lg) var(--space-lg) var(--space-2xl);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus visibility */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+      letter-spacing: -0.015em;
+    }
+    h1 {
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.06;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.18;
+    }
+    h4 {
+      font-weight: 700;
+      font-size: 1.08rem;
+      line-height: 1.25;
+    }
+    p {
+      margin: 0;
+      max-width: 65ch;
+    }
+    p + p {
+      margin-top: var(--space-md);
+    }
+
+    /* Masthead & Navigation */
+    .masthead-line {
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm) var(--space-lg);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+    .masthead-edition {
+      color: var(--on-surface);
+    }
+    .masthead-status {
+      color: var(--secondary);
+    }
+
+    .primary-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-xs) var(--space-md);
+      padding-block: var(--space-sm);
+      border-bottom: var(--rule-column);
+    }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline: var(--space-xs);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:hover, .nav-link.is-active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg) var(--space-xl);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .lede {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.35rem);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 58ch;
+    }
+
+    /* Ruled Key Figures (Broadsheet Treatment 3) */
+    .columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-md);
+    }
+    .columns > * {
+      flex: 1 1 200px;
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .kpi-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+    }
+    .kpi-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.35rem, 1.15rem + 0.6vw, 1.75rem);
+      line-height: 1.15;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+    }
+    .kpi-note {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      margin-top: var(--space-xs);
+    }
+
+    /* Sections */
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-md);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .section-header {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+    .section-standfirst {
+      color: var(--on-surface-variant);
+      max-width: 62ch;
+      font-size: 1.04rem;
+    }
+
+    /* Bare Teal Tag (Treatment 5 — only on --background) */
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+    }
+    /* Variant tag inside filled surfaces uses ink or claret to maintain >= 4.5:1 contrast */
+    .panel-filled .tag,
+    .panel-low .tag {
+      color: var(--primary);
+    }
+
+    /* Broadsheet Two-Column Essay Layout */
+    .editorial-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .editorial-aside {
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    /* Pull Quotes */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+      margin-block: var(--space-sm);
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-style: italic;
+      font-size: clamp(1.18rem, 1.05rem + 0.45vw, 1.42rem);
+      line-height: 1.38;
+      color: var(--on-surface);
+      max-width: 48ch;
+    }
+    .pull-quote cite {
+      display: block;
+      margin-top: var(--space-xs);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    /* Conceptual Pillars Grid (Ruled, not boxed) */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-xl) var(--space-lg);
+    }
+    .pillar-item {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-sm);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+    }
+    .pillar-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+    .pillar-list {
+      margin: 0;
+      padding-left: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+      color: var(--on-surface-variant);
+      font-size: 0.98rem;
+    }
+    .pillar-list strong {
+      color: var(--on-surface);
+    }
+
+    /* Rare Filled Newsprint Panels for Interactive Modules */
+    .panel-low {
+      background-color: var(--surface-container-low);
+      border: 1px solid var(--outline);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .panel-filled {
+      background-color: var(--surface-container);
+      border: 1px solid var(--outline);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    /* Interactive Concept Map SVG + Detail Inspector */
+    .concept-map-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.95fr);
+      gap: var(--space-lg);
+      align-items: stretch;
+    }
+    .svg-stage {
+      background-color: var(--surface-container-low);
+      border: 1px solid var(--outline);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .svg-stage svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .map-node {
+      cursor: pointer;
+    }
+    .map-node rect {
+      transition: fill var(--dur-short) var(--ease-out), stroke-width var(--dur-short) var(--ease-out);
+    }
+    .map-node text {
+      pointer-events: none;
+    }
+    .map-node:focus-visible rect {
+      stroke: var(--primary);
+      stroke-width: 3;
+    }
+
+    /* Buttons (Square Broadsheet) */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-radius: var(--rounded);
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), outline-color var(--dur-micro) var(--ease-out);
+    }
+    .btn:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--primary-hover);
+      border-color: var(--primary-hover);
+    }
+    .btn-secondary {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background-color: var(--surface-container-high);
+    }
+    .btn-ghost {
+      background-color: transparent;
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-ghost:hover:not(:disabled),
+    .btn-ghost.is-selected {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    /* Inputs & Labels */
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: end;
+    }
+    .field-group {
+      display: grid;
+      gap: var(--space-xs);
+      flex: 1 1 220px;
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .text-input,
+    .select-input,
+    .textarea-input {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--on-surface);
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      width: 100%;
+    }
+    .select-input {
+      padding-right: var(--space-xl);
+    }
+    .textarea-input {
+      min-height: 96px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+    .text-input:focus,
+    .select-input:focus,
+    .textarea-input:focus {
+      border-color: var(--primary);
+      outline: 2px solid var(--primary);
+      outline-offset: 1px;
+    }
+    input[type="range"] {
+      width: 100%;
+      min-height: 44px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Aphorisms Explorer Grid */
+    .aphorism-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .aphorism-card {
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-column);
+      padding-block: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: space-between;
+    }
+    .aphorism-card.is-studied {
+      background-color: var(--primary-container);
+      padding-inline: var(--space-md);
+      border-top-color: var(--primary);
+    }
+    .aphorism-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+    .aphorism-num {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--primary);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .aphorism-quote {
+      font-family: var(--font-body);
+      font-style: italic;
+      color: var(--on-surface);
+      border-left: 2px solid var(--primary);
+      padding-left: var(--space-md);
+      margin-block: var(--space-xs);
+    }
+    .aphorism-analysis {
+      font-size: 0.96rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Didactic Tools Grid */
+    .tools-stack {
+      display: grid;
+      gap: var(--space-xl);
+    }
+    .tool-grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .diagnosis-output {
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .diagnosis-badge {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: var(--space-xs) var(--space-sm);
+      border: 1px solid var(--outline);
+    }
+    .badge-abundance {
+      background-color: var(--positive-container);
+      color: var(--positive);
+      border-color: var(--positive);
+    }
+    .badge-deficiency {
+      background-color: var(--warning-container);
+      color: var(--warning);
+      border-color: var(--warning);
+    }
+    .badge-tension {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--primary);
+    }
+
+    /* Quiz Styling */
+    .quiz-card {
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .quiz-option {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: 1px solid var(--outline-variant);
+      text-align: left;
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      color: var(--on-surface);
+      cursor: pointer;
+      width: 100%;
+    }
+    .quiz-option:hover {
+      background-color: var(--surface-container-high);
+      border-color: var(--outline);
+    }
+    .quiz-option.is-correct {
+      background-color: var(--positive-container);
+      border-color: var(--positive);
+      color: var(--on-surface);
+    }
+    .quiz-option.is-wrong {
+      background-color: var(--error-container);
+      border-color: var(--error);
+      color: var(--on-surface);
+    }
+    .quiz-feedback {
+      font-size: 0.94rem;
+      padding: var(--space-sm) var(--space-md);
+      border-left: 3px solid var(--outline);
+      background-color: var(--surface-container-low);
+    }
+    .quiz-feedback.is-positive {
+      border-left-color: var(--positive);
+    }
+    .quiz-feedback.is-error {
+      border-left-color: var(--error);
+    }
+
+    /* Tables (Broadsheet ruled) */
+    .table-wrap {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-section);
+      font-size: 0.96rem;
+    }
+    th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: left;
+      color: var(--on-surface);
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      border-bottom: var(--rule-ink);
+    }
+    td {
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+    }
+    tr:last-child td {
+      border-bottom: 0;
+    }
+    .td-year {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-variant-numeric: lining-nums tabular-nums;
+      white-space: nowrap;
+      color: var(--primary);
+    }
+
+    /* FAQ Accordion (<details>) */
+    .faq-list {
+      display: grid;
+      border-top: var(--rule-ink);
+    }
+    .faq-item {
+      border-bottom: var(--rule-column);
+    }
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding-block: var(--space-md);
+      min-height: 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.12rem;
+      color: var(--on-surface);
+    }
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+    .faq-item summary:hover {
+      color: var(--primary);
+    }
+    .faq-marker {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+    .faq-item[open] .faq-marker {
+      transform: rotate(45deg);
+    }
+    .faq-body {
+      padding-bottom: var(--space-md);
+      color: var(--on-surface-variant);
+      max-width: 68ch;
+    }
+
+    /* Inline Notice / Empty State */
+    .inline-notice {
+      padding: var(--space-md);
+      background-color: var(--surface-container-low);
+      border-left: 3px solid var(--primary);
+      font-size: 0.96rem;
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--rule-section);
+      padding-top: var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-md);
+      font-size: 0.92rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Container Queries for Interactive Cards */
+    .card-wrapper { container-type: inline-size; }
+    @container (max-width: 480px) {
+      .aphorism-head { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 860px) {
+      .editorial-split,
+      .concept-map-wrap,
+      .tool-grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .editorial-aside {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding-left: 0;
+        padding-top: var(--space-md);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-sm) var(--space-xl);
+        gap: var(--space-lg);
+      }
+      .columns > * {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-sm) 0;
+      }
+      .columns > :first-child {
+        border-top: 0;
+      }
+      .panel-low,
+      .panel-filled {
+        padding: var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid">
+
+    <!-- MASTHEAD & NAVIGATION -->
+    <header id="inicio">
+      <div class="masthead-line">
+        <span class="masthead-edition">Dossier Filosófico · Die fröhliche Wissenschaft (1882 / 1886)</span>
+        <span class="masthead-status" id="global-progress-badge">Progreso de estudio: 0 de 19 aforismos · 0 de 8 preguntas</span>
+      </div>
+
+      <nav class="primary-nav" aria-label="Navegación principal">
+        <a class="nav-link is-active" href="#inicio">Inicio</a>
+        <a class="nav-link" href="#marco-conceptual">Marco Conceptual</a>
+        <a class="nav-link" href="#aforismos">Aforismos</a>
+        <a class="nav-link" href="#herramientas">Herramientas Didácticas</a>
+        <a class="nav-link" href="#cronologia">Cronología</a>
+        <a class="nav-link" href="#faq">Preguntas Frecuentes</a>
+      </nav>
+
+      <div class="masthead">
+        <h1>La gaya ciencia: el umbral de la filosofía afirmativa</h1>
+        <p class="lede">
+          Escrita tras atravesar el invierno del nihilismo y el agotamiento físico, <em>La gaya ciencia</em> anuncia las «Saturnales de un espíritu» convaleciente. En sus aforismos germinan los ejes decisivos de Friedrich Nietzsche: la crítica al desdoblamiento metafísico del mundo, la exégesis del cuerpo, la muerte de Dios, el arte de la apariencia, el eterno retorno y la gran salud.
+        </p>
+      </div>
+
+      <div class="columns" aria-label="Datos fundamentales de la obra">
+        <div>
+          <div class="kpi-label">Publicación y prólogo</div>
+          <div class="kpi-value">1882 / 1886</div>
+          <div class="kpi-note">Génova, otoño de 1886 (2.ª ed.)</div>
+        </div>
+        <div>
+          <div class="kpi-label">Arquitectura</div>
+          <div class="kpi-value">5 Libros + Prólogo</div>
+          <div class="kpi-note">De «viento de deshielo» a la parodia</div>
+        </div>
+        <div>
+          <div class="kpi-label">Blanco crítico</div>
+          <div class="kpi-value">Doble mundo</div>
+          <div class="kpi-note">Metafísica cristiana y positivismo</div>
+        </div>
+        <div>
+          <div class="kpi-label">Horizonte vital</div>
+          <div class="kpi-value">Amor fati</div>
+          <div class="kpi-note">El peso más grande y la risa sabia</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECCIÓN 1: MARCO CONCEPTUAL COMPLETO -->
+    <section id="marco-conceptual" class="section-open">
+      <div class="section-header">
+        <span class="section-label">Sección I · Arquitectura Filosófica</span>
+        <h2>El mapa conceptual de La gaya ciencia</h2>
+        <p class="section-standfirst">
+          Nietzsche todavía ensambla aquí, de forma fragmentaria y experimental, las tesis que articularán su obra madura: el rechazo a todo «más allá», la lectura fisiológica de las ideas y la afirmación trágica de la existencia.
+        </p>
+      </div>
+
+      <!-- Editorial Opening Split -->
+      <div class="editorial-split">
+        <div>
+          <h3>¿Por qué una ciencia «gaya» y qué combate?</h3>
+          <p>
+            Lejos de proclamar un nihilismo destructivo sin salida, <em>La gaya ciencia</em> marca la salida de ese «profundo valle». Nietzsche ya había atravesado la incredulidad y la tiranía del dolor; por eso el libro irrumpe con el tono de un <strong>viento de deshielo</strong>, como la gratitud de quien recupera fuerzas tras una privación prolongada.
+          </p>
+          <p>
+            En el plano crítico, la obra dirige su ataque contra el <strong>desdoblamiento del mundo</strong>: tanto contra la creencia metafísica cristiana en un orden trascendente como contra la fe positivista de la ciencia moderna en una «verdad a cualquier precio». Ambas comparten la sospecha de preferir un mundo aparte, un estado definitivo o un «más allá» antes que habitar el devenir sensible.
+          </p>
+          <blockquote class="pull-quote">
+            «Toda metafísica y toda física que pretende conocer un final, un estado definitivo cualquiera; toda aspiración, principalmente estética o religiosa, a un más allá, a un afuera, a un por encima autorizan a preguntarse si no era la enfermedad lo que inspiraba al filósofo.»
+            <cite>Prólogo, II — Génova, otoño de 1886</cite>
+          </blockquote>
+        </div>
+
+        <aside class="editorial-aside" aria-label="Claves de lectura del prólogo">
+          <span class="tag">Lectura de umbral</span>
+          <h4>De <em>incipit tragoedia</em> a <em>incipit parodia</em></h4>
+          <p>
+            En el Prólogo I, Nietzsche advierte que este libro de «inquietante desenvoltura» anuncia a la vez la tragedia venidera (la entrada en escena de Zaratustra al final del Libro IV, §342) y una parodia mordaz contra la solemnidad de los predicadores morales, los poetas líricos y los doctrinarios de la «finalidad de la existencia» (§1).
+          </p>
+          <p>
+            Cuando la tesis «la especie lo es todo, lo particular no es nada» se encarne y la risa se una a la sabiduría, entonces no habrá más ciencia que <strong>«la gaya ciencia»</strong> (§1).
+          </p>
+        </aside>
+      </div>
+
+      <!-- Interactive SVG Conceptual Architecture Map -->
+      <div class="concept-map-wrap">
+        <div class="svg-stage">
+          <div>
+            <span class="tag">Diagrama interactivo de relaciones</span>
+            <h3 style="margin-top: var(--space-xs);">Recorrido de la convalecencia a la gran salud</h3>
+            <p style="font-size: 0.94rem; color: var(--on-surface-variant);">
+              Selecciona cualquier nodo del esquema para inspeccionar su definición conceptual, su función dentro de la obra y los aforismos asociados.
+            </p>
+          </div>
+          <svg viewBox="0 0 720 390" role="img" aria-label="Mapa conceptual interactivo de La gaya ciencia">
+            <!-- Connection arrows / lines -->
+            <line x1="175" y1="75" x2="265" y2="75" stroke="var(--outline-variant)" stroke-width="2" />
+            <line x1="445" y1="75" x2="535" y2="75" stroke="var(--outline-variant)" stroke-width="2" />
+            <line x1="620" y1="115" x2="620" y2="155" stroke="var(--outline-variant)" stroke-width="2" />
+            <line x1="535" y1="195" x2="445" y2="195" stroke="var(--outline-variant)" stroke-width="2" />
+            <line x1="265" y1="195" x2="175" y2="195" stroke="var(--outline-variant)" stroke-width="2" />
+            <line x1="95" y1="235" x2="95" y2="275" stroke="var(--outline-variant)" stroke-width="2" />
+            <line x1="175" y1="315" x2="265" y2="315" stroke="var(--outline-variant)" stroke-width="2" />
+            <line x1="445" y1="315" x2="535" y2="315" stroke="var(--primary)" stroke-width="2.5" />
+            <!-- Cross links -->
+            <line x1="355" y1="115" x2="355" y2="155" stroke="var(--secondary)" stroke-width="1.5" stroke-dasharray="4 4" />
+            <line x1="355" y1="235" x2="355" y2="275" stroke="var(--secondary)" stroke-width="1.5" stroke-dasharray="4 4" />
+
+            <!-- Row 1 -->
+            <g class="map-node" tabindex="0" data-node="conciencia" onclick="selectConceptNode('conciencia')" onkeydown="handleNodeKey(event, 'conciencia')">
+              <rect id="rect-conciencia" x="15" y="35" width="165" height="80" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+              <text x="27" y="58" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">§11 · §116 · §354</text>
+              <text x="27" y="80" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--on-surface)">Conciencia y Rebaño</text>
+              <text x="27" y="100" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">Red de comunicación gregaria</text>
+            </g>
+
+            <g class="map-node" tabindex="0" data-node="cuerpo" onclick="selectConceptNode('cuerpo')" onkeydown="handleNodeKey(event, 'cuerpo')">
+              <rect id="rect-cuerpo" x="265" y="35" width="180" height="80" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2" />
+              <text x="277" y="58" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--primary)">PRÓLOGO II–III · §120</text>
+              <text x="277" y="80" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--on-surface)">Exégesis del Cuerpo</text>
+              <text x="277" y="100" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">Convalecencia y gran dolor</text>
+            </g>
+
+            <g class="map-node" tabindex="0" data-node="muerteDios" onclick="selectConceptNode('muerteDios')" onkeydown="handleNodeKey(event, 'muerteDios')">
+              <rect id="rect-muerteDios" x="530" y="35" width="175" height="80" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+              <text x="542" y="58" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">§108 · §125 · §344</text>
+              <text x="542" y="80" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--on-surface)">La Muerte de Dios</text>
+              <text x="542" y="100" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">El hombre loco y las sombras</text>
+            </g>
+
+            <!-- Row 2 -->
+            <g class="map-node" tabindex="0" data-node="arte" onclick="selectConceptNode('arte')" onkeydown="handleNodeKey(event, 'arte')">
+              <rect id="rect-arte" x="530" y="155" width="175" height="80" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+              <text x="542" y="178" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">PRÓL. IV · §107 · §290</text>
+              <text x="542" y="200" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--on-surface)">Arte y Apariencia</text>
+              <text x="542" y="220" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">Superficiales por profundidad</text>
+            </g>
+
+            <g class="map-node" tabindex="0" data-node="gaya" onclick="selectConceptNode('gaya')" onkeydown="handleNodeKey(event, 'gaya')">
+              <rect id="rect-gaya" x="265" y="155" width="180" height="80" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+              <text x="277" y="178" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">PRÓL. I · §1 · §12</text>
+              <text x="277" y="200" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--on-surface)">La Ciencia Gaya</text>
+              <text x="277" y="220" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">Risa unida a la sabiduría</text>
+            </g>
+
+            <g class="map-node" tabindex="0" data-node="dionisiaco" onclick="selectConceptNode('dionisiaco')" onkeydown="handleNodeKey(event, 'dionisiaco')">
+              <rect id="rect-dionisiaco" x="15" y="155" width="165" height="80" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+              <text x="27" y="178" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">§370 · §375</text>
+              <text x="27" y="200" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--on-surface)">Dionisíaco vs. Romántico</text>
+              <text x="27" y="220" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">Abundancia frente a hambre</text>
+            </g>
+
+            <!-- Row 3 -->
+            <g class="map-node" tabindex="0" data-node="amorFati" onclick="selectConceptNode('amorFati')" onkeydown="handleNodeKey(event, 'amorFati')">
+              <rect id="rect-amorFati" x="15" y="275" width="165" height="80" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+              <text x="27" y="298" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">LIBRO IV · §276</text>
+              <text x="27" y="320" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--on-surface)">Amor Fati</text>
+              <text x="27" y="340" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">Amar lo necesario como bello</text>
+            </g>
+
+            <g class="map-node" tabindex="0" data-node="eternoRetorno" onclick="selectConceptNode('eternoRetorno')" onkeydown="handleNodeKey(event, 'eternoRetorno')">
+              <rect id="rect-eternoRetorno" x="265" y="275" width="180" height="80" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+              <text x="277" y="298" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">LIBRO IV · §341</text>
+              <text x="277" y="320" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--on-surface)">El Eterno Retorno</text>
+              <text x="277" y="340" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">La carga más pesada</text>
+            </g>
+
+            <g class="map-node" tabindex="0" data-node="granSalud" onclick="selectConceptNode('granSalud')" onkeydown="handleNodeKey(event, 'granSalud')">
+              <rect id="rect-granSalud" x="530" y="275" width="175" height="80" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+              <text x="542" y="298" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">LIBRO V · §382</text>
+              <text x="542" y="320" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--on-surface)">La Gran Salud</text>
+              <text x="542" y="340" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">Argonautas del ideal nuevo</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="panel-low" id="concept-inspector" aria-live="polite">
+          <span class="tag" id="inspector-ref">PRÓLOGO II–III · §120</span>
+          <h3 id="inspector-title">Exégesis del cuerpo y convalecencia</h3>
+          <p id="inspector-body">
+            Nietzsche sospecha que la filosofía tradicional no ha tratado de descubrir la «verdad» pura, sino que ha sido un enmascaramiento inconsciente de necesidades fisiológicas: «una exégesis del cuerpo y un malentendido con relación al cuerpo». El gran dolor prolongado actúa como «libertador último del espíritu» y «pedagogo de la gran sospecha», obligando al pensador a descender a su abismo y transfigurar cada estado de salud en horizonte espiritual.
+          </p>
+          <div style="border-top: var(--rule-column); padding-top: var(--space-sm);">
+            <span class="field-label" style="display: block; margin-bottom: var(--space-xs);">Conexión clave</span>
+            <p id="inspector-link" style="font-size: 0.94rem; color: var(--on-surface-variant);">
+              Sin atravesar la enfermedad y el gran dolor (Prólogo III), no se comprende la diferencia entre el idealismo que huye hacia un «más allá» y la gran salud conquistada (§382).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 Conceptual Pillars in Ruled Grid -->
+      <div class="pillars-grid">
+        <article class="pillar-item">
+          <div class="pillar-meta">
+            <span class="tag">01 · Espíritu de deshielo</span>
+            <span class="kpi-label">Prólogo I · §1 · §12</span>
+          </div>
+          <h3>La ciencia gaya</h3>
+          <p>
+            Frente a los «doctrinarios del fin de la existencia» que inventan segundas vidas para legitimar la existencia con solemnidad trágica, la gaya ciencia une rigor inquisitivo y ligereza burlona. La ciencia deja de ser un calmante estoico para convertirse en fuerza capaz tanto de suministrar dolor como de «hacer brillar nuevas estrellas de goce» (§12).
+          </p>
+          <ul class="pillar-list">
+            <li><strong>Saturnales del espíritu:</strong> exceso alegre tras un largo invierno de privación.</li>
+            <li><strong>Risa futura:</strong> cuando la comedia de la existencia tome conciencia de sí misma (§1).</li>
+          </ul>
+        </article>
+
+        <article class="pillar-item">
+          <div class="pillar-meta">
+            <span class="tag">02 · Psicología fisiológica</span>
+            <span class="kpi-label">Prólogo II–III · §120</span>
+          </div>
+          <h3>Convalecencia y exégesis del cuerpo</h3>
+          <p>
+            No somos «ranas pensantes» ni aparatos sin entrañas: parimos nuestros pensamientos desde la sangre, la pasión y el tormento. Un filósofo médico debe preguntar ante cada doctrina si nace de la carencia (buscando consuelo, paz y un estado definitivo) o de la plenitud vital. No existe una salud «normal» universal: «Tu virtud es la salud de tu alma» (§120).
+          </p>
+          <ul class="pillar-list">
+            <li><strong>Arte de la transfiguración:</strong> convertir en luz y llama todo lo que nos afecta.</li>
+            <li><strong>De la U a la X:</strong> el gran dolor vuelve la vida un problema digno de amor receloso.</li>
+          </ul>
+        </article>
+
+        <article class="pillar-item">
+          <div class="pillar-meta">
+            <span class="tag">03 · Crítica al fundamento</span>
+            <span class="kpi-label">§108 · §125 · §344 · §346</span>
+          </div>
+          <h3>La muerte de Dios y el hombre loco</h3>
+          <p>
+            En el célebre aforismo §125 del Libro III, un hombre loco irrumpe con una linterna a pleno día en el mercado gritando «¡Busco a Dios!» para anunciar a los incrédulos que «Dios ha muerto» y que nosotros lo hemos matado. El relato escenifica el vértigo histórico de perder la brújula y el horizonte que sostenían la moral europea.
+          </p>
+          <ul class="pillar-list">
+            <li><strong>Sombras de Dios (§108–§109):</strong> tras caer la creencia teológica, persisten sus sombras en la naturaleza divinizada y en la razón absoluta.</li>
+            <li><strong>Piedad científica (§344):</strong> la voluntad incondicional de verdad sigue siendo una fe moral.</li>
+          </ul>
+        </article>
+
+        <article class="pillar-item">
+          <div class="pillar-meta">
+            <span class="tag">04 · Piedra de toque</span>
+            <span class="kpi-label">Libro IV · §341 · §276</span>
+          </div>
+          <h3>El eterno retorno y el <em>amor fati</em></h3>
+          <p>
+            En §341, un demonio plantea «el peso más grande»: ¿y si tuvieras que revivir esta misma vida, con cada dolor y cada instante, innumerables veces sin nada nuevo? Si la idea te aplasta, revela resentimiento contra la existencia; si la bendices, has alcanzado el <strong>amor fati</strong> (§276): no limitarse a soportar lo necesario, sino amarlo y volverlo bello.
+          </p>
+          <ul class="pillar-list">
+            <li><strong>Selector existencial:</strong> sustituye las promesas de un más allá por la eternidad del instante.</li>
+            <li><strong>Más allá del estoicismo:</strong> frente a la petrificación estoica (§326), el sí apasionado.</li>
+          </ul>
+        </article>
+
+        <article class="pillar-item">
+          <div class="pillar-meta">
+            <span class="tag">05 · Crítica a la interioridad</span>
+            <span class="kpi-label">§11 · §116 · §354</span>
+          </div>
+          <h3>El origen de la conciencia</h3>
+          <p>
+            Contra la ilusión de que la conciencia sea la unidad soberana e inmortal del organismo (§11), Nietzsche plantea en §354 que casi toda nuestra vida pensante, sensible y volitiva transcurre sin reflejo consciente. La conciencia nació tardíamente bajo la presión social de <strong>comunicarse</strong> entre quien manda y quien obedece.
+          </p>
+          <ul class="pillar-list">
+            <li><strong>Genio de la especie:</strong> lo que llega a ser consciente pertenece al promedio gregario, no a lo singular.</li>
+            <li><strong>Moral como rebaño (§116):</strong> cada juicio moral traduce la utilidad de una comunidad.</li>
+          </ul>
+        </article>
+
+        <article class="pillar-item">
+          <div class="pillar-meta">
+            <span class="tag">06 · Estética afirmativa</span>
+            <span class="kpi-label">Prólogo IV · §107 · §290</span>
+          </div>
+          <h3>El arte como aceptación de la apariencia</h3>
+          <p>
+            Si la probidad científica desnuda la falta de sentido moral del universo, el resultado sería el asco y el suicidio de no mediar el arte (§107). El arte nos da la buena conciencia de la apariencia, el «gorro de loco» para bailar por encima de la moral y «dar estilo» a nuestro carácter integrando virtudes y debilidades (§290).
+          </p>
+          <ul class="pillar-list">
+            <li><strong>Pudor de la naturaleza:</strong> rechazo a la verdad despojada de su velo (Baubó, Prólogo IV).</li>
+            <li><strong>Lección griega:</strong> los griegos sabían vivir siendo «superficiales… ¡por profundidad!».</li>
+          </ul>
+        </article>
+
+        <article class="pillar-item">
+          <div class="pillar-meta">
+            <span class="tag">07 · Diagnóstico estético</span>
+            <span class="kpi-label">§370 · §86 · §99</span>
+          </div>
+          <h3>Dionisíaco frente a romanticismo</h3>
+          <p>
+            Nietzsche corrige su entusiasmo juvenil por Schopenhauer y el drama wagneriano (§99, §370). Todo arte y filosofía nacen de seres que sufren, pero existen dos estirpes opuestas: quienes sufren por <strong>empobrecimiento de vida</strong> (que buscan narcóticos, calma o un dios salvador) y quienes sufren por <strong>abundancia vital</strong> (el espíritu dionisíaco que soporta lo terrible y lo fecunda).
+          </p>
+          <ul class="pillar-list">
+            <li><strong>Pregunta criterio:</strong> «¿Es el hambre o es la abundancia quien se ha convertido aquí en creador?»</li>
+            <li><strong>Teatro como narcótico (§86):</strong> crítica al «hachís» espiritual para hombres fatigados.</li>
+          </ul>
+        </article>
+
+        <article class="pillar-item">
+          <div class="pillar-meta">
+            <span class="tag">08 · Horizonte del Libro V</span>
+            <span class="kpi-label">§382 · §293 · §375</span>
+          </div>
+          <h3>La gran salud y los argonautas del ideal</h3>
+          <p>
+            No es un estado pasivo de bienestar burgués ni la ausencia de dolor. La gran salud es más vigorosa, temeraria y maligna que ninguna otra: se adquiere y se arriesga continuamente al navegar por tierras inexploradas más allá de las morales heredadas. Su atmósfera es el aire eléctrico y severo de quien no teme cuestionar lo sagrado (§293, §382).
+          </p>
+          <ul class="pillar-list">
+            <li><strong>Autodominio epicúreo (§375):</strong> sujetar las riendas frente a las convicciones fanáticas.</li>
+            <li><strong>Tragedia y parodia:</strong> cuando cambia el destino del alma y comienza la gran interrogación.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: MÓDULOS DE AFORISMOS INTERACTIVOS EXPLORABLES -->
+    <section id="aforismos" class="section-open">
+      <div class="section-header">
+        <span class="section-label">Sección II · Archivo Vivo</span>
+        <h2>Explorador interactivo de aforismos</h2>
+        <p class="section-standfirst">
+          Recorre los pasajes clave del Prólogo de 1886 y de los cinco libros de la obra. Filtra por eje conceptual, busca términos específicos o marca los aforismos estudiados para construir tu itinerario de lectura.
+        </p>
+      </div>
+
+      <div class="panel-low">
+        <div class="controls-row">
+          <div class="field-group">
+            <label class="field-label" for="aphorism-search">Buscar por palabra clave o número (§)</label>
+            <input type="search" id="aphorism-search" class="text-input" placeholder="Ej.: cuerpo, 354, risa, apariencia, verdad…" oninput="filterAphorisms()">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="aphorism-theme">Filtrar por eje conceptual</label>
+            <select id="aphorism-theme" class="select-input" onchange="filterAphorisms()">
+              <option value="all">Todos los ejes conceptuales</option>
+              <option value="salud">Salud, Dolor y Exégesis del Cuerpo</option>
+              <option value="ciencia">Ciencia, Conocimiento y Sospecha</option>
+              <option value="moral">Moral, Gregarismo y Conciencia</option>
+              <option value="arte">Arte, Estilo y Apariencia</option>
+              <option value="destino">Muerte de Dios, Eterno Retorno y Amor Fati</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="aphorism-progress-filter">Estado de lectura</label>
+            <select id="aphorism-progress-filter" class="select-input" onchange="filterAphorisms()">
+              <option value="all">Todos los aforismos</option>
+              <option value="studied">Solo marcados como estudiados</option>
+              <option value="pending">Solo pendientes de estudio</option>
+            </select>
+          </div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-sm); border-top: var(--rule-column); padding-top: var(--space-sm);">
+          <span id="aphorism-count-label" class="field-label">Mostrando 19 de 19 aforismos</span>
+          <button type="button" class="btn btn-secondary" onclick="resetAphorismFilters()">Limpiar filtros</button>
+        </div>
+      </div>
+
+      <div id="aphorism-list" class="aphorism-grid"></div>
+      <div id="aphorism-empty" class="inline-notice" style="display: none;">
+        <strong>Sin coincidencias exactas.</strong> Ningún aforismo del archivo coincide con tu búsqueda o filtro actual. Prueba ampliar el eje conceptual o limpiar el texto de búsqueda.
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: HERRAMIENTAS DIDÁCTICAS INTERACTIVAS -->
+    <section id="herramientas" class="section-open">
+      <div class="section-header">
+        <span class="section-label">Sección III · Laboratorio Filosófico</span>
+        <h2>Herramientas didácticas de análisis y autoevaluación</h2>
+        <p class="section-standfirst">
+          Tres instrumentos prácticos diseñados para aplicar el método de Nietzsche: diagnosticar si una idea brota de la abundancia o la carencia, someter una experiencia al criterio del eterno retorno y comprobar tu dominio conceptual.
+        </p>
+      </div>
+
+      <div class="tools-stack">
+
+        <!-- HERRAMIENTA 1: EL FILÓSOFO MÉDICO -->
+        <article class="panel-low">
+          <div>
+            <span class="tag">Herramienta 1 · Prólogo II y §370</span>
+            <h3 style="margin-top: var(--space-xs);">Diagnóstico del «filósofo médico»: ¿hambre o abundancia?</h3>
+            <p style="color: var(--on-surface-variant); margin-top: var(--space-xs);">
+              Selecciona un fenómeno cultural de la obra o ajusta los tres vectores fisiológicos para observar cómo Nietzsche distingue la filosofía nacida de la enfermedad de la nacida de la gran salud.
+            </p>
+          </div>
+
+          <div class="tool-grid-2">
+            <div style="display: grid; gap: var(--space-md);">
+              <div class="field-group">
+                <label class="field-label" for="symptom-preset">Cargar caso analizado en La gaya ciencia</label>
+                <select id="symptom-preset" class="select-input" onchange="applySymptomPreset(this.value)">
+                  <option value="custom">Configuración manual libre</option>
+                  <option value="romantico">Pesimismo romántico y música de Wagner (§370)</option>
+                  <option value="altruismo">Moral del desinterés y sacrificio (§21)</option>
+                  <option value="cienciaPura">Voluntad absoluta de verdad científica (§344)</option>
+                  <option value="estoico">Ideal estoico de supresión del placer (§12 / §326)</option>
+                  <option value="dionisiaco">Arte trágico-dionisíaco y risa sabia (§107 / §370)</option>
+                  <option value="estilo">Dar estilo al propio carácter (§290)</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label" for="slider-pain">1. Relación con el gran dolor (<span id="val-pain">7</span>/10)</label>
+                <input type="range" id="slider-pain" min="1" max="10" value="7" oninput="updatePhysicianDiagnosis()">
+                <div style="display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--on-surface-variant);">
+                  <span>Busca anestesia / calma</span>
+                  <span>Pedagogo de la sospecha</span>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label" for="slider-world">2. Orientación vital (<span id="val-world">8</span>/10)</label>
+                <input type="range" id="slider-world" min="1" max="10" value="8" oninput="updatePhysicianDiagnosis()">
+                <div style="display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--on-surface-variant);">
+                  <span>Anhelo de «más allá» / final</span>
+                  <span>Fidelidad a la tierra y devenir</span>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label" for="slider-form">3. Relación con la apariencia y la risa (<span id="val-form">7</span>/10)</label>
+                <input type="range" id="slider-form" min="1" max="10" value="7" oninput="updatePhysicianDiagnosis()">
+                <div style="display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--on-surface-variant);">
+                  <span>Solemnidad / verdad desnuda</span>
+                  <span>Parodia, forma y gorro de loco</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="diagnosis-output" id="physician-result" aria-live="polite">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-sm); flex-wrap: wrap;">
+                <span class="field-label">Dictamen fisiológico-filosófico</span>
+                <span class="diagnosis-badge badge-abundance" id="diag-badge">Abundancia vital</span>
+              </div>
+              <h4 id="diag-title">Síntoma de fuerza transfiguradora y gran salud</h4>
+              <p id="diag-text" style="font-size: 0.96rem;"></p>
+              <div style="border-top: var(--rule-column); padding-top: var(--space-sm); font-size: 0.9rem; color: var(--on-surface-variant);">
+                <strong>Referencia en los textos:</strong> <span id="diag-ref">Prólogo III–IV, §107, §370 y §382</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- HERRAMIENTA 2: TALLER DE ETERNO RETORNO Y AMOR FATI -->
+        <article class="panel-low">
+          <div>
+            <span class="tag">Herramienta 2 · Libro IV (§276 y §341)</span>
+            <h3 style="margin-top: var(--space-xs);">Taller del «peso más grande» y el <em>amor fati</em></h3>
+            <p style="color: var(--on-surface-variant); margin-top: var(--space-xs);">
+              Ensaya el experimento mental del §341 y el ejercicio estilístico del §290. Tus notas se guardan en el cuaderno de la sesión y pueden exportarse en texto plano.
+            </p>
+          </div>
+
+          <div class="tool-grid-2">
+            <div style="display: grid; gap: var(--space-md);">
+              <div class="field-group">
+                <label class="field-label" for="fati-scenario">Escenario o fricción vital a examinar</label>
+                <select id="fati-scenario" class="select-input" onchange="loadFatiScenario(this.value)">
+                  <option value="fracaso">Un proyecto en el que puse el corazón y fracasó (§303)</option>
+                  <option value="enfermedad">Un periodo de enfermedad, fatiga o aislamiento (Prólogo I–III)</option>
+                  <option value="soledad">Desacuerdo radical con la opinión del rebaño (§2 / §116)</option>
+                  <option value="propio">Escribir una situación personal propia</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label" for="fati-premise">Tu formulación de la experiencia o debilidad</label>
+                <textarea id="fati-premise" class="textarea-input" oninput="saveReflectionDebounced()" placeholder="Describe brevemente la dificultad, pérdida o rasgo que deseas transfigurar…"></textarea>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label" for="fati-response">Tu respuesta al demonio del eterno retorno (§341) y plan de estilo (§290)</label>
+                <textarea id="fati-response" class="textarea-input" oninput="saveReflectionDebounced()" placeholder="¿Cómo integrarías este episodio en el estilo de tu carácter sin desear un «más allá» compensatorio?"></textarea>
+              </div>
+
+              <div class="btn-row">
+                <button type="button" class="btn btn-primary" onclick="exportStudyNotebook()">
+                  <i data-lucide="download" aria-hidden="true" style="width:16px;height:16px;"></i>
+                  Exportar cuaderno (.txt)
+                </button>
+                <button type="button" class="btn btn-secondary" id="reset-all-btn" onclick="resetAllProgress(this)">
+                  Reiniciar progreso
+                </button>
+              </div>
+              <div id="notebook-status" class="field-label" style="color: var(--positive);" aria-live="polite"></div>
+            </div>
+
+            <div class="diagnosis-output">
+              <span class="field-label">Contraste interpretativo en La gaya ciencia</span>
+              <div style="border-bottom: var(--rule-column); padding-bottom: var(--space-sm);">
+                <h4 style="color: var(--warning);">1. Respuesta reactiva (moral del consuelo)</h4>
+                <p id="fati-reactive" style="font-size: 0.94rem; color: var(--on-surface-variant); margin-top: var(--space-xs);"></p>
+              </div>
+              <div>
+                <h4 style="color: var(--positive);">2. Respuesta afirmativa (<em>Amor fati</em> y §290)</h4>
+                <p id="fati-affirmative" style="font-size: 0.94rem; color: var(--on-surface); margin-top: var(--space-xs);"></p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- HERRAMIENTA 3: AUTOEVALUACIÓN FILOSÓFICA -->
+        <article class="panel-low">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: var(--space-md);">
+            <div>
+              <span class="tag">Herramienta 3 · Verificación de lectura</span>
+              <h3 style="margin-top: var(--space-xs);">Cuestionario de comprensión filosófica</h3>
+              <p style="color: var(--on-surface-variant); margin-top: var(--space-xs);">
+                Ocho preguntas sobre las distinciones más sutiles de la obra, con retroalimentación inmediata y referencia de sección.
+              </p>
+            </div>
+            <div style="display: flex; gap: var(--space-md); align-items: center;">
+              <div style="text-align: right;">
+                <div class="kpi-label">Puntuación actual</div>
+                <div class="kpi-value" id="quiz-score-display">0 / 8</div>
+              </div>
+              <button type="button" class="btn btn-secondary" onclick="resetQuiz(this)">Reiniciar cuestionario</button>
+            </div>
+          </div>
+
+          <div id="quiz-container" style="display: grid; gap: var(--space-md);"></div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: CRONOLOGÍA BIOGRÁFICA Y CUADRO COMPARATIVO -->
+    <section id="cronologia" class="section-open">
+      <div class="section-header">
+        <span class="section-label">Sección IV · Contexto y Contrastes</span>
+        <h2>Cronología vital (1844–1886) y oposiciones conceptuales</h2>
+        <p class="section-standfirst">
+          El itinerario biográfico que conduce desde la filología clásica y la ruptura con Schopenhauer y Wagner hasta la enfermedad, el abandono de Basilea y la redacción del prólogo de Génova.
+        </p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Año</th>
+              <th scope="col">Hito biográfico y filosófico</th>
+              <th scope="col">Significado para <em>La gaya ciencia</em></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-year">1844</td>
+              <td>Nace el 15 de octubre en Röcken (Löcken en la edición citada).</td>
+              <td>Infancia marcada por el entorno pastoral protestante (su padre muere en 1849).</td>
+            </tr>
+            <tr>
+              <td class="td-year">1850–1865</td>
+              <td>Estudios en la escuela de Pforta (con Steinhart, traductor de Platón) y filología clásica en Bonn y Leipzig con Ritschl.</td>
+              <td>Sólida base helénica que reaparece en su elogio de los griegos «superficiales por profundidad» (Prólogo IV).</td>
+            </tr>
+            <tr>
+              <td class="td-year">1868–1869</td>
+              <td>Conoce a Richard Wagner y es nombrado catedrático en la Universidad de Basilea.</td>
+              <td>Etapa inicial de intensa identificación con Schopenhauer y el proyecto estético wagneriano.</td>
+            </tr>
+            <tr>
+              <td class="td-year">1870–1871</td>
+              <td>Sirve como enfermero en la guerra franco-prusiana, contrae una enfermedad incurable y publica <em>El nacimiento de la tragedia</em>.</td>
+              <td>El inicio de la lucha física prolongada que inspirará su teoría del gran dolor y la convalecencia.</td>
+            </tr>
+            <tr>
+              <td class="td-year">1876–1878</td>
+              <td><em>Consideraciones intempestivas</em> y ruptura definitiva con Wagner (<em>Humano, demasiado humano</em>, 1878).</td>
+              <td>«Comienza a enterrar su confianza en la moral»; giro hacia ciencias naturales y moralistas franceses.</td>
+            </tr>
+            <tr>
+              <td class="td-year">1879</td>
+              <td>Publica <em>El viajero y su sombra</em> y abandona su cátedra en Basilea por el empeoramiento alarmante de su salud.</td>
+              <td>Inicio de la vida errante en soledad donde fraguan sus obras capitales de madurez.</td>
+            </tr>
+            <tr>
+              <td class="td-year">1882</td>
+              <td>Primera edición de <em>La gaya ciencia</em> (Libros I–IV), culminada con el anuncio de Zaratustra (§342).</td>
+              <td>Estreno del pensamiento del eterno retorno (§341), el <em>amor fati</em> (§276) y el hombre loco (§125).</td>
+            </tr>
+            <tr>
+              <td class="td-year">1886</td>
+              <td>En otoño, cerca de Génova, redacta el Prólogo de la segunda edición y añade el Libro V («Nosotros los sin miedo»).</td>
+              <td>Interpreta retrospectivamente la obra como curación, exégesis del cuerpo, gran salud (§382) y parodia.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top: var(--space-md);">
+        <h3 style="margin-bottom: var(--space-sm);">Síntesis comparativa de tensiones clave</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Eje temático</th>
+                <th scope="col">Postura criticada (Desdoblamiento / Carencia)</th>
+                <th scope="col">Propuesta de <em>La gaya ciencia</em> (Abundancia / Afirmación)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Finalidad de la existencia</strong></td>
+                <td>Doctrinas morales y religiosas que inventan un «más allá» para justificar la vida (§1, Prólogo II).</td>
+                <td>Aceptación de la inocencia del devenir, unión de risa y sabiduría, y superación de la solemnidad trágica (§1).</td>
+              </tr>
+              <tr>
+                <td><strong>Origen de la filosofía</strong></td>
+                <td>Pretensión de objetividad pura, separando alma, cuerpo y pasiones (Prólogo II–III).</td>
+                <td>«Exégesis del cuerpo» y arte de transfigurar dolor, sangre y destino en luz intelectual (Prólogo III).</td>
+              </tr>
+              <tr>
+                <td><strong>Valor de la verdad</strong></td>
+                <td>Voluntad absoluta de «la verdad a cualquier precio», ocultando un imperativo moral heredado (§344, Prólogo IV).</td>
+                <td>Respeto al pudor de la naturaleza y reconocimiento del arte como buena conciencia de la apariencia (§107).</td>
+              </tr>
+              <tr>
+                <td><strong>La conciencia humana</strong></td>
+                <td>Creer que la conciencia es el núcleo eterno y soberano del individuo (§11).</td>
+                <td>Órgano tardío y frágil surgido para la comunicación gregaria del «genio de la especie» (§354).</td>
+              </tr>
+              <tr>
+                <td><strong>Sufrimiento y arte</strong></td>
+                <td>Romanticismo: búsqueda de calma, narcóticos teatrales y salvación por empobrecimiento vital (§86, §370).</td>
+                <td>Visión dionisíaca: creación desde la plenitud que puede contemplar y afirmar incluso lo terrible (§370).</td>
+              </tr>
+              <tr>
+                <td><strong>Relación con el destino</strong></td>
+                <td>Resignación estoica que reduce el placer para evitar el desencanto (§12, §326).</td>
+                <td><em>Amor fati</em> (§276) y afirmación gozosa ante el demonio del eterno retorno (§341).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: PREGUNTAS FRECUENTES (FAQ) -->
+    <section id="faq" class="section-open">
+      <div class="section-header">
+        <span class="section-label">Sección V · Preguntas Frecuentes</span>
+        <h2>Dudas fundamentales sobre La gaya ciencia</h2>
+        <p class="section-standfirst">
+          Aclaraciones conceptuales sobre los malentendidos más habituales al estudiar esta obra de transición y madurez.
+        </p>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>
+            <span>1. ¿Por qué Nietzsche titula esta obra «La gaya ciencia» y qué significa «gaya»?</span>
+            <span class="faq-marker" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-body">
+            <p>
+              El término «gaya» (del alemán <em>fröhliche</em>, alegre o jovial, evocando la tradición provenzal de la <em>gaia scienza</em> o arte trovadoresco) alude a la alegría inesperada de quien se recupera de una larga enfermedad intelectual y física. Como explica en el Prólogo I, anuncia las «Saturnales de un espíritu» que tras resistir sin esperanza se ve asaltado por la curación, uniendo el rigor del conocimiento con la risa, la música, la parodia y la ligereza (§1, Prólogo I).
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>2. ¿Es Nietzsche un predicador o profeta del nihilismo?</span>
+            <span class="faq-marker" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-body">
+            <p>
+              No. Como subraya la introducción a la obra, se le ha llamado injustamente profeta del nihilismo cuando en realidad ya había atravesado ese «profundo valle» y busca superarlo. Para Nietzsche, el nihilismo proviene precisamente de las creencias que desdoblan el mundo —tanto el cristianismo metafísico como el positivismo que convierte la verdad en ídolo— al desvalorizar la vida terrenal frente a un supuesto «más allá» o «estado definitivo».
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>3. ¿Qué anuncia exactamente «el hombre loco» con la muerte de Dios (§125)?</span>
+            <span class="faq-marker" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-body">
+            <p>
+              El célebre relato del hombre loco con la linterna no es una celebración superficial del ateísmo; de hecho, los ateos del mercado se burlan de él. Lo que el hombre loco comprende es la magnitud sísmica del suceso: al derrumbarse el Dios cristiano como garante absoluto de la verdad, el bien y el sentido, toda la arquitectura moral y cognitiva de Occidente pierde su sol y su horizonte. La pregunta decisiva pasa a ser si la humanidad podrá volverse digna de esa acción creando nuevos valores desde la tierra.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>4. ¿El eterno retorno (§341) es una teoría física del universo o una prueba ética?</span>
+            <span class="faq-marker" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-body">
+            <p>
+              En <em>La gaya ciencia</em> aparece explícitamente formulado como «el peso más grande», un experimento existencial y psicológico en boca de un demonio en la «soledad más solitaria». Más allá de si el tiempo es físicamente cíclico, su función filosófica es actuar como criterio supremo de afirmación: obligarnos a vivir cada instante de modo tal que podamos desear su repetición eterna, en oposición a las éticas que proyectan la salvación en otra vida.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>5. ¿Por qué Nietzsche critica la «voluntad de verdad» científica en el §344?</span>
+            <span class="faq-marker" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-body">
+            <p>
+              Nietzsche respeta la severidad experimental de la ciencia (§293), pero señala que no existe una ciencia «sin supuestos» (§344). Cuando la ciencia afirma que «nada es tan necesario como la verdad» y exige no engañar ni dejarse engañar a cualquier precio, descansa en una convicción moral y metafísica no demostrada: hereda la piedad cristiana que identifica lo verdadero con lo divino y lo bueno.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>6. ¿Qué relación guardan el gran dolor, la enfermedad y la «gran salud»?</span>
+            <span class="faq-marker" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-body">
+            <p>
+              En el Prólogo III y en el §120, Nietzsche rechaza que el dolor deba eliminarse a toda costa: el gran dolor lento nos despoja de soluciones a medias y actúa como «pedagogo de la gran sospecha». La «gran salud» (§382) no equivale a una salud biológica estable o cómoda, sino a la capacidad plástica de atravesar enfermedades, dudas y naufragios saliendo «con una piel nueva» y renovando constantemente la fuerza vital.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>7. ¿Por qué afirma Nietzsche que la conciencia es una «red de vínculos» y no nuestra esencia (§354)?</span>
+            <span class="faq-marker" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-body">
+            <p>
+              Retomando la intuición de Leibniz, en el §354 sostiene que pensar, sentir y querer suceden mayormente de forma inconsciente. La conciencia se desarrolló únicamente porque el ser humano, como animal necesitado de ayuda, tuvo que traducir sus estados internos en signos comunicables para sobrevivir en sociedad. Por ello, cuando hacemos conscientes nuestras vivencias, las traducimos inevitablemente al lenguaje común del «genio de la especie» y del rebaño.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>8. ¿Qué significa «dar estilo» al propio carácter (§290) y aceptar la apariencia (§107)?</span>
+            <span class="faq-marker" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-body">
+            <p>
+              Dado que no existe una esencia moral preestablecida ni una verdad desnuda soportable sin el arte (§107), la tarea creadora consiste en trabajar sobre la propia naturaleza como un artista (§290): comprender fuerzas y debilidades, añadir disciplina donde falta y transfigurar incluso lo feo o errático bajo una ley propia. Quien logra estar contento consigo mismo —como los griegos que adoraban formas y superficies por profundidad— escapa al resentimiento y la venganza.
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- FOOTER / SOURCES -->
+    <footer class="site-footer">
+      <div>
+        <strong>Base documental:</strong> Extractos de <em>La gaya ciencia</em> (<em>Die fröhliche Wissenschaft</em>, Friedrich Nietzsche; traducción de Jorge Javier Valencia): nota introductoria, Prólogo (I–IV, Génova, otoño de 1886), aforismos de los Libros I–V y cronología biográfica (1844–1879/1886). Referencias estructurales a los aforismos §125, §276 y §341 integradas según el marco canónico de la obra.
+      </div>
+      <div>
+        <span class="tag">Archivo de estudio interactivo</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <api-shim></api-shim>
+
+  <script>
+    /* ================================================================
+       DATA DEFINITIONS (Backtick literals to avoid escaping failures)
+       ================================================================ */
+    const CONCEPT_NODES = {
+      conciencia: {
+        ref: `§11 · §116 · §354`,
+        title: `Origen de la conciencia y el instinto gregario`,
+        body: `En §11 y §354, Nietzsche invierte la filosofía moderna: la conciencia no es la «unidad del organismo», sino su evolución más tardía y frágil. Pensar, sentir y actuar ocurren sobre todo sin reflejo consciente; la conciencia surgió bajo la presión de comunicarse entre el que manda y el que obedece, convirtiéndose en una «red de vínculos» que traduce lo singular al promedio gregario (§116).`,
+        link: `Asimilar el saber y hacerlo instintivo (§11) prepara el tránsito hacia la gaya ciencia más allá de la moral del rebaño.`
+      },
+      cuerpo: {
+        ref: `PRÓLOGO II–III · §120 · §318`,
+        title: `Exégesis del cuerpo, gran dolor y convalecencia`,
+        body: `Nietzsche plantea que la historia de la filosofía ha sido «una exégesis del cuerpo y un malentendido con relación al cuerpo». El gran dolor lento es el «pedagogo de la gran sospecha» que de toda U hace una X y obliga al pensador a descender a su abismo. No existe salud normal única: «Tu virtud es la salud de tu alma» (§120).`,
+        link: `El contraste entre filosofía nacida de la carencia y filosofía nacida de la abundancia funda la crítica al romanticismo (§370) y la búsqueda de la gran salud (§382).`
+      },
+      muerteDios: {
+        ref: `§108 · §125 · §344 · §346`,
+        title: `La muerte de Dios, el hombre loco y las sombras`,
+        body: `El anuncio del hombre loco en el mercado (§125) dramatiza el colapso del fundamento absoluto que sostenía los valores morales europeos. Incluso tras abandonar la teología, persisten «sombras de Dios» (§108) y la piedad encubierta de la ciencia que idolatra «la verdad a cualquier precio» (§344).`,
+        link: `Al caer el «más allá», la existencia deja de tener un fin impuesto (§1) y se abre la exigencia del arte (§107) y del eterno retorno (§341).`
+      },
+      arte: {
+        ref: `PRÓLOGO IV · §107 · §290`,
+        title: `El arte como aceptación de la apariencia y estilo`,
+        body: `«Como fenómeno estético la existencia nos resulta siempre soportable» (§107). Sin el culto a la apariencia y el «gorro de loco», la probidad científica desembocaría en asco. Al igual que los griegos —«superficiales… ¡por profundidad!» (Prólogo IV)—, la tarea creadora consiste en «dar estilo» al propio carácter integrando fuerza y debilidad (§290).`,
+        link: `El arte ligero, irónico y bailarín libera al espíritu para jugar por encima de la moral y resistir la petrificación estoica.`
+      },
+      gaya: {
+        ref: `PRÓLOGO I · §1 · §12 · §293`,
+        title: `La ciencia gaya: risa unida a la sabiduría`,
+        body: `Escrita en el lenguaje de «un viento de deshielo» (Prólogo I), la gaya ciencia supera a los solemnes «doctrinarios del fin de la existencia» (§1) y une la severidad rigurosa del conocimiento (§293) con la capacidad de reírse de uno mismo y hacer brillar «nuevas estrellas de goce» (§12).`,
+        link: `Constituye el puente entre el espíritu científico experimental y la nueva alegría trágica (incipit tragoedia / incipit parodia).`
+      },
+      dionisiaco: {
+        ref: `§86 · §99 · §370 · §375`,
+        title: `Espíritu dionisíaco frente a romanticismo`,
+        body: `Todo arte y filosofía responden a seres que sufren, pero existen dos raíces contrarias (§370): quienes sufren por empobrecimiento vital (romanticismo, Schopenhauer, Wagner, que buscan calma, olvido o narcóticos teatrales, §86) y quienes sufren por abundancia de vida (el espíritu dionisíaco que afronta lo terrible y lo transforma en fecundidad).`,
+        link: `La pregunta diagnóstica «¿hambre o abundancia?» permite discernir la salud detrás de cada sistema moral o estético.`
+      },
+      amorFati: {
+        ref: `LIBRO IV · §276 · §303`,
+        title: `Amor fati: querer lo necesario como bello`,
+        body: `Fórmula clave del Libro IV (§276): no limitarse a soportar con resignación lo inevitable, ni huir de los fracasos (§303), sino amar el propio destino y descubrir la belleza en la necesidad de las cosas. Quien aprende a integrar sus pérdidas y extravíos en la melodía vital alcanza una libertad serena.`,
+        link: `Es la disposición anímica que permite responder afirmativamente a la prueba límite del eterno retorno (§341).`
+      },
+      eternoRetorno: {
+        ref: `LIBRO IV · §341 · §342`,
+        title: `El eterno retorno como «la carga más pesada»`,
+        body: `Un demonio plantea en la soledad extrema si desearías vivir esta misma vida, con cada dolor y cada instante, infinitas veces sin cambio alguno (§341). Este pensamiento actúa como martillo existencial: aplasta a quien desprecia la tierra en nombre de otro mundo, y consagra a quien bendice la vida tal como es.`,
+        link: `Culmina el Libro IV justo antes de «Incipit tragoedia» (§342), abriendo el umbral hacia Zaratustra y la gran salud.`
+      },
+      granSalud: {
+        ref: `LIBRO V · §382 · §293`,
+        title: `La gran salud y los argonautas del ideal`,
+        body: `No es una salud fija ni acomodada, sino una salud «más vigorosa, más maligna, más tenaz, más temeraria, más gozosa», que no solo se posee sino que debe adquirirse y arriesgarse continuamente (§382). Los «argonautas del ideal» navegan hacia tierras inexploradas más allá de las morales heredadas.`,
+        link: `Cierra el ciclo de la obra uniendo parodia involuntaria de toda solemnidad antigua y apertura hacia una tragedia superior.`
+      }
+    };
+
+    const APHORISMS = [
+      {
+        id: `prol-1`,
+        num: `Prólogo I`,
+        title: `Viento de deshielo y Saturnales de un espíritu`,
+        theme: `salud`,
+        sourceTag: `Extracto literal del Prólogo (Génova, 1886)`,
+        quote: `«La "Gaya Ciencia": he aquí lo que anuncia las Saturnales de un espíritu que ha resistido pacientemente a una prolongada y terrible presión —paciente, rigurosa, fríamente, sin someterse, pero también sin esperanza—, y que de pronto se ve asaltado por la esperanza, por la esperanza de la salud, por la embriaguez de la curación.»`,
+        analysis: `Define el tono inaugural de la obra: gratitud desbordante de convaleciente, anuncio de nuevos mares abiertos y advertencia de parodia e inquietante desenvoltura (incipit tragoedia / incipit parodia).`
+      },
+      {
+        id: `prol-2`,
+        num: `Prólogo II`,
+        title: `La filosofía como exégesis del cuerpo`,
+        theme: `salud`,
+        sourceTag: `Extracto literal del Prólogo (Génova, 1886)`,
+        quote: `«Con frecuencia me he preguntado si, a fin de cuentas, la filosofía no habrá sido hasta hoy únicamente una exégesis del cuerpo y un malentendido con relación al cuerpo... En toda actividad filosófica emprendida hasta hoy no se ha tratado de descubrir la "verdad", sino de algo totalmente distinto, llamémosle salud, futuro, creencia, poder, vida…»`,
+        analysis: `Introduce al «filósofo médico», encargado de examinar las doctrinas metafísicas y éticas no como verdades objetivas, sino como síntomas de abundancia o agotamiento corporal.`
+      },
+      {
+        id: `prol-3`,
+        num: `Prólogo III`,
+        title: `El gran dolor como pedagogo de la sospecha`,
+        theme: `salud`,
+        sourceTag: `Extracto literal del Prólogo (Génova, 1886)`,
+        quote: `«La filosofía es este arte de la transfiguración... Sólo el gran dolor es el libertador último del espíritu, el pedagogo de la gran sospecha que de toda U hace una X, una X verdadera y auténtica... Dudo que semejante dolor nos "mejore" —pero sé que nos hace más profundos—.»`,
+        analysis: `Rechaza la separación vulgar entre alma, cuerpo y espíritu. El dolor prolongado destruye la confianza ingenua en la vida, convirtiéndola en un problema apasionante y dando origen a una «nueva felicidad».`
+      },
+      {
+        id: `prol-4`,
+        num: `Prólogo IV`,
+        title: `Superficiales por profundidad (el pudor griego)`,
+        theme: `arte`,
+        sourceTag: `Extracto literal del Prólogo (Génova, 1886)`,
+        quote: `«Ya no creemos que la verdad siga siendo tal una vez que se le ha despojado de su velo... ¡Oh, aquellos griegos! Sabían lo que es vivir; lo cual exige quedarse valientemente en la superficie, en la epidermis; la adoración de la apariencia, la creencia en las formas, en los sonidos, en las palabras, ¡en todo el Olimpo de la apariencia! Aquellos griegos eran superficiales… ¡por profundidad!»`,
+        analysis: `Critica la «voluntad de verdad a cualquier precio» como mal gusto juvenil. Invoca el pudor de la naturaleza y a Baubó para defender un arte ligero, irónico y luminoso.`
+      },
+      {
+        id: `af-1`,
+        num: `§ 1`,
+        title: `Los doctrinarios del fin de la existencia`,
+        theme: `ciencia`,
+        sourceTag: `Extracto literal del Libro I`,
+        quote: `«Es posible que entonces la risa vaya unida a la sabiduría, es posible que entonces no haya más ciencia que "la gaya ciencia". Pero por el momento las cosas siguen siendo de otro modo, la comedia de la existencia no ha tomado aún "conciencia de sí misma", y todavía estamos en la época de la tragedia, en la época de las morales y de las religiones.»`,
+        analysis: `Muestra cómo los fundadores de morales inventan una «segunda existencia» para sacar a la vida de sus goznes y persuadir al hombre de que su vida tiene un fin trascendente, sirviendo sin saberlo a la conservación de la especie.`
+      },
+      {
+        id: `af-11`,
+        num: `§ 11`,
+        title: `La conciencia y la asimilación del saber`,
+        theme: `moral`,
+        sourceTag: `Extracto literal del Libro I`,
+        quote: `«La conciencia es la última y más tardía evolución de la vida orgánica y, por consiguiente, lo más inacabado y frágil que hay en ella... Asimilar el saber, hacerlo instintivo representa una tarea totalmente nueva, apenas perceptible, de la que la mirada humana simplemente vislumbra el resplandor.»`,
+        analysis: `Desmonta el dogma que identifica la conciencia con la «unidad del organismo». Hasta ahora solo hemos incorporado errores; incorporar el conocimiento como instinto es la gran tarea experimental venidera.`
+      },
+      {
+        id: `af-12`,
+        num: `§ 12`,
+        title: `Los objetivos de la ciencia`,
+        theme: `ciencia`,
+        sourceTag: `Extracto literal del Libro I`,
+        quote: `«Quizás la ciencia sea más conocida hoy por los poderosos medios que tiene de privar al hombre de sus alegrías, de hacerlo más frío, más parecido a una estatua, más estoico. ¡Pero puede llegar un día en que la ciencia aparezca como la gran suministradora de dolor! ¡Y tal vez entonces se descubra, a la vez, su fuerza contraria, su inmenso poder para hacer brillar nuevas estrellas de goce!»`,
+        analysis: `Placer y desencanto están inseparablemente atados. La ciencia no debe reducirse a anestesia estoica para evitar el dolor, pues renunciar al sufrimiento exigiría renunciar también a la grandeza del goce.`
+      },
+      {
+        id: `af-21`,
+        num: `§ 21`,
+        title: `A los doctrinarios del desinterés`,
+        theme: `moral`,
+        sourceTag: `Extracto literal del Libro I`,
+        quote: `«Lo que se está alabando es la sinrazón misma de la virtud, mediante la cual el individuo se pliega a cumplir una función dentro del todo... Nuestro "prójimo" alaba nuestro desinterés ¡porque esto lo beneficia!»`,
+        analysis: `Revela la contradicción interna de la moral altruista: predica al individuo el sacrificio de sí mismo precisamente por cálculo utilitario del rebaño o de la sociedad que se beneficia de ese sacrificio.`
+      },
+      {
+        id: `af-107`,
+        num: `§ 107`,
+        title: `Nuestro agradecimiento último al arte`,
+        theme: `arte`,
+        sourceTag: `Extracto literal del Libro II`,
+        quote: `«Si no hubiésemos admitido las artes e inventado esa especie de culto a lo no verdadero no podríamos soportar la capacidad que nos proporciona ahora la ciencia de entender el espíritu universal de la no verdad y de la mentira... Como fenómeno estético la existencia nos resulta siempre soportable.»`,
+        analysis: `El arte funciona como contrapeso vital frente a la probidad científica: nos da el «gorro de loco» necesario para reírnos de nosotros mismos y volar jugando por encima de la moral.`
+      },
+      {
+        id: `af-116`,
+        num: `§ 116`,
+        title: `El instinto gregario`,
+        theme: `moral`,
+        sourceTag: `Extracto literal del Libro III`,
+        quote: `«Por la moral se ve arrastrado a ser función del rebaño y a no atribuirse valor más que a título de función... La moral no es más que el instinto gregario que se da en el individuo.»`,
+        analysis: `Las jerarquías de valores morales expresan siempre las condiciones de conservación de una comunidad dada, nunca una ley universal absoluta.`
+      },
+      {
+        id: `af-120`,
+        num: `§ 120`,
+        title: `Salud del alma`,
+        theme: `salud`,
+        sourceTag: `Extracto literal del Libro III`,
+        quote: `«Para que la fórmula predilecta de la terapia moral, cuyo autor fue Aristón de Chíos y según la cual "la virtud es la salud del alma", fuera aplicable, debería cambiarse en este sentido: "Tu virtud es la salud de tu alma". Pues no existe la virtud en sí.»`,
+        analysis: `Funda una ética y una medicina individualizadas: no hay dieta normal ni salud normal idéntica para todos; incluso la voluntad exclusiva de salud podría ser un prejuicio frente a lo que la enfermedad enseña al conocimiento.`
+      },
+      {
+        id: `af-125`,
+        num: `§ 125`,
+        title: `El hombre loco (La muerte de Dios)`,
+        theme: `destino`,
+        sourceTag: `Núcleo canónico del Libro III`,
+        quote: `A pleno día, un hombre loco enciende una linterna en la plaza del mercado gritando «¡Busco a Dios!» y proclama ante la risa incrédula: «Dios ha muerto. ¡Dios sigue muerto! Y nosotros lo hemos matado».`,
+        analysis: `No celebra un ateísmo fácil, sino que denuncia la ceguera de quienes creen haber suprimido a Dios sin advertir que han borrado el horizonte que sostenía su moral, su sentido y su orientación histórica.`
+      },
+      {
+        id: `af-276`,
+        num: `§ 276`,
+        title: `Para el año nuevo (Amor fati)`,
+        theme: `destino`,
+        sourceTag: `Núcleo canónico del Libro IV`,
+        quote: `Fórmula programática de apertura del Libro IV: aprender a ver lo necesario en las cosas como lo bello y convertirse en alguien que solo dice «sí» —«Amor fati: ¡que ese sea desde ahora mi amor!»—.`,
+        analysis: `Establece la ética afirmativa frente a la negatividad del resentimiento: no basta con resignarse a lo que ocurre; hay que amar la necesidad del destino sin querer desmentirla.`
+      },
+      {
+        id: `af-290`,
+        num: `§ 290`,
+        title: `Una sola cosa es necesaria`,
+        theme: `arte`,
+        sourceTag: `Extracto literal del Libro IV`,
+        quote: `«"Dar estilo" a nuestro carácter constituye un arte grande y raro. Lo ejerce quien comprende toda la fuerza y la debilidad que ofrece su naturaleza, y sabe luego integrarlo tan bien a un plan artístico, que cada elemento aparece como un fragmento de arte y de razón hasta el punto de que aun la debilidad tiene la virtud de fascinar a la mirada.»`,
+        analysis: `Propone la autoformación estética bajo una ley propia: las naturalezas fuertes saborean la sujeción a un estilo unitario para estar contentas consigo mismas y no descargar su descontento como venganza.`
+      },
+      {
+        id: `af-341`,
+        num: `§ 341`,
+        title: `El peso más grande (Eterno retorno)`,
+        theme: `destino`,
+        sourceTag: `Núcleo canónico del Libro IV`,
+        quote: `Un demonio susurra en la soledad extrema que esta vida tal como la vives y la has vivido tendrás que vivirla una y otra vez, innumerables veces, sin nada nuevo, con cada dolor y cada alegría en el mismo orden.`,
+        analysis: `Introduce el eterno retorno no como dogma cosmológico abstracto, sino como prueba existencial máxima: la medida de cuánto se ama realmente la vida y a uno mismo.`
+      },
+      {
+        id: `af-344`,
+        num: `§ 344`,
+        title: `En qué sentido seguimos siendo también piadosos`,
+        theme: `ciencia`,
+        sourceTag: `Extracto literal del Libro V`,
+        quote: `«Se ve que también la ciencia se funda en una creencia y que no existe ciencia "sin supuestos". La pregunta de si es necesaria la verdad no sólo tiene que haber sido respondida antes afirmativamente, sino que la respuesta debe ser afirmada de forma que exprese el principio, la creencia, la convicción de que "nada es tan necesario como la verdad".»`,
+        analysis: `Cuestiona la inocencia del positivismo científico: la exigencia absoluta de no engañar ni engañarse es una fe moral heredada de la tradición platónico-cristiana.`
+      },
+      {
+        id: `af-354`,
+        num: `§ 354`,
+        title: `Sobre el «genio de la especie»`,
+        theme: `moral`,
+        sourceTag: `Extracto literal del Libro V`,
+        quote: `«La conciencia no es, en definitiva, más que una red de vínculos entre los hombres, y sólo en cuanto tal debió desarrollarse (si hubiera vivido aislado como un animal salvaje, el hombre habría podido pasar muy bien sin ella).»`,
+        analysis: `Vincula el desarrollo de la conciencia a la necesidad histórica de comunicación y obediencia. Todo lo que llega a ser consciente se vuelve común, superficial y gregario.`
+      },
+      {
+        id: `af-370`,
+        num: `§ 370`,
+        title: `¿Qué es el romanticismo?`,
+        theme: `arte`,
+        sourceTag: `Extracto literal del Libro V`,
+        quote: `«Hay dos clases de seres que sufren: los que sufren por su abundancia de vida, que desean un arte dionisiaco y que tienen asimismo una visión y una comprensión trágicas de la vida; y aquellos que sufren por su empobrecimiento de vida, que buscan en el arte y en el conocimiento el descanso, el silencio, el mar en calma... ¿es el hambre o es la abundancia quien se ha convertido aquí en creador?»`,
+        analysis: `Establece el criterio diagnóstico definitivo de Nietzsche para evaluar el arte y la filosofía, superando su anterior adhesión a Schopenhauer y Wagner.`
+      },
+      {
+        id: `af-382`,
+        num: `§ 382`,
+        title: `La gran salud`,
+        theme: `salud`,
+        sourceTag: `Extracto literal del Libro V`,
+        quote: `«Aquel que quiere saber mediante las aventuras de su experiencia más personal lo que siente en su alma un conquistador y un explorador del ideal... necesita ante todo y sobre todo una cosa: gran salud, esa clase de salud que no sólo se posee, sino que se adquiere y que se ha de adquirir constantemente, porque se entrega de nuevo, porque hay que entregarla…»`,
+        analysis: `Cierra la obra con el retrato de los «argonautas del ideal», cuya benevolencia sobrehumana parece parodia de toda solemnidad tradicional y marca el comienzo de la tragedia.`
+      }
+    ];
+
+    const SYMPTOM_PRESETS = {
+      romantico: { pain: 2, world: 2, form: 2 },
+      altruismo: { pain: 3, world: 3, form: 2 },
+      cienciaPura: { pain: 5, world: 4, form: 2 },
+      estoico: { pain: 2, world: 5, form: 3 },
+      dionisiaco: { pain: 9, world: 10, form: 9 },
+      estilo: { pain: 8, world: 9, form: 8 }
+    };
+
+    const FATI_SCENARIOS = {
+      fracaso: {
+        premise: `Dediqué años a un proyecto en el que puse el corazón, pero terminó en un revés rotundo que me dejó expuesto y vulnerado (§303).`,
+        reactive: `Interpretación desde la carencia: concluir que la vida es injusta o sin sentido, buscar consuelo en la renuncia moral o imaginar un «más allá» donde los fracasos terrenales serán compensados.`,
+        affirmative: `Interpretación desde la abundancia (§303 y §276): «No puedo afirmar si les debo más a mis fracasos que a cualquier éxito». Integrar ese desvío como parte necesaria de la melodía vital y aceptar revivirlo sin borrar la herida.`
+      },
+      enfermedad: {
+        premise: `Un largo periodo de agotamiento, enfermedad y soledad me aisló del mundo y redujo mis fuerzas al mínimo (Prólogo I–III).`,
+        reactive: `Interpretación desde la enfermedad (§370): convertir la debilidad en odio hacia la vida activa, buscar anestesia permanente o predicar que la felicidad consiste en apagar toda pasión y deseo.`,
+        affirmative: `Interpretación convaleciente (Prólogo III, §318): usar el gran dolor como «pedagogo de la gran sospecha», descender al fondo de uno mismo y transformar la fragilidad en lucidez refinada y nueva gratitud al despertar la salud.`
+      },
+      soledad: {
+        premise: `Mi conciencia intelectual me impide aceptar las creencias cómodas del rebaño, dejándome solitario incluso en la ciudad más poblada (§2 y §116).`,
+        reactive: `Interpretación resentida: caer en la misantropía amarga o buscar refugio en un deber absoluto y un imperativo categórico que legitime el propio aislamiento como martirio moral (§5, §346).`,
+        affirmative: `Interpretación libre (§379, §290): ejercer un desprecio sutil sin odio, convertir la singularidad en estilo artístico propio y recordar que la excepción no pretende imponerse como regla del rebaño (§76).`
+      },
+      propio: {
+        premise: ``,
+        reactive: `Lente del desdoblamiento: desear que el hecho no hubiera ocurrido, buscar culpables externos o refugiar el sentido en un orden definitivo ajeno a este mundo.`,
+        affirmative: `Lente del Amor fati (§276) y el estilo (§290): asumir el suceso como materia prima escultórica de tu carácter y afirmar: «Así lo quise, así lo quiero también para toda eternidad» (§341).`
+      }
+    };
+
+    const QUIZ_QUESTIONS = [
+      {
+        id: `q1`,
+        prompt: `1. Según el Prólogo II, ¿qué ha sido en realidad la filosofía hasta la fecha cuando se la examina con mirada de psicólogo?`,
+        options: [
+          `Un progreso lineal e imparcial hacia la verdad lógica absoluta.`,
+          `Una exégesis del cuerpo y un malentendido con relación al cuerpo.`,
+          `Una simple rama auxiliar de la teología dogmática medieval.`,
+          `La expresión objetiva de la conciencia pura separada de los sentidos.`
+        ],
+        correct: 1,
+        explanation: `En el Prólogo II, Nietzsche sostiene que tras los juicios supremos de valor se esconden necesidades fisiológicas y constituciones corporales (salud o enfermedad).`
+      },
+      {
+        id: `q2`,
+        prompt: `2. ¿Qué función cumple el «gran dolor» lento y prolongado en el Prólogo III?`,
+        options: [
+          `Nos mejora moralmente haciéndonos más dóciles y compasivos.`,
+          `Demuestra que el estoicismo es la única cura válida contra la pasión.`,
+          `Actúa como libertador último del espíritu y pedagogo de la gran sospecha.`,
+          `Prueba que la vida carece de todo valor y debe buscarse el nirvana.`
+        ],
+        correct: 2,
+        explanation: `Nietzsche duda de que el gran dolor nos «mejore», pero afirma que nos hace más profundos y «de toda U hace una X», obligándonos a despojarnos de soluciones a medias.`
+      },
+      {
+        id: `q3`,
+        prompt: `3. ¿Por qué afirma Nietzsche en el §344 que la ciencia moderna «sigue siendo también piadosa»?`,
+        options: [
+          `Porque la mayoría de los científicos practican ritos cristianos.`,
+          `Porque parte de una creencia moral indemostrada: que la verdad es necesaria a cualquier precio.`,
+          `Porque sus experimentos confirman la existencia de leyes divinas en la naturaleza.`,
+          `Porque se niega a utilizar hipótesis provisionales y ensayos experimentales.`
+        ],
+        correct: 1,
+        explanation: `En el §344 muestra que no existe ciencia «sin supuestos»: la voluntad absoluta de verdad descansa en una fe heredada que sobrevalora la verdad por encima de la utilidad vital o la apariencia.`
+      },
+      {
+        id: `q4`,
+        prompt: `4. En el §354 («Sobre el genio de la especie»), ¿bajo qué presión surgió la conciencia humana?`,
+        options: [
+          `Bajo la contemplación solitaria y desinteresada de las ideas eternas.`,
+          `Como núcleo inmortal que distingue al ser humano desde su origen biológico.`,
+          `Bajo la necesidad de comunicarse y entenderse en la relación social de mando y obediencia.`,
+          `Como resultado exclusivo de la invención de la escritura filosófica.`
+        ],
+        correct: 2,
+        explanation: `La conciencia se desarrolló como «red de vínculos entre los hombres» debido a la necesidad de comunicación gregaria; pensar, sentir y actuar pueden ocurrir sin reflejo consciente.`
+      },
+      {
+        id: `q5`,
+        prompt: `5. ¿Cuál es el criterio principal del §370 para distinguir el arte dionisíaco del romanticismo?`,
+        options: [
+          `Si la obra respeta las reglas clásicas de simetría o rompe con ellas.`,
+          `Si el creador parte del hambre/empobrecimiento de vida o de la abundancia vital.`,
+          `Si el artista utiliza temas mitológicos griegos o temas medievales cristianos.`,
+          `Si la obra provoca tristeza en el público o entretenimiento ligero.`
+        ],
+        correct: 1,
+        explanation: `Frente a todos los valores estéticos, Nietzsche pregunta: «¿es el hambre o es la abundancia quien se ha convertido aquí en creador?». Schopenhauer y Wagner representan el sufrimiento por empobrecimiento.`
+      },
+      {
+        id: `q6`,
+        prompt: `6. En el §107 y en el Prólogo IV, ¿por qué resulta indispensable el arte frente al conocimiento científico?`,
+        options: [
+          `Porque el arte revela las verdades metafísicas ocultas que la ciencia ignora.`,
+          `Porque sirve como narcótico para que el ciudadano cansado olvide su trabajo diario.`,
+          `Porque ofrece una buena conciencia de la apariencia y evita el asco y el suicidio ante la verdad.`,
+          `Porque sustituye por completo el estudio de la historia y las pasiones humanas.`
+        ],
+        correct: 2,
+        explanation: `«Como fenómeno estético la existencia nos resulta siempre soportable» (§107). El arte aporta el «gorro de loco» y el culto a la forma, igual que los griegos, «superficiales por profundidad» (Prólogo IV).`
+      },
+      {
+        id: `q7`,
+        num: `7`,
+        prompt: `7. ¿Qué escena escenifica «el hombre loco» en el célebre aforismo §125?`,
+        options: [
+          `La victoria definitiva de los ateos del mercado que celebran el fin de la religión.`,
+          `La incomprensión ante el colapso del fundamento metafísico-moral tras «la muerte de Dios».`,
+          `Una defensa nostálgica del retorno a la fe medieval para evitar el caos.`,
+          `Un argumento lógico para demostrar la inexistencia física del universo.`
+        ],
+        correct: 1,
+        explanation: `El hombre loco advierte antes que los incrédulos burlones la gravedad abismal del acontecimiento: al matar a Dios hemos desatado la tierra de su sol, lo que exige crear nuevos valores.`
+      },
+      {
+        id: `q8`,
+        prompt: `8. ¿Cómo opera el pensamiento del eterno retorno en el §341 («El peso más grande»)?`,
+        options: [
+          `Como promesa de una vida futura mejor en recompensa por las virtudes morales.`,
+          `Como demostración física de que la materia se conserva sin cambios en el tiempo.`,
+          `Como piedra de toque existencial que mide si afirmas tu vida (amor fati) o la rechazas.`,
+          `Como excusa determinista para renunciar a «dar estilo» al propio carácter.`
+        ],
+        correct: 2,
+        explanation: `La pregunta del demonio —si querrías revivir cada instante exactamente igual infinitas veces— pone a prueba tu amor fati (§276): exige transformar cada momento en algo digno de eternidad.`
+      }
+    ];
+
+    /* ================================================================
+       STATE & PERSISTENCE (gemini_notebook_shim_api)
+       ================================================================ */
+    let appState = {
+      selectedNode: `cuerpo`,
+      studiedAphorisms: [],
+      quizAnswers: {},
+      reflection: {
+        scenario: `fracaso`,
+        premise: FATI_SCENARIOS.fracaso.premise,
+        response: ``
+      }
+    };
+
+    let saveTimer = null;
+
+    async function persistState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (err) {
+        // Non-fatal in preview environments without host shim
+      }
+    }
+
+    function updateGlobalProgress() {
+      const studiedCount = appState.studiedAphorisms.length;
+      const answeredCount = Object.keys(appState.quizAnswers).length;
+      const badge = document.getElementById(`global-progress-badge`);
+      if (badge) {
+        badge.textContent = `Progreso de estudio: ${studiedCount} de ${APHORISMS.length} aforismos · ${answeredCount} de ${QUIZ_QUESTIONS.length} preguntas`;
+      }
+    }
+
+    /* ================================================================
+       CONCEPT MAP INTERACTION
+       ================================================================ */
+    function selectConceptNode(nodeKey) {
+      const data = CONCEPT_NODES[nodeKey];
+      if (!data) return;
+      appState.selectedNode = nodeKey;
+
+      Object.keys(CONCEPT_NODES).forEach((key) => {
+        const rect = document.getElementById(`rect-${key}`);
+        if (!rect) return;
+        if (key === nodeKey) {
+          rect.setAttribute(`fill`, `var(--primary-container)`);
+          rect.setAttribute(`stroke`, `var(--primary)`);
+          rect.setAttribute(`stroke-width`, `2.5`);
+        } else {
+          rect.setAttribute(`fill`, `var(--background)`);
+          rect.setAttribute(`stroke`, `var(--outline)`);
+          rect.setAttribute(`stroke-width`, `1.5`);
+        }
+      });
+
+      const refEl = document.getElementById(`inspector-ref`);
+      const titleEl = document.getElementById(`inspector-title`);
+      const bodyEl = document.getElementById(`inspector-body`);
+      const linkEl = document.getElementById(`inspector-link`);
+      if (refEl) refEl.textContent = data.ref;
+      if (titleEl) titleEl.textContent = data.title;
+      if (bodyEl) bodyEl.textContent = data.body;
+      if (linkEl) linkEl.textContent = data.link;
+
+      persistState();
+    }
+
+    function handleNodeKey(event, nodeKey) {
+      if (event.key === `Enter` || event.key === ` `) {
+        event.preventDefault();
+        selectConceptNode(nodeKey);
+      }
+    }
+
+    /* ================================================================
+       APHORISMS EXPLORER
+       ================================================================ */
+    function renderAphorisms() {
+      const container = document.getElementById(`aphorism-list`);
+      const emptyEl = document.getElementById(`aphorism-empty`);
+      const countEl = document.getElementById(`aphorism-count-label`);
+      const searchEl = document.getElementById(`aphorism-search`);
+      const themeEl = document.getElementById(`aphorism-theme`);
+      const progEl = document.getElementById(`aphorism-progress-filter`);
+
+      if (!container) return;
+
+      const query = searchEl ? searchEl.value.trim().toLowerCase() : ``;
+      const themeFilter = themeEl ? themeEl.value : `all`;
+      const progFilter = progEl ? progEl.value : `all`;
+
+      const filtered = APHORISMS.filter((item) => {
+        const isStudied = appState.studiedAphorisms.includes(item.id);
+        if (themeFilter !== `all` && item.theme !== themeFilter) return false;
+        if (progFilter === `studied` && !isStudied) return false;
+        if (progFilter === `pending` && isStudied) return false;
+        if (query) {
+          const hay = `${item.num} ${item.title} ${item.quote} ${item.analysis}`.toLowerCase();
+          if (!hay.includes(query)) return false;
+        }
+        return true;
+      });
+
+      if (countEl) {
+        countEl.textContent = `Mostrando ${filtered.length} de ${APHORISMS.length} aforismos`;
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = ``;
+        if (emptyEl) emptyEl.style.display = `block`;
+        return;
+      }
+
+      if (emptyEl) emptyEl.style.display = `none`;
+
+      container.innerHTML = filtered.map((item) => {
+        const studied = appState.studiedAphorisms.includes(item.id);
+        return `
+          <div class="card-wrapper">
+            <article class="aphorism-card ${studied ? `is-studied` : ``}">
+              <div>
+                <div class="aphorism-head">
+                  <span class="aphorism-num">${item.num}</span>
+                  <span class="tag" style="${studied ? `color: var(--on-primary-container);` : ``}">${item.sourceTag}</span>
+                </div>
+                <h4 style="margin-top: var(--space-xs);">${item.title}</h4>
+                <blockquote class="aphorism-quote">${item.quote}</blockquote>
+                <p class="aphorism-analysis">${item.analysis}</p>
+              </div>
+              <div style="padding-top: var(--space-xs);">
+                <button type="button" class="btn ${studied ? `btn-primary` : `btn-secondary`}" onclick="toggleStudied('${item.id}')">
+                  ${studied ? `Estudiado (quitar marca)` : `Marcar como estudiado`}
+                </button>
+              </div>
+            </article>
+          </div>
+        `;
+      }).join(``);
+    }
+
+    function filterAphorisms() {
+      renderAphorisms();
+    }
+
+    function resetAphorismFilters() {
+      const searchEl = document.getElementById(`aphorism-search`);
+      const themeEl = document.getElementById(`aphorism-theme`);
+      const progEl = document.getElementById(`aphorism-progress-filter`);
+      if (searchEl) searchEl.value = ``;
+      if (themeEl) themeEl.value = `all`;
+      if (progEl) progEl.value = `all`;
+      renderAphorisms();
+    }
+
+    function toggleStudied(id) {
+      const idx = appState.studiedAphorisms.indexOf(id);
+      if (idx === -1) {
+        appState.studiedAphorisms.push(id);
+      } else {
+        appState.studiedAphorisms.splice(idx, 1);
+      }
+      renderAphorisms();
+      updateGlobalProgress();
+      persistState();
+    }
+
+    /* ================================================================
+       TOOL 1: PHYSICIAN PHILOSOPHER DIAGNOSIS
+       ================================================================ */
+    function applySymptomPreset(presetKey) {
+      const preset = SYMPTOM_PRESETS[presetKey];
+      if (!preset) return;
+      const pEl = document.getElementById(`slider-pain`);
+      const wEl = document.getElementById(`slider-world`);
+      const fEl = document.getElementById(`slider-form`);
+      if (pEl) pEl.value = preset.pain;
+      if (wEl) wEl.value = preset.world;
+      if (fEl) fEl.value = preset.form;
+      updatePhysicianDiagnosis(true);
+    }
+
+    function updatePhysicianDiagnosis(keepPreset) {
+      const pEl = document.getElementById(`slider-pain`);
+      const wEl = document.getElementById(`slider-world`);
+      const fEl = document.getElementById(`slider-form`);
+      const presetEl = document.getElementById(`symptom-preset`);
+
+      if (!pEl || !wEl || !fEl) return;
+      if (!keepPreset && presetEl) presetEl.value = `custom`;
+
+      const pain = Number(pEl.value);
+      const world = Number(wEl.value);
+      const form = Number(fEl.value);
+
+      const vp = document.getElementById(`val-pain`);
+      const vw = document.getElementById(`val-world`);
+      const vf = document.getElementById(`val-form`);
+      if (vp) vp.textContent = String(pain);
+      if (vw) vw.textContent = String(world);
+      if (vf) vf.textContent = String(form);
+
+      const total = pain + world + form;
+      const badgeEl = document.getElementById(`diag-badge`);
+      const titleEl = document.getElementById(`diag-title`);
+      const textEl = document.getElementById(`diag-text`);
+      const refEl = document.getElementById(`diag-ref`);
+
+      if (!badgeEl || !titleEl || !textEl || !refEl) return;
+
+      badgeEl.className = `diagnosis-badge`;
+
+      if (total >= 21) {
+        badgeEl.classList.add(`badge-abundance`);
+        badgeEl.textContent = `Abundancia vital (${total}/30)`;
+        titleEl.textContent = `Síntoma de fuerza transfiguradora y gran salud`;
+        textEl.textContent = `Aquí la filosofía y el arte brotan de la plenitud, no de la miseria. El dolor es asumido como maestro de profundidad sin negar el devenir terrenal, y la risa o el culto a la forma protegen al espíritu del fanatismo de la verdad absoluta.`;
+        refEl.textContent = `Prólogo III–IV, §107, §290, §370 y §382`;
+      } else if (total >= 13) {
+        badgeEl.classList.add(`badge-tension`);
+        badgeEl.textContent = `Umbral en tensión (${total}/30)`;
+        titleEl.textContent = `Convalecencia y crítica en transición`;
+        textEl.textContent = `Esta postura combina probidad intelectual o disciplina científica con residuos ascéticos o nostalgia de certeza definitiva. Es el punto crítico donde el pensador aún debe vigilar si su voluntad de verdad no oculta un resto de piedad metafísica.`;
+        refEl.textContent = `§12, §344, §346 y §375`;
+      } else {
+        badgeEl.classList.add(`badge-deficiency`);
+        badgeEl.textContent = `Carencia / Enfermedad (${total}/30)`;
+        titleEl.textContent = `Síntoma de empobrecimiento vital y desdoblamiento`;
+        textEl.textContent = `Según el diagnóstico del filósofo médico, cuando el pensamiento busca calma, anestesia, sacrificio altruista o un «más allá» definitivo, quien habla no es la verdad objetiva sino un cuerpo fatigado que necesita consuelo y sedantes frente al devenir.`;
+        refEl.textContent = `Prólogo II, §21, §86, §326 y §370`;
+      }
+    }
+
+    /* ================================================================
+       TOOL 2: AMOR FATI & ETERNAL RETURN WORKSHOP
+       ================================================================ */
+    function loadFatiScenario(key) {
+      const sc = FATI_SCENARIOS[key];
+      if (!sc) return;
+      appState.reflection.scenario = key;
+
+      const premEl = document.getElementById(`fati-premise`);
+      const reacEl = document.getElementById(`fati-reactive`);
+      const affEl = document.getElementById(`fati-affirmative`);
+
+      if (premEl && key !== `propio`) {
+        premEl.value = sc.premise;
+        appState.reflection.premise = sc.premise;
+      } else if (premEl && key === `propio` && !appState.reflection.premise) {
+        premEl.value = ``;
+      }
+
+      if (reacEl) reacEl.textContent = sc.reactive;
+      if (affEl) affEl.textContent = sc.affirmative;
+      persistState();
+    }
+
+    function saveReflectionDebounced() {
+      const premEl = document.getElementById(`fati-premise`);
+      const respEl = document.getElementById(`fati-response`);
+      const scenEl = document.getElementById(`fati-scenario`);
+      const statusEl = document.getElementById(`notebook-status`);
+
+      if (scenEl) appState.reflection.scenario = scenEl.value;
+      if (premEl) appState.reflection.premise = premEl.value;
+      if (respEl) appState.reflection.response = respEl.value;
+
+      if (saveTimer) clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        persistState();
+        if (statusEl) statusEl.textContent = `Notas guardadas en la sesión actual.`;
+      }, 250);
+    }
+
+    function exportStudyNotebook() {
+      const statusEl = document.getElementById(`notebook-status`);
+      const studiedList = APHORISMS
+        .filter((a) => appState.studiedAphorisms.includes(a.id))
+        .map((a) => `- ${a.num}: ${a.title}`)
+        .join(`\n`);
+
+      let correctCount = 0;
+      QUIZ_QUESTIONS.forEach((q) => {
+        if (appState.quizAnswers[q.id] === q.correct) correctCount += 1;
+      });
+
+      const content = [
+        `CUADERNO DE ESTUDIO — LA GAYA CIENCIA (FRIEDRICH NIETZSCHE)`,
+        `=============================================================`,
+        ``,
+        `1. AFORISMOS MARCADOS COMO ESTUDIADOS (${appState.studiedAphorisms.length}/${APHORISMS.length})`,
+        studiedList || `Ninguno marcado todavía.`,
+        ``,
+        `2. TALLER DE ETERNO RETORNO Y AMOR FATI (§276 / §341 / §290)`,
+        `Escenario: ${appState.reflection.scenario}`,
+        `Experiencia examinada:\n${appState.reflection.premise || `(Sin texto)`}`,
+        ``,
+        `Respuesta afirmativa y plan de estilo:\n${appState.reflection.response || `(Sin texto)`}`,
+        ``,
+        `3. AUTOEVALUACIÓN FILOSÓFICA`,
+        `Preguntas respondidas: ${Object.keys(appState.quizAnswers).length}/${QUIZ_QUESTIONS.length}`,
+        `Aciertos: ${correctCount}/${QUIZ_QUESTIONS.length}`
+      ].join(`\n`);
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `cuaderno-la-gaya-ciencia.txt`
+        });
+        if (statusEl) statusEl.textContent = `Cuaderno exportado como cuaderno-la-gaya-ciencia.txt.`;
+      } else {
+        const blob = new Blob([content], { type: `text/plain;charset=utf-8` });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement(`a`);
+        link.href = url;
+        link.download = `cuaderno-la-gaya-ciencia.txt`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        if (statusEl) statusEl.textContent = `Cuaderno descargado localmente.`;
+      }
+    }
+
+    function resetAllProgress(btn) {
+      if (btn && btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Pulsa otra vez para confirmar`;
+        return;
+      }
+      if (btn) {
+        btn.dataset.armed = `false`;
+        btn.textContent = `Reiniciar progreso`;
+      }
+      appState = {
+        selectedNode: `cuerpo`,
+        studiedAphorisms: [],
+        quizAnswers: {},
+        reflection: {
+          scenario: `fracaso`,
+          premise: FATI_SCENARIOS.fracaso.premise,
+          response: ``
+        }
+      };
+      const scenEl = document.getElementById(`fati-scenario`);
+      const premEl = document.getElementById(`fati-premise`);
+      const respEl = document.getElementById(`fati-response`);
+      const statusEl = document.getElementById(`notebook-status`);
+      if (scenEl) scenEl.value = `fracaso`;
+      if (premEl) premEl.value = FATI_SCENARIOS.fracaso.premise;
+      if (respEl) respEl.value = ``;
+      if (statusEl) statusEl.textContent = `Progreso y cuaderno reiniciados.`;
+
+      selectConceptNode(`cuerpo`);
+      loadFatiScenario(`fracaso`);
+      renderAphorisms();
+      renderQuiz();
+      updateGlobalProgress();
+      persistState();
+    }
+
+    /* ================================================================
+       TOOL 3: DIDACTIC QUIZ
+       ================================================================ */
+    function renderQuiz() {
+      const container = document.getElementById(`quiz-container`);
+      const scoreEl = document.getElementById(`quiz-score-display`);
+      if (!container) return;
+
+      let correctCount = 0;
+      QUIZ_QUESTIONS.forEach((q) => {
+        if (appState.quizAnswers[q.id] === q.correct) correctCount += 1;
+      });
+      if (scoreEl) scoreEl.textContent = `${correctCount} / ${QUIZ_QUESTIONS.length}`;
+
+      container.innerHTML = QUIZ_QUESTIONS.map((q) => {
+        const chosen = appState.quizAnswers[q.id];
+        const hasAnswered = typeof chosen === `number`;
+        const isCorrect = hasAnswered && chosen === q.correct;
+
+        const optionsHtml = q.options.map((opt, idx) => {
+          let cls = `quiz-option`;
+          if (hasAnswered) {
+            if (idx === q.correct) cls += ` is-correct`;
+            else if (idx === chosen) cls += ` is-wrong`;
+          }
+          return `
+            <button type="button" class="${cls}" onclick="answerQuiz('${q.id}', ${idx})">
+              <strong style="font-family: var(--font-label); flex-shrink: 0;">${String.fromCharCode(65 + idx)}.</strong>
+              <span>${opt}</span>
+            </button>
+          `;
+        }).join(``);
+
+        const feedbackHtml = hasAnswered ? `
+          <div class="quiz-feedback ${isCorrect ? `is-positive` : `is-error`}">
+            <strong>${isCorrect ? `Correcto.` : `Revisión sugerida.`}</strong> ${q.explanation}
+          </div>
+        ` : ``;
+
+        return `
+          <div class="quiz-card">
+            <h4>${q.prompt}</h4>
+            <div class="quiz-options">${optionsHtml}</div>
+            ${feedbackHtml}
+          </div>
+        `;
+      }).join(``);
+    }
+
+    function answerQuiz(questionId, optionIdx) {
+      appState.quizAnswers[questionId] = optionIdx;
+      renderQuiz();
+      updateGlobalProgress();
+      persistState();
+    }
+
+    function resetQuiz(btn) {
+      if (btn && btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirmar reinicio`;
+        return;
+      }
+      if (btn) {
+        btn.dataset.armed = `false`;
+        btn.textContent = `Reiniciar cuestionario`;
+      }
+      appState.quizAnswers = {};
+      renderQuiz();
+      updateGlobalProgress();
+      persistState();
+    }
+
+    /* ================================================================
+       ACTIVE NAV HIGHLIGHT ON SCROLL
+       ================================================================ */
+    function initNavObserver() {
+      const links = Array.from(document.querySelectorAll(`.nav-link`));
+      const sectionIds = [`inicio`, `marco-conceptual`, `aforismos`, `herramientas`, `cronologia`, `faq`];
+      if (!(`IntersectionObserver` in window)) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const id = entry.target.getAttribute(`id`);
+          links.forEach((lnk) => {
+            const href = lnk.getAttribute(`href`);
+            if (href === `#${id}`) lnk.classList.add(`is-active`);
+            else lnk.classList.remove(`is-active`);
+          });
+        });
+      }, { rootMargin: `-20% 0px -65% 0px`, threshold: 0 });
+
+      sectionIds.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+    }
+
+    /* ================================================================
+       INITIALIZATION
+       ================================================================ */
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            if (typeof saved.selectedNode === `string` && CONCEPT_NODES[saved.selectedNode]) {
+              appState.selectedNode = saved.selectedNode;
+            }
+            if (Array.isArray(saved.studiedAphorisms)) {
+              appState.studiedAphorisms = saved.studiedAphorisms;
+            }
+            if (saved.quizAnswers && typeof saved.quizAnswers === `object`) {
+              appState.quizAnswers = saved.quizAnswers;
+            }
+            if (saved.reflection && typeof saved.reflection === `object`) {
+              appState.reflection = {
+                scenario: saved.reflection.scenario || `fracaso`,
+                premise: typeof saved.reflection.premise === `string` ? saved.reflection.premise : FATI_SCENARIOS.fracaso.premise,
+                response: typeof saved.reflection.response === `string` ? saved.reflection.response : ``
+              };
+            }
+          }
+        }
+      } catch (err) {
+        // Fallback safely to default initial state
+      }
+
+      // Hydrate UI
+      selectConceptNode(appState.selectedNode);
+      renderAphorisms();
+      updatePhysicianDiagnosis(true);
+
+      const scenEl = document.getElementById(`fati-scenario`);
+      const premEl = document.getElementById(`fati-premise`);
+      const respEl = document.getElementById(`fati-response`);
+      if (scenEl) scenEl.value = appState.reflection.scenario;
+      loadFatiScenario(appState.reflection.scenario);
+      if (premEl && appState.reflection.premise) premEl.value = appState.reflection.premise;
+      if (respEl && appState.reflection.response) respEl.value = appState.reflection.response;
+
+      renderQuiz();
+      updateGlobalProgress();
+      initNavObserver();
+
+      if (typeof lucide !== `undefined` && typeof lucide.createIcons === `function`) {
+        lucide.createIcons();
+      }
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>

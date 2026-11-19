@@ -1,0 +1,2356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="atelier">
+  <title>El caminante y su sombra — Friedrich Nietzsche (1880)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (Atelier) */
+      --background: #fafaf8;
+      --surface-container-low: #ece8e1;
+      --surface-container: #e5e0d8;
+      --surface-container-high: #ddd7cd;
+
+      /* Ink */
+      --on-surface: #111111;
+      --on-surface-variant: #5b5752;
+
+      /* Rules */
+      --outline: #111111;
+      --outline-variant: #d8d3cb;
+
+      /* Accents */
+      --primary: #111111;
+      --on-primary: #fafaf8;
+      --primary-container: #ece8e1;
+      --on-primary-container: #111111;
+      --secondary: #7a5c48;
+      --tertiary: #a89c8c;
+      --error: #9a2b22;
+      --on-error: #fafaf8;
+
+      /* Data series */
+      --data-1: #111111;
+      --data-2: #7a5c48;
+      --data-3: #948a7d;
+      --data-4: #55657a;
+      --data-context: #cfc9bf;
+
+      /* Fonts */
+      --font-headline: 'Bodoni Moda', serif;
+      --font-body: 'Jost', sans-serif;
+      --font-label: 'Jost', sans-serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-ink: 1px solid var(--outline);
+      --rule-stone: 1px solid var(--outline-variant);
+      --label-tracking: 0.22em;
+
+      /* Shared tokens */
+      --positive: #26533c;
+      --warning: #7c4d12;
+      --focus: var(--primary);
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.65rem, 1.5rem + 4.2vw, 4.75rem);
+      --headline-size: clamp(1.85rem, 1.25rem + 2vw, 2.65rem);
+      --subhead-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.55rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { overflow-x: clip; margin: 0; padding: 0; }
+    header { position: static !important; }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--background);
+      color: var(--on-surface);
+    }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Page layout */
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-lg) var(--space-xl) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Typography */
+    .display {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.01em;
+      font-optical-sizing: auto;
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .display em, h2 em, h3 em { font-style: italic; }
+
+    h2 {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      font-optical-sizing: auto;
+      margin: 0 0 var(--space-md);
+      color: var(--on-surface);
+    }
+
+    h3 {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      font-size: var(--subhead-size);
+      line-height: 1.2;
+      margin: 0 0 var(--space-sm);
+      color: var(--on-surface);
+    }
+
+    p {
+      font-size: var(--body-size);
+      line-height: 1.65;
+      margin: 0 0 var(--space-md);
+      max-width: 65ch;
+      color: var(--on-surface);
+    }
+
+    .lede {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: clamp(1.22rem, 1.1rem + 0.55vw, 1.45rem);
+      line-height: 1.6;
+      color: var(--on-surface);
+      max-width: 60ch;
+      margin: var(--space-lg) 0 0;
+    }
+
+    .label {
+      font-family: var(--font-label);
+      font-weight: 400;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface);
+    }
+
+    .kicker {
+      color: var(--secondary);
+      margin-top: var(--space-sm);
+      display: block;
+    }
+
+    .muted {
+      color: var(--on-surface-variant);
+    }
+
+    .taupe-note {
+      color: var(--secondary);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Navigation index bar */
+    .site-nav {
+      border-bottom: var(--rule-ink);
+      padding: var(--space-md) var(--space-xl);
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-lg);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: var(--font-label);
+      font-weight: 400;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface);
+      text-decoration: none;
+      padding: var(--space-sm) 0;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+
+    .nav-links a:hover {
+      border-bottom-color: var(--secondary);
+      color: var(--secondary);
+    }
+
+    .nav-status {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    /* Gallery Masthead */
+    .title-block {
+      padding: var(--space-2xl) 0 var(--space-xl);
+      border-bottom: var(--rule-stone);
+    }
+
+    /* Ruled top key figures */
+    .figures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+
+    .ruled-top {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-sm);
+      background: transparent;
+    }
+
+    .ruled-top .value {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.35rem);
+      line-height: 1.1;
+      margin: var(--space-xs) 0;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+    }
+
+    .ruled-top .note {
+      color: var(--secondary);
+      font-size: 0.9375rem;
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    /* Section framing */
+    .section-block {
+      padding-top: var(--space-xl);
+      border-top: var(--rule-ink);
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .section-head {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .asymmetric-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .asymmetric-split-reverse {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Stone plate (rare inset panel for interactive/exhibition objects) */
+    .stone-plate {
+      background-color: var(--surface-container-low);
+      border-top: var(--rule-ink);
+      padding: var(--space-lg);
+    }
+
+    .stone-plate-deep {
+      background-color: var(--surface-container);
+      border-top: var(--rule-ink);
+      padding: var(--space-lg);
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-stone);
+      padding: var(--space-lg) 0;
+      margin: var(--space-md) 0;
+    }
+
+    .pull-quote blockquote {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem);
+      line-height: 1.45;
+      margin: 0 0 var(--space-sm);
+      color: var(--on-surface);
+    }
+
+    .pull-quote cite {
+      font-family: var(--font-label);
+      font-style: normal;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--secondary);
+    }
+
+    /* Triad concepts */
+    .triad-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-md);
+    }
+
+    .triad-item {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+    }
+
+    /* Thematic chapters */
+    .chapter-list {
+      display: grid;
+      gap: var(--space-xl);
+    }
+
+    .chapter-item {
+      border-top: var(--rule-stone);
+      padding-top: var(--space-lg);
+      display: grid;
+      grid-template-columns: minmax(0, 0.34fr) minmax(0, 0.66fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .chapter-meta {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .chapter-num {
+      font-family: var(--font-headline);
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+      line-height: 1;
+      color: var(--secondary);
+    }
+
+    /* Buttons (Atelier square) */
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 400;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      padding: 0 var(--space-lg);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border: 1px solid var(--primary);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+      color: var(--on-primary);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--on-surface);
+      border: 1px solid var(--outline);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn-secondary[aria-pressed="true"],
+    .btn-secondary.is-active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: end;
+    }
+
+    /* Interactive Solar Shadow Exhibit */
+    .solar-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    figure {
+      margin: 0;
+    }
+
+    figcaption {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-sm);
+      margin-top: var(--space-md);
+      color: var(--on-surface-variant);
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+
+    figcaption .label {
+      display: block;
+      color: var(--on-surface);
+      margin-bottom: var(--space-xs);
+    }
+
+    .svg-stage {
+      width: 100%;
+      background-color: var(--surface-container-low);
+      border-top: var(--rule-ink);
+      padding: var(--space-md);
+    }
+
+    .svg-stage svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Timeline interactive */
+    .timeline-rail {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .timeline-step-btn {
+      font-family: var(--font-body);
+      text-align: left;
+      background-color: transparent;
+      border: none;
+      border-top: var(--rule-stone);
+      padding: var(--space-md) var(--space-sm);
+      min-height: 44px;
+      cursor: pointer;
+      display: grid;
+      gap: var(--space-xs);
+      color: var(--on-surface);
+      transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+
+    .timeline-step-btn:hover {
+      background-color: var(--surface-container-low);
+      border-top-color: var(--outline);
+    }
+
+    .timeline-step-btn[aria-selected="true"] {
+      border-top: 2px solid var(--outline);
+      background-color: var(--surface-container-low);
+    }
+
+    .timeline-year {
+      font-family: var(--font-headline);
+      font-size: 1.35rem;
+      line-height: 1.1;
+      color: var(--on-surface);
+    }
+
+    .timeline-step-btn[aria-selected="true"] .timeline-year {
+      font-style: italic;
+    }
+
+    .timeline-short {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      line-height: 1.35;
+    }
+
+    /* Tables (Atelier: no vertical lines, no zebra fills) */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    thead th {
+      font-family: var(--font-label);
+      font-weight: 400;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+    }
+
+    tbody td {
+      border-bottom: var(--rule-stone);
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      vertical-align: top;
+      font-size: 0.98rem;
+      line-height: 1.55;
+      color: var(--on-surface);
+    }
+
+    tbody td:first-child {
+      font-family: var(--font-headline);
+      font-size: 1.1rem;
+      color: var(--on-surface);
+      min-width: 160px;
+    }
+
+    .col-highlight {
+      color: var(--on-surface);
+    }
+
+    /* Inputs & Explorer controls */
+    .control-bar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-lg);
+      align-items: end;
+      margin-bottom: var(--space-lg);
+    }
+
+    .field-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .field-input {
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      color: var(--on-surface);
+      background-color: transparent;
+      border: none;
+      border-bottom: var(--rule-ink);
+      padding: var(--space-sm) var(--space-xs);
+      min-height: 44px;
+      width: 100%;
+      border-radius: 0;
+    }
+
+    .field-input::placeholder {
+      color: var(--on-surface-variant);
+      opacity: 0.8;
+    }
+
+    /* Aphorism Cards Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-xl) var(--space-lg);
+    }
+
+    .card-wrapper {
+      container-type: inline-size;
+    }
+
+    .aphorism-card {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+    }
+
+    .aphorism-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .aphorism-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    .tag-taupe {
+      font-family: var(--font-label);
+      font-weight: 400;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--secondary);
+    }
+
+    .bookmark-btn {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      background: transparent;
+      border: 1px solid var(--outline-variant);
+      color: var(--on-surface-variant);
+      padding: 0 var(--space-sm);
+      min-height: 44px;
+      min-width: 44px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+    }
+
+    .bookmark-btn:hover {
+      border-color: var(--outline);
+      color: var(--on-surface);
+    }
+
+    .bookmark-btn[aria-pressed="true"] {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .aphorism-quote {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .aphorism-key {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      border-top: var(--rule-stone);
+      padding-top: var(--space-sm);
+      margin: 0;
+    }
+
+    /* Empty state */
+    .empty-state {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-stone);
+      padding: var(--space-xl) 0;
+      display: grid;
+      gap: var(--space-md);
+      justify-items: start;
+    }
+
+    /* Quiz styles */
+    .quiz-shell {
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .quiz-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      border-bottom: var(--rule-stone);
+      padding-bottom: var(--space-md);
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+      margin: var(--space-md) 0;
+    }
+
+    .quiz-option-btn {
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      text-align: left;
+      background-color: var(--background);
+      color: var(--on-surface);
+      border: 1px solid var(--outline-variant);
+      padding: var(--space-md);
+      min-height: 44px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      line-height: 1.5;
+      transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+
+    .quiz-option-btn:hover:not(:disabled) {
+      background-color: var(--surface-container-low);
+      border-color: var(--outline);
+    }
+
+    .quiz-option-btn:disabled {
+      cursor: default;
+    }
+
+    .quiz-option-btn.is-correct {
+      border-color: var(--positive);
+      background-color: var(--surface-container-low);
+    }
+
+    .quiz-option-btn.is-wrong {
+      border-color: var(--error);
+      background-color: var(--surface-container-low);
+    }
+
+    .option-letter {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--secondary);
+      padding-top: var(--space-xs);
+      flex-shrink: 0;
+    }
+
+    .quiz-feedback {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .status-badge {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      font-weight: 500;
+    }
+
+    .status-positive { color: var(--positive); }
+    .status-error { color: var(--error); }
+    .status-warning { color: var(--warning); }
+
+    /* FAQ Accordion */
+    .faq-list {
+      display: grid;
+    }
+
+    .faq-item {
+      border-top: var(--rule-stone);
+    }
+
+    .faq-item:last-child {
+      border-bottom: var(--rule-stone);
+    }
+
+    .faq-trigger {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: var(--space-lg) 0;
+      min-height: 44px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-lg);
+      color: var(--on-surface);
+      font-family: var(--font-headline);
+      font-size: clamp(1.15rem, 1rem + 0.45vw, 1.38rem);
+      line-height: 1.3;
+    }
+
+    .faq-trigger:hover {
+      color: var(--secondary);
+    }
+
+    .faq-icon {
+      font-family: var(--font-label);
+      font-size: 1.25rem;
+      color: var(--secondary);
+      flex-shrink: 0;
+      width: 24px;
+      text-align: center;
+    }
+
+    .faq-panel {
+      padding: 0 0 var(--space-lg);
+      color: var(--on-surface);
+    }
+
+    .faq-panel[hidden] {
+      display: none;
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      color: var(--on-surface-variant);
+      font-size: 0.9375rem;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Container queries */
+    @container (min-width: 420px) {
+      .aphorism-card { padding-top: var(--space-lg); }
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 900px) {
+      .asymmetric-split,
+      .asymmetric-split-reverse,
+      .chapter-item {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+      }
+      .control-bar {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .site-nav {
+        padding: var(--space-md);
+      }
+      .page-grid {
+        grid-template-columns: 1fr;
+        padding: var(--space-md) var(--space-md) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .title-block {
+        padding: var(--space-lg) 0;
+      }
+      .btn {
+        width: 100%;
+      }
+      .solar-controls .btn,
+      .btn-row .btn {
+        width: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="site-nav" aria-label="Índice de la obra">
+      <ul class="nav-links">
+        <li><a href="#introduccion">Introducción</a></li>
+        <li><a href="#soliloquio">Soliloquio</a></li>
+        <li><a href="#ejes-tematicos">Ejes temáticos</a></li>
+        <li><a href="#linea-tiempo">Cronología</a></li>
+        <li><a href="#comparativa">Comparativa</a></li>
+        <li><a href="#explorador">Aforismos</a></li>
+        <li><a href="#cuestionario">Cuestionario</a></li>
+        <li><a href="#faq">Preguntas</a></li>
+      </ul>
+      <div class="nav-status">
+        <span id="nav-saved-count">0 guardados</span>
+        <span id="nav-quiz-status">Test: 0/8</span>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-grid">
+    <!-- 1. PORTADA E INTRODUCCIÓN -->
+    <section id="introduccion" class="title-block">
+      <span class="label">Friedrich Nietzsche · Der Wanderer und sein Schatten · 1880</span>
+      <h1 class="display">El caminante y su <em>sombra</em></h1>
+      <span class="label kicker">Guía filosófica interactiva · Apéndice y epílogo de «Humano, demasiado humano»</span>
+      <p class="lede">
+        Redactado en lápiz durante el verano de 1879 entre los senderos umbríos de Saint-Moritz y publicado en 1880, este libro inaugura la «doctrina de la salud» de Nietzsche: una disciplina voluntaria del espíritu libre que abandona los fantasmas metafísicos para atender a las cosas próximas.
+      </p>
+
+      <div class="figures-grid">
+        <div class="ruled-top">
+          <span class="label">Composición y envío</span>
+          <div class="value">1879–1880</div>
+          <p class="note">Esquematizado en seis cuadernos durante paseos por la Alta Engadina y copiado en Venecia por Peter Gast.</p>
+        </div>
+        <div class="ruled-top">
+          <span class="label">Umbral biográfico</span>
+          <div class="value">35 años</div>
+          <p class="note">«La mitad de la vida»: renuncia a la cátedra de Basilea, aislamiento y dieta frugal contra la enfermedad.</p>
+        </div>
+        <div class="ruled-top">
+          <span class="label">Arquitectura breve</span>
+          <div class="value">350 aforismos</div>
+          <p class="note">Enmarcados por un prólogo y un epílogo dialogados entre el viajero y su sombra bajo el sol alpino.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTEXTO BIOGRÁFICO Y CONCEPTOS VERTEBRADORES -->
+    <section class="section-block reveal">
+      <div class="asymmetric-split">
+        <div>
+          <span class="label">01 · Contexto existencial y génesis</span>
+          <h2>De la cátedra de Basilea a la filosofía <em>itinerante</em></h2>
+          <p>
+            En el verano de 1879, tras diez años de docencia y acosado por intensos dolores de cabeza, náuseas y una vista tan deteriorada que no toleraba la luz brillante del mediodía, Friedrich Nietzsche presenta su renuncia definitiva a la Universidad de Basilea. Se instala en pueblecitos de la Suiza central y, finalmente, en la Alta Engadina —Saint-Moritz—, a quien describe a su hermana el 24 de junio como su «tierra prometida»: un paisaje seco y boscoso que armoniza con la lucidez de su espíritu.
+          </p>
+          <p>
+            El 11 de septiembre de 1879 envía el manuscrito casi ilegible a su joven colaborador y músico Peter Gast. Los «incesantes y dolorosos padecimientos» no han doblegado su ánimo; por el contrario, Nietzsche se niega a trasladar su sufrimiento físico al libro para no dar satisfacción a quienes desearían verlo vencido ni suscitar una compasión condescendiente. Así nace la figura del filósofo errante: alguien que, tras romper con Wagner y desprenderse del pesimismo de Schopenhauer, piensa caminando «sin una orientación determinada» sobre lagos y precipicios.
+          </p>
+        </div>
+
+        <aside class="stone-plate">
+          <span class="label">Testimonio epistolar · Saint-Moritz</span>
+          <div class="pull-quote">
+            <blockquote>
+              «Quien lleva al papel lo que “sufre” es un autor triste; pero se convierte en un autor serio cuando nos dice lo que “ha sufrido” y por qué en el presente le consuela la alegría.»
+            </blockquote>
+            <cite>Aforismo 128 · Los autores tristes y los autores serios</cite>
+          </div>
+          <p class="taupe-note">
+            La brevedad telegráfica del aforismo no fue sólo un recurso estético: fue también una necesidad impuesta por el agotamiento cerebral y visual. Con el tiempo, esta coacción se reveló como la forma más fiel a la lucidez de su pensamiento.
+          </p>
+        </aside>
+      </div>
+
+      <div class="triad-grid">
+        <div class="triad-item">
+          <span class="label">Concepto I</span>
+          <h3>La «doctrina de la salud»</h3>
+          <p>
+            Frente al pesimismo de los vencidos, el libro se concibe como un régimen curativo del espíritu. En lugar de exhibir la herida, transforma la convalecencia en método crítico contra toda depresión moral o religiosa.
+          </p>
+        </div>
+        <div class="triad-item">
+          <span class="label">Concepto II</span>
+          <h3>La «disciplina voluntaria»</h3>
+          <p>
+            Exige una ascesis cotidiana de proporción casi sobrehumana: sobriedad alimentaria (escasa carne, mucha leche), silencio prolongado y autodominio en las situaciones más nimias para no perder el gobierno de sí mismo (Af. 300).
+          </p>
+        </div>
+        <div class="triad-item">
+          <span class="label">Concepto III</span>
+          <h3>La «filosofía de la mañana»</h3>
+          <p>
+            Heredada del último aforismo de <em>Humano, demasiado humano</em>, nombra la actitud del viajero que abandona las certezas definitivas, mantiene los ojos abiertos al cambio y recibe bajo los árboles las ofrendas claras de la razón libre.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. EL SOLILOQUIO Y LA SOMBRA (CON ESQUEMA INTERACTIVO) -->
+    <section id="soliloquio" class="section-block reveal">
+      <div class="section-head">
+        <span class="label">02 · Prólogo y conclusión</span>
+        <h2>El soliloquio y la <em>sombra</em>: conocer es desdoblarse</h2>
+      </div>
+
+      <div class="asymmetric-split-reverse">
+        <div>
+          <p>
+            Aunque el libro abre y cierra con un intercambio escénico entre el <em>Wanderer</em> y su sombra, Nietzsche rechaza expresamente la forma del diálogo platónico tradicional: «Si a Platón le hubiera gustado menos escribir en diálogos, a sus lectores les habría complacido más leerle». A su juicio, transcribir conversaciones reales deforma las perspectivas y vuelve todo demasiado largo o demasiado corto.
+          </p>
+          <p>
+            La sombra no es un interlocutor teatral externo, sino la oyente muda del soliloquio interior y la condición misma de la autoconciencia: «Yo soy la sombra que proyectan los objetos cuando incide en ellos el rayo solar de la ciencia». Luz y sombra no son enemigas; se dan la mano amistosamente para que un rostro sea bello, una palabra clara y un carácter firme. Al caer el sol bajo los pinos, cuando el día toca a su fin y la sombra cita a Diógenes ante Alejandro («No me quites el sol, que empiezo a tener frío»), desaparece al esfumarse la última claridad, devolviendo al caminante a su soledad radical.
+          </p>
+        </div>
+
+        <figure class="svg-stage">
+          <div class="solar-controls" role="group" aria-label="Momento de la caminata y proyección de la sombra">
+            <button type="button" class="btn btn-secondary is-active" id="solar-btn-morning" onclick="setSolarPhase('morning')" aria-pressed="true">Mañana · Prólogo</button>
+            <button type="button" class="btn btn-secondary" id="solar-btn-noon" onclick="setSolarPhase('noon')" aria-pressed="false">Mediodía · Af. 303</button>
+            <button type="button" class="btn btn-secondary" id="solar-btn-dusk" onclick="setSolarPhase('dusk')" aria-pressed="false">Crepúsculo · Epílogo</button>
+          </div>
+          <svg id="solar-svg" viewBox="0 0 460 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Horizon & Mountain ridge (Upper Engadine) -->
+            <line x1="20" y1="176" x2="440" y2="176" stroke="var(--outline)" stroke-width="1"/>
+            <polyline points="20,176 110,120 175,152 255,98 345,146 440,176" fill="none" stroke="var(--outline-variant)" stroke-width="1"/>
+            <!-- Sun orb -->
+            <circle id="svg-sun" cx="90" cy="58" r="14" fill="none" stroke="var(--secondary)" stroke-width="1.5"/>
+            <line id="svg-ray" x1="103" y1="68" x2="215" y2="132" stroke="var(--secondary)" stroke-width="1" stroke-dasharray="4 4"/>
+            <!-- Wanderer silhouette (minimalist editorial figure) -->
+            <circle cx="220" cy="128" r="6" fill="var(--on-surface)"/>
+            <line x1="220" y1="134" x2="220" y2="162" stroke="var(--on-surface)" stroke-width="2.5"/>
+            <line x1="220" y1="162" x2="212" y2="176" stroke="var(--on-surface)" stroke-width="2"/>
+            <line x1="220" y1="162" x2="228" y2="176" stroke="var(--on-surface)" stroke-width="2"/>
+            <line x1="220" y1="142" x2="233" y2="176" stroke="var(--secondary)" stroke-width="1.2"/>
+            <!-- Projected shadow -->
+            <polygon id="svg-shadow" points="216,176 226,176 340,176 318,184" fill="var(--secondary)" opacity="0.45"/>
+            <!-- Labels -->
+            <text id="svg-phase-label" x="24" y="28" fill="var(--on-surface)" font-family="Jost, sans-serif" font-size="10" letter-spacing="2">FILOSOFÍA DE LA MAÑANA</text>
+            <text id="svg-shadow-label" x="24" y="202" fill="var(--secondary)" font-family="Jost, sans-serif" font-size="10" letter-spacing="1.5">SOMBRA ALARGADA · INTERLOCUTORA DEL YO</text>
+          </svg>
+          <figcaption>
+            <span class="label" id="solar-caption-title">El despertar del diálogo interior</span>
+            <span id="solar-caption-text">Con la luz oblicua de la mañana, el rayo de la ciencia proyecta una sombra nítida junto al viajero: el yo se desdobla para interrogar sus ideas sin el artificio del tratado sistemático.</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3. ESTRUCTURA TEMÁTICA COMPLETA -->
+    <section id="ejes-tematicos" class="section-block reveal">
+      <div class="section-head">
+        <span class="label">03 · Arquitectura de los 350 aforismos</span>
+        <h2>Cuatro ejes críticos más allá de la <em>metafísica</em></h2>
+        <p class="lede">
+          Aunque las ideas asaltan al caminante sin afán de sistema, la obra articula bloques temáticos precisos contra los prejuicios morales, el desprecio del cuerpo, la pesadez literaria y la embriaguez musical romántica.
+        </p>
+      </div>
+
+      <div class="chapter-list">
+        <!-- Eje I: Moral y Libre Albedrío -->
+        <article class="chapter-item">
+          <div class="chapter-meta">
+            <span class="chapter-num">I</span>
+            <span class="label">Aforismos 9–34 · 52 · 318</span>
+            <h3>Crítica de la moral y el <em>libre</em> albedrío</h3>
+          </div>
+          <div>
+            <p>
+              Nietzsche diseca la creencia en la libertad incondicionada como una «invención de las clases dirigentes» (Af. 9) y una ilusión nacida del hábito: nos llamamos libres simplemente cuando dejamos de sentir el peso de antiguas cadenas y aún no nos oprimen otras nuevas (Af. 10). El lenguaje consolida esta mitología al aislar acciones supuestamente idénticas fuera de la «corriente continua» del devenir (Af. 11).
+            </p>
+            <p>
+              De esta demolición derivan consecuencias decisivas sobre la culpa, el castigo y la justicia:
+            </p>
+            <ul>
+              <li><strong>Derecho a castigar (Af. 23–24, 28):</strong> Si el criminal obró por «puro capricho» sin motivo, los defensores del libre albedrío carecen lógicamente del derecho a castigarlo; la pena mide en realidad el asombro del juez ante lo incomprensible y la defensa social, deteniéndose arbitrariamente en el individuo sin juzgar a padres, educadores o sociedad.</li>
+              <li><strong>Ley del talión y equilibrio (Af. 22, 26, 32):</strong> La justicia primitiva («ojo por ojo, diente por diente») no brota de una ira moral absoluta, sino de un cálculo de equilibrio entre fuerzas equiparables; las leyes son instrumentos transitorios de prudencia, no fines eternos.</li>
+              <li><strong>Conciencia y remordimiento (Af. 52, 318):</strong> La conciencia moral no es la voz de Dios en el pecho, sino «la voz de algunos hombres en el hombre» inculcada por autoridad. Por ello, entregarse al remordimiento es «añadir otra locura a la anterior».</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Eje II: Cosas próximas -->
+        <article class="chapter-item">
+          <div class="chapter-meta">
+            <span class="chapter-num">II</span>
+            <span class="label">Aforismos 5–6 · 16 · 192 · 305 · 327</span>
+            <h3>Atención a las «cosas <em>próximas</em>»</h3>
+          </div>
+          <div>
+            <p>
+              Contra la doble hipocresía de sacerdotes, maestros e idealistas que desvían la mirada hacia el más allá, la salvación del alma o el servicio abstracto al Estado (Af. 5–6), Nietzsche reclama una reforma constante y libre de prejuicios sobre las realidades inmediatas: la alimentación, la vivienda, el vestido, la división de la jornada, el trabajo y el ocio, el sueño y los efectos del clima.
+            </p>
+            <p>
+              Ignorar estas necesidades cotidianas convierte la tierra en un «campo de perdición» y nos somete a una servidumbre superflua frente a «médicos, maestros y curanderos de almas». Inspirado en la frugalidad de Epicuro —«un pequeño jardín, higos, queso y, además, dos o tres amigos» (Af. 192)— y en la indiferencia serena ante los enigmas últimos (Af. 16), el pensador aspira a la «gran trinidad de la alegría»: grandeza, serenidad y luz del sol (Af. 327).
+            </p>
+          </div>
+        </article>
+
+        <!-- Eje III: Estilística y Literatura -->
+        <article class="chapter-item">
+          <div class="chapter-meta">
+            <span class="chapter-num">III</span>
+            <span class="label">Aforismos 87–148 · 214</span>
+            <h3>Estilística, prosa y moralistas <em>europeos</em></h3>
+          </div>
+          <div>
+            <p>
+              Adelantándose a la lingüística moderna, Nietzsche sostiene que toda palabra es un prejuicio (Af. 55) y que la claridad de estilo determina la claridad del pensamiento. Desde ahí lanza una severa diatriba contra la prosa alemana —«¡tan vieja y todavía tan deforme!» (Af. 90)—, denunciando a los «esqueletos tatuados» que suplen la falta de carne intelectual con colores artificiales (Af. 147) y el fuego humeante de Herder (Af. 118). Incluso ante Goethe mantiene distancia crítica respecto a la afectación de su <em>Fausto</em>, salvando ante todo sus <em>Conversaciones con Eckermann</em>.
+            </p>
+            <p>
+              Frente a la grandilocuencia —siempre más fácil que escribir con sencillez (Af. 148)—, defiende tres virtudes supremas: «concisión sólida, serenidad y madurez» (Af. 108). Sus modelos no son los tratadistas alemanes, sino los <em>Aforismos</em> de Georg Christoph Lichtenberg, la novela <em>El Veranillo</em> de Adalbert Stifter (Af. 109) y, por encima de todo, los moralistas y epigramatorios franceses —Montaigne, La Rochefoucauld, La Bruyère, Fontenelle, Vauvenargues y Chamfort (Af. 214)—, en quienes revive la pureza de Sófocles y la consistencia de Tucídides.
+            </p>
+          </div>
+        </article>
+
+        <!-- Eje IV: Música y Estética -->
+        <article class="chapter-item">
+          <div class="chapter-meta">
+            <span class="chapter-num">IV</span>
+            <span class="label">Aforismos 115 · 149–169 · 216 · Prólogo 1886</span>
+            <h3>Música, melodía <em>serena</em> y ruptura estética</h3>
+          </div>
+          <div>
+            <p>
+              Aunque no pronuncia el nombre de Richard Wagner en estos aforismos, la mayoría de las reflexiones musicales responde al distanciamiento definitivo de su antiguo maestro y del texto de <em>Parsifal</em>. Nietzsche arremete contra el drama musical ampuloso que abusa de las estridencias del metal para embriagar al espíritu fatigado y remeda los gestos del «gran pecador» cristiano. En el prólogo de 1886 resumirá esta campaña con una advertencia tajante: <em>Cave musicam</em> («cuidado con la música»), prohibiendo la música romántica por enervante y sofocante.
+            </p>
+            <p>
+              En su lugar, reivindica la melodía serena y sencilla que habla al corazón (Af. 154) y analiza con rigor a los compositores abordados en el texto: critica en Félix Mendelssohn una «gratitud sin reservas» que siempre remite al pasado y carece de futuro (Af. 157), y vincula el moralismo musical de Beethoven con la alabanza perpetua de Rousseau, los franceses antiguos y Schiller (Af. 216). Esta búsqueda de un arte saludable y luminoso anticipa su encuentro en 1881 con la ópera <em>Carmen</em> de Bizet, «audaz, perverso, mediterráneo y desbordante de salud». En el plano visual, subraya además cómo los paisajes que seducen de modo perdurable ocultan siempre una simple figura geométrica (Af. 115).
+            </p>
+            <p class="taupe-note">
+              Nota de archivo: en la edición de referencia aquí analizada, los fragmentos musicales preservados (Af. 153, 154, 157, 158 y 216, junto al prólogo de 1886) abordan directamente a Wagner, Mendelssohn, Beethoven y Bizet; los célebres juicios sobre Bach, Mozart o Chopin pertenecen al bloque completo (Af. 149–169) no incluido en los extractos fuente.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 4. LÍNEA DE TIEMPO INTERACTIVA (1878-1881) -->
+    <section id="linea-tiempo" class="section-block reveal">
+      <div class="section-head">
+        <span class="label">04 · Evolución biográfico-filosófica (1878–1881)</span>
+        <h2>De <em>Humano, demasiado humano</em> hasta <em>Aurora</em></h2>
+        <p>
+          Seleccione cada estación del itinerario para examinar el tránsito intelectual y vital que separa la crisis de Basilea del amanecer filosófico de 1881.
+        </p>
+      </div>
+
+      <div class="timeline-rail" role="tablist" aria-label="Hitos biográficos de 1878 a 1881">
+        <button type="button" class="timeline-step-btn" role="tab" aria-selected="true" id="tl-btn-0" onclick="selectTimeline(0)">
+          <span class="label">Hito 01</span>
+          <span class="timeline-year">1878</span>
+          <span class="timeline-short">Humano, demasiado humano y ruptura</span>
+        </button>
+        <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" id="tl-btn-1" onclick="selectTimeline(1)">
+          <span class="label">Hito 02</span>
+          <span class="timeline-year">Verano 1879</span>
+          <span class="timeline-short">Renuncia y retiro en Saint-Moritz</span>
+        </button>
+        <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" id="tl-btn-2" onclick="selectTimeline(2)">
+          <span class="label">Hito 03</span>
+          <span class="timeline-year">Sept. 1879</span>
+          <span class="timeline-short">El manuscrito a Peter Gast</span>
+        </button>
+        <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" id="tl-btn-3" onclick="selectTimeline(3)">
+          <span class="label">Hito 04</span>
+          <span class="timeline-year">Dic. 1879</span>
+          <span class="timeline-short">Ecos críticos y carta de Rohde</span>
+        </button>
+        <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" id="tl-btn-4" onclick="selectTimeline(4)">
+          <span class="label">Hito 05</span>
+          <span class="timeline-year">1880</span>
+          <span class="timeline-short">Publicación y vida errante</span>
+        </button>
+        <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" id="tl-btn-5" onclick="selectTimeline(5)">
+          <span class="label">Hito 06</span>
+          <span class="timeline-year">1881</span>
+          <span class="timeline-short">Aurora y Bizet en Génova</span>
+        </button>
+      </div>
+
+      <div class="stone-plate" id="timeline-panel" role="tabpanel" aria-live="polite">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- 5. MÓDULO COMPARATIVO INTERACTIVO -->
+    <section id="comparativa" class="section-block reveal">
+      <div class="section-head">
+        <span class="label">05 · Giro intelectualista e ilustrado</span>
+        <h2>Actitud romántica previa frente al espíritu de <em>El caminante</em></h2>
+        <p>
+          Filtre las dimensiones del pensamiento nietzscheano para contrastar su período wagneriano-schopenhaueriano con la crítica fría, escéptica e ilustrada de 1879–1880.
+        </p>
+      </div>
+
+      <div class="btn-row" role="group" aria-label="Filtrar dimensiones comparativas">
+        <button type="button" class="btn btn-secondary is-active" id="cmp-btn-all" onclick="filterComparison('all')" aria-pressed="true">Todas las dimensiones</button>
+        <button type="button" class="btn btn-secondary" id="cmp-btn-epistemologia" onclick="filterComparison('epistemologia')" aria-pressed="false">Razón y verdad</button>
+        <button type="button" class="btn btn-secondary" id="cmp-btn-moral" onclick="filterComparison('moral')" aria-pressed="false">Moral y vida</button>
+        <button type="button" class="btn btn-secondary" id="cmp-btn-arte" onclick="filterComparison('arte')" aria-pressed="false">Estilo y música</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Dimensión</th>
+              <th>Etapa romántica y metafísica previa</th>
+              <th>Actitud ilustrada de «El caminante y su sombra»</th>
+            </tr>
+          </thead>
+          <tbody id="comparison-tbody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 6. EXPLORADOR INTERACTIVO DE AFORISMOS -->
+    <section id="explorador" class="section-block reveal">
+      <div class="section-head">
+        <span class="label">06 · Archivo textual interactivo</span>
+        <h2>Explorador de <em>aforismos</em> por tema y palabra clave</h2>
+        <p>
+          Busque conceptos o filtre por eje temático entre 26 aforismos seleccionados del texto íntegro y los fragmentos preservados. Puede guardar pasajes clave para su repaso posterior.
+        </p>
+      </div>
+
+      <div class="control-bar">
+        <div class="field-group">
+          <label for="aphorism-search" class="label">Buscar por concepto, filósofo o número</label>
+          <input type="search" id="aphorism-search" class="field-input" placeholder="Ej.: Epicuro, libre albedrío, prosa, sombra, Wagner, 128…" oninput="handleAphorismSearch(this.value)">
+        </div>
+        <div class="field-group">
+          <span class="label">Resultados visibles</span>
+          <div id="aphorism-count" class="taupe-note" style="min-height: 44px; display: flex; align-items: center;">Mostrando 26 de 26 aforismos</div>
+        </div>
+      </div>
+
+      <div class="btn-row" role="group" aria-label="Filtrar aforismos por tema" style="margin-bottom: var(--space-lg);">
+        <button type="button" class="btn btn-secondary is-active" id="tag-btn-Todos" onclick="setAphorismTag('Todos')" aria-pressed="true">Todos</button>
+        <button type="button" class="btn btn-secondary" id="tag-btn-Moral" onclick="setAphorismTag('Moral')" aria-pressed="false">Moral</button>
+        <button type="button" class="btn btn-secondary" id="tag-btn-Salud" onclick="setAphorismTag('Salud')" aria-pressed="false">Salud</button>
+        <button type="button" class="btn btn-secondary" id="tag-btn-Arte" onclick="setAphorismTag('Arte')" aria-pressed="false">Arte</button>
+        <button type="button" class="btn btn-secondary" id="tag-btn-Música" onclick="setAphorismTag('Música')" aria-pressed="false">Música</button>
+        <button type="button" class="btn btn-secondary" id="tag-btn-Libertad intelectual" onclick="setAphorismTag('Libertad intelectual')" aria-pressed="false">Libertad intelectual</button>
+        <button type="button" class="btn btn-secondary" id="tag-btn-Guardados" onclick="setAphorismTag('Guardados')" aria-pressed="false">Guardados (<span id="saved-btn-count">0</span>)</button>
+      </div>
+
+      <div id="aphorism-grid" class="card-grid">
+        <!-- Populated by JS -->
+      </div>
+
+      <div id="aphorism-empty" class="empty-state" hidden>
+        <span class="label">Sin coincidencias</span>
+        <p id="aphorism-empty-msg">Ningún aforismo coincide con la búsqueda o etiqueta seleccionada.</p>
+        <button type="button" class="btn btn-primary" onclick="resetAphorismFilters()">Restablecer filtros</button>
+      </div>
+    </section>
+
+    <!-- 7. CUESTIONARIO DE COMPRENSIÓN FILOSÓFICA -->
+    <section id="cuestionario" class="section-block reveal">
+      <div class="section-head">
+        <span class="label">07 · Autoevaluación filosófica</span>
+        <h2>Cuestionario sobre <em>El caminante y su sombra</em></h2>
+        <p>
+          Ponga a prueba su dominio de los argumentos críticos de la obra a través de ocho cuestiones comentadas. Su progreso se conserva automáticamente.
+        </p>
+      </div>
+
+      <div class="stone-plate quiz-shell">
+        <div class="quiz-topbar">
+          <span class="label" id="quiz-progress-label">Pregunta 1 de 8</span>
+          <span class="label" id="quiz-score-label">Aciertos: 0 / 0 respondidas</span>
+        </div>
+
+        <div id="quiz-body">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="btn-row" id="quiz-controls">
+          <button type="button" class="btn btn-secondary" id="quiz-prev-btn" onclick="prevQuestion()">Anterior</button>
+          <button type="button" class="btn btn-primary" id="quiz-next-btn" onclick="nextQuestion()">Siguiente cuestión</button>
+          <button type="button" class="btn btn-secondary" id="quiz-reset-btn" onclick="handleResetQuiz(this)">Reiniciar test</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. PREGUNTAS FRECUENTES (FAQ) -->
+    <section id="faq" class="section-block reveal">
+      <div class="section-head">
+        <span class="label">08 · Preguntas frecuentes</span>
+        <h2>Claves de lectura y dudas <em>habituales</em></h2>
+      </div>
+
+      <div class="faq-list" id="faq-container">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- FOOTER Y FUENTES -->
+    <footer class="site-footer">
+      <div>
+        <span class="label">Fuentes del estudio</span>
+        <p style="margin-top: var(--space-xs); margin-bottom: 0;">
+          Friedrich Nietzsche, <em>El caminante y su sombra</em> (<em>Der Wanderer und sein Schatten</em>, 1880), traducción de Luis Díaz Marín; estudio preliminar «Soliloquios de un filósofo errante» de Enrique López Castellón.
+        </p>
+      </div>
+      <div>
+        <span class="label">Nota editorial</span>
+        <p style="margin-top: var(--space-xs); margin-bottom: 0;">
+          Plataforma de estudio autónomo sobre los fragmentos, cartas y aforismos documentados en la edición de referencia.
+        </p>
+      </div>
+    </footer>
+  </main>
+
+  <api-shim></api-shim>
+  <script>
+    (function () {
+      'use strict';
+    })();
+
+    /* ------------------------------------------------------------
+       DATA STORES (all backtick literals, no trailing commas)
+    ------------------------------------------------------------ */
+    const SOLAR_PHASES = {
+      morning: {
+        sunCx: 90,
+        sunCy: 58,
+        rayX2: 215,
+        rayY2: 132,
+        shadowPoints: `216,176 226,176 340,176 318,184`,
+        phaseLabel: `FILOSOFÍA DE LA MAÑANA`,
+        shadowLabel: `SOMBRA ALARGADA · INTERLOCUTORA DEL YO`,
+        title: `El despertar del diálogo interior`,
+        text: `Con la luz oblicua de la mañana, el rayo de la ciencia proyecta una sombra nítida junto al viajero: el yo se desdobla para interrogar sus ideas sin el artificio del tratado sistemático.`
+      },
+      noon: {
+        sunCx: 220,
+        sunCy: 36,
+        rayX2: 220,
+        rayY2: 122,
+        shadowPoints: `212,176 228,176 234,182 206,182`,
+        phaseLabel: `AL MEDIODÍA · EL SUEÑO DE PAN`,
+        shadowLabel: `SOL VERTICAL · RECOGIMIENTO Y AUREOLA DIFUSA`,
+        title: `La quietud del mediodía (Aforismo 303)`,
+        text: `El sol cae verticalmente sobre la cabeza del caminante; el dios Pan duerme junto al bosque. El corazón se detiene, sólo viven los ojos y la sombra se recoge a sus pies en una felicidad pesada y contemplativa.`
+      },
+      dusk: {
+        sunCx: 392,
+        sunCy: 146,
+        rayX2: 230,
+        rayY2: 134,
+        shadowPoints: `218,176 222,176 222,176 218,176`,
+        phaseLabel: `CREPÚSCULO BAJO LOS PINOS`,
+        shadowLabel: `EL SOL SE PONE · LA SOMBRA DESAPARECE`,
+        title: `Despedida y soledad final (Epílogo)`,
+        text: `«Ve debajo de esos pinos y mira en torno a ti, en dirección a las montañas: se pone el sol.» Al desaparecer la luz, la sombra se esfuma y Nietzsche vuelve a quedar solo: «¿Dónde estás? ¿Dónde estás?»`
+      }
+    };
+
+    const TIMELINE_DATA = [
+      {
+        year: `1878`,
+        kicker: `El punto de inflexión`,
+        title: `«Humano, demasiado humano» y la ruptura definitiva`,
+        summary: `Publicación de la primera parte de «Humano, demasiado humano», recibida con fracaso editorial y escándalo entre sus allegados. Nietzsche abandona el romanticismo irracionalista de Wagner —a quien sitúa «en el crepúsculo del arte»— y la metafísica nihilista de Schopenhauer para abrazar un racionalismo escéptico heredero de la Ilustración.`,
+        quote: `«Quien quiere llegar en cierta medida a la libertad de la razón no tiene derecho a sentirse sobre la tierra otra cosa que un viajero.»`,
+        detail: `Erwin Rohde rechaza la negación de la responsabilidad moral incondicionada; la amistad con Wagner queda rota sin retorno.`
+      },
+      {
+        year: `Verano de 1879`,
+        kicker: `Saint-Moritz · Alta Engadina`,
+        title: `Renuncia a la cátedra de Basilea y filosofía al aire libre`,
+        summary: `Las jaquecas crónicas, náuseas y el deterioro severo de la vista obligan a Nietzsche a dejar la Universidad de Basilea. En junio de 1879 llega a Saint-Moritz buscando aire puro y senderos boscosos sombreados que no dañen sus ojos. Vive modestamente, suprime casi toda carne, bebe abundante leche y anota sus ideas a lápiz en seis pequeños cuadernos mientras camina.`,
+        quote: `«Tengo la sensación de estar en la tierra prometida. Un continuo octubre con sol y, por primera vez, sentimiento de alivio.»`,
+        detail: `Carta a su hermana (24 de junio de 1879), germen de la atención a las «cosas próximas» y del modelo de Epicuro.`
+      },
+      {
+        year: `11 de septiembre de 1879`,
+        kicker: `Saint-Moritz → Venecia`,
+        title: `El manuscrito casi ilegible confiado a Peter Gast`,
+        summary: `Con treinta y cinco años cumplidos —«la mitad de la vida», evocando el verso de Dante—, Nietzsche envía sus garabatos a lápiz al joven músico Peter Gast, entonces en Venecia, rogándole que los copie con su caligrafía clara para la imprenta. A pesar de sentirse «rodeado por la muerte», defiende la energía y serenidad del libro.`,
+        quote: `«Pregúntese siempre si en él se encuentran rastros de sufrimiento y de depresión. Yo no lo creo.»`,
+        detail: `Al recibir la copia de Gast, lamenta haber dejado escapar unas veinte sucesiones esenciales de pensamientos por agotamiento cerebral.`
+      },
+      {
+        year: `Navidad de 1879`,
+        kicker: `Recepción íntima y desacuerdo`,
+        title: `Afecto personal frente a incomprensión filosófica`,
+        summary: `Mientras la señora Baumgartner y Malwida von Meysenbug celebran el tono sereno del libro sin advertir el martirio físico que oculta —y Nietzsche les responde deshaciendo el malentendido—, Wagner califica la obra de «repugnante nihilismo» por su trato hacia Cristo y el Fausto de Goethe. En Nochebuena llega la carta de Erwin Rohde, conmovido en su afecto pero distante en las ideas.`,
+        quote: `«El resultado personal de un libro ha sido, para mí, que un amigo me abandonara ofendido, como lo hace mi sombra.»`,
+        detail: `Respuesta de Nietzsche a Rohde en diciembre de 1879, agradeciendo la fidelidad por encima de toda polémica intelectual.`
+      },
+      {
+        year: `1880`,
+        kicker: `Publicación de la obra`,
+        title: `«El caminante y su sombra» e inicio de la vida errante`,
+        summary: `La obra aparece editada primero de forma independiente en 1880 (integrándose después, junto con «Miscelánea de opiniones y sentencias», como segunda parte y epílogo de «Humano, demasiado humano»). En febrero de 1880, tras constatar que su salud le impide dedicarse a la jardinería en Naumburgo, Nietzsche reemprende su existencia nómada por Europa.`,
+        quote: `«Todo, con excepción de algunas pocas líneas, ha sido pensado mientras paseaba.»`,
+        detail: `Comienza una década de desplazamientos continuos en la que redactará la parte más fecunda de su obra filosófica.`
+      },
+      {
+        year: `1881`,
+        kicker: `El horizonte siguiente`,
+        title: `«Aurora» y el descubrimiento mediterráneo de Bizet`,
+        summary: `Inmediatamente después de «El caminante y su sombra», Nietzsche escribe «Aurora», consolidando su cruzada contra los prejuicios morales, religiosos y metafísicos heredados. Ese mismo año escucha en Génova la ópera «Carmen» de Georges Bizet, hallando en ella la alegría solar y saludable capaz de ejercer «venganza» sobre la pesadez romántica wagneriana.`,
+        quote: `«¡Avancemos, amigos, unos miles de años! Muchos goces aguardan al hombre… siempre que no se estanque el desarrollo de la razón humana.»`,
+        detail: `Aforismo 183 de «El caminante y su sombra», preludio directo de la transfiguración matinal de «Aurora».`
+      }
+    ];
+
+    const COMPARISON_ROWS = [
+      {
+        category: `epistemologia`,
+        dimension: `Fuente del saber y método`,
+        romantic: `Irracionalismo dionisíaco, fascinación por el mito y búsqueda de certezas metafísicas absolutas heredadas de Schopenhauer.`,
+        enlightened: `Racionalismo escéptico e ilustrado; disolución de fantasmas metafísicos mediante la observación psicológica y la desconfianza metódica ante todo dogma (Af. 16, Pirrón).`
+      },
+      {
+        category: `epistemologia`,
+        dimension: `Estatuto del ser humano`,
+        romantic: `El hombre como centro trágico del cosmos, «casi Dios» o clave del enigma universal.`,
+        enlightened: `Crítica a la vanidad antropocéntrica: el hombre como «comediante del mundo» y la vida como una gota pasajera en el océano del devenir (Af. 12, 14).`
+      },
+      {
+        category: `moral`,
+        dimension: `Libertad, culpa y castigo`,
+        romantic: `Suposición del libre albedrío individual, responsabilidad incondicionada, remordimiento y justicia retributiva.`,
+        enlightened: `La voluntad como corriente continua indivisible (Af. 11); el «libre albedrío» es no sentir nuevas cadenas (Af. 10). El castigo nace del equilibrio de fuerzas y la defensa social, no del mérito absoluto (Af. 22–23, 318).`
+      },
+      {
+        category: `moral`,
+        dimension: `Relación con la vida cotidiana`,
+        romantic: `Desprecio hacia lo corporal y cercano en aras de ideales sublimes: salvación del alma, Estado o trascendencia.`,
+        enlightened: `Revalorización de las «cosas próximas» —alimentación, vivienda, sueño, aire, ritmo diario— y frugalidad epicúrea frente a médicos y curanderos de almas (Af. 5–6, 192, 305).`
+      },
+      {
+        category: `moral`,
+        dimension: `Actitud ante el sufrimiento`,
+        romantic: `Exposición patética del dolor para mover a la compasión y justificar el pesimismo de los vencidos.`,
+        enlightened: `«Doctrina de la salud» y «disciplina voluntaria»: convertir lo sufrido en fuerza serena y alegría («autor serio» frente a «autor triste», Af. 128).`
+      },
+      {
+        category: `arte`,
+        dimension: `Prosa y forma literaria`,
+        romantic: `Apasionamiento afectado, metáforas oscuras, grandilocuencia y sistemas cerrados propios de la prosa alemana clásica.`,
+        enlightened: `Aforismo sobrio, «concisión sólida, serenidad y madurez» (Af. 108), guiado por Lichtenberg y los moralistas franceses (Montaigne, La Rochefoucauld, Chamfort, Af. 214).`
+      },
+      {
+        category: `arte`,
+        dimension: `Música y estética`,
+        romantic: `Drama musical wagneriano («Parsifal»), estridencia orquestal, embriaguez narcótica y gesto cristiano del gran pecador.`,
+        enlightened: `«Cave musicam» contra el romanticismo sofocante; elogio de la melodía clara y serena (Af. 154) que prepara la salud mediterránea de Bizet («Carmen»).`
+      }
+    ];
+
+    const APHORISMS = [
+      {
+        id: 1,
+        num: `1`,
+        title: `Sobre el árbol de la ciencia`,
+        tag: `Libertad intelectual`,
+        text: `«Verosimilitud, pero no verdad; apariencia de libertad, pero no libertad. Gracias a estos dos frutos, el árbol de la ciencia no corre el peligro de que le confundan con el árbol de la vida.»`,
+        key: `Distingue el conocimiento crítico, siempre provisional, de las ilusiones vitales o absolutas.`
+      },
+      {
+        id: 2,
+        num: `2`,
+        title: `La razón del mundo`,
+        tag: `Libertad intelectual`,
+        text: `«El mundo no es el substrato de una razón eterna, lo que puede probarse irrefutablemente por el hecho de que esa parte del mundo que conocemos —me refiero a la razón humana— no es muy razonable.»`,
+        key: `Niega todo orden racional providencial proyectado sobre la totalidad del universo.`
+      },
+      {
+        id: 5,
+        num: `5`,
+        title: `Lenguaje y realidad`,
+        tag: `Salud`,
+        text: `«Las cosas más inmediatas, como la alimentación, la vivienda, el vestido, las relaciones sociales, no pasan a ser materia de reflexión y de reforma constante… Nuestras constantes transgresiones de las leyes más simples del cuerpo y del espíritu nos conducen a una dependencia vergonzosa de médicos, maestros y curanderos de almas.»`,
+        key: `Denuncia el desprecio hipócrita de lo cotidiano como origen de nuestra servidumbre ante tutores externos.`
+      },
+      {
+        id: 6,
+        num: `6`,
+        title: `La imperfección terrestre y su causa principal`,
+        tag: `Salud`,
+        text: `«Ser ignorante en las cosas más mezquinas y corrientes es lo que hace que la tierra sea para tantas personas un “campo de perdición”… Ya Sócrates se puso en guardia contra ese orgulloso descuido de lo humano y recordaba citando a Homero: “Existe y sólo existe lo bueno y lo malo que me sucede”.»`,
+        key: `Reclama atención lúcida sobre el ritmo del día, la comida, el descanso y la elección de compañías.`
+      },
+      {
+        id: 7,
+        num: `7`,
+        title: `Dos formas de consolarse`,
+        tag: `Salud`,
+        text: `«Quien desee consolar a los infelices, a los criminales, a los hipocondríacos, a los agonizantes, no tiene más que acordarse de los dos artificios calmantes de Epicuro: primero, si es así, no nos importa; segundo, puede ser así, pero también puede ser de otra manera.»`,
+        key: `Usa la pluralidad de hipótesis contra la angustia producida por dogmas únicos.`
+      },
+      {
+        id: 9,
+        num: `9`,
+        title: `Origen de la teoría del libre albedrío`,
+        tag: `Moral`,
+        text: `«Todos ellos buscan el libre albedrío precisamente allí donde están más encadenados… Cada cual se considera libre allí donde es más fuerte su sentimiento de vivir… La teoría del libre albedrío es un invento de las clases dirigentes.»`,
+        key: `Vincula la idea metafísica de libertad con el sentimiento político de soberanía y dominio.`
+      },
+      {
+        id: 10,
+        num: `10`,
+        title: `No sentir ya el peso de nuevas cadenas`,
+        tag: `Moral`,
+        text: `«¿Y si viviera siempre en una dependencia múltiple y se considerase libre porque la fuerza de la costumbre le hubiese hecho no sentir el peso de las cadenas? Sólo nuevas cadenas le vuelven a hacer sufrir. La expresión “libre albedrío” no quiere decir realmente otra cosa que el hecho de no sentir nuevas cadenas.»`,
+        key: `Desmonta la conciencia subjetiva de libertad como mera habituación a dependencias antiguas.`
+      },
+      {
+        id: 11,
+        num: `11`,
+        title: `El libre albedrío y el aislamiento de los hechos`,
+        tag: `Moral`,
+        text: `«El conjunto de nuestra actividad y de nuestro conocimiento no es realmente una serie de hechos y de espacios intermedios vacíos, sino una corriente continua… En el lenguaje se oculta una mitología filosófica, que reaparece a cada instante, por muchas precauciones que se adopten.»`,
+        key: `Ataca la atomística moral que separa actos de su flujo causal gracias a la simplificación verbal.`
+      },
+      {
+        id: 14,
+        num: `14`,
+        title: `El hombre, comediante del mundo`,
+        tag: `Libertad intelectual`,
+        text: `«Los astrónomos dan a entender que la gota que supone la vida en el mundo carece de importancia ante la totalidad del inmenso océano del devenir y del perecer… El astrónomo más libre de prejuicios no puede representarse la Tierra sin vida sino como el sepulcro iluminado y flotante de la humanidad.»`,
+        key: `Disuelve la soberbia cósmica humana en una perspectiva astronómica desilusionada.`
+      },
+      {
+        id: 19,
+        num: `19`,
+        title: `Inmoralista`,
+        tag: `Moral`,
+        text: `«Es preciso que hoy en día los moralistas dejen que se les considere inmoralistas, dado que disecan la moral. Sin embargo, quien diseca ha de matar, aunque sólo lo hace para conocer y juzgar, permitiendo así que se viva mejor.»`,
+        key: `Distingue al psicólogo que analiza los fenómenos morales del predicador edificante.`
+      },
+      {
+        id: 22,
+        num: `22`,
+        title: `Principio de equilibrio`,
+        tag: `Moral`,
+        text: `«El equilibrio constituye el fundamento de la justicia. Si en las épocas bárbaras la justicia declara el “ojo por ojo, diente por diente”, es porque considera que se ha logrado el equilibrio y quiere mantenerlo… Por eso el castigo no sólo es una venganza, sino algo más: posee la dureza del estado primitivo.»`,
+        key: `Explica el derecho y la ley del talión desde la genealogía de las fuerzas y no desde un ideal eterno.`
+      },
+      {
+        id: 23,
+        num: `23`,
+        title: `¿Tienen derecho a castigar los defensores del libre albedrío?`,
+        tag: `Moral`,
+        text: `«Se castiga al criminal porque obra sin razón, cuando debería haber actuado de acuerdo con razones… Pero la omisión se ha hecho inintencionadamente… ¡Defensores de la teoría del “libre albedrío”!, no tenéis derecho a castigar porque os lo prohíben vuestros propios principios.»`,
+        key: `Demuestra la autocontradicción interna de la justicia penal basada en el capricho inmotivado.`
+      },
+      {
+        id: 27,
+        num: `27`,
+        title: `Explicación del goce a causa del mal ajeno`,
+        tag: `Moral`,
+        text: `«El goce malintencionado que experimentamos ante el mal ajeno se debe al hecho de que nos sentimos mal por muchos conceptos… y el daño que afecta al prójimo le hace ser igual a nosotros y evita que le envidiemos.»`,
+        key: `Fina anatomía psicológica de la alegría por la desgracia ajena como igualación niveladora.`
+      },
+      {
+        id: 52,
+        num: `52`,
+        title: `La imagen de la conciencia`,
+        tag: `Moral`,
+        text: `«La fe y la autoridad constituyen las fuentes de la conciencia: ésta no es, pues, la voz de Dios en el corazón del hombre, sino la voz de algunos hombres en el hombre.»`,
+        key: `Desacraliza el imperativo moral interior revelando su origen pedagógico y social.`
+      },
+      {
+        id: 55,
+        num: `55`,
+        title: `Peligro del lenguaje para la libertad intelectual`,
+        tag: `Libertad intelectual`,
+        text: `«Toda palabra es un prejuicio.»`,
+        key: `Aforismo mínimo que condensa la sospecha crítica frente a la reificación lingüística del pensamiento.`
+      },
+      {
+        id: 108,
+        num: `108`,
+        title: `Fiestas escasas`,
+        tag: `Arte`,
+        text: `«Concisión sólida, serenidad y madurez: cuando descubras estas tres cualidades reunidas en un autor, detente y celebra una gran fiesta en medio del desierto, pues pasará mucho tiempo hasta que experimentes otra vez un placer semejante.»`,
+        key: `Define el canon estilístico de madurez que Nietzsche persigue frente al énfasis romántico.`
+      },
+      {
+        id: 109,
+        num: `109`,
+        title: `El tesoro de la prosa alemana`,
+        tag: `Arte`,
+        text: `«Al margen de las Obras de Goethe, y especialmente de sus Conversaciones con Eckermann, el mejor libro alemán que existe, ¿qué queda en suma de la literatura alemana en prosa que merezca leerse una y otra vez? Los Aforismos de Lichtenberg, el primer libro de Historia de mi vida de Jung-Stilling, El Veranillo de Adalberto Stifter, Gente de Seldwyla de Gottfried Keller y pare usted de contar.»`,
+        key: `Establece un canon selectísimo y severo de la prosa en lengua alemana.`
+      },
+      {
+        id: 115,
+        num: `115`,
+        title: `Qué paisajes seducen de un modo perdurable`,
+        tag: `Arte`,
+        text: `«Observo que todos los paisajes que me agradan de una forma duradera contienen, en su diversidad, una simple figura de líneas geométricas. Sin este substrato matemático ningún paisaje llega a convertirse para quien lo mira en objeto de placer artístico.»`,
+        key: `Reivindica la claridad geométrica y la medida clásica frente al pintoresquismo informe.`
+      },
+      {
+        id: 128,
+        num: `128`,
+        title: `Los autores tristes y los autores serios`,
+        tag: `Salud`,
+        text: `«Quien lleva al papel lo que sufre es un autor triste; pero se convierte en un autor serio cuando nos dice lo que ha sufrido y por qué en el presente le consuela la alegría.»`,
+        key: `Fórmula central de la «doctrina de la salud»: superar el dolor antes de convertirlo en escritura.`
+      },
+      {
+        id: 148,
+        num: `148`,
+        title: `El estilo grandilocuente y el estilo superior a éste`,
+        tag: `Arte`,
+        text: `«Es más fácil escribir con grandilocuencia que escribir de una forma ligera y sencilla. La razón de ello pertenece al terreno de la moral.»`,
+        key: `Vincula la sobriedad expresiva con la honestidad intelectual y el dominio de la vanidad.`
+      },
+      {
+        id: 154,
+        num: `154`,
+        title: `Música «serena»`,
+        tag: `Música`,
+        text: `«Cuando volvemos a oír música después de mucho tiempo, se nos introduce de pronto en la sangre algo semejante al fuerte vino del Mediodía, que nos embriaga el alma como un narcótico… Esto nos ocurre, sobre todo, con la música “serena”, que nos proporciona a un tiempo amargura y dolor, saciedad y nostalgia.»`,
+        key: `Explora el poder fisiológico ambiguo del arte musical sobre el sistema nervioso.`
+      },
+      {
+        id: 157,
+        num: `157`,
+        title: `Félix Mendelssohn`,
+        tag: `Música`,
+        text: `«La música de Félix Mendelssohn es la música del gusto vulgar que se complace en todo lo bueno que ha habido en el mundo; siempre nos remite a lo anterior. ¿Cómo iba, entonces, a tener futuro? Poseía esa virtud tan rara en los artistas que es la gratitud sin reservas, y ésa es una virtud que nos hace mirar hacia atrás.»`,
+        key: `Distingue entre el eclecticismo agradecido al pasado y la fuerza creadora orientada al porvenir.`
+      },
+      {
+        id: 192,
+        num: `192`,
+        title: `El filósofo de la opulencia`,
+        tag: `Salud`,
+        text: `«Un pequeño jardín, higos, queso y, además, dos o tres amigos: en esto consistía la opulencia de Epicuro.»`,
+        key: `Sintetiza la economía vital del sabio autosuficiente frente a la agitación moderna.`
+      },
+      {
+        id: 214,
+        num: `214`,
+        title: `Libros europeos`,
+        tag: `Arte`,
+        text: `«Cuando leemos a Montaigne, a La Rochefoucauld, a La Bruyère, a Fontenelle, a Vauvenargues y a Chamfort, nos encontramos más cerca de la antigüedad que cuando leemos a cualquier otra media docena de autores… Sus obras, traducidas al griego, las habrían entendido los griegos.»`,
+        key: `Sitúa la tradición aforística francesa como auténtica heredera del espíritu clásico y ateniense.`
+      },
+      {
+        id: 318,
+        num: `318`,
+        title: `Remordimiento`,
+        tag: `Moral`,
+        text: `«No deis nunca rienda suelta al remordimiento, sino decíos: “Esto sería añadir otra locura a la anterior. Si se ha hecho mal, hay que pensar en obrar bien”.»`,
+        key: `Sustituye la rumiación culpable por la rectificación práctica de la conducta.`
+      },
+      {
+        id: 327,
+        num: `327`,
+        title: `Tres cosas buenas`,
+        tag: `Libertad intelectual`,
+        text: `«La grandeza, la serenidad y la luz del sol son tres cosas que encierran todo lo que un pensador puede querer y exigirse a sí mismo… pensamientos que elevan, pensamientos que tranquilizan, pensamientos que iluminan: es el ámbito de la gran trinidad de la alegría.»`,
+        key: `Programa espiritual de la «filosofía de la mañana» como transfiguración de lo terreno.`
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        prompt: `¿Por qué rechaza Nietzsche en el prólogo escribir «El caminante y su sombra» como un diálogo filosófico extenso al estilo de Platón?`,
+        options: [
+          `Porque la sombra carece de opiniones propias y sólo repite frases bíblicas.`,
+          `Porque los diálogos escritos falsean todas las perspectivas y vuelven todo demasiado largo o demasiado corto.`,
+          `Porque en Saint-Moritz estaba prohibido publicar obras dramáticas.`
+        ],
+        correct: 1,
+        explanation: `En la Introducción, el caminante afirma: «Si a Platón le hubiera gustado menos escribir en diálogos, a sus lectores les habría complacido más leerle», pues el diálogo escrito crea un cuadro con perspectivas falsas; la sombra funge sobre todo como oyente muda del soliloquio.`
+      },
+      {
+        prompt: `Según el aforismo 128, ¿qué distingue a un «autor serio» de un «autor triste»?`,
+        options: [
+          `El autor serio expone lo que ha sufrido ya superado y por qué en el presente le consuela la alegría.`,
+          `El autor serio redacta tratados sistemáticos y evita el aforismo breve.`,
+          `El autor triste escribe únicamente sobre la muerte de Dios y el pesimismo cósmico.`
+        ],
+        correct: 0,
+        explanation: `Es la clave de la «doctrina de la salud»: llevar al papel el sufrimiento actual para suscitar compasión define al autor triste; el autor serio escribe desde la convalecencia y la alegría conquistada.`
+      },
+      {
+        prompt: `En el aforismo 10, ¿a qué reduce Nietzsche la experiencia subjetiva del «libre albedrío»?`,
+        options: [
+          `A una facultad inmortal otorgada por la razón eterna del universo.`,
+          `Al hecho de no sentir nuevas cadenas cuando el hábito ha borrado el peso de las dependencias anteriores.`,
+          `A la capacidad de elegir entre el bien absoluto y el mal absoluto fuera de toda causa.`
+        ],
+        correct: 1,
+        explanation: `Vivimos en dependencia múltiple, pero la fuerza de la costumbre vuelve invisibles nuestras ataduras habituales; sólo cuando aparecen cadenas nuevas advertimos la falta de libertad.`
+      },
+      {
+        prompt: `¿Por qué sostiene Nietzsche en el aforismo 23 que los defensores del libre albedrío no tienen derecho a castigar al criminal?`,
+        options: [
+          `Porque el Estado debe delegar todo castigo en la conciencia religiosa.`,
+          `Porque, si el acto surgió sin motivo por «puro capricho» al margen de la razón, se trata de una omisión inintencionada, y sus propios principios prohíben castigar lo inintencionado.`,
+          `Porque todo criminal actúa siempre movido por la compasión hacia las víctimas.`
+        ],
+        correct: 1,
+        explanation: `La paradoja del aforismo 23 expone que si el criminal eligió contra las mejores razones sin motivo alguno (libre albedrío entendido como milagro sin causa), obró sin intención racional y no cumple las condiciones de punibilidad.`
+      },
+      {
+        prompt: `¿Qué comprende Nietzsche bajo las «cosas próximas» en los aforismos 5 y 6?`,
+        options: [
+          `La salvación del alma, el progreso abstracto de la ciencia y el servicio al Estado.`,
+          `La alimentación, la vivienda, el vestido, el clima, el sueño, el trabajo y la división cotidiana del tiempo.`,
+          `Los manuscritos de los poetas románticos alemanes contemporáneos.`
+        ],
+        correct: 1,
+        explanation: `El desprecio metafísico y clerical hacia estas realidades inmediatas es, según el aforismo 6, la causa principal de los vicios corporales y morales y de nuestra servidumbre frente a médicos y curanderos de almas.`
+      },
+      {
+        prompt: `En el análisis genealógico del aforismo 22, ¿cuál es el fundamento primitivo de la justicia y de la ley del talión («ojo por ojo»)?`,
+        options: [
+          `El principio de equilibrio entre potencias similares para evitar la destrucción mutua prolongada.`,
+          `La revelación divina dictada a los primeros legisladores griegos.`,
+          `El remordimiento interior que siente el agresor tras dañar al débil.`
+        ],
+        correct: 0,
+        explanation: `Cuando una comunidad no puede destruir fácilmente a un adversario, iguala su poder con él y fija intercambios equivalentes; el talión restablece el equilibrio de poder y frena la venganza ciega.`
+      },
+      {
+        prompt: `¿Qué escritores propone Nietzsche en el aforismo 214 como más cercanos a la antigüedad griega que toda la filosofía alemana junta?`,
+        options: [
+          `Herder, Fichte y Schleiermacher.`,
+          `Los moralistas franceses: Montaigne, La Rochefoucauld, La Bruyère, Fontenelle, Vauvenargues y Chamfort.`,
+          `Los dramaturgos románticos inspirados en el Fausto de Goethe.`
+        ],
+        correct: 1,
+        explanation: `En estos seis autores franceses revive el espíritu lúcido, irónico y sobrio de la Antigüedad; traducidos al griego, afirma Nietzsche, los propios griegos habrían comprendido y aplaudido su claridad.`
+      },
+      {
+        prompt: `¿Qué simboliza la desaparición de la sombra en las líneas finales del libro?`,
+        options: [
+          `La conversión religiosa del filósofo al caer la tarde.`,
+          `El fin de la luz del día bajo los pinos: sin luz no hay sombra ni desdoblamiento, por lo que el caminante vuelve a quedar completamente solo.`,
+          `La derrota definitiva de la razón ilustrada frente al romanticismo wagneriano.`
+        ],
+        correct: 1,
+        explanation: `La sombra depende de la luz («No me quites el sol, que empiezo a tener frío»). Al ponerse el sol detrás de las montañas, se esfuma la interlocutora interior y el solitario pregunta en el crepúsculo: «¿Dónde estás? ¿Dónde estás?»`
+      }
+    ];
+
+    const FAQ_ITEMS = [
+      {
+        q: `¿Por qué «El caminante y su sombra» forma parte de «Humano, demasiado humano»?`,
+        a: `Aunque fue escrito en el verano de 1879 y publicado de manera independiente en 1880, Nietzsche integró posteriormente «El caminante y su sombra» junto con «Miscelánea de opiniones y sentencias» (1879) como segunda parte de «Humano, demasiado humano», añadiendo en 1886 un prólogo retrospectivo. Como señala Enrique López Castellón, constituye su apéndice o epílogo natural, ganando en lirismo y cohesión crítica antes del giro hacia «Aurora».`
+      },
+      {
+        q: `¿Cómo condicionó la enfermedad física y ocular de Nietzsche el estilo aforístico de la obra?`,
+        a: `En 1879 su vista estaba tan dañada que no resistía la luz brillante y debía acercar desmesuradamente el rostro al papel. Pensaba mientras paseaba por zonas boscosas sombreadas y anotaba a lápiz en seis pequeños cuadernos. El propio Nietzsche confesó a Peter Gast que su «maldito estilo telegráfico» le venía impuesto por la cabeza y los ojos; sin embargo, esa brevedad forzada terminó coincidiendo con la agudeza epigramática de su genio y su ideal de «concisión sólida».`
+      },
+      {
+        q: `¿Qué representa exactamente la «sombra» en el prólogo y en el epílogo?`,
+        a: `La sombra encarna el desdoblamiento del yo en el soliloquio del pensador solitario: «Yo soy la sombra que proyectan los objetos cuando incide en ellos el rayo solar de la ciencia». Frente al tópico de temer la oscuridad, el caminante afirma que luz y sombra colaboran amistosamente para dar relieve y claridad al carácter. La sombra le sirve de oyente discreta para dar forma verbal a ideas que, de otro modo, permanecerían mudas.`
+      },
+      {
+        q: `Al llamarse «inmoralista» y negar el libre albedrío, ¿propone Nietzsche abandonar toda virtud?`,
+        a: `No. En el aforismo 19 aclara que se llama «inmoralista» a quien diseca la moral tradicional para conocerla y permitir que se viva mejor, no para destruir el autodominio. De hecho, el aforismo 212 subraya que cuando cede la coacción moral heredada, no desaparecen las virtudes particulares —la moderación, la justicia, la tranquilidad del alma—, sino que el espíritu libre las practica conscientemente por su utilidad y salud vital.`
+      },
+      {
+        q: `¿Por qué ataca con tanta dureza la prosa alemana y a autores considerados clásicos como Herder?`,
+        a: `Porque considera que el lenguaje media el pensamiento: una expresión oscura, hinchada o afectada delata falta de rigor o vanidad (Af. 118, 147–148). A Herder le reprocha querer reinar por ambición con un estilo que «llamea, crepita y humea» sin alcanzar una llama limpia. Frente a esa pesadez, reivindica el modelo francés de Montaigne o La Rochefoucauld y los aforismos de Lichtenberg.`
+      },
+      {
+        q: `¿Dónde aparece la crítica a Richard Wagner si no se le menciona por su nombre?`,
+        a: `En el bloque musical (aforismos 149–169), Nietzsche combate el drama musical grandilocuente que necesita estridencias metálicas para excitar nervios fatigados y remeda los gestos cristianos del «gran pecador», alusión directa al «Parsifal» wagneriano. En el prólogo de 1886 lo hará explícito al aconsejar «Cave musicam» contra el arte romántico «ambiguo, fanfarrón, sofocante». Wagner, tras leer la obra en 1880, la condenó como muestra de «repugnante nihilismo».`
+      },
+      {
+        q: `¿Qué papel cumple la «doctrina de la salud» y las «cosas próximas» en el conjunto de su filosofía?`,
+        a: `Supone un giro radical desde la especulación metafísica sobre «lo primero y lo último» hacia la higiene material y psíquica de cada día: qué comemos, cómo dormimos, qué clima respiramos y cómo ordenamos la jornada (Af. 5–6, 305). Sin esa reconciliación con lo inmediato, la libertad de espíritu se vuelve quimera y el individuo queda sometido a autoridades religiosas o médicas externas.`
+      }
+    ];
+
+    /* ------------------------------------------------------------
+       STATE MANAGEMENT (via notebookAppApi)
+    ------------------------------------------------------------ */
+    const appState = {
+      solarPhase: `morning`,
+      timelineIndex: 0,
+      comparisonFilter: `all`,
+      aphorismTag: `Todos`,
+      aphorismQuery: ``,
+      savedAphorisms: [],
+      quizCurrent: 0,
+      quizAnswers: {}
+    };
+
+    async function persistState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+          await window.notebookAppApi.setAppState({
+            solarPhase: appState.solarPhase,
+            timelineIndex: appState.timelineIndex,
+            comparisonFilter: appState.comparisonFilter,
+            aphorismTag: appState.aphorismTag,
+            aphorismQuery: appState.aphorismQuery,
+            savedAphorisms: appState.savedAphorisms,
+            quizCurrent: appState.quizCurrent,
+            quizAnswers: appState.quizAnswers
+          });
+        }
+      } catch (err) {
+        /* Fail gracefully in standalone preview */
+      }
+    }
+
+    function updateNavCounters() {
+      const savedNav = document.getElementById(`nav-saved-count`);
+      const savedBtnCount = document.getElementById(`saved-btn-count`);
+      const quizNav = document.getElementById(`nav-quiz-status`);
+
+      if (savedNav) {
+        const n = appState.savedAphorisms.length;
+        savedNav.textContent = n === 1 ? `1 guardado` : `${n} guardados`;
+      }
+      if (savedBtnCount) {
+        savedBtnCount.textContent = String(appState.savedAphorisms.length);
+      }
+      if (quizNav) {
+        let correctCount = 0;
+        const keys = Object.keys(appState.quizAnswers);
+        for (let i = 0; i < keys.length; i++) {
+          const qIdx = Number(keys[i]);
+          if (QUIZ_QUESTIONS[qIdx] && appState.quizAnswers[keys[i]] === QUIZ_QUESTIONS[qIdx].correct) {
+            correctCount++;
+          }
+        }
+        quizNav.textContent = `Test: ${correctCount}/${QUIZ_QUESTIONS.length}`;
+      }
+    }
+
+    /* ------------------------------------------------------------
+       SOLAR SHADOW EXHIBIT
+    ------------------------------------------------------------ */
+    function setSolarPhase(phase) {
+      const data = SOLAR_PHASES[phase];
+      if (!data) return;
+      appState.solarPhase = phase;
+
+      const phases = [`morning`, `noon`, `dusk`];
+      for (let i = 0; i < phases.length; i++) {
+        const btn = document.getElementById(`solar-btn-${phases[i]}`);
+        if (btn) {
+          const active = phases[i] === phase;
+          btn.setAttribute(`aria-pressed`, active ? `true` : `false`);
+          btn.classList.toggle(`is-active`, active);
+        }
+      }
+
+      const sun = document.getElementById(`svg-sun`);
+      const ray = document.getElementById(`svg-ray`);
+      const shadow = document.getElementById(`svg-shadow`);
+      const phaseLbl = document.getElementById(`svg-phase-label`);
+      const shadowLbl = document.getElementById(`svg-shadow-label`);
+      const capTitle = document.getElementById(`solar-caption-title`);
+      const capText = document.getElementById(`solar-caption-text`);
+
+      if (sun) {
+        sun.setAttribute(`cx`, String(data.sunCx));
+        sun.setAttribute(`cy`, String(data.sunCy));
+      }
+      if (ray) {
+        ray.setAttribute(`x1`, String(data.sunCx));
+        ray.setAttribute(`y1`, String(data.sunCy));
+        ray.setAttribute(`x2`, String(data.rayX2));
+        ray.setAttribute(`y2`, String(data.rayY2));
+      }
+      if (shadow) {
+        shadow.setAttribute(`points`, data.shadowPoints);
+      }
+      if (phaseLbl) phaseLbl.textContent = data.phaseLabel;
+      if (shadowLbl) shadowLbl.textContent = data.shadowLabel;
+      if (capTitle) capTitle.textContent = data.title;
+      if (capText) capText.textContent = data.text;
+
+      persistState();
+    }
+
+    /* ------------------------------------------------------------
+       TIMELINE INTERACTIVE
+    ------------------------------------------------------------ */
+    function selectTimeline(index) {
+      if (index < 0 || index >= TIMELINE_DATA.length) return;
+      appState.timelineIndex = index;
+
+      for (let i = 0; i < TIMELINE_DATA.length; i++) {
+        const btn = document.getElementById(`tl-btn-${i}`);
+        if (btn) {
+          btn.setAttribute(`aria-selected`, i === index ? `true` : `false`);
+        }
+      }
+
+      const panel = document.getElementById(`timeline-panel`);
+      const item = TIMELINE_DATA[index];
+      if (panel && item) {
+        panel.innerHTML = `
+          <div class="asymmetric-split">
+            <div>
+              <span class="label">${item.year} · ${item.kicker}</span>
+              <h3 style="margin-top: var(--space-xs);">${item.title}</h3>
+              <p>${item.summary}</p>
+              <p class="taupe-note" style="margin-bottom: 0;">${item.detail}</p>
+            </div>
+            <div class="pull-quote" style="margin: 0; border-bottom: none; padding-bottom: 0;">
+              <blockquote>${item.quote}</blockquote>
+              <cite>Documentación epistolar y textual · ${item.year}</cite>
+            </div>
+          </div>
+        `;
+      }
+
+      persistState();
+    }
+
+    /* ------------------------------------------------------------
+       COMPARATIVE MATRIX
+    ------------------------------------------------------------ */
+    function filterComparison(category) {
+      appState.comparisonFilter = category;
+      const cats = [`all`, `epistemologia`, `moral`, `arte`];
+      for (let i = 0; i < cats.length; i++) {
+        const btn = document.getElementById(`cmp-btn-${cats[i]}`);
+        if (btn) {
+          const active = cats[i] === category;
+          btn.setAttribute(`aria-pressed`, active ? `true` : `false`);
+          btn.classList.toggle(`is-active`, active);
+        }
+      }
+
+      const tbody = document.getElementById(`comparison-tbody`);
+      if (!tbody) return;
+
+      const filtered = COMPARISON_ROWS.filter(function (row) {
+        return category === `all` || row.category === category;
+      });
+
+      let html = ``;
+      for (let i = 0; i < filtered.length; i++) {
+        const r = filtered[i];
+        html += `
+          <tr>
+            <td>${r.dimension}</td>
+            <td class="muted">${r.romantic}</td>
+            <td class="col-highlight">${r.enlightened}</td>
+          </tr>
+        `;
+      }
+      tbody.innerHTML = html;
+      persistState();
+    }
+
+    /* ------------------------------------------------------------
+       APHORISM EXPLORER
+    ------------------------------------------------------------ */
+    function normalizeText(str) {
+      return String(str || ``)
+        .toLowerCase()
+        .normalize(`NFD`)
+        .replace(/[\u0300-\u036f]/g, ``);
+    }
+
+    function handleAphorismSearch(val) {
+      appState.aphorismQuery = val;
+      renderAphorisms();
+      persistState();
+    }
+
+    function setAphorismTag(tag) {
+      appState.aphorismTag = tag;
+      const tags = [`Todos`, `Moral`, `Salud`, `Arte`, `Música`, `Libertad intelectual`, `Guardados`];
+      for (let i = 0; i < tags.length; i++) {
+        const btn = document.getElementById(`tag-btn-${tags[i]}`);
+        if (btn) {
+          const active = tags[i] === tag;
+          btn.setAttribute(`aria-pressed`, active ? `true` : `false`);
+          btn.classList.toggle(`is-active`, active);
+        }
+      }
+      renderAphorisms();
+      persistState();
+    }
+
+    function toggleBookmark(id) {
+      const idx = appState.savedAphorisms.indexOf(id);
+      if (idx === -1) {
+        appState.savedAphorisms.push(id);
+      } else {
+        appState.savedAphorisms.splice(idx, 1);
+      }
+      updateNavCounters();
+      renderAphorisms();
+      persistState();
+    }
+
+    function resetAphorismFilters() {
+      appState.aphorismTag = `Todos`;
+      appState.aphorismQuery = ``;
+      const searchInput = document.getElementById(`aphorism-search`);
+      if (searchInput) searchInput.value = ``;
+      setAphorismTag(`Todos`);
+    }
+
+    function renderAphorisms() {
+      const grid = document.getElementById(`aphorism-grid`);
+      const emptyBox = document.getElementById(`aphorism-empty`);
+      const emptyMsg = document.getElementById(`aphorism-empty-msg`);
+      const countEl = document.getElementById(`aphorism-count`);
+      if (!grid) return;
+
+      const q = normalizeText(appState.aphorismQuery.trim());
+      const matches = APHORISMS.filter(function (af) {
+        const isSaved = appState.savedAphorisms.indexOf(af.id) !== -1;
+        if (appState.aphorismTag === `Guardados` && !isSaved) return false;
+        if (appState.aphorismTag !== `Todos` && appState.aphorismTag !== `Guardados` && af.tag !== appState.aphorismTag) return false;
+
+        if (!q) return true;
+        const haystack = normalizeText(`${af.num} ${af.title} ${af.tag} ${af.text} ${af.key}`);
+        return haystack.indexOf(q) !== -1;
+      });
+
+      if (countEl) {
+        countEl.textContent = `Mostrando ${matches.length} de ${APHORISMS.length} aforismos`;
+      }
+
+      if (matches.length === 0) {
+        grid.innerHTML = ``;
+        if (emptyBox) emptyBox.hidden = false;
+        if (emptyMsg) {
+          emptyMsg.textContent = appState.aphorismTag === `Guardados` && appState.savedAphorisms.length === 0
+            ? `Aún no ha guardado ningún aforismo para repasar. Pulse «Guardar» en cualquier tarjeta del archivo.`
+            : `Ningún aforismo coincide con la búsqueda o categoría seleccionada.`;
+        }
+        return;
+      }
+
+      if (emptyBox) emptyBox.hidden = true;
+      let html = ``;
+      for (let i = 0; i < matches.length; i++) {
+        const af = matches[i];
+        const saved = appState.savedAphorisms.indexOf(af.id) !== -1;
+        html += `
+          <div class="card-wrapper">
+            <article class="aphorism-card">
+              <div class="aphorism-header">
+                <div class="aphorism-meta">
+                  <span class="label">Af. ${af.num}</span>
+                  <span class="tag-taupe">${af.tag}</span>
+                </div>
+                <button type="button" class="bookmark-btn" aria-pressed="${saved ? `true` : `false`}" onclick="toggleBookmark(${af.id})">
+                  ${saved ? `Guardado` : `Guardar`}
+                </button>
+              </div>
+              <h3>${af.title}</h3>
+              <p class="aphorism-quote">${af.text}</p>
+              <p class="aphorism-key"><strong>Clave:</strong> ${af.key}</p>
+            </article>
+          </div>
+        `;
+      }
+      grid.innerHTML = html;
+    }
+
+    /* ------------------------------------------------------------
+       QUIZ ENGINE
+    ------------------------------------------------------------ */
+    function answerQuestion(optionIndex) {
+      const qIdx = appState.quizCurrent;
+      if (typeof appState.quizAnswers[qIdx] !== `undefined`) return;
+      appState.quizAnswers[qIdx] = optionIndex;
+      updateNavCounters();
+      renderQuiz();
+      persistState();
+    }
+
+    function nextQuestion() {
+      if (appState.quizCurrent < QUIZ_QUESTIONS.length - 1) {
+        appState.quizCurrent++;
+        renderQuiz();
+        persistState();
+      }
+    }
+
+    function prevQuestion() {
+      if (appState.quizCurrent > 0) {
+        appState.quizCurrent--;
+        renderQuiz();
+        persistState();
+      }
+    }
+
+    function handleResetQuiz(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirmar reinicio`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reiniciar test`;
+      appState.quizCurrent = 0;
+      appState.quizAnswers = {};
+      updateNavCounters();
+      renderQuiz();
+      persistState();
+    }
+
+    function renderQuiz() {
+      const body = document.getElementById(`quiz-body`);
+      const progressLbl = document.getElementById(`quiz-progress-label`);
+      const scoreLbl = document.getElementById(`quiz-score-label`);
+      const prevBtn = document.getElementById(`quiz-prev-btn`);
+      const nextBtn = document.getElementById(`quiz-next-btn`);
+      const resetBtn = document.getElementById(`quiz-reset-btn`);
+
+      if (!body) return;
+
+      const qIdx = appState.quizCurrent;
+      const q = QUIZ_QUESTIONS[qIdx];
+      const userAns = appState.quizAnswers[qIdx];
+      const answeredKeys = Object.keys(appState.quizAnswers);
+
+      let correctCount = 0;
+      for (let i = 0; i < answeredKeys.length; i++) {
+        const idx = Number(answeredKeys[i]);
+        if (QUIZ_QUESTIONS[idx] && appState.quizAnswers[answeredKeys[i]] === QUIZ_QUESTIONS[idx].correct) {
+          correctCount++;
+        }
+      }
+
+      if (progressLbl) progressLbl.textContent = `Pregunta ${qIdx + 1} de ${QUIZ_QUESTIONS.length}`;
+      if (scoreLbl) scoreLbl.textContent = `Aciertos: ${correctCount} / ${answeredKeys.length} respondidas`;
+      if (prevBtn) prevBtn.disabled = qIdx === 0;
+      if (nextBtn) {
+        nextBtn.disabled = qIdx >= QUIZ_QUESTIONS.length - 1;
+        nextBtn.textContent = qIdx === QUIZ_QUESTIONS.length - 1 ? `Última pregunta` : `Siguiente cuestión`;
+      }
+      if (resetBtn && resetBtn.dataset.armed === `true`) {
+        resetBtn.dataset.armed = `false`;
+        resetBtn.textContent = `Reiniciar test`;
+      }
+
+      const letters = [`A`, `B`, `C`];
+      let optionsHtml = ``;
+      const isAnswered = typeof userAns !== `undefined`;
+
+      for (let i = 0; i < q.options.length; i++) {
+        let cls = `quiz-option-btn`;
+        if (isAnswered) {
+          if (i === q.correct) cls += ` is-correct`;
+          else if (i === userAns) cls += ` is-wrong`;
+        }
+        optionsHtml += `
+          <button type="button" class="${cls}" ${isAnswered ? `disabled` : ``} onclick="answerQuestion(${i})">
+            <span class="option-letter">${letters[i]}</span>
+            <span>${q.options[i]}</span>
+          </button>
+        `;
+      }
+
+      let feedbackHtml = ``;
+      if (isAnswered) {
+        const isCorrect = userAns === q.correct;
+        feedbackHtml = `
+          <div class="quiz-feedback" aria-live="polite">
+            <span class="status-badge ${isCorrect ? `status-positive` : `status-error`}">
+              ${isCorrect ? `Respuesta correcta` : `Respuesta imprecisa · La opción correcta es ${letters[q.correct]}`}
+            </span>
+            <p style="margin-bottom: 0;">${q.explanation}</p>
+          </div>
+        `;
+      }
+
+      let summaryHtml = ``;
+      if (answeredKeys.length === QUIZ_QUESTIONS.length) {
+        const pct = Math.round((correctCount / QUIZ_QUESTIONS.length) * 100);
+        summaryHtml = `
+          <div class="stone-plate-deep" style="margin-top: var(--space-md);">
+            <span class="label">Cuestionario completado · ${pct}% de acierto</span>
+            <p style="margin-top: var(--space-xs); margin-bottom: 0;">
+              Ha obtenido ${correctCount} de ${QUIZ_QUESTIONS.length} respuestas correctas. Puede repasar cualquier cuestión con los botones Anterior/Siguiente o reiniciar el test.
+            </p>
+          </div>
+        `;
+      }
+
+      body.innerHTML = `
+        <h3 style="margin-bottom: var(--space-md);">${q.prompt}</h3>
+        <div class="quiz-options">${optionsHtml}</div>
+        ${feedbackHtml}
+        ${summaryHtml}
+      `;
+    }
+
+    /* ------------------------------------------------------------
+       FAQ ACCORDION
+    ------------------------------------------------------------ */
+    function toggleFaq(index) {
+      const btn = document.getElementById(`faq-btn-${index}`);
+      const panel = document.getElementById(`faq-panel-${index}`);
+      const icon = document.getElementById(`faq-icon-${index}`);
+      if (!btn || !panel) return;
+
+      const expanded = btn.getAttribute(`aria-expanded`) === `true`;
+      btn.setAttribute(`aria-expanded`, expanded ? `false` : `true`);
+      panel.hidden = expanded;
+      if (icon) icon.textContent = expanded ? `+` : `−`;
+    }
+
+    function renderFaq() {
+      const container = document.getElementById(`faq-container`);
+      if (!container) return;
+
+      let html = ``;
+      for (let i = 0; i < FAQ_ITEMS.length; i++) {
+        const item = FAQ_ITEMS[i];
+        const isOpen = i === 0;
+        html += `
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" id="faq-btn-${i}" aria-expanded="${isOpen ? `true` : `false`}" aria-controls="faq-panel-${i}" onclick="toggleFaq(${i})">
+              <span>${item.q}</span>
+              <span class="faq-icon" id="faq-icon-${i}" aria-hidden="true">${isOpen ? `−` : `+`}</span>
+            </button>
+            <div class="faq-panel" id="faq-panel-${i}" ${isOpen ? `` : `hidden`}>
+              <p style="margin-bottom: 0;">${item.a}</p>
+            </div>
+          </div>
+        `;
+      }
+      container.innerHTML = html;
+    }
+
+    /* ------------------------------------------------------------
+       SCROLL REVEAL
+    ------------------------------------------------------------ */
+    function initScrollReveal() {
+      const els = document.querySelectorAll(`.reveal`);
+      if (!(`IntersectionObserver` in window)) {
+        for (let i = 0; i < els.length; i++) els[i].classList.add(`is-visible`);
+        return;
+      }
+
+      const obs = new IntersectionObserver(function (entries, observer) {
+        for (let i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            entries[i].target.classList.add(`is-visible`);
+            observer.unobserve(entries[i].target);
+          }
+        }
+      }, { threshold: 0.1 });
+
+      for (let i = 0; i < els.length; i++) {
+        obs.observe(els[i]);
+      }
+    }
+
+    /* ------------------------------------------------------------
+       INITIALIZATION
+    ------------------------------------------------------------ */
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            if (saved.solarPhase && SOLAR_PHASES[saved.solarPhase]) appState.solarPhase = saved.solarPhase;
+            if (typeof saved.timelineIndex === `number`) appState.timelineIndex = saved.timelineIndex;
+            if (typeof saved.comparisonFilter === `string`) appState.comparisonFilter = saved.comparisonFilter;
+            if (typeof saved.aphorismTag === `string`) appState.aphorismTag = saved.aphorismTag;
+            if (typeof saved.aphorismQuery === `string`) appState.aphorismQuery = saved.aphorismQuery;
+            if (Array.isArray(saved.savedAphorisms)) appState.savedAphorisms = saved.savedAphorisms;
+            if (typeof saved.quizCurrent === `number`) appState.quizCurrent = saved.quizCurrent;
+            if (saved.quizAnswers && typeof saved.quizAnswers === `object`) appState.quizAnswers = saved.quizAnswers;
+          }
+        }
+      } catch (err) {
+        /* Fallback to defaults */
+      }
+
+      const searchInput = document.getElementById(`aphorism-search`);
+      if (searchInput && appState.aphorismQuery) {
+        searchInput.value = appState.aphorismQuery;
+      }
+
+      setSolarPhase(appState.solarPhase);
+      selectTimeline(appState.timelineIndex);
+      filterComparison(appState.comparisonFilter);
+      setAphorismTag(appState.aphorismTag);
+      renderQuiz();
+      renderFaq();
+      updateNavCounters();
+      initScrollReveal();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    if (document.readyState === `loading`) {
+      document.addEventListener(`DOMContentLoaded`, initApp);
+    } else {
+      initApp();
+    }
+  </script>
+</body>
+</html>

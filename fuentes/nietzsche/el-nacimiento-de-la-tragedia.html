@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="sonnet">
+  <title>El nacimiento de la tragedia — Base de conocimientos interactiva</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Sonnet style tokens */
+      --background: #f5efe0;
+      --surface-container-low: #f8f3e7;
+      --surface-container: #ece3cf;
+      --surface-container-high: #e4d8bf;
+
+      --on-surface: #1f1a17;
+      --on-surface-variant: #4a3f38;
+
+      --outline: #a8843f;
+      --outline-variant: #d8c7a3;
+
+      --primary: #6b1424;
+      --on-primary: #f5efe0;
+      --primary-container: #efe0dc;
+      --on-primary-container: #4a0d18;
+      --secondary: #2f4a3a;
+      --tertiary: #a8843f;
+      --error: #9b2c1f;
+      --on-error: #f5efe0;
+
+      --data-1: #6b1424;
+      --data-2: #2f4a3a;
+      --data-3: #a8843f;
+      --data-4: #3d5a73;
+      --data-context: #b9ad9c;
+
+      --font-headline: 'Cormorant Garamond', serif;
+      --font-body: 'Crimson Pro', serif;
+      --font-label: 'Cormorant Garamond', serif;
+
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 9999px;
+
+      --gilt-rule: 1px solid var(--outline);
+      --gilt-hairline: 1px solid var(--outline-variant);
+      --gilt-frame-inset: 5px;
+      --paper-vignette: inset 0 0 90px rgb(120 90 40 / 0.16);
+
+      /* 3. Shared foundation tokens */
+      --positive: #2f4a3a;
+      --warning: #7a4b12;
+      --focus: #6b1424;
+
+      /* Narrative scale stepped for Cormorant Garamond & Crimson Pro */
+      --display-size: clamp(2.6rem, 1.8rem + 3.4vw, 4.35rem);
+      --headline-size: clamp(1.85rem, 1.35rem + 1.8vw, 2.65rem);
+      --subhead-size: clamp(1.3rem, 1.15rem + 0.65vw, 1.65rem);
+      --body-size: clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.14vw, 0.85rem);
+
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.68;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page {
+      min-height: 100vh;
+      box-shadow: var(--paper-vignette);
+      padding-block: var(--space-lg) var(--space-3xl);
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-lg);
+      max-width: 1040px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .label-voice {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--primary);
+    }
+
+    .prose-measure {
+      max-width: 64ch;
+      margin-inline: auto;
+      text-align: left;
+    }
+
+    .prose-measure p {
+      margin-top: 0;
+      margin-bottom: var(--space-md);
+      font-variant-numeric: oldstyle-nums;
+    }
+
+    .drop-cap::first-letter {
+      float: left;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 3.6em;
+      line-height: 0.85;
+      padding: 0.06em 0.09em 0 0;
+      color: var(--primary);
+    }
+
+    /* Verse / Epigraph block */
+    .verse {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.25rem;
+      line-height: 1.5;
+      color: var(--secondary);
+      border-left: var(--gilt-rule);
+      padding-left: var(--space-md);
+      margin-block: var(--space-lg);
+      margin-inline: auto;
+      max-width: 44ch;
+      text-align: left;
+    }
+    .verse cite {
+      display: block;
+      margin-top: var(--space-xs);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+
+    /* Navigation bar */
+    .edition-nav {
+      border-bottom: var(--gilt-hairline);
+      padding-bottom: var(--space-md);
+      text-align: center;
+    }
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-xs) var(--space-sm);
+    }
+    .nav-list li {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .nav-list li + li::before {
+      content: "·";
+      color: var(--on-surface-variant);
+      font-family: var(--font-headline);
+    }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline: var(--space-xs);
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .nav-link:hover,
+    .nav-link:active {
+      color: var(--primary);
+      border-bottom-color: var(--outline);
+    }
+
+    /* Hero / Gilt Double Frame (strictly ONE per view) */
+    .gilt-frame {
+      border: var(--gilt-rule);
+      outline: var(--gilt-rule);
+      outline-offset: calc(-1 * var(--gilt-frame-inset));
+      padding: var(--space-2xl) var(--space-xl);
+      text-align: center;
+      background-color: var(--surface-container-low);
+    }
+
+    .hero-kicker {
+      margin-bottom: var(--space-md);
+    }
+
+    .hero-title {
+      font-size: var(--display-size);
+      font-style: italic;
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -0.005em;
+      margin-bottom: var(--space-sm);
+    }
+    .hero-title span.roman-accent {
+      font-style: normal;
+      color: var(--primary);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-headline);
+      font-size: var(--subhead-size);
+      font-weight: 400;
+      color: var(--on-surface-variant);
+      max-width: 48ch;
+      margin: 0 auto var(--space-lg);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    /* Buttons */
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-lg);
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      text-decoration: none;
+      cursor: pointer;
+      border-radius: var(--rounded);
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+    }
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background-color: var(--primary-container);
+    }
+    .btn-primary:disabled,
+    .btn-secondary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Ruled Key Figures Strip */
+    .ruled-figures {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+      gap: var(--space-lg);
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+      text-align: center;
+    }
+    .figure-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      align-items: center;
+    }
+    .figure-value {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(2rem, 1.6rem + 1.4vw, 2.75rem);
+      line-height: 1.1;
+      color: var(--on-surface);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .figure-caption {
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--on-surface-variant);
+      max-width: 24ch;
+    }
+
+    /* Section Headings (Centered per Sonnet symmetry) */
+    .section-block {
+      padding-top: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xl);
+    }
+
+    .section-header {
+      text-align: center;
+      border-bottom: var(--gilt-hairline);
+      padding-bottom: var(--space-md);
+      max-width: 58ch;
+      margin-inline: auto;
+      width: 100%;
+    }
+    .section-header h2 {
+      font-size: var(--headline-size);
+      font-style: italic;
+      font-weight: 500;
+      line-height: 1.15;
+      margin-top: var(--space-xs);
+    }
+    .section-standfirst {
+      margin: var(--space-sm) auto 0;
+      color: var(--on-surface-variant);
+      font-size: 1.05rem;
+      max-width: 52ch;
+    }
+
+    /* Tags (rounded-full green outline per Sonnet) */
+    .tag {
+      display: inline-block;
+      border: 1px solid var(--secondary);
+      border-radius: var(--rounded-full);
+      padding: var(--space-xs) var(--space-md);
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--secondary);
+    }
+
+    /* Schematic SVG Figure */
+    .schematic-figure {
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+      background-color: var(--surface-container-low);
+      padding-inline: var(--space-md);
+    }
+    .schematic-caption {
+      text-align: center;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--on-surface-variant);
+      margin-top: var(--space-sm);
+    }
+    .schematic-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-width: 860px;
+      margin-inline: auto;
+    }
+
+    /* Interactive Accordions / Collapsible Comparisons */
+    .accordion-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      max-width: 78ch;
+      width: 100%;
+      margin-inline: auto;
+    }
+
+    .accordion-stack {
+      display: flex;
+      flex-direction: column;
+      max-width: 78ch;
+      width: 100%;
+      margin-inline: auto;
+      border-top: var(--gilt-rule);
+    }
+
+    .accordion-item {
+      border-bottom: var(--gilt-hairline);
+    }
+
+    .accordion-trigger {
+      width: 100%;
+      min-height: 48px;
+      padding: var(--space-md) var(--space-sm);
+      background: transparent;
+      border: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      text-align: left;
+      cursor: pointer;
+      color: var(--on-surface);
+      font-family: var(--font-headline);
+      font-size: 1.35rem;
+      font-weight: 600;
+      transition: background-color var(--dur-micro) var(--ease-in-out), color var(--dur-micro) var(--ease-in-out);
+    }
+    .accordion-trigger:hover {
+      background-color: var(--surface-container-low);
+      color: var(--primary);
+    }
+    .accordion-trigger[aria-expanded="true"] {
+      color: var(--primary);
+    }
+
+    .accordion-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      flex-shrink: 0;
+    }
+
+    .accordion-chevron {
+      width: 18px;
+      height: 18px;
+      transition: transform var(--dur-short) var(--ease-in-out);
+      color: var(--primary);
+    }
+    .accordion-trigger[aria-expanded="true"] .accordion-chevron {
+      transform: rotate(180deg);
+    }
+
+    .accordion-panel {
+      display: none;
+      padding: 0 var(--space-sm) var(--space-lg);
+      animation: fadePanel var(--dur-short) var(--ease-out);
+    }
+    .accordion-panel.is-open {
+      display: block;
+    }
+
+    @keyframes fadePanel {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Comparison Dual Grid inside Collapsible */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-lg);
+      padding-top: var(--space-sm);
+      border-top: var(--gilt-hairline);
+    }
+    .compare-col {
+      padding: var(--space-sm) var(--space-md);
+      border-left: var(--gilt-hairline);
+    }
+    .compare-col:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .compare-col h4 {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: var(--space-xs);
+    }
+    .compare-col.is-apollonian h4 { color: var(--secondary); }
+    .compare-col.is-dionysian h4 { color: var(--primary); }
+    .compare-col.is-synthesis h4 { color: var(--on-surface); }
+
+    .compare-col p {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    /* Mythical Figures Selector */
+    .selector-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-sm);
+    }
+    .pill-btn {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border: 1px solid var(--outline-variant);
+      background-color: transparent;
+      color: var(--on-surface-variant);
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .pill-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .pill-btn.is-active {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .dossier-panel {
+      background-color: var(--surface-container-low);
+      border-block: var(--gilt-rule);
+      padding: var(--space-lg) var(--space-xl);
+      max-width: 72ch;
+      margin-inline: auto;
+      width: 100%;
+    }
+    .dossier-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+      border-bottom: var(--gilt-hairline);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-head h3 {
+      font-size: 1.6rem;
+      font-style: italic;
+    }
+
+    /* Ruled Data Table */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      max-width: 78ch;
+      margin-inline: auto;
+    }
+    table.editorial-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 1rem;
+    }
+    table.editorial-table th {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--primary);
+      border-bottom: var(--gilt-rule);
+      padding: var(--space-sm) var(--space-md);
+    }
+    table.editorial-table td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--gilt-hairline);
+      vertical-align: top;
+    }
+    table.editorial-table td.num {
+      font-variant-numeric: lining-nums tabular-nums;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Interactive Timeline */
+    .timeline-container {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+      gap: var(--space-xl);
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-xl);
+      align-items: start;
+    }
+    .timeline-rail {
+      display: flex;
+      flex-direction: column;
+      border-left: var(--gilt-rule);
+      padding-left: var(--space-md);
+      gap: var(--space-xs);
+    }
+    .timeline-step-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      width: 100%;
+      min-height: 48px;
+      padding: var(--space-sm) var(--space-md);
+      background: transparent;
+      border: 0;
+      border-left: 3px solid transparent;
+      cursor: pointer;
+      color: var(--on-surface-variant);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .timeline-step-btn:hover {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+    }
+    .timeline-step-btn.is-active {
+      background-color: var(--surface-container);
+      border-left-color: var(--primary);
+      color: var(--on-surface);
+    }
+    .timeline-step-phase {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+    .timeline-step-title {
+      font-family: var(--font-headline);
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .timeline-detail {
+      background-color: var(--surface-container-low);
+      padding: var(--space-lg);
+      border: var(--gilt-hairline);
+    }
+    .timeline-detail h3 {
+      font-size: 1.75rem;
+      font-style: italic;
+      margin-bottom: var(--space-xs);
+    }
+    .timeline-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+      padding-top: var(--space-md);
+      border-top: var(--gilt-hairline);
+    }
+
+    /* Pulse balance bars inside timeline (qualitative conceptual intensity) */
+    .tension-bars {
+      margin-block: var(--space-md);
+      padding-block: var(--space-sm);
+      border-block: var(--gilt-hairline);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .tension-row {
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr) 74px;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: 0.9rem;
+    }
+    .tension-label {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .tension-track {
+      height: 6px;
+      background-color: var(--surface-container-high);
+      overflow: hidden;
+    }
+    .tension-fill {
+      height: 100%;
+      transition: width var(--dur-long) var(--ease-out);
+    }
+    .tension-fill.apolo { background-color: var(--secondary); }
+    .tension-fill.dioniso { background-color: var(--primary); }
+    .tension-fill.socrates { background-color: var(--data-4); }
+
+    /* Interactive Quiz */
+    .quiz-shell {
+      background-color: var(--surface-container-low);
+      border: var(--gilt-rule);
+      padding: var(--space-xl);
+      max-width: 74ch;
+      width: 100%;
+      margin-inline: auto;
+    }
+    .quiz-header-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--gilt-hairline);
+      margin-bottom: var(--space-lg);
+    }
+    .quiz-progress-track {
+      width: 100%;
+      height: 4px;
+      background-color: var(--surface-container-high);
+      margin-bottom: var(--space-lg);
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      transition: width var(--dur-short) var(--ease-out);
+    }
+    .quiz-question {
+      font-family: var(--font-headline);
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: var(--space-md);
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .quiz-option-btn {
+      width: 100%;
+      min-height: 48px;
+      padding: var(--space-sm) var(--space-md);
+      text-align: left;
+      background-color: var(--background);
+      border: 1px solid var(--outline-variant);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.45;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background-color: var(--surface-container);
+    }
+    .quiz-option-btn.is-correct {
+      background-color: var(--surface-container);
+      border-color: var(--positive);
+      box-shadow: inset 4px 0 0 var(--positive);
+    }
+    .quiz-option-btn.is-wrong {
+      background-color: var(--primary-container);
+      border-color: var(--error);
+      box-shadow: inset 4px 0 0 var(--error);
+    }
+    .quiz-option-letter {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+    .quiz-feedback {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      border-left: 3px solid var(--outline);
+      background-color: var(--background);
+    }
+    .quiz-feedback.is-correct { border-left-color: var(--positive); }
+    .quiz-feedback.is-wrong { border-left-color: var(--error); }
+
+    .quiz-nav-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+      padding-top: var(--space-md);
+      border-top: var(--gilt-hairline);
+    }
+
+    /* Footer / Sources */
+    .edition-footer {
+      border-top: var(--gilt-rule);
+      padding-top: var(--space-xl);
+      text-align: center;
+      color: var(--on-surface-variant);
+      font-size: 0.95rem;
+      max-width: 64ch;
+      margin-inline: auto;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 760px) {
+      .timeline-container {
+        grid-template-columns: 1fr;
+      }
+      .compare-col {
+        border-left: 0;
+        padding-left: 0;
+        border-top: var(--gilt-hairline);
+        padding-top: var(--space-md);
+      }
+      .compare-col:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .gilt-frame {
+        padding: var(--space-xl) var(--space-md);
+      }
+      .quiz-shell {
+        padding: var(--space-md);
+      }
+      .dossier-panel {
+        padding: var(--space-md);
+      }
+      .tension-row {
+        grid-template-columns: 90px minmax(0, 1fr) 64px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <main class="page-grid">
+
+      <!-- Navegación limpia de la edición -->
+      <header>
+        <nav class="edition-nav" aria-label="Navegación principal">
+          <ul class="nav-list">
+            <li><a class="nav-link" href="#inicio">Inicio</a></li>
+            <li><a class="nav-link" href="#dualidad">Apolíneo y Dionisíaco</a></li>
+            <li><a class="nav-link" href="#tragedia-coro">Tragedia y Coro</a></li>
+            <li><a class="nav-link" href="#socratismo">Socratismo y Eurípides</a></li>
+            <li><a class="nav-link" href="#linea-tiempo">Línea de tiempo</a></li>
+            <li><a class="nav-link" href="#cuestionario">Autoevaluación</a></li>
+            <li><a class="nav-link" href="#faq">FAQ</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <!-- Página de inicio atractiva (Gilt Double Frame — único en la vista) -->
+      <section id="inicio" class="gilt-frame" aria-labelledby="titulo-principal">
+        <div class="label-voice hero-kicker">Basilea, 1872 · Base de conocimientos filosófica</div>
+        <h1 id="titulo-principal" class="hero-title">
+          El nacimiento de la <span class="roman-accent">tragedia</span>
+        </h1>
+        <p class="hero-subtitle">
+          Una guía estructurada e interactiva sobre la primera gran obra de Friedrich Nietzsche: la dualidad entre Apolo y Dioniso, el enigma del coro de sátiros y la disolución socrática del mito trágico.
+        </p>
+        <blockquote class="verse">
+          «Sólo como fenómeno estético está justificada eternamente la existencia del mundo.»
+          <cite>Friedrich Nietzsche · El nacimiento de la tragedia (1872)</cite>
+        </blockquote>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#dualidad">Explorar los conceptos</a>
+          <a class="btn-secondary" href="#cuestionario">Ir a la autoevaluación</a>
+        </div>
+      </section>
+
+      <!-- Fila de cifras y pilares clave entre filetes dorados -->
+      <section aria-label="Claves estructurales de la obra">
+        <div class="ruled-figures">
+          <div class="figure-item">
+            <span class="label-voice">Publicación y revisión</span>
+            <span class="figure-value">1872 / 1886</span>
+            <span class="figure-caption">Primera edición y posterior <em>Ensayo de autocrítica</em></span>
+          </div>
+          <div class="figure-item">
+            <span class="label-voice">Pulsiones estéticas</span>
+            <span class="figure-value">2 fuerzas</span>
+            <span class="figure-caption">Lo apolíneo (sueño) y lo dionisíaco (embriaguez)</span>
+          </div>
+          <div class="figure-item">
+            <span class="label-voice">Estadios helénicos</span>
+            <span class="figure-value">4 fases</span>
+            <span class="figure-caption">De la edad titánica hasta el enlace trágico ático</span>
+          </div>
+          <div class="figure-item">
+            <span class="label-voice">Escena ateniense</span>
+            <span class="figure-value">&gt; 20.000</span>
+            <span class="figure-caption">Espectadores ante 1.600 versos en jornadas de 10 horas</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Introducción narrativa -->
+      <section aria-label="Génesis de la obra">
+        <div class="prose-measure">
+          <p class="drop-cap">
+            Concebida entre los estampidos de la guerra franco-alemana de 1870–1871 —mientras un joven Friedrich Nietzsche cavilaba en los Alpes, servía junto a los muros de Metz y convalecía de una enfermedad contraída en campaña—, <em>El nacimiento de la tragedia en el espíritu de la música</em> irrumpió en 1872 como un libro problemático y radicalmente nuevo. Lejos de ser una mera disertación filológica sobre la Antigüedad clásica, el tratado coloca un inmenso signo de interrogación sobre el valor de la existencia, el origen del pesimismo griego y el sentido mismo de la ciencia moderna.
+          </p>
+          <p>
+            Dieciséis años más tarde, en el <em>Ensayo de autocrítica</em> de 1886, Nietzsche resumiría el desafío que aquella obra juvenil osó emprender por vez primera: <strong>ver la ciencia con la óptica del artista, y el arte, con la de la vida</strong>. Frente a la interpretación moral y racionalista del mundo, el pensamiento nietzscheano descubre en los griegos de la mejor época un «pesimismo de la fortaleza» capaz de mirar frente a frente lo terrible de la naturaleza y transfigurarlo en obra de arte.
+          </p>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 1: Lo Apolíneo vs. Lo Dionisíaco -->
+      <section id="dualidad" class="section-block" aria-labelledby="h-dualidad">
+        <div class="section-header">
+          <span class="label-voice">Sección I · Las potencias artísticas primordiales</span>
+          <h2 id="h-dualidad">Lo apolíneo frente a lo dionisíaco</h2>
+          <p class="section-standfirst">
+            El desarrollo del arte griego depende de la lucha constante y la reconciliación periódica de dos instintos naturales opuestos: la bella apariencia del sueño y el éxtasis unificador de la embriaguez.
+          </p>
+        </div>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            Para volver comprensible esta dualidad, Nietzsche toma en préstamo los nombres de las dos divinidades artísticas del panteón griego —Apolo y Dioniso— y las aproxima mediante dos fenómenos fisiológicos cotidianos: el sueño y la embriaguez. En el sueño, cada ser humano es un artista figurativo completo: disfruta de formas precisas y luminosas, aunque conserva el sentimiento traslúcido de que todo aquello es apariencia. En la embriaguez, por el contrario, el <em>principium individuationis</em> se quiebra: las fronteras entre los seres humanos y entre el hombre y la naturaleza se disuelven en el vértigo de lo Uno primordial.
+          </p>
+          <blockquote class="verse">
+            «Amigo mío, ésa es precisamente la obra del poeta, el interpretar y observar sus sueños. Creedme, la ilusión más verdadera del hombre se le manifiesta en el sueño.»
+            <cite>Hans Sachs en Los maestros cantores (citado en el § 1)</cite>
+          </blockquote>
+        </div>
+
+        <!-- Esquema SVG estructural -->
+        <figure class="schematic-figure">
+          <svg class="schematic-svg" viewBox="0 0 860 320" role="img" aria-label="Esquema conceptual de las fuerzas apolínea y dionisíaca, su síntesis en la tragedia ática y su ruptura por el socratismo">
+            <!-- Líneas de conexión -->
+            <line x1="250" y1="88" x2="365" y2="145" stroke="var(--outline)" stroke-width="1.5"/>
+            <line x1="250" y1="232" x2="365" y2="175" stroke="var(--outline)" stroke-width="1.5"/>
+            <line x1="535" y1="160" x2="620" y2="160" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+            <!-- Caja Apolo -->
+            <rect x="20" y="28" width="230" height="120" fill="var(--background)" stroke="var(--secondary)" stroke-width="1.5"/>
+            <text x="36" y="54" font-family="var(--font-label)" font-size="12" font-weight="600" letter-spacing="2" fill="var(--secondary)">PULSIÓN APOLÍNEA</text>
+            <text x="36" y="80" font-family="var(--font-headline)" font-size="22" font-style="italic" font-weight="600" fill="var(--on-surface)">Sueño y Bella Apariencia</text>
+            <text x="36" y="105" font-family="var(--font-body)" font-size="14" fill="var(--on-surface-variant)">Escultura, épica homérica, cítara</text>
+            <text x="36" y="127" font-family="var(--font-body)" font-size="14" fill="var(--on-surface-variant)">Mesura · Principium individuationis</text>
+
+            <!-- Caja Dioniso -->
+            <rect x="20" y="172" width="230" height="120" fill="var(--background)" stroke="var(--primary)" stroke-width="1.5"/>
+            <text x="36" y="198" font-family="var(--font-label)" font-size="12" font-weight="600" letter-spacing="2" fill="var(--primary)">PULSIÓN DIONISÍACA</text>
+            <text x="36" y="224" font-family="var(--font-headline)" font-size="22" font-style="italic" font-weight="600" fill="var(--on-surface)">Embriaguez y Música</text>
+            <text x="36" y="249" font-family="var(--font-body)" font-size="14" fill="var(--on-surface-variant)">Ditirambo, melodía, danza coral</text>
+            <text x="36" y="271" font-family="var(--font-body)" font-size="14" fill="var(--on-surface-variant)">Desmesura · Lo Uno primordial</text>
+
+            <!-- Caja Síntesis Tragedia Ática -->
+            <rect x="365" y="88" width="170" height="144" fill="var(--surface-container)" stroke="var(--outline)" stroke-width="2"/>
+            <text x="450" y="116" text-anchor="middle" font-family="var(--font-label)" font-size="11" font-weight="600" letter-spacing="2" fill="var(--primary)">ALIANZA FRATERNAL</text>
+            <text x="450" y="146" text-anchor="middle" font-family="var(--font-headline)" font-size="23" font-style="italic" font-weight="600" fill="var(--on-surface)">Tragedia Ática</text>
+            <text x="450" y="174" text-anchor="middle" font-family="var(--font-body)" font-size="13.5" fill="var(--on-surface-variant)">Coro dionisíaco que</text>
+            <text x="450" y="192" text-anchor="middle" font-family="var(--font-body)" font-size="13.5" fill="var(--on-surface-variant)">engendra visión apolínea</text>
+            <text x="450" y="214" text-anchor="middle" font-family="var(--font-label)" font-size="11" font-weight="600" fill="var(--secondary)">ESQUILO · SÓFOCLES</text>
+
+            <!-- Caja Ruptura Socrática -->
+            <rect x="620" y="88" width="220" height="144" fill="var(--background)" stroke="var(--data-4)" stroke-width="1.5"/>
+            <text x="636" y="116" font-family="var(--font-label)" font-size="11" font-weight="600" letter-spacing="2" fill="var(--data-4)">RUPTURA ANTIDIONISÍACA</text>
+            <text x="636" y="146" font-family="var(--font-headline)" font-size="22" font-style="italic" font-weight="600" fill="var(--on-surface)">Socratismo Estético</text>
+            <text x="636" y="174" font-family="var(--font-body)" font-size="13.5" fill="var(--on-surface-variant)">«Todo ha de ser inteligible»</text>
+            <text x="636" y="194" font-family="var(--font-body)" font-size="13.5" fill="var(--on-surface-variant)">Eurípides · Comedia nueva</text>
+            <text x="636" y="214" font-family="var(--font-body)" font-size="13.5" fill="var(--on-surface-variant)">Muerte de la música y del mito</text>
+          </svg>
+          <figcaption class="schematic-caption">
+            Arquitectura de las pulsiones en <em>El nacimiento de la tragedia</em>: de la tensión entre Apolo y Dioniso brota el drama ático, disuelto luego por el optimismo lógico de Sócrates y Eurípides.
+          </figcaption>
+        </figure>
+
+        <!-- Comparaciones desplegables Apolíneo vs. Dionisíaco -->
+        <div class="accordion-toolbar">
+          <span class="label-voice">Comparación desplegable por ejes conceptuales</span>
+          <button type="button" class="btn-secondary" id="toggle-all-dualidad" onclick="toggleAllGroup('dualidad-acc', this)">Desplegar todas las comparaciones</button>
+        </div>
+
+        <div class="accordion-stack" id="dualidad-acc">
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="true" aria-controls="panel-d1" onclick="toggleAccordion(this)">
+              <span>1. Naturaleza fisiológica y artes correspondientes</span>
+              <span class="accordion-meta">
+                <span class="tag">Estética</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="panel-d1" class="accordion-panel is-open">
+              <div class="compare-grid">
+                <div class="compare-col is-apollonian">
+                  <h4>Lo Apolíneo</h4>
+                  <p>Equivale al mundo del <strong>sueño</strong>. Rige el arte del escultor (formas nítidas, límites definidos) y la epopeya homérica. Su música es «arquitectura dórica en sonidos», insinuada y medida mediante la cítara.</p>
+                </div>
+                <div class="compare-col is-dionysian">
+                  <h4>Lo Dionisíaco</h4>
+                  <p>Equivale al estado de la <strong>embriaguez</strong> (bebida narcótica o ímpetu primaveral). Rige el arte no-escultórico de la <strong>música</strong> (dinámica, ritmo, melodía y armonía) y el ditirambo, donde todo el cuerpo baila simbólicamente.</p>
+                </div>
+                <div class="compare-col is-synthesis">
+                  <h4>Síntesis en la Tragedia</h4>
+                  <p>El poeta dramático es a la vez artista del sueño y de la embriaguez: la música coral dionisíaca engendra y proyecta ante sí un mundo onírico de imágenes apolíneas en la escena.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="panel-d2" onclick="toggleAccordion(this)">
+              <span>2. Relación con el individuo y el «velo de Maya»</span>
+              <span class="accordion-meta">
+                <span class="tag">Metafísica</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="panel-d2" class="accordion-panel">
+              <div class="compare-grid">
+                <div class="compare-col is-apollonian">
+                  <h4>Lo Apolíneo</h4>
+                  <p>Diviniza el <em>principium individuationis</em> (en palabras de Schopenhauer: el navegante tranquilo en su débil barca sobre el mar embravecido). Exige mesura, límites del «yo» y el precepto délfico: «conócete a ti mismo» y «¡no demasiado!».</p>
+                </div>
+                <div class="compare-col is-dionysian">
+                  <h4>Lo Dionisíaco</h4>
+                  <p>Desgarra el velo de Maya y aniquila la subjetividad en el olvido de sí. El esclavo se vuelve hombre libre; el ser humano ya no es artista, sino obra de arte fundida con la naturaleza y con lo Uno primordial.</p>
+                </div>
+                <div class="compare-col is-synthesis">
+                  <h4>Paradoja del Lírico</h4>
+                  <p>En Arquíloco (el primer lírico, colocado por los griegos junto a Homero), el «yo» no es subjetivo-egoísta: primero resuena como música desde el abismo del ser y luego Apolo lo toca con el laurel para convertirlo en imagen simbólica.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="panel-d3" onclick="toggleAccordion(this)">
+              <span>3. Respuesta al horror de la existencia y el dolor</span>
+              <span class="accordion-meta">
+                <span class="tag">Existencia</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="panel-d3" class="accordion-panel">
+              <div class="compare-grid">
+                <div class="compare-col is-apollonian">
+                  <h4>Lo Apolíneo</h4>
+                  <p>Oculta el horror titánico de la existencia creando la esfera luminosa de los <strong>dioses olímpicos</strong> y la «ingenuidad» homérica. Al reflejar la vida humana en un Olimpo triunfal, invierte la sentencia de Sileno: «lo peor es morir pronto».</p>
+                </div>
+                <div class="compare-col is-dionysian">
+                  <h4>Lo Dionisíaco</h4>
+                  <p>Desvela el fondo contradictorio y doloroso de la naturaleza sin velos. Muestra que la destrucción de los individuos no afecta a la vida eterna e indestructible que late debajo de toda apariencia.</p>
+                </div>
+                <div class="compare-col is-synthesis">
+                  <h4>Alegría Trágica</h4>
+                  <p>Como en la disonancia musical, el mito trágico convence al espectador de que incluso lo feo y disarmónico son un juego artístico de la voluntad; el dolor engendra placer metafísico.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="panel-d4" onclick="toggleAccordion(this)">
+              <span>4. El abismo frente al dionisismo bárbaro y la reconciliación délfica</span>
+              <span class="accordion-meta">
+                <span class="tag">Culto</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="panel-d4" class="accordion-panel">
+              <div class="compare-grid">
+                <div class="compare-col is-apollonian">
+                  <h4>Resistencia Dórica</h4>
+                  <p>Al principio, Apolo opuso la cabeza de Medusa al desenfreno asiático. El Estado y el arte dóricos nacen como un baluarte rígido y belicoso contra el asalto titánico-bárbaro.</p>
+                </div>
+                <div class="compare-col is-dionysian">
+                  <h4>Saces Babilónicos (Bárbaros)</h4>
+                  <p>En Asia Menor y Babilonia, las fiestas dionisíacas implicaban regresión animal al tigre y al mono: un atroz «bebedizo de las brujas» que mezclaba desenfreno sexual y crueldad destructiva.</p>
+                </div>
+                <div class="compare-col is-synthesis">
+                  <h4>Tratado de Paz en Delfos</h4>
+                  <p>Cuando lo dionisíaco brotó desde dentro de la propia Hélade, Apolo concertó una reconciliación: las orgías griegas se volvieron festividades de redención y transfiguración artística, donde el dolor arranca cantos de júbilo.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fichero interactivo de ejemplos y mitos -->
+        <div style="text-align: center; margin-top: var(--space-md);">
+          <span class="label-voice">Ejemplos y arquetipos en la argumentación de Nietzsche</span>
+        </div>
+        <div class="selector-strip" role="tablist" aria-label="Arquetipos y ejemplos clave">
+          <button type="button" class="pill-btn is-active" role="tab" aria-selected="true" onclick="selectArchetype('sileno', this)">Sileno y Midas</button>
+          <button type="button" class="pill-btn" role="tab" aria-selected="false" onclick="selectArchetype('rafael', this)">Transfiguración (Rafael)</button>
+          <button type="button" class="pill-btn" role="tab" aria-selected="false" onclick="selectArchetype('arquiloco', this)">Homero y Arquíloco</button>
+          <button type="button" class="pill-btn" role="tab" aria-selected="false" onclick="selectArchetype('edipo', this)">Prometeo y Edipo</button>
+        </div>
+        <article id="archetype-dossier" class="dossier-panel" aria-live="polite"></article>
+      </section>
+
+      <!-- SECCIÓN 2: La Tragedia Ática y el Coro de Sátiros -->
+      <section id="tragedia-coro" class="section-block" aria-labelledby="h-tragedia">
+        <div class="section-header">
+          <span class="label-voice">Sección II · Génesis dramática y consuelo metafísico</span>
+          <h2 id="h-tragedia">La tragedia ática y el coro de sátiros</h2>
+          <p class="section-standfirst">
+            Antes de ser drama o acción individual, la tragedia griega fue exclusivamente coro: un muro vivo contra el naturalismo cotidiano y el acto salvador frente a la náusea existencial.
+          </p>
+        </div>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            La tradición antigua atestigua que la tragedia nació del coro trágico y que, en su origen, fue sólo coro. Nietzsche rechaza tanto la lectura política que ve en el coro una representación del pueblo constitucional frente a los reyes, como la célebre fórmula de August Wilhelm Schlegel que lo definía como el «espectador ideal» —pues el verdadero público heleno, al contemplar al coro de oceánides ante Prometeo, no confundía el arte con una realidad empírica que exigiera rescatar al titán, sino que experimentaba una transformación mágica. En su lugar, Nietzsche reivindica la intuición de Friedrich Schiller: el coro de sátiros constituye un «muro vivo» levantado por la tragedia contra el asalto de la realidad vulgar para preservar su suelo poético e ideal.
+          </p>
+          <p>
+            El sátiro barbudo —síntesis de dios y macho cabrío— encarna la imagen primordial del ser humano antes de toda «mentira civilizada», muy lejos del pastor blando y flautista de los idilios modernos. Como acompañante entusiasta de Dioniso, el sátiro es a la vez músico, poeta, bailarín y visionario: al sentirse transformado, contempla fuera de sí la visión de su dios sufriente y glorificado. Así, el drama entero surge como descarga apolínea de una excitación coral dionisíaca: «Dioniso habla el lenguaje de Apolo, pero al final Apolo habla el lenguaje de Dioniso».
+          </p>
+          <blockquote class="verse">
+            «Lo mejor de todo es totalmente inalcanzable para ti: no haber nacido, no ser, ser nada. Y lo mejor en segundo lugar es para ti morir pronto.»
+            <cite>Respuesta del sabio Sileno al rey Midas (§ 3)</cite>
+          </blockquote>
+          <p>
+            Cuando el hombre dionisíaco despierta de la embriaguez y vuelve a la realidad cotidiana, siente náusea ante lo espantoso y absurdo de la existencia, quedando paralizado para la acción como Hamlet. En ese peligro supremo de la voluntad acude el arte como «un mago que salva y que cura», convirtiendo aquellos pensamientos de náusea en representaciones con las que es posible vivir: <strong>lo sublime</strong> (sometimiento artístico de lo espantoso) y <strong>lo cómico</strong> (descarga artística de la náusea de lo absurdo). El coro de sátiros ofrece así el consuelo metafísico de que, pese al constante perecer de los individuos, en el fondo de las cosas la vida permanece indestructiblemente poderosa y placentera.
+          </p>
+        </div>
+
+        <!-- Desplegables sobre el coro y la materialidad del espectáculo ateniense -->
+        <div class="accordion-stack" id="tragedia-acc">
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="true" aria-controls="panel-t1" onclick="toggleAccordion(this)">
+              <span>Anatomía del espectáculo trágico en Atenas (datos de la escena)</span>
+              <span class="accordion-meta">
+                <span class="tag">Escenografía</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="panel-t1" class="accordion-panel is-open">
+              <div class="table-wrap">
+                <table class="editorial-table">
+                  <thead>
+                    <tr>
+                      <th>Elemento escénico</th>
+                      <th>Magnitud / Rasgo</th>
+                      <th>Significado en el análisis nietzscheano</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Público reunido</td>
+                      <td class="num">&gt; 20.000 oyentes</td>
+                      <td>Asamblea masiva a pleno sol, sin claroscuros modernos, con un juicio lingüístico y musical implacable.</td>
+                    </tr>
+                    <tr>
+                      <td>Duración y carga vocal</td>
+                      <td class="num">10 horas · ~1.600 versos</td>
+                      <td>Cada actor-cantante ejecutaba al menos 6 partes cantadas mayores y menores; tarea heroica digna de un guerrero de Maratón.</td>
+                    </tr>
+                    <tr>
+                      <td>Indumentaria y máscara</td>
+                      <td class="num">Coturnos y ropaje pesado</td>
+                      <td>Figuras sobrehumanas almohadilladas, con máscaras pintadas y boca abierta como altavoz; la máscara marca el desdén por la realidad vulgar.</td>
+                    </tr>
+                    <tr>
+                      <td>Arquitectura del teatro</td>
+                      <td class="num">Orquesta ante la escena</td>
+                      <td>La orquesta precede al escenario porque el coro es la matriz real que proyecta la acción dramática como visión.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="panel-t2" onclick="toggleAccordion(this)">
+              <span>El drama antiguo como «arte total» (cita de Anselm Feuerbach)</span>
+              <span class="accordion-meta">
+                <span class="tag">Síntesis artística</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="panel-t2" class="accordion-panel">
+              <div class="prose-measure" style="padding-top: var(--space-sm);">
+                <p>
+                  Frente a la fragmentación moderna que divide al público en «hombres-oídos» u «hombres-ojos», Nietzsche cita la descripción de Anselm Feuerbach sobre el festival dramático griego como festividad de reunificación de todas las artes: la <strong>arquitectura</strong> erige el marco sagrado; la <strong>pintura</strong> anima los decorados y el cromatismo de los trajes; la <strong>epopeya</strong> habla en los relatos del mensajero; la <strong>poesía lírica</strong> estalla en el coro y las pasiones; la <strong>música de flauta y el baile cadencioso</strong> sostienen el ritmo; y la <strong>escultura</strong> cobra movimiento viviente en la figura del actor enmascarado.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="panel-t3" onclick="toggleAccordion(this)">
+              <span>Sátiro dionisíaco frente al pastor idílico moderno</span>
+              <span class="accordion-meta">
+                <span class="tag">Contraste § 8</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="panel-t3" class="accordion-panel">
+              <div class="compare-grid">
+                <div class="compare-col is-dionysian">
+                  <h4>El Sátiro Griego</h4>
+                  <p>Producto de una «firme e intrépida garra». Naturaleza aún no trabajada por la cultura ni por los cerrojos del conocimiento; símbolo de la omnipotencia sexual y vital de la naturaleza, camarada doliente del dios que proclama oráculos desde el corazón del mundo.</p>
+                </div>
+                <div class="compare-col is-apollonian">
+                  <h4>El Pastor Idílico Moderno</h4>
+                  <p>Producto «avergonzado y débil» de un anhelo artificial. Un hombre civilizado disfrazado con guirnaldas y flauta que proyecta las ilusiones de su propia cultura acicalada y confunde ese remedo con la naturaleza originaria.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: El Socratismo Estético y Eurípides -->
+      <section id="socratismo" class="section-block" aria-labelledby="h-socratismo">
+        <div class="section-header">
+          <span class="label-voice">Sección III · La agonía del mito y la victoria de la dialéctica</span>
+          <h2 id="h-socratismo">El socratismo estético y Eurípides</h2>
+          <p class="section-standfirst">
+            La tragedia griega no murió de muerte natural: sucumbió violentamente ante una nueva antítesis, lo dionisíaco frente a lo socrático, dejando como epígono degenerado la comedia ática nueva.
+          </p>
+        </div>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            Mientras los demás géneros artísticos de la Antigüedad fallecieron con serenidad dejando bella descendencia, la tragedia murió de forma trágica y dejó un vacío que contemporáneos como Aristófanes deploraron amargamente. El artífice de esa agonía fue Eurípides, pero tras la máscara del dramaturgo hablaba un demón recién nacido: Sócrates. El proyecto euripideo consistió en expulsar de la escena el elemento dionisíaco-musical y reconstruir el drama sobre una racionalidad consciente. Con él, el espectador cotidiano saltó al escenario: los héroes míticos estilizados —como el Ulises prometéico de Esquilo— descendieron a figuras domésticas, calculadoras y repletas de psicologismo realista.
+          </p>
+          <p>
+            El núcleo filosófico de esta revolución reside en el axioma del <strong>socratismo estético</strong>: «todo tiene que ser inteligible para ser bello», réplica directa del precepto moral socrático «sólo el sapiente es virtuoso». Como Anaxágoras proclamando el reinado del <em>nus</em> ordenador entre filósofos «borrachos», Sócrates y Eurípides condenaron la creación inconsciente e instintiva de los poetas antiguos. Para Nietzsche, Sócrates constituye el prototipo del <strong>hombre teórico</strong> y del optimismo lógico: una «monstruosidad <em>per defectum</em>» en la que el instinto (su célebre <em>demón</em>) apenas aparece para disuadir y frenar, mientras la consciencia crítica usurpa el papel creador.
+          </p>
+          <blockquote class="verse">
+            «¡Sócrates, cultiva la música!»
+            <cite>Voz recurrente en los sueños de Sócrates en prisión (§ 14)</cite>
+          </blockquote>
+          <p>
+            Incluso el joven Platón quemó sus poemas trágicos bajo la fascinación socrática y desterró a los poetas de su Estado ideal; sin embargo, al inventar un nuevo género —el diálogo platónico, mezcla de estilos anteriores— y al recoger el último sueño de su maestro en la cárcel («¡Sócrates, cultiva la música!»), dejó abierta la inquietante pregunta sobre si el socratismo y el arte son enemigos irreconciliables o si es concebible el nacimiento de un «Sócrates artístico». Por su parte, Eurípides intentó retractarse al final de su vida con <em>Las bacantes</em>, donde Penteo cae víctima de Dioniso; pero la retractación llegó tarde: el templo trágico ya yacía en ruinas y el futuro pertenecía a las intrigas ajedrecísticas de Menandro y Filemón en la comedia ática nueva.
+          </p>
+        </div>
+
+        <!-- Comparación desplegable: Esquilo/Sófocles vs. Eurípides/Sócrates -->
+        <div class="accordion-toolbar">
+          <span class="label-voice">Transformación dramatúrgica: del mito trágico al racionalismo</span>
+          <button type="button" class="btn-secondary" onclick="toggleAllGroup('socratismo-acc', this)">Desplegar todas las comparaciones</button>
+        </div>
+
+        <div class="accordion-stack" id="socratismo-acc">
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="true" aria-controls="panel-s1" onclick="toggleAccordion(this)">
+              <span>1. El prólogo explicativo frente a la exposición orgánica</span>
+              <span class="accordion-meta">
+                <span class="tag">Estructura</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="panel-s1" class="accordion-panel is-open">
+              <div class="compare-grid">
+                <div class="compare-col is-dionysian">
+                  <h4>Esquilo y Sófocles</h4>
+                  <p>Empleaban recursos escénicos sutiles en las primeras escenas para orientar al espectador sin romper la ilusión simbólica ni reducir el mito a una exposición pedagógica.</p>
+                </div>
+                <div class="compare-col is-apollonian">
+                  <h4>Eurípides (Socratismo)</h4>
+                  <p>Coloca a un personaje al inicio para explicar quién es, qué ocurrió antes y qué sucederá. Renuncia a la tensión épica para que el oyente, libre de dudas de trama, se concentre en las grandes descargas retórico-líricas del <em>pathos</em>.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="panel-s2" onclick="toggleAccordion(this)">
+              <span>2. Desplazamiento del coro y huida de la música</span>
+              <span class="accordion-meta">
+                <span class="tag">Música</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="panel-s2" class="accordion-panel">
+              <div class="compare-grid">
+                <div class="compare-col is-dionysian">
+                  <h4>Seno musical originario</h4>
+                  <p>El coro es la causa de la tragedia y su única realidad sustentadora. Ya en Sófocles comienza una grieta: restringe el peso del coro y lo coordina casi como a un actor más sobre el escenario.</p>
+                </div>
+                <div class="compare-col is-apollonian">
+                  <h4>Agonía en Eurípides y Agatón</h4>
+                  <p>Con el látigo de los silogismos, la dialéctica optimista expulsa a la música. Lo que sobrevive de ella se reduce a «música de excitación» para nervios embotados o «pintura musical» imitativa, desapareciendo del todo en la comedia nueva.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="panel-s3" onclick="toggleAccordion(this)">
+              <span>3. Consuelo metafísico frente al «deus ex machina»</span>
+              <span class="accordion-meta">
+                <span class="tag">Desenlace</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="panel-s3" class="accordion-panel">
+              <div class="compare-grid">
+                <div class="compare-col is-dionysian">
+                  <h4>Edipo en Colono (Consuelo metafísico)</h4>
+                  <p>Al final de la tragedia antigua resuena un acorde conciliador de otro mundo: la destrucción individual del héroe confirma la unidad eterna del ser tras las apariencias.</p>
+                </div>
+                <div class="compare-col is-apollonian">
+                  <h4>Justicia poética terrenal</h4>
+                  <p>Huida la música, se busca una compensación terrenal para el héroe-gladiador: casamientos, honores divinos y la intervención mecánica del <em>deus ex machina</em> para resolver la intriga racionalmente.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="panel-s4" onclick="toggleAccordion(this)">
+              <span>4. Revisión de 1886: El «Ensayo de autocrítica» frente al texto de 1872</span>
+              <span class="accordion-meta">
+                <span class="tag">Autocrítica</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="panel-s4" class="accordion-panel">
+              <div class="compare-grid">
+                <div class="compare-col is-apollonian">
+                  <h4>Esperanzas de 1872</h4>
+                  <p>Nietzsche interpreta la filosofía de Kant y Schopenhauer y la música alemana (Bach, Beethoven, Wagner) como retorno invertido al espíritu dionisíaco y renacimiento alemán de la tragedia.</p>
+                </div>
+                <div class="compare-col is-dionysian">
+                  <h4>Autocrítica de 1886</h4>
+                  <p>Llama al libro «mal escrito, frenético de imágenes y confuso», lamenta haber vestido ideas nuevas con fórmulas resignacionistas de Schopenhauer y haber confiado en el «ser alemán» y la música romántica wagneriana, a la que tilda de narcótico nervioso. Reivindica, en cambio, la risa intramundana de Zaratustra y el «pesimismo de la fortaleza» frente a la moral cristiana.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 4: Línea de Tiempo Interactiva -->
+      <section id="linea-tiempo" class="section-block" aria-labelledby="h-timeline">
+        <div class="section-header">
+          <span class="label-voice">Sección IV · Evolución histórica y conceptual</span>
+          <h2 id="h-timeline">Desarrollo y declive de la tragedia griega</h2>
+          <p class="section-standfirst">
+            Recorra los estadios que Nietzsche traza en la historia estética helénica: desde el fondo titánico hasta el apogeo ático, su disolución socrática y el epílogo moderno.
+          </p>
+        </div>
+
+        <div class="timeline-container">
+          <div class="timeline-rail" role="tablist" aria-label="Etapas de la tragedia griega">
+            <button type="button" class="timeline-step-btn is-active" role="tab" aria-selected="true" onclick="selectTimelineStep(0)">
+              <span class="timeline-step-phase">Estadio I · Edad de «acero»</span>
+              <span class="timeline-step-title">Fondo titánico y sabiduría de Sileno</span>
+            </button>
+            <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" onclick="selectTimelineStep(1)">
+              <span class="timeline-step-phase">Estadio II · Cultura apolínea</span>
+              <span class="timeline-step-title">Mundo homérico y dioses olímpicos</span>
+            </button>
+            <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" onclick="selectTimelineStep(2)">
+              <span class="timeline-step-phase">Estadio III · Irrupción dionisíaca</span>
+              <span class="timeline-step-title">Reconciliación délfica y lírica de Arquíloco</span>
+            </button>
+            <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" onclick="selectTimelineStep(3)">
+              <span class="timeline-step-phase">Estadio IV · Baluarte apolíneo</span>
+              <span class="timeline-step-title">El Estado y el arte dóricos</span>
+            </button>
+            <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" onclick="selectTimelineStep(4)">
+              <span class="timeline-step-phase">Estadio V · Cumbre estética</span>
+              <span class="timeline-step-title">La tragedia ática (Esquilo y Sófocles)</span>
+            </button>
+            <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" onclick="selectTimelineStep(5)">
+              <span class="timeline-step-phase">Estadio VI · Declive y agonía</span>
+              <span class="timeline-step-title">Eurípides, Sócrates y la comedia nueva</span>
+            </button>
+            <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" onclick="selectTimelineStep(6)">
+              <span class="timeline-step-phase">Epílogo · 1872 y 1886</span>
+              <span class="timeline-step-title">De la esperanza wagneriana a la autocrítica</span>
+            </button>
+          </div>
+
+          <article id="timeline-detail" class="timeline-detail" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 5: Cuestionario Interactivo de Autoevaluación -->
+      <section id="cuestionario" class="section-block" aria-labelledby="h-quiz">
+        <div class="section-header">
+          <span class="label-voice">Sección V · Comprobación de lectura</span>
+          <h2 id="h-quiz">Cuestionario de autoevaluación</h2>
+          <p class="section-standfirst">
+            Ocho cuestiones basadas directamente en el texto nietzscheano para verificar la comprensión de sus conceptos, metáforas y argumentos históricos. Su progreso se conserva automáticamente.
+          </p>
+        </div>
+
+        <div class="quiz-shell" id="quiz-container">
+          <div class="quiz-header-bar">
+            <span class="label-voice" id="quiz-counter">Pregunta 1 de 8</span>
+            <span class="tag" id="quiz-score-badge">Aciertos: 0 / 8</span>
+          </div>
+          <div class="quiz-progress-track" aria-hidden="true">
+            <div class="quiz-progress-fill" id="quiz-progress-fill" style="width: 12.5%;"></div>
+          </div>
+          <div id="quiz-body"></div>
+          <div class="quiz-nav-row">
+            <button type="button" class="btn-secondary" id="quiz-prev-btn" onclick="prevQuizQuestion()">Anterior</button>
+            <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm);">
+              <button type="button" class="btn-secondary" id="quiz-reset-btn" onclick="resetQuiz(this)">Reiniciar cuestionario</button>
+              <button type="button" class="btn-primary" id="quiz-next-btn" onclick="nextQuizQuestion()">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 6: Preguntas Frecuentes (FAQ) -->
+      <section id="faq" class="section-block" aria-labelledby="h-faq">
+        <div class="section-header">
+          <span class="label-voice">Sección VI · Aclaraciones clave</span>
+          <h2 id="h-faq">Preguntas frecuentes (FAQ)</h2>
+          <p class="section-standfirst">
+            Respuestas sintéticas a las dudas más habituales al abordar la primera obra filosófica de Friedrich Nietzsche.
+          </p>
+        </div>
+
+        <div class="accordion-toolbar">
+          <span class="label-voice">Índice de cuestiones frecuentes</span>
+          <button type="button" class="btn-secondary" onclick="toggleAllGroup('faq-acc', this)">Desplegar todas las respuestas</button>
+        </div>
+
+        <div class="accordion-stack" id="faq-acc">
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="true" aria-controls="faq-1" onclick="toggleAccordion(this)">
+              <span>¿Por qué afirma Nietzsche que el mundo sólo se justifica como «fenómeno estético»?</span>
+              <span class="accordion-meta">
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="faq-1" class="accordion-panel is-open">
+              <div class="prose-measure">
+                <p>Porque frente a las justificaciones morales o religiosas —que a juicio de Nietzsche condenan la vida terrenal y sensual en nombre de normas absolutas o de un «más allá»—, <em>El nacimiento de la tragedia</em> concibe el universo como la creación continua de un «dios-artista completamente amoral». Así como la disonancia musical produce deleite dentro de una sinfonía, el sufrimiento, la contradicción y el dolor de la existencia quedan redimidos únicamente en la apariencia artística y en la transfiguración del mito trágico.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="faq-2" onclick="toggleAccordion(this)">
+              <span>¿Significa «dionisíaco» simplemente caos, desenfreno o barbarie?</span>
+              <span class="accordion-meta">
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="faq-2" class="accordion-panel">
+              <div class="prose-measure">
+                <p>No en el caso griego. Nietzsche marca un abismo tajante entre los «bárbaros dionisíacos» (como los saces babilónicos, marcados por el desenfreno sexual, la crueldad y la regresión animal) y los «griegos dionisíacos». Gracias a la mediación apolínea en Delfos, el impulso dionisíaco helénico se convirtió en fenómeno artístico y festividad de redención del mundo, donde el desgarramiento del individuo da lugar a la música, el ditirambo y la tragedia.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="faq-3" onclick="toggleAccordion(this)">
+              <span>¿La tragedia es más apolínea o más dionisíaca?</span>
+              <span class="accordion-meta">
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="faq-3" class="accordion-panel">
+              <div class="prose-measure">
+                <p>Nace del enlace fraternal de ambas pulsiones, pero con una dinámica precisa: la matriz originaria es el coro musical dionisíaco, que proyecta sobre el escenario un mundo apolíneo de figuras claras y discursos épicos (el engaño apolíneo que nos protege de una fusión destructiva directa con lo Uno primordial). Sin embargo, en el efecto de conjunto de la tragedia, lo dionisíaco recobra la supremacía final y fuerza al héroe apolíneo a negarse a sí mismo: Dioniso habla la lengua de Apolo, pero al final Apolo habla la lengua de Dioniso.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="faq-4" onclick="toggleAccordion(this)">
+              <span>¿Cuál fue exactamente el papel de Sócrates si nunca escribió tragedias?</span>
+              <span class="accordion-meta">
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="faq-4" class="accordion-panel">
+              <div class="prose-measure">
+                <p>Sócrates encarnó el giro cultural del «hombre teórico» y del optimismo racionalista: la convicción de que el pensamiento lógico puede escrutar y corregir la existencia entera, y de que sólo quien actúa de modo consciente y demostrable es virtuoso. Según la tradición antigua, Sócrates ayudaba a Eurípides a componer sus obras; para Nietzsche, Eurípides fue el poeta que tradujo al teatro ese canon racionalista («todo tiene que ser consciente para ser bello»), expulsando el instinto mítico y musical de la escena.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="faq-5" onclick="toggleAccordion(this)">
+              <span>¿Qué entendía el joven Nietzsche por «jovialidad griega» frente a la visión clásica tradicional?</span>
+              <span class="accordion-meta">
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="faq-5" class="accordion-panel">
+              <div class="prose-measure">
+                <p>Nietzsche distingue dos sentidos muy distintos. La falsa «jovialidad griega» del helenismo tardío —celebrada superficialmente por el humanismo moderno— no es para él sino un «arrebol de crepúsculo», la frivolidad del esclavo y del hombre teórico que huye del dolor. En cambio, la serenidad de los dioses olímpicos y de Homero en la época clásica no brota de la ingenuidad fácil ni de la ausencia de dolor, sino de una victoria heroica sobre el espanto silénico de la existencia.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="faq-6" onclick="toggleAccordion(this)">
+              <span>¿Por qué criticó Nietzsche su propio libro en el «Ensayo de autocrítica» de 1886?</span>
+              <span class="accordion-meta">
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div id="faq-6" class="accordion-panel">
+              <div class="prose-measure">
+                <p>Porque dieciséis años después advirtió tres defectos en su obra juvenil: el haber intentado formular intuiciones radicalmente nuevas mediante el vocabulario ajeno y resignacionista de Kant y Schopenhauer; su estilo desigual, recargado y «para iniciados»; y sobre todo el haber proyectado falsas esperanzas nacionalistas y románticas sobre la música alemana contemporánea (Richard Wagner). Pese a ello, defendió intacta la cuestión central del libro: haber puesto por primera vez la ciencia y la moral bajo el tribunal de la vida y del arte.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Nota de fuentes y cierre -->
+      <footer class="edition-footer">
+        <p class="label-voice" style="margin-bottom: var(--space-xs);">Fuentes y aparato crítico</p>
+        <p style="margin: 0;">
+          Elaborado íntegramente a partir de <em>El nacimiento de la tragedia en el espíritu de la música</em> (Friedrich Nietzsche, 1872), el <em>Ensayo de autocrítica</em> (1886), el <em>Prólogo a Richard Wagner</em> (1871) y los escritos anejos <em>Sócrates y la tragedia</em> y <em>La visión dionisíaca del mundo</em>, según la traducción castellana de Andrés Sánchez Pascual.
+        </p>
+      </footer>
+
+    </main>
+  </div>
+
+  <api-shim></api-shim>
+
+  <script>
+    // Datos estructurados con template literals para evitar problemas de comillas y apóstrofos
+    const ARCHETYPES = {
+      sileno: {
+        kicker: `Sabiduría popular griega · § 3`,
+        title: `Sileno y el rey Midas`,
+        tag: `Fondo pesimista`,
+        body: `Durante mucho tiempo el rey Midas persiguió en el bosque al sabio Sileno, acompañante de Dioniso. Cuando por fin cayó en sus manos, el rey le preguntó qué es lo mejor y más preferible para el hombre. Tras un silencio rígido, Sileno prorrumpía en una risa estridente: «Estirpe miserable de un día, hijos del azar y de la fatiga... Lo mejor de todo es totalmente inalcanzable para ti: no haber nacido, no ser, ser nada. Y lo mejor en segundo lugar es para ti morir pronto».`,
+        relevance: `Para poder soportar esta verdad horrorosa, los griegos tuvieron que interponer el resplandeciente mundo onírico de los dioses olímpicos, invirtiendo el veredicto de Sileno en la épica homérica.`
+      },
+      rafael: {
+        kicker: `Simbolismo pictórico · § 4`,
+        title: `La Transfiguración de Rafael`,
+        tag: `Apariencia de la apariencia`,
+        body: `Nietzsche interpreta la célebre pintura de Rafael como una alegoría visual exacta del proceso apolíneo. La mitad inferior —con el muchacho poseso, sus desesperados portadores y los discípulos angustiados— refleja el eterno dolor primordial, fundamento único del mundo.`,
+        relevance: `De esa primera apariencia doliente se eleva, cual perfume de ambrosía, la mitad superior: un mundo visionario luminoso, exento de dolor, que ilustra la «apariencia de la apariencia» y la redención apolínea mediante la belleza.`
+      },
+      arquiloco: {
+        kicker: `Génesis de la lírica · § 5`,
+        title: `Homero junto a Arquíloco`,
+        tag: `Fusión lírico-musical`,
+        body: `La Antigüedad solía esculpir juntos a Homero (el anciano soñador apolíneo, artista «objetivo») y a Arquíloco (belicoso servidor de las musas, tenido por la estética moderna como el primer artista «subjetivo» por sus gritos de odio y pasión). Nietzsche corrige esa lectura moderna apoyándose en una confesión de Schiller: antes del poema existe un «estado de ánimo musical».`,
+        relevance: `El poeta lírico es primero artista dionisíaco que se identifica con el dolor de lo Uno primordial en forma de música; luego Apolo lo toca con el laurel y esa música se hace visible en símbolos oníricos individuales.`
+      },
+      edipo: {
+        kicker: `Límites de la individuación · § 4 y § 9`,
+        title: `Prometeo y Edipo ante Delfos`,
+        tag: `Desmesura titánica`,
+        body: `Para la divinidad ética de Apolo, que exige mesura y conocimiento de los propios límites, la autopresunción y la desmesura pertenecían a la edad hostil de los Titanes. Por su amor titánico hacia la humanidad, Prometeo hubo de ser desgarrado por los buitres; por su sabiduría desmesurada al descifrar el enigma de la Esfinge, Edipo se precipitó en un torbellino de atrocidades.`,
+        relevance: `Sin embargo, el griego apolíneo intuía con terror que él mismo estaba íntimamente emparentado con esos titanes abatidos y que su existencia reposaba sobre ese fondo oculto de sufrimiento.`
+      }
+    };
+
+    const TIMELINE_STEPS = [
+      {
+        phase: `Estadio I · Edad de «acero» (pre-apolínea)`,
+        title: `Poderes titánicos y sabiduría de Sileno`,
+        apolonian: 15,
+        dionysian: 85,
+        socratic: 0,
+        summary: `Antes de la claridad olímpica, el mundo helénico primitivo conoce la Moira despiadada, las titanomaquias y la ruda filosofía popular encarnada por Sileno: la existencia se revela como sufrimiento inevitable y carencia de sentido individual.`,
+        keyPoints: [
+          `Desconfianza radical frente a las fuerzas titánicas de la naturaleza.`,
+          `Destino trágico de Prometeo, Edipo y la estirpe de los Atridas.`,
+          `Misma raíz melancólica bajo la cual llegaron a perecer los etruscos.`
+        ]
+      },
+      {
+        phase: `Estadio II · Cultura apolínea «ingenua»`,
+        title: `El mundo homérico y los dioses olímpicos`,
+        apolonian: 92,
+        dionysian: 18,
+        socratic: 5,
+        summary: `Por una necesidad vital hondísima, el instinto apolíneo de belleza triunfa sobre el orden titánico del horror al modo como las rosas brotan de un arbusto espinoso. Nace el espejo transfigurador de los dioses olímpicos y la epopeya de Homero.`,
+        keyPoints: [
+          `Teodicea estética: los dioses justifican la vida humana viviéndola ellos mismos.`,
+          `Inversión de Sileno: para el hombre homérico «lo peor es morir pronto».`,
+          `Lo «ingenuo» no es un estado paradisíaco natural, sino la victoria suprema de la ilusión apolínea.`
+        ]
+      },
+      {
+        phase: `Estadio III · Irrupción dionisíaca y pacto délfico`,
+        title: `De la orgía bárbara a la música y la lírica`,
+        apolonian: 45,
+        dionysian: 88,
+        socratic: 5,
+        summary: `La corriente dionisíaca penetra el mundo homérico, engullendo su magnificencia «ingenua» bajo el éxtasis musical y coral. En Delfos, Apolo pacta con su adversario antes de que aniquile la cultura helénica, transformando la orgía bárbara en fiesta artística de transfiguración.`,
+        keyPoints: [
+          `Contraste tajante con los saces babilónicos (voluptuosidad y crueldad animal).`,
+          `Nacimiento del ditirambo dionisíaco y del simbolismo rítmico de todo el cuerpo.`,
+          `Surgimiento de la poesía lírica con Arquíloco, idéntica en origen a la música.`
+        ]
+      },
+      {
+        phase: `Estadio IV · Reacción y contención dórica`,
+        title: `El Estado y el arte dóricos`,
+        apolonian: 86,
+        dionysian: 40,
+        socratic: 10,
+        summary: `Allí donde el primer asalto dionisíaco fue contenido, la majestad del dios délfico se volvió rígida y amenazadora. Nietzsche explica el arte dórico —y su música de cítara entendida como arquitectura en sonidos— como un campamento militar permanente frente a lo dionisíaco.`,
+        keyPoints: [
+          `Arte obstinado y bronco, circundado de baluartes defensivos.`,
+          `Educación belicosa y orden político severo en oposición a la disolución extática.`,
+          `Mantenimiento riguroso de los límites de la mesura y de la individuación.`
+        ]
+      },
+      {
+        phase: `Estadio V · Cumbre del espíritu helénico`,
+        title: `La tragedia ática (Esquilo y Sófocles)`,
+        apolonian: 80,
+        dionysian: 85,
+        socratic: 15,
+        summary: `Por un milagroso acto metafísico de la «voluntad» helénica, ambos instintos hostiles se aparean y engendran su hijo común: la tragedia ática y el ditirambo dramático. El coro de sátiros descarga en la escena el mundo onírico de las visiones apolíneas.`,
+        keyPoints: [
+          `Alianza fraternal: Dioniso habla el lenguaje de Apolo; al final, Apolo habla el de Dioniso.`,
+          `En Esquilo culmina la unidad mítica; en Sófocles despunta ya una ligera reducción del coro y mayor refinamiento psicológico.`,
+          `Representación como «arte total» ante más de 20.000 ciudadanos en Atenas.`
+        ]
+      },
+      {
+        phase: `Estadio VI · Disolución y suicidio`,
+        title: `Eurípides, Sócrates y la comedia ática nueva`,
+        apolonian: 30,
+        dionysian: 10,
+        socratic: 95,
+        summary: `El racionalismo socrático irrumpe en la escena bajo la máscara de Eurípides. Expulsados el mito y la música por la dialéctica y el psicologismo realista («todo tiene que ser inteligible para ser bello»), la tragedia muere violentamente y sobrevive degenerada en la comedia nueva.`,
+        keyPoints: [
+          `El espectador común invade la escena; Ulises se reduce a un esclavo astuto.`,
+          `Prólogos expositivos y desenlaces mediante deus ex machina en lugar de consuelo metafísico.`,
+          `Retractación tardía e inútil de Eurípides en Las bacantes; triunfo posterior de Menandro y Filemón.`
+        ]
+      },
+      {
+        phase: `Epílogo histórico-filosófico · 1872 y 1886`,
+        title: `De la esperanza alemana al «pesimismo de la fortaleza»`,
+        apolonian: 55,
+        dionysian: 78,
+        socratic: 45,
+        summary: `En 1872, Nietzsche cree asistir a un retorno inverso desde la edad alejandrina hacia lo trágico gracias a Kant, Schopenhauer y la música de Beethoven y Wagner. En 1886, corrige ese romanticismo juvenil y formula la pregunta por una música verdaderamente dionisíaca y un consuelo intramundano.`,
+        keyPoints: [
+          `Kant y Schopenhauer revelan los límites internos del optimismo científico socrático.`,
+          `En el Ensayo de autocrítica (1886) Nietzsche rechaza la resignación schopenhaueriana y el narcótico romántico.`,
+          `Reivindica la risa dionisíaca de Zaratustra y una valoración puramente artística de la vida.`
+        ]
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        q: `Según el capítulo 1 de «El nacimiento de la tragedia», ¿con qué dos fenómenos fisiológicos compara Nietzsche lo apolíneo y lo dionisíaco?`,
+        options: [
+          `La vigilia racional y la melancolía ascética`,
+          `El sueño (bella apariencia) y la embriaguez (olvido de sí)`,
+          `La memoria histórica y la fantasía mitológica`,
+          `El cálculo dialéctico y el placer sensible`
+        ],
+        correct: 1,
+        explanation: `En el § 1 y en «La visión dionisíaca del mundo», Nietzsche propone imaginar ambos instintos artísticos de la naturaleza como los mundos separados del sueño (Apolo, figuración y apariencia) y de la embriaguez (Dioniso, desgarramiento del individuo).`
+      },
+      {
+        q: `¿Qué respondió el sabio Sileno al rey Midas cuando éste le preguntó qué es lo mejor para el ser humano?`,
+        options: [
+          `Conocerse a sí mismo y observar la mesura en todo`,
+          `Buscar la verdad mediante la dialéctica filosófica`,
+          `No haber nacido, no ser nada; y en segundo lugar, morir pronto`,
+          `Construir un Estado fuerte bajo la guía de los dioses olímpicos`
+        ],
+        correct: 2,
+        explanation: `En el § 3, Sileno expresa la filosofía popular del horror existencial. Los griegos crearon el mundo luminoso de los dioses olímpicos precisamente para soportar y velar esa sabiduría, invirtiendo el veredicto en la épica homérica.`
+      },
+      {
+        q: `¿Cómo resuelve Nietzsche, apoyándose en Schiller, la aparente contradicción de que Arquíloco sea un gran artista siendo llamado «subjetivo»?`,
+        options: [
+          `Afirmando que todo gran arte nace de confesiones personales y pasiones privadas`,
+          `Explicando que el poeta lírico parte de un estado de ánimo musical dionisíaco donde ya ha superado su «yo» empírico`,
+          `Sosteniendo que Arquíloco imitaba literalmente las epopeyas de Homero`,
+          `Rechazando a Arquíloco como un no-artista frente a los escultores dorios`
+        ],
+        correct: 1,
+        explanation: `En el § 5, Nietzsche cita la observación psicológica de Schiller sobre un «estado de ánimo musical» previo a la idea poética: el «yo» del lírico resuena desde el abismo de lo Uno primordial y sólo después se objetiva en imágenes apolíneas.`
+      },
+      {
+        q: `¿Por qué rechaza Nietzsche la definición schlegeliana del coro trágico como «espectador ideal» y elogia en cambio a Schiller?`,
+        options: [
+          `Porque el coro es un «muro vivo» contra el naturalismo cotidiano y el seno originario que engendra la visión del drama`,
+          `Porque el coro griego no cantaba ni bailaba durante las representaciones`,
+          `Porque Schlegel creía que el coro debía expulsar a Dioniso del escenario`,
+          `Porque el público ateniense ignoraba por completo las intervenciones del coro`
+        ],
+        correct: 0,
+        explanation: `En el § 7, Nietzsche señala que la definición de Schlegel contradice el hecho de que la tragedia fuera originalmente sólo coro y de que el público griego no actuase de forma empírica (corriendo a liberar a Prometeo). Schiller acierta al concebir el coro de sátiros como un suelo ideal y «muro vivo» contra la realidad asaltante.`
+      },
+      {
+        q: `Ante el peligro de la parálisis y la náusea existencial al despertar de la embriaguez, ¿en qué dos representaciones salvadoras transforma el arte lo absurdo y lo espantoso?`,
+        options: [
+          `La tragedia dialéctica y la epopeya histórica`,
+          `Lo sublime y lo cómico`,
+          `La moral ascética y la ciencia empírica`,
+          `El prólogo explicativo y el deus ex machina`
+        ],
+        correct: 1,
+        explanation: `En el § 7, el arte se aproxima como «un mago que salva y que cura» y retuerce los pensamientos de náusea convirtiéndolos en lo sublime (sometimiento artístico de lo espantoso) y lo cómico (descarga artística de la náusea de lo absurdo).`
+      },
+      {
+        q: `¿Qué axioma estético de Eurípides refleja directamente el racionalismo moral de Sócrates?`,
+        options: [
+          `«Sólo como fenómeno estético está justificada la existencia del mundo»`,
+          `«Dioniso habla el lenguaje de Apolo»`,
+          `«Todo tiene que ser inteligible (consciente) para ser bello»`,
+          `«Es un sueño, quiero seguir soñándolo»`
+        ],
+        correct: 2,
+        explanation: `En el § 12 y en «Sócrates y la tragedia», Nietzsche formula la ley suprema del socratismo estético euripideo: «Todo tiene que ser inteligible para ser bello», paralela al principio socrático «Sólo el sapiente es virtuoso».`
+      },
+      {
+        q: `¿Por qué llama Nietzsche a Sócrates una «monstruosidad per defectum» al analizar su célebre «demón»?`,
+        options: [
+          `Porque en Sócrates el instinto sólo actúa como freno crítico mientras la consciencia lógica asume el papel creador`,
+          `Porque Sócrates carecía por completo de capacidad lógica y dialéctica`,
+          `Porque Sócrates compuso tragedias más sangrientas que las de Esquilo`,
+          `Porque Sócrates defendía los cultos orgiásticos de Babilonia`
+        ],
+        correct: 0,
+        explanation: `En el § 13, Nietzsche observa que en todos los hombres productivos el instinto es la fuerza creadora y la consciencia critica; en Sócrates esa relación se invierte: su voz divina instintiva (el demón) únicamente disuade, y la lógica hipertrofiada pretende crear.`
+      },
+      {
+        q: `En el «Ensayo de autocrítica» (1886), ¿qué aspecto de su propia obra juvenil lamenta Nietzsche de forma especial?`,
+        options: [
+          `Haber defendido la existencia de lo apolíneo y lo dionisíaco en Grecia`,
+          `Haber utilizado fórmulas schopenhauerianas y kantianas y haber depositado esperanzas románticas en la música alemana contemporánea`,
+          `Haber analizado el origen musical del coro de sátiros`,
+          `Haber criticado el racionalismo socrático de Eurípides`
+        ],
+        correct: 1,
+        explanation: `En las secciones 6 y 7 del «Ensayo de autocrítica», Nietzsche lamenta no haber usado un lenguaje propio, haber oscurecido sus intuiciones con la metafísica resignacionista de Schopenhauer y haber confiado en el «ser alemán» y la música romántica wagneriana, frente a los cuales contrapone en 1886 el «pesimismo de la fortaleza» y la risa de Zaratustra.`
+      }
+    ];
+
+    // Estado de la aplicación (persistido mediante notebookAppApi)
+    let appState = {
+      activeArchetype: 'sileno',
+      timelineIndex: 0,
+      quizIndex: 0,
+      quizAnswers: {} // { questionIndex: selectedOptionIndex }
+    };
+
+    // Guardado seguro de estado
+    async function persistState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (err) {
+        // Ignorar errores de transporte sin interrumpir la UI
+      }
+    }
+
+    // Funciones hoisted para handlers inline
+    function toggleAccordion(btn) {
+      if (!btn) return;
+      const targetId = btn.getAttribute('aria-controls');
+      if (!targetId) return;
+      const panel = document.getElementById(targetId);
+      if (!panel) return;
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+      if (isExpanded) {
+        panel.classList.remove('is-open');
+      } else {
+        panel.classList.add('is-open');
+      }
+    }
+
+    function toggleAllGroup(groupId, controlBtn) {
+      const container = document.getElementById(groupId);
+      if (!container) return;
+      const triggers = container.querySelectorAll('.accordion-trigger');
+      let anyClosed = false;
+      triggers.forEach(function(t) {
+        if (t.getAttribute('aria-expanded') !== 'true') anyClosed = true;
+      });
+      triggers.forEach(function(t) {
+        const panelId = t.getAttribute('aria-controls');
+        const panel = panelId ? document.getElementById(panelId) : null;
+        if (anyClosed) {
+          t.setAttribute('aria-expanded', 'true');
+          if (panel) panel.classList.add('is-open');
+        } else {
+          t.setAttribute('aria-expanded', 'false');
+          if (panel) panel.classList.remove('is-open');
+        }
+      });
+      if (controlBtn) {
+        if (groupId === 'faq-acc') {
+          controlBtn.textContent = anyClosed ? 'Contraer todas las respuestas' : 'Desplegar todas las respuestas';
+        } else {
+          controlBtn.textContent = anyClosed ? 'Contraer todas las comparaciones' : 'Desplegar todas las comparaciones';
+        }
+      }
+    }
+
+    function selectArchetype(key, btnEl) {
+      if (!ARCHETYPES[key]) return;
+      appState.activeArchetype = key;
+      const tablist = document.querySelector('.selector-strip');
+      if (tablist) {
+        const btns = tablist.querySelectorAll('.pill-btn');
+        btns.forEach(function(b) {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+        });
+      }
+      if (btnEl) {
+        btnEl.classList.add('is-active');
+        btnEl.setAttribute('aria-selected', 'true');
+      }
+      renderArchetype();
+      persistState();
+    }
+
+    function renderArchetype() {
+      const dossier = document.getElementById('archetype-dossier');
+      if (!dossier) return;
+      const item = ARCHETYPES[appState.activeArchetype] || ARCHETYPES.sileno;
+      dossier.innerHTML = `
+        <div class="dossier-head">
+          <div>
+            <div class="label-voice">${item.kicker}</div>
+            <h3>${item.title}</h3>
+          </div>
+          <span class="tag">${item.tag}</span>
+        </div>
+        <p style="margin-top: 0; margin-bottom: var(--space-sm);">${item.body}</p>
+        <p style="margin: 0; color: var(--on-surface-variant); border-top: var(--gilt-hairline); padding-top: var(--space-sm);">
+          <strong style="color: var(--primary);">Función en la tesis:</strong> ${item.relevance}
+        </p>
+      `;
+    }
+
+    function selectTimelineStep(index) {
+      if (index < 0 || index >= TIMELINE_STEPS.length) return;
+      appState.timelineIndex = index;
+      const rail = document.querySelector('.timeline-rail');
+      if (rail) {
+        const btns = rail.querySelectorAll('.timeline-step-btn');
+        btns.forEach(function(b, i) {
+          if (i === index) {
+            b.classList.add('is-active');
+            b.setAttribute('aria-selected', 'true');
+          } else {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-selected', 'false');
+          }
+        });
+      }
+      renderTimeline();
+      persistState();
+    }
+
+    function renderTimeline() {
+      const container = document.getElementById('timeline-detail');
+      if (!container) return;
+      const step = TIMELINE_STEPS[appState.timelineIndex] || TIMELINE_STEPS[0];
+      const idx = appState.timelineIndex;
+      const pointsHtml = step.keyPoints.map(function(pt) {
+        return `<li style="margin-bottom: var(--space-xs);">${pt}</li>`;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="label-voice">${step.phase}</div>
+        <h3>${step.title}</h3>
+        <p style="margin-top: var(--space-sm);">${step.summary}</p>
+        <div class="tension-bars" aria-label="Peso relativo de las fuerzas en esta etapa según la lectura nietzscheana">
+          <div class="tension-row">
+            <span class="tension-label" style="color: var(--secondary);">Apolíneo</span>
+            <div class="tension-track"><div class="tension-fill apolo" style="width: ${step.apolonian}%;"></div></div>
+            <span class="label-voice" style="color: var(--on-surface-variant); text-align: right;">${step.apolonian >= 70 ? 'Alto' : step.apolonian >= 35 ? 'Medio' : 'Bajo'}</span>
+          </div>
+          <div class="tension-row">
+            <span class="tension-label" style="color: var(--primary);">Dionisíaco</span>
+            <div class="tension-track"><div class="tension-fill dioniso" style="width: ${step.dionysian}%;"></div></div>
+            <span class="label-voice" style="color: var(--on-surface-variant); text-align: right;">${step.dionysian >= 70 ? 'Alto' : step.dionysian >= 35 ? 'Medio' : 'Bajo'}</span>
+          </div>
+          <div class="tension-row">
+            <span class="tension-label" style="color: var(--data-4);">Socrático</span>
+            <div class="tension-track"><div class="tension-fill socrates" style="width: ${step.socratic}%;"></div></div>
+            <span class="label-voice" style="color: var(--on-surface-variant); text-align: right;">${step.socratic >= 70 ? 'Alto' : step.socratic >= 35 ? 'Medio' : 'Bajo'}</span>
+          </div>
+        </div>
+        <ul style="margin: 0; padding-left: var(--space-lg);">${pointsHtml}</ul>
+        <div class="timeline-controls">
+          <button type="button" class="btn-secondary" ${idx === 0 ? 'disabled' : ''} onclick="selectTimelineStep(${idx - 1})">Etapa anterior</button>
+          <span class="label-voice" style="color: var(--on-surface-variant);">Hito ${idx + 1} de ${TIMELINE_STEPS.length}</span>
+          <button type="button" class="btn-primary" ${idx === TIMELINE_STEPS.length - 1 ? 'disabled' : ''} onclick="selectTimelineStep(${idx + 1})">Siguiente etapa</button>
+        </div>
+      `;
+    }
+
+    function answerQuiz(optionIdx) {
+      const qIdx = appState.quizIndex;
+      if (typeof appState.quizAnswers[qIdx] === 'number') return;
+      appState.quizAnswers[qIdx] = optionIdx;
+      renderQuiz();
+      persistState();
+    }
+
+    function prevQuizQuestion() {
+      if (appState.quizIndex > 0) {
+        appState.quizIndex -= 1;
+        renderQuiz();
+        persistState();
+      }
+    }
+
+    function nextQuizQuestion() {
+      if (appState.quizIndex < QUIZ_QUESTIONS.length - 1) {
+        appState.quizIndex += 1;
+        renderQuiz();
+        persistState();
+      } else {
+        renderQuizSummary();
+      }
+    }
+
+    function jumpToQuizQuestion(idx) {
+      if (idx >= 0 && idx < QUIZ_QUESTIONS.length) {
+        appState.quizIndex = idx;
+        renderQuiz();
+        persistState();
+      }
+    }
+
+    function resetQuiz(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = 'Confirmar reinicio';
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = 'Reiniciar cuestionario';
+      appState.quizIndex = 0;
+      appState.quizAnswers = {};
+      renderQuiz();
+      persistState();
+    }
+
+    function computeScore() {
+      let score = 0;
+      Object.keys(appState.quizAnswers).forEach(function(k) {
+        const idx = Number(k);
+        const q = QUIZ_QUESTIONS[idx];
+        if (q && appState.quizAnswers[k] === q.correct) score += 1;
+      });
+      return score;
+    }
+
+    function renderQuiz() {
+      const body = document.getElementById('quiz-body');
+      const counter = document.getElementById('quiz-counter');
+      const badge = document.getElementById('quiz-score-badge');
+      const fill = document.getElementById('quiz-progress-fill');
+      const prevBtn = document.getElementById('quiz-prev-btn');
+      const nextBtn = document.getElementById('quiz-next-btn');
+      const resetBtn = document.getElementById('quiz-reset-btn');
+      if (!body || !counter || !badge || !fill) return;
+
+      const idx = appState.quizIndex;
+      const total = QUIZ_QUESTIONS.length;
+      const q = QUIZ_QUESTIONS[idx];
+      const chosen = appState.quizAnswers[idx];
+      const hasAnswered = typeof chosen === 'number';
+      const score = computeScore();
+      const answeredCount = Object.keys(appState.quizAnswers).length;
+
+      counter.textContent = `Pregunta ${idx + 1} de ${total}`;
+      badge.textContent = `Aciertos: ${score} / ${total}`;
+      fill.style.width = `${((idx + 1) / total) * 100}%`;
+
+      if (resetBtn && resetBtn.dataset.armed === 'true') {
+        resetBtn.dataset.armed = 'false';
+        resetBtn.textContent = 'Reiniciar cuestionario';
+      }
+
+      if (prevBtn) {
+        prevBtn.disabled = idx === 0;
+        prevBtn.style.display = 'inline-flex';
+      }
+      if (nextBtn) {
+        nextBtn.style.display = 'inline-flex';
+        nextBtn.textContent = idx === total - 1 ? (answeredCount === total ? 'Ver balance final' : 'Finalizar revisión') : 'Siguiente';
+      }
+
+      const letters = ['A', 'B', 'C', 'D'];
+      const optionsHtml = q.options.map(function(opt, i) {
+        let cls = 'quiz-option-btn';
+        if (hasAnswered) {
+          if (i === q.correct) cls += ' is-correct';
+          else if (i === chosen) cls += ' is-wrong';
+        }
+        return `
+          <button type="button" class="${cls}" ${hasAnswered ? 'disabled' : ''} onclick="answerQuiz(${i})">
+            <span class="quiz-option-letter">${letters[i]}</span>
+            <span>${opt}</span>
+          </button>
+        `;
+      }).join('');
+
+      let feedbackHtml = '';
+      if (hasAnswered) {
+        const isCorrect = chosen === q.correct;
+        feedbackHtml = `
+          <div class="quiz-feedback ${isCorrect ? 'is-correct' : 'is-wrong'}">
+            <div class="label-voice" style="color: ${isCorrect ? 'var(--positive)' : 'var(--error)'}; margin-bottom: var(--space-xs);">
+              ${isCorrect ? 'Respuesta correcta' : 'Respuesta incorrecta'}
+            </div>
+            <p style="margin: 0;">${q.explanation}</p>
+          </div>
+        `;
+      }
+
+      body.innerHTML = `
+        <h3 class="quiz-question">${q.q}</h3>
+        <div class="quiz-options">${optionsHtml}</div>
+        ${feedbackHtml}
+      `;
+    }
+
+    function renderQuizSummary() {
+      const body = document.getElementById('quiz-body');
+      const counter = document.getElementById('quiz-counter');
+      const prevBtn = document.getElementById('quiz-prev-btn');
+      const nextBtn = document.getElementById('quiz-next-btn');
+      if (!body || !counter) return;
+
+      const total = QUIZ_QUESTIONS.length;
+      const score = computeScore();
+      const answeredCount = Object.keys(appState.quizAnswers).length;
+      counter.textContent = `Balance de autoevaluación`;
+
+      if (prevBtn) prevBtn.style.display = 'none';
+      if (nextBtn) nextBtn.style.display = 'none';
+
+      let diagnosis = '';
+      if (score >= 7) {
+        diagnosis = `Dominio sólido de la arquitectura conceptual de «El nacimiento de la tragedia»: distingue con precisión la metafísica apolínea del sueño, la matriz coral dionisíaca, la ruptura socrática y la autocrítica de 1886.`;
+      } else if (score >= 4) {
+        diagnosis = `Comprensión intermedia. Conviene revisar las comparaciones desplegables sobre el coro de sátiros y la distinción entre el optimismo teórico de Sócrates y el pesimismo trágico.`;
+      } else {
+        diagnosis = `Lectura inicial en curso. Le recomendamos recorrer nuevamente la línea de tiempo y los ejes comparativos antes de repetir la evaluación.`;
+      }
+
+      const reviewRows = QUIZ_QUESTIONS.map(function(q, i) {
+        const ans = appState.quizAnswers[i];
+        const status = typeof ans !== 'number' ? 'Sin responder' : (ans === q.correct ? 'Correcta' : 'Incorrecta');
+        const statusColor = typeof ans !== 'number' ? 'var(--on-surface-variant)' : (ans === q.correct ? 'var(--positive)' : 'var(--error)');
+        return `
+          <tr>
+            <td class="num">${i + 1}</td>
+            <td>${q.q}</td>
+            <td style="color: ${statusColor}; font-weight: 600;">${status}</td>
+            <td><button type="button" class="pill-btn" onclick="jumpToQuizQuestion(${i})">Revisar</button></td>
+          </tr>
+        `;
+      }).join('');
+
+      body.innerHTML = `
+        <div style="text-align: center; padding-block: var(--space-md);">
+          <div class="label-voice">Resultado obtenido</div>
+          <div class="figure-value" style="margin-block: var(--space-xs);">${score} de ${total} aciertos</div>
+          <p class="prose-measure" style="text-align: center; margin-bottom: var(--space-lg);">${diagnosis} (${answeredCount} de ${total} respondidas).</p>
+        </div>
+        <div class="table-wrap">
+          <table class="editorial-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Cuestión</th>
+                <th>Estado</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>${reviewRows}</tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            if (saved.activeArchetype && ARCHETYPES[saved.activeArchetype]) {
+              appState.activeArchetype = saved.activeArchetype;
+            }
+            if (typeof saved.timelineIndex === 'number' && saved.timelineIndex >= 0 && saved.timelineIndex < TIMELINE_STEPS.length) {
+              appState.timelineIndex = saved.timelineIndex;
+            }
+            if (typeof saved.quizIndex === 'number' && saved.quizIndex >= 0 && saved.quizIndex < QUIZ_QUESTIONS.length) {
+              appState.quizIndex = saved.quizIndex;
+            }
+            if (saved.quizAnswers && typeof saved.quizAnswers === 'object') {
+              appState.quizAnswers = saved.quizAnswers;
+            }
+          }
+        }
+      } catch (err) {
+        // Continuar con estado inicial por defecto
+      }
+
+      // Sincronizar pestaña activa de arquetipos tras restaurar estado
+      const archetypeBtns = document.querySelectorAll('.selector-strip .pill-btn');
+      const keys = ['sileno', 'rafael', 'arquiloco', 'edipo'];
+      archetypeBtns.forEach(function(btn, idx) {
+        const isActive = keys[idx] === appState.activeArchetype;
+        btn.classList.toggle('is-active', isActive);
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      renderArchetype();
+      selectTimelineStep(appState.timelineIndex);
+      renderQuiz();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>

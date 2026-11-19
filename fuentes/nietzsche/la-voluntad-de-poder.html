@@ -1,0 +1,2587 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>La voluntad de poder — Friedrich Nietzsche | Dossier filosófico interactivo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      /* Ink */
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      /* Rules */
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      /* Accents */
+      --primary: #990f3d;
+      --primary-hover: #7a0b30;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+      --error-container: #f9e1df;
+      --on-error-container: #7d1912;
+
+      /* Semantic */
+      --positive: #1f6f50;
+      --positive-container: #e3efe9;
+      --on-positive-container: #144d37;
+      --warning: #7c4d08;
+      --warning-container: #f5ead6;
+      --on-warning-container: #5c3804;
+      --focus: var(--primary);
+
+      /* Data series */
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #7c4d08;
+      --data-context: #bfb5a4;
+
+      /* Fonts */
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.45rem, 1.4rem + 3.8vw, 4.35rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.8vw, 2.4rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+      --rule-accent: 3px solid var(--primary);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      font-optical-sizing: auto;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.18;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 66ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .lede {
+      font-size: clamp(1.1875rem, 1.05rem + 0.45vw, 1.375rem);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 58ch;
+      margin-top: var(--space-md);
+    }
+
+    .label-voice {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+    }
+
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    .tabular-fig {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    /* Masthead */
+    .masthead-line {
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm) var(--space-lg);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+    .masthead-meta {
+      color: var(--on-surface-variant);
+      font-weight: 600;
+    }
+
+    /* Hairline columns */
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-lg);
+    }
+    .columns > * {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .columns > :last-child {
+      padding-right: 0;
+    }
+    .col-kicker {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+    }
+    .col-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.35rem;
+      line-height: 1.2;
+      color: var(--on-surface);
+      margin-bottom: var(--space-xs);
+    }
+    .col-note {
+      font-size: 0.9375rem;
+      line-height: 1.45;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    /* Thematic Block Navigation */
+    .topic-nav {
+      border-bottom: var(--rule-ink);
+      padding-bottom: var(--space-md);
+    }
+    .topic-nav-heading {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-sm);
+    }
+    .topic-nav-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs) var(--space-md);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .topic-nav-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: var(--space-xs) 0;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .topic-nav-link:hover {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .topic-nav-link.is-active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* Section structure */
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-lg);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-lg);
+      scroll-margin-top: var(--space-lg);
+    }
+
+    .editorial-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .editorial-aside {
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+      margin: var(--space-md) 0;
+    }
+    .pull-quote blockquote {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.55rem);
+      line-height: 1.35;
+      color: var(--on-surface);
+    }
+    .pull-quote figcaption {
+      margin-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    /* Interactive Buttons & Controls */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: end;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      border: 1px solid var(--outline);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover:not(:disabled) {
+      background-color: var(--surface-container-high);
+    }
+    .btn:active:not(:disabled) {
+      background-color: var(--surface-container);
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--primary-hover);
+      border-color: var(--primary-hover);
+    }
+    .btn-tab {
+      background-color: var(--background);
+      border: 1px solid var(--outline-variant);
+      color: var(--on-surface-variant);
+    }
+    .btn-tab:hover:not(:disabled) {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-tab[aria-pressed="true"],
+    .btn-tab.is-selected {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    /* Inputs */
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .text-input, .select-input {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--on-surface);
+      transition: border-color var(--dur-micro) var(--ease-out);
+    }
+    .select-input {
+      padding-right: var(--space-xl);
+    }
+    .text-input:focus, .select-input:focus {
+      border-color: var(--primary);
+    }
+
+    /* Range slider */
+    .slider-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: center;
+    }
+    .range-input {
+      width: 100%;
+      min-height: 44px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Interactive Panel (rare filled newsprint panel) */
+    .dossier-panel {
+      background-color: var(--surface-container-low);
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg);
+    }
+    .dossier-panel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      margin-top: var(--space-md);
+      border-top: var(--rule-column);
+      padding-top: var(--space-md);
+    }
+    .dossier-panel-grid > * {
+      border-left: var(--rule-column);
+      padding: 0 var(--space-lg);
+    }
+    .dossier-panel-grid > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .dossier-panel-grid > :last-child {
+      padding-right: 0;
+    }
+
+    /* Tables (broadsheet ruled tables) */
+    .broadsheet-table-wrap {
+      overflow-x: auto;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+    }
+    .broadsheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    .broadsheet-table th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      border-bottom: var(--rule-ink);
+    }
+    .broadsheet-table td {
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+      font-size: 0.96rem;
+      line-height: 1.5;
+    }
+    .broadsheet-table tr:last-child td {
+      border-bottom: 0;
+    }
+    .broadsheet-table .num-col {
+      text-align: right;
+      font-variant-numeric: lining-nums tabular-nums;
+      white-space: nowrap;
+      padding-right: 0;
+    }
+
+    /* SVG Schematics */
+    .schematic-box {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+    }
+    .schematic-caption {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      margin-top: var(--space-sm);
+    }
+    .svg-diagram {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .svg-bg-fill { fill: var(--surface-container-low); }
+    .svg-node-fill { fill: var(--background); }
+    .svg-accent-fill { fill: var(--primary-container); }
+    .svg-stroke-ink { stroke: var(--on-surface); fill: none; }
+    .svg-stroke-rule { stroke: var(--outline-variant); fill: none; }
+    .svg-stroke-claret { stroke: var(--primary); fill: none; }
+    .svg-stroke-teal { stroke: var(--secondary); fill: none; }
+    .svg-text-title {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 11px;
+      fill: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .svg-text-head {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 14px;
+      fill: var(--on-surface);
+    }
+    .svg-text-sub {
+      font-family: var(--font-body);
+      font-size: 12px;
+      fill: var(--on-surface-variant);
+    }
+    .svg-text-teal {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 11px;
+      fill: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Concept cards grid (broadsheet ruled cells) */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .card-wrapper {
+      container-type: inline-size;
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-column);
+      padding-block: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .card-inner {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    @container (min-width: 440px) {
+      .card-inner {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: var(--space-md);
+      }
+    }
+    @container (max-width: 439px) {
+      .card-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .concept-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .concept-locus {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+    .concept-negation {
+      border-left: 2px solid var(--primary);
+      padding-left: var(--space-sm);
+      font-size: 0.92rem;
+      color: var(--on-surface-variant);
+      margin-top: var(--space-xs);
+    }
+    .card-check-btn {
+      align-self: flex-start;
+      margin-top: var(--space-xs);
+    }
+
+    /* Aphorisms list */
+    .aphorism-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .aphorism-item {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .aphorism-quote {
+      font-family: var(--font-body);
+      font-size: 1.02rem;
+      line-height: 1.55;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .aphorism-comment {
+      font-size: 0.92rem;
+      line-height: 1.48;
+      color: var(--on-surface-variant);
+      border-left: var(--rule-column);
+      padding-left: var(--space-sm);
+      margin: 0;
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      border-top: var(--rule-ink);
+    }
+    .faq-item {
+      border-bottom: var(--rule-column);
+    }
+    .faq-trigger {
+      width: 100%;
+      min-height: 48px;
+      background: transparent;
+      border: 0;
+      padding: var(--space-md) 0;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      cursor: pointer;
+      color: var(--on-surface);
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.15rem;
+      line-height: 1.25;
+      transition: color var(--dur-micro) var(--ease-out);
+    }
+    .faq-trigger:hover {
+      color: var(--primary);
+    }
+    .faq-indicator {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+    .faq-panel {
+      padding-bottom: var(--space-md);
+      color: var(--on-surface-variant);
+      max-width: 68ch;
+    }
+    .faq-panel[hidden] {
+      display: none;
+    }
+
+    /* Self-assessment module */
+    .quiz-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .quiz-box {
+      background-color: var(--surface-container-low);
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .quiz-opt-btn {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      text-align: left;
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      line-height: 1.45;
+      color: var(--on-surface);
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-opt-btn:hover:not(:disabled) {
+      background-color: var(--surface-container);
+      border-color: var(--primary);
+    }
+    .quiz-opt-btn.is-correct {
+      background-color: var(--positive-container);
+      border-color: var(--positive);
+      color: var(--on-positive-container);
+    }
+    .quiz-opt-btn.is-wrong {
+      background-color: var(--error-container);
+      border-color: var(--error);
+      color: var(--on-error-container);
+    }
+    .quiz-opt-letter {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      color: var(--primary);
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+    .feedback-banner {
+      padding: var(--space-md);
+      border-left: 3px solid var(--outline);
+      background-color: var(--background);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .feedback-banner.is-correct {
+      border-left-color: var(--positive);
+    }
+    .feedback-banner.is-wrong {
+      border-left-color: var(--error);
+    }
+
+    .score-rail {
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-xs);
+    }
+
+    /* Timeline strip */
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+    }
+    .timeline-cell {
+      border-left: var(--rule-column);
+      border-bottom: var(--rule-column);
+      padding: var(--space-md);
+    }
+    .timeline-year {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--primary);
+      font-variant-numeric: lining-nums tabular-nums;
+      margin-bottom: var(--space-xs);
+    }
+    .timeline-text {
+      font-size: 0.9rem;
+      line-height: 1.42;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    /* Footer */
+    .dossier-footer {
+      border-top: var(--rule-masthead);
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-2xl);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-md);
+      color: var(--on-surface-variant);
+      font-size: 0.9rem;
+    }
+
+    /* Reveal animation */
+    .reveal-block {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal-block.is-pending {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-md) 0;
+      }
+      .columns > :nth-child(3) {
+        border-left: 0;
+        padding-left: 0;
+      }
+      .editorial-split,
+      .quiz-shell {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .editorial-aside,
+      .score-rail {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding-left: 0;
+        padding-top: var(--space-md);
+      }
+      .dossier-panel-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-md);
+      }
+      .dossier-panel-grid > * {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-md) 0 0 0;
+      }
+      .dossier-panel-grid > :first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: minmax(0, 1fr);
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .columns > * {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-sm) 0;
+      }
+      .columns > :first-child {
+        border-top: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- MASTHEAD -->
+    <header>
+      <div class="masthead-line">
+        <span>Dossier Filosófico Crítico · Obra Póstuma (1901)</span>
+        <span class="masthead-meta">Friedrich Nietzsche · <em>Der Wille zur Macht</em></span>
+      </div>
+      <div class="masthead">
+        <h1>La voluntad de poder</h1>
+        <p class="lede">
+          Ensayo de una transmutación de todos los valores: del diagnóstico del nihilismo europeo a la afirmación trágica del eterno retorno, pasando por la voluntad de poder como postulado epistemológico y ontológico del devenir.
+        </p>
+      </div>
+    </header>
+
+    <!-- KEY METRICS / STRUCTURAL SUMMARY -->
+    <section aria-label="Ficha estructural de la obra">
+      <div class="columns">
+        <div>
+          <div class="col-kicker">Génesis del proyecto</div>
+          <div class="col-value tabular-fig">1884–1888</div>
+          <p class="col-note">Proyectada tras <em>Zaratustra</em> —«peristilo» de la obra capital— según carta a Overbeck del 7 de abril de 1884 y esbozos de 1887.</p>
+        </div>
+        <div>
+          <div class="col-kicker">Arquitectura editorial</div>
+          <div class="col-value tabular-fig">4 Libros</div>
+          <p class="col-note">I. El nihilismo europeo · II. Crítica de los valores supremos · III. Nueva valoración · IV. Disciplina y educación.</p>
+        </div>
+        <div>
+          <div class="col-kicker">Tesis interpretativa</div>
+          <div class="col-value">Epistemológica</div>
+          <p class="col-note">Según el prólogo de Dolores Castrillo Mirat, la voluntad de poder opera ante todo como postulado epistemológico, no metafísico.</p>
+        </div>
+        <div>
+          <div class="col-kicker">Tu progreso de estudio</div>
+          <div class="col-value tabular-fig" id="top-progress-readout">0 / 10 fichas</div>
+          <p class="col-note" id="top-quiz-readout">Autoevaluación pendiente · 8 cuestiones disponibles.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- THEMATIC BLOCK NAVIGATION -->
+    <nav class="topic-nav" aria-label="Navegación por bloques temáticos">
+      <div class="topic-nav-heading">Navegación por bloques temáticos</div>
+      <ul class="topic-nav-list">
+        <li><a class="topic-nav-link is-active" href="#eje-nihilismo">1. Nihilismo europeo</a></li>
+        <li><a class="topic-nav-link" href="#eje-metafisica">2. Crítica metafísica</a></li>
+        <li><a class="topic-nav-link" href="#eje-transvaloracion">3. Transvaloración</a></li>
+        <li><a class="topic-nav-link" href="#eje-voluntad">4. Voluntad de poder</a></li>
+        <li><a class="topic-nav-link" href="#eje-retorno">5. Eterno retorno</a></li>
+        <li><a class="topic-nav-link" href="#bloque-fichas">6. Fichas clave</a></li>
+        <li><a class="topic-nav-link" href="#bloque-aforismos">7. Aforismos</a></li>
+        <li><a class="topic-nav-link" href="#bloque-faq">8. Preguntas frecuentes</a></li>
+        <li><a class="topic-nav-link" href="#bloque-autoevaluacion">9. Autoevaluación</a></li>
+      </ul>
+    </nav>
+
+    <!-- EJE 1: EL ADVENIMIENTO DEL NIHILISMO -->
+    <section id="eje-nihilismo" class="section-open reveal-block">
+      <div>
+        <span class="section-label">Eje I · Libro Primero</span>
+        <h2>El advenimiento del nihilismo: la muerte de Dios desnuda el «en vano» de los ideales</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            Nietzsche abre la obra anunciando un destino inevitable para los dos siglos siguientes: <em>«el nihilismo está ante la puerta: ¿de dónde nos llega este, el más inquietante de todos los huéspedes?»</em> (Libro I, § 1). Contra la sociología de su tiempo, rechaza que la causa resida en la miseria material, las crisis sociales o la degeneración fisiológica. El nihilismo brota de una interpretación concreta del mundo: la <strong>interpretación cristiano-moral</strong>.
+          </p>
+          <p>
+            Entre las virtudes cultivadas por esa moral figuraba la exigencia de <strong>veracidad</strong>. Al desarrollarse hasta sus últimas consecuencias, esa misma veracidad se vuelve contra la moral que la engendró, desenmascara su teología interesada y revela que el «mundo verdadero» ultraterreno fue una falsa proyección de nuestras necesidades psicológicas (Libro I, § 5, § 12 A). El idealismo metafísico iniciado por Platón y heredado por el cristianismo ya era, en el fondo, un <strong>nihilismo inconsciente</strong> porque fundaba el valor de la vida sobre la pura nada (<em>nihil</em>).
+          </p>
+          <p>
+            No basta, sin embargo, con proclamar la muerte de Dios. El hombre superior, todavía demasiado débil, sustituye los altares religiosos por nuevos becerros de oro laicos —la Razón, la Historia, el Progreso, el socialismo— que siguen hipotecando el devenir presente a una meta final futura (Libro I, § 20, § 30). Mientras persista esa ficción teleológica, el nihilismo solo cambiará de disfraz.
+          </p>
+        </div>
+
+        <aside class="editorial-aside">
+          <div class="pull-quote">
+            <blockquote>
+              «¿Qué significa el nihilismo?: Que los valores supremos pierden validez. Falta la meta; falta la respuesta al “por qué”.»
+            </blockquote>
+            <figcaption>Libro I, § 2 · El nihilismo europeo</figcaption>
+          </div>
+          <p class="col-note">
+            <strong>La antinomia moderna (§ 6):</strong> «En tanto creamos en la moral, condenamos la existencia». Desvalorizado el más allá ideal, el mundo sensible aparece todavía desprovisto de sentido porque seguimos midiendo lo real con la vara de una finalidad inexistente.
+          </p>
+        </aside>
+      </div>
+
+      <!-- INTERACTIVE COMPARATOR: PASIVO VS ACTIVO VS INCOMPLETO -->
+      <div class="dossier-panel">
+        <span class="tag">Explorador diagnóstico · Libro I, §§ 12, 22–28, 55–56</span>
+        <h3>Nihilismo incompleto, pasivo y activo: tres respuestas ante el derrumbe del sentido</h3>
+        <p class="col-note" style="margin-top: var(--space-xs);">
+          Selecciona una modalidad para examinar su raíz psicológica, su síntoma histórico y el diagnóstico nietzscheano.
+        </p>
+
+        <div class="btn-row" style="margin-top: var(--space-md);" role="group" aria-label="Selector de formas del nihilismo">
+          <button type="button" class="btn btn-tab is-selected" data-nihilism="incompleto" aria-pressed="true" onclick="selectNihilismMode('incompleto', this)">
+            Nihilismo incompleto
+          </button>
+          <button type="button" class="btn btn-tab" data-nihilism="pasivo" aria-pressed="false" onclick="selectNihilismMode('pasivo', this)">
+            Nihilismo pasivo
+          </button>
+          <button type="button" class="btn btn-tab" data-nihilism="activo" aria-pressed="false" onclick="selectNihilismMode('activo', this)">
+            Nihilismo activo
+          </button>
+        </div>
+
+        <div class="dossier-panel-grid" id="nihilism-detail-grid">
+          <div>
+            <div class="col-kicker">Cualidad de la voluntad</div>
+            <div class="col-value" id="nih-title">Sustitución sin transvaloración (§ 28, § 30)</div>
+            <p id="nih-desc">
+              Vivimos en medio de él. Se abandona al Dios personal cristiano, pero se conservan intactas las valoraciones morales antiguas bajo nombres laicos: la ciencia como autoridad absoluta, el progreso histórico, la igualdad del rebaño o la «felicidad de la mayoría».
+            </p>
+          </div>
+          <div>
+            <div class="col-kicker">Manifestación histórica</div>
+            <p id="nih-symptom">
+              Positivismo, socialismo («igualdad de la persona»), moralismo sin fondo religioso (Kant, John Stuart Mill, Ibsen) y consuelos estéticos o románticos (Wagner). Al no transmutar el principio mismo del valorar, agudizan el problema.
+            </p>
+          </div>
+          <div>
+            <div class="col-kicker">Veredicto de Nietzsche</div>
+            <p id="nih-verdict">
+              Estado de transición ambiguo e insostenible. Es necesario llevar el nihilismo hasta su consecuencia extrema para desnudar la mentira de todos estos sustitutos y forzar la decisión entre perecer o crear nuevos valores (§ 112).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SVG SCHEMATIC: DIALECTICA DEL NIHILISMO -->
+      <div class="schematic-box">
+        <svg class="svg-diagram" viewBox="0 0 920 230" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+          <!-- Stage 1 -->
+          <rect x="8" y="28" width="195" height="145" class="svg-node-fill svg-stroke-ink" stroke-width="1.5"/>
+          <text x="20" y="52" class="svg-text-title">1. Idealismo metafísico</text>
+          <text x="20" y="76" class="svg-text-head">Nihilismo inconsciente</text>
+          <text x="20" y="98" class="svg-text-sub">Platón y cristianismo:</text>
+          <text x="20" y="116" class="svg-text-sub">se desprecia el devenir</text>
+          <text x="20" y="134" class="svg-text-sub">en nombre de un «más allá»</text>
+          <text x="20" y="152" class="svg-text-sub">fundado en la nada.</text>
+
+          <line x1="203" y1="100" x2="243" y2="100" class="svg-stroke-ink" stroke-width="1.5"/>
+          <polygon points="243,95 253,100 243,105" fill="var(--on-surface)"/>
+
+          <!-- Stage 2 -->
+          <rect x="253" y="28" width="195" height="145" class="svg-node-fill svg-stroke-ink" stroke-width="1.5"/>
+          <text x="265" y="52" class="svg-text-title">2. Crisis de veracidad</text>
+          <text x="265" y="76" class="svg-text-head">Tortura del «en vano»</text>
+          <text x="265" y="98" class="svg-text-sub">Dios muere; se descubren</text>
+          <text x="265" y="116" class="svg-text-sub">los orígenes mezquinos de</text>
+          <text x="265" y="134" class="svg-text-sub">«fin», «unidad» y «ser».</text>
+          <text x="265" y="152" class="svg-text-sub">El mundo parece sin valor.</text>
+
+          <!-- Bifurcation arrows -->
+          <line x1="448" y1="70" x2="495" y2="52" class="svg-stroke-teal" stroke-width="1.5"/>
+          <polygon points="493,47 504,49 496,57" fill="var(--secondary)"/>
+
+          <line x1="448" y1="130" x2="495" y2="148" class="svg-stroke-claret" stroke-width="2"/>
+          <polygon points="496,143 504,151 493,153" fill="var(--primary)"/>
+
+          <!-- Stage 3A: Pasivo -->
+          <rect x="504" y="10" width="195" height="84" class="svg-bg-fill svg-stroke-rule" stroke-width="1.5"/>
+          <text x="516" y="32" class="svg-text-teal">3A. Nihilismo pasivo (§ 23)</text>
+          <text x="516" y="52" class="svg-text-head">«Budismo europeo»</text>
+          <text x="516" y="72" class="svg-text-sub">Cansancio, apatía, deseo</text>
+          <text x="516" y="86" class="svg-text-sub">de extinguirse sin luchar.</text>
+
+          <!-- Stage 3B: Activo -->
+          <rect x="504" y="108" width="195" height="94" class="svg-accent-fill svg-stroke-claret" stroke-width="2"/>
+          <text x="516" y="130" class="svg-text-title">3B. Nihilismo activo (§ 24)</text>
+          <text x="516" y="150" class="svg-text-head">Potencia de destrucción</text>
+          <text x="516" y="170" class="svg-text-sub">Aniquila los viejos ídolos;</text>
+          <text x="516" y="186" class="svg-text-sub">la negación se vuelve contra sí.</text>
+
+          <line x1="699" y1="155" x2="732" y2="155" class="svg-stroke-claret" stroke-width="2"/>
+          <polygon points="732,150 742,155 732,160" fill="var(--primary)"/>
+
+          <!-- Stage 4 -->
+          <rect x="742" y="96" width="170" height="114" class="svg-node-fill svg-stroke-claret" stroke-width="2"/>
+          <text x="754" y="120" class="svg-text-title">4. Transmutación</text>
+          <text x="754" y="142" class="svg-text-head">Afirmación dionisíaca</text>
+          <text x="754" y="164" class="svg-text-sub">Se restaura la inocencia</text>
+          <text x="754" y="180" class="svg-text-sub">del devenir y el error útil</text>
+          <text x="754" y="196" class="svg-text-sub">al servicio de la vida.</text>
+        </svg>
+        <p class="schematic-caption">
+          Esquema 1. Tránsito del nihilismo inconsciente a la transmutación de valores (basado en el Prólogo de D. Castrillo Mirat y Libro I, §§ 1–24).
+        </p>
+      </div>
+    </section>
+
+    <!-- EJE 2: DECONSTRUCCIÓN DE LA METAFÍSICA OCCIDENTAL -->
+    <section id="eje-metafisica" class="section-open reveal-block">
+      <div>
+        <span class="section-label">Eje II · Libros Primero, Segundo y Tercero</span>
+        <h2>Deconstrucción de la metafísica occidental: fin, unidad, ser y moral como errores interesados</h2>
+      </div>
+
+      <p>
+        En el aforismo capital <strong>§ 12 (Desmoronamiento de los valores cosmológicos)</strong>, Nietzsche muestra que la sensación de que el mundo «carece de valor» proviene de haber intentado medir el devenir con tres categorías ficticias: <strong>fin</strong> (teleología), <strong>unidad</strong> (monismo o totalidad divina) y <strong>ser</strong> (un mundo verdadero inmutable detrás de las apariencias). Cuando la razón descubre que el universo no avanza hacia una meta, que no existe un gran «todo» en el que refugiarse y que detrás del telón fenoménico no hay un mundo inmóvil, el hombre concluye que la existencia es falsa.
+      </p>
+      <p>
+        Pero la conclusión de Nietzsche es exactamente la inversa: <em>«la creencia en las categorías de la razón es la musa del nihilismo; hemos medido el valor del mundo por categorías que se refieren a un mundo puramente ficticio»</em> (Libro I, § 12 B). El sujeto, el objeto, la sustancia, la causalidad y la voluntad libre no son hechos objetivos, sino <strong>simplificaciones prácticas</strong> forjadas por una especie animal para orientarse y estabilizar el flujo incesante del devenir (Libro III, §§ 475, 503–516).
+      </p>
+
+      <!-- INTERACTIVE METAPHYSICS DECONSTRUCTION EXPLORER -->
+      <div class="dossier-panel">
+        <span class="tag">Desmontaje genealógico · Libros I–III</span>
+        <h3>Inspector de categorías metafísicas y morales</h3>
+        <p class="col-note" style="margin-top: var(--space-xs);">
+          Pulsa sobre una categoría tradicional para contrastar su ficción dogmática con la crítica epistemológica de Nietzsche.
+        </p>
+
+        <div class="btn-row" style="margin-top: var(--space-md);" role="group" aria-label="Selector de categorías metafísicas">
+          <button type="button" class="btn btn-tab is-selected" aria-pressed="true" onclick="selectMetaphysicsCat('ser', this)">Ser / Mundo verdadero</button>
+          <button type="button" class="btn btn-tab" aria-pressed="false" onclick="selectMetaphysicsCat('sujeto', this)">Sujeto / Yo / Alma</button>
+          <button type="button" class="btn btn-tab" aria-pressed="false" onclick="selectMetaphysicsCat('causalidad', this)">Causalidad y Ley</button>
+          <button type="button" class="btn btn-tab" aria-pressed="false" onclick="selectMetaphysicsCat('finalidad', this)">Fin y Teleología</button>
+          <button type="button" class="btn btn-tab" aria-pressed="false" onclick="selectMetaphysicsCat('moral', this)">Bien y Mal «en sí»</button>
+        </div>
+
+        <div class="dossier-panel-grid" id="metaphysics-detail-grid">
+          <div>
+            <div class="col-kicker">Ilusión de la metafísica</div>
+            <div class="col-value" id="meta-illusion">El «mundo verdadero» inmutable</div>
+            <p id="meta-illusion-text">
+              Desde Platón hasta Kant («cosa en sí»), se postula una realidad serena, idéntica a sí misma y ajena al dolor o al cambio, degradando nuestro mundo sensible a mera apariencia engañosa.
+            </p>
+          </div>
+          <div>
+            <div class="col-kicker">Origen psicológico real</div>
+            <p id="meta-origin">
+              Deseo de quietud de los fatigados e improductivos, incapaces de crear un mundo. La exigencia de un mundo ya acabado y perfecto oculta la «impotencia de la voluntad creadora» (§ 577 A).
+            </p>
+          </div>
+          <div>
+            <div class="col-kicker">Deconstrucción nietzscheana</div>
+            <p id="meta-deconstruction">
+              El mundo verdadero es una fábula vacía. Al suprimirlo, desaparece también la categoría de «mera apariencia»: la ilusión y la perspectiva adquieren dignidad ontológica como condiciones de la vida (§ 12 A, § 594).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="broadsheet-table-wrap">
+        <table class="broadsheet-table">
+          <thead>
+            <tr>
+              <th>Corriente o pensador criticado</th>
+              <th>Ficción o síntoma de <em>décadence</em></th>
+              <th>Objeción central en <em>La voluntad de poder</em></th>
+              <th class="num-col">Referencia</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Cristianismo e Iglesia</strong></td>
+              <td>Hipótesis moral de un orden divino y protección sistemática de los débiles</td>
+              <td>Concede valor infinito al individuo solo para impedir su autodesprecio, pero envenena los instintos vitales fuertes y frena la selección (§ 4, § 246).</td>
+              <td class="num-col">Libro I, § 4, § 246</td>
+            </tr>
+            <tr>
+              <td><strong>Immanuel Kant</strong></td>
+              <td>«Libertad inteligible» y cosas en sí inaccesibles a la experiencia</td>
+              <td>Lógica moralizante que inventa un trasmundo para exculpar a Dios del mal y someter la razón a imperativos morales absolutos (§ 17, § 375).</td>
+              <td class="num-col">Libro I, § 17; II, § 375</td>
+            </tr>
+            <tr>
+              <td><strong>Arthur Schopenhauer</strong></td>
+              <td>«Voluntad ciega y mala»; redención por negación del querer</td>
+              <td>Sostiene el mismo ideal ascético cristiano invertido; confunde el reposo del agotamiento con un estado divino y el arte «sin voluntad» con el acceso a la verdad (§ 17, § 604).</td>
+              <td class="num-col">Libro I, § 17; III, § 604</td>
+            </tr>
+            <tr>
+              <td><strong>Mecanicismo científico</strong></td>
+              <td>Átomos, leyes invariables y pura «objetividad»</td>
+              <td>Traduce el mundo interior de fuerzas dinámicas en signos matemáticos externos; produce impresión de falta de sentido al ignorar la voluntad interior de potencia (§ 611, § 682).</td>
+              <td class="num-col">Libro III, § 611, § 682</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- EJE 3: TRANSVALORACIÓN DE TODOS LOS VALORES -->
+    <section id="eje-transvaloracion" class="section-open reveal-block">
+      <div>
+        <span class="section-label">Eje III · Libro Tercero y Libro Cuarto</span>
+        <h2>La transvaloración: cambiar el principio mismo desde el que brota el valor</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            El subtítulo de la obra —<em>Ensayo de una transmutación de todos los valores</em>— suele malinterpretarse como un simple reemplazo de una tabla de mandamientos por otra. Tal como precisa Dolores Castrillo Mirat (siguiendo a Gilles Deleuze), la transmutación nietzscheana no es un mero cambio de valores, sino un <strong>cambio en el elemento del que deriva el valor de los valores</strong>.
+          </p>
+          <p>
+            Hasta hoy, los valores supremos brotaban de la cualidad <strong>negativa</strong> de nuestra voluntad: la venganza de los agotados, la renuncia a las pasiones, el miedo al devenir y el «instinto de rebaño» (Libro II, § 396; Libro III, § 999). Por eso el hombre bueno de la moral es, en realidad, un hombre resignado que acarrea valores ajenos como un animal de carga.
+          </p>
+          <p>
+            La verdadera afirmación dionisíaca no consiste en decir «sí» dócilmente a lo establecido ni en resignarse a lo real, sino en <strong>crear</strong> y <strong>transfigurar</strong>. Afirmar no es soportar el peso de los valores vigentes, sino destituirlos desde una voluntad ascendente que reconoce en el error y la ficción los «guardianes de la vida».
+          </p>
+        </div>
+
+        <aside class="editorial-aside">
+          <div class="pull-quote">
+            <blockquote>
+              «¡Todo es falso! ¡Todo es lícito!»
+            </blockquote>
+            <figcaption>Libro III, § 594 · Contra la antinomia verdad / error</figcaption>
+          </div>
+          <p class="col-note">
+            <strong>Alcance del inmoralismo (§ 594):</strong> Lejos de justificar crímenes o un relativismo indiferente, la sentencia quiebra el dualismo metafísico entre «verdad» y «apariencia» para valorar las interpretaciones según su capacidad de engrandecer o empobrecer la vida (§ 592).
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- EJE 4: VOLUNTAD DE PODER COMO POSTULADO EPISTEMOLÓGICO Y ONTOLÓGICO -->
+    <section id="eje-voluntad" class="section-open reveal-block">
+      <div>
+        <span class="section-label">Eje IV · Libro Tercero (§§ 475–709) y Libro Cuarto (§ 1060)</span>
+        <h2>La voluntad de poder como postulado epistemológico y ontología del devenir</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            El prólogo de Dolores Castrillo Mirat subraya la tesis medular para leer sin equívocos esta obra: la voluntad de poder tiene fundamentalmente el carácter de un <strong>postulado epistemológico</strong> y no de una metafísica sustancialista. ¿Por qué? Porque el Ser ya no es una sustancia inmóvil que el intelecto «refleja» pasivamente: el conocer mismo es un instrumento de poder que recorta, ordena, falsifica y estabiliza el flujo múltiple de fuerzas según las necesidades vitales de cada organismo (Libro III, § 475, § 488, § 636).
+          </p>
+          <p>
+            En el plano ontológico y psíquico, «voluntad de poder» no significa que el sujeto «quiera» el poder como un objeto exterior del que carece (como quien codicia dinero, cargos políticos o prestigio burgués; véase la crítica al «liberal» y la clase media en el Libro IV, § 859). La voluntad nietzscheana no es carencia sino <strong>virtud creadora y donadora</strong>: es <em>querer ser más</em>, querer sobrepasarse eternamente. Por ello, todo centro de fuerza busca resistencias que superar; placer y desplacer no son fines últimos, sino meros síntomas concomitantes de esa diferencia de potencia (Libro III, § 682, § 687–688; Libro IV, § 695).
+          </p>
+        </div>
+
+        <!-- INTERACTIVE PERSPECTIVISM & RESISTANCE SIMULATOR -->
+        <aside class="dossier-panel" style="margin: 0;">
+          <span class="tag">Laboratorio conceptual · §§ 636, 682–695</span>
+          <h3>Planos de la Voluntad de Poder y dinámica de la resistencia</h3>
+
+          <div class="btn-row" style="margin-top: var(--space-md);" role="group" aria-label="Selector de plano de análisis">
+            <button type="button" class="btn btn-tab is-selected" aria-pressed="true" onclick="selectPowerPlane('epistemologico', this)">Epistemológico</button>
+            <button type="button" class="btn btn-tab" aria-pressed="false" onclick="selectPowerPlane('ontologico', this)">Ontológico</button>
+            <button type="button" class="btn btn-tab" aria-pressed="false" onclick="selectPowerPlane('organico', this)">Orgánico-Psíquico</button>
+          </div>
+
+          <div style="margin-top: var(--space-md); border-top: var(--rule-column); padding-top: var(--space-md);">
+            <div class="col-kicker" id="plane-kicker">Postulado epistemológico · Perspectivismo</div>
+            <p id="plane-copy" style="font-size: 0.96rem;">
+              No existe «hecho en sí» ni sujeto cognoscente desinteresado. Toda percepción y todo concepto («sustancia», «ley», «número») es una simplificación perspectivista mediante la cual una fuerza se apropia del devenir para poder vivir (§ 488, § 636).
+            </p>
+          </div>
+
+          <div class="field-group" style="margin-top: var(--space-md); border-top: var(--rule-column); padding-top: var(--space-md);">
+            <label for="resistance-slider" class="field-label">
+              Grado de resistencia que enfrenta la fuerza (§ 687–695)
+            </label>
+            <div class="slider-wrap">
+              <input type="range" id="resistance-slider" class="range-input" min="1" max="100" value="65" oninput="syncResistanceFromSlider(this.value)">
+              <input type="number" id="resistance-number" class="text-input" min="1" max="100" value="65" style="width: 82px; text-align: right;" aria-label="Valor numérico de resistencia" oninput="syncResistanceFromNumber(this.value)">
+            </div>
+            <div id="resistance-readout" style="margin-top: var(--space-xs); font-size: 0.92rem; color: var(--on-surface-variant);">
+              <strong>Tensión creadora (65%):</strong> El desplacer inicial de la resistencia actúa como estímulo vital; al vencerla, entra en la conciencia la diferencia del «más» (goce como sentimiento de poder aumentado, § 688).
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- EJE 5: AFIRMACIÓN DIONISÍACA Y ETERNO RETORNO -->
+    <section id="eje-retorno" class="section-open reveal-block">
+      <div>
+        <span class="section-label">Eje V · Libro Cuarto (§§ 1021–1060)</span>
+        <h2>La afirmación dionisíaca y el eterno retorno: inocencia del devenir sin meta final</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            Lejos de contradecirse con la voluntad de poder, el <strong>Eterno Retorno</strong> constituye su expresión última y su metáfora más alta. Si el universo es una dimensión fija y finita de fuerza que actúa en un tiempo infinito, toda combinación posible de fuerzas debe haberse realizado ya y volverá a repetirse infinitas veces (Libro IV, § 1059). Si el mundo hubiera podido alcanzar un «estado final» o cristalizar en un Ser inmóvil, hace ya una eternidad que todo devenir habría cesado.
+          </p>
+          <p>
+            ¿Por qué es inseparable de la voluntad de poder? Porque querer ser más implica <strong>romper todo equilibrio</strong> apenas alcanzado: cuando una fuerza llega a su punto culminante, debe bascular de nuevo para seguir siendo energía creadora. Así se rescata la <strong>inocencia del devenir</strong>: ningún instante necesita justificarse por un fin futuro ni ante un tribunal moral.
+          </p>
+          <p>
+            Como subraya Pierre Klossowski, esta revelación disuelve también el yo fijo: afirmar con un «sí» un solo instante de existencia obliga a afirmar toda la cadena eterna que lo hizo posible y todas nuestras identidades posibles (Libro IV, § 1025). Esta es la antítesis radical entre <strong>Dioniso y el Crucificado</strong> (§ 1045): no la anestesia del estoico ni el optimismo beato de Leibniz («el mejor de los mundos posibles»), sino la divinización trágica de la vida entera, incluido su dolor y destrucción.
+          </p>
+        </div>
+
+        <div class="schematic-box" style="margin: 0;">
+          <svg class="svg-diagram" viewBox="0 0 420 340" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer ring -->
+            <circle cx="210" cy="170" r="118" class="svg-stroke-claret" stroke-width="2.5"/>
+            <circle cx="210" cy="170" r="72" class="svg-stroke-rule" stroke-width="1" stroke-dasharray="4 4"/>
+
+            <!-- Center -->
+            <text x="210" y="160" text-anchor="middle" class="svg-text-title">«¡Voluntad de poder</text>
+            <text x="210" y="176" text-anchor="middle" class="svg-text-title">y nada más!»</text>
+            <text x="210" y="194" text-anchor="middle" class="svg-text-sub">Libro IV, § 1060</text>
+
+            <!-- Top node -->
+            <rect x="132" y="16" width="156" height="44" class="svg-node-fill svg-stroke-ink" stroke-width="1.5"/>
+            <text x="210" y="34" text-anchor="middle" class="svg-text-head">1. Acumulación</text>
+            <text x="210" y="50" text-anchor="middle" class="svg-text-sub">Querer devenir más fuerte</text>
+
+            <!-- Right node -->
+            <rect x="272" y="148" width="142" height="44" class="svg-node-fill svg-stroke-ink" stroke-width="1.5"/>
+            <text x="343" y="166" text-anchor="middle" class="svg-text-head">2. Culminación</text>
+            <text x="343" y="182" text-anchor="middle" class="svg-text-sub">Ruptura del equilibrio</text>
+
+            <!-- Bottom node -->
+            <rect x="132" y="278" width="156" height="44" class="svg-accent-fill svg-stroke-claret" stroke-width="1.5"/>
+            <text x="210" y="296" text-anchor="middle" class="svg-text-head">3. Ocaso creador</text>
+            <text x="210" y="312" text-anchor="middle" class="svg-text-sub">Destrucción transfiguradora</text>
+
+            <!-- Left node -->
+            <rect x="6" y="148" width="142" height="44" class="svg-node-fill svg-stroke-ink" stroke-width="1.5"/>
+            <text x="77" y="166" text-anchor="middle" class="svg-text-head">4. Eterno retorno</text>
+            <text x="77" y="182" text-anchor="middle" class="svg-text-sub">Sí incondicional al instante</text>
+          </svg>
+          <p class="schematic-caption">
+            Esquema 2. El anillo dionisíaco: cantidad finita de fuerza en un tiempo infinito sin estado terminal (§§ 1055–1060).
+          </p>
+        </div>
+      </div>
+
+      <!-- CRONOLOGIA -->
+      <div>
+        <span class="tag">Cronología esencial · De Röcken a la edición póstuma</span>
+        <div class="timeline-grid" style="margin-top: var(--space-sm);">
+          <div class="timeline-cell">
+            <div class="timeline-year">1844 / 1869</div>
+            <p class="timeline-text">Nace en Röcken (15 oct.). Catedrático de Filología Clásica en Basilea a los 24 años; amistad con Overbeck y Burckhardt.</p>
+          </div>
+          <div class="timeline-cell">
+            <div class="timeline-year">1878–1882</div>
+            <p class="timeline-text">Ruptura con Wagner. Abandona la cátedra («filósofo errante»). Sils-Maria, <em>Aurora</em> y <em>La gaya ciencia</em>.</p>
+          </div>
+          <div class="timeline-cell">
+            <div class="timeline-year">1883–1884</div>
+            <p class="timeline-text"><em>Así habló Zaratustra</em> (superhombre y eterno retorno). Concibe la gran obra filosófica en prosa; carta a Overbeck.</p>
+          </div>
+          <div class="timeline-cell">
+            <div class="timeline-year">1887–1888</div>
+            <p class="timeline-text"><em>La genealogía de la moral</em>, esbozos y plan de 1887 para <em>La voluntad de poder</em>, <em>El Anticristo</em>, <em>Ecce Homo</em>.</p>
+          </div>
+          <div class="timeline-cell">
+            <div class="timeline-year">1889 / 1901</div>
+            <p class="timeline-text">Crisis de Turín (1889); fallece en Weimar (1900). Su hermana Elisabeth recompone y publica la obra en 1901.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 6: FICHAS DE CONCEPTOS CLAVE -->
+    <section id="bloque-fichas" class="section-open reveal-block">
+      <div>
+        <span class="section-label">Archivo conceptual · 10 fichas</span>
+        <h2>Fichas de conceptos clave</h2>
+        <p class="col-note">
+          Filtra por eje temático y marca las fichas estudiadas para registrar tu avance en la lectura.
+        </p>
+      </div>
+
+      <div class="btn-row" role="group" aria-label="Filtrar fichas de conceptos por eje">
+        <button type="button" class="btn btn-tab is-selected" aria-pressed="true" onclick="filterConcepts('todos', this)">Todos (10)</button>
+        <button type="button" class="btn btn-tab" aria-pressed="false" onclick="filterConcepts('nihilismo', this)">Nihilismo</button>
+        <button type="button" class="btn btn-tab" aria-pressed="false" onclick="filterConcepts('epistemologia', this)">Epistemología</button>
+        <button type="button" class="btn btn-tab" aria-pressed="false" onclick="filterConcepts('voluntad', this)">Voluntad y Poder</button>
+        <button type="button" class="btn btn-tab" aria-pressed="false" onclick="filterConcepts('retorno', this)">Dioniso y Retorno</button>
+      </div>
+
+      <div class="card-grid" id="concepts-grid"></div>
+    </section>
+
+    <!-- BLOQUE 7: AFORISMOS DESTACADOS -->
+    <section id="bloque-aforismos" class="section-open reveal-block">
+      <div>
+        <span class="section-label">Antología crítica · 12 parágrafos</span>
+        <h2>Aforismos destacados</h2>
+        <p class="col-note">
+          Explora fragmentos literales de la edición de <em>La voluntad de poder</em> filtrados por libro o término filosófico.
+        </p>
+      </div>
+
+      <div class="btn-row" style="justify-content: space-between;">
+        <div class="btn-row" role="group" aria-label="Filtrar aforismos por libro">
+          <button type="button" class="btn btn-tab is-selected" aria-pressed="true" onclick="filterAphorismsBook('todos', this)">Todos los libros</button>
+          <button type="button" class="btn btn-tab" aria-pressed="false" onclick="filterAphorismsBook('I', this)">Libro I</button>
+          <button type="button" class="btn btn-tab" aria-pressed="false" onclick="filterAphorismsBook('II', this)">Libro II</button>
+          <button type="button" class="btn btn-tab" aria-pressed="false" onclick="filterAphorismsBook('III', this)">Libro III</button>
+          <button type="button" class="btn btn-tab" aria-pressed="false" onclick="filterAphorismsBook('IV', this)">Libro IV</button>
+        </div>
+        <div class="field-group" style="min-width: min(260px, 100%);">
+          <label for="aphorism-search" class="field-label">Buscar en aforismos</label>
+          <input type="search" id="aphorism-search" class="text-input" placeholder="Ej. error, retorno, moral, Dios…" oninput="searchAphorisms(this.value)">
+        </div>
+      </div>
+
+      <div id="aphorism-count-note" class="col-note">Mostrando 12 aforismos seleccionados.</div>
+      <div class="aphorism-list" id="aphorisms-container"></div>
+    </section>
+
+    <!-- BLOQUE 8: PREGUNTAS FRECUENTES -->
+    <section id="bloque-faq" class="section-open reveal-block">
+      <div>
+        <span class="section-label">Aclaraciones críticas · 6 cuestiones</span>
+        <h2>Preguntas frecuentes sobre la obra</h2>
+        <p class="col-note">
+          Despeja los malentendidos históricos y conceptuales más comunes en torno a <em>La voluntad de poder</em>.
+        </p>
+      </div>
+
+      <div class="faq-list" id="faq-container"></div>
+    </section>
+
+    <!-- BLOQUE 9: AUTOEVALUACIÓN INTERACTIVA -->
+    <section id="bloque-autoevaluacion" class="section-open reveal-block">
+      <div>
+        <span class="section-label">Comprobación de lectura · Dos módulos interactivos</span>
+        <h2>Módulos de autoevaluación filosófica</h2>
+        <p class="col-note">
+          Pon a prueba tu comprensión de los ejes de la obra y clasifica tus intuiciones frente al diagnóstico nietzscheano. Tus respuestas se conservan automáticamente.
+        </p>
+      </div>
+
+      <!-- MODULO A: CUESTIONARIO DE COMPRENSION -->
+      <div class="quiz-shell">
+        <div class="quiz-box">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: var(--space-sm);">
+            <span class="tag" id="quiz-progress-tag">Módulo A · Pregunta 1 de 8</span>
+            <span class="concept-locus" id="quiz-axis-tag">Eje: Nihilismo europeo</span>
+          </div>
+          <h3 id="quiz-question-text">Cargando cuestión…</h3>
+          <div class="quiz-options" id="quiz-options-container"></div>
+          <div id="quiz-feedback" class="feedback-banner" hidden></div>
+          <div class="btn-row" style="justify-content: space-between; margin-top: var(--space-xs);">
+            <div class="btn-row">
+              <button type="button" class="btn" id="quiz-prev-btn" onclick="prevQuestion()">Anterior</button>
+              <button type="button" class="btn btn-primary" id="quiz-next-btn" onclick="nextQuestion()">Siguiente</button>
+            </div>
+            <button type="button" class="btn" id="quiz-reset-btn" onclick="handleResetQuiz(this)">Reiniciar cuestionario</button>
+          </div>
+        </div>
+
+        <aside class="score-rail">
+          <div>
+            <div class="col-kicker">Resultado acumulado</div>
+            <div class="col-value tabular-fig" id="quiz-score-big">0 / 8 aciertos</div>
+            <p class="col-note" id="quiz-status-summary">Responde las 8 cuestiones para obtener tu balance por ejes temáticos.</p>
+          </div>
+          <div>
+            <div class="col-kicker" style="margin-bottom: var(--space-xs);">Desglose por cuestión</div>
+            <div id="quiz-question-map" class="btn-row" style="gap: var(--space-xs);"></div>
+          </div>
+          <div style="border-top: var(--rule-column); padding-top: var(--space-md);">
+            <div class="col-kicker">Balance por eje</div>
+            <div class="stat-row">
+              <span>Nihilismo y Metafísica</span>
+              <strong class="tabular-fig" id="axis-stat-1">0 / 3</strong>
+            </div>
+            <div class="stat-row">
+              <span>Transvaloración y Epistemología</span>
+              <strong class="tabular-fig" id="axis-stat-2">0 / 3</strong>
+            </div>
+            <div class="stat-row">
+              <span>Eterno Retorno y Dioniso</span>
+              <strong class="tabular-fig" id="axis-stat-3">0 / 2</strong>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- MODULO B: DIAGNOSTICO FILOSOFICO -->
+      <div class="dossier-panel">
+        <span class="tag">Módulo B · Diagnóstico de perspectivas</span>
+        <h3>¿Desde qué cualidad de la Voluntad de Poder estás valorando?</h3>
+        <p class="col-note" style="margin-top: var(--space-xs);">
+          Elige la respuesta que mejor refleja tu postura ante estos cuatro dilemas clásicos para observar a qué tipología nietzscheana corresponde (Idealismo, Nihilismo pasivo, Nihilismo activo o Afirmación trágico-dionisíaca).
+        </p>
+
+        <div class="card-grid" id="dilemmas-grid" style="margin-top: var(--space-md);"></div>
+
+        <div id="dilemma-result-box" class="feedback-banner" style="margin-top: var(--space-md);">
+          Selecciona una opción en los cuatro dilemas para calcular tu diagnóstico filosófico según los criterios de <em>La voluntad de poder</em>.
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="dossier-footer">
+      <div>
+        <strong>Fuente base:</strong> Friedrich Nietzsche, <em>La voluntad de poder</em> (<em>Der Wille zur Macht</em>, ed. póstuma de 1901; trad. Aníbal Froufe), estudio preliminar de Dolores Castrillo Mirat y cronología editorial.
+      </div>
+      <div>
+        Dossier interactivo estructurado en 5 ejes teóricos, 10 fichas conceptuales, 12 aforismos y 2 módulos de autoevaluación.
+      </div>
+    </footer>
+
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    /* =========================================================================
+       DATA DEFINITIONS (Backtick literals, no trailing commas)
+       ========================================================================= */
+
+    const NIHILISM_MODES = {
+      incompleto: {
+        title: `Sustitución sin transvaloración (§ 28, § 30)`,
+        desc: `Vivimos en medio de él. Se abandona al Dios personal cristiano, pero se conservan intactas las valoraciones morales antiguas bajo nombres laicos: la ciencia como autoridad absoluta, el progreso histórico, la igualdad del rebaño o la «felicidad de la mayoría».`,
+        symptom: `Positivismo, socialismo («igualdad de la persona»), moralismo sin fondo religioso (Kant, John Stuart Mill, Ibsen) y consuelos estéticos o románticos (Wagner). Al no transmutar el principio mismo del valorar, agudizan el problema.`,
+        verdict: `Estado de transición ambiguo e insostenible. Es necesario llevar el nihilismo hasta su consecuencia extrema para desnudar la mentira de todos estos sustitutos y forzar la decisión entre perecer o crear nuevos valores (§ 112).`
+      },
+      pasivo: {
+        title: `Decadencia y cansancio del espíritu (§ 22–23)`,
+        desc: `Signo de debilidad fisiológica y agotamiento vital. La potencia del espíritu está tan fatigada que las metas anteriores pierden crédito, pero ya no hay fuerza para crear una nueva meta ni para atacar los viejos ídolos.`,
+        symptom: `«Budismo europeo», resignación, nostalgia de la nada, búsqueda de narcóticos (mística, «arte por el arte», esteticismo, trabajo mecánico o anestesia estoica frente al sufrimiento, § 29). Quiere extinguirse serenamente.`,
+        verdict: `Representa al «último hombre» desencantado que recorre el mundo sin encontrar nada digno de movilizar sus energías. Es la lógica terminal de la décadence cuando la voluntad se disgrega (§ 43, § 46).`
+      },
+      activo: {
+        title: `Creciente poder del espíritu y destrucción (§ 22–24)`,
+        desc: `Alcanza su máximo de fuerza relativa como «potencia violenta de destrucción». Los espíritus más fuertes han visto la falsedad de los valores supremos y ya no se detienen en el «no» del juicio teórico: pasan al «no» de la acción.`,
+        symptom: `«El hombre que quiere perecer» (Zaratustra): gran despreciador que destruye activamente lo quebradizo (§ 37) y empuña el «martillo» filosófico para derribar las ficciones de Dios, Verdad e Ideal.`,
+        verdict: `Puerta indispensable hacia la transvaloración: en su punto culminante, la negación deja de negar la vida y se vuelve contra los valores que niegan la vida, abriendo paso a la afirmación dionisíaca.`
+      }
+    };
+
+    const METAPHYSICS_CATS = {
+      ser: {
+        illusion: `El «mundo verdadero» inmutable`,
+        illusionText: `Desde Platón hasta Kant («cosa en sí»), se postula una realidad serena, idéntica a sí misma y ajena al dolor o al cambio, degradando nuestro mundo sensible a mera apariencia engañosa.`,
+        origin: `Deseo de quietud de los fatigados e improductivos, incapaces de crear un mundo. La exigencia de un mundo ya acabado y perfecto oculta la «impotencia de la voluntad creadora» (§ 577 A).`,
+        deconstruction: `El mundo verdadero es una fábula vacía. Al suprimirlo, desaparece también la categoría de «mera apariencia»: la ilusión y la perspectiva adquieren dignidad ontológica como condiciones de la vida (§ 12 A, § 594).`
+      },
+      sujeto: {
+        illusion: `El «yo», el alma y la voluntad libre`,
+        illusionText: `La tradición presupone un «sujeto» unitario e invariable detrás de cada acto de pensar o querer, como si existiera un agente sustancial distinto de sus propias acciones.`,
+        origin: `Hábito gramatical y simplificación práctica para agrupar una multiplicidad de impulsos en lucha bajo un solo nombre, atribuyendo responsabilidad moral al individuo (§ 475, § 668).`,
+        deconstruction: `No hay «espíritu», ni «sujeto», ni «voluntad» aislada; lo que llamamos sujeto es una simplificación de la fuerza interpretadora o una coordinación jerárquica de instintos (§ 46, § 475, § 503–516).`
+      },
+      causalidad: {
+        illusion: `Leyes invariables de causa y efecto`,
+        illusionText: `La metafísica y el mecanicismo suponen un orden cósmico fijo regido por leyes eternas en el que causas idénticas producen efectos idénticos.`,
+        origin: `Proyección psicológica de nuestro sentimiento de poder al obrar: convertimos un estado de ánimo concomitante en «causa suficiente» para hacer el mundo calculable y manejable (§ 682).`,
+        deconstruction: `No existen «leyes» ni «casos idénticos», sino cantidades dinámicas de fuerza en relación de tensión cuya esencia es obrar unas sobre otras según su propia medida (§ 611, § 632, § 682).`
+      },
+      finalidad: {
+        illusion: `Meta última y sentido teleológico`,
+        illusionText: `La creencia de que la historia, la evolución o la vida humana tienden hacia un fin moral supremo, una armonía universal o un desenlace redentor.`,
+        origin: `Incapacidad de soportar el devenir sin excusa: cuando falla la intención final parece que «todo es en vano» (§ 659). Es hacer de nuestras «deseabilidades» jueces del ser (§ 703).`,
+        deconstruction: `Si el universo tuviera un fin, ya lo habría alcanzado hace infinitud de tiempo (§ 1055). Las metas particulares son solo metamorfosis de la voluntad de poder; el todo carece de meta y recobra su inocencia.`
+      },
+      moral: {
+        illusion: `Valores «bueno» y «malo» absolutos en sí`,
+        illusionText: `La convicción de que ciertas acciones son buenas o malas por naturaleza, independientemente de quién las ejecute y de su función vital.`,
+        origin: `Estrategia de poder de los agotados, desheredados y del rebaño para protegerse de los espíritus fuertes e independientes, vengándose de ellos al declarar «malo» todo exceso de fuerza (§ 290, § 396).`,
+        deconstruction: `Un acto en sí mismo carece de valor (§ 290). Todo valorar es perspectivo: expresa condiciones de conservación y crecimiento de determinados tipos de vida (§ 257, § 709).`
+      }
+    };
+
+    const POWER_PLANES = {
+      epistemologico: {
+        kicker: `Postulado epistemológico · Perspectivismo`,
+        copy: `No existe «hecho en sí» ni sujeto cognoscente desinteresado. Toda percepción y todo concepto («sustancia», «ley», «número») es una simplificación perspectivista mediante la cual una fuerza se apropia del devenir para poder vivir (§ 488, § 636).`
+      },
+      ontologico: {
+        kicker: `Postulado ontológico · Dinámica del Ser`,
+        copy: `El mundo es un «mar de fuerzas corrientes» en perpetua metamorfosis, sin aumento ni pérdida total, donde cada centro de fuerza se define por su tensión frente a los demás. La voluntad de poder no es un ser ni un devenir, sino un pathos elemental (§ 611, § 1060).`
+      },
+      organico: {
+        kicker: `Plano orgánico y psíquico · Auto-superación`,
+        copy: `Desde el protoplasma que proyecta pedúnculos hasta el artista creador, la vida no busca mera «autoconservación», sino acumular fuerza, vencer resistencias e ir más allá de sí misma. La voluntad de poder es voluntad de «un más» (§ 649, § 688).`
+      }
+    };
+
+    const CONCEPTS = [
+      {
+        id: `nihilismo-pasivo`,
+        axis: `nihilismo`,
+        axisLabel: `Nihilismo`,
+        term: `Nihilismo pasivo`,
+        locus: `Libro I, §§ 22–23`,
+        def: `Declive y retroceso de la fuerza del espíritu cuando los viejos valores pierden crédito pero no existe potencia suficiente para crear otros nuevos.`,
+        notThis: `No es una postura filosófica lúcida ni neutral, sino un síntoma fisiológico de agotamiento («budismo europeo») que anhela apagarse.`
+      },
+      {
+        id: `nihilismo-activo`,
+        axis: `nihilismo`,
+        axisLabel: `Nihilismo`,
+        term: `Nihilismo activo`,
+        locus: `Libro I, §§ 22–24`,
+        def: `Signo del creciente poder del espíritu que destruye violentamente los ideales caducos porque le resultan ya estrechos e indignos.`,
+        notThis: `No es mero resentimiento destructivo; llevado al extremo, niega los valores que negaban la vida y prepara la afirmación.`
+      },
+      {
+        id: `decadence`,
+        axis: `nihilismo`,
+        axisLabel: `Nihilismo`,
+        term: `Décadence`,
+        locus: `Libro I, §§ 38–47`,
+        def: `Disgregación e incoordinación de los instintos vitales, acompañada de debilidad volitiva y búsqueda de paliativos morales o narcóticos.`,
+        notThis: `No es algo moralmente «pecaminoso» que pueda curarse con arrepentimiento; es un residuo inevitable del crecimiento vital cuya infección debe aislarse.`
+      },
+      {
+        id: `transmutacion`,
+        axis: `voluntad`,
+        axisLabel: `Voluntad y Poder`,
+        term: `Transmutación de valores`,
+        locus: `Prefacio, § 4; Libro III, §§ 999–1001`,
+        def: `Inversión radical del principio mismo del valorar: sustituir la fuente negativa (rencor, renuncia) por la cualidad afirmativa y creadora de la voluntad de poder.`,
+        notThis: `No equivale a cambiar un ídolo por otro (ciencia, Estado, progreso) conservando la vieja estructura moral reactiva.`
+      },
+      {
+        id: `perspectivismo`,
+        axis: `epistemologia`,
+        axisLabel: `Epistemología`,
+        term: `Perspectivismo`,
+        locus: `Libro III, §§ 475, 592, 636`,
+        def: `Tesis epistemológica según la cual todo conocer es interpretar desde un centro de fuerza concreto con intereses de crecimiento vital.`,
+        notThis: `No es un subjetivismo caprichoso; «cualquier interpretación equivale a un engrandecimiento o a una decadencia» (§ 592).`
+      },
+      {
+        id: `error-util`,
+        axis: `epistemologia`,
+        axisLabel: `Epistemología`,
+        term: `Error útil / Ficción vital`,
+        locus: `Libro III, §§ 488, 503–516, 594`,
+        def: `Esquemas estabilizadores (sustancia, sujeto, causalidad, cosas idénticas) sin los cuales una especie viva no podría orientarse en el caos del devenir.`,
+        notThis: `No se condenan por falsos sino cuando olvidan su carácter de ficción al servicio de la vida y se erigen en «Verdad absoluta».`
+      },
+      {
+        id: `voluntad-poder`,
+        axis: `voluntad`,
+        axisLabel: `Voluntad y Poder`,
+        term: `Voluntad de poder`,
+        locus: `Libro III, §§ 611, 682, 688; IV, § 1060`,
+        def: `Pathos elemental de todo lo existente que tiende sin descanso a sobrepasarse, romper todo equilibrio, interpretar y donar sentido.`,
+        notThis: `No significa «desear» poder político o dinero (meta del esclavo o del burgués en § 859), sino voluntad creadora de ser más.`
+      },
+      {
+        id: `resistencia-placer`,
+        axis: `voluntad`,
+        axisLabel: `Voluntad y Poder`,
+        term: `Resistencia y sentimiento de poder`,
+        locus: `Libro III, §§ 687–688; IV, § 695`,
+        def: `Toda fuerza busca activamente un obstáculo que superar; el goce es la conciencia del crecimiento y diferencia al vencer esa resistencia.`,
+        notThis: `Refuta el hedonismo y el utilitarismo: el hombre no huye del desplacer ni busca el placer como fin, sino el aumento de poder.`
+      },
+      {
+        id: `eterno-retorno`,
+        axis: `retorno`,
+        axisLabel: `Dioniso y Retorno`,
+        term: `Eterno retorno`,
+        locus: `Libro IV, §§ 1051–1060`,
+        def: `Infinitud del tiempo en la que una cantidad finita de fuerza recorre y repite eternamente todas sus combinaciones sin alcanzar un estado final.`,
+        notThis: `No es fatalismo pasivo ni atemporalidad mística; es el «martillo» selector que exige afirmar cada instante en su entera gravedad.`
+      },
+      {
+        id: `dioniso-crucificado`,
+        axis: `retorno`,
+        axisLabel: `Dioniso y Retorno`,
+        term: `Dioniso contra el Crucificado`,
+        locus: `Libro IV, § 1045`,
+        def: `Contraposición entre la divinización trágica de la vida entera (creación y tormento incluidos) y la religión que usa el sufrimiento para condenar la existencia.`,
+        notThis: `No se opone al cristianismo por el mero hecho del dolor, sino por el sentido opuesto dado al martirio: afirmación fecunda frente a condena de la vida.`
+      }
+    ];
+
+    const APHORISMS = [
+      {
+        book: `I`,
+        num: `§ 2`,
+        title: `Definición del nihilismo`,
+        quote: `«¿Qué significa el nihilismo?: Que los valores supremos pierden validez. Falta la meta; falta la respuesta al “por qué”.»`,
+        comment: `Formula el núcleo del diagnóstico: no se trata de una crisis económica pasajera, sino del colapso de la pregunta por la finalidad.`
+      },
+      {
+        book: `I`,
+        num: `§ 12 A`,
+        title: `La tortura del «en vano»`,
+        quote: `«El nihilismo es entonces la consciencia de un largo despilfarro de fuerzas, la tortura del “en vano”, la inseguridad, la falta de oportunidad para rehacerse de alguna manera… la vergüenza de sí mismo, como si uno se hubiera mentido a sí mismo demasiado tiempo.»`,
+        comment: `Explica el nacimiento psicológico del nihilismo cuando se derrumban las categorías de «fin», «unidad» y «ser».`
+      },
+      {
+        book: `I`,
+        num: `§ 15`,
+        title: `El nihilismo como forma divina de pensar`,
+        quote: `«La medida de nuestra fuerza es hasta qué punto podemos acomodarnos a la apariencia, a la necesidad de la mentira, sin perecer. En esa medida, el nihilismo podría ser una forma divina de pensar como negación de todo mundo verdadero, de todo ser.»`,
+        comment: `Muestra el punto de inflexión en que el nihilismo extremo deja de lamentar la pérdida del ideal y libera el valor de la apariencia.`
+      },
+      {
+        book: `I`,
+        num: `§ 22`,
+        title: `Doble sentido del nihilismo`,
+        quote: `«El nihilismo tiene doble sentido: A) El nihilismo como signo del creciente poder del espíritu: nihilismo activo. B) El nihilismo como decadencia y retroceso del poder del espíritu: nihilismo pasivo.»`,
+        comment: `Distinción decisiva que separa la destrucción creadora de la mera postración cansada.`
+      },
+      {
+        book: `I`,
+        num: `§ 37`,
+        title: `Los tres grados ante la edad trágica`,
+        quote: `«1) Los débiles se rompen aquí en pedazos. 2) Los fuertes destruyen lo que no se rompe. 3) Los más fuertes superan los valores que sirven para juzgar. Todo esto en conjunto crea la edad trágica.»`,
+        comment: `Traza la jerarquía de respuestas frente al desmoronamiento de los valores tradicionales.`
+      },
+      {
+        book: `II`,
+        num: `§ 396`,
+        title: `Esencia reactiva de la moral`,
+        quote: `«¿Qué es esencialmente la moral? El instinto de “décadence”, los agotados y los desheredados, que de esta manera, vengándose, se sienten señores…»`,
+        comment: `Revela que incluso la moral ascética y altruista es una forma disfrazada —pero negativa y vengativa— de voluntad de poder.`
+      },
+      {
+        book: `III`,
+        num: `§ 488`,
+        title: `La verdad como error vital`,
+        quote: `«La verdad es el error, sin el cual no puede vivir ningún ser viviente de determinada especie.»`,
+        comment: `Síntesis del postulado epistemológico: el conocimiento no copia un ser absoluto, sino que fabrica ficciones indispensables para persistir.`
+      },
+      {
+        book: `III`,
+        num: `§ 577 A`,
+        title: `Voluntad de verdad como impotencia`,
+        quote: `«La idea de que el mundo que debería ser, existe verdaderamente, es una creencia de los improductivos, que no anhelan crear un mundo tal y como debería ser. Consideran que existe ya, buscan los medios para llegar a él. “Voluntad de verdad”: impotencia de la voluntad creadora.»`,
+        comment: `Desenmascara el idealismo platónico-moral como pereza y falta de fuerza configuradora.`
+      },
+      {
+        book: `III`,
+        num: `§ 594`,
+        title: `Ruptura del antagonismo verdad / falsedad`,
+        quote: `«¡Todo es falso! ¡Todo es lícito!»`,
+        comment: `Al desaparecer la antinomia metafísica con un mundo verdadero, la fuerza configuradora e inventiva pasa por encima del culto a la verdad estática.`
+      },
+      {
+        book: `III`,
+        num: `§ 682`,
+        title: `Voluntad de ser más, no autoconservación`,
+        quote: `«El querer devenir más fuerte a partir de cualquier punto de fuerza, es la única realidad: no conservación de sí mismo, sino voluntad de apropiarse, de adueñarse, de ser más, de hacerse más fuerte.»`,
+        comment: `Distingue la ontología nietzscheana frente al darwinismo vulgar y al conatus de mera supervivencia.`
+      },
+      {
+        book: `IV`,
+        num: `§ 1025`,
+        title: `Afirmación total de la eternidad`,
+        quote: `«Suponiendo que dijéramos que sí en un determinado momento, nos encontramos con que habremos dicho no solo sí a nosotros mismos, sino a toda la existencia… toda la eternidad habría sido aprobada, justificada y afirmada en este único momento en que decimos “sí”.»`,
+        comment: `Expresa la interdependencia absoluta de todos los instantes en el círculo del eterno retorno.`
+      },
+      {
+        book: `IV`,
+        num: `§ 1060`,
+        title: `El espejo del mundo dionisíaco`,
+        quote: `«Este mundo es la Voluntad de Poder y nada más. Y también vosotros mismos sois esa Voluntad de Poder y nada más.»`,
+        comment: `Cierre apoteósico del libro IV: el mundo como juego de fuerzas que se crea y destruye eternamente sin cansancio ni finalidad externa.`
+      }
+    ];
+
+    const FAQS = [
+      {
+        q: `¿Es «La voluntad de poder» una obra cerrada y publicada en vida por Nietzsche?`,
+        a: `No. Hacia 1884 Nietzsche proyectó reunir su filosofía en una gran obra en prosa respecto a la cual <em>Así habló Zaratustra</em> sería el «peristilo» (carta a Overbeck del 7 de abril de 1884). Sin embargo, el libro quedó inacabado antes de su crisis de Turín (enero de 1889). Fue publicado póstumamente en 1901 a partir de fragmentos y esbozos —sobre todo el plan de 1887— recompuestos de forma discutible y poco escrupulosa por su hermana Elisabeth.`
+      },
+      {
+        q: `¿Significa «voluntad de poder» ambición política, económica o dominio burgués sobre otros?`,
+        a: `En absoluto. En el plano psíquico, no es una facultad que «desea» el poder como meta exterior (ese es el concepto servil de poder que se limita a conquistar valores ya establecidos). La voluntad de poder es voluntad de superarse a sí mismo, de crecer y donar sentido, esencialmente artista. Nietzsche desprecia explícitamente el poder conservador y dinerario de la clase media y del espíritu «liberal» (Libro IV, § 859).`
+      },
+      {
+        q: `¿Por qué afirma Nietzsche que la verdad es una especie de «error»?`,
+        a: `Porque entiende la voluntad de poder ante todo como postulado epistemológico: nuestro aparato cognoscitivo simplifica la multiplicidad fluida del devenir en «cosas», «sujetos», «sustancias» y «leyes» para hacer habitable el mundo (§ 488, §§ 503–516). No critica esas ficciones por ser falsas respecto a un más allá —que no existe—, sino que combate la hipóstasis de la «Verdad en sí» como ideal que niega el cambio.`
+      },
+      {
+        q: `¿Contradice la doctrina del Eterno Retorno a la teoría de la Voluntad de Poder?`,
+        a: `Aunque intérpretes como Baeumler o Jaspers vieron una contradicción entre el impulso infinito de la voluntad y la repetición circular, el análisis de Dolores Castrillo Mirat muestra su unidad inseparable: la voluntad de poder rompe continuamente todo estado de equilibrio para seguir siendo energía; en una cantidad finita de fuerza y un tiempo infinito, esa ruptura impide cualquier «estado final» y obliga al retorno eterno (§§ 1055–1060).`
+      },
+      {
+        q: `¿En qué se diferencia la afirmación dionisíaca del estoicismo o del optimismo de Leibniz?`,
+        a: `El optimismo de Leibniz («el mejor de los mundos posibles») es rechazado como conformidad beata de los «omnicontentos». El estoicismo, por su parte, soporta la realidad mediante una «anestesia general» que suprime la pasión para evitar el sufrimiento. La afirmación dionisíaca, en cambio, es un pesimismo trágico activo: busca resistencias, abraza placer y desplacer como estímulos vitales y crea nuevos valores (§ 695).`
+      },
+      {
+        q: `Si «Dios ha muerto», ¿por qué no ha desaparecido el nihilismo en la modernidad?`,
+        a: `Porque el hombre moderno ha sustituido a Dios por ídolos seculares —la Razón, la Historia, el Progreso, la Ciencia absoluta o el socialismo igualitario— que conservan intacta la estructura moral del idealismo: siguen juzgando el presente desde una meta final futura y despreciando el devenir real (§ 20, § 30). Matar a Dios no basta si no se transmuta el principio mismo del valorar.`
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        axis: `Nihilismo europeo`,
+        axisGroup: 1,
+        q: `Según el Libro I (§ 1 y § 5), ¿cuál es la causa profunda del advenimiento del nihilismo europeo?`,
+        options: [
+          `Las crisis económicas, la pobreza material y las guerras europeas del siglo XIX.`,
+          `La interpretación cristiano-moral del mundo, cuya exigencia de veracidad termina volviéndose contra ella misma al revelar su falsedad.`,
+          `El exceso de vitalidad dionisíaca en las sociedades industriales modernas.`,
+          `La ausencia total de instituciones educativas y científicas en Europa.`
+        ],
+        correct: 1,
+        explanation: `Correcto según Libro I, §§ 1–5: Nietzsche descarta que la miseria social o corporal produzca por sí sola el nihilismo. Es la propia «veracidad» cultivada por la moral cristiana la que descubre el origen interesado de los valores supremos y provoca su desplome.`
+      },
+      {
+        axis: `Crítica metafísica`,
+        axisGroup: 1,
+        q: `¿Cuáles son las tres categorías racionales cuyo desmoronamiento produce el sentimiento de falta de valor del mundo en el § 12?`,
+        options: [
+          `Espacio, tiempo y causalidad mecánica.`,
+          `Fin (teleología), unidad (monismo) y ser (mundo verdadero).`,
+          `Libertad, igualdad y fraternidad política.`,
+          `Cuerpo, alma y espíritu absoluto.`
+        ],
+        correct: 1,
+        explanation: `En el § 12 A–B, Nietzsche señala que proyectamos «fin», «unidad» y «ser» sobre un mundo ficticio; al comprobar que no se aplican al devenir real, concluimos erróneamente que el universo carece de valor.`
+      },
+      {
+        axis: `Nihilismo europeo`,
+        axisGroup: 1,
+        q: `¿Cómo caracteriza Nietzsche al «nihilismo pasivo» frente al «nihilismo activo» (§§ 22–24)?`,
+        options: [
+          `El pasivo destruye violentamente los templos; el activo los reconstruye con la ciencia.`,
+          `El pasivo es signo de cansancio y declive vital («budismo europeo»); el activo expresa un aumento de fuerza que destruye los ídolos caducos.`,
+          `Ambos son idénticos porque ninguno cree en valores trascendentes.`,
+          `El pasivo corresponde al superhombre y el activo al animal de rebaño.`
+        ],
+        correct: 1,
+        explanation: `Según los §§ 22–24, el nihilismo pasivo nace de una voluntad agotada que anhela serenamente la nada, mientras que el activo es una potencia de destrucción de los espíritus fuertes que allana el camino a la transmutación.`
+      },
+      {
+        axis: `Epistemología`,
+        axisGroup: 2,
+        q: `En el prólogo de Dolores Castrillo Mirat y en el Libro III (§ 488), ¿qué estatuto fundamental tiene la Voluntad de Poder y qué es la «verdad»?`,
+        options: [
+          `Es una sustancia metafísica eterna y la verdad es la adecuación exacta a las cosas en sí.`,
+          `Es ante todo un postulado epistemológico: la «verdad» es el error útil e indispensable sin el cual una especie viva no podría sobrevivir.`,
+          `Es una facultad psicológica opcional del ser humano que solo aparece en los gobernantes.`,
+          `Es un método empírico neutro libre de toda perspectiva o interés vital.`
+        ],
+        correct: 1,
+        explanation: `La tesis central del estudio preliminar y del Libro III (§ 488, §§ 503–516) es que la voluntad de poder opera epistemológicamente como facultad interpretativa y simplificadora que convierte el flujo en esquemas manejables.`
+      },
+      {
+        axis: `Transvaloración`,
+        axisGroup: 2,
+        q: `¿Qué significa exactamente la «transmutación de todos los valores» en la lectura de Nietzsche?`,
+        options: [
+          `Sustituir la religión cristiana por el progreso histórico y el socialismo humanitario.`,
+          `Cambiar el elemento o principio mismo del que deriva el valor de los valores, pasando de la negación reactiva a la afirmación creadora.`,
+          `Aceptar resignadamente los valores vigentes como parte inevitable de la realidad.`,
+          `Justificar cualquier crimen mediante un relativismo indiferente.`
+        ],
+        correct: 1,
+        explanation: `Como aclara Castrillo Mirat (siguiendo a Deleuze), cambiar de valores conservando su raíz negativa sigue siendo nihilismo incompleto. Transmutar exige mudar el origen del valorar: afirmar creando, no cargando ni sustituyendo ídolos.`
+      },
+      {
+        axis: `Voluntad de poder`,
+        axisGroup: 2,
+        q: `¿Qué relación guardan el placer, el desplacer y la resistencia en la dinámica de la Voluntad de Poder (§§ 687–695)?`,
+        options: [
+          `La voluntad busca exclusivamente huir del dolor y alcanzar un reposo hedonista definitivo.`,
+          `Toda fuerza busca resistencias para superarlas; el desplacer actúa como estímulo vital y el placer es solo el síntoma del aumento de poder.`,
+          `El placer es la causa metafísica que mueve al universo hacia la armonía.`,
+          `La resistencia destruye siempre la voluntad de poder porque demuestra debilidad.`
+        ],
+        correct: 1,
+        explanation: `En los §§ 687–688 y § 695, Nietzsche rechaza el hedonismo: lo que todo organismo quiere es «un más» de poder; por eso busca algo que se le oponga y experimenta goce como diferencia consciente al vencer la resistencia.`
+      },
+      {
+        axis: `Eterno retorno`,
+        axisGroup: 3,
+        q: `¿Por qué argumenta Nietzsche en el § 1055 y § 1059 que el mundo carece de un estado final y debe retornar eternamente?`,
+        options: [
+          `Porque la materia es infinita y tiende hacia un equilibrio termodinámico absoluto.`,
+          `Porque una cantidad finita de fuerza en un tiempo infinito ya habría alcanzado cualquier estado final posible si este existiera; así, toda combinación debe repetirse infinitamente.`,
+          `Porque Dios detiene el tiempo periódicamente para juzgar la historia.`,
+          `Porque la historia humana progresa en línea recta hacia un paraíso terrenal.`
+        ],
+        correct: 1,
+        explanation: `Si el mundo fuese capaz de cristalizar en un «Ser» o estado final, ya habría terminado todo devenir hace una eternidad (§ 1055). La finitud de la fuerza en un tiempo infinito fundamenta el círculo eterno (§ 1059).`
+      },
+      {
+        axis: `Dioniso y Retorno`,
+        axisGroup: 3,
+        q: `¿Qué simboliza la oposición «Dioniso contra el Crucificado» (§ 1045) frente a la resignación estoica?`,
+        options: [
+          `Una disputa teológica sobre la inmortalidad del alma personal.`,
+          `La afirmación religiosa y trágica de la vida entera —incluido el tormento— frente a la condena moral de la existencia y la anestesia pasiva ante el dolor.`,
+          `La superioridad del arte clásico sereno sobre toda emoción apasionada.`,
+          `La defensa del optimismo racionalista de Leibniz sobre el mejor de los mundos posibles.`
+        ],
+        correct: 1,
+        explanation: `En el § 1045 y en el cierre del Prólogo, Dioniso encarna la divinización afirmativa de la vida fecunda y trágica, opuesta tanto a la condena de la vida implicada en el ideal ascético como a la resignación anestésica estoica.`
+      }
+    ];
+
+    const DILEMMAS = [
+      {
+        id: `d1`,
+        title: `1. Ante la pérdida de creencias religiosas`,
+        prompt: `Cuando caen los dogmas tradicionales, ¿qué da sentido a la existencia?`,
+        options: [
+          { code: `I`, label: `La fe en la Razón, la Ciencia o el Progreso histórico hacia una humanidad justa.` },
+          { code: `P`, label: `Nada tiene ya sentido; solo queda serenarse, evitar el dolor y pasar en paz.` },
+          { code: `A`, label: `Es necesario derribar activamente todo ídolo heredado, aunque quede el desierto.` },
+          { code: `D`, label: `La vida misma como devenir creador que no necesita excusa ni meta final externa.` }
+        ]
+      },
+      {
+        id: `d2`,
+        title: `2. Sobre el estatuto de la verdad`,
+        prompt: `¿Qué papel cumple nuestro conocimiento frente al mundo?`,
+        options: [
+          { code: `I`, label: `Debe descubrir leyes objetivas absolutas e invariables detrás de las apariencias.` },
+          { code: `P`, label: `Todo es ilusión vacía; conocer es inútil y solo confirma que nada vale la pena.` },
+          { code: `A`, label: `Desenmascarar sin piedad toda pretendida verdad absoluta como mentira piadosa.` },
+          { code: `D`, label: `Interpretar y simplificar perspectivamente la realidad como herramienta al servicio de la vida.` }
+        ]
+      },
+      {
+        id: `d3`,
+        title: `3. Frente al sufrimiento y la resistencia`,
+        prompt: `¿Cómo interpretas el obstáculo, el conflicto y el desplacer?`,
+        options: [
+          { code: `I`, label: `Como un mal que un orden moral justo o una sociedad perfecta terminará por abolir.` },
+          { code: `P`, label: `Como la prueba de que vivir es un error del que conviene protegerse con apatía.` },
+          { code: `A`, label: `Como combate inevitable contra las estructuras decadentes que oprimen al espíritu.` },
+          { code: `D`, label: `Como estímulo necesario para crecer en potencia: sin resistencia no hay superación ni goce.` }
+        ]
+      },
+      {
+        id: `d4`,
+        title: `4. La prueba del Eterno Retorno`,
+        prompt: `Si este instante exacto, con sus alegrías y dolores, debiera repetirse infinitas veces:`,
+        options: [
+          { code: `I`, label: `Sería intolerable si no culminara finalmente en un reino de perfección moral.` },
+          { code: `P`, label: `Me aplastaría bajo el peso fatalista del «todo ha sido en vano».` },
+          { code: `A`, label: `Me serviría de martillo implacable para rechazar toda mediocridad en mi vida.` },
+          { code: `D`, label: `Diría «sí» a este instante y, con él, justificaría toda la eternidad que lo hace posible.` }
+        ]
+      }
+    ];
+
+    const DILEMMA_PROFILES = {
+      I: {
+        name: `Idealismo / Nihilismo inconsciente (o incompleto)`,
+        summary: `Tus respuestas preservan la exigencia de un mundo verdadero, una meta moral o una autoridad sustitutiva (Progreso, Razón, Objetividad). Para Nietzsche (§ 12, § 30, § 577 A), seguir midiendo el devenir desde un «deber ser» ideal prolonga la raíz misma del nihilismo.`
+      },
+      P: {
+        name: `Nihilismo pasivo / Resignación`,
+        summary: `Tus respuestas reflejan el desencanto tras la caída del ideal, pero sin fuerza afirmativa para sustituir la vara de medida (§ 23, § 45). La búsqueda de quietud o anestesia frente al dolor reproduce el diagnóstico nietzscheano del «budismo europeo» y del estoicismo pasivo.`
+      },
+      A: {
+        name: `Nihilismo activo (umbral crítico)`,
+        summary: `Tus respuestas expresan la fuerza destructora del espíritu que no se conforma con sustitutos cómodos y empuña el «martillo» contra los ídolos (§ 24, § 37). Es el paso imprescindible de ruptura, a un paso de transformar la negación en creación afirmativa.`
+      },
+      D: {
+        name: `Afirmación trágico-dionisíaca`,
+        summary: `Tus respuestas coinciden con la transvaloración nietzscheana (§ 488, § 695, § 1025, § 1060): asumes el perspectivismo como fuerza creadora, la resistencia como estímulo vital y el eterno retorno como «sí» incondicional a la inocencia del devenir.`
+      }
+    };
+
+    /* =========================================================================
+       STATE MANAGEMENT (Persisted via notebookAppApi)
+       ========================================================================= */
+
+    let appState = {
+      studiedConcepts: [],
+      quizAnswers: {},
+      currentQuestionIdx: 0,
+      dilemmaChoices: {}
+    };
+
+    let currentConceptAxis = 'todos';
+    let currentAphorismBook = 'todos';
+    let currentAphorismSearch = '';
+
+    async function saveState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (err) {
+        /* Fail gracefully if host shim is absent */
+      }
+    }
+
+    function updateTopSummary() {
+      const topProg = document.getElementById('top-progress-readout');
+      const topQuiz = document.getElementById('top-quiz-readout');
+      const studiedCount = Array.isArray(appState.studiedConcepts) ? appState.studiedConcepts.length : 0;
+
+      if (topProg) {
+        topProg.textContent = `${studiedCount} / ${CONCEPTS.length} fichas`;
+      }
+
+      const answeredKeys = Object.keys(appState.quizAnswers || {});
+      let correctCount = 0;
+      answeredKeys.forEach(function (idxStr) {
+        const qIdx = parseInt(idxStr, 10);
+        if (QUIZ_QUESTIONS[qIdx] && appState.quizAnswers[idxStr] === QUIZ_QUESTIONS[qIdx].correct) {
+          correctCount += 1;
+        }
+      });
+
+      if (topQuiz) {
+        if (answeredKeys.length === 0) {
+          topQuiz.textContent = `Autoevaluación pendiente · ${QUIZ_QUESTIONS.length} cuestiones disponibles.`;
+        } else {
+          topQuiz.textContent = `Cuestionario: ${correctCount}/${QUIZ_QUESTIONS.length} aciertos (${answeredKeys.length} respondidas).`;
+        }
+      }
+    }
+
+    /* =========================================================================
+       HOISTED INTERACTION HANDLERS
+       ========================================================================= */
+
+    function setActiveGroupButton(btn) {
+      if (!btn || !btn.parentElement) return;
+      const siblings = btn.parentElement.querySelectorAll('.btn-tab');
+      siblings.forEach(function (el) {
+        el.classList.remove('is-selected');
+        el.setAttribute('aria-pressed', 'false');
+      });
+      btn.classList.add('is-selected');
+      btn.setAttribute('aria-pressed', 'true');
+    }
+
+    function selectNihilismMode(modeKey, btn) {
+      const data = NIHILISM_MODES[modeKey];
+      if (!data) return;
+      setActiveGroupButton(btn);
+      const t = document.getElementById('nih-title');
+      const d = document.getElementById('nih-desc');
+      const s = document.getElementById('nih-symptom');
+      const v = document.getElementById('nih-verdict');
+      if (t) t.textContent = data.title;
+      if (d) d.textContent = data.desc;
+      if (s) s.textContent = data.symptom;
+      if (v) v.textContent = data.verdict;
+    }
+
+    function selectMetaphysicsCat(catKey, btn) {
+      const data = METAPHYSICS_CATS[catKey];
+      if (!data) return;
+      setActiveGroupButton(btn);
+      const iTitle = document.getElementById('meta-illusion');
+      const iText = document.getElementById('meta-illusion-text');
+      const oText = document.getElementById('meta-origin');
+      const dText = document.getElementById('meta-deconstruction');
+      if (iTitle) iTitle.textContent = data.illusion;
+      if (iText) iText.textContent = data.illusionText;
+      if (oText) oText.textContent = data.origin;
+      if (dText) dText.textContent = data.deconstruction;
+    }
+
+    function selectPowerPlane(planeKey, btn) {
+      const data = POWER_PLANES[planeKey];
+      if (!data) return;
+      setActiveGroupButton(btn);
+      const k = document.getElementById('plane-kicker');
+      const c = document.getElementById('plane-copy');
+      if (k) k.textContent = data.kicker;
+      if (c) c.textContent = data.copy;
+    }
+
+    function updateResistanceReadout(val) {
+      const num = Math.max(1, Math.min(100, parseInt(val, 10) || 1));
+      const readout = document.getElementById('resistance-readout');
+      if (!readout) return;
+
+      if (num < 30) {
+        readout.innerHTML = `<strong>Equilibrio estático (${num}%):</strong> Sin resistencia significativa la fuerza se adormece o decae; la ausencia de tensión corresponde a la anestesia o al estancamiento, no al goce creador (§ 687).`;
+      } else if (num <= 75) {
+        readout.innerHTML = `<strong>Tensión creadora (${num}%):</strong> El desplacer inicial de la resistencia actúa como estímulo vital; al vencerla, entra en la conciencia la diferencia del «más» (goce como sentimiento de poder aumentado, § 688).`;
+      } else {
+        readout.innerHTML = `<strong>Prueba trágica máxima (${num}%):</strong> Alta resistencia y riesgo de fracaso (§ 687): exige una voluntad vigorosa que no huye del dolor sino que lo integra como padre de la alegría y de la auto-superación (§ 695, § 1053).`;
+      }
+    }
+
+    function syncResistanceFromSlider(val) {
+      const numInput = document.getElementById('resistance-number');
+      if (numInput) numInput.value = val;
+      updateResistanceReadout(val);
+    }
+
+    function syncResistanceFromNumber(val) {
+      const clamped = Math.max(1, Math.min(100, parseInt(val, 10) || 1));
+      const sliderInput = document.getElementById('resistance-slider');
+      if (sliderInput) sliderInput.value = clamped;
+      updateResistanceReadout(clamped);
+    }
+
+    function renderConcepts() {
+      const grid = document.getElementById('concepts-grid');
+      if (!grid) return;
+
+      const filtered = CONCEPTS.filter(function (c) {
+        return currentConceptAxis === 'todos' || c.axis === currentConceptAxis;
+      });
+
+      grid.innerHTML = filtered.map(function (c) {
+        const studied = appState.studiedConcepts.indexOf(c.id) !== -1;
+        return `
+          <article class="card-wrapper">
+            <div class="concept-meta">
+              <span class="tag">${c.axisLabel}</span>
+              <span class="concept-locus">${c.locus}</span>
+            </div>
+            <h3>${c.term}</h3>
+            <div class="card-inner">
+              <p style="margin:0; font-size: 0.96rem;">${c.def}</p>
+              <div class="concept-negation">
+                <strong>Lo que no es:</strong> ${c.notThis}
+              </div>
+            </div>
+            <button type="button" class="btn card-check-btn ${studied ? 'btn-primary' : ''}" onclick="toggleConceptStudied('${c.id}')">
+              ${studied ? 'Ficha repasada ✓' : 'Marcar como estudiada'}
+            </button>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function filterConcepts(axis, btn) {
+      currentConceptAxis = axis;
+      setActiveGroupButton(btn);
+      renderConcepts();
+    }
+
+    function toggleConceptStudied(id) {
+      const idx = appState.studiedConcepts.indexOf(id);
+      if (idx === -1) {
+        appState.studiedConcepts.push(id);
+      } else {
+        appState.studiedConcepts.splice(idx, 1);
+      }
+      renderConcepts();
+      updateTopSummary();
+      saveState();
+    }
+
+    function renderAphorisms() {
+      const container = document.getElementById('aphorisms-container');
+      const note = document.getElementById('aphorism-count-note');
+      if (!container) return;
+
+      const q = currentAphorismSearch.trim().toLowerCase();
+      const filtered = APHORISMS.filter(function (a) {
+        const matchBook = currentAphorismBook === 'todos' || a.book === currentAphorismBook;
+        if (!matchBook) return false;
+        if (!q) return true;
+        const haystack = `${a.title} ${a.quote} ${a.comment} ${a.num}`.toLowerCase();
+        return haystack.indexOf(q) !== -1;
+      });
+
+      if (note) {
+        note.textContent = filtered.length === 0
+          ? `No hay aforismos que coincidan con «${currentAphorismSearch}» en esta selección.`
+          : `Mostrando ${filtered.length} de ${APHORISMS.length} aforismos seleccionados.`;
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="border-top: var(--rule-ink); padding-top: var(--space-md);">
+            <p class="col-note">Prueba con otro término (por ejemplo: <em>error</em>, <em>nihilismo</em>, <em>moral</em>, <em>poder</em>, <em>eternidad</em>) o cambia el filtro de libro.</p>
+            <button type="button" class="btn" style="margin-top: var(--space-sm);" onclick="clearAphorismFilters()">Restablecer filtros</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(function (a) {
+        return `
+          <article class="aphorism-item">
+            <div class="concept-meta">
+              <span class="tag">Libro ${a.book} · ${a.num}</span>
+              <span class="concept-locus">${a.title}</span>
+            </div>
+            <blockquote class="aphorism-quote">${a.quote}</blockquote>
+            <p class="aphorism-comment">${a.comment}</p>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function filterAphorismsBook(book, btn) {
+      currentAphorismBook = book;
+      setActiveGroupButton(btn);
+      renderAphorisms();
+    }
+
+    function searchAphorisms(val) {
+      currentAphorismSearch = val || '';
+      renderAphorisms();
+    }
+
+    function clearAphorismFilters() {
+      currentAphorismBook = 'todos';
+      currentAphorismSearch = '';
+      const searchInput = document.getElementById('aphorism-search');
+      if (searchInput) searchInput.value = '';
+      const firstBookBtn = document.querySelector('#bloque-aforismos .btn-tab');
+      if (firstBookBtn) setActiveGroupButton(firstBookBtn);
+      renderAphorisms();
+    }
+
+    function renderFaqs() {
+      const container = document.getElementById('faq-container');
+      if (!container) return;
+
+      container.innerHTML = FAQS.map(function (item, i) {
+        return `
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-${i}" onclick="toggleFaq(${i}, this)">
+              <span>${item.q}</span>
+              <span class="faq-indicator" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-panel-${i}" class="faq-panel" hidden>
+              <p>${item.a}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleFaq(index, btn) {
+      const panel = document.getElementById(`faq-panel-${index}`);
+      if (!panel || !btn) return;
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      const ind = btn.querySelector('.faq-indicator');
+      if (ind) ind.textContent = expanded ? '+' : '−';
+      panel.hidden = expanded;
+    }
+
+    function renderQuiz() {
+      const idx = appState.currentQuestionIdx || 0;
+      const item = QUIZ_QUESTIONS[idx];
+      if (!item) return;
+
+      const progTag = document.getElementById('quiz-progress-tag');
+      const axisTag = document.getElementById('quiz-axis-tag');
+      const qText = document.getElementById('quiz-question-text');
+      const optBox = document.getElementById('quiz-options-container');
+      const fbBox = document.getElementById('quiz-feedback');
+      const prevBtn = document.getElementById('quiz-prev-btn');
+      const nextBtn = document.getElementById('quiz-next-btn');
+
+      if (progTag) progTag.textContent = `Módulo A · Pregunta ${idx + 1} de ${QUIZ_QUESTIONS.length}`;
+      if (axisTag) axisTag.textContent = `Eje: ${item.axis}`;
+      if (qText) qText.textContent = item.q;
+      if (prevBtn) prevBtn.disabled = idx === 0;
+      if (nextBtn) nextBtn.disabled = idx === QUIZ_QUESTIONS.length - 1;
+
+      const chosen = appState.quizAnswers[String(idx)];
+      const hasAnswered = typeof chosen === 'number';
+      const letters = ['A', 'B', 'C', 'D'];
+
+      if (optBox) {
+        optBox.innerHTML = item.options.map(function (optText, optIdx) {
+          let cls = 'quiz-opt-btn';
+          if (hasAnswered) {
+            if (optIdx === item.correct) {
+              cls += ' is-correct';
+            } else if (optIdx === chosen && chosen !== item.correct) {
+              cls += ' is-wrong';
+            }
+          }
+          return `
+            <button type="button" class="${cls}" ${hasAnswered ? 'disabled' : ''} onclick="answerQuestion(${idx}, ${optIdx})">
+              <span class="quiz-opt-letter">${letters[optIdx]}.</span>
+              <span>${optText}</span>
+            </button>
+          `;
+        }).join('');
+      }
+
+      if (fbBox) {
+        if (hasAnswered) {
+          const isOk = chosen === item.correct;
+          fbBox.hidden = false;
+          fbBox.className = `feedback-banner ${isOk ? 'is-correct' : 'is-wrong'}`;
+          fbBox.innerHTML = `<strong>${isOk ? 'Respuesta correcta.' : 'Revisa este punto.'}</strong> ${item.explanation}`;
+        } else {
+          fbBox.hidden = true;
+          fbBox.textContent = '';
+        }
+      }
+
+      renderQuizSidebar();
+    }
+
+    function renderQuizSidebar() {
+      const scoreBig = document.getElementById('quiz-score-big');
+      const summary = document.getElementById('quiz-status-summary');
+      const mapBox = document.getElementById('quiz-question-map');
+
+      let answered = 0;
+      let correct = 0;
+      const axisTotals = { 1: 0, 2: 0, 3: 0 };
+      const axisCorrect = { 1: 0, 2: 0, 3: 0 };
+
+      QUIZ_QUESTIONS.forEach(function (q, i) {
+        axisTotals[q.axisGroup] += 1;
+        const ans = appState.quizAnswers[String(i)];
+        if (typeof ans === 'number') {
+          answered += 1;
+          if (ans === q.correct) {
+            correct += 1;
+            axisCorrect[q.axisGroup] += 1;
+          }
+        }
+      });
+
+      if (scoreBig) scoreBig.textContent = `${correct} / ${QUIZ_QUESTIONS.length} aciertos`;
+      if (summary) {
+        if (answered === 0) {
+          summary.textContent = `Aún no has respondido ninguna cuestión. Selecciona una opción para recibir explicación textual.`;
+        } else if (answered < QUIZ_QUESTIONS.length) {
+          summary.textContent = `Has respondido ${answered} de ${QUIZ_QUESTIONS.length} cuestiones.`;
+        } else {
+          summary.textContent = `Cuestionario completado: ${Math.round((correct / QUIZ_QUESTIONS.length) * 100)}% de dominio.`;
+        }
+      }
+
+      const s1 = document.getElementById('axis-stat-1');
+      const s2 = document.getElementById('axis-stat-2');
+      const s3 = document.getElementById('axis-stat-3');
+      if (s1) s1.textContent = `${axisCorrect[1]} / ${axisTotals[1]}`;
+      if (s2) s2.textContent = `${axisCorrect[2]} / ${axisTotals[2]}`;
+      if (s3) s3.textContent = `${axisCorrect[3]} / ${axisTotals[3]}`;
+
+      if (mapBox) {
+        mapBox.innerHTML = QUIZ_QUESTIONS.map(function (q, i) {
+          const ans = appState.quizAnswers[String(i)];
+          const isCurrent = i === appState.currentQuestionIdx;
+          let extra = '';
+          if (isCurrent) {
+            extra = 'btn-primary';
+          } else if (typeof ans === 'number') {
+            extra = ans === q.correct ? 'is-selected' : '';
+          }
+          const marker = typeof ans === 'number' ? (ans === q.correct ? ' ✓' : ' ×') : '';
+          return `
+            <button type="button" class="btn ${extra}" style="min-width: 44px; padding: var(--space-xs) var(--space-sm);" onclick="jumpToQuestion(${i})">
+              ${i + 1}${marker}
+            </button>
+          `;
+        }).join('');
+      }
+    }
+
+    function answerQuestion(qIdx, optIdx) {
+      appState.quizAnswers[String(qIdx)] = optIdx;
+      renderQuiz();
+      updateTopSummary();
+      saveState();
+    }
+
+    function prevQuestion() {
+      if (appState.currentQuestionIdx > 0) {
+        appState.currentQuestionIdx -= 1;
+        renderQuiz();
+        saveState();
+      }
+    }
+
+    function nextQuestion() {
+      if (appState.currentQuestionIdx < QUIZ_QUESTIONS.length - 1) {
+        appState.currentQuestionIdx += 1;
+        renderQuiz();
+        saveState();
+      }
+    }
+
+    function jumpToQuestion(idx) {
+      appState.currentQuestionIdx = idx;
+      renderQuiz();
+      saveState();
+    }
+
+    function handleResetQuiz(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = 'Pulsa de nuevo para confirmar';
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = 'Reiniciar cuestionario';
+      appState.quizAnswers = {};
+      appState.currentQuestionIdx = 0;
+      renderQuiz();
+      updateTopSummary();
+      saveState();
+    }
+
+    function renderDilemmas() {
+      const grid = document.getElementById('dilemmas-grid');
+      if (!grid) return;
+
+      grid.innerHTML = DILEMMAS.map(function (d) {
+        const selected = appState.dilemmaChoices[d.id];
+        return `
+          <div class="card-wrapper" style="border-bottom: 0;">
+            <h4 style="font-size: 1.05rem;">${d.title}</h4>
+            <p class="col-note">${d.prompt}</p>
+            <div class="quiz-options">
+              ${d.options.map(function (opt) {
+                const isSelected = selected === opt.code;
+                return `
+                  <button type="button" class="quiz-opt-btn ${isSelected ? 'btn-primary' : ''}" style="${isSelected ? 'background-color: var(--primary); color: var(--on-primary); border-color: var(--primary);' : ''}" onclick="selectDilemmaOption('${d.id}', '${opt.code}')">
+                    <span>${opt.label}</span>
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      updateDilemmaResult();
+    }
+
+    function selectDilemmaOption(dilemmaId, code) {
+      appState.dilemmaChoices[dilemmaId] = code;
+      renderDilemmas();
+      saveState();
+    }
+
+    function updateDilemmaResult() {
+      const box = document.getElementById('dilemma-result-box');
+      if (!box) return;
+
+      const keys = Object.keys(appState.dilemmaChoices || {});
+      if (keys.length < DILEMMAS.length) {
+        box.className = 'feedback-banner';
+        box.innerHTML = `Has respondido <strong>${keys.length} de ${DILEMMAS.length}</strong> dilemas. Completa los restantes para ver tu perfil filosófico.`;
+        return;
+      }
+
+      const counts = { I: 0, P: 0, A: 0, D: 0 };
+      keys.forEach(function (k) {
+        const code = appState.dilemmaChoices[k];
+        if (counts[code] !== undefined) counts[code] += 1;
+      });
+
+      let winner = 'D';
+      let maxVal = -1;
+      ['D', 'A', 'P', 'I'].forEach(function (code) {
+        if (counts[code] > maxVal) {
+          maxVal = counts[code];
+          winner = code;
+        }
+      });
+
+      const prof = DILEMMA_PROFILES[winner];
+      box.className = 'feedback-banner is-correct';
+      box.innerHTML = `
+        <div class="col-kicker" style="color: var(--primary);">Diagnóstico predominante (${maxVal}/4 coincidencias)</div>
+        <h3 style="margin-bottom: var(--space-xs);">${prof.name}</h3>
+        <p style="margin:0;">${prof.summary}</p>
+      `;
+    }
+
+    /* =========================================================================
+       SCROLL OBSERVERS (Reveal & Active Nav Highlight)
+       ========================================================================= */
+
+    function setupObservers() {
+      if (typeof IntersectionObserver !== 'function') return;
+
+      const revealEls = document.querySelectorAll('.reveal-block');
+      revealEls.forEach(function (el) {
+        el.classList.add('is-pending');
+      });
+
+      const revealObs = new IntersectionObserver(function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('is-pending');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      revealEls.forEach(function (el) {
+        revealObs.observe(el);
+      });
+
+      const navLinks = document.querySelectorAll('.topic-nav-link');
+      const sectionIds = Array.from(navLinks).map(function (a) {
+        const href = a.getAttribute('href') || '';
+        return href.replace('#', '');
+      });
+
+      const navObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navLinks.forEach(function (link) {
+              const target = (link.getAttribute('href') || '').replace('#', '');
+              if (target === id) {
+                link.classList.add('is-active');
+              } else {
+                link.classList.remove('is-active');
+              }
+            });
+          }
+        });
+      }, { threshold: 0.25 });
+
+      sectionIds.forEach(function (id) {
+        const sec = document.getElementById(id);
+        if (sec) navObs.observe(sec);
+      });
+    }
+
+    /* =========================================================================
+       INITIALIZATION
+       ========================================================================= */
+
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            appState.studiedConcepts = Array.isArray(saved.studiedConcepts) ? saved.studiedConcepts : [];
+            appState.quizAnswers = saved.quizAnswers && typeof saved.quizAnswers === 'object' ? saved.quizAnswers : {};
+            appState.currentQuestionIdx = typeof saved.currentQuestionIdx === 'number' ? saved.currentQuestionIdx : 0;
+            appState.dilemmaChoices = saved.dilemmaChoices && typeof saved.dilemmaChoices === 'object' ? saved.dilemmaChoices : {};
+          }
+        }
+      } catch (err) {
+        /* Proceed with clean default state */
+      }
+
+      renderConcepts();
+      renderAphorisms();
+      renderFaqs();
+      renderQuiz();
+      renderDilemmas();
+      updateTopSummary();
+      setupObservers();
+
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+          window.notebookAppApi.notifyAppReady();
+        }
+      } catch (err) {
+        /* Ignore if host api absent */
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>

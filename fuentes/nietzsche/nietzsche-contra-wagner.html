@@ -1,0 +1,2458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>Nietzsche contra Wagner — Expediente filosófico y base de conocimientos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (Broadsheet) */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      /* Ink */
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      /* Rules */
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      /* Accents */
+      --primary: #990f3d;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      /* Semantic & focus */
+      --positive: #1e6b43;
+      --positive-bg: #e2efe7;
+      --warning: #9a6312;
+      --warning-bg: #f6ecd9;
+      --error-bg: #f6e2e0;
+      --focus: #990f3d;
+
+      /* Fonts */
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      /* Shape */
+      --rounded: 0px;
+      --rounded-lg: 0px;
+      --rounded-full: 0px;
+
+      /* Style effects */
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.4rem, 1.4rem + 3.6vw, 4.25rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.8vw, 2.35rem);
+      --subhead-size: clamp(1.18rem, 1.05rem + 0.5vw, 1.42rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.22vw, 1.16rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: clip; margin: 0; padding: 0; }
+    body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      font-optical-sizing: auto;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg) var(--space-lg) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.22;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 66ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    /* Masthead & Navigation */
+    .masthead-wrap {
+      border-bottom: var(--rule-ink);
+      padding-bottom: var(--space-lg);
+    }
+    .masthead-line {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm) var(--space-lg);
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .masthead-meta {
+      color: var(--on-surface-variant);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .masthead-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs) var(--space-md);
+      align-items: center;
+      padding: var(--space-sm) 0;
+      border-bottom: var(--rule-column);
+      margin-bottom: var(--space-lg);
+    }
+    .nav-link {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      padding: var(--space-xs) var(--space-xs);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .masthead-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .standfirst {
+      font-size: clamp(1.15rem, 1.05rem + 0.45vw, 1.35rem);
+      line-height: 1.48;
+      color: var(--on-surface-variant);
+      margin-top: var(--space-md);
+      max-width: 56ch;
+    }
+    .hero-dossier {
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+    }
+    .epigraph-box {
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-md) 0;
+      margin-bottom: var(--space-md);
+    }
+    .epigraph-quote {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.15rem;
+      line-height: 1.45;
+      color: var(--on-surface);
+      margin-bottom: var(--space-xs);
+    }
+    .epigraph-source {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    /* Key figures row (column hairlines) */
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-column);
+      border-bottom: var(--rule-ink);
+      margin-top: var(--space-lg);
+    }
+    .columns > .figure-cell {
+      border-left: var(--rule-column);
+      padding: var(--space-md) var(--space-lg);
+      background: transparent;
+    }
+    .columns > .figure-cell:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .figure-kicker {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .figure-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.5rem, 1.25rem + 0.9vw, 2.1rem);
+      line-height: 1.1;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .figure-delta {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+    }
+
+    /* Study progress strip inside dossier */
+    .study-status-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm) var(--space-md);
+      background-color: var(--surface-container-low);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-column);
+      padding: var(--space-sm) var(--space-md);
+      margin-top: var(--space-md);
+    }
+    .study-status-text {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .progress-track {
+      flex: 1 1 180px;
+      height: 6px;
+      background-color: var(--surface-container-high);
+      position: relative;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--primary);
+      transition: width var(--dur-short) var(--ease-out);
+    }
+
+    /* Sections */
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-md);
+      scroll-margin-top: var(--space-lg);
+    }
+    .section-header-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+      margin-bottom: var(--space-lg);
+    }
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+    }
+
+    /* Editorial two-column layout */
+    .editorial-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .editorial-aside {
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+    }
+    .ruled-panel {
+      background-color: var(--surface-container-low);
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg);
+    }
+    .pull-quote {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+      line-height: 1.38;
+      color: var(--on-surface);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-md) 0;
+      margin: var(--space-lg) 0;
+    }
+    .pull-quote cite {
+      display: block;
+      margin-top: var(--space-xs);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      min-height: 44px;
+      padding: 0 var(--space-md);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+    }
+    .btn-secondary {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background-color: var(--surface-container-high);
+    }
+    .btn-toggle {
+      background-color: transparent;
+      color: var(--on-surface-variant);
+      border-color: var(--outline-variant);
+    }
+    .btn-toggle:hover:not(:disabled) {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+    }
+    .btn-toggle[aria-pressed="true"],
+    .btn-toggle.active {
+      background-color: var(--on-surface);
+      color: var(--background);
+      border-color: var(--on-surface);
+    }
+    .btn:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+    }
+
+    /* Interactive Chronology / Rupture Timeline */
+    .timeline-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .timeline-track {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      margin-bottom: var(--space-lg);
+    }
+    .timeline-step-btn {
+      text-align: left;
+      background: transparent;
+      border: 0;
+      border-left: var(--rule-column);
+      padding: var(--space-md) var(--space-sm);
+      min-height: 76px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .timeline-step-btn:first-child { border-left: 0; }
+    .timeline-step-btn:hover { background-color: var(--surface-container-low); }
+    .timeline-step-btn.active {
+      background-color: var(--primary-container);
+      box-shadow: inset 0 3px 0 var(--primary);
+    }
+    .timeline-year {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.15rem;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+    }
+    .timeline-step-btn.active .timeline-year { color: var(--on-primary-container); }
+    .timeline-short {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--on-surface-variant);
+    }
+    .timeline-detail-box {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg) 0;
+      border-bottom: var(--rule-column);
+    }
+
+    /* Knowledge Matrix (3-column taxonomic grid with hairlines) */
+    .triad-columns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      margin-top: var(--space-md);
+    }
+    .triad-col {
+      border-left: var(--rule-column);
+      padding: var(--space-lg);
+    }
+    .triad-col:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .triad-col h3 { margin-bottom: var(--space-sm); }
+
+    /* Interactive Physiology Diagnostic (Stimulus / Reaction explorer) */
+    .diagnostic-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+      gap: var(--space-xl);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg) 0;
+      margin-top: var(--space-lg);
+    }
+    .diagnostic-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: var(--rule-column);
+    }
+    .diagnostic-item-btn {
+      text-align: left;
+      width: 100%;
+      background: transparent;
+      border: 0;
+      border-bottom: var(--rule-column);
+      padding: var(--space-md) var(--space-sm);
+      min-height: 52px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .diagnostic-item-btn:hover { background-color: var(--surface-container-low); }
+    .diagnostic-item-btn.active {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      font-weight: 600;
+    }
+
+    /* Interactive Comparative Table: Wagner vs Bizet */
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: end;
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--rule-column);
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      flex: 1 1 220px;
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .input-control, .select-control {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--on-surface);
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      width: 100%;
+    }
+    .select-control {
+      padding-right: var(--space-xl);
+    }
+    .input-control:focus, .select-control:focus {
+      border-color: var(--primary);
+    }
+
+    .broadsheet-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+    .broadsheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-section);
+      text-align: left;
+    }
+    .broadsheet-table th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--rule-ink);
+      vertical-align: bottom;
+    }
+    .broadsheet-table td {
+      padding: var(--space-md);
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+    .broadsheet-table tbody tr {
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .broadsheet-table tbody tr:hover {
+      background-color: var(--surface-container-low);
+    }
+    .broadsheet-table tbody tr.selected-row {
+      background-color: var(--primary-container);
+    }
+    .col-axis { font-family: var(--font-headline); font-weight: 700; width: 18%; }
+    .col-wagner { width: 34%; }
+    .col-bizet { width: 34%; }
+    .col-num { width: 14%; text-align: right; font-variant-numeric: lining-nums tabular-nums; }
+    .th-num { text-align: right; }
+
+    .sort-btn {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      font: inherit;
+      color: inherit;
+      text-transform: inherit;
+      letter-spacing: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+    }
+    .sort-btn:hover { color: var(--primary); }
+
+    .comparison-inspector {
+      margin-top: var(--space-md);
+      padding: var(--space-lg);
+      background-color: var(--surface-container-low);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+    }
+
+    /* Polarity SVG chart */
+    .chart-block {
+      margin-top: var(--space-lg);
+      padding-top: var(--space-md);
+      border-top: var(--rule-column);
+    }
+    .chart-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: var(--space-xs);
+    }
+    .chart-standfirst {
+      color: var(--on-surface-variant);
+      font-size: 0.95rem;
+      margin-bottom: var(--space-md);
+    }
+    .chart-caption {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      margin-top: var(--space-sm);
+    }
+
+    /* Searchable Glossary & Aphorisms */
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 var(--space-xl);
+      border-top: var(--rule-ink);
+    }
+    .glossary-entry {
+      border-bottom: var(--rule-column);
+      padding: var(--space-md) 0;
+    }
+    .glossary-trigger {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      padding: var(--space-xs) 0;
+      min-height: 48px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-md);
+      color: var(--on-surface);
+    }
+    .glossary-trigger:hover .glossary-term { color: var(--primary); }
+    .glossary-term {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.18rem;
+      line-height: 1.25;
+    }
+    .glossary-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-shrink: 0;
+    }
+    .glossary-summary {
+      color: var(--on-surface-variant);
+      font-size: 0.98rem;
+      margin-top: var(--space-xs);
+    }
+    .glossary-expand {
+      margin-top: var(--space-md);
+      padding-left: var(--space-md);
+      border-left: 2px solid var(--primary);
+      font-size: 0.98rem;
+    }
+    .glossary-expand[hidden] { display: none; }
+    .source-ref {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface-variant);
+      margin-top: var(--space-xs);
+      display: block;
+    }
+
+    /* Quiz Module */
+    .quiz-shell {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg) 0;
+    }
+    .quiz-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--rule-column);
+      margin-bottom: var(--space-lg);
+    }
+    .quiz-options {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-sm);
+      margin: var(--space-md) 0 var(--space-lg);
+    }
+    .quiz-option-btn {
+      text-align: left;
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      padding: var(--space-md);
+      min-height: 48px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.45;
+      color: var(--on-surface);
+      display: flex;
+      gap: var(--space-md);
+      align-items: flex-start;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option-btn:hover:not(:disabled) {
+      background-color: var(--surface-container-low);
+    }
+    .quiz-option-btn.selected {
+      background-color: var(--surface-container);
+      box-shadow: inset 3px 0 0 var(--on-surface);
+    }
+    .quiz-option-btn.correct {
+      background-color: var(--positive-bg);
+      box-shadow: inset 4px 0 0 var(--positive);
+    }
+    .quiz-option-btn.incorrect {
+      background-color: var(--error-bg);
+      box-shadow: inset 4px 0 0 var(--error);
+    }
+    .option-letter {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+    .quiz-feedback {
+      padding: var(--space-md) var(--space-lg);
+      border-left: 3px solid var(--outline);
+      background-color: var(--surface-container-low);
+      margin-bottom: var(--space-md);
+    }
+    .quiz-feedback.is-correct {
+      border-left-color: var(--positive);
+      background-color: var(--positive-bg);
+    }
+    .quiz-feedback.is-incorrect {
+      border-left-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      border-top: var(--rule-ink);
+    }
+    .faq-item {
+      border-bottom: var(--rule-column);
+    }
+    .faq-trigger {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      padding: var(--space-md) 0;
+      min-height: 52px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--on-surface);
+    }
+    .faq-trigger:hover { color: var(--primary); }
+    .faq-answer {
+      padding-bottom: var(--space-md);
+      max-width: 72ch;
+    }
+    .faq-answer[hidden] { display: none; }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--rule-masthead);
+      padding-top: var(--space-lg);
+      margin-top: var(--space-xl);
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      font-size: 0.95rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Empty state */
+    .empty-state {
+      padding: var(--space-xl);
+      background-color: var(--surface-container-low);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-sm);
+    }
+
+    /* Reveal animation */
+    .reveal-section {
+      opacity: 1;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 960px) {
+      .masthead-hero,
+      .editorial-split,
+      .timeline-detail-box,
+      .diagnostic-shell,
+      .comparison-inspector,
+      .site-footer {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-dossier,
+      .editorial-aside {
+        border-left: 0;
+        padding-left: 0;
+        border-top: var(--rule-column);
+        padding-top: var(--space-lg);
+      }
+      .columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .columns > .figure-cell:nth-child(odd) {
+        border-left: 0;
+        padding-left: 0;
+      }
+      .columns > .figure-cell:nth-child(n+3) {
+        border-top: var(--rule-column);
+      }
+      .triad-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .triad-col {
+        border-left: 0;
+        padding-left: 0;
+        border-top: var(--rule-column);
+      }
+      .triad-col:first-child { border-top: 0; }
+      .timeline-track {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .timeline-step-btn:nth-child(4) { border-left: 0; }
+      .timeline-step-btn:nth-child(n+4) { border-top: var(--rule-column); }
+      .glossary-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-md) var(--space-2xl);
+        gap: var(--space-lg);
+      }
+      .columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .columns > .figure-cell {
+        border-left: 0;
+        padding-left: 0;
+        border-top: var(--rule-column);
+      }
+      .columns > .figure-cell:first-child { border-top: 0; }
+      .timeline-track {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .timeline-step-btn:nth-child(odd) { border-left: 0; }
+      .timeline-step-btn:nth-child(n+3) { border-top: var(--rule-column); }
+      .section-header-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- MASTHEAD / INICIO -->
+    <header class="masthead-wrap" id="inicio">
+      <div class="masthead-line">
+        <span>Archivo Crítico de Filosofía y Estética · Turín, 1888–1889</span>
+        <span class="masthead-meta">Expediente: El caso Wagner &amp; Nietzsche contra Wagner</span>
+      </div>
+
+      <nav class="masthead-nav" aria-label="Navegación principal del expediente">
+        <a class="nav-link active" href="#inicio">Inicio</a>
+        <a class="nav-link" href="#ruptura">1. La ruptura</a>
+        <a class="nav-link" href="#decadence">2. Décadence y fisiología</a>
+        <a class="nav-link" href="#histrio">3. Wagner como histrión</a>
+        <a class="nav-link" href="#bizet">4. Carmen vs. Wagner</a>
+        <a class="nav-link" href="#parsifal">5. Crítica a Parsifal</a>
+        <a class="nav-link" href="#glosario">Glosario y aforismos</a>
+        <a class="nav-link" href="#autoevaluacion">Autoevaluación</a>
+        <a class="nav-link" href="#faq">Preguntas frecuentes</a>
+      </nav>
+
+      <div class="masthead-hero">
+        <div>
+          <span class="section-label">Base de conocimientos estructurada</span>
+          <h1>Nietzsche contra Wagner: la fisiología de una ruptura</h1>
+          <p class="standfirst">
+            De discípulo en Leipzig (1868) a fiscal implacable en Turín (1888): cómo Friedrich Nietzsche transformó su desengaño con Richard Wagner en un diagnóstico clínico de la modernidad, la <em>décadence</em> europea y la necesidad de «mediterraneizar la música».
+          </p>
+        </div>
+
+        <div class="hero-dossier">
+          <div class="epigraph-box">
+            <p class="epigraph-quote">«Si sostengo en este escrito que Wagner es nocivo, no sostendré menos que hay alguien a quien no obstante le resulta imprescindible: al filósofo».</p>
+            <span class="epigraph-source">El caso Wagner, Prefacio (1888)</span>
+          </div>
+          <p style="font-size: 0.96rem; color: var(--on-surface-variant);">
+            Publicados entre 1888 y 1889, <em>El caso Wagner (Un problema para melómanos)</em> y <em>Nietzsche contra Wagner (Documentos procesales de un psicólogo)</em> constituyen el acta de acusación final contra quien Nietzsche consideraba «el Cagliostro de la modernidad».
+          </p>
+        </div>
+      </div>
+
+      <!-- Key figures row -->
+      <div class="columns" aria-label="Datos fundamentales del expediente">
+        <div class="figure-cell">
+          <span class="figure-kicker">Primer encuentro en Leipzig</span>
+          <span class="figure-value">1868</span>
+          <span class="figure-delta">8 nov · 24 vs. 55 años</span>
+        </div>
+        <div class="figure-cell">
+          <span class="figure-kicker">Ruptura en I Festival Bayreuth</span>
+          <span class="figure-value">1876</span>
+          <span class="figure-delta">Huida antes del cierre</span>
+        </div>
+        <div class="figure-cell">
+          <span class="figure-kicker">Escuchas de Carmen en Turín</span>
+          <span class="figure-value">20×</span>
+          <span class="figure-delta">Génova 1881 – Turín 1888</span>
+        </div>
+        <div class="figure-cell">
+          <span class="figure-kicker">Redacción final y pruebas</span>
+          <span class="figure-value">1888–89</span>
+          <span class="figure-delta">Imprimatur: Navidad 1888</span>
+        </div>
+      </div>
+
+      <!-- Persistent Study Progress Bar -->
+      <div class="study-status-bar">
+        <span class="study-status-text" id="study-summary-text">Progreso de estudio: 0 de 5 ejes revisados · Cuestionario pendiente</span>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="study-progress-fill"></div>
+        </div>
+        <button type="button" class="btn btn-secondary" onclick="exportStudyNotes()">
+          <i data-lucide="download" width="16" height="16" aria-hidden="true"></i>
+          Exportar resumen
+        </button>
+      </div>
+    </header>
+
+    <!-- SECTION 1: LA RUPTURA FILOSOFICA -->
+    <section class="section-open reveal-section" id="ruptura">
+      <div class="section-header-grid">
+        <div>
+          <span class="section-label">Eje I · Trayectoria biográfica e intelectual (1861–1889)</span>
+          <h2>De la devoción dionisíaca en Tribschen al expediente procesal contra Bayreuth</h2>
+        </div>
+        <button type="button" class="btn btn-toggle" id="mark-ruptura" onclick="toggleSectionRead('ruptura')">
+          Marcar eje como estudiado
+        </button>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            El vínculo entre Friedrich Nietzsche (1844–1900) y la música comenzó en su infancia en Naumburg: improvisa al piano durante horas y funda en 1860 el grupo literario-musical <em>Germania</em> junto a Gustav Krug y Wilhelm Pinder, componiendo obras como su <em>Oratorio de Navidad</em> o el <em>Himno a la amistad</em> (1874). Fue precisamente Krug quien en 1861 le dio a conocer fragmentos de <em>Tristán e Isolda</em> al piano. La fascinación culmina el 28 de octubre de 1868 al escuchar el preludio de <em>Tristán</em> y la obertura de <em>Los maestros cantores</em>, y cristaliza el 8 de noviembre de 1868 en Leipzig, en casa de los Brockhaus, cuando un joven filósofo de 24 años conoce a un compositor de 55 en su cénit creador.
+          </p>
+          <p>
+            Al principio, ambos convergían en premisas filosóficas compartidas: la admiración por <em>El mundo como voluntad y representación</em> de Schopenhauer, el rechazo a la música meramente hedonista y el proyecto de resucitar la tragedia griega mediante el arte total (<em>Gesamtkunstwerk</em>). De esa comunión nació <em>El nacimiento de la tragedia</em> (1871), celebrado por Wagner y repudiado por la filología académica.
+          </p>
+          <p>
+            Sin embargo, una fisura silenciosa dividía sus concepciones: mientras Wagner entendía la música como un <em>medio</em> dramático al servicio de la escena y acabaría derivando hacia el nacionalismo alemán, el antisemitismo y la religiosidad cristiana de <em>Parsifal</em>, Nietzsche concebía la música como un <em>fin en sí mismo</em>. La ruptura de hecho se produjo en el verano de 1876 durante el primer Festival de Bayreuth, cuando Nietzsche huyó asqueado por la doblez y el «cretinismo» del público wagneriano. En diciembre de 1888, compiló <em>Nietzsche contra Wagner</em> («Documentos procesales de un psicólogo» —usando el latinismo jurídico <em>contra</em> frente a <em>gegen</em>—) para demostrar con extractos de sus libros previos que su crítica se remontaba al menos diez años atrás.
+          </p>
+        </div>
+
+        <aside class="editorial-aside">
+          <div class="ruled-panel">
+            <span class="tag">Claves de la divergencia</span>
+            <h3 style="margin: var(--space-xs) 0 var(--space-md);">Qué unió y qué separó a ambos</h3>
+            <p style="font-size: 0.96rem;"><strong>Convergencia inicial (1868–1872):</strong> Schopenhauer, crítica a la ópera superficial, recuperación del mito trágico y rechazo del «arte como adorno».</p>
+            <p style="font-size: 0.96rem;"><strong>Fractura latente:</strong> Wagner subordina el sonido a la escena y al mito redentor; Nietzsche exige autonomía musical y afirmación trágica de la vida.</p>
+            <p style="font-size: 0.96rem;"><strong>Ruptura pública (1876–1889):</strong> Abandono de Bayreuth, silencio estratégico en <em>Humano, demasiado humano</em> y estallido irónico en <em>El caso Wagner</em> (1888) y <em>Nietzsche contra Wagner</em> (1889).</p>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Interactive Timeline -->
+      <div style="margin-top: var(--space-xl);">
+        <span class="section-label">Cronología interactiva de la ruptura · Seleccione un hito</span>
+        <div class="timeline-track" role="tablist" aria-label="Hitos de la relación Nietzsche-Wagner">
+          <button type="button" class="timeline-step-btn active" role="tab" aria-selected="true" data-step="0" onclick="selectTimelineStep(0)">
+            <span class="timeline-year">1861–1868</span>
+            <span class="timeline-short">Tristán y Leipzig</span>
+          </button>
+          <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" data-step="1" onclick="selectTimelineStep(1)">
+            <span class="timeline-year">1871</span>
+            <span class="timeline-short">Tragedia y alianza</span>
+          </button>
+          <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" data-step="2" onclick="selectTimelineStep(2)">
+            <span class="timeline-year">1876</span>
+            <span class="timeline-short">Huida de Bayreuth</span>
+          </button>
+          <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" data-step="3" onclick="selectTimelineStep(3)">
+            <span class="timeline-year">1881–1882</span>
+            <span class="timeline-short">Carmen y Parsifal</span>
+          </button>
+          <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" data-step="4" onclick="selectTimelineStep(4)">
+            <span class="timeline-year">1888</span>
+            <span class="timeline-short">El caso Wagner</span>
+          </button>
+          <button type="button" class="timeline-step-btn" role="tab" aria-selected="false" data-step="5" onclick="selectTimelineStep(5)">
+            <span class="timeline-year">1888–1889</span>
+            <span class="timeline-short">Acta procesal</span>
+          </button>
+        </div>
+
+        <div class="timeline-detail-box" id="timeline-detail-panel">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: DECADENCE Y FISIOLOGIA DEL ARTE -->
+    <section class="section-open reveal-section" id="decadence">
+      <div class="section-header-grid">
+        <div>
+          <span class="section-label">Eje II · Estética como fisiología aplicada</span>
+          <h2>El diagnóstico de la <em>décadence</em>: cuando la obra enferma al cuerpo</h2>
+        </div>
+        <button type="button" class="btn btn-toggle" id="mark-decadence" onclick="toggleSectionRead('decadence')">
+          Marcar eje como estudiado
+        </button>
+      </div>
+
+      <p>
+        Nietzsche rechaza refutar la música de Wagner con silogismos académicos: «una enfermedad no se refuta». Su objeción es <strong>fisiológica</strong>, porque la estética no es sino fisiología aplicada. En la <em>décadence</em> europea —concepto que Nietzsche adapta de Paul Bourget (1883)—, la vida ya no habita en el conjunto orgánico: la palabra se emancipa de la frase, la frase oscurece la página y el todo se vuelve un artefacto calculado. En el terreno sonoro, Wagner sustituye la arquitectura musical por «pólipos musicales», la famosa «melodía infinita» (o «sin fin») que carece de meta y desintegra el sentido rítmico en lo que Nietzsche llama, con un proverbio griego, «un bebedero de patos».
+      </p>
+
+      <div class="triad-columns">
+        <div class="triad-col">
+          <span class="tag">1. Anarquía de los átomos</span>
+          <h3>El todo sacrificado al detalle</h3>
+          <p style="font-size: 0.97rem;">Wagner es «nuestro más grande miniaturista de la música», capaz de comprimir un sinfín de dulzuras en cinco o quince compases melancólicos. Pero fracasa en la forma orgánica: desarrolla mediante yuxtaposiciones impostadas y oculta su incapacidad de estilo tras el rótulo de «estilo dramático».</p>
+        </div>
+        <div class="triad-col">
+          <span class="tag">2. Los tres estimulantes</span>
+          <h3>Brutalidad, artificio e inocencia</h3>
+          <p style="font-size: 0.97rem;">Para galvanizar nervios cansados y «convocar a la vida a mediomuertos», la modernidad exige una tríada de excitantes: violencia sonora brutal, cálculo artificial del efecto e «inocencia» (idiocia en el sentido dostoievskiano). Wagner mezcla los tres en dosis hipnóticas.</p>
+        </div>
+        <div class="triad-col">
+          <span class="tag">3. Dos tipos de dolientes</span>
+          <h3>Exceso frente a miseria vital</h3>
+          <p style="font-size: 0.97rem;">En «Nosotros, antípodas», Nietzsche distingue entre quienes sufren de <em>exceso de vida</em> (y buscan el arte trágico-dionisíaco que afirma la destrucción y el devenir) y quienes padecen <em>miseria vital</em> (y piden al arte calma narcótica, espasmo o venganza contra la vida, como Schopenhauer y Wagner).</p>
+        </div>
+      </div>
+
+      <!-- Interactive Physiology Diagnostic -->
+      <div class="diagnostic-shell">
+        <div>
+          <span class="section-label">Laboratorio fisiológico · Síntomas del oyente</span>
+          <h3 style="margin-bottom: var(--space-sm);">Cómo reacciona el organismo ante la música</h3>
+          <p style="font-size: 0.96rem; color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+            Seleccione cada indicador corporal descrito en <em>El caso Wagner</em> y <em>Donde planteo objeciones</em> para contrastar el efecto del «siroco» wagneriano frente al alivio rítmico.
+          </p>
+          <div class="diagnostic-list" id="physio-list" role="tablist" aria-label="Indicadores fisiológicos">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+        <div class="ruled-panel" id="physio-detail">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: CAGLIOSTRO E HISTRION -->
+    <section class="section-open reveal-section" id="histrio">
+      <div class="section-header-grid">
+        <div>
+          <span class="section-label">Eje III · Sociología del espectáculo y teatrocracia</span>
+          <h2>Wagner como «Cagliostro de la modernidad» y tirano del gesto teatral</h2>
+        </div>
+        <button type="button" class="btn btn-toggle" id="mark-histrio" onclick="toggleSectionRead('histrio')">
+          Marcar eje como estudiado
+        </button>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            La tesis más cortante de los parágrafos 8 a 11 de <em>El caso Wagner</em> sostiene que el lugar de Wagner no está en la historia de la música, sino en la historia del teatro: «Wagner no era músico por instinto». Su genio dominante era el del <strong>actor</strong>, el mimómano incomparable —el «Victor Hugo de la música»— que reduce el sonido a simple <em>ancilla dramaturgica</em> (sierva de la dramaturgia) y retórica escénica.
+          </p>
+          <p>
+            Como señala la máxima del actor francés Talma citada por Nietzsche: «aquello que deba hacer efecto de ser verdad no puede permitirse serlo». Wagner empieza sus óperas por el efecto del tercer acto, abusa de una lupa gigantesca donde todo parece colosal —y donde «el mundo de los músicos ávidos de medro» se convierte en novicio de sus artes ocultas— y sustituye la lógica dramática por la <em>idiosincrasia</em> y la «pose interesante».
+          </p>
+          <p>
+            En el plano cultural, este triunfo consolida la <strong>teatrocracia</strong>: una «rebelión de las masas» y «plebiscito contra el buen gusto» que eleva al teatro a soberano de todas las artes. A cambio, la adhesión a Wagner se paga cara: en los jóvenes fomenta el diletantismo que desprecia el aprendizaje estricto; en las mujeres («en el signo de la mujer vence»), exige un sacrificio total que sostiene material y espiritualmente a Bayreuth; y en el público general impone la nivelación del «gran número», donde el individuo renuncia a su propia conciencia.
+          </p>
+        </div>
+
+        <aside class="editorial-aside">
+          <div class="ruled-panel">
+            <span class="tag">Manual de astucias wagnerianas (§ 10)</span>
+            <h3 style="margin: var(--space-xs) 0 var(--space-md);">Los tres postulados de su literatura</h3>
+            <ol style="padding-left: 1.25rem; margin: 0 0 var(--space-md); font-size: 0.96rem;">
+              <li style="margin-bottom: var(--space-sm);"><strong>Desprecio de la carencia:</strong> Todo lo que Wagner no sabe hacer es declarado «despreciable».</li>
+              <li style="margin-bottom: var(--space-sm);"><strong>Principio por impotencia:</strong> Se pretende que Wagner aún sabría hacer mucho más, pero renuncia por rigor moral y estético.</li>
+              <li><strong>Inimitabilidad divina:</strong> Nadie le enseñó lo que hace y nadie puede imitarlo: Wagner se proclama divino y se rodea de la «Idea» hegeliana («algo oscuro, incierto, cargado de vislumbres»).</li>
+            </ol>
+            <p style="font-size: 0.92rem; color: var(--on-surface-variant); margin: 0;">
+              <strong>Nota sobre la «política de la fascinación»:</strong> Nietzsche emparenta el wagnerismo con el auge del «Reich» imperial y la obediencia automática («alemán: obediente y piernas largas»).
+            </p>
+          </div>
+        </aside>
+      </div>
+
+      <blockquote class="pull-quote">
+        «Nadie se lleva al teatro los sentidos más finos de su arte, y menos que nadie el artista que trabaja para el teatro; falta soledad, y la perfección no admite testigos… en el teatro se vuelve uno pueblo, hueste, mujer, fariseo, rebaño votante, patrón, idiota… wagneriano».
+        <cite>Nietzsche contra Wagner, «Donde planteo objeciones»</cite>
+      </blockquote>
+    </section>
+
+    <!-- SECTION 4: CARMEN DE BIZET Y TABLA COMPARATIVA -->
+    <section class="section-open reveal-section" id="bizet">
+      <div class="section-header-grid">
+        <div>
+          <span class="section-label">Eje IV · «Il faut méditerraniser la musique»</span>
+          <h2>La antítesis irónica de <em>Carmen</em>: claridad meridional frente al húmedo Norte</h2>
+        </div>
+        <button type="button" class="btn btn-toggle" id="mark-bizet" onclick="toggleSectionRead('bizet')">
+          Marcar eje como estudiado
+        </button>
+      </div>
+
+      <div class="editorial-split" style="margin-bottom: var(--space-xl);">
+        <div>
+          <p>
+            Frente al asfixiante clima del Norte y las nieblas metafísicas de Bayreuth, Nietzsche levanta en los primeros parágrafos de <em>El caso Wagner</em> el estandarte de la ópera <em>Carmen</em> de Georges Bizet (sobre la novela de Mérimée). La describe como una música ligera, precisa, fatalista y popular a la vez, con la «limpidezza del aire» de la zona templada y una sensualidad meridional —«morena, tostada»— capaz de hacer fecundo al filósofo y restituir al amor su esencia trágica, cruel e inocente: odio a muerte entre los sexos, muy lejos de la «Senta sentimental» wagneriana.
+          </p>
+          <p>
+            Sin embargo, como advierte el prólogo de Begoña Lolo, una carta privada escrita por Nietzsche a Carl Fuchs el 27 de diciembre de 1888 —pocos días antes de su colapso en Turín— revela el estatuto exacto de ese entusiasmo: <em>«Lo que digo acerca de Bizet no debe usted tomarlo en serio. Tan cierto como que existo, Bizet —lo diré mil veces— no me interesa, pero actúa fuertemente como antítesis irónica contra Wagner»</em>. En el plano íntimo («Intermezzo»), los verdaderos amores musicales de Nietzsche apuntaban a Chopin, Rossini, Mozart, Bach, Händel y al veneciano «Pietro Gasti» (su amigo Peter Gast).
+          </p>
+        </div>
+
+        <aside class="editorial-aside">
+          <div class="ruled-panel">
+            <span class="tag">Doble lectura crítica</span>
+            <h3 style="margin: var(--space-xs) 0 var(--space-md);">¿Por qué elegir Carmen como contrapeso?</h3>
+            <p style="font-size: 0.96rem;"><strong>Estética formal:</strong> Frente al flujo ininterrumpido wagneriano, Bizet recupera la ópera de números cerrados (arias y recitativos), la lógica apasionada y los cambios emocionales súbitos.</p>
+            <p style="font-size: 0.96rem; margin-bottom: 0;"><strong>Valor polémico:</strong> Aunque Bizet fue en realidad un instrumento retórico («<em>ridendo dicere severum</em>»: decir riendo algo serio), permite a Nietzsche formular su primer postulado estético: «Lo bueno es leve, lo divino discurre con pie grácil».</p>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Interactive Comparison Table -->
+      <div>
+        <span class="section-label">Matriz comparativa interactiva · Explore, filtre y ordene los ejes de oposición</span>
+        <div class="toolbar-row">
+          <div class="field-group">
+            <label class="field-label" for="compare-search">Filtrar por concepto o palabra clave</label>
+            <input class="input-control" type="search" id="compare-search" placeholder="Ej. melodía, clima, amor, ritmo…" oninput="updateComparisonTable()">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="compare-domain">Dimensión de análisis</label>
+            <select class="select-control" id="compare-domain" onchange="updateComparisonTable()">
+              <option value="todas">Todas las dimensiones</option>
+              <option value="Forma musical">Forma musical</option>
+              <option value="Psicología y eros">Psicología y eros</option>
+              <option value="Clima y fisiología">Clima y fisiología</option>
+              <option value="Función del arte">Función del arte</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-secondary" onclick="resetComparisonFilters()">
+            Restablecer filtros
+          </button>
+        </div>
+
+        <div class="broadsheet-table-wrap">
+          <table class="broadsheet-table" id="comparison-table">
+            <thead>
+              <tr>
+                <th class="col-axis">
+                  <button type="button" class="sort-btn" onclick="sortComparison('axis')">
+                    Eje conceptual <span aria-hidden="true" id="sort-icon-axis">↕</span>
+                  </button>
+                </th>
+                <th class="col-wagner">Richard Wagner (El caso / Bayreuth)</th>
+                <th class="col-bizet">Georges Bizet (Carmen / Sur)</th>
+                <th class="col-num th-num">
+                  <button type="button" class="sort-btn" onclick="sortComparison('tension')">
+                    Tensión polémica <span aria-hidden="true" id="sort-icon-tension">↓</span>
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="comparison-tbody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div id="comparison-empty" class="empty-state" hidden>
+          <strong>Ningún eje coincide con los filtros actuales.</strong>
+          <p style="margin: 0; font-size: 0.96rem;">No hay oposiciones registradas para esa búsqueda y categoría.</p>
+          <button type="button" class="btn btn-secondary" onclick="resetComparisonFilters()">Mostrar los 8 ejes comparativos</button>
+        </div>
+
+        <div class="comparison-inspector" id="comparison-inspector">
+          <!-- Populated by JS on row click -->
+        </div>
+
+        <!-- Inline SVG Polarity Profile -->
+        <div class="chart-block">
+          <div class="chart-title">Perfil de polaridad estética: economía formal frente a sugestión teatral</div>
+          <p class="chart-standfirst">Síntesis analítica cualitativa basada en los juicios de <em>El caso Wagner</em> (§ 1–10) y el prólogo de la edición (escala de énfasis argumental de 0 a 10).</p>
+          <div id="polarity-chart-wrap" style="min-height: 260px;"></div>
+          <p class="chart-caption">Fuente: Elaboración sobre los ejes explícitos de Nietzsche en <em>El caso Wagner</em> (§ 1–8) y el estudio introductorio de Begoña Lolo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: CRITICA A PARSIFAL Y EL IDEAL ASCETICO -->
+    <section class="section-open reveal-section" id="parsifal">
+      <div class="section-header-grid">
+        <div>
+          <span class="section-label">Eje V · Capitulación religiosa y giro del Anillo</span>
+          <h2>La crítica a <em>Parsifal</em>: apostasía ante la cruz cristiana y moral de la redención</h2>
+        </div>
+        <button type="button" class="btn btn-toggle" id="mark-parsifal" onclick="toggleSectionRead('parsifal')">
+          Marcar eje como estudiado
+        </button>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            Si en sus inicios Wagner siguió el entusiasmo de Ludwig Feuerbach por la «sana sensualidad» y concibió el <em>Anillo del Nibelungo</em> como una épica revolucionaria del amor libre contra las «antiguas capitulaciones» (leyes, instituciones y moral heredada), su nave encalló en un escollo decisivo: el pesimismo de Schopenhauer. Para salvar su proyecto, Wagner «tradujo el <em>Anillo</em> al schopenhauerés» y sustituyó el triunfo vital de Brunilda por la negación de la voluntad y el consuelo de la nada budista.
+          </p>
+          <p>
+            Para Nietzsche, el desenlace de esa deriva es <em>Parsifal</em> (1882), que interpreta no como una parodia jocosa —lo que habría sido una despedida digna de la tragedia—, sino como «una obra de perfidia, de venganza, de secreto envenenamiento contra los presupuestos de la vida». Predicar la castidad, hacer católico por medios insidiosos a un «aprendiz de naturaleza» y prosternarse ante la cruz cristiana representa, según el filósofo, la capitulación definitiva ante el <strong>ideal ascético</strong> y la condescendencia con los instintos católicos de Cosima Wagner.
+          </p>
+          <p>
+            Incluso en el plano de la «moral de señores» frente a la «moral cristiana», Nietzsche subraya la falsedad wagneriana: mirar de reojo a las sagas islandesas y la distinción pagana mientras se predica el «evangelio de los más bajos» y la necesidad universal de redención. El veredicto final de Goethe sobre el peligro mortal de los románticos se cumple letra por letra en Wagner: «acabar ahogándose, de tanto remorder intragables absurdos morales y religiosos».
+          </p>
+        </div>
+
+        <aside class="editorial-aside">
+          <div class="ruled-panel">
+            <span class="tag">El leitmotiv wagneriano de la redención (§ 3)</span>
+            <h3 style="margin: var(--space-xs) 0 var(--space-md);">Galería de redimidos en su obra</h3>
+            <ul style="padding-left: 1.15rem; margin: 0; font-size: 0.95rem;">
+              <li style="margin-bottom: var(--space-xs);"><strong>Tannhäuser:</strong> La inocencia redime a pecadores interesantes.</li>
+              <li style="margin-bottom: var(--space-xs);"><strong>El holandés errante:</strong> El «judío errante» fondea y se redime mediante el matrimonio con una Senta sentimental.</li>
+              <li style="margin-bottom: var(--space-xs);"><strong>Lohengrin:</strong> Prohíbe preguntar e indagar («debes creer»), criminalizando el espíritu científico.</li>
+              <li style="margin-bottom: var(--space-xs);"><strong>El Anillo:</strong> El «viejo Dios», tras comprometer su moral, es redimido por el libertino Sigfrido antes del giro schopenhaueriano.</li>
+              <li><strong>Parsifal:</strong> Una mujer madura (Kundry) busca redención en un «mocito casto»; apoteosis del olor de santidad.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECTION 6: GLOSARIO Y AFORISMOS BUSCABLES -->
+    <section class="section-open reveal-section" id="glosario">
+      <div class="section-header-grid">
+        <div>
+          <span class="section-label">Archivo conceptual · Términos clave y sentencias</span>
+          <h2>Glosario filosófico y aforismos comentados</h2>
+        </div>
+        <span class="tag" id="glossary-count-label">10 entradas indexadas</span>
+      </div>
+
+      <div class="toolbar-row">
+        <div class="field-group">
+          <label class="field-label" for="glossary-search">Buscar término, cita o concepto</label>
+          <input class="input-control" type="search" id="glossary-search" placeholder="Ej. Cagliostro, décadence, siroco, melodía…" oninput="filterGlossary()">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="glossary-category">Categoría temática</label>
+          <select class="select-control" id="glossary-category" onchange="filterGlossary()">
+            <option value="todas">Todas las categorías</option>
+            <option value="Diagnóstico estético">Diagnóstico estético</option>
+            <option value="Crítica teatral">Crítica teatral</option>
+            <option value="Ideal ascético">Ideal ascético</option>
+            <option value="Alternativa vital">Alternativa vital</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-secondary" onclick="toggleAllGlossary()">
+          Expandir o contraer visibles
+        </button>
+      </div>
+
+      <div class="glossary-grid" id="glossary-grid">
+        <!-- Populated by JS -->
+      </div>
+
+      <div id="glossary-empty" class="empty-state" hidden>
+        <strong>Sin resultados en el glosario.</strong>
+        <p style="margin: 0; font-size: 0.96rem;">Ningún término o aforismo coincide con la búsqueda introducida.</p>
+        <button type="button" class="btn btn-secondary" onclick="resetGlossaryFilters()">Restablecer glosario completo</button>
+      </div>
+    </section>
+
+    <!-- SECTION 7: CUESTIONARIO DE AUTOEVALUACION -->
+    <section class="section-open reveal-section" id="autoevaluacion">
+      <div class="section-header-grid">
+        <div>
+          <span class="section-label">Verificación de lectura · Autoevaluación conceptual</span>
+          <h2>Cuestionario sobre <em>El caso Wagner</em> y <em>Nietzsche contra Wagner</em></h2>
+        </div>
+        <span class="tag" id="quiz-score-badge">0 / 6 aciertos</span>
+      </div>
+
+      <div class="quiz-shell" id="quiz-container">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 8: PREGUNTAS FRECUENTES -->
+    <section class="section-open reveal-section" id="faq">
+      <div class="section-header-grid">
+        <div>
+          <span class="section-label">Aclaraciones editoriales y filosóficas</span>
+          <h2>Preguntas frecuentes sobre la obra y el conflicto</h2>
+        </div>
+      </div>
+
+      <div class="faq-list" id="faq-list">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- FOOTER / SOURCES -->
+    <footer class="site-footer">
+      <div>
+        <span class="section-label">Fuentes del expediente</span>
+        <p style="margin-bottom: var(--space-xs);">
+          Elaborado íntegramente a partir de los textos y aparato crítico de <strong>Friedrich Nietzsche</strong>, <em>El caso Wagner. Un problema para melómanos</em> (1888) y <em>Nietzsche contra Wagner. Documentos procesales de un psicólogo</em> (1889), en traducción de José Luis Arántegui (con prólogo de Begoña Lolo y notas editoriales de Giorgio Colli y Mazzino Montinari).
+        </p>
+        <p style="margin: 0;">
+          Los progresos de estudio y resultados de autoevaluación se conservan localmente en la sesión mediante la interfaz de persistencia del cuaderno.
+        </p>
+      </div>
+      <div>
+        <span class="section-label">Acciones de estudio</span>
+        <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xs);">
+          <button type="button" class="btn btn-secondary" onclick="exportStudyNotes()">Exportar ficha en TXT</button>
+          <button type="button" class="btn btn-secondary" id="reset-progress-btn" onclick="resetAllStudyProgress(this)">Reiniciar progreso</button>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    // =========================================================================
+    // 1. DATA DEFINITIONS (All grounded in the provided Spanish source edition)
+    // =========================================================================
+
+    const TIMELINE_DATA = [
+      {
+        year: `1861–1868`,
+        title: `El deslumbramiento de Tristán y el encuentro en Leipzig`,
+        tag: `Años de formación`,
+        body: `En 1861, Gustav Krug interpreta al piano fragmentos de Tristán e Isolda para el joven Nietzsche. El 28 de octubre de 1868, tras escuchar el preludio de Tristán y la obertura de Los maestros cantores, Nietzsche escribe a su amigo Rohde: «Se estremece en mí cada fibra, cada nervio». Pocos días después, el 8 de noviembre de 1868, gracias a Ernst Windisch, conoce personalmente a Wagner en Leipzig, en casa de los Brockhaus: el filósofo tiene 24 años y el compositor supera los 55.`,
+        quote: `«Para Nietzsche, Wagner representaba el renacimiento del espíritu dionisíaco, su música personificaba el milagro de la metafísica, encarnaba la filosofía de Schopenhauer».`,
+        source: `Prólogo de Begoña Lolo`
+      },
+      {
+        year: `1871–1872`,
+        title: `El nacimiento de la tragedia y la causa común`,
+        tag: `Alianza estética`,
+        body: `Nietzsche se convierte en el filósofo esperado por Wagner para dar sustento conceptual a la ópera como «arte total» (simbiosis de música, poesía y acción) y al ideal de recuperar la tragedia griega. Fruto de ese ideario compartido aparece El nacimiento de la tragedia (1871), celebrado entusiastamente por Wagner y rechazado por sectores filológicos académicos que lo tacharon de loa propagandística.`,
+        quote: `«Wagner alabará de forma entusiástica la obra del filósofo al verse retratado a la perfección».`,
+        source: `Prólogo de Begoña Lolo`
+      },
+      {
+        year: `Verano de 1876`,
+        title: `El I Festival de Bayreuth y la huida definitiva`,
+        tag: `Ruptura de facto`,
+        body: `En la inauguración oficial del I Festival de Bayreuth, Nietzsche experimenta un malestar físico y moral insoportable. Ve a Wagner condescender ante el nacionalismo alemán, el antisemitismo y el aplauso de un público burgués al que desprecia, y abandona el Festival antes de su conclusión. Ese distanciamiento asoma ya veladamente en Richard Wagner en Bayreuth (1875–1876) y madurará durante una década de soledad.`,
+        quote: `«Ya en el verano de 1876, en plena celebración del primer Festival, dije adiós a Wagner. No soporto la doblez».`,
+        source: `Nietzsche contra Wagner, «De cómo me aparté de Wagner»`
+      },
+      {
+        year: `1881–1882`,
+        title: `Génova descubre Carmen; Bayreuth estrena Parsifal`,
+        tag: `Bifurcación estética`,
+        body: `El 27 de noviembre de 1881, en el teatro Politeama de Génova, Nietzsche escucha Carmen de Bizet por primera vez y encuentra un antídoto luminoso frente al norte wagneriano. Al año siguiente (1882), el estreno de Parsifal confirma a sus ojos la capitulación de Wagner ante la cruz cristiana y la negación ascética de la vida, evocándole incluso con espanto las partituras religiosas de su propia infancia en Naumburg.`,
+        quote: `«Richard Wagner, el mayor de los triunfadores en apariencia, en verdad un décadent decrépito y desesperado, cayó de repente, destrozado sin remedio, prosternado ante la cruz cristiana».`,
+        source: `Nietzsche contra Wagner, «De cómo me aparté de Wagner»`
+      },
+      {
+        year: `Mayo–Sept. 1888`,
+        title: `El caso Wagner: un problema para melómanos`,
+        tag: `Ataque público en Turín`,
+        body: `Tras asistir varias veces a representaciones de Carmen en el teatro Carignano de Turín («¡Tutto Torino carmenizzato!»), Nietzsche redacta El caso Wagner, publicado en Leipzig en septiembre de 1888 por C. G. Naumann. El panfleto desplaza la crítica desde la estética pura hacia la fisiología y la psicología de la décadence, provocando la inmediata hostilidad del mundo intelectual germano y de las Bayreuther Blätter.`,
+        quote: `«Lo más grande que he vivido fue una curación. Wagner, simplemente, se cuenta entre mis enfermedades».`,
+        source: `El caso Wagner, Prefacio`
+      },
+      {
+        year: `Dic. 1888–1889`,
+        title: `Nietzsche contra Wagner y la carta sobre Bizet`,
+        tag: `Documentos procesales`,
+        body: `Ante la incomprensión alemana, Nietzsche compila en diciembre de 1888 una selección de pasajes escritos desde 1878 bajo el título jurídico Nietzsche contra Wagner. Documentos procesales de un psicólogo (con imprimatur de Navidad de 1888; edición privada de 1889). El 27 de diciembre de 1888 confiesa en carta a Carl Fuchs que Bizet no le interesa en sí mismo, sino como eficaz «antítesis irónica contra Wagner».`,
+        quote: `«Mantened como título de la obra Nietzsche contra Wagner / Documentos procesales de un psicólogo».`,
+        source: `Carta a Naumann y Notas editoriales`
+      }
+    ];
+
+    const PHYSIOLOGY_DATA = [
+      {
+        id: `respiracion`,
+        label: `Respiración y alivio corporal`,
+        wagner: `«Ya no respiro bien en cuanto esa música surte efecto en mí». La atmósfera wagneriana sofoca como el viento siroco y provoca un sudor molesto tras uno o dos actos.`,
+        antidote: `La música sana hace respirar a su propio ritmo y acelera las funciones animales mediante ritmos ligeros, atrevidos y conscientes de sí.`,
+        ref: `Donde planteo objeciones / Nota 7`
+      },
+      {
+        id: `pie`,
+        label: `El pie, el compás y la danza`,
+        wagner: `«Mi pie se enfada y se subleva al momento»: carece de compás, danza y marcha. Ni siquiera el joven emperador alemán podría marchar al paso de la marcha imperial de Wagner.`,
+        antidote: `«Lo bueno es leve, lo divino discurre con pie grácil». El cuerpo exige de la música que lo arrebate como el caminar o bailar bien hechos.`,
+        ref: `El caso Wagner § 1 / Donde planteo objeciones`
+      },
+      {
+        id: `estomago`,
+        label: `Estómago, pulso y voz`,
+        wagner: `Protestan el estómago, el corazón y el pulso; se revuelven las tripas y el oyente queda afónico («para oír a Wagner necesito píldoras Gérandel»). Actúa como el alcohol prolongado: abotaga y estraga el estómago.`,
+        antidote: `La música mediterránea y las «blandas melodías de oro y aceite» devuelven reposo al alma y ligereza a la vida plomiza y férrea.`,
+        ref: `El caso Wagner Posdata / Donde planteo objeciones`
+      },
+      {
+        id: `nervios`,
+        label: `Sistema nervioso e hipnosis`,
+        wagner: `Explota el retardo y la hiperexcitabilidad nerviosa moderna. El preludio de Lohengrin funciona como magnetismo hipnótico sobre nervios cansados; de noche, los jóvenes devotos «violentan instrumentos con saña ceremonial».`,
+        antidote: `Rechazo de toda música cuyo único pundonor consista en convencer o excitar los nervios fatigados de los exhaustos.`,
+        ref: `El caso Wagner § 5, § 7 y Posdata`
+      },
+      {
+        id: `optica`,
+        label: `Inestabilidad óptica (mosaico vs. fresco)`,
+        wagner: `Obliga al espectador a cambiar de postura a cada abrir y cerrar de ojos: ora exige una mirada miope para el cincelado minúsculo en mosaico, ora visión lejana para frescos brutales.`,
+        antidote: `Unidad orgánica de estilo, proporción clara y serenidad visual («la luz, lo bastante vívida para alumbrar la entera filigrana de las cosas»).`,
+        ref: `El caso Wagner § 7 y Nota 43`
+      }
+    ];
+
+    const COMPARISON_ROWS = [
+      {
+        id: `melodia`,
+        axis: `Melodía y forma`,
+        domain: `Forma musical`,
+        wagner: `«Melodía infinita» (o sin fin): pólipo musical que evita concluir y convierte la indefinición en valor.`,
+        bizet: `Ópera de números cerrados (arias, recitados); construye, organiza y concluye con precisión clásica.`,
+        tension: 10,
+        note: `Para Nietzsche (§ 1 y § 6), el desprecio wagneriano hacia la melodía («la melodía es inmoral») oculta la incapacidad de crear formas orgánicas totales.`
+      },
+      {
+        id: `clima`,
+        axis: `Clima y geografía`,
+        domain: `Clima y fisiología`,
+        wagner: `Húmedo Norte, nieblas míticas, aire irrespirable y viento «siroco» que provoca sudor y fatiga.`,
+        bizet: `«Il faut méditerraniser la musique»: aire limpio, limpidezza, serenidad africana, dorada claridad del mediodía.`,
+        tension: 9,
+        note: `La oposición Norte/Sur traduce en términos climáticos el contraste entre el idealismo nebuloso alemán y la lucidez luminosa del Sur.`
+      },
+      {
+        id: `amor`,
+        axis: `Concepción del amor`,
+        domain: `Psicología y eros`,
+        wagner: `Amor como «redención» mística o parasitismo idealizado (Senta sentimental, castidad ascética en Parsifal).`,
+        bizet: `Amor retraducido a naturaleza: sino fatal, cínico, cruel e inocente; guerra y odio a muerte entre los sexos («¡Yo, sí… yo la he matado!»).`,
+        tension: 10,
+        note: `Nietzsche (§ 2) considera el grito final de Don José la única concepción del amor digna de un filósofo, respaldada en la cita de Benjamin Constant.`
+      },
+      {
+        id: `orquesta`,
+        axis: `Orquestación y ritmo`,
+        domain: `Forma musical`,
+        wagner: `Orquesta brutal, artificial e «inocente» a la vez; color sonoro sobre el compás; degeneración rítmica («bebedero de patos»).`,
+        bizet: `Orquesta ligera, dócil y gentil («no trae sudores»); elegancia rítmica y rapidez en los cambios emocionales.`,
+        tension: 8,
+        note: `Mientras Wagner golpea el nervio mediante el timbre y el truco escénico, Bizet trata al oyente como entendido y músico (§ 1).`
+      },
+      {
+        id: `oyente`,
+        axis: `Trato al oyente`,
+        domain: `Psicología y eros`,
+        wagner: `«El genio más descortés del mundo»: repite obsesivamente sus motivos hasta que el oyente se desespera y cree; hipnosis de masas.`,
+        bizet: `Cómplice y cortés: toma al oyente por inteligente, le concede distancia serena y libera su espíritu para pensar.`,
+        tension: 8,
+        note: `Escuchar Carmen vuelve a Nietzsche «más filósofo, más dichoso, más asentado», generando ideas claras («pedrisco de hielo y sabiduría»).`
+      },
+      {
+        id: `tema`,
+        axis: `Materia dramática`,
+        domain: `Función del arte`,
+        wagner: `Mito escandinavo, símbolos nebulosos, redención cristiana y héroes convertidos en «galería de enfermos» e histeria moderna.`,
+        bizet: `Temática realista heredada de Mérimée: lógica de la pasión, línea más corta y cruda necesidad sin grandilocuencia.`,
+        tension: 9,
+        note: `Nietzsche (§ 9) ironiza que si se despoja a las heroínas wagnerianas de su pelleja mítica, se revelan idénticas a Madame Bovary y a los décadents parisinos.`
+      },
+      {
+        id: `artista`,
+        axis: `Estatuto del creador`,
+        domain: `Función del arte`,
+        wagner: `Artista total / «Cagliostro»: actor tiránico que subordina la música a la retórica gestual y a la «Idea» literaria.`,
+        bizet: `Artista «unidimensional» y refinado de una tradición racial, no un histrión mesiánico ni fundador de religiones.`,
+        tension: 7,
+        note: `El prólogo destaca cómo Bizet recupera el modelo formalmente establecido frente al mito mesiánico de la obra de arte total.`
+      },
+      {
+        id: `intencion`,
+        axis: `Estatus real en Nietzsche`,
+        domain: `Función del arte`,
+        wagner: `Enfermedad necesaria e imprescindible para el filósofo que quiera diagnosticar la modernidad («primero hay que ser wagneriano…»).`,
+        bizet: `«Antítesis irónica»: arma retórica contra Wagner. En carta a Carl Fuchs (27 dic. 1888), Nietzsche confiesa que Bizet en sí no le interesa.`,
+        tension: 10,
+        note: `Esta clave documental impide leer El caso Wagner ingenuamente: Bizet funciona como espejo polémico y bisturí filosófico.`
+      }
+    ];
+
+    const POLARITY_METRICS = [
+      { label: `Autonomía musical`, wagner: 2, bizet: 9 },
+      { label: `Ligereza y danza`, wagner: 1, bizet: 9 },
+      { label: `Efectismo teatral`, wagner: 10, bizet: 3 },
+      { label: `Claridad formal`, wagner: 2, bizet: 9 },
+      { label: `Sobrecarga mítica/ascética`, wagner: 10, bizet: 1 }
+    ];
+
+    const GLOSSARY_ENTRIES = [
+      {
+        term: `Décadence`,
+        category: `Diagnóstico estético`,
+        summary: `Disgregación orgánica donde el detalle o la palabra se vuelven soberanos a costa de la vitalidad del conjunto.`,
+        detail: `Tomada de Paul Bourget (Essais de psychologie contemporaine, 1883), designa tanto un estilo literario o musical («anarquía de los átomos») como un estado fisiológico de vida empobrecida y gran fatiga. Nietzsche se reconoce hijo de su época («un décadent»), pero afirma haberse defendido de ella gracias al filósofo que habitaba en él.`,
+        ref: `El caso Wagner, Prefacio y § 7; Nota 45`
+      },
+      {
+        term: `Melodía infinita (melodía sin fin)`,
+        category: `Diagnóstico estético`,
+        summary: `Flujo sonoro continuo que disuelve el ritmo y evita el cierre formal en nombre de una «significación» indefinida.`,
+        detail: `Nietzsche la llama «pólipo musical» y advierte que no carece solo de fin temporal, sino de finalidad y valor definidos (como los puntos suspensivos del decadentismo). Es el opuesto exacto de la música que construye, organiza y concluye.`,
+        ref: `El caso Wagner, § 1 y Nota 8`
+      },
+      {
+        term: `Cagliostro de la modernidad`,
+        category: `Crítica teatral`,
+        summary: `Calificativo con que Nietzsche retrata a Wagner como prestidigitador escénico y magnetizador de nervios cansados.`,
+        detail: `Retomando un parangón de Karl Gutzkow con el célebre aventurero y mago del siglo XVIII, Nietzsche sostiene que Wagner no vence por autenticidad musical sino por artes de ilusión: brutalidad, artificio e inocencia (idiocia) aplicados a un público exhausto.`,
+        ref: `El caso Wagner, § 5 y Nota 36`
+      },
+      {
+        term: `Teatrocracia`,
+        category: `Crítica teatral`,
+        summary: `Pretensión ilegítima del teatro —arte de masas y «demolatría»— de gobernar sobre todas las demás artes.`,
+        detail: `En la Posdata, Nietzsche denuncia tres secuelas culturales del wagnerismo: la arrogancia del lego en música, la sustitución del aprendizaje estricto por el diletantismo del «genio», y la teatrocracia como «plebiscito contra el buen gusto».`,
+        ref: `El caso Wagner, Posdata`
+      },
+      {
+        term: `Fisiología aplicada (estética como)`,
+        category: `Diagnóstico estético`,
+        summary: `Criterio crítico que juzga una obra de arte según los efectos corporales —vigor o agotamiento— que provoca en el organismo.`,
+        detail: `«Todo arte que tenga en contra a la fisiología es un arte refutado». Antes que argumentos teóricos, Nietzsche registra la protesta de su respiración, su pie, su estómago y su pulso frente a Wagner, frente al alivio animal que produce la música rítmica y serena.`,
+        ref: `Nietzsche contra Wagner, «Donde planteo objeciones» y Nota 7`
+      },
+      {
+        term: `«Il faut méditerraniser la musique»`,
+        category: `Alternativa vital`,
+        summary: `Consigna polémica que propone oponer la luz, la brevedad y la sensualidad meridional a las brumas metafísicas del Norte.`,
+        detail: `Formulada ya en Más allá del bien y del mal (220) y convertida en eje de El caso Wagner (§ 2–3), busca sustituir el idealismo alemán por una música de aire limpio, salud y serenidad africana o mediterránea, simbolizada irónicamente en Carmen.`,
+        ref: `El caso Wagner, § 2–3`
+      },
+      {
+        term: `Antítesis irónica (caso Bizet)`,
+        category: `Alternativa vital`,
+        summary: `Uso estratégico de Carmen como contramodelo polémico para desmitificar a Wagner sin adherirse dogmáticamente a Bizet.`,
+        detail: `En carta a Carl Fuchs del 27 de diciembre de 1888, Nietzsche aclara que Bizet en realidad no le interesa, pero le sirve como contraste incisivo («ridendo dicere severum»: decir riendo algo serio) contra la gravedad sacerdotal de Bayreuth.`,
+        ref: `Prólogo de Begoña Lolo; El caso Wagner, lema inicial`
+      },
+      {
+        term: `Ideal ascético y redención`,
+        category: `Ideal ascético`,
+        summary: `Núcleo cristiano-schopenhaueriano que promete salvar al hombre negando sus instintos vitales, la sensualidad y el mundo.`,
+        detail: `Mientras el joven Wagner admiraba a Feuerbach y proyectaba en Sigfrido un héroe revolucionario, el Wagner maduro transforma el mito en sermón de castidad y compasión (Parsifal), realizando para Nietzsche una apostasía contra la naturaleza y el conocimiento.`,
+        ref: `El caso Wagner, § 3–4; Nietzsche contra Wagner § 3`
+      },
+      {
+        term: `Nosotros, antípodas`,
+        category: `Diagnóstico estético`,
+        summary: `División radical entre el sufrimiento por plenitud vital (dionisíaco) y el sufrimiento por indigencia vital (romántico/pesimista).`,
+        detail: `Nietzsche explica su error juvenil de haber proyectado su propia potencia dionisíaca sobre Wagner y Schopenhauer. Al practicar la «inferencia inversa» (retroceder de la obra a la necesidad del autor), descubre que ambos son sus antípodas porque niegan la vida.`,
+        ref: `Nietzsche contra Wagner, «Nosotros, antípodas»`
+      },
+      {
+        term: `«Sin música la vida sería un error»`,
+        category: `Alternativa vital`,
+        summary: `Sentencia que resume la convicción nietzscheana de que la música no es adorno ni sirvienta teatral, sino centro vital del espíritu.`,
+        detail: `Aunque rompe brutalmente con Wagner, Nietzsche jamás reniega de la música: la considera vehículo hacia el centro del mundo y condición de fecundidad filosófica, ya sea improvisando al piano desde niño o invocando a Venecia, Chopin, Rossini y Pietro Gasti.`,
+        ref: `Prólogo (Crepúsculo de los ídolos, 33) e «Intermezzo»`
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        prompt: `En el Prefacio de El caso Wagner, ¿por qué afirma Nietzsche que Wagner resulta «imprescindible» precisamente para el filósofo?`,
+        options: [
+          `Porque ofrece la síntesis musical más saludable del siglo XIX alemán.`,
+          `Porque a través de Wagner la modernidad habla su íntimo lenguaje de décadence sin pudor, permitiendo diagnosticarla.`,
+          `Porque demostró que la ópera debe reemplazar definitivamente a la filosofía académica.`,
+          `Porque logró conciliar de modo perfecto a Goethe y a Schopenhauer.`
+        ],
+        correct: 1,
+        explanation: `Nietzsche sostiene que el filósofo debe ser la «mala conciencia de su tiempo»; por ello necesita conocer a fondo a Wagner como guía iniciado en el laberinto del alma moderna y de la décadence.`
+      },
+      {
+        prompt: `Según el análisis estilístico del parágrafo 7 de El caso Wagner (inspirado en Paul Bourget), ¿qué define la décadence en la obra wagneriana?`,
+        options: [
+          `El retorno estricto a las reglas del contrapunto clásico y a los números cerrados.`,
+          `La ausencia total de pasiones intensas o de efectos teatrales en escena.`,
+          `Que la vida ya no habita en el todo: la célula o el detalle minúsculo se vuelven soberanos a costa de la unidad orgánica.`,
+          `El empleo exclusivo de melodías breves de inspiración italiana.`
+        ],
+        correct: 2,
+        explanation: `En toda décadence «la palabra salta de la frase» y el conjunto deja de vivir para convertirse en un artefacto calculado. Nietzsche reconoce en Wagner a un gran miniaturista incapaz de construir formas orgánicas.`
+      },
+      {
+        prompt: `¿Qué lugar asigna Nietzsche a Richard Wagner en los parágrafos 8 y 11 de El caso Wagner?`,
+        options: [
+          `El de heredero directo y legítimo de Beethoven y Mozart en la música pura.`,
+          `El de un incomparable actor, mimómano y genio teatral cuyo arte convierte la música en retórica escénica.`,
+          `El de un compositor puramente formalista que despreciaba el efecto sobre las masas.`,
+          `El de un renovador científico de la armonía clásica sin interés por el drama.`
+        ],
+        correct: 1,
+        explanation: `«Wagner no era músico por instinto»: sacrificó toda ley musical para hacer de la música un medio retórico al servicio del gesto, consolidando la teatrocracia.`
+      },
+      {
+        prompt: `¿Qué revela la carta de Nietzsche a Carl Fuchs del 27 de diciembre de 1888 respecto a su elogio de Carmen de Bizet?`,
+        options: [
+          `Que Nietzsche consideraba a Bizet superior a Bach, Chopin y Mozart en todos los aspectos.`,
+          `Que Carmen había sido compuesta originalmente siguiendo indicaciones filosóficas del propio Nietzsche.`,
+          `Que Bizet en realidad no le interesaba en sí mismo, sino que actuaba fuertemente como «antítesis irónica contra Wagner».`,
+          `Que Nietzsche planeaba regresar a Bayreuth tras cansarse de la ópera francesa.`
+        ],
+        correct: 2,
+        explanation: `En esa carta confidencial, Nietzsche pide no tomar literalmente su entusiasmo por Bizet: Carmen es un recurso irónico y polémico para oponer la claridad meridional al húmedo Norte wagneriano.`
+      },
+      {
+        prompt: `¿Cómo interpreta Nietzsche el giro ideológico de Wagner entre el proyecto inicial del Anillo del Nibelungo y el estreno de Parsifal?`,
+        options: [
+          `Como el paso desde el optimismo revolucionario (Feuerbach/Sigfrido) hacia el pesimismo schopenhaueriano y el ideal ascético cristiano.`,
+          `Como una evolución coherente hacia el ateísmo científico y la moral de señores.`,
+          `Como una sátira deliberada con la que Wagner se burló de la Iglesia católica.`,
+          `Como un regreso fiel al ideal clásico de la tragedia griega sin mezcla religiosa.`
+        ],
+        correct: 0,
+        explanation: `El buque revolucionario de Wagner «encalló en el escollo de Schopenhauer» (§ 4), traduciendo el Anillo al pesimismo y culminando en Parsifal como «apostasía y regreso a enfermizos ideales cristianos».`
+      },
+      {
+        prompt: `¿Qué carácter específico subraya la traducción del título Nietzsche contra Wagner (Aktenstücke eines Psychologen)?`,
+        options: [
+          `Una novela histórica sobre el Festival de Bayreuth de 1876.`,
+          `Un tratado técnico sobre la afinación de los instrumentos orquestales.`,
+          `Un escrito de carácter jurídico-procesal («contra» como latinismo forense) armado con pasajes previos para probar que su crítica venía de diez años atrás.`,
+          `Una colección de cartas privadas intercambiadas entre Wagner y Schopenhauer.`
+        ],
+        correct: 2,
+        explanation: `Como explican las notas editoriales y el traductor, el latinismo «contra» junto a «Documentos procesales de un psicólogo» da forma de expediente probatorio a extractos de obras desde 1878.`
+      }
+    ];
+
+    const FAQ_ENTRIES = [
+      {
+        q: `¿Cuál es la diferencia exacta entre El caso Wagner y Nietzsche contra Wagner?`,
+        a: `El caso Wagner (redactado en Turín en mayo de 1888 y publicado en septiembre de ese año) es un panfleto irónico original que diagnostica a Wagner como síntoma de la décadence moderna y le opone Carmen. Nietzsche contra Wagner (compilado en diciembre de 1888 y editado en privado en 1889) reúne extractos corregidos de obras anteriores de Nietzsche —como Humano, demasiado humano o La gaya ciencia— para demostrar documentalmente que su distanciamiento de Wagner no era un capricho reciente, sino una postura mantenida desde al menos diez años atrás.`
+      },
+      {
+        q: `¿Odiaba Nietzsche toda la música de Wagner sin excepción?`,
+        a: `No de manera simplista. Incluso en su ruptura más dura, Nietzsche reconoce a Wagner como un extraordinario «miniaturista de la música», «nuestro más grande melancólico» en fragmentos íntimos de cinco a quince compases (como ciertos pasajes del preludio al acto III de Parsifal), y en el «Intermezzo» llega a exceptuar explícitamente el Idilio de Sigfrido. Su ataque apunta a la estética totalizante de Bayreuth, al efecto teatral de masas y a la negación ascética de la vida.`
+      },
+      {
+        q: `¿Por qué afirma Nietzsche que sus objeciones a Wagner son «fisiológicas» y no meramente estéticas?`,
+        a: `Porque considera que la estética no es más que fisiología aplicada: las formas artísticas brotan de un estado corporal de plenitud o de agotamiento. Una música enferma se delata antes en el cuerpo —dificultad para respirar, protesta del pie al faltarle danza y compás, malestar gástrico e irritación nerviosa— que en la teoría. Como «una enfermedad no se refuta con razones», el cuerpo sano se defiende instintivamente de ella.`
+      },
+      {
+        q: `¿Por qué el traductor José Luis Arántegui vierte términos alemanes como «káiser», «Reich» o «Bayreuther Blätter» al castellano?`,
+        a: `Arántegui explica en su «Nota sobre la traducción» que mantener sin traducir palabras como «Reich» o «Bayreuther Blätter» oculta su banalidad cotidiana y prolonga la «política de la fascinación» mediante el sonido exótico, un mecanismo típicamente wagneriano. Al traducirlas por «imperio», «césar» o «La Hoja de Bayreuth», se restituye el juego lingüístico inmediato que Nietzsche ejercía sobre los oídos alemanes («traducir a Nietzsche, no embalsamarlo»).`
+      },
+      {
+        q: `¿Qué papel desempeña Cosima Wagner en las notas de esta crítica?`,
+        a: `Aunque apenas aparece nombrada directamente en el texto publicado, los fragmentos póstumos recogidos en las notas editoriales (como W II, 3, 308 de 1887 y la carta nunca enviada de septiembre de 1888) muestran una actitud ambivalente: Nietzsche la elogia como «la única mujer al gran estilo» que conoció, pero no le perdona haber corrompido a Wagner arrastrando su arte —especialmente Parsifal— hacia sus «instintos católicos».`
+      }
+    ];
+
+    // =========================================================================
+    // 2. APPLICATION STATE & PERSISTENCE (notebookAppApi)
+    // =========================================================================
+
+    let appState = {
+      readSections: [],
+      selectedTimelineStep: 0,
+      selectedPhysioId: `respiracion`,
+      selectedComparisonId: `melodia`,
+      comparisonSortKey: `tension`,
+      comparisonSortDir: `desc`,
+      quizIndex: 0,
+      quizAnswers: {}, // { questionIdx: selectedOptionIdx }
+      quizSubmitted: {} // { questionIdx: boolean }
+    };
+
+    async function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+        } catch (e) {
+          // Silent fallback in restricted environments
+        }
+      }
+    }
+
+    // =========================================================================
+    // 3. RENDERING FUNCTIONS
+    // =========================================================================
+
+    function updateStudyProgressUI() {
+      const totalSections = 5;
+      const readCount = appState.readSections.length;
+      const quizDoneCount = Object.keys(appState.quizSubmitted).length;
+      const quizCorrectCount = QUIZ_QUESTIONS.reduce((acc, q, idx) => {
+        if (appState.quizSubmitted[idx] && appState.quizAnswers[idx] === q.correct) return acc + 1;
+        return acc;
+      }, 0);
+
+      const summaryEl = document.getElementById(`study-summary-text`);
+      const fillEl = document.getElementById(`study-progress-fill`);
+      if (summaryEl) {
+        const quizText = quizDoneCount > 0
+          ? `Cuestionario: ${quizCorrectCount}/${QUIZ_QUESTIONS.length} aciertos (${quizDoneCount} respondidas)`
+          : `Cuestionario pendiente`;
+        summaryEl.textContent = `Progreso de estudio: ${readCount} de ${totalSections} ejes revisados · ${quizText}`;
+      }
+      if (fillEl) {
+        const pct = Math.round(((readCount + (quizDoneCount / QUIZ_QUESTIONS.length)) / (totalSections + 1)) * 100);
+        fillEl.style.width = `${Math.min(100, pct)}%`;
+      }
+
+      const sectionIds = [`ruptura`, `decadence`, `histrio`, `bizet`, `parsifal`];
+      sectionIds.forEach((id) => {
+        const btn = document.getElementById(`mark-${id}`);
+        if (!btn) return;
+        const isRead = appState.readSections.includes(id);
+        btn.setAttribute(`aria-pressed`, isRead ? `true` : `false`);
+        btn.classList.toggle(`active`, isRead);
+        btn.textContent = isRead ? `Eje estudiado` : `Marcar eje como estudiado`;
+      });
+
+      const badgeEl = document.getElementById(`quiz-score-badge`);
+      if (badgeEl) {
+        badgeEl.textContent = `${quizCorrectCount} / ${QUIZ_QUESTIONS.length} aciertos`;
+      }
+    }
+
+    function toggleSectionRead(sectionId) {
+      const idx = appState.readSections.indexOf(sectionId);
+      if (idx === -1) {
+        appState.readSections.push(sectionId);
+      } else {
+        appState.readSections.splice(idx, 1);
+      }
+      updateStudyProgressUI();
+      persistState();
+    }
+
+    // --- Timeline ---
+    function selectTimelineStep(stepIdx) {
+      if (stepIdx < 0 || stepIdx >= TIMELINE_DATA.length) return;
+      appState.selectedTimelineStep = stepIdx;
+
+      const btns = document.querySelectorAll(`.timeline-step-btn`);
+      btns.forEach((b, i) => {
+        const active = i === stepIdx;
+        b.classList.toggle(`active`, active);
+        b.setAttribute(`aria-selected`, active ? `true` : `false`);
+      });
+
+      const panel = document.getElementById(`timeline-detail-panel`);
+      if (!panel) return;
+      const item = TIMELINE_DATA[stepIdx];
+      panel.innerHTML = `
+        <div>
+          <span class="tag">${item.tag} · ${item.year}</span>
+          <h3 style="margin: var(--space-xs) 0 var(--space-sm);">${item.title}</h3>
+          <p style="margin: 0;">${item.body}</p>
+        </div>
+        <div class="ruled-panel">
+          <span class="section-label">Testimonio documental</span>
+          <p style="font-family: var(--font-headline); font-style: italic; font-size: 1.08rem; line-height: 1.45; margin-bottom: var(--space-xs);">${item.quote}</p>
+          <span class="source-ref">${item.source}</span>
+        </div>
+      `;
+      persistState();
+    }
+
+    // --- Physiology Diagnostic ---
+    function renderPhysiologyList() {
+      const listEl = document.getElementById(`physio-list`);
+      if (!listEl) return;
+      listEl.innerHTML = PHYSIOLOGY_DATA.map((item) => {
+        const active = item.id === appState.selectedPhysioId;
+        return `
+          <button type="button" class="diagnostic-item-btn ${active ? `active` : ``}" role="tab" aria-selected="${active}" onclick="selectPhysiology('${item.id}')">
+            <span>${item.label}</span>
+            <span class="tag" style="color: inherit;">Ver lectura</span>
+          </button>
+        `;
+      }).join(``);
+    }
+
+    function selectPhysiology(id) {
+      const item = PHYSIOLOGY_DATA.find((x) => x.id === id) || PHYSIOLOGY_DATA[0];
+      appState.selectedPhysioId = item.id;
+      renderPhysiologyList();
+
+      const detailEl = document.getElementById(`physio-detail`);
+      if (!detailEl) return;
+      detailEl.innerHTML = `
+        <span class="section-label">Registro fisiológico · ${item.label}</span>
+        <h3 style="margin-bottom: var(--space-md);">Reacción del cuerpo ante dos estéticas</h3>
+        <div style="border-bottom: var(--rule-column); padding-bottom: var(--space-md); margin-bottom: var(--space-md);">
+          <span class="tag" style="color: var(--primary);">Efecto Wagner (Patología)</span>
+          <p style="margin-top: var(--space-xs); margin-bottom: 0;">${item.wagner}</p>
+        </div>
+        <div>
+          <span class="tag">Criterio de salud (Fisiología afirmativa)</span>
+          <p style="margin-top: var(--space-xs); margin-bottom: var(--space-xs);">${item.antidote}</p>
+          <span class="source-ref">${item.ref}</span>
+        </div>
+      `;
+      persistState();
+    }
+
+    // --- Comparison Table & Inspector ---
+    function sortComparison(key) {
+      if (appState.comparisonSortKey === key) {
+        appState.comparisonSortDir = appState.comparisonSortDir === `asc` ? `desc` : `asc`;
+      } else {
+        appState.comparisonSortKey = key;
+        appState.comparisonSortDir = key === `tension` ? `desc` : `asc`;
+      }
+      updateComparisonTable();
+      persistState();
+    }
+
+    function resetComparisonFilters() {
+      const searchEl = document.getElementById(`compare-search`);
+      const domainEl = document.getElementById(`compare-domain`);
+      if (searchEl) searchEl.value = ``;
+      if (domainEl) domainEl.value = `todas`;
+      updateComparisonTable();
+    }
+
+    function selectComparisonRow(id) {
+      appState.selectedComparisonId = id;
+      updateComparisonTable();
+      persistState();
+    }
+
+    function updateComparisonTable() {
+      const searchEl = document.getElementById(`compare-search`);
+      const domainEl = document.getElementById(`compare-domain`);
+      const tbody = document.getElementById(`comparison-tbody`);
+      const emptyEl = document.getElementById(`comparison-empty`);
+      const inspectorEl = document.getElementById(`comparison-inspector`);
+      if (!tbody) return;
+
+      const query = (searchEl ? searchEl.value : ``).trim().toLowerCase();
+      const domain = domainEl ? domainEl.value : `todas`;
+
+      let filtered = COMPARISON_ROWS.filter((row) => {
+        const matchesDomain = domain === `todas` || row.domain === domain;
+        const haystack = `${row.axis} ${row.domain} ${row.wagner} ${row.bizet} ${row.note}`.toLowerCase();
+        const matchesQuery = !query || haystack.includes(query);
+        return matchesDomain && matchesQuery;
+      });
+
+      filtered.sort((a, b) => {
+        let cmp = 0;
+        if (appState.comparisonSortKey === `axis`) {
+          cmp = a.axis.localeCompare(b.axis, `es`);
+        } else {
+          cmp = a.tension - b.tension;
+        }
+        return appState.comparisonSortDir === `asc` ? cmp : -cmp;
+      });
+
+      const axisIcon = document.getElementById(`sort-icon-axis`);
+      const tensionIcon = document.getElementById(`sort-icon-tension`);
+      if (axisIcon) axisIcon.textContent = appState.comparisonSortKey === `axis` ? (appState.comparisonSortDir === `asc` ? `↑` : `↓`) : `↕`;
+      if (tensionIcon) tensionIcon.textContent = appState.comparisonSortKey === `tension` ? (appState.comparisonSortDir === `asc` ? `↑` : `↓`) : `↕`;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = ``;
+        if (emptyEl) emptyEl.hidden = false;
+        if (inspectorEl) inspectorEl.hidden = true;
+        return;
+      }
+
+      if (emptyEl) emptyEl.hidden = true;
+      if (inspectorEl) inspectorEl.hidden = false;
+
+      if (!filtered.some((r) => r.id === appState.selectedComparisonId)) {
+        appState.selectedComparisonId = filtered[0].id;
+      }
+
+      tbody.innerHTML = filtered.map((row) => {
+        const isSel = row.id === appState.selectedComparisonId;
+        return `
+          <tr class="${isSel ? `selected-row` : ``}" onclick="selectComparisonRow('${row.id}')" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectComparisonRow('${row.id}');}">
+            <td class="col-axis">
+              ${row.axis}
+              <span class="source-ref" style="margin-top: 2px;">${row.domain}</span>
+            </td>
+            <td class="col-wagner">${row.wagner}</td>
+            <td class="col-bizet">${row.bizet}</td>
+            <td class="col-num">${row.tension} / 10</td>
+          </tr>
+        `;
+      }).join(``);
+
+      const selected = filtered.find((r) => r.id === appState.selectedComparisonId) || filtered[0];
+      if (inspectorEl && selected) {
+        inspectorEl.innerHTML = `
+          <div>
+            <span class="section-label">Nota crítica del eje seleccionado · ${selected.axis}</span>
+            <h3 style="margin-bottom: var(--space-xs);">${selected.domain}</h3>
+            <p style="margin: 0;">${selected.note}</p>
+          </div>
+          <div style="border-left: var(--rule-column); padding-left: var(--space-lg);">
+            <span class="tag">Intensidad polémica: ${selected.tension} / 10</span>
+            <p style="font-size: 0.94rem; color: var(--on-surface-variant); margin-top: var(--space-xs); margin-bottom: 0;">
+              Haga clic en cualquier fila superior para inspeccionar el trasfondo textual de cada antítesis.
+            </p>
+          </div>
+        `;
+      }
+    }
+
+    // --- Polarity SVG Chart ---
+    function renderPolarityChart() {
+      const wrap = document.getElementById(`polarity-chart-wrap`);
+      if (!wrap) return;
+
+      const width = 760;
+      const rowH = 44;
+      const topPad = 32;
+      const leftPad = 210;
+      const rightPad = 70;
+      const chartW = width - leftPad - rightPad;
+      const height = topPad + POLARITY_METRICS.length * rowH + 26;
+
+      let gridLines = ``;
+      for (let t = 0; t <= 10; t += 2) {
+        const x = leftPad + (t / 10) * chartW;
+        gridLines += `<line x1="${x}" y1="${topPad - 6}" x2="${x}" y2="${height - 22}" stroke="var(--outline-variant)" stroke-width="1" />`;
+        gridLines += `<text x="${x}" y="${height - 6}" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700">${t}</text>`;
+      }
+
+      let rowsSvg = ``;
+      POLARITY_METRICS.forEach((m, idx) => {
+        const cy = topPad + idx * rowH + 18;
+        const xW = leftPad + (m.wagner / 10) * chartW;
+        const xB = leftPad + (m.bizet / 10) * chartW;
+        const minX = Math.min(xW, xB);
+        const maxX = Math.max(xW, xB);
+
+        rowsSvg += `
+          <text x="${leftPad - 14}" y="${cy + 4}" text-anchor="end" fill="var(--on-surface)" font-family="Source Serif 4, serif" font-size="14" font-weight="600">${m.label}</text>
+          <line x1="${leftPad}" y1="${cy}" x2="${leftPad + chartW}" y2="${cy}" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="2 3" />
+          <line x1="${minX}" y1="${cy}" x2="${maxX}" y2="${cy}" stroke="var(--outline)" stroke-width="2" />
+          <rect x="${xW - 5}" y="${cy - 5}" width="10" height="10" fill="var(--data-1)" />
+          <circle cx="${xB}" cy="${cy}" r="5" fill="var(--data-2)" />
+          <text x="${xW}" y="${cy - 10}" text-anchor="middle" fill="var(--data-1)" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700">W: ${m.wagner}</text>
+          <text x="${xB}" y="${cy + 17}" text-anchor="middle" fill="var(--data-2)" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700">B: ${m.bizet}</text>
+        `;
+      });
+
+      wrap.innerHTML = `
+        <svg viewBox="0 0 ${width} ${height}" width="100%" role="img" aria-label="Gráfico comparativo de polaridad estética entre Wagner y Bizet">
+          <g>
+            <rect x="${leftPad}" y="6" width="10" height="10" fill="var(--data-1)" />
+            <text x="${leftPad + 16}" y="15" fill="var(--data-1)" font-family="Source Sans 3, sans-serif" font-size="12" font-weight="700">WAGNER (EL CASO)</text>
+            <circle cx="${leftPad + 185}" cy="11" r="5" fill="var(--data-2)" />
+            <text x="${leftPad + 196}" y="15" fill="var(--data-2)" font-family="Source Sans 3, sans-serif" font-size="12" font-weight="700">BIZET (CARMEN)</text>
+          </g>
+          ${gridLines}
+          ${rowsSvg}
+        </svg>
+      `;
+    }
+
+    // --- Glossary ---
+    let allGlossaryExpanded = false;
+
+    function filterGlossary() {
+      const searchEl = document.getElementById(`glossary-search`);
+      const catEl = document.getElementById(`glossary-category`);
+      const gridEl = document.getElementById(`glossary-grid`);
+      const emptyEl = document.getElementById(`glossary-empty`);
+      const countEl = document.getElementById(`glossary-count-label`);
+      if (!gridEl) return;
+
+      const query = (searchEl ? searchEl.value : ``).trim().toLowerCase();
+      const cat = catEl ? catEl.value : `todas`;
+
+      const filtered = GLOSSARY_ENTRIES.filter((entry) => {
+        const matchesCat = cat === `todas` || entry.category === cat;
+        const hay = `${entry.term} ${entry.category} ${entry.summary} ${entry.detail} ${entry.ref}`.toLowerCase();
+        const matchesQ = !query || hay.includes(query);
+        return matchesCat && matchesQ;
+      });
+
+      if (countEl) {
+        countEl.textContent = `${filtered.length} de ${GLOSSARY_ENTRIES.length} entradas`;
+      }
+
+      if (filtered.length === 0) {
+        gridEl.innerHTML = ``;
+        if (emptyEl) emptyEl.hidden = false;
+        return;
+      }
+
+      if (emptyEl) emptyEl.hidden = true;
+      gridEl.innerHTML = filtered.map((entry, i) => {
+        const expId = `gloss-exp-${i}`;
+        return `
+          <article class="glossary-entry">
+            <button type="button" class="glossary-trigger" aria-expanded="${allGlossaryExpanded}" aria-controls="${expId}" onclick="toggleGlossaryEntry('${expId}', this)">
+              <span class="glossary-term">${entry.term}</span>
+              <span class="glossary-meta">
+                <span class="tag">${entry.category}</span>
+                <span aria-hidden="true" style="font-family: var(--font-label); font-weight: 700;">${allGlossaryExpanded ? `−` : `+`}</span>
+              </span>
+            </button>
+            <p class="glossary-summary">${entry.summary}</p>
+            <div class="glossary-expand" id="${expId}" ${allGlossaryExpanded ? `` : `hidden`}>
+              <p style="margin-bottom: var(--space-xs);">${entry.detail}</p>
+              <span class="source-ref">Referencia: ${entry.ref}</span>
+            </div>
+          </article>
+        `;
+      }).join(``);
+    }
+
+    function toggleGlossaryEntry(expId, btn) {
+      const box = document.getElementById(expId);
+      if (!box || !btn) return;
+      const isHidden = box.hidden;
+      box.hidden = !isHidden;
+      btn.setAttribute(`aria-expanded`, isHidden ? `true` : `false`);
+      const sign = btn.querySelector(`.glossary-meta span:last-child`);
+      if (sign) sign.textContent = isHidden ? `−` : `+`;
+    }
+
+    function toggleAllGlossary() {
+      allGlossaryExpanded = !allGlossaryExpanded;
+      filterGlossary();
+    }
+
+    function resetGlossaryFilters() {
+      const searchEl = document.getElementById(`glossary-search`);
+      const catEl = document.getElementById(`glossary-category`);
+      if (searchEl) searchEl.value = ``;
+      if (catEl) catEl.value = `todas`;
+      allGlossaryExpanded = false;
+      filterGlossary();
+    }
+
+    // --- Quiz ---
+    function renderQuiz() {
+      const container = document.getElementById(`quiz-container`);
+      if (!container) return;
+
+      const idx = appState.quizIndex;
+      const q = QUIZ_QUESTIONS[idx];
+      const chosen = appState.quizAnswers[idx];
+      const isSubmitted = !!appState.quizSubmitted[idx];
+      const letters = [`A`, `B`, `C`, `D`];
+
+      const optionsHtml = q.options.map((opt, optIdx) => {
+        let cls = `quiz-option-btn`;
+        if (isSubmitted) {
+          if (optIdx === q.correct) cls += ` correct`;
+          else if (optIdx === chosen && chosen !== q.correct) cls += ` incorrect`;
+        } else if (chosen === optIdx) {
+          cls += ` selected`;
+        }
+        return `
+          <button type="button" class="${cls}" ${isSubmitted ? `disabled` : ``} onclick="selectQuizOption(${optIdx})">
+            <span class="option-letter">${letters[optIdx]}.</span>
+            <span>${opt}</span>
+          </button>
+        `;
+      }).join(``);
+
+      let feedbackHtml = ``;
+      if (isSubmitted) {
+        const ok = chosen === q.correct;
+        feedbackHtml = `
+          <div class="quiz-feedback ${ok ? `is-correct` : `is-incorrect`}">
+            <strong style="display: block; margin-bottom: var(--space-xs);">${ok ? `Respuesta correcta` : `Revisión conceptual necesaria`}</strong>
+            <p style="margin: 0;">${q.explanation}</p>
+          </div>
+        `;
+      }
+
+      const answeredTotal = Object.keys(appState.quizSubmitted).length;
+
+      container.innerHTML = `
+        <div class="quiz-topbar">
+          <div>
+            <span class="section-label">Pregunta ${idx + 1} de ${QUIZ_QUESTIONS.length}</span>
+            <span style="font-size: 0.94rem; color: var(--on-surface-variant);">Respondidas: ${answeredTotal} de ${QUIZ_QUESTIONS.length}</span>
+          </div>
+          <div style="display: flex; gap: var(--space-xs); flex-wrap: wrap;">
+            ${QUIZ_QUESTIONS.map((_, i) => {
+              const done = !!appState.quizSubmitted[i];
+              const active = i === idx;
+              return `<button type="button" class="btn btn-toggle ${active ? `active` : ``}" style="min-width: 44px; padding: 0 var(--space-sm);" onclick="goToQuizQuestion(${i})" aria-label="Ir a pregunta ${i + 1}">${i + 1}${done ? `·` : ``}</button>`;
+            }).join(``)}
+          </div>
+        </div>
+
+        <h3>${q.prompt}</h3>
+        <div class="quiz-options">
+          ${optionsHtml}
+        </div>
+        ${feedbackHtml}
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md);">
+          <div style="display: flex; gap: var(--space-sm);">
+            <button type="button" class="btn btn-secondary" ${idx === 0 ? `disabled` : ``} onclick="goToQuizQuestion(${idx - 1})">Anterior</button>
+            <button type="button" class="btn btn-secondary" ${idx === QUIZ_QUESTIONS.length - 1 ? `disabled` : ``} onclick="goToQuizQuestion(${idx + 1})">Siguiente</button>
+          </div>
+          <div style="display: flex; gap: var(--space-sm);">
+            ${!isSubmitted
+              ? `<button type="button" class="btn btn-primary" ${chosen === undefined ? `disabled` : ``} onclick="submitQuizAnswer()">Comprobar respuesta</button>`
+              : `<button type="button" class="btn btn-secondary" onclick="retryQuizQuestion(${idx})">Reintentar pregunta</button>`
+            }
+          </div>
+        </div>
+      `;
+    }
+
+    function selectQuizOption(optIdx) {
+      if (appState.quizSubmitted[appState.quizIndex]) return;
+      appState.quizAnswers[appState.quizIndex] = optIdx;
+      renderQuiz();
+      persistState();
+    }
+
+    function submitQuizAnswer() {
+      const idx = appState.quizIndex;
+      if (appState.quizAnswers[idx] === undefined) return;
+      appState.quizSubmitted[idx] = true;
+      renderQuiz();
+      updateStudyProgressUI();
+      persistState();
+    }
+
+    function retryQuizQuestion(idx) {
+      delete appState.quizAnswers[idx];
+      delete appState.quizSubmitted[idx];
+      renderQuiz();
+      updateStudyProgressUI();
+      persistState();
+    }
+
+    function goToQuizQuestion(idx) {
+      if (idx < 0 || idx >= QUIZ_QUESTIONS.length) return;
+      appState.quizIndex = idx;
+      renderQuiz();
+      persistState();
+    }
+
+    // --- FAQ ---
+    function renderFaq() {
+      const listEl = document.getElementById(`faq-list`);
+      if (!listEl) return;
+      listEl.innerHTML = FAQ_ENTRIES.map((item, i) => {
+        const ansId = `faq-ans-${i}`;
+        return `
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="${ansId}" onclick="toggleFaq('${ansId}', this)">
+              <span>${item.q}</span>
+              <span aria-hidden="true" style="font-family: var(--font-label); font-weight: 700; flex-shrink: 0;">+</span>
+            </button>
+            <div class="faq-answer" id="${ansId}" hidden>
+              <p style="margin: 0;">${item.a}</p>
+            </div>
+          </div>
+        `;
+      }).join(``);
+    }
+
+    function toggleFaq(ansId, btn) {
+      const ans = document.getElementById(ansId);
+      if (!ans || !btn) return;
+      const willOpen = ans.hidden;
+      ans.hidden = !willOpen;
+      btn.setAttribute(`aria-expanded`, willOpen ? `true` : `false`);
+      const sign = btn.querySelector(`span:last-child`);
+      if (sign) sign.textContent = willOpen ? `−` : `+`;
+    }
+
+    // --- Export & Reset ---
+    function exportStudyNotes() {
+      const readCount = appState.readSections.length;
+      const lines = [
+        `EXPEDIENTE DE ESTUDIO: NIETZSCHE CONTRA WAGNER & EL CASO WAGNER`,
+        `================================================================`,
+        `Ejes marcados como estudiados (${readCount}/5): ${appState.readSections.join(`, `) || `Ninguno`}`,
+        ``,
+        `RESUMEN DE LOS CINCO EJES:`,
+        `1. Ruptura (1868-1889): De la alianza de Tribschen y El nacimiento de la tragedia (1871) a la huida de Bayreuth (1876) y el expediente jurídico de Turín.`,
+        `2. Décadence y fisiología: Disgregación del conjunto en favor del detalle («anarquía de los átomos») y rechazo corporal del «siroco» wagneriano.`,
+        `3. Wagner como histrión: «Cagliostro de la modernidad», subordinación de la música al gesto escénico y consolidación de la teatrocracia.`,
+        `4. Antítesis irónica de Bizet: «Il faut méditerraniser la musique». Carmen como claridad meridional y recurso polémico (carta a Carl Fuchs, 27 dic 1888).`,
+        `5. Crítica a Parsifal: Escollo de Schopenhauer en el Anillo y capitulación ascética ante la cruz cristiana.`,
+        ``,
+        `GLOSARIO CLAVE:`
+      ];
+      GLOSSARY_ENTRIES.forEach((g) => {
+        lines.push(`- ${g.term} (${g.category}): ${g.summary}`);
+      });
+
+      const content = lines.join(`\n`);
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `nietzsche-contra-wagner-expediente.txt`
+        });
+      }
+    }
+
+    function resetAllStudyProgress(btn) {
+      if (btn && btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirmar reinicio`;
+        return;
+      }
+      if (btn) {
+        btn.dataset.armed = `false`;
+        btn.textContent = `Reiniciar progreso`;
+      }
+      appState = {
+        readSections: [],
+        selectedTimelineStep: 0,
+        selectedPhysioId: `respiracion`,
+        selectedComparisonId: `melodia`,
+        comparisonSortKey: `tension`,
+        comparisonSortDir: `desc`,
+        quizIndex: 0,
+        quizAnswers: {},
+        quizSubmitted: {}
+      };
+      selectTimelineStep(0);
+      selectPhysiology(`respiracion`);
+      updateComparisonTable();
+      renderQuiz();
+      updateStudyProgressUI();
+      persistState();
+    }
+
+    // --- Active Nav Highlight ---
+    function setupScrollSpy() {
+      const links = document.querySelectorAll(`.nav-link`);
+      const sections = document.querySelectorAll(`header[id], section[id]`);
+      if (!(`IntersectionObserver` in window)) return;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            links.forEach((lnk) => {
+              lnk.classList.toggle(`active`, lnk.getAttribute(`href`) === `#${id}`);
+            });
+          }
+        });
+      }, { rootMargin: `-15% 0px -70% 0px` });
+      sections.forEach((sec) => observer.observe(sec));
+    }
+
+    // =========================================================================
+    // 4. BOOTSTRAP
+    // =========================================================================
+
+    document.addEventListener(`DOMContentLoaded`, async () => {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            appState = Object.assign(appState, saved);
+          }
+        } catch (e) {
+          // Proceed with default state
+        }
+      }
+
+      selectTimelineStep(appState.selectedTimelineStep || 0);
+      selectPhysiology(appState.selectedPhysioId || `respiracion`);
+      updateComparisonTable();
+      renderPolarityChart();
+      filterGlossary();
+      renderQuiz();
+      renderFaq();
+      updateStudyProgressUI();
+      setupScrollSpy();
+
+      if (window.lucide && typeof window.lucide.createIcons === `function`) {
+        window.lucide.createIcons();
+      }
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="sonnet">
+  <title>Aurora (Morgenröthe) de Friedrich Nietzsche — Guía Crítica y Base de Conocimiento</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #f5efe0;
+      --surface-container-low: #f8f3e7;
+      --surface-container: #ece3cf;
+      --surface-container-high: #e4d8bf;
+
+      /* Ink */
+      --on-surface: #1f1a17;
+      --on-surface-variant: #4a3f38;
+
+      /* Rules (never text) */
+      --outline: #a8843f;
+      --outline-variant: #d8c7a3;
+
+      /* Accents */
+      --primary: #6b1424;
+      --on-primary: #f5efe0;
+      --primary-container: #efe0dc;
+      --on-primary-container: #4a0d18;
+      --secondary: #2f4a3a;
+      --tertiary: #a8843f;
+      --error: #9b2c1f;
+      --on-error: #f5efe0;
+
+      /* Data series */
+      --data-1: #6b1424;
+      --data-2: #2f4a3a;
+      --data-3: #a8843f;
+      --data-4: #3d5a73;
+      --data-context: #b9ad9c;
+
+      /* Fonts */
+      --font-headline: 'Cormorant Garamond', serif;
+      --font-body: 'Crimson Pro', serif;
+      --font-label: 'Cormorant Garamond', serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --gilt-rule: 1px solid var(--outline);
+      --gilt-rule-soft: 1px solid var(--outline-variant);
+      --gilt-frame-inset: 5px;
+      --paper-vignette: inset 0 0 90px rgb(120 90 40 / 0.16);
+
+      /* Shared semantic & focus tokens */
+      --positive: #2f4a3a;
+      --warning: #7a4b10;
+      --focus: #6b1424;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.85rem, 1.6rem + 4.4vw, 4.75rem);
+      --headline-size: clamp(1.95rem, 1.3rem + 2.1vw, 2.75rem);
+      --subhead-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.55rem);
+      --body-size: clamp(1.125rem, 1.05rem + 0.22vw, 1.225rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.15vw, 0.85rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+
+      /* Layout measures */
+      --measure: 64ch;
+      --touch-target: 2.75rem;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 16px;
+    }
+    body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.68;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    .page {
+      box-shadow: var(--paper-vignette);
+      min-height: 100vh;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1080px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Accessibility focus */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+      font-weight: 500;
+    }
+    h1 {
+      font-size: var(--display-size);
+      font-style: italic;
+      line-height: 1.06;
+      letter-spacing: -0.005em;
+      text-align: center;
+    }
+    h1 .title-accent {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      font-style: italic;
+      line-height: 1.14;
+      letter-spacing: -0.004em;
+      text-align: center;
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--gilt-rule-soft);
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      font-weight: 600;
+      font-style: normal;
+      line-height: 1.25;
+      color: var(--on-surface);
+    }
+
+    p {
+      margin: 0;
+      max-width: var(--measure);
+    }
+
+    .prose-col {
+      max-width: var(--measure);
+      margin-inline: auto;
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .label-voice {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-style: normal;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .muted-caption {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 0.96rem;
+      color: var(--on-surface-variant);
+      line-height: 1.5;
+    }
+
+    .tabular-nums {
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .oldstyle-nums {
+      font-variant-numeric: oldstyle-nums;
+    }
+
+    /* Sonnet Defining Treatments */
+    .gilt-frame {
+      border: var(--gilt-rule);
+      outline: var(--gilt-rule);
+      outline-offset: calc(-1 * var(--gilt-frame-inset));
+      padding: var(--space-2xl) var(--space-xl);
+      background-color: var(--surface-container-low);
+      text-align: center;
+      display: grid;
+      gap: var(--space-lg);
+      justify-items: center;
+    }
+
+    .drop-cap::first-letter {
+      float: left;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 3.6em;
+      line-height: 0.85;
+      padding: 0.06em 0.1em 0 0;
+      color: var(--primary);
+    }
+
+    .ruled {
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-md);
+    }
+
+    .verse {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.22em;
+      line-height: 1.5;
+      color: var(--secondary);
+      border-left: var(--gilt-rule);
+      padding-left: var(--space-md);
+      max-width: 40ch;
+      margin: var(--space-sm) auto;
+      text-align: left;
+    }
+    .verse cite {
+      display: block;
+      margin-top: var(--space-xs);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+
+    /* Header & Navigation */
+    .hero-kicker {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-size: clamp(1.15rem, 1.05rem + 0.35vw, 1.35rem);
+      color: var(--on-surface-variant);
+      max-width: 54ch;
+      margin-inline: auto;
+      line-height: 1.55;
+    }
+
+    .toc-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-xs) var(--space-sm);
+      padding-block: var(--space-md);
+      border-top: var(--gilt-rule-soft);
+      border-bottom: var(--gilt-rule);
+      width: 100%;
+    }
+    .toc-link {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+      text-decoration: none;
+      padding: var(--space-sm) var(--space-xs);
+      min-height: var(--touch-target);
+      display: inline-flex;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .toc-link:hover {
+      color: var(--on-surface);
+      border-bottom-color: var(--outline);
+    }
+    .toc-middot {
+      color: var(--on-surface-variant);
+      font-family: var(--font-headline);
+      user-select: none;
+    }
+
+    /* Key Figures Strip */
+    .figures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+      gap: var(--space-lg);
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+      text-align: center;
+    }
+    .figure-item {
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+      padding-inline: var(--space-sm);
+    }
+    .figure-value {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: clamp(2rem, 1.5rem + 1.5vw, 2.75rem);
+      line-height: 1.1;
+      color: var(--on-surface);
+      font-weight: 500;
+    }
+
+    /* Section Architecture */
+    .chapter {
+      display: grid;
+      gap: var(--space-xl);
+      padding-top: var(--space-lg);
+    }
+    .chapter-header {
+      display: grid;
+      gap: var(--space-sm);
+      justify-items: center;
+      text-align: center;
+      max-width: 68ch;
+      margin-inline: auto;
+    }
+    .chapter-lede {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--on-surface-variant);
+      max-width: 56ch;
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-radius: var(--rounded);
+      min-height: var(--touch-target);
+      padding: var(--space-sm) var(--space-lg);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      border: 1px solid var(--primary);
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--on-primary-container);
+    }
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary);
+    }
+    .btn-secondary:hover {
+      background-color: var(--primary-container);
+    }
+    .btn-secondary[aria-pressed="true"],
+    .btn-secondary.is-active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-sm);
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      border: 1px solid var(--secondary);
+      border-radius: var(--rounded-full);
+      padding: var(--space-xs) var(--space-md);
+      line-height: 1.2;
+    }
+
+    /* Interactive Timeline (Section I) */
+    .timeline-shell {
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .timeline-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(130px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+    .timeline-btn {
+      background: transparent;
+      border: var(--gilt-rule-soft);
+      padding: var(--space-sm) var(--space-md);
+      min-height: var(--touch-target);
+      cursor: pointer;
+      text-align: center;
+      display: grid;
+      gap: var(--space-xs);
+      font-family: inherit;
+      color: var(--on-surface);
+      transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .timeline-btn:hover {
+      background-color: var(--surface-container-low);
+      border-color: var(--outline);
+    }
+    .timeline-btn[aria-selected="true"] {
+      background-color: var(--surface-container);
+      border-color: var(--primary);
+    }
+    .timeline-year {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--primary);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .timeline-place {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+    .timeline-detail {
+      background-color: var(--surface-container-low);
+      border-left: 2px solid var(--primary);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      max-width: 72ch;
+      margin-inline: auto;
+      width: 100%;
+    }
+
+    /* Metaphor Interactive Diagram (Section II) */
+    .diagram-panel {
+      background-color: var(--surface-container-low);
+      border-block: var(--gilt-rule);
+      padding: var(--space-xl) var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .diagram-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: center;
+    }
+    .diagram-svg-wrap {
+      width: 100%;
+      min-height: 290px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: var(--gilt-rule-soft);
+      background-color: var(--background);
+      padding: var(--space-md);
+    }
+    .diagram-readout {
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+    }
+    .svg-node {
+      cursor: pointer;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+    .svg-node:hover {
+      opacity: 0.85;
+    }
+
+    /* Genealogy Table & Comparison Matrix (Section III) */
+    .data-table-wrap {
+      overflow-x: auto;
+      border-block: var(--gilt-rule);
+    }
+    table.sonnet-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table.sonnet-table thead th {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+      padding: var(--space-md) var(--space-md);
+      border-bottom: var(--gilt-rule);
+      vertical-align: bottom;
+    }
+    table.sonnet-table tbody td {
+      padding: var(--space-md);
+      border-bottom: var(--gilt-rule-soft);
+      vertical-align: top;
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+    table.sonnet-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    /* Diagnostic Comparator (Section IV) */
+    .diagnostic-box {
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-xl);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .comparison-split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+    .comp-col {
+      padding: var(--space-lg);
+      border-top: 2px solid var(--outline);
+      background-color: var(--surface-container-low);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+    }
+    .comp-col--genealogy {
+      border-top-color: var(--primary);
+      background-color: var(--surface-container);
+    }
+
+    /* Cardinal Virtues & Body Philosophy Grid (Section V) */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .ruled-card {
+      border-top: var(--gilt-rule);
+      border-bottom: var(--gilt-rule-soft);
+      padding-block: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+    }
+
+    /* Aphorism Explorer (Section VI) */
+    .explorer-controls {
+      display: grid;
+      gap: var(--space-md);
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+    }
+    .search-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: end;
+      justify-content: space-between;
+    }
+    .field-group {
+      display: grid;
+      gap: var(--space-xs);
+      flex: 1 1 260px;
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+    .input-line {
+      width: 100%;
+      min-height: var(--touch-target);
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      color: var(--on-surface);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      transition: border-color var(--dur-short) var(--ease-out);
+    }
+    .input-line:focus {
+      border-bottom-color: var(--primary);
+    }
+
+    .aphorism-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-xl);
+    }
+    .aphorism-card {
+      border-top: var(--gilt-rule);
+      border-bottom: var(--gilt-rule-soft);
+      padding-block: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+    }
+    .aphorism-card.is-bookmarked {
+      background-color: var(--surface-container-low);
+      padding-inline: var(--space-md);
+      border-top: 2px solid var(--primary);
+    }
+    .aphorism-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .aphorism-quote {
+      font-family: var(--font-body);
+      font-size: 1.06rem;
+      line-height: 1.62;
+      color: var(--on-surface);
+    }
+    .aphorism-analysis {
+      background-color: var(--surface-container);
+      padding: var(--space-md);
+      border-left: 2px solid var(--secondary);
+      font-size: 0.98rem;
+      color: var(--on-surface-variant);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .aphorism-analysis[hidden] {
+      display: none;
+    }
+
+    /* Personal Notebook & Empty/Populated States */
+    .notebook-panel {
+      background-color: var(--surface-container);
+      border-block: var(--gilt-rule);
+      padding: var(--space-xl) var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .notebook-list {
+      display: grid;
+      gap: var(--space-sm);
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .notebook-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      border-bottom: var(--gilt-rule-soft);
+      padding-block: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .textarea-line {
+      width: 100%;
+      min-height: 5.5rem;
+      background-color: var(--surface-container-low);
+      border: 1px solid var(--outline-variant);
+      border-bottom: 1px solid var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 1.02rem;
+      color: var(--on-surface);
+      padding: var(--space-sm) var(--space-md);
+      resize: vertical;
+      border-radius: var(--rounded);
+    }
+
+    /* Interactive Assessment Quiz (Section VII) */
+    .quiz-shell {
+      border: var(--gilt-rule);
+      background-color: var(--surface-container-low);
+      padding: var(--space-xl);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .quiz-progress-bar {
+      width: 100%;
+      height: 4px;
+      background-color: var(--outline-variant);
+      overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      width: 0%;
+      transition: width var(--dur-short) var(--ease-out);
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      justify-content: flex-start;
+      padding: var(--space-md);
+      min-height: var(--touch-target);
+      background-color: var(--background);
+      border: 1px solid var(--outline-variant);
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.45;
+      color: var(--on-surface);
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      background-color: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .quiz-option.is-correct {
+      border-color: var(--positive);
+      background-color: var(--surface-container);
+    }
+    .quiz-option.is-wrong {
+      border-color: var(--error);
+      background-color: var(--primary-container);
+    }
+    .quiz-feedback {
+      padding: var(--space-md);
+      border-left: 2px solid var(--primary);
+      background-color: var(--surface-container);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .quiz-feedback.is-positive {
+      border-left-color: var(--positive);
+    }
+    .quiz-feedback.is-error {
+      border-left-color: var(--error);
+    }
+
+    .status-msg {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      min-height: 1.4em;
+    }
+
+    /* Footer */
+    .colophon {
+      border-top: var(--gilt-rule);
+      padding-top: var(--space-xl);
+      text-align: center;
+      display: grid;
+      gap: var(--space-sm);
+      justify-items: center;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 760px) {
+      .diagram-grid,
+      .comparison-split {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .gilt-frame {
+        padding: var(--space-xl) var(--space-md);
+      }
+      .quiz-shell {
+        padding: var(--space-lg) var(--space-md);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: minmax(0, 1fr);
+        padding: var(--space-md) var(--space-md) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .btn-row {
+        justify-content: stretch;
+      }
+      .btn-row .btn {
+        flex: 1 1 auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <main class="page-grid">
+
+      <!-- OPENING TITLE BLOCK (Single gilt-frame per view) -->
+      <header class="gilt-frame">
+        <div class="hero-kicker">
+          <span class="label-voice">Edición crítica interactiva</span>
+          <span class="toc-middot" aria-hidden="true">·</span>
+          <span class="label-voice">Morgenröthe (1880–1881)</span>
+        </div>
+
+        <h1>Aurora: <span class="title-accent">Reflexiones</span> sobre los prejuicios morales</h1>
+
+        <p class="hero-subtitle">
+          Base de conocimiento estructurada, archivo de aforismos y taller genealógico sobre la obra con la que Friedrich Nietzsche abandonó la cátedra para iniciar su campaña contra la moral occidental.
+        </p>
+
+        <blockquote class="verse">
+          «¡Hay tantas auroras que aún no han despuntado!»
+          <cite>Epígrafe del Rig Veda, sugerido por Peter Gast</cite>
+        </blockquote>
+
+        <nav class="toc-nav" aria-label="Navegación temática de la obra">
+          <a class="toc-link" href="#sec-genesis">I. Génesis errante</a>
+          <span class="toc-middot" aria-hidden="true">·</span>
+          <a class="toc-link" href="#sec-subterraneo">II. El subterráneo</a>
+          <span class="toc-middot" aria-hidden="true">·</span>
+          <a class="toc-link" href="#sec-genealogia">III. Genealogía</a>
+          <span class="toc-middot" aria-hidden="true">·</span>
+          <a class="toc-link" href="#sec-critica">IV. Prejuicios morales</a>
+          <span class="toc-middot" aria-hidden="true">·</span>
+          <a class="toc-link" href="#sec-espiritu">V. Espíritu libre</a>
+          <span class="toc-middot" aria-hidden="true">·</span>
+          <a class="toc-link" href="#sec-aforismos">VI. Aforismos</a>
+          <span class="toc-middot" aria-hidden="true">·</span>
+          <a class="toc-link" href="#sec-evaluacion">VII. Evaluación</a>
+        </nav>
+      </header>
+
+      <!-- KEY FIGURES STRIP -->
+      <section aria-label="Cifras y coordenadas editoriales de Aurora" class="figures-grid">
+        <div class="figure-item">
+          <span class="label-voice">Extensión de la obra</span>
+          <span class="figure-value tabular-nums">575</span>
+          <span class="muted-caption">Aforismos en cinco libros</span>
+        </div>
+        <div class="figure-item">
+          <span class="label-voice">Gestación errante</span>
+          <span class="figure-value tabular-nums">1880–1881</span>
+          <span class="muted-caption">Febrero de 1880 a abril de 1881</span>
+        </div>
+        <div class="figure-item">
+          <span class="label-voice">Edad del filósofo</span>
+          <span class="figure-value tabular-nums">36 años</span>
+          <span class="muted-caption">Tras renunciar a su cátedra en Basilea</span>
+        </div>
+        <div class="figure-item">
+          <span class="label-voice">Prólogo tardío</span>
+          <span class="figure-value tabular-nums">1886</span>
+          <span class="muted-caption">Alta Engadina, cinco años después</span>
+        </div>
+      </section>
+
+      <!-- SECTION I: GÉNESIS Y RUPTURA -->
+      <section id="sec-genesis" class="chapter reveal">
+        <div class="chapter-header">
+          <span class="label-voice">Capítulo I · Contexto biográfico e intelectual</span>
+          <h2>De la cátedra de Basilea a las rocas de Génova: una filosofía de la convalecencia</h2>
+          <p class="chapter-lede">
+            Aurora marca el fin de las ataduras institucionales y simbólicas de Nietzsche frente a la filología académica, el esteticismo de Wagner y el pesimismo de Schopenhauer.
+          </p>
+        </div>
+
+        <div class="prose-col">
+          <p class="drop-cap">
+            Atormentado por dolores constantes de cabeza y de estómago, Friedrich Nietzsche abandona definitivamente su puesto docente en la Universidad de Basilea en 1879 e inicia una existencia errante y solitaria. Busca los climas benignos del Mediterráneo en invierno y las alturas serenas de los Alpes suizos en verano. Entre notas dispersas redactadas en Riva junto al lago Garda, Venecia con su discípulo y amanuense Peter Gast, Marienbad, Naumburg y finalmente una buhardilla recoleta en Génova, el pensador de treinta y seis años proyecta una obra que primero titula <em>Sombra de Venecia</em> y <em>La reja del arado</em>.
+          </p>
+          <p>
+            Como él mismo confiesa, prácticamente todas las frases del libro fueron «pescadas» en ese conjunto caótico de rocas cerca de Génova donde vivía como un «animal marino sobre las rocas», confiando sus secretos al mar y buscando disipar las brumas de la filosofía idealista alemana. Aunque al principio el título <em>Aurora</em>, sugerido por Gast a partir de un himno del <em>Rig Veda</em>, le pareció «demasiado sentimental, oriental y de escaso buen gusto», terminó aceptándolo porque presuponía un estado de ánimo más alegre y luminoso frente al desafío radical de su proyecto.
+          </p>
+        </div>
+
+        <div class="timeline-shell" aria-label="Cronología interactiva de la época de Aurora">
+          <div style="text-align: center;">
+            <span class="label-voice">Itinerario cronológico interactivo (1878–1889)</span>
+            <p class="muted-caption" style="margin-inline: auto;">Seleccione un hito para examinar su peso en la gestación de Aurora y en la campaña contra la moral.</p>
+          </div>
+          <div class="timeline-steps" role="tablist" aria-label="Hitos biográficos de Friedrich Nietzsche">
+            <button type="button" class="timeline-btn" role="tab" aria-selected="true" onclick="selectTimeline(0, this)">
+              <span class="timeline-year">1878</span>
+              <span class="timeline-place">Ruptura</span>
+            </button>
+            <button type="button" class="timeline-btn" role="tab" aria-selected="false" onclick="selectTimeline(1, this)">
+              <span class="timeline-year">1879</span>
+              <span class="timeline-place">Basilea</span>
+            </button>
+            <button type="button" class="timeline-btn" role="tab" aria-selected="false" onclick="selectTimeline(2, this)">
+              <span class="timeline-year">1880</span>
+              <span class="timeline-place">Génova</span>
+            </button>
+            <button type="button" class="timeline-btn" role="tab" aria-selected="false" onclick="selectTimeline(3, this)">
+              <span class="timeline-year">1881</span>
+              <span class="timeline-place">Aurora</span>
+            </button>
+            <button type="button" class="timeline-btn" role="tab" aria-selected="false" onclick="selectTimeline(4, this)">
+              <span class="timeline-year">1886</span>
+              <span class="timeline-place">Prólogo</span>
+            </button>
+            <button type="button" class="timeline-btn" role="tab" aria-selected="false" onclick="selectTimeline(5, this)">
+              <span class="timeline-year">1887–89</span>
+              <span class="timeline-place">Culminación</span>
+            </button>
+          </div>
+          <div id="timeline-detail" class="timeline-detail" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- SECTION II: LA METÁFORA DE LA AURORA Y EL SUBTERRÁNEO -->
+      <section id="sec-subterraneo" class="chapter reveal">
+        <div class="chapter-header">
+          <span class="label-voice">Capítulo II · El Prólogo de 1886</span>
+          <h2>El hombre subterráneo y la autosupresión de la moral</h2>
+          <p class="chapter-lede">
+            Para alcanzar una nueva mañana es preciso primero descender como un topo y taladrar la roca sobre la que milenios de filosofía edificaron en falso.
+          </p>
+        </div>
+
+        <div class="prose-col">
+          <p class="drop-cap">
+            En el prólogo redactado en Alta Engadina en el otoño de 1886, Nietzsche se presenta retrospectivamente como un <em>Trofonio</em>, un hombre subterráneo que «taladra, socava y roe» en la oscuridad, privado de aire y de luz. Su labor secreta consiste en horadar la antigua fe en la moral sobre la que todos los filósofos desde Platón habían intentado levantar edificios más duraderos que el bronce, sin advertir que construían sobre una seducción. Incluso Immanuel Kant, al querer «remover y consolidar el terreno» para el majestuoso edificio moral, inventó un más allá lógico inaccesible a la razón por miedo a que ésta destruyera el dogma moral.
+          </p>
+          <p>
+            Sin embargo, la demolición nietzscheana encierra una paradoja fecunda: el libro rechaza la fe en la moral <em>¡por moralidad!</em> Esta «autosupresión de la moral» surge de una probidad intelectual inflexible que se niega a aceptar mentiras consoladoras. Quienes ejecutan esta tarea son los últimos herederos de una rectitud severa que exige leer y pensar como un auténtico filólogo: despacio, con calma, como un orfebre de la palabra, lejos de la prisa indecorosa de la modernidad.
+          </p>
+        </div>
+
+        <!-- Interactive SVG Schematic: Subterranean to Dawn -->
+        <div class="diagram-panel">
+          <div style="text-align: center;">
+            <span class="label-voice">Esquema interactivo del Prólogo</span>
+            <h3>Del trabajo de topo al despuntar de la aurora</h3>
+            <p class="muted-caption" style="margin-inline: auto;">Pulse cada estrato del diagrama o use los botones para recorrer la transformación filosófica descrita en el Prólogo.</p>
+          </div>
+
+          <div class="btn-row" role="group" aria-label="Etapas de la metáfora del subterráneo y la aurora">
+            <button type="button" class="btn btn-secondary is-active" id="stage-btn-0" onclick="selectMetaphorStage(0)">1. El Topo (Socavar)</button>
+            <button type="button" class="btn btn-secondary" id="stage-btn-1" onclick="selectMetaphorStage(1)">2. La Autosupresión</button>
+            <button type="button" class="btn btn-secondary" id="stage-btn-2" onclick="selectMetaphorStage(2)">3. La Filología Lenta</button>
+            <button type="button" class="btn btn-secondary" id="stage-btn-3" onclick="selectMetaphorStage(3)">4. La Aurora</button>
+          </div>
+
+          <div class="diagram-grid">
+            <div class="diagram-svg-wrap">
+              <svg viewBox="0 0 420 260" width="100%" height="260" role="img" aria-label="Esquema conceptual del ascenso del hombre subterráneo hacia la aurora">
+                <!-- Horizon line -->
+                <line x1="20" y1="130" x2="400" y2="130" stroke="var(--outline)" stroke-width="1" stroke-dasharray="4 4" />
+                <text x="26" y="122" fill="var(--on-surface-variant)" font-family="var(--font-label)" font-size="10" letter-spacing="1.5">SUPERFICIE DE LA COSTUMBRE</text>
+
+                <!-- Dawn arc -->
+                <path d="M 270 130 A 65 65 0 0 1 400 130" fill="none" stroke="var(--outline)" stroke-width="1.5" />
+                <line x1="335" y1="65" x2="335" y2="38" stroke="var(--outline)" stroke-width="1.2" />
+                <line x1="290" y1="84" x2="270" y2="64" stroke="var(--outline)" stroke-width="1.2" />
+                <line x1="380" y1="84" x2="400" y2="64" stroke="var(--outline)" stroke-width="1.2" />
+
+                <!-- Subterranean tunnel path -->
+                <path d="M 75 215 C 120 215, 145 185, 185 165 C 225 145, 250 110, 335 95" fill="none" stroke="var(--primary)" stroke-width="2" />
+
+                <!-- Interactive Nodes -->
+                <g class="svg-node" onclick="selectMetaphorStage(0)" onkeydown="handleNodeKey(event, 0)" tabindex="0" role="button" aria-label="Nodo 1: El hombre subterráneo">
+                  <circle id="svg-ring-0" cx="75" cy="215" r="18" fill="var(--surface-container)" stroke="var(--primary)" stroke-width="2" />
+                  <text x="75" y="219" text-anchor="middle" fill="var(--primary)" font-family="var(--font-headline)" font-style="italic" font-size="14" font-weight="600">I</text>
+                  <text x="75" y="246" text-anchor="middle" fill="var(--on-surface)" font-family="var(--font-label)" font-size="10">EL TOPO</text>
+                </g>
+
+                <g class="svg-node" onclick="selectMetaphorStage(1)" onkeydown="handleNodeKey(event, 1)" tabindex="0" role="button" aria-label="Nodo 2: Autosupresión de la moral">
+                  <circle id="svg-ring-1" cx="170" cy="172" r="16" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="170" y="176" text-anchor="middle" fill="var(--on-surface)" font-family="var(--font-headline)" font-style="italic" font-size="14" font-weight="600">II</text>
+                  <text x="170" y="202" text-anchor="middle" fill="var(--on-surface-variant)" font-family="var(--font-label)" font-size="10">CRÍTICA</text>
+                </g>
+
+                <g class="svg-node" onclick="selectMetaphorStage(2)" onkeydown="handleNodeKey(event, 2)" tabindex="0" role="button" aria-label="Nodo 3: Lectura filológica lenta">
+                  <circle id="svg-ring-2" cx="245" cy="128" r="16" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="245" y="132" text-anchor="middle" fill="var(--on-surface)" font-family="var(--font-headline)" font-style="italic" font-size="14" font-weight="600">III</text>
+                  <text x="245" y="158" text-anchor="middle" fill="var(--on-surface-variant)" font-family="var(--font-label)" font-size="10">LENTITUD</text>
+                </g>
+
+                <g class="svg-node" onclick="selectMetaphorStage(3)" onkeydown="handleNodeKey(event, 3)" tabindex="0" role="button" aria-label="Nodo 4: La Aurora y el Gran Mediodía">
+                  <circle id="svg-ring-3" cx="335" cy="95" r="19" fill="var(--background)" stroke="var(--secondary)" stroke-width="1.8" />
+                  <text x="335" y="99" text-anchor="middle" fill="var(--secondary)" font-family="var(--font-headline)" font-style="italic" font-size="14" font-weight="600">IV</text>
+                  <text x="335" y="124" text-anchor="middle" fill="var(--secondary)" font-family="var(--font-label)" font-size="10">AURORA</text>
+                </g>
+              </svg>
+            </div>
+
+            <div id="metaphor-readout" class="diagram-readout" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION III: GENEALOGÍA DE LA COSTUMBRE -->
+      <section id="sec-genealogia" class="chapter reveal">
+        <div class="chapter-header">
+          <span class="label-voice">Capítulo III · Método genealógico</span>
+          <h2>La moral de las costumbres y la invención del «malo»</h2>
+          <p class="chapter-lede">
+            Antes de llamarse conciencia o deber universal, la moral fue obediencia ciega a la tradición colectiva por temor supersticioso a fuerzas sobrenaturales.
+          </p>
+        </div>
+
+        <div class="prose-col">
+          <p class="drop-cap">
+            Frente a las filosofías que buscan un origen divino o trascendente de los valores, Nietzsche aplica un método histórico-psicológico —la genealogía— para mostrar que el origen de las cosas suele ser humilde, incluso vergonzante (<em>pudenda origo</em>). En el aforismo 9, define la moral primitiva como simple obediencia a las costumbres: no se acata una regla porque sea útil al individuo, sino por respeto temeroso ante una autoridad superior e indefinida. De allí nace el primer principio de la civilización: «cualquier costumbre vale más que la carencia de costumbres».
+          </p>
+          <p>
+            Bajo este imperio colectivo, todo acto libre, espontáneo, imprevisto o individual es juzgado como malvado y peligroso porque atrae presuntamente la cólera divina sobre la comunidad entera. Sin embargo, cuando los débiles, enfermizos y cansados —los primeros seres contemplativos, poetas y sacerdotes— no pudieron imponerse por la acción, invirtieron los valores mediante el terror a los castigos de ultratumba y el resentimiento. Incluso la lengua conserva esa huella: el término alemán <em>schlecht</em> («malo») fue idéntico en su origen a <em>schlicht</em> («simple», el hombre común del vulgo), antes de que la rebelión moral de los impotentes denigrara lo noble y elevara la sumisión utilitaria a virtud suprema.
+          </p>
+        </div>
+
+        <!-- Structured Knowledge Table: Tripartite Original Plan & Evolution -->
+        <div class="data-table-wrap">
+          <table class="sonnet-table">
+            <thead>
+              <tr>
+                <th>Eje de análisis</th>
+                <th>Plan original de Aurora</th>
+                <th>Mecanismo psicológico</th>
+                <th>Consecuencia histórica</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>I. La vida contemplativa</strong></td>
+                <td>Origen de la moral en el cansancio y la debilidad</td>
+                <td>El hombre agotado reemplaza la acción por visiones mágicas y temores de ultratumba.</td>
+                <td>La filosofía calumnia el mundo sensible y erige un más allá idealista.</td>
+              </tr>
+              <tr>
+                <td><strong>II. «Los Emigrantes»</strong></td>
+                <td>Éxodo de la patria de las costumbres</td>
+                <td>Distanciamiento de lo gregario; el innovador rompe el yugo mediante locura o sufrimiento voluntario.</td>
+                <td>Se abre paso la individualidad excepcional frente a la mediocridad repetitiva.</td>
+              </tr>
+              <tr>
+                <td><strong>III. La nueva pasión</strong></td>
+                <td>Probidad intelectual (<em>Redlichkeit</em>)</td>
+                <td>Sinceridad implacable para aceptar el origen fisiológico y «humano, demasiado humano» del deber.</td>
+                <td>Desaparecen las causalidades imaginarias al crecer el sentido científico de la causalidad.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION IV: CRÍTICA A LOS PREJUICIOS MORALES -->
+      <section id="sec-critica" class="chapter reveal">
+        <div class="chapter-header">
+          <span class="label-voice">Capítulo IV · Desenmascaramiento</span>
+          <h2>No existen fenómenos morales, sino una interpretación moral de fenómenos</h2>
+          <p class="chapter-lede">
+            La religión y sus herederas laicas —del humanitarismo ilustrado al utilitarismo— perpetúan la culpa, el castigo y el lenguaje superficial del «yo».
+          </p>
+        </div>
+
+        <div class="prose-col">
+          <p class="drop-cap">
+            Para Nietzsche, explicar el dolor humano mediante el pecado y la culpa despoja al devenir de su inocencia. Cuando el individuo atribuye una tormenta, una epidemia o una desgracia personal a una falta moral, «las razones alivian» su angustia al inventar un responsable, pero convierten la existencia entera en un castigo dirigido por «la negra imaginación de carceleros y verdugos». A la vez, el lenguaje común engaña la introspección: solo tenemos palabras para grados extremos —ira, amor, compasión— mientras los grados intermedios e invisibles de los instintos tejen silenciosamente nuestro carácter.
+          </p>
+          <p>
+            Aún más incisiva es la denuncia del aforismo 132 («Los últimos ecos del cristianismo en la moral»): aunque los librepensadores modernos creyeron superar la religión, conservaron intacto su núcleo moral secularizándolo en el culto a la humanidad. La fórmula de Augusto Comte —«vivir para los demás»—, la ética de la compasión de Schopenhauer, el utilitarismo de John Stuart Mill y los ideales democráticos y socialistas de igualdad reproducen la lógica de un solo Dios legislador que mide a todos con la misma vara para cercenar al individuo excepcional.
+          </p>
+        </div>
+
+        <!-- Interactive Conceptual Comparator -->
+        <div class="diagnostic-box">
+          <div style="text-align: center;">
+            <span class="label-voice">Laboratorio conceptual interactivo</span>
+            <h3>Contraste genealógico: lectura moral frente a lectura de Aurora</h3>
+            <p class="muted-caption" style="margin-inline: auto;">Elija un fenómeno humano para contrastar la interpretación heredada con el diagnóstico crítico de Nietzsche.</p>
+          </div>
+
+          <div class="btn-row" role="tablist" aria-label="Fenómenos morales a diagnosticar">
+            <button type="button" class="btn btn-secondary is-active" role="tab" aria-selected="true" onclick="selectDiagnostic(0, this)">Sufrimiento y azar</button>
+            <button type="button" class="btn btn-secondary" role="tab" aria-selected="false" onclick="selectDiagnostic(1, this)">Altruismo y compasión</button>
+            <button type="button" class="btn btn-secondary" role="tab" aria-selected="false" onclick="selectDiagnostic(2, this)">Conciencia y «yo»</button>
+            <button type="button" class="btn btn-secondary" role="tab" aria-selected="false" onclick="selectDiagnostic(3, this)">Ascetismo y sacrificio</button>
+            <button type="button" class="btn btn-secondary" role="tab" aria-selected="false" onclick="selectDiagnostic(4, this)">Igualitarismo moderno</button>
+          </div>
+
+          <div id="diagnostic-output" class="comparison-split" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- SECTION V: EL ESPÍRITU LIBRE Y LA AUTOSUPERACIÓN -->
+      <section id="sec-espiritu" class="chapter reveal">
+        <div class="chapter-header">
+          <span class="label-voice">Capítulo V · Afirmación vital</span>
+          <h2>El espíritu libre, el cuerpo sano y las cuatro virtudes cardinales</h2>
+          <p class="chapter-lede">
+            Desmantelar el edificio del prejuicio no conduce al nihilismo pasivo, sino a la soberanía de sí, al experimento vital y a una ética afirmativa del cuerpo.
+          </p>
+        </div>
+
+        <div class="prose-col">
+          <p class="drop-cap">
+            Negar la moral tradicional como quien niega la alquimia no implica celebrar la barbarie ni abandonar la disciplina, sino sustituir los motivos ficticios (miedo, vanidad, espíritu de rebaño) por una legislación propia que brota de la salud y la probidad. Nietzsche rechaza todo dualismo entre alma y cuerpo: la filosofía es «el instinto de un régimen personal que busca mi atmósfera, mi actitud, mi temperatura, la salud que necesito, por el rodeo de mi cerebro».
+          </p>
+          <p>
+            Al renunciar a la creencia en la inmortalidad del alma (aforismo 501), el ser humano reconquista el derecho sagrado a equivocarse, ensayar y adoptar conclusiones provisionales sin el pánico de condenarse eternamente. En lugar de las virtudes serviles del autoengaño, el autor de <em>Aurora</em> propone cuatro virtudes cardinales del espíritu libre y reivindica los «pequeños actos discrepantes» (aforismo 149) frente al conformismo práctico.
+          </p>
+        </div>
+
+        <div class="card-grid" aria-label="Las cuatro virtudes cardinales en Aurora">
+          <article class="ruled-card">
+            <span class="label-voice">Virtud I</span>
+            <h3>Lealtad con uno mismo y con los amigos</h3>
+            <p class="muted-caption">
+              Fidelidad a las propias exigencias, capacidades y probidad intelectual; pasar de la alienación social a la veracidad consciente de sí.
+            </p>
+          </article>
+          <article class="ruled-card">
+            <span class="label-voice">Virtud II</span>
+            <h3>Valentía frente al enemigo</h3>
+            <p class="muted-caption">
+              Aceptar la tensión entre la conciencia individual y la norma del rebaño, sin disfrazar al adversario de «malvado» absoluto.
+            </p>
+          </article>
+          <article class="ruled-card">
+            <span class="label-voice">Virtud III</span>
+            <h3>Generosidad con el vencido</h3>
+            <p class="muted-caption">
+              Grandeza de alma y magnanimidad que no se rebajan a la venganza mezquina ni al resentimiento de los impotentes.
+            </p>
+          </article>
+          <article class="ruled-card">
+            <span class="label-voice">Virtud IV</span>
+            <h3>Cortesía en todo momento</h3>
+            <p class="muted-caption">
+              Dominio de sí y estética de la conducta: la fuerza verdaderamente superior es la que se ordena y vence a sí misma sin testigos.
+            </p>
+          </article>
+        </div>
+
+        <blockquote class="verse">
+          «Un libro como éste no se ha escrito para ser leído deprisa, de un tirón, ni en alta voz. Hay que abrirlo muchas veces, sobre todo mientras paseamos o viajamos.»
+          <cite>Advertencia de Friedrich Nietzsche al lector de Aurora</cite>
+        </blockquote>
+      </section>
+
+      <!-- SECTION VI: ARCHIVO EXPLORABLE DE AFORISMOS Y CUADERNO PERSONAL -->
+      <section id="sec-aforismos" class="chapter reveal">
+        <div class="chapter-header">
+          <span class="label-voice">Capítulo VI · Antología comentada</span>
+          <h2>Explorador de aforismos destacados de Aurora</h2>
+          <p class="chapter-lede">
+            Filtre por eje temático, busque términos clave, despliegue el comentario genealógico de cada fragmento y guarde sus aforismos preferidos en su cuaderno de lectura.
+          </p>
+        </div>
+
+        <div class="explorer-controls">
+          <div class="search-row">
+            <div class="field-group">
+              <label for="aphorism-search" class="field-label">Buscar por palabra clave, concepto o número</label>
+              <input id="aphorism-search" type="search" class="input-line" oninput="filterAphorisms()">
+            </div>
+            <div style="display: flex; align-items: end; gap: var(--space-sm);">
+              <button type="button" class="btn btn-secondary" id="toggle-saved-only" aria-pressed="false" onclick="toggleSavedFilter()">
+                Solo guardados (<span id="saved-count-badge" class="tabular-nums">0</span>)
+              </button>
+            </div>
+          </div>
+
+          <div class="btn-row" role="group" aria-label="Filtrar aforismos por eje temático">
+            <button type="button" class="btn btn-secondary is-active" onclick="setCategoryFilter('todos', this)">Todos (12)</button>
+            <button type="button" class="btn btn-secondary" onclick="setCategoryFilter('prologo', this)">Prólogo y Subterráneo</button>
+            <button type="button" class="btn btn-secondary" onclick="setCategoryFilter('genealogia', this)">Costumbre y Culpa</button>
+            <button type="button" class="btn btn-secondary" onclick="setCategoryFilter('psicologia', this)">Psicología y Crítica</button>
+            <button type="button" class="btn btn-secondary" onclick="setCategoryFilter('espiritu', this)">Espíritu Libre</button>
+          </div>
+        </div>
+
+        <div id="aphorism-grid" class="aphorism-grid"></div>
+
+        <!-- Personal Notebook Panel (State Persistence: Empty & Populated states) -->
+        <aside class="notebook-panel" aria-label="Cuaderno personal de lectura">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: var(--space-sm);">
+            <div>
+              <span class="label-voice">Cuaderno del lector filólogo</span>
+              <h3>Aforismos guardados y notas de reflexión</h3>
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="exportStudyNotes()">Exportar cuaderno (.txt)</button>
+          </div>
+
+          <div id="notebook-bookmarks-area"></div>
+
+          <div class="field-group">
+            <label for="personal-note-input" class="field-label">Reflexión o glosa personal sobre Aurora</label>
+            <textarea id="personal-note-input" class="textarea-line" oninput="handleNoteInput(this.value)"></textarea>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-sm);">
+            <span id="notebook-status" class="status-msg" aria-live="polite">Sus anotaciones y marcadores se conservan automáticamente.</span>
+            <button type="button" class="btn btn-secondary" onclick="clearNotebook(this)">Vaciar cuaderno</button>
+          </div>
+        </aside>
+      </section>
+
+      <!-- SECTION VII: EVALUACIÓN INTERACTIVA -->
+      <section id="sec-evaluacion" class="chapter reveal">
+        <div class="chapter-header">
+          <span class="label-voice">Capítulo VII · Comprobación de lectura</span>
+          <h2>Evaluación crítica: dominio conceptual de Aurora</h2>
+          <p class="chapter-lede">
+            Ocho cuestiones razonadas para contrastar su comprensión del método genealógico, la crítica a la moral de las costumbres y el proyecto del espíritu libre.
+          </p>
+        </div>
+
+        <div class="quiz-shell">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-sm);">
+            <span class="label-voice" id="quiz-progress-label">Cuestión 1 de 8</span>
+            <span class="label-voice tabular-nums" id="quiz-score-label">Aciertos: 0 / 8</span>
+          </div>
+
+          <div class="quiz-progress-bar" aria-hidden="true">
+            <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+          </div>
+
+          <div id="quiz-stage"></div>
+
+          <div class="btn-row" style="justify-content: space-between; border-top: var(--gilt-rule-soft); padding-top: var(--space-md);">
+            <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap;">
+              <button type="button" class="btn btn-secondary" id="quiz-prev-btn" onclick="prevQuestion()">Anterior</button>
+              <button type="button" class="btn btn-primary" id="quiz-next-btn" onclick="nextQuestion()">Siguiente cuestión</button>
+            </div>
+            <button type="button" class="btn btn-secondary" id="quiz-reset-btn" onclick="resetQuiz(this)">Reiniciar evaluación</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- COLOPHON / SOURCES -->
+      <footer class="colophon">
+        <span class="label-voice">Colofón y fuentes</span>
+        <p class="muted-caption" style="max-width: 62ch; margin-inline: auto;">
+          Contenido estructurado íntegramente a partir de la edición de <em>Aurora. Reflexiones sobre los prejuicios morales</em> (<em>Morgenröthe. Gedanken über die moralischen Vorurtheile</em>) de Friedrich Nietzsche, traducción de Eduardo Mateo Sanz, y del estudio introductorio «El comienzo de la campaña nietzscheana contra la moral» de Enrique López Castellón.
+        </p>
+      </footer>
+
+    </main>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    /* --- STRUCTURED KNOWLEDGE DATA (Source-grounded, backtick literals) --- */
+
+    const TIMELINE_DATA = [
+      {
+        year: `1878`,
+        title: `Ruptura definitiva con Wagner y Humano, demasiado humano`,
+        place: `Punto de inflexión intelectual`,
+        body: `Nietzsche se libera definitivamente de las ataduras simbólicas que lo habían unido al esteticismo de Richard Wagner y al pesimismo de Arthur Schopenhauer. Publica la primera parte de Humano, demasiado humano, abriendo su período ilustrado y crítico.`
+      },
+      {
+        year: `1879`,
+        title: `Abandono de la cátedra en Basilea e inicio de la vida errante`,
+        place: `Basilea → Alpes y Mediterráneo`,
+        body: `Sus constantes dolores de cabeza y de estómago le llevan a renunciar a su puesto docente y a la vida de filólogo académico. Publica El Viajero y su Sombra y comienza un peregrinaje solitario entre las costas mediterráneas en invierno y los Alpes suizos en verano.`
+      },
+      {
+        year: `Febrero 1880 – Noviembre 1880`,
+        title: `Notas dispersas y retiro en una buhardilla de Génova`,
+        place: `Riva, Venecia, Marienbad, Naumburg y Génova`,
+        body: `Redacta fragmentos mientras pasea por Venecia con su discípulo Peter Gast y, desde noviembre de 1880, vive solo y enfermo en Génova. Confía sus secretos al mar frente a las rocas de la bahía, comparándose con un «animal marino sobre las rocas» que quiere ser su propio médico.`
+      },
+      {
+        year: `Abril 1881`,
+        title: `Conclusión y publicación de Aurora en Sils-Maria`,
+        place: `De «La reja del arado» a Morgenröthe`,
+        body: `Envía el manuscrito a Peter Gast bajo nombres provisionales como Sombra de Venecia y La reja del arado. Gast sugiere el título Aurora inspirado en el Rig Veda («¡Hay tantas auroras que aún no han despuntado!»), abriendo el camino hacia La gaya ciencia y Así habló Zaratustra.`
+      },
+      {
+        year: `Otoño de 1886`,
+        title: `El Prólogo tardío de Alta Engadina`,
+        place: `Cinco años después de la primera edición`,
+        body: `Ya escrito Más allá del bien y del mal, Nietzsche redacta en Alta Engadina el célebre Prólogo de Aurora, donde explica su trabajo de «hombre subterráneo» que socava la fe milenaria en la moral y pide lectores capaces de leer con lentitud filológica.`
+      },
+      {
+        year: `1887–1889`,
+        title: `De La genealogía de la moral al silencio de Basilea`,
+        place: `Proyección posterior de la campaña antimoral`,
+        body: `Los temas sembrados en Aurora —como el resentimiento de los débiles, la inversión semántica de «bueno» y «malo» y la crítica al ascetismo— culminan en La genealogía de la moral (1887) y las obras de 1888 antes de su internamiento en enero de 1889.`
+      }
+    ];
+
+    const METAPHOR_STAGES = [
+      {
+        tag: `Prólogo § 1 y § 2`,
+        title: `El hombre subterráneo (Trofonio y el topo)`,
+        body: `Nietzsche se describe descendiendo a las profundidades, privado de aire y de luz, avanzando con delicada inflexibilidad para taladrar, socavar y roer el suelo presuntamente firme sobre el que los filósofos construyeron sus sistemas: nuestra fe ciega en la moral.`
+      },
+      {
+        tag: `Prólogo § 3 y § 4`,
+        title: `La autosupresión de la moral por probidad`,
+        body: `La moral ha sido la «auténtica Circe» de los filósofos, seduciendo incluso a Kant para levantar un más allá lógico. Pero la crítica nietzscheana rechaza la fe moral ¡por moralidad!: la probidad intelectual hereda la rectitud severa y se atreve a negarse a sí misma con alegría.`
+      },
+      {
+        tag: `Prólogo § 5`,
+        title: `La filología como arte de la lentitud`,
+        body: `El filólogo es maestro de la lectura lenta, una orfebrería de la palabra que exige silencio, ojos y dedos delicados. Frente a una época de prisa indecorosa, Aurora no tolera ser devorada de un tirón ni leída en alta voz.`
+      },
+      {
+        tag: `Rig Veda y Lou Andreas-Salomé`,
+        title: `La aurora que anuncia el «gran mediodía»`,
+        body: `Tras la noche del subterráneo despuntan los primeros relámpagos de un mundo nuevo: la inversión de todos los valores, la afirmación inocente de la vida y de todo aquello que la moral de renuncia había prohibido y maldecido.`
+      }
+    ];
+
+    const DIAGNOSTIC_DATA = [
+      {
+        label: `Fenómeno I · Azar y dolor (Aforismo 13)`,
+        moralViewTitle: `Interpretación moral: culpa, pecado y castigo`,
+        moralViewText: `La religión y la moral proyectan una intención ética sobre hechos fortuitos. Quien sufre cree ser culpable de una falta; la existencia misma llega a juzgarse como un castigo, combatiendo el dolor mediante un dolor adicional (penitencia o sanción) bajo «la negra imaginación de carceleros y verdugos».`,
+        genealogyTitle: `Diagnóstico de Aurora: devolver la inocencia al devenir`,
+        genealogyText: `«No existen fenómenos morales, sino una interpretación moral de fenómenos». Las razones inventadas alivian momentáneamente el miedo ante lo casual, pero deforman la naturaleza. Hay que desterrar del mundo la idea de castigo: no queremos que las causas sean pecados ni los efectos castigos.`
+      },
+      {
+        label: `Fenómeno II · Compasión y altruismo (Aforismos 132 y 147)`,
+        moralViewTitle: `Moral secularizada: «vivir para los demás»`,
+        moralViewText: `Desde Voltaire y Augusto Comte hasta Schopenhauer y John Stuart Mill, la modernidad cree haber superado el dogma cristiano erigiendo la simpatía, la utilidad colectiva y el sacrificio por el prójimo en normas supremas e indiscutibles.`,
+        genealogyTitle: `Diagnóstico de Aurora: últimos ecos del cristianismo`,
+        genealogyText: `Comte «supercristianizó» el cristianismo. Tras el imperativo de la simpatía se esconde el instinto social del miedo (aforismo 174), que busca despojar a la vida de todo peligro reduciendo a la humanidad a «arena fina, blanda, granulada». El altruismo absolutizado se volvería asfixiante y tiránico.`
+      },
+      {
+        label: `Fenómeno III · Conciencia e interioridad (Aforismo 115)`,
+        moralViewTitle: `Idealismo: transparencia del «yo» y libre albedrío`,
+        moralViewText: `La tradición presupone un sujeto libre, consciente y transparente que decide sus actos desde un alma incorpórea y es plenamente responsable ante leyes universales.`,
+        genealogyTitle: `Diagnóstico de Aurora: el lenguaje burdo del cuerpo`,
+        genealogyText: `Solo tenemos palabras para estados extremos (ira, amor, odio), ignorando los grados intermedios e instintivos que tejen nuestro carácter. Todo lo que llamamos conciencia es «el comentario más o menos fantástico de un texto desconocido» —un proceso fisiológico que la moral encubre con fantasías.`
+      },
+      {
+        label: `Fenómeno IV · Ascetismo y martirio (Aforismos 18, 113 y 215)`,
+        moralViewTitle: `Apología del sacrificio: autoinmolación sublime`,
+        moralViewText: `Se venera al asceta y al mártir como seres desinteresados que vencen su egoísmo por amor a Dios o a un ideal superior.`,
+        genealogyTitle: `Diagnóstico de Aurora: voluptuosidad del poder y crueldad`,
+        genealogyText: `En las comunidades primitivas, el espectáculo del dolor propio o ajeno proporcionaba placer de poder y servía para apaciguar a dioses crueles. El asceta que se tortura disfruta siendo a la vez víctima y verdugo; quien se autoinmola con entusiasmo saborea la embriaguez imaginaria de fundirse con el poderoso.`
+      },
+      {
+        label: `Fenómeno V · Igualdad y Estado moderno (Estudio IV y Aforismo 164)`,
+        moralViewTitle: `Consenso burgués-socialista: norma universal`,
+        moralViewText: `Se juzga bueno cuanto unifica al grupo, somete al individuo al término medio y garantiza la seguridad general mediante leyes iguales para todos.`,
+        genealogyTitle: `Diagnóstico de Aurora: herencia monoteísta y moral de rebaño`,
+        genealogyText: `Un solo Dios legislador engendró la igualdad de todos ante la ley. Al morir ese Dios, la razón universal kantiana ocupó su puesto como equivalente funcional para seguir reprimiendo a los individuos excepcionales y creadores, forzándolos a percibir su singularidad como culpa.`
+      }
+    ];
+
+    const APHORISMS = [
+      {
+        id: `prologo-1`,
+        num: `Prólogo, 1`,
+        title: `La obra de un hombre subterráneo`,
+        category: `prologo`,
+        categoryLabel: `Prólogo y Subterráneo`,
+        quote: `«Este libro es obra de un hombre subterráneo, de un hombre que taladra, que socava y que roe. Quien tenga los ojos acostumbrados a estas actividades subterráneas podrá ver con qué delicada inflexibilidad va avanzando lentamente el autor, sin que parezca afectarle el inconveniente que supone estar largo tiempo privado de aire y de luz.»`,
+        analysis: `Nietzsche inaugura la metáfora del topo o Trofonio: la crítica radical exige descender por debajo de las creencias heredadas antes de poder salir a la superficie hacia una aurora propia.`
+      },
+      {
+        id: `prologo-3`,
+        num: `Prólogo, 3`,
+        title: `La moral como Circe de los filósofos`,
+        category: `prologo`,
+        categoryLabel: `Prólogo y Subterráneo`,
+        quote: `«Ante la moral, como ante cualquier autoridad, no está permitido reflexionar, y mucho menos hablar. No hay más que obedecer. [...] Para nosotros, los filósofos, ella ha sido nuestra auténtica Circe.»`,
+        analysis: `Desde Platón hasta Kant, los constructores de sistemas edificaron en falso porque nunca sometieron a sospecha la autoridad moral misma; incluso la crítica kantiana de la razón sirvió para blindar el imperio moral.`
+      },
+      {
+        id: `prologo-4`,
+        num: `Prólogo, 4`,
+        title: `La autosupresión de la moral`,
+        category: `prologo`,
+        categoryLabel: `Prólogo y Subterráneo`,
+        quote: `«Rechaza la fe en la moral, ¿por qué? ¡Por moralidad! [...] Si se quiere reducir esto a una frase, cabría decir que en nosotros se realiza la autosupresión de la moral.»`,
+        analysis: `La probidad intelectual lleva la exigencia de veracidad hasta sus últimas consecuencias: la honestidad moral termina descubriendo que los viejos fundamentos morales son insostenibles.`
+      },
+      {
+        id: `af-1`,
+        num: `Libro I, 1`,
+        title: `Razón ulterior`,
+        category: `genealogia`,
+        categoryLabel: `Costumbre y Culpa`,
+        quote: `«Todo lo que pervive durante mucho tiempo se ha ido cargando poco a poco de razón, hasta el extremo de que nos resulta inverosímil que en su origen fuera una sinrazón.»`,
+        analysis: `Aforismo inaugural del libro: el historiador genealógico choca con su época porque revela el origen contingente, accidental o irracional de instituciones que el tiempo volvió sagradas.`
+      },
+      {
+        id: `af-9`,
+        num: `Libro I, 9`,
+        title: `Idea de la moral de las costumbres`,
+        category: `genealogia`,
+        categoryLabel: `Costumbre y Culpa`,
+        quote: `«La moral no es otra cosa (en consecuencia, es antes que nada) que la obediencia a las costumbres, cualesquiera que sean, y éstas no son más que la forma tradicional de comportarse y de valorar. [...] El hombre libre es inmoral porque quiere depender en todo de sí mismo, y no de un uso establecido.»`,
+        analysis: `Piedra angular de la genealogía nietzscheana: originalmente «bueno» equivalía a obediente a la tradición colectiva, mientras lo individual, libre y original se tachaba de peligroso y malvado.`
+      },
+      {
+        id: `af-10`,
+        num: `Libro I, 10`,
+        title: `Sentido de la causalidad y sentido de la moralidad`,
+        category: `genealogia`,
+        categoryLabel: `Costumbre y Culpa`,
+        quote: `«Al aumentar el sentido de la causalidad, disminuye el de la moralidad. Conforme vamos comprendiendo que los efectos se siguen necesariamente y nos los representamos al margen de las contingencias del azar, desechamos paralelamente una gran cantidad de causalidades imaginarias.»`,
+        analysis: `La explicación científica de la naturaleza disipa el terror supersticioso que vinculaba tormentas, sequías o epidemias con transgresiones rituales de la costumbre.`
+      },
+      {
+        id: `af-13`,
+        num: `Libro I, 13`,
+        title: `Para la nueva educación del género humano`,
+        category: `genealogia`,
+        categoryLabel: `Costumbre y Culpa`,
+        quote: `«Ayudad a desterrar del mundo la idea de castigo que le invade por doquier, porque es la más peligrosa de todas las malas hierbas. [...] Cabría decir que lo que hasta ahora ha dirigido la educación de la humanidad ha sido la negra imaginación de carceleros y verdugos.»`,
+        analysis: `Al interpretar la causa y el efecto en términos de falta y sanción, la moral ha robado su inocencia a los hechos fortuitos hasta convertir la existencia entera en un castigo.`
+      },
+      {
+        id: `af-14`,
+        num: `Libro I, 14`,
+        title: `Significado de la locura en la historia`,
+        category: `psicologia`,
+        categoryLabel: `Psicología y Crítica`,
+        quote: `«Casi siempre ha sido la locura la que ha abierto el camino a las nuevas ideas, la que ha roto la barrera de una costumbre o de una superstición venerada.»`,
+        analysis: `Ante el pavor que inspiraba romper la tradición, los primeros innovadores necesitaron la máscara involuntaria o fingida de la locura divina para legitimar su ruptura con la ley antigua.`
+      },
+      {
+        id: `af-115`,
+        num: `Libro II, 115`,
+        title: `Lo que llamamos el «yo»`,
+        category: `psicologia`,
+        categoryLabel: `Psicología y Crítica`,
+        quote: `«Nuestras valoraciones y nuestros juicios morales no son más que imágenes y fantasías que encubren un proceso fisiológico desconocido para nosotros [...] todo lo que llamamos conciencia no es, en suma, sino el comentario más o menos fantástico de un texto desconocido.»`,
+        analysis: `Anticipación directa de la psicología profunda: el lenguaje solo nombra explosiones extremas y oculta la trama silenciosa de los impulsos corporales.`
+      },
+      {
+        id: `af-149`,
+        num: `Libro III, 149`,
+        title: `¡Los pequeños actos discrepantes son necesarios!`,
+        category: `espiritu`,
+        categoryLabel: `Espíritu Libre`,
+        quote: `«No hay nada más importante que confirmar una vez más lo que ya es de por sí poderoso, tradicional y absurdo, fortaleciéndolo mediante el acto de un individuo sensato. [...] Respeto vuestras opiniones, pero los pequeños actos discrepantes tienen mayor valor.»`,
+        analysis: `Critica la hipocresía cómoda de quienes piensan libremente en privado pero se pliegan en público a ritos en los que ya no creen, sancionándolos ante los demás.`
+      },
+      {
+        id: `af-429`,
+        num: `Libro V, 429`,
+        title: `La nueva pasión`,
+        category: `espiritu`,
+        categoryLabel: `Espíritu Libre`,
+        quote: `«El conocimiento se ha convertido para nosotros en una pasión, a la que no asusta sacrificio alguno ni teme otra cosa que extinguirse. [...] ¿Queremos que la humanidad encuentre su fin en el fuego y la luz, o en la arena?»`,
+        analysis: `Frente a la felicidad estancada y tibia de las ilusiones cómodas, Nietzsche opone la pasión ardiente del conocer incluso a riesgo de perecer por exceso de luz.`
+      },
+      {
+        id: `af-501`,
+        num: `Libro V, 501`,
+        title: `¡Almas mortales!`,
+        category: `espiritu`,
+        categoryLabel: `Espíritu Libre`,
+        quote: `«La conquista más útil que se ha conseguido en el terreno del conocimiento es la de haber renunciado a la creencia en la inmortalidad del alma. [...] Nosotros hemos reconquistado el valor de equivocarse, de ensayar, de adoptar conclusiones provisionales.»`,
+        analysis: `Al desaparecer la urgencia terrorífica de jugarse la salvación eterna en una sola vida breve, la humanidad recupera el derecho experimental a probar nuevas formas de existencia.`
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        prompt: `¿Por qué motivo aceptó finalmente Nietzsche el título «Aurora» (sugerido por Peter Gast a partir del Rig Veda) frente a «La reja del arado»?`,
+        options: [
+          `Porque «Aurora» presuponía un estado de ánimo más alegre y una disposición de lectura más luminosa, pese a la dureza de la crítica.`,
+          `Porque deseaba rendir homenaje a la filosofía idealista alemana y al romanticismo de Wagner.`,
+          `Porque el editor de Basilea exigió un título religioso para evitar la censura académica.`,
+          `Porque la obra fue concebida como un tratado sistemático sobre astronomía antigua.`
+        ],
+        correct: 0,
+        explanation: `Aunque al principio le pareció un título «demasiado sentimental», Nietzsche aceptó Aurora porque invitaba a leer el libro en un estado de ánimo más alegre y sereno tras su convalecencia en Génova.`
+      },
+      {
+        prompt: `En el Prólogo de 1886, ¿qué significa la imagen del «hombre subterráneo» o Trofonio?`,
+        options: [
+          `La renuncia definitiva a publicar libros filosóficos y el refugio en la filología clásica.`,
+          `La labor paciente y solitaria de taladrar, socavar y roer los fundamentos aparentemente sólidos de la fe en la moral.`,
+          `La defensa de los misterios cristianos ocultos bajo las catacumbas romanas.`,
+          `La superioridad del aislamiento frente al estudio histórico de las costumbres.`
+        ],
+        correct: 1,
+        explanation: `En los parágrafos 1 y 2 del Prólogo, Nietzsche explica que descendió como un topo a las profundidades para socavar la vieja fe en la moral sobre la que los filósofos habían construido en falso.`
+      },
+      {
+        prompt: `¿En qué consiste la paradoja que Nietzsche denomina «autosupresión de la moral» en el Prólogo (§ 4)?`,
+        options: [
+          `En imponer mediante leyes estatales una nueva moral utilitaria más estricta.`,
+          `En rechazar la fe en la moral precisamente por moralidad: por probidad y veracidad intelectual heredadas que no toleran la mentira.`,
+          `En declarar que toda acción humana es completamente indiferente desde el punto de vista psicológico.`,
+          `En regresar al «creo porque es absurdo» de Lutero para salvar la fe cristiana.`
+        ],
+        correct: 1,
+        explanation: `El pensador inmoralista sigue obedeciendo a una severa ley de conciencia —la probidad intelectual— que le impide volver a lo que ya juzga caduco y falso.`
+      },
+      {
+        prompt: `Según el aforismo 9 («Idea de la moral de las costumbres»), ¿qué define originariamente a un acto «moral» en las comunidades primitivas?`,
+        options: [
+          `La búsqueda racional de la mayor utilidad o bienestar para el individuo.`,
+          `La obediencia incondicional a las costumbres tradicionales por temor a una autoridad superior indefinida.`,
+          `La expresión libre y espontánea de la creatividad individual.`,
+          `La compasión desinteresada hacia los extranjeros y enemigos.`
+        ],
+        correct: 1,
+        explanation: `La moral primitiva exige sacrificar el deseo individual a la tradición, no porque lo mandado sea útil, sino por el hecho mismo de que la tradición lo ordena.`
+      },
+      {
+        prompt: `¿Qué relación inversa establece el aforismo 10 entre el sentido de la causalidad y el sentido de la moralidad?`,
+        options: [
+          `Cuanto más aumenta el sentido de la causalidad natural, más disminuye el de la moralidad supersticiosa.`,
+          `El desarrollo científico refuerza la creencia en castigos sobrenaturales tras las tormentas y epidemias.`,
+          `La causalidad física demuestra la existencia de voluntades libres trascendentes.`,
+          `Ambos sentidos crecen juntos hasta fusionarse en la ética kantiana.`
+        ],
+        correct: 0,
+        explanation: `Al comprender que los efectos naturales siguen causas necesarias al margen de faltas rituales, desaparecen las causalidades imaginarias que alimentaban el temor moral.`
+      },
+      {
+        prompt: `¿Por qué critica Nietzsche en el aforismo 132 a librepensadores y filósofos modernos como Comte, Schopenhauer o John Stuart Mill?`,
+        options: [
+          `Porque promovieron un egoísmo radical ajeno a todo orden social.`,
+          `Porque, aun abandonando los dogmas religiosos, conservaron e intensificaron la moral cristiana bajo el culto secularizado a la humanidad.`,
+          `Porque negaron por completo el valor de la compasión y de la simpatía en la vida pública.`,
+          `Porque defendieron la aristocracia griega clásica frente a la democracia moderna.`
+        ],
+        correct: 1,
+        explanation: `En «Los últimos ecos del cristianismo en la moral», Nietzsche señala que fórmulas como «vivir para los demás» supercristianizan el cristianismo bajo disfraz laico.`
+      },
+      {
+        prompt: `¿Qué transformación introduce el aforismo 501 («¡Almas mortales!») al renunciar a la creencia en la inmortalidad del alma?`,
+        options: [
+          `Condena a la humanidad a una desesperación pasiva sin metas futuras.`,
+          `Devuelve a la humanidad el valor de equivocarse, ensayar y adoptar conclusiones provisionales.`,
+          `Impone la obligación de vivir con prisa absoluta para no perder la salvación.`,
+          `Demuestra que el cuerpo es una cárcel pasajera del espíritu.`
+        ],
+        correct: 1,
+        explanation: `Sin el terror de decidir la salvación eterna en una corta vida, los individuos y generaciones ganan el derecho experimental a probar nuevos caminos.`
+      },
+      {
+        prompt: `¿Qué importancia tiene el cuerpo y la fisiología en la propuesta afirmativa de Aurora y del estudio preliminar?`,
+        options: [
+          `El cuerpo debe ser mortificado para liberar al espíritu contemplativo.`,
+          `La filosofía es expresión del estado vital del cuerpo; ser bueno equivale a la plenitud de un cuerpo sano que afirma la vida frente al dualismo alma-cuerpo.`,
+          `La fisiología solo sirve para explicar los errores de la medicina popular, no la ética.`,
+          `El alma es una sustancia independiente que dicta normas universales al cuerpo.`
+        ],
+        correct: 1,
+        explanation: `Nietzsche rechaza el dualismo alma-cuerpo: el «alma» es un fantasma de cuerpos enfermos o cansados, mientras la nueva moralidad brota de la salud y el vigor del cuerpo viviente.`
+      }
+    ];
+
+    /* --- APPLICATION STATE (persisted via notebookAppApi) --- */
+    let appState = {
+      activeTimeline: 0,
+      activeMetaphor: 0,
+      activeDiagnostic: 0,
+      categoryFilter: `todos`,
+      savedOnly: false,
+      searchQuery: ``,
+      bookmarkedIds: [],
+      expandedAnalysisIds: [],
+      personalNote: ``,
+      currentQuestion: 0,
+      quizAnswers: {}
+    };
+
+    /* --- SAFE INITIALIZATION & PERSISTENCE --- */
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            appState = {
+              activeTimeline: typeof saved.activeTimeline === `number` ? saved.activeTimeline : 0,
+              activeMetaphor: typeof saved.activeMetaphor === `number` ? saved.activeMetaphor : 0,
+              activeDiagnostic: typeof saved.activeDiagnostic === `number` ? saved.activeDiagnostic : 0,
+              categoryFilter: typeof saved.categoryFilter === `string` ? saved.categoryFilter : `todos`,
+              savedOnly: Boolean(saved.savedOnly),
+              searchQuery: typeof saved.searchQuery === `string` ? saved.searchQuery : ``,
+              bookmarkedIds: Array.isArray(saved.bookmarkedIds) ? saved.bookmarkedIds : [],
+              expandedAnalysisIds: Array.isArray(saved.expandedAnalysisIds) ? saved.expandedAnalysisIds : [],
+              personalNote: typeof saved.personalNote === `string` ? saved.personalNote : ``,
+              currentQuestion: typeof saved.currentQuestion === `number` ? saved.currentQuestion : 0,
+              quizAnswers: saved.quizAnswers && typeof saved.quizAnswers === `object` ? saved.quizAnswers : {}
+            };
+          }
+        }
+      } catch (err) {
+        /* Fallback to default in-memory state if host shim unavailable */
+      }
+
+      syncControlsFromState();
+      renderTimeline();
+      renderMetaphor();
+      renderDiagnostic();
+      renderAphorisms();
+      renderNotebook();
+      renderQuiz();
+      setupScrollReveal();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    async function persistState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (err) {
+        /* Ignore storage error gracefully */
+      }
+    }
+
+    function syncControlsFromState() {
+      const searchInput = document.getElementById(`aphorism-search`);
+      if (searchInput) searchInput.value = appState.searchQuery;
+
+      const noteInput = document.getElementById(`personal-note-input`);
+      if (noteInput) noteInput.value = appState.personalNote;
+
+      const savedBtn = document.getElementById(`toggle-saved-only`);
+      if (savedBtn) {
+        savedBtn.setAttribute(`aria-pressed`, appState.savedOnly ? `true` : `false`);
+      }
+
+      const timelineBtns = document.querySelectorAll(`.timeline-btn`);
+      timelineBtns.forEach(function (btn, idx) {
+        btn.setAttribute(`aria-selected`, idx === appState.activeTimeline ? `true` : `false`);
+      });
+
+      const diagBtns = document.querySelectorAll(`.diagnostic-box [role="tab"]`);
+      diagBtns.forEach(function (btn, idx) {
+        const isAct = idx === appState.activeDiagnostic;
+        btn.setAttribute(`aria-selected`, isAct ? `true` : `false`);
+        btn.classList.toggle(`is-active`, isAct);
+      });
+
+      const catBtns = document.querySelectorAll(`.explorer-controls [role="group"] .btn`);
+      const cats = [`todos`, `prologo`, `genealogia`, `psicologia`, `espiritu`];
+      catBtns.forEach(function (btn, idx) {
+        btn.classList.toggle(`is-active`, cats[idx] === appState.categoryFilter);
+      });
+    }
+
+    /* --- SECTION I: TIMELINE --- */
+    function selectTimeline(index, btnEl) {
+      appState.activeTimeline = index;
+      const allBtns = document.querySelectorAll(`.timeline-btn`);
+      allBtns.forEach(function (b) { b.setAttribute(`aria-selected`, `false`); });
+      if (btnEl) btnEl.setAttribute(`aria-selected`, `true`);
+      renderTimeline();
+      persistState();
+    }
+
+    function renderTimeline() {
+      const target = document.getElementById(`timeline-detail`);
+      if (!target) return;
+      const item = TIMELINE_DATA[appState.activeTimeline] || TIMELINE_DATA[0];
+      target.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:var(--space-sm);">
+          <span class="label-voice">${item.year}</span>
+          <span class="tag">${item.place}</span>
+        </div>
+        <h3>${item.title}</h3>
+        <p>${item.body}</p>
+      `;
+    }
+
+    /* --- SECTION II: METAPHOR DIAGRAM --- */
+    function handleNodeKey(ev, index) {
+      if (ev.key === `Enter` || ev.key === ` `) {
+        ev.preventDefault();
+        selectMetaphorStage(index);
+      }
+    }
+
+    function selectMetaphorStage(index) {
+      appState.activeMetaphor = index;
+      renderMetaphor();
+      persistState();
+    }
+
+    function renderMetaphor() {
+      const readout = document.getElementById(`metaphor-readout`);
+      const stage = METAPHOR_STAGES[appState.activeMetaphor] || METAPHOR_STAGES[0];
+      if (readout) {
+        readout.innerHTML = `
+          <span class="label-voice">${stage.tag}</span>
+          <h3>${stage.title}</h3>
+          <p>${stage.body}</p>
+        `;
+      }
+
+      for (let i = 0; i < 4; i++) {
+        const btn = document.getElementById(`stage-btn-` + i);
+        if (btn) btn.classList.toggle(`is-active`, i === appState.activeMetaphor);
+        const ring = document.getElementById(`svg-ring-` + i);
+        if (ring) {
+          ring.setAttribute(`fill`, i === appState.activeMetaphor ? `var(--surface-container)` : `var(--background)`);
+          ring.setAttribute(`stroke`, i === appState.activeMetaphor ? `var(--primary)` : `var(--outline)`);
+          ring.setAttribute(`stroke-width`, i === appState.activeMetaphor ? `2.5` : `1.5`);
+        }
+      }
+    }
+
+    /* --- SECTION IV: DIAGNOSTIC COMPARATOR --- */
+    function selectDiagnostic(index, btnEl) {
+      appState.activeDiagnostic = index;
+      const tabs = document.querySelectorAll(`.diagnostic-box [role="tab"]`);
+      tabs.forEach(function (t) {
+        t.setAttribute(`aria-selected`, `false`);
+        t.classList.remove(`is-active`);
+      });
+      if (btnEl) {
+        btnEl.setAttribute(`aria-selected`, `true`);
+        btnEl.classList.add(`is-active`);
+      }
+      renderDiagnostic();
+      persistState();
+    }
+
+    function renderDiagnostic() {
+      const out = document.getElementById(`diagnostic-output`);
+      if (!out) return;
+      const item = DIAGNOSTIC_DATA[appState.activeDiagnostic] || DIAGNOSTIC_DATA[0];
+      out.innerHTML = `
+        <article class="comp-col">
+          <span class="label-voice">${item.label}</span>
+          <h3>${item.moralViewTitle}</h3>
+          <p>${item.moralViewText}</p>
+        </article>
+        <article class="comp-col comp-col--genealogy">
+          <span class="label-voice">Perspectiva crítica de Nietzsche</span>
+          <h3>${item.genealogyTitle}</h3>
+          <p>${item.genealogyText}</p>
+        </article>
+      `;
+    }
+
+    /* --- SECTION VI: APHORISM EXPLORER & PERSONAL NOTEBOOK --- */
+    function setCategoryFilter(category, btnEl) {
+      appState.categoryFilter = category;
+      const btns = document.querySelectorAll(`.explorer-controls [role="group"] .btn`);
+      btns.forEach(function (b) { b.classList.remove(`is-active`); });
+      if (btnEl) btnEl.classList.add(`is-active`);
+      renderAphorisms();
+      persistState();
+    }
+
+    function toggleSavedFilter() {
+      appState.savedOnly = !appState.savedOnly;
+      const btn = document.getElementById(`toggle-saved-only`);
+      if (btn) btn.setAttribute(`aria-pressed`, appState.savedOnly ? `true` : `false`);
+      renderAphorisms();
+      persistState();
+    }
+
+    function filterAphorisms() {
+      const input = document.getElementById(`aphorism-search`);
+      appState.searchQuery = input ? input.value : ``;
+      renderAphorisms();
+      persistState();
+    }
+
+    function toggleBookmark(id) {
+      const idx = appState.bookmarkedIds.indexOf(id);
+      if (idx === -1) {
+        appState.bookmarkedIds.push(id);
+      } else {
+        appState.bookmarkedIds.splice(idx, 1);
+      }
+      renderAphorisms();
+      renderNotebook();
+      persistState();
+    }
+
+    function toggleAnalysis(id) {
+      const idx = appState.expandedAnalysisIds.indexOf(id);
+      if (idx === -1) {
+        appState.expandedAnalysisIds.push(id);
+      } else {
+        appState.expandedAnalysisIds.splice(idx, 1);
+      }
+      renderAphorisms();
+      persistState();
+    }
+
+    function resetAphorismFilters() {
+      appState.categoryFilter = `todos`;
+      appState.savedOnly = false;
+      appState.searchQuery = ``;
+      syncControlsFromState();
+      renderAphorisms();
+      persistState();
+    }
+
+    function renderAphorisms() {
+      const grid = document.getElementById(`aphorism-grid`);
+      const badge = document.getElementById(`saved-count-badge`);
+      if (badge) badge.textContent = String(appState.bookmarkedIds.length);
+      if (!grid) return;
+
+      const q = appState.searchQuery.trim().toLowerCase();
+      const filtered = APHORISMS.filter(function (a) {
+        if (appState.categoryFilter !== `todos` && a.category !== appState.categoryFilter) return false;
+        if (appState.savedOnly && appState.bookmarkedIds.indexOf(a.id) === -1) return false;
+        if (q) {
+          const hay = (a.num + ` ` + a.title + ` ` + a.quote + ` ` + a.analysis + ` ` + a.categoryLabel).toLowerCase();
+          if (hay.indexOf(q) === -1) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="ruled" style="text-align:center; grid-column: 1 / -1; display:grid; gap:var(--space-md); justify-items:center;">
+            <h3>Ningún fragmento coincide con los filtros activos</h3>
+            <p class="muted-caption">Pruebe a limpiar la búsqueda o mostrar todos los ejes temáticos de Aurora.</p>
+            <button type="button" class="btn btn-secondary" onclick="resetAphorismFilters()">Mostrar todos los aforismos</button>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(function (a) {
+        const isSaved = appState.bookmarkedIds.indexOf(a.id) !== -1;
+        const isExpanded = appState.expandedAnalysisIds.indexOf(a.id) !== -1;
+        return `
+          <article class="aphorism-card ${isSaved ? `is-bookmarked` : ``}">
+            <div class="aphorism-meta">
+              <span class="label-voice tabular-nums">${a.num}</span>
+              <span class="tag">${a.categoryLabel}</span>
+            </div>
+            <h3>${a.title}</h3>
+            <p class="aphorism-quote">${a.quote}</p>
+            <div class="aphorism-analysis" ${isExpanded ? `` : `hidden`}>
+              <span class="label-voice">Clave genealógica</span>
+              <p>${a.analysis}</p>
+            </div>
+            <div style="display:flex; gap:var(--space-sm); flex-wrap:wrap;">
+              <button type="button" class="btn btn-secondary" aria-expanded="${isExpanded ? `true` : `false`}" onclick="toggleAnalysis('${a.id}')">
+                ${isExpanded ? `Ocultar clave` : `Ver clave genealógica`}
+              </button>
+              <button type="button" class="btn ${isSaved ? `btn-primary` : `btn-secondary`}" aria-pressed="${isSaved ? `true` : `false`}" onclick="toggleBookmark('${a.id}')">
+                ${isSaved ? `Guardado en cuaderno` : `Guardar aforismo`}
+              </button>
+            </div>
+          </article>
+        `;
+      }).join(``);
+    }
+
+    function handleNoteInput(val) {
+      appState.personalNote = val;
+      const status = document.getElementById(`notebook-status`);
+      if (status) status.textContent = `Anotación guardada en su cuaderno.`;
+      persistState();
+    }
+
+    function renderNotebook() {
+      const container = document.getElementById(`notebook-bookmarks-area`);
+      const badge = document.getElementById(`saved-count-badge`);
+      if (badge) badge.textContent = String(appState.bookmarkedIds.length);
+      if (!container) return;
+
+      if (appState.bookmarkedIds.length === 0) {
+        container.innerHTML = `
+          <div class="ruled" style="display:grid; gap:var(--space-xs);">
+            <p class="muted-caption">Su cuaderno aún no contiene aforismos marcados. Pulse «Guardar aforismo» en cualquiera de los doce fragmentos superiores para reunir su antología personal.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const itemsHtml = appState.bookmarkedIds.map(function (id) {
+        const found = APHORISMS.find(function (item) { return item.id === id; });
+        if (!found) return ``;
+        return `
+          <li class="notebook-item">
+            <div>
+              <span class="label-voice">${found.num}</span> — <strong>${found.title}</strong>
+              <p class="muted-caption">${found.quote}</p>
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="toggleBookmark('${found.id}')">Quitar</button>
+          </li>
+        `;
+      }).join(``);
+
+      container.innerHTML = `<ul class="notebook-list">${itemsHtml}</ul>`;
+    }
+
+    function clearNotebook(btn) {
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirmar vaciado`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Vaciar cuaderno`;
+      appState.bookmarkedIds = [];
+      appState.personalNote = ``;
+      const noteInput = document.getElementById(`personal-note-input`);
+      if (noteInput) noteInput.value = ``;
+      const status = document.getElementById(`notebook-status`);
+      if (status) status.textContent = `Cuaderno vaciado correctamente.`;
+      renderAphorisms();
+      renderNotebook();
+      persistState();
+    }
+
+    function exportStudyNotes() {
+      const lines = [
+        `CUADERNO DE ESTUDIO: AURORA (MORGENRÖTHE) DE FRIEDRICH NIETZSCHE`,
+        `=================================================================`,
+        ``
+      ];
+      lines.push(`AFORISMOS GUARDADOS (${appState.bookmarkedIds.length}):`);
+      if (appState.bookmarkedIds.length === 0) {
+        lines.push(`- Ningún aforismo marcado todavía.`);
+      } else {
+        appState.bookmarkedIds.forEach(function (id) {
+          const item = APHORISMS.find(function (a) { return a.id === id; });
+          if (item) {
+            lines.push(`* [${item.num}] ${item.title}`);
+            lines.push(`  ${item.quote}`);
+            lines.push(`  Clave: ${item.analysis}`);
+            lines.push(``);
+          }
+        });
+      }
+      lines.push(``);
+      lines.push(`REFLEXIÓN PERSONAL:`);
+      lines.push(appState.personalNote.trim() || `(Sin anotaciones personales redactadas)`);
+      lines.push(``);
+
+      const answeredCount = Object.keys(appState.quizAnswers).length;
+      let correctCount = 0;
+      QUIZ_QUESTIONS.forEach(function (q, idx) {
+        if (appState.quizAnswers[idx] === q.correct) correctCount++;
+      });
+      lines.push(`EVALUACIÓN CRÍTICA: ${correctCount} aciertos de ${QUIZ_QUESTIONS.length} (${answeredCount} respondidas).`);
+
+      const content = lines.join(`\n`);
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `cuaderno-aurora-nietzsche.txt`
+        });
+        const status = document.getElementById(`notebook-status`);
+        if (status) status.textContent = `Archivo «cuaderno-aurora-nietzsche.txt» exportado.`;
+      } else {
+        const blob = new Blob([content], { type: `text/plain;charset=utf-8` });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement(`a`);
+        link.href = url;
+        link.download = `cuaderno-aurora-nietzsche.txt`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        const status = document.getElementById(`notebook-status`);
+        if (status) status.textContent = `Archivo «cuaderno-aurora-nietzsche.txt» exportado.`;
+      }
+    }
+
+    /* --- SECTION VII: ASSESSMENT QUIZ --- */
+    function answerQuiz(optIndex) {
+      const idx = appState.currentQuestion;
+      if (typeof appState.quizAnswers[idx] === `number`) return;
+      appState.quizAnswers[idx] = optIndex;
+      renderQuiz();
+      persistState();
+    }
+
+    function prevQuestion() {
+      if (appState.currentQuestion > 0) {
+        appState.currentQuestion--;
+        renderQuiz();
+        persistState();
+      }
+    }
+
+    function nextQuestion() {
+      if (appState.currentQuestion < QUIZ_QUESTIONS.length - 1) {
+        appState.currentQuestion++;
+        renderQuiz();
+        persistState();
+      }
+    }
+
+    function jumpToQuestion(idx) {
+      appState.currentQuestion = idx;
+      renderQuiz();
+      persistState();
+    }
+
+    function resetQuiz(btn) {
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Pulse de nuevo para reiniciar`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reiniciar evaluación`;
+      appState.currentQuestion = 0;
+      appState.quizAnswers = {};
+      renderQuiz();
+      persistState();
+    }
+
+    function renderQuiz() {
+      const stage = document.getElementById(`quiz-stage`);
+      const progLabel = document.getElementById(`quiz-progress-label`);
+      const scoreLabel = document.getElementById(`quiz-score-label`);
+      const progFill = document.getElementById(`quiz-progress-fill`);
+      const prevBtn = document.getElementById(`quiz-prev-btn`);
+      const nextBtn = document.getElementById(`quiz-next-btn`);
+
+      if (!stage) return;
+
+      const total = QUIZ_QUESTIONS.length;
+      const idx = appState.currentQuestion;
+      const q = QUIZ_QUESTIONS[idx];
+      const chosen = appState.quizAnswers[idx];
+      const isAnswered = typeof chosen === `number`;
+
+      let correctCount = 0;
+      let answeredCount = 0;
+      QUIZ_QUESTIONS.forEach(function (item, qIdx) {
+        if (typeof appState.quizAnswers[qIdx] === `number`) {
+          answeredCount++;
+          if (appState.quizAnswers[qIdx] === item.correct) correctCount++;
+        }
+      });
+
+      if (progLabel) progLabel.textContent = `Cuestión ${idx + 1} de ${total}`;
+      if (scoreLabel) scoreLabel.textContent = `Aciertos: ${correctCount} / ${total}`;
+      if (progFill) progFill.style.width = `${Math.round((answeredCount / total) * 100)}%`;
+      if (prevBtn) prevBtn.disabled = idx === 0;
+      if (nextBtn) nextBtn.disabled = idx === total - 1;
+
+      const letters = [`A`, `B`, `C`, `D`];
+      const optionsHtml = q.options.map(function (optText, optIdx) {
+        let cls = `quiz-option`;
+        if (isAnswered) {
+          if (optIdx === q.correct) cls += ` is-correct`;
+          else if (optIdx === chosen) cls += ` is-wrong`;
+        }
+        return `
+          <button type="button" class="${cls}" ${isAnswered ? `disabled` : ``} onclick="answerQuiz(${optIdx})">
+            <span class="label-voice tabular-nums">${letters[optIdx]}</span>
+            <span>${optText}</span>
+          </button>
+        `;
+      }).join(``);
+
+      let feedbackHtml = ``;
+      if (isAnswered) {
+        const isRight = chosen === q.correct;
+        feedbackHtml = `
+          <div class="quiz-feedback ${isRight ? `is-positive` : `is-error`}" aria-live="polite">
+            <span class="label-voice">${isRight ? `Respuesta acertada` : `Revisión conceptual`}</span>
+            <p>${q.explanation}</p>
+          </div>
+        `;
+      }
+
+      let summaryHtml = ``;
+      if (answeredCount === total) {
+        summaryHtml = `
+          <div class="ruled" style="text-align:center; display:grid; gap:var(--space-xs); margin-top:var(--space-sm);">
+            <span class="label-voice">Evaluación completada</span>
+            <p>Ha obtenido <strong>${correctCount} de ${total}</strong> aciertos en el examen crítico sobre <em>Aurora</em>.</p>
+          </div>
+        `;
+      }
+
+      stage.innerHTML = `
+        <div style="display:grid; gap:var(--space-md);">
+          <h3>${q.prompt}</h3>
+          <div class="quiz-options">${optionsHtml}</div>
+          ${feedbackHtml}
+          ${summaryHtml}
+        </div>
+      `;
+    }
+
+    /* --- SCROLL REVEAL --- */
+    function setupScrollReveal() {
+      const items = document.querySelectorAll(`.reveal`);
+      if (!(`IntersectionObserver` in window)) {
+        items.forEach(function (el) { el.classList.add(`is-visible`); });
+        return;
+      }
+      const obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(`is-visible`);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      items.forEach(function (el) { obs.observe(el); });
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>

@@ -1,0 +1,2109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>El libro del filósofo — Friedrich Nietzsche (1872–1875)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (Broadsheet) */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      /* Ink */
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      /* Rules */
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      /* Accents */
+      --primary: #990f3d;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      /* Fonts */
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      /* Shape (strictly square) */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* Semantic */
+      --positive: #0d7680;
+      --warning: #9a6312;
+      --focus: #990f3d;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+      --headline-size: clamp(1.75rem, 1.25rem + 1.8vw, 2.5rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+      background: var(--background);
+      color: var(--on-surface);
+    }
+    body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      font-optical-sizing: auto;
+      line-height: 1.6;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg) var(--space-xl) var(--space-3xl);
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1 {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+      margin: 0 0 var(--space-md) 0;
+      color: var(--on-surface);
+    }
+    h2 {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      margin: 0 0 var(--space-md) 0;
+      color: var(--on-surface);
+    }
+    h3 {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.18;
+      margin: 0 0 var(--space-sm) 0;
+      color: var(--on-surface);
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 65ch;
+    }
+    p:last-child { margin-bottom: 0; }
+    strong { font-weight: 600; color: var(--on-surface); }
+
+    /* Links */
+    a {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+      transition: color var(--dur-micro) var(--ease-out), text-decoration-thickness var(--dur-micro) var(--ease-out);
+    }
+    a:hover {
+      text-decoration-thickness: 2px;
+      color: var(--on-primary-container);
+    }
+
+    /* Broadsheet defining treatments */
+    .masthead-line {
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-sm) var(--space-lg);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-bottom: var(--space-lg);
+    }
+    .lede {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: clamp(1.18rem, 1.05rem + 0.45vw, 1.38rem);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 58ch;
+      margin-bottom: var(--space-lg);
+    }
+
+    /* Masthead Navigation */
+    .masthead-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-xs) 0;
+      border-top: var(--rule-column);
+      padding-top: var(--space-md);
+      margin-top: var(--space-md);
+    }
+    .masthead-nav a {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      text-decoration: none;
+      padding: var(--space-xs) var(--space-md);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-left: var(--rule-column);
+      transition: color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+    .masthead-nav a:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .masthead-nav a:hover,
+    .masthead-nav a:focus-visible {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+    }
+    .masthead-nav a.is-current {
+      color: var(--primary);
+    }
+
+    /* Key figures columns */
+    .columns {
+      display: flex;
+      gap: 0;
+    }
+    .columns > * {
+      flex: 1 1 0;
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .columns > :last-child {
+      padding-right: 0;
+    }
+
+    .kpi-strip {
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-lg);
+    }
+    .kpi-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+    }
+    .kpi-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+      line-height: 1.1;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      margin-bottom: var(--space-xs);
+    }
+    .kpi-note {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      line-height: 1.4;
+      color: var(--secondary);
+    }
+
+    /* Section openers */
+    .section-block {
+      padding-top: var(--space-md);
+    }
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Bare teal tags (only on --background!) */
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Pull quotes */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-md) 0;
+      margin: var(--space-lg) 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+      line-height: 1.38;
+      color: var(--on-surface);
+      max-width: 48ch;
+    }
+    .pull-quote cite {
+      display: block;
+      font-style: normal;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      margin-top: var(--space-sm);
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: var(--rounded);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      border: 1px solid transparent;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+    }
+    .btn-secondary {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-container-high);
+    }
+    .btn-secondary[aria-pressed="true"],
+    .btn-secondary.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* Axis Grid (4 fundamental axes) */
+    .axes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-xl) 0;
+      border-top: var(--rule-column);
+      padding-top: var(--space-lg);
+    }
+    .axis-entry {
+      padding-right: var(--space-xl);
+      padding-bottom: var(--space-lg);
+      border-bottom: var(--rule-column);
+    }
+    .axis-entry:nth-child(even) {
+      border-left: var(--rule-column);
+      padding-left: var(--space-xl);
+      padding-right: 0;
+    }
+    .axis-points {
+      margin: var(--space-md) 0 0 0;
+      padding-left: var(--space-lg);
+      max-width: 60ch;
+    }
+    .axis-points li {
+      margin-bottom: var(--space-sm);
+      line-height: 1.55;
+    }
+    .axis-quote {
+      margin-top: var(--space-md);
+      padding-left: var(--space-md);
+      border-left: 2px solid var(--primary);
+      font-style: italic;
+      color: var(--on-surface-variant);
+      max-width: 56ch;
+    }
+
+    /* Interactive Metaphor Journey Module */
+    .metaphor-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-xl);
+    }
+    .metaphor-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+      align-items: center;
+      justify-content: space-between;
+    }
+    .step-buttons-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .svg-stage-wrap {
+      width: 100%;
+      min-height: 360px;
+      border: var(--rule-column);
+      background: var(--background);
+      padding: var(--space-md);
+    }
+    .svg-stage-wrap svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .svg-node {
+      cursor: pointer;
+    }
+    .svg-node rect {
+      transition: fill var(--dur-micro) var(--ease-out), stroke var(--dur-micro) var(--ease-out);
+    }
+    .metaphor-detail-panel {
+      background: var(--surface-container-low);
+      border-top: 2px solid var(--primary);
+      padding: var(--space-lg);
+    }
+    .detail-meta-line {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      margin-bottom: var(--space-xs);
+    }
+    .detail-example-box {
+      background: var(--surface-container);
+      border-left: 2px solid var(--outline);
+      padding: var(--space-md);
+      margin-top: var(--space-md);
+      font-size: 0.96rem;
+      line-height: 1.5;
+    }
+    .detail-verdict {
+      margin-top: var(--space-md);
+      padding-top: var(--space-sm);
+      border-top: var(--rule-column);
+      font-size: 0.95rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Comparative Module: Rational vs Intuitive Man */
+    .compare-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .compare-columns {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+    .compare-col-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      margin-bottom: var(--space-sm);
+    }
+    .compare-col-kicker {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--space-xs);
+    }
+    .kicker-rational { color: var(--tertiary); }
+    .kicker-intuitive { color: var(--primary); }
+    .compare-quote-inline {
+      margin-top: var(--space-md);
+      padding-top: var(--space-sm);
+      border-top: var(--rule-column);
+      font-style: italic;
+      color: var(--on-surface-variant);
+    }
+
+    /* Broadsheet Table */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+    table.broadsheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      font-size: 0.98rem;
+    }
+    .broadsheet-table th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--rule-ink);
+      color: var(--on-surface);
+    }
+    .broadsheet-table th:first-child,
+    .broadsheet-table td:first-child {
+      padding-left: 0;
+    }
+    .broadsheet-table td {
+      padding: var(--space-md);
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .broadsheet-table tr:last-child td {
+      border-bottom: 0;
+    }
+    .num-cell {
+      font-variant-numeric: lining-nums tabular-nums;
+      font-family: var(--font-label);
+      font-weight: 700;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    /* Chapters Navigation & Sections */
+    .chapter-jump-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--rule-column);
+    }
+    .chapter-jump-link {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: 1px solid var(--outline);
+      text-decoration: none;
+    }
+    .chapter-jump-link:hover {
+      background: var(--surface-container-high);
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .chapters-stack {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+    }
+    .chapter-article {
+      display: grid;
+      grid-template-columns: minmax(0, 0.34fr) minmax(0, 0.66fr);
+      gap: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: var(--rule-ink);
+    }
+    .chapter-meta-col {
+      padding-right: var(--space-md);
+    }
+    .chapter-num {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: 2.25rem;
+      line-height: 1;
+      color: var(--primary);
+      margin-bottom: var(--space-xs);
+      font-variant-numeric: lining-nums;
+    }
+    .chapter-date {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-sm);
+      display: block;
+    }
+    .chapter-body-col {
+      border-left: var(--rule-column);
+      padding-left: var(--space-xl);
+    }
+    .chapter-highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: var(--rule-column);
+    }
+    .chapter-highlight-item strong {
+      display: block;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      margin-bottom: var(--space-xs);
+    }
+    .chapter-highlight-item span {
+      font-size: 0.95rem;
+      line-height: 1.45;
+      color: var(--on-surface-variant);
+    }
+
+    /* Fragment Selector */
+    .filter-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: end;
+      background: var(--surface-container-low);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+    .filter-field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      flex: 1 1 240px;
+    }
+    .filter-field label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .broadsheet-input {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      background: var(--background);
+      color: var(--on-surface);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      width: 100%;
+    }
+    .broadsheet-input:focus {
+      border-color: var(--primary);
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+    .theme-filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .results-status-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--rule-column);
+      margin-bottom: var(--space-lg);
+    }
+    .fragments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .fragment-card {
+      border-top: 2px solid var(--on-surface);
+      padding-top: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--rule-column);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+    .fragment-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+    .fragment-id {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--primary);
+      font-variant-numeric: lining-nums;
+    }
+    .fragment-part {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface-variant);
+    }
+    .fragment-quote {
+      font-family: var(--font-body);
+      font-size: 1.02rem;
+      line-height: 1.55;
+      color: var(--on-surface);
+    }
+    .fragment-note {
+      font-size: 0.92rem;
+      line-height: 1.48;
+      color: var(--on-surface-variant);
+      padding-top: var(--space-sm);
+      border-top: var(--rule-column);
+    }
+    .fragment-note strong {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface);
+      margin-right: var(--space-xs);
+    }
+    .empty-state {
+      border: var(--rule-ink);
+      background: var(--surface-container-low);
+      padding: var(--space-xl);
+      display: none;
+    }
+    .empty-state.is-visible {
+      display: block;
+    }
+
+    /* FAQ Accordion & Glossary */
+    .faq-list {
+      border-top: var(--rule-ink);
+      margin-bottom: var(--space-2xl);
+    }
+    .faq-item {
+      border-bottom: var(--rule-column);
+    }
+    .faq-trigger {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      padding: var(--space-md) 0;
+      min-height: 52px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.1rem, 1rem + 0.35vw, 1.3rem);
+      line-height: 1.25;
+      color: var(--on-surface);
+    }
+    .faq-trigger:hover {
+      color: var(--primary);
+    }
+    .faq-icon {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--primary);
+      flex-shrink: 0;
+      width: 28px;
+      text-align: center;
+    }
+    .faq-answer {
+      padding-bottom: var(--space-lg);
+      padding-right: var(--space-xl);
+      color: var(--on-surface);
+      max-width: 68ch;
+    }
+    .faq-answer[hidden] {
+      display: none;
+    }
+    .faq-ref {
+      display: inline-block;
+      margin-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--secondary);
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--rule-section);
+      padding-top: var(--space-lg);
+      margin-top: var(--space-xl);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-md);
+      font-size: 0.92rem;
+      color: var(--on-surface-variant);
+    }
+    .footer-colophon {
+      max-width: 65ch;
+      line-height: 1.5;
+    }
+    .footer-top-link {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      align-self: flex-start;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .axes-grid {
+        grid-template-columns: 1fr;
+      }
+      .axis-entry,
+      .axis-entry:nth-child(even) {
+        border-left: 0;
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .metaphor-shell {
+        grid-template-columns: 1fr;
+      }
+      .chapter-article {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+      }
+      .chapter-body-col {
+        border-left: 0;
+        padding-left: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .columns {
+        flex-direction: column;
+        gap: var(--space-md);
+      }
+      .columns > * {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-md) 0 0 0;
+      }
+      .columns > :first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .masthead-nav a {
+        border-left: 0;
+        padding: var(--space-xs) var(--space-sm) var(--space-xs) 0;
+      }
+      .faq-answer {
+        padding-right: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid" id="inicio">
+    <!-- MASTHEAD -->
+    <header class="masthead">
+      <div class="masthead-line">
+        <span>Archivo Crítico · Friedrich Nietzsche (1872–1875)</span>
+        <span>Das Philosophenbuch · Dossier Estructurado</span>
+      </div>
+      <h1>El libro del filósofo</h1>
+      <p class="lede">
+        Base de conocimientos sobre los cuadernos póstumos de 1872 a 1875 y la <em>Introducción teorética sobre la verdad y la mentira en el sentido extramoral</em>: el choque entre el arte y el saber ilimitado, el filósofo como médico de la cultura y el origen metafórico del concepto.
+      </p>
+      <nav class="masthead-nav" aria-label="Navegación principal por secciones">
+        <a href="#ejes" class="is-current">I. Ejes fundamentales</a>
+        <a href="#viaje-metafora">II. Viaje de la metáfora</a>
+        <a href="#comparativa">III. Racional vs. Intuitivo</a>
+        <a href="#capitulos">IV. Partes de la obra</a>
+        <a href="#selector-fragmentos">V. Selector de fragmentos</a>
+        <a href="#faq">VI. Preguntas frecuentes</a>
+      </nav>
+    </header>
+
+    <!-- KEY ARCHIVAL FIGURES -->
+    <section class="kpi-strip" aria-label="Datos estructurales de la obra">
+      <div class="columns">
+        <div>
+          <div class="kpi-label">Período de composición</div>
+          <div class="kpi-value">1872–1875</div>
+          <div class="kpi-note">Prolongación de <em>El nacimiento de la tragedia</em></div>
+        </div>
+        <div>
+          <div class="kpi-label">Arquitectura del volumen</div>
+          <div class="kpi-value">4 partes</div>
+          <div class="kpi-note">Apuntes, médico de la cultura, tratado y notas retóricas</div>
+        </div>
+        <div>
+          <div class="kpi-label">Corpus aforístico</div>
+          <div class="kpi-value">§§ 16–195</div>
+          <div class="kpi-note">Fragmentos numerados, esbozos y filología clásica</div>
+        </div>
+        <div>
+          <div class="kpi-label">Tesis conductora</div>
+          <div class="kpi-value">Arte sobre saber</div>
+          <div class="kpi-note">La ilusión estética como única base posible de cultura</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION I: FOUR FUNDAMENTAL AXES -->
+    <section id="ejes" class="section-block">
+      <div class="section-open">
+        <span class="section-label">Sección I · Base de conocimientos estructurada</span>
+        <h2>Los cuatro ejes fundamentales de la obra</h2>
+      </div>
+      <p>
+        Compuesto entre el otoño de 1872 y 1875, <em>El libro del filósofo</em> diagnostica la crisis moderna: tras el derrumbe kantiano de la metafísica dogmática, la ciencia ha quedado emancipada y amenaza con barbarizar la vida. Nietzsche contrapone a este desenfreno una crítica radical de la verdad y del lenguaje, proponiendo una cultura fundada en la ilusión artística consciente.
+      </p>
+
+      <div class="axes-grid">
+        <!-- EJE 1 -->
+        <article class="axis-entry">
+          <span class="tag">Eje 1 · Crítica del conocimiento</span>
+          <h3>El conflicto entre el arte y el conocimiento ilimitado</h3>
+          <p>
+            El saber puro carece de criterio de jerarquía: para la ciencia no hay cosas grandes ni pequeñas, sino únicamente grados de seguridad y datos acumulables. Sin el freno del arte y de la filosofía, el impulso cognoscitivo degenera en barbarie y utilitarismo.
+          </p>
+          <ul class="axis-points">
+            <li><strong>Instinto indiscriminado:</strong> El instinto de conocimiento sin selección equivale al instinto sexual indiscriminado, signo de vulgaridad y envejecimiento vital (§§ 20, 25).</li>
+            <li><strong>Barbarie y servidumbre científica:</strong> La ciencia se convierte en «nodriza» del egoísmo, explotada por el Estado y los intereses prácticos (§§ 29, 56), compatible con una cultura bárbara como la alemana o la alejandrina (§ 88).</li>
+            <li><strong>Contra la historiografía icónica:</strong> El historiador moderno excava nimiedades para arrancarle cada día al olvido, frente a la pintura histórica creadora que solo conserva lo grande y ejemplar (§§ 19, 41).</li>
+            <li><strong>Dominar, no anular:</strong> La filosofía no destruye la ciencia, sino que determina su valor y medida (§§ 28, 34). El valor de un sistema filosófico es estético: por eso Heráclito supera artísticamente a toda la lógica aristotélica (§ 61).</li>
+          </ul>
+          <blockquote class="axis-quote">
+            «Ahora dirigimos el arte contra el saber: ¡Vuelta a la vida! ¡Sujeción del instinto de conocimiento!» — Fragmento § 43.
+          </blockquote>
+        </article>
+
+        <!-- EJE 2 -->
+        <article class="axis-entry">
+          <span class="tag">Eje 2 · Terapéutica cultural</span>
+          <h3>El filósofo trágico y el médico de la cultura</h3>
+          <p>
+            Tras Kant, la metafísica tradicional resulta imposible (§§ 35, 165). Ante este vacío, el pensador puede sucumbir a la ciencia ciega o asumir una misión terapéutica: sujetar el saber mediante el arte y el mito para hacer posible la grandeza.
+          </p>
+          <ul class="axis-points">
+            <li><strong>Trágico frente a desesperado:</strong> El filósofo del conocimiento desesperado busca «saber a cualquier precio»; el filósofo del conocimiento trágico vuelve el saber contra sí mismo, reconoce el carácter antropomórfico de todo conocer y decide querer la ilusión (§ 37).</li>
+            <li><strong>Límites del médico cultural:</strong> Ningún filósofo arrastra al pueblo ni crea una cultura por sí solo; su función es accesoria pero decisiva: preparar, conservar o moderar la cultura (§ 175).</li>
+            <li><strong>Cuatro tareas terapéuticas (§ 175):</strong> (1) dominar lo mítico frente a la ficción libre, (2) sujetar el instinto de saber reforzando lo mítico-artístico, (3) demoler el dogmatismo rígido en religión, costumbres y ciencia, y (4) destruir la mundanización ciega.</li>
+            <li><strong>Sujeción helénica y quiebre socrático:</strong> La cultura consiste en la «proporción justa» de las facultades y en la producción de grandes obras (§ 46). Los preplatónicos pertenecían a la vida trágica; Sócrates introduce el «corte de tijeras» (§ 195), las sectas y la verdad a cualquier precio (§ 70).</li>
+          </ul>
+          <blockquote class="axis-quote">
+            «Es imposible construir una cultura sobre el saber… Veracidad del arte: ahora es el único honesto.» — Fragmento § 73.
+          </blockquote>
+        </article>
+
+        <!-- EJE 3 -->
+        <article class="axis-entry">
+          <span class="tag">Eje 3 · Doctrina lingüística</span>
+          <h3>Verdad y mentira en sentido extramoral</h3>
+          <p>
+            El intelecto humano no fue creado para alcanzar la «cosa en sí», sino como arma de supervivencia de los seres débiles mediante el arte del disimulo. La verdad nace de un pacto lingüístico gregario cuyo origen artificial hemos olvidado.
+          </p>
+          <ul class="axis-points">
+            <li><strong>Impulso de disimulo y tratado de paz:</strong> Para subsistir en sociedad y cesar el <em>bellum omnium contra omnes</em>, el hombre fija designaciones obligatorias. Las leyes del lenguaje inauguran la distinción entre verdad y mentira; el mentiroso solo infringe las convenciones vigentes.</li>
+            <li><strong>La mentira gregaria y el olvido:</strong> Ser veraz consiste en usar las metáforas usuales, «mentir gregariamente según un estilo obligatorio». Solo al olvidar este artificio el hombre siente que posee la verdad.</li>
+            <li><strong>Génesis metafórica, metonimia y sinécdoque:</strong> Toda palabra surge de un doble salto de esfera (estímulo nervioso → imagen → sonido). Las figuras retóricas son la esencia del lenguaje y constituyen «silogismos falsos» con los que empieza la razón (§ 142).</li>
+            <li><strong>La moneda desgastada:</strong> Las verdades son «metáforas ya utilizadas que han perdido su fuerza sensible, monedas que han perdido su imagen y que ahora entran en consideración como metal».</li>
+          </ul>
+          <blockquote class="axis-quote">
+            «Todo el bien y toda la belleza dependen de la ilusión: la verdad mata —incluso se mata a sí misma— en la medida en que reconoce que se funda en el error.» — Esbozo § 176.
+          </blockquote>
+        </article>
+
+        <!-- EJE 4 -->
+        <article class="axis-entry">
+          <span class="tag">Eje 4 · Epistemología estética</span>
+          <h3>El intelecto antropomórfico frente a la intuición creadora</h3>
+          <p>
+            El entendimiento es una «fuerza de superficie» ligada al espejo del ojo y a las vibraciones nerviosas (§§ 54, 64). Lo que el investigador venera como leyes eternas de la naturaleza es una proyección de nuestras propias formas de espacio, tiempo y número.
+          </p>
+          <ul class="axis-points">
+            <li><strong>Dos fuerzas artísticas fisiológicas:</strong> Todo pensar en imágenes descansa en una fuerza que produce profusión de imágenes y otra que selecciona lo semejante y omite lo accesorio (§§ 55, 63–64), operando de modo paralelo a las figuras acústicas de Chladni.</li>
+            <li><strong>Antropomorfismo inevitable:</strong> «Para las plantas el mundo es planta, para nosotros hombre» (§ 102). Hablar de «percepción exacta» entre sujeto y objeto es contradictorio: entre ambos solo cabe una «traducción balbuceante».</li>
+            <li><strong>El columbarium conceptual:</strong> A fuerza de omitir rasgos individuales, el lenguaje y la ciencia disuelven la imagen viva en esquemas pálidos y construyen una pirámide rígida de conceptos, «el sepulcro de las intuiciones».</li>
+            <li><strong>Retorno por el mito y el arte:</strong> El impulso creador de metáforas no muere; busca cauce en el mito y el arte para desgarrar el entramado conceptual y devolver al día de vela el asombro del sueño.</li>
+          </ul>
+          <blockquote class="axis-quote">
+            «Las leyes de la naturaleza no son más que relaciones de una x a una y y a una z… En sentido riguroso, el conocimiento solo tiene la forma de la tautología y está vacío.» — Fragmento § 150.
+          </blockquote>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION II: INTERACTIVE METAPHOR-TO-CONCEPT JOURNEY -->
+    <section id="viaje-metafora" class="section-block">
+      <div class="section-open">
+        <span class="section-label">Sección II · Esquema interactivo</span>
+        <h2>El viaje de la metáfora al concepto y el retorno creador</h2>
+      </div>
+      <p>
+        Entre el objeto en sí y el concepto científico no existe causalidad lógica, sino una cadena de saltos estéticos entre esferas radicalmente distintas. Selecciona cualquier estación del diagrama —o avanza paso a paso— para examinar los mecanismos fisiológicos, lingüísticos y epistemológicos descritos por Nietzsche.
+      </p>
+
+      <div class="metaphor-controls">
+        <div class="step-buttons-row" role="group" aria-label="Controles de paso del esquema">
+          <button type="button" class="btn btn-secondary" id="btn-prev-step" onclick="stepMetaphor(-1)">← Paso anterior</button>
+          <button type="button" class="btn btn-primary" id="btn-next-step" onclick="stepMetaphor(1)">Siguiente paso →</button>
+        </div>
+        <div class="step-buttons-row" role="group" aria-label="Acceso rápido a fases">
+          <button type="button" class="btn btn-secondary is-active" data-step-btn="0" onclick="selectMetaphorStep(0)">00. «X»</button>
+          <button type="button" class="btn btn-secondary" data-step-btn="1" onclick="selectMetaphorStep(1)">01. Estímulo</button>
+          <button type="button" class="btn btn-secondary" data-step-btn="2" onclick="selectMetaphorStep(2)">02. Imagen</button>
+          <button type="button" class="btn btn-secondary" data-step-btn="3" onclick="selectMetaphorStep(3)">03. Palabra</button>
+          <button type="button" class="btn btn-secondary" data-step-btn="4" onclick="selectMetaphorStep(4)">04. Olvido</button>
+          <button type="button" class="btn btn-secondary" data-step-btn="5" onclick="selectMetaphorStep(5)">05. Concepto</button>
+          <button type="button" class="btn btn-secondary" data-step-btn="6" onclick="selectMetaphorStep(6)">06. Arte / Mito</button>
+        </div>
+      </div>
+
+      <div class="metaphor-shell">
+        <div class="svg-stage-wrap">
+          <svg viewBox="0 0 680 390" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Esquema del viaje de la metáfora al concepto en Nietzsche">
+            <!-- Grid baseline guides -->
+            <line x1="20" y1="95" x2="660" y2="95" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="4 4"/>
+            <line x1="20" y1="245" x2="660" y2="245" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="4 4"/>
+
+            <!-- Zone captions -->
+            <text x="20" y="26" fill="var(--on-surface-variant)" font-family="var(--font-label)" font-size="11" font-weight="700" letter-spacing="0.06em">RUTA DE ENRIGIDECIMIENTO (LENGUAJE Y CIENCIA)</text>
+            <text x="20" y="280" fill="var(--secondary)" font-family="var(--font-label)" font-size="11" font-weight="700" letter-spacing="0.06em">RUTA DE RETORNO CREADOR (MITO Y ARTE DESGARRAN EL ESQUEMA)</text>
+
+            <!-- Connectors forward path -->
+            <line x1="115" y1="95" x2="145" y2="95" stroke="var(--outline)" stroke-width="1.5"/>
+            <line x1="245" y1="95" x2="275" y2="95" stroke="var(--outline)" stroke-width="1.5"/>
+            <line x1="375" y1="95" x2="405" y2="95" stroke="var(--outline)" stroke-width="1.5"/>
+            <line x1="505" y1="95" x2="535" y2="95" stroke="var(--outline)" stroke-width="1.5"/>
+
+            <!-- Connector down to step 5 (Columbarium) -->
+            <polyline points="585,135 585,180 510,180" fill="none" stroke="var(--outline)" stroke-width="1.5"/>
+            <!-- Connector from Columbarium to Art/Myth return -->
+            <polyline points="350,210 210,210 210,295" fill="none" stroke="var(--secondary)" stroke-width="1.5" stroke-dasharray="5 3"/>
+            <polyline points="210,335 70,335 70,140" fill="none" stroke="var(--secondary)" stroke-width="1.5" stroke-dasharray="5 3"/>
+
+            <!-- Step labels on jumps -->
+            <text x="260" y="55" text-anchor="middle" fill="var(--primary)" font-family="var(--font-label)" font-size="10" font-weight="700">1.ª METÁFORA</text>
+            <text x="390" y="55" text-anchor="middle" fill="var(--primary)" font-family="var(--font-label)" font-size="10" font-weight="700">2.ª METÁFORA</text>
+            <text x="520" y="55" text-anchor="middle" fill="var(--on-surface-variant)" font-family="var(--font-label)" font-size="10" font-weight="700">OMISIÓN</text>
+
+            <!-- Node 0: X Cosa en si -->
+            <g class="svg-node" id="svg-node-0" onclick="selectMetaphorStep(0)" tabindex="0" role="button" aria-label="Paso 0: Cosa en sí X">
+              <rect x="20" y="60" width="95" height="70" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2"/>
+              <text x="30" y="80" fill="var(--primary)" font-family="var(--font-label)" font-size="11" font-weight="700">00 · COSA EN SÍ</text>
+              <text x="30" y="102" fill="var(--on-surface)" font-family="var(--font-headline)" font-size="16" font-weight="700">Enigma «X»</text>
+              <text x="30" y="120" fill="var(--on-surface-variant)" font-family="var(--font-body)" font-size="11">Inasequible</text>
+            </g>
+
+            <!-- Node 1: Estimulo nervioso -->
+            <g class="svg-node" id="svg-node-1" onclick="selectMetaphorStep(1)" tabindex="0" role="button" aria-label="Paso 1: Estímulo nervioso">
+              <rect x="145" y="60" width="100" height="70" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5"/>
+              <text x="155" y="80" fill="var(--on-surface-variant)" font-family="var(--font-label)" font-size="11" font-weight="700">01 · NERVIOS</text>
+              <text x="155" y="102" fill="var(--on-surface)" font-family="var(--font-headline)" font-size="15" font-weight="700">Excitación</text>
+              <text x="155" y="120" fill="var(--on-surface-variant)" font-family="var(--font-body)" font-size="11">Fisiología pura</text>
+            </g>
+
+            <!-- Node 2: Imagen -->
+            <g class="svg-node" id="svg-node-2" onclick="selectMetaphorStep(2)" tabindex="0" role="button" aria-label="Paso 2: Primera metáfora, Imagen">
+              <rect x="275" y="60" width="100" height="70" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5"/>
+              <text x="285" y="80" fill="var(--on-surface-variant)" font-family="var(--font-label)" font-size="11" font-weight="700">02 · OJO / SUEÑO</text>
+              <text x="285" y="102" fill="var(--on-surface)" font-family="var(--font-headline)" font-size="15" font-weight="700">Imagen</text>
+              <text x="285" y="120" fill="var(--on-surface-variant)" font-family="var(--font-body)" font-size="11">1.ª metáfora</text>
+            </g>
+
+            <!-- Node 3: Sonido articulado -->
+            <g class="svg-node" id="svg-node-3" onclick="selectMetaphorStep(3)" tabindex="0" role="button" aria-label="Paso 3: Segunda metáfora, Sonido y Palabra">
+              <rect x="405" y="60" width="100" height="70" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5"/>
+              <text x="415" y="80" fill="var(--on-surface-variant)" font-family="var(--font-label)" font-size="11" font-weight="700">03 · LENGUAJE</text>
+              <text x="415" y="102" fill="var(--on-surface)" font-family="var(--font-headline)" font-size="15" font-weight="700">Palabra</text>
+              <text x="415" y="120" fill="var(--on-surface-variant)" font-family="var(--font-body)" font-size="11">2.ª metáfora</text>
+            </g>
+
+            <!-- Node 4: Olvido y Esquema -->
+            <g class="svg-node" id="svg-node-4" onclick="selectMetaphorStep(4)" tabindex="0" role="button" aria-label="Paso 4: Olvido y Esquema">
+              <rect x="535" y="60" width="125" height="70" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5"/>
+              <text x="545" y="80" fill="var(--on-surface-variant)" font-family="var(--font-label)" font-size="11" font-weight="700">04 · HÁBITO SOCIAL</text>
+              <text x="545" y="102" fill="var(--on-surface)" font-family="var(--font-headline)" font-size="15" font-weight="700">Olvido / Esquema</text>
+              <text x="545" y="120" fill="var(--on-surface-variant)" font-family="var(--font-body)" font-size="11">Moneda sin cuño</text>
+            </g>
+
+            <!-- Node 5: Columbarium -->
+            <g class="svg-node" id="svg-node-5" onclick="selectMetaphorStep(5)" tabindex="0" role="button" aria-label="Paso 5: Columbarium conceptual">
+              <rect x="350" y="160" width="240" height="72" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5"/>
+              <text x="364" y="180" fill="var(--on-surface-variant)" font-family="var(--font-label)" font-size="11" font-weight="700">05 · FORTALEZA DE LA CIENCIA</text>
+              <text x="364" y="203" fill="var(--on-surface)" font-family="var(--font-headline)" font-size="16" font-weight="700">Columbarium de conceptos</text>
+              <text x="364" y="221" fill="var(--on-surface-variant)" font-family="var(--font-body)" font-size="11">Dado óseo octogonal · Orden piramidal</text>
+            </g>
+
+            <!-- Node 6: Arte y Mito -->
+            <g class="svg-node" id="svg-node-6" onclick="selectMetaphorStep(6)" tabindex="0" role="button" aria-label="Paso 6: Ruptura creadora por el Arte y el Mito">
+              <rect x="210" y="295" width="290" height="72" fill="var(--surface-container-low)" stroke="var(--secondary)" stroke-width="1.5"/>
+              <text x="224" y="315" fill="var(--on-surface)" font-family="var(--font-label)" font-size="11" font-weight="700">06 · SATURNALES DEL INTELECTO</text>
+              <text x="224" y="338" fill="var(--on-surface)" font-family="var(--font-headline)" font-size="16" font-weight="700">Mito y Arte: nuevas metáforas</text>
+              <text x="224" y="356" fill="var(--on-surface-variant)" font-family="var(--font-body)" font-size="11">Desgarra las rúbricas · Devuelve el sueño a la vigilia</text>
+            </g>
+          </svg>
+        </div>
+
+        <aside class="metaphor-detail-panel" aria-live="polite" id="metaphor-detail-panel">
+          <div class="detail-meta-line" id="md-meta">Paso 00 · Punto de partida inaccesible</div>
+          <h3 id="md-title">La «X» enigmática de la cosa en sí</h3>
+          <p id="md-desc">
+            Para Nietzsche, la «cosa en sí» —que equivaldría a la verdad pura y sin consecuencias— es completamente inasequible incluso para el creador del lenguaje. Entre el objeto externo y el sujeto cognoscente no hay ninguna relación de causalidad ni de exactitud, porque pertenecen a esferas absolutamente dispares.
+          </p>
+          <div class="detail-example-box" id="md-example">
+            <strong>Ilustración del texto:</strong> El universo de los insectos o de las aves percibe un mundo completamente distinto del humano. Preguntar cuál de las dos percepciones es «más correcta» carece de sentido: exigiría medir con la «medida de la percepción exacta», es decir, con una medida inexistente.
+          </div>
+          <div class="detail-verdict" id="md-verdict">
+            <strong>Implicación crítica:</strong> El conocimiento nunca capta la esencia originaria; solo registra las relaciones de las cosas con los hombres.
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECTION III: COMPARATIVE MODULE (RATIONAL VS INTUITIVE MAN) -->
+    <section id="comparativa" class="section-block">
+      <div class="section-open">
+        <span class="section-label">Sección III · Módulo comparativo</span>
+        <h2>El hombre racional frente al hombre intuitivo</h2>
+      </div>
+      <p>
+        Al final de la <em>Introducción teorética sobre la verdad y la mentira</em>, Nietzsche confronta dos arquetipos humanos que buscan dominar la vida: uno se protege detrás del escudo frío de las abstracciones; el otro acepta únicamente la vida transfigurada por la belleza y la apariencia. Selecciona una dimensión para contrastar ambos tipos.
+      </p>
+
+      <div class="compare-controls" role="group" aria-label="Dimensiones de comparación">
+        <button type="button" class="btn btn-secondary is-active" data-cmp-btn="0" onclick="selectCompareDim(0)">1. Dominio de la vida</button>
+        <button type="button" class="btn btn-secondary" data-cmp-btn="1" onclick="selectCompareDim(1)">2. Respuesta ante el dolor</button>
+        <button type="button" class="btn btn-secondary" data-cmp-btn="2" onclick="selectCompareDim(2)">3. Lenguaje e instrumento</button>
+        <button type="button" class="btn btn-secondary" data-cmp-btn="3" onclick="selectCompareDim(3)">4. Cultura y ejemplo histórico</button>
+      </div>
+
+      <div class="columns compare-columns" id="compare-live-box" aria-live="polite">
+        <div>
+          <div class="compare-col-kicker kicker-rational">Arquetipo A · Previsión y esquema</div>
+          <h3 class="compare-col-title" id="cmp-left-title">El hombre racional: defensa mediante conceptos</h3>
+          <p id="cmp-left-body">
+            Hace frente a las necesidades más importantes con previsión, prudencia y regularidad. Teme a la intuición repentina porque escapa al control lógico; por ello somete su conducta a abstracciones desteñidas y frías que le sirven de armadura contra la desgracia.
+          </p>
+          <p class="compare-quote-inline" id="cmp-left-quote">
+            «Se limita a defenderse de la desgracia, sin que tales abstracciones le proporcionen felicidad, mientras aspira a alcanzar la máxima liberación del dolor.»
+          </p>
+        </div>
+        <div>
+          <div class="compare-col-kicker kicker-intuitive">Arquetipo B · Apariencia y plenitud</div>
+          <h3 class="compare-col-title" id="cmp-right-title">El hombre intuitivo: héroe desbordante de felicidad</h3>
+          <p id="cmp-right-body">
+            Desprecia la abstracción fría, no mide la vida por el cálculo de necesidades y solo acepta como real la existencia enmascarada de apariencia y belleza. Cuando triunfa sobre su adversario, funda una cultura donde el arte predomina sobre la vida entera.
+          </p>
+          <p class="compare-quote-inline" id="cmp-right-quote">
+            «Obtiene de sus intuiciones, además de la defensa contra el mal, una iluminación incesantemente fluente, una expansión, una redención.»
+          </p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="broadsheet-table">
+          <thead>
+            <tr>
+              <th>Dimensión analítica</th>
+              <th>Hombre racional</th>
+              <th>Hombre intuitivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Relación con la realidad</strong></td>
+              <td>Regida por conceptos fijos, esquemas piramidales y miedo a la intuición.</td>
+              <td>Acepta únicamente la vida enmascarada por la apariencia, el mito y la belleza.</td>
+            </tr>
+            <tr>
+              <td><strong>Finalidad ante la existencia</strong></td>
+              <td>Previsión, prudencia, regularidad y máxima evitación del dolor.</td>
+              <td>Iluminación incesante, expansión creadora y redención estética.</td>
+            </tr>
+            <tr>
+              <td><strong>Comportamiento en la desgracia</strong></td>
+              <td>Impasible como el estoico; se domina mediante conceptos y busca verdad y sinceridad.</td>
+              <td>Sufre más y con más frecuencia; nunca aprende de la experiencia, grita fuertemente sin consuelo.</td>
+            </tr>
+            <tr>
+              <td><strong>Expresión cultural</strong></td>
+              <td>La fortaleza de la ciencia, la lógica matemática y el orden de castas conceptuales.</td>
+              <td>La antigua Grecia: casa, porte, vestido y jarra de arcilla muestran serenidad olímpica.</td>
+            </tr>
+            <tr>
+              <td><strong>Rostro simbólico</strong></td>
+              <td>El investigador junto a la torre de la ciencia, buscando protección en el baluarte.</td>
+              <td>El intelecto liberado en saturnales creadoras; el rapsoda y el actor en escena.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION IV: NAVIGABLE CHAPTERS OF THE WORK -->
+    <section id="capitulos" class="section-block">
+      <div class="section-open">
+        <span class="section-label">Sección IV · Arquitectura del volumen</span>
+        <h2>Estructura navegable por capítulos y etapas (1872–1875)</h2>
+      </div>
+      <p>
+        El volumen reúne tres series de manuscritos póstumos y el célebre escrito teorético de 1873 sobre el lenguaje y la verdad, acompañados de apuntes sobre retórica clásica. Navega directamente a cada una de sus cuatro divisiones.
+      </p>
+
+      <div class="chapter-jump-strip" role="navigation" aria-label="Saltos a las partes de la obra">
+        <a href="#parte-1" class="chapter-jump-link">Parte I · El último filósofo (1872)</a>
+        <a href="#parte-2" class="chapter-jump-link">Parte II · Médico de la cultura (1873)</a>
+        <a href="#parte-3" class="chapter-jump-link">Parte III · Verdad y mentira (1873)</a>
+        <a href="#parte-4" class="chapter-jump-link">Parte IV · Trabajos de 1875 y Retórica</a>
+      </div>
+
+      <div class="chapters-stack">
+        <!-- PARTE I -->
+        <article id="parte-1" class="chapter-article">
+          <div class="chapter-meta-col">
+            <div class="chapter-num">I</div>
+            <span class="chapter-date">Otoño–Invierno de 1872 · §§ 16–165</span>
+            <h3>El último filósofo. Consideraciones sobre el conflicto del arte y del conocimiento</h3>
+          </div>
+          <div class="chapter-body-col">
+            <p>
+              Esta extensa serie de fragmentos plantea el problema central que hereda de <em>El nacimiento de la tragedia</em>: cómo frenar la rueda vertiginosa del tiempo y el instinto desbocado de saber tras la desaparición del mito. Nietzsche define al filósofo como el «freno de la rueda del tiempo» (§ 24) y contrapone al erudito moderno la unidad de Schopenhauer y Wagner (§ 32).
+            </p>
+            <p>
+              A lo largo de la sección investiga también la base fisiológica del pensar en imágenes (§§ 63–67): el entendimiento humano es superficial, basado en la imprecisión del ojo y del oído; el pensamiento consciente selecciona imágenes entre series nerviosas que se comportan como las figuras acústicas de Chladni. El bloque culmina en el dramático soliloquio de «Edipo» (§ 87) —la voz del último hombre— y en el esbozo programático del plan <em>El último filósofo</em> (§ 165).
+            </p>
+            <div class="chapter-highlights">
+              <div class="chapter-highlight-item">
+                <strong>El puente del genio (§ 17)</strong>
+                <span>La verdadera historia de un pueblo es el puente invisible de un genio a otro; todo lo demás son copias fantasmagóricas.</span>
+              </div>
+              <div class="chapter-highlight-item">
+                <strong>La laguna cultural (§ 27)</strong>
+                <span>El filósofo reconoce lo necesario y el artista lo crea; cada antiguo pensador griego construye su mundo en una laguna de necesidad.</span>
+              </div>
+              <div class="chapter-highlight-item">
+                <strong>Materia y memoria (§§ 92–98)</strong>
+                <span>Hipótesis especulativa sobre la sensación, el placer, el displacer y la memoria como facultades primigenias de toda materia.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- PARTE II -->
+        <article id="parte-2" class="chapter-article">
+          <div class="chapter-meta-col">
+            <div class="chapter-num">II</div>
+            <span class="chapter-date">Primavera de 1873 · §§ 166–175</span>
+            <h3>El filósofo como médico de la cultura</h3>
+          </div>
+          <div class="chapter-body-col">
+            <p>
+              Nietzsche sistematiza aquí el vínculo entre el pensador solitario y su pueblo. La filosofía se sitúa «más allá de las ciencias» (desmaterializa) y «más acá de las religiones» (desdiviniza y deshechiza, § 167). Frente a una cultura floreciente el filósofo parece innecesario o disolvente, pero en épocas de caos y ausencia de cultura resulta indispensable como agente destructor de supersticiones y moderador de excesos (§§ 170, 175).
+            </p>
+            <p>
+              En el gran resumen programático del fragmento § 175, recorre los filósofos preplatónicos —Tales, Anaximandro, Heráclito, Parménides, Empédocles, Anaxágoras, Demócrito— para demostrar que la filosofía nunca funda por sí sola una cultura popular, sino que prepara el terreno para una obra de arte centralizadora y asume el papel de Tribunal Supremo de la escuela.
+            </p>
+            <div class="chapter-highlights">
+              <div class="chapter-highlight-item">
+                <strong>Tres posiciones (§ 170)</strong>
+                <span>El filósofo aparece como solitario indiferente, maestro de cien cabezas ingeniosas o destructor hostil de la cultura popular.</span>
+              </div>
+              <div class="chapter-highlight-item">
+                <strong>Platón y Sócrates (§ 175)</strong>
+                <span>Con Platón se inicia la hostilidad manifiesta contra la cultura; Sócrates representa la tendencia democrático-demagógica que solo engendra sectas.</span>
+              </div>
+              <div class="chapter-highlight-item">
+                <strong>Misión escolar (§ 175)</strong>
+                <span>Destruir la mundanización ciega y controlar los efectos barbarizantes del instinto de saber contra los eruditos «trabajadores».</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- PARTE III -->
+        <article id="parte-3" class="chapter-article">
+          <div class="chapter-meta-col">
+            <div class="chapter-num">III</div>
+            <span class="chapter-date">1873 · Tratado y Esbozos §§ 176–187</span>
+            <h3>Introducción teorética sobre la verdad y la mentira en el sentido extramoral</h3>
+          </div>
+          <div class="chapter-body-col">
+            <p>
+              Núcleo filosófico del libro y primera crítica radical del lenguaje respecto de la verdad desde la Antigüedad. En su primera parte, Nietzsche desenmascara el intelecto como instrumento de disimulo de un animal vulnerable que sueña «pendiente sobre el lomo de un tigre». Analiza el paso del pacto social de paz a la fijación obligatoria del lenguaje y describe el doble salto metafórico que convierte la excitación nerviosa en imagen y sonido articulado, y luego en concepto rígido mediante el olvido de lo individual.
+            </p>
+            <p>
+              La segunda parte examina la resistencia del impulso metafórico frente al <em>columbarium</em> científico: en el mito y en el arte el intelecto arroja su servidumbre y celebra sus «saturnales». El bloque se completa con los <em>Esbozos</em> sobre «Verdad» (§§ 176–187), donde formula que «todas las mentiras son piadosas» y que el placer estético es el supremo porque enuncia la verdad general bajo la forma de la mentira (§ 183).
+            </p>
+            <div class="chapter-highlights">
+              <div class="chapter-highlight-item">
+                <strong>La araña conceptual</strong>
+                <span>Admiramos en los astros y la química la rigidez de espacio, tiempo y número que nosotros mismos urdimos como la araña su tela.</span>
+              </div>
+              <div class="chapter-highlight-item">
+                <strong>El sueño de Pascal</strong>
+                <span>Si un artesano soñara cada noche que es rey, sería tan feliz como el rey que soñara ser artesano: la vigilia mítica griega se asemejaba al sueño.</span>
+              </div>
+              <div class="chapter-highlight-item">
+                <strong>Verdad prohibida (§ 177)</strong>
+                <span>La veracidad es una exigencia eudemónica de convivencia, pero el supremo bienestar reside en las ilusiones protectoras.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- PARTE IV -->
+        <article id="parte-4" class="chapter-article">
+          <div class="chapter-meta-col">
+            <div class="chapter-num">IV</div>
+            <span class="chapter-date">1875 · §§ 188–195 y Notas de Retórica</span>
+            <h3>Últimos trabajos: La ciencia y el saber en conflicto y estudios sobre el lenguaje</h3>
+          </div>
+          <div class="chapter-body-col">
+            <p>
+              Los apuntes de 1875 profundizan en la genealogía de la ciencia (§ 188: surge cuando se desconfía de los dioses, por egoísmo práctico, por ocio distinguido y para hallar firmeza ante el vaivén popular) y diagnostican la tragedia interrumpida de Grecia (§ 195). Con Empédocles y Demócrito los helenos rozaron la comprensión lúcida del dolor de la existencia, pero Sócrates —el «corte de tijeras»— desvió a Platón hacia las monstruosas abstracciones de «lo bueno» y «lo justo».
+            </p>
+            <p>
+              Acompañan a esta sección los fragmentos filológicos sobre retórica antigua (Aristóteles, Quintiliano, Cicerón, Gerber, Volkmann): Nietzsche muestra que el lenguaje es esencialmente retórico (<em>téchnē</em>), y estudia la sinécdoque y la metáfora —<em>tectum</em> por casa, <em>dantín</em> («con dientes») por elefante, <em>kesín</em> («con melenas») por león— probando que el lenguaje jamás expresa la totalidad de una cosa, sino que destaca arbitrariamente un rasgo.
+            </p>
+            <div class="chapter-highlights">
+              <div class="chapter-highlight-item">
+                <strong>Retórica y lenguaje</strong>
+                <span>No existe un lenguaje «propio» opuesto al figurado: todas las palabras son originalmente tropos y transposiciones inconscientes.</span>
+              </div>
+              <div class="chapter-highlight-item">
+                <strong>El arte de leer lento</strong>
+                <span>La filosofía se define como el arte de enseñar a leer despacio, meditando media hora sobre seis líneas.</span>
+              </div>
+              <div class="chapter-highlight-item">
+                <strong>Estilo lógico</strong>
+                <span>Exige claridad y brevedad en los períodos, dejando oír crujir con nitidez el andamiaje lógico que sostiene al pensamiento.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION V: INTERACTIVE FRAGMENT SELECTOR -->
+    <section id="selector-fragmentos" class="section-block">
+      <div class="section-open">
+        <span class="section-label">Sección V · Archivo interactivo</span>
+        <h2>Selector de fragmentos y pasajes clave</h2>
+      </div>
+      <p>
+        Explora dieciocho pasajes fundamentales extraídos directamente de <em>El libro del filósofo</em>. Filtra por eje temático o busca por número de aforismo, autor citado o término conceptual.
+      </p>
+
+      <div class="filter-toolbar">
+        <div class="filter-field">
+          <label for="fragment-search">Buscar por concepto, autor o número (§)</label>
+          <input type="search" id="fragment-search" class="broadsheet-input" oninput="filterFragments()" aria-describedby="fragment-count-status">
+        </div>
+        <div class="filter-field" style="flex: 0 1 240px;">
+          <label for="fragment-part-select">Filtrar por parte de la obra</label>
+          <select id="fragment-part-select" class="broadsheet-input" onchange="filterFragments()">
+            <option value="all">Todas las partes (I–IV)</option>
+            <option value="Parte I">Parte I · El último filósofo (1872)</option>
+            <option value="Parte II">Parte II · Médico de la cultura (1873)</option>
+            <option value="Parte III">Parte III · Verdad y mentira (1873)</option>
+            <option value="Parte IV">Parte IV · Trabajos 1875 y Retórica</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-secondary" onclick="resetFragmentFilters()">Restablecer filtros</button>
+      </div>
+
+      <div class="theme-filter-pills" role="group" aria-label="Filtros por tema filosófico">
+        <button type="button" class="btn btn-secondary is-active" data-theme-btn="all" onclick="setThemeFilter('all')">Todos los temas</button>
+        <button type="button" class="btn btn-secondary" data-theme-btn="arte-ciencia" onclick="setThemeFilter('arte-ciencia')">Arte vs. Ciencia</button>
+        <button type="button" class="btn btn-secondary" data-theme-btn="medico" onclick="setThemeFilter('medico')">Médico de la cultura</button>
+        <button type="button" class="btn btn-secondary" data-theme-btn="lenguaje" onclick="setThemeFilter('lenguaje')">Lenguaje y metáfora</button>
+        <button type="button" class="btn btn-secondary" data-theme-btn="ilusion" onclick="setThemeFilter('ilusion')">Verdad e ilusión</button>
+        <button type="button" class="btn btn-secondary" data-theme-btn="grecia" onclick="setThemeFilter('grecia')">Grecia y Sócrates</button>
+      </div>
+
+      <div class="results-status-bar">
+        <span id="fragment-count-status" aria-live="polite">Mostrando 18 de 18 fragmentos</span>
+        <span>Orden textual de la edición</span>
+      </div>
+
+      <div class="fragments-grid" id="fragments-grid"></div>
+
+      <div class="empty-state" id="fragments-empty">
+        <h3>Ningún fragmento coincide con la búsqueda actual</h3>
+        <p>No se hallaron pasajes que correspondan simultáneamente al texto introducido y a los filtros seleccionados.</p>
+        <button type="button" class="btn btn-primary" onclick="resetFragmentFilters()">Mostrar todos los fragmentos</button>
+      </div>
+    </section>
+
+    <!-- SECTION VI: PHILOSOPHICAL FAQ & GLOSSARY -->
+    <section id="faq" class="section-block">
+      <div class="section-open">
+        <span class="section-label">Sección VI · Preguntas frecuentes y glosario</span>
+        <h2>Cuestiones filosóficas esenciales de la obra</h2>
+      </div>
+      <p>
+        Aclaraciones conceptuales sobre los problemas interpretativos más complejos de <em>El libro del filósofo</em>, seguidas de un vocabulario técnico de referencia.
+      </p>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>1. ¿Por qué sostiene Nietzsche que las verdades son «ilusiones de las que se ha olvidado que lo son»?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" hidden>
+            <p>
+              Porque el lenguaje no nace de un acceso lógico a la esencia de las cosas, sino de una necesidad práctica de convivencia social (el «tratado de paz») que obliga a usar designaciones convencionales uniformes. Cada palabra se origina mediante dos saltos metafóricos arbitrarios —de una excitación nerviosa a una imagen visual y de esta a un sonido— y se convierte en concepto solo cuando omitimos las diferencias individuales de las cosas. Al repetir este hábito durante siglos, el hombre olvida la metáfora originaria y toma el signo desgastado por realidad objetiva, como quien valora una moneda borrada únicamente por el peso de su metal.
+            </p>
+            <span class="faq-ref">Referencia: Parte III · Introducción teorética sobre la verdad y la mentira (§§ 145–150)</span>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>2. ¿En qué sentido es el filósofo un «médico de la cultura» si no puede crear una cultura popular?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" hidden>
+            <p>
+              Nietzsche constata históricamente que ningún gran filósofo griego logró arrastrar al pueblo entero tras de sí con pura filosofía; una cultura solo puede nacer alrededor de la fuerza centralizadora del mito o de una gran obra de arte. Sin embargo, el papel del filósofo es decisivo como «médico» porque actúa sobre el organismo cultural preparándolo, conservándolo o moderándolo: demuele dogmatismos estériles en la religión y las costumbres, combate la mundanización ciega y frena el instinto ilimitado de la ciencia, erigiéndose en «Tribunal Supremo de la escuela» para preparar la aparición del genio.
+            </p>
+            <span class="faq-ref">Referencia: Parte II · El filósofo como médico de la cultura (§§ 59, 170, 175)</span>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>3. ¿Qué diferencia al «filósofo del conocimiento trágico» del «filósofo del conocimiento desesperado»?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" hidden>
+            <p>
+              Ambos parten del mismo diagnóstico postkantiano: el suelo de la metafísica dogmática ha desaparecido. El filósofo del conocimiento desesperado reacciona entregándose a una ciencia ciega bajo el lema de «saber a cualquier precio», sin criterio de valor. El filósofo del conocimiento trágico, en cambio, domina el instinto desenfrenado del saber volviéndolo contra sí mismo mediante la crítica del conocimiento; no inventa una nueva fe metafísica ni cae en el escepticismo paralizante, sino que reconoce la fuerza dominante de la ilusión, devuelve sus derechos al arte y asume que la vida más elevada exige «querer incluso la ilusión».
+            </p>
+            <span class="faq-ref">Referencia: Parte I · Consideraciones sobre el conflicto del arte y del conocimiento (§§ 37, 84)</span>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>4. ¿Por qué Sócrates constituye un «corte de tijeras» en la historia de la cultura helénica?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" hidden>
+            <p>
+              Antes de Sócrates, los grandes filósofos presocráticos pertenecían a la vida helénica general y sujetaban el instinto de conocimiento en armonía con el arte trágico y el mito. Con Sócrates —y su tendencia democrático-demagógica— irrumpe la exigencia de la «verdad a cualquier precio» y una ética individualizante centrada en la felicidad personal del individuo en vez de la unidad del pueblo. Se forman sectas filosóficas aisladas, Platón es desviado de su potencial trágico hacia abstracciones como «lo bueno» y «lo justo», y la filosofía deja caer de sus manos las riendas de la ciencia.
+            </p>
+            <span class="faq-ref">Referencia: Partes I y IV (§§ 25, 31, 32, 57, 70, 175, 195)</span>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>5. ¿Qué ilustran las «figuras acústicas de Chladni» dentro del argumento nietzscheano?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" hidden>
+            <p>
+              Nietzsche utiliza las figuras geométricas que dibuja la arena sobre una placa vibrante (experimento de Chladni) en dos niveles complementarios. En el § 64 muestran la relación fisiológica oculta: las imágenes mentales conscientes son como figuras en la superficie que expresan con rigor necesario las delicadas vibraciones del sistema nervioso subyacente. En <em>Sobre verdad y mentira</em> ilustran la ilusión del lenguaje: un hombre sordo que contempla las figuras en la arena y descubre la vibración de la cuerda podría jurar que ya sabe qué es el «sonido»; del mismo modo creemos conocer los árboles, la nieve o los colores cuando solo poseemos metáforas heterogéneas respecto de las entidades originarias.
+            </p>
+            <span class="faq-ref">Referencia: Parte I (§ 64) y Parte III (Sobre verdad y mentira, § 1)</span>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>6. ¿Qué critica Nietzsche en la «historiografía icónica» de su tiempo?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" hidden>
+            <p>
+              La historiografía «icónica» pretende registrar, excavar y catalogar exhaustivamente todo acontecimiento por mínimo que sea, guiada por el dogma científico de que todo lo cognoscible merece volverse eterno. Para Nietzsche, esta omnisciencia ávida de novedades encierra barbarie porque nivela lo sublime con lo insignificante. Frente a ella reclama una «pintura histórica creadora y estimulante» que respete la escala estética, deje reposar las tumbas y hable únicamente de lo grande, único y ejemplar para inspirar la creación presente.
+            </p>
+            <span class="faq-ref">Referencia: Partes I y II (§§ 19, 22, 27, 41, 165, 175)</span>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>7. ¿Por qué afirma que «el arte es el único honesto» y superior a la verdad científica?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" hidden>
+            <p>
+              Porque la ciencia finge ingenuamente alcanzar verdades objetivas y absolutas ocultando que se apoya en metáforas fosilizadas, en relaciones puramente cuantitativas y en el aparato perceptivo humano. El arte, en cambio, no engaña sobre su carácter aparente: asume abiertamente la ficción («mentira piadosa» o juego estético compartido entre artista y espectador) y, al hacerlo, expresa de modo general la verdad trágica de que la vida humana solo es soportable y fecunda mediante la transfiguración estética y el velo de la belleza.
+            </p>
+            <span class="faq-ref">Referencia: Partes I y III (§§ 51, 52, 73, 183, 187)</span>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>8. ¿Qué papel desempeñan la retórica, la metonimia y la sinécdoque en el origen de la razón?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" hidden>
+            <p>
+              Lejos de ser un adorno tardío añadido a un lenguaje literal, la retórica es la esencia misma del lenguaje. Nietzsche demuestra que no existen «palabras propias»: toda denominación toma una cualidad parcial por el todo (sinécdoque) o sustituye causa por efecto (metonimia), como llamar a la serpiente por su torsión, al elefante «el que tiene dientes» (<em>dantín</em>) o a la casa por el techo (<em>tectum</em>). Puesto que las figuras retóricas identifican cosas no idénticas, son «silogismos falsos» —y es precisamente con ellos con los que comienza el pensamiento racional.
+            </p>
+            <span class="faq-ref">Referencia: Partes I y IV (§§ 142, 145, notas de retórica clásica)</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Glosario de conceptos fundamentales de la obra</h3>
+      <div class="table-wrap">
+        <table class="broadsheet-table">
+          <thead>
+            <tr>
+              <th>Concepto</th>
+              <th>Definición en el texto</th>
+              <th>Sección</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Cosa en sí («X»)</strong></td>
+              <td>La realidad originaria fuera del aparato perceptor humano; completamente inasequible y carente de sentido sin un sujeto mesurante.</td>
+              <td class="num-cell">§§ 101, 114, III</td>
+            </tr>
+            <tr>
+              <td><strong>Columbarium de conceptos</strong></td>
+              <td>«Sepulcro de las intuiciones»: el edificio rígido, piramidal y octogonal que la ciencia construye volatilizando metáforas vivas.</td>
+              <td class="num-cell">Parte III, 2</td>
+            </tr>
+            <tr>
+              <td><strong>Historiografía icónica</strong></td>
+              <td>Erudición niveladora que excava y eterniza lo insignificante según el grado de certeza, destruyendo la veneración de lo sublime.</td>
+              <td class="num-cell">§§ 19, 41, 175</td>
+            </tr>
+            <tr>
+              <td><strong>Metástasis de la veracidad</strong></td>
+              <td>Transposición injustificada del deber social de decir la verdad hacia un instinto absoluto de conocer todas las cosas del mundo.</td>
+              <td class="num-cell">§§ 91, 133, 134</td>
+            </tr>
+            <tr>
+              <td><strong>Sujeción unitaria</strong></td>
+              <td>Esencia de toda cultura verdadera: dominio y proporción justa de los instintos (como la «Voluntad helénica» que subordina el saber al arte).</td>
+              <td class="num-cell">§§ 30, 32, 46</td>
+            </tr>
+            <tr>
+              <td><strong>El último filósofo</strong></td>
+              <td>Figura trágica («Edipo») que soporta la soledad tras la muerte del mito y demuestra la necesidad vital del arte frente al saber ciego.</td>
+              <td class="num-cell">§§ 38, 85, 87</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-colophon">
+        <strong>Fuente del dossier:</strong> Exposición basada exclusivamente en Friedrich Nietzsche, <em>El libro del filósofo</em> (<em>Das Philosophenbuch</em>, estudios de 1872–1875 e <em>Introducción teorética sobre la verdad y la mentira en el sentido extramoral</em>, trad. Ambrosio Berasain Villanueva).
+      </div>
+      <a href="#inicio" class="footer-top-link">↑ Volver al principio</a>
+    </footer>
+  </main>
+
+  <script>
+    // Data: Metaphor-to-Concept journey (backtick template literals, no trailing commas)
+    const METAPHOR_STEPS = [
+      {
+        meta: `Paso 00 · Punto de partida inaccesible`,
+        title: `La «X» enigmática de la cosa en sí`,
+        desc: `Para Nietzsche, la «cosa en sí» —que equivaldría a la verdad pura y sin consecuencias— es completamente inasequible incluso para el creador del lenguaje. Entre el objeto externo y el sujeto cognoscente no hay ninguna relación de causalidad ni de exactitud, porque pertenecen a esferas absolutamente dispares.`,
+        example: `<strong>Ilustración del texto:</strong> El insecto o el ave perciben un mundo totalmente distinto del humano. Preguntar cuál de las dos percepciones es «más correcta» carece de sentido: exigiría medir con la «medida de la percepción exacta», es decir, con una medida inexistente.`,
+        verdict: `<strong>Implicación crítica:</strong> El conocimiento nunca capta la esencia originaria; solo registra las relaciones de las cosas con los hombres.`
+      },
+      {
+        meta: `Paso 01 · Base fisiológica`,
+        title: `La excitación nerviosa subjetiva`,
+        desc: `El contacto con el mundo exterior no nos entrega propiedades objetivas, sino estímulos nerviosos y sensaciones delicadas de placer o displacer. Concluir una causa exterior a partir de una excitación nerviosa es ya una aplicación injustificada del principio de razón.`,
+        example: `<strong>Ilustración del texto (§ III y § 54):</strong> Decimos «la piedra es dura» como si conociéramos «lo duro» independientemente de nosotros y no únicamente como una excitación subjetiva de nuestros sentidos; «el color y el sonido no pertenecen a las cosas, sino al ojo y al oído».`,
+        verdict: `<strong>Implicación crítica:</strong> El ser humano solo roza la superficie de las cosas y recibe estímulos jugando «tecleando sobre el dorso de las cosas».`
+      },
+      {
+        meta: `Paso 02 · Primera metáfora`,
+        title: `Transposición de la excitación a la Imagen`,
+        desc: `La fuerza artística originaria del organismo traduce el estímulo nervioso en una imagen visual (espejo del ojo). Este primer salto es completamente heterogéneo: una corriente nerviosa se transforma en forma espacial y contorno, omitiendo lo accesorio y reforzando rasgos principales (§ 55).`,
+        example: `<strong>Ilustración del texto (§ 64 y Parte III):</strong> Las radiaciones de la actividad nerviosa trazan imágenes en la superficie del ojo del mismo modo que el sonido dibuja las figuras geométricas de Chladni sobre la arena vibrante. Un sordo que ve las figuras en la arena cree saber qué es el sonido sin haberlo oído jamás.`,
+        verdict: `<strong>Implicación crítica:</strong> No existe una causalidad necesaria entre estímulo e imagen; la relación solo parece necesaria porque se ha repetido y heredado millones de veces como un sueño eterno.`
+      },
+      {
+        meta: `Paso 03 · Segunda metáfora`,
+        title: `Transformación de la imagen en Sonido articulado (Palabra)`,
+        desc: `La imagen visual vuelve a saltar de esfera al transformarse en un sonido articulado: nace la palabra. El creador del lenguaje recurre a metáforas audaces, sinécdoques y metonimias arbitrarias que destacan un único rasgo parcial y lo convierten en nombre del todo.`,
+        example: `<strong>Ilustraciones del texto (§ 142 y Parte III):</strong> Llamamos «serpiente» atendiendo solo al movimiento de torsión (aplicable también al gusano); asignamos género masculino al «árbol» y femenino a la «planta»; en latín se dice <em>tectum</em> (techo) por <em>domus</em> (casa), y en sánscrito al elefante «el que tiene dientes» (<em>dantín</em>).`,
+        verdict: `<strong>Implicación crítica:</strong> La comparación entre distintos idiomas demuestra que con las palabras nunca se llega a una expresión adecuada; de lo contrario, no existirían tantas lenguas.`
+      },
+      {
+        meta: `Paso 04 · El olvido y la convención social`,
+        title: `Volatilización de la metáfora en Esquema y Olvido`,
+        desc: `Cada metáfora intuitiva es única e irrepetible. Para convertirla en moneda de cambio social tras el «tratado de paz», el hombre prescinde de las diferencias individuales y disuelve la imagen viva en un concepto desteñido, frío y universal. Luego olvida que ese concepto es un residuo metafórico.`,
+        example: `<strong>Ilustración del texto:</strong> El concepto «árbol» o «hombre» nace al omitir todos los rasgos individuales reales. Las verdades terminan pareciéndose a «monedas que han perdido su imagen y que ahora entran en consideración como metal, no como tales monedas».`,
+        verdict: `<strong>Implicación crítica:</strong> El hombre llega al sentimiento de la verdad solo por inconsciencia: «miente gregariamente según un estilo obligatorio para todos» y olvida que lo hace.`
+      },
+      {
+        meta: `Paso 05 · La fortaleza conceptual`,
+        title: `El «Columbarium» de los conceptos y la Ciencia`,
+        desc: `Sobre estos esquemas volatilizados, el lenguaje primero y la ciencia después levantan un orden piramidal por castas y grados: un mundo de leyes, subordinaciones y límites rígidos como un columbarium romano, «el sepulcro de las intuiciones».`,
+        example: `<strong>Ilustración del texto:</strong> El concepto es descrito como «óseo, octogonal como un dado y como él amovible». El investigador construye su cabaña al pie de la torre de la ciencia, y admira leyes naturales que en realidad son relaciones de tiempo, espacio y número que nosotros producimos «como la araña urde su tela».`,
+        verdict: `<strong>Implicación crítica:</strong> Dentro de este juego de dados conceptual, «verdad» significa únicamente contar los puntos del dado según las reglas establecidas por el propio hombre.`
+      },
+      {
+        meta: `Paso 06 · El retorno creador`,
+        title: `Arte y Mito: el desgarramiento del entramado conceptual`,
+        desc: `El impulso fundamental a formar metáforas no muere dentro de la fortaleza científica: busca un nuevo cauce en el mito y el arte. Al forjar transposiciones inéditas, el intelecto se libera de su servidumbre práctica, confunde las celdas de los conceptos y devuelve a la vigilia la novedad encantada del sueño.`,
+        example: `<strong>Ilustración del texto:</strong> En la antigua Grecia mítica los árboles hablaban con ninfas y el ateniense veía a Atenea cruzar el mercado con Pisístrato; como en el ejemplo de Pascal del artesano que sueña cada noche que es rey, la ilusión compartida transfigura la vida.`,
+        verdict: `<strong>Implicación crítica:</strong> El placer estético enuncia la verdad trágica bajo la forma de la mentira: cuando el arte desgarra las rúbricas conceptuales, la cultura recupera su fuerza creadora.`
+      }
+    ];
+
+    // Data: Rational vs Intuitive Man comparisons
+    const COMPARE_DIMS = [
+      {
+        leftTitle: `El hombre racional: defensa mediante conceptos`,
+        leftBody: `Hace frente a las necesidades más importantes con previsión, prudencia y regularidad. Teme a la intuición repentina porque escapa al control lógico; por ello somete su conducta a abstracciones desteñidas y frías que le sirven de armadura contra la desgracia.`,
+        leftQuote: `«Se limita a defenderse de la desgracia, sin que tales abstracciones le proporcionen felicidad, mientras aspira a alcanzar la máxima liberación del dolor.»`,
+        rightTitle: `El hombre intuitivo: héroe desbordante de felicidad`,
+        rightBody: `Desprecia la abstracción fría, no mide la vida por el cálculo de necesidades y solo acepta como real la existencia enmascarada de apariencia y belleza. Cuando triunfa sobre su adversario, funda una cultura donde el arte predomina sobre la vida entera.`,
+        rightQuote: `«Obtiene de sus intuiciones, además de la defensa contra el mal, una iluminación incesantemente fluente, una expansión, una redención.»`
+      },
+      {
+        leftTitle: `Ante la desgracia: el dominio estoico`,
+        leftBody: `Instruido por la experiencia y gobernado por conceptos, busca ante todo sinceridad, verdad y liberación de los engaños; se cubre con el manto frío de la impasibilidad cuando la adversidad golpea.`,
+        leftQuote: `«¡Qué diferente es el comportamiento del estoico, del hombre instruido por la experiencia, del que se domina mediante los conceptos!»`,
+        rightTitle: `Ante la desgracia: sufrimiento sin consuelo`,
+        rightBody: `Es tan irracional en el dolor como en la felicidad. Nunca aprende de la experiencia pasada y vuelve a caer una y otra vez en la misma fosa; cuando sufre, su tormento es más intenso y frecuente.`,
+        rightQuote: `«Cierto que cuando sufre, sufre más: incluso sufre con más frecuencia… En el dolor es tan irracional como en la felicidad, grita fuertemente y no encuentra ningún consuelo.»`
+      },
+      {
+        leftTitle: `Instrumento: el concepto óseo y la tautología`,
+        leftBody: `Opera dentro del columbarium de los conceptos: clasifica, subordina y cuenta los puntos de los dados lógicos. Evita el riesgo del ensueño artístico y confía en la solidez aparente del orden científico.`,
+        leftQuote: `«El hombre vigilante solo tiene conciencia de que vigila a través del entrelazado rígido y regular de los conceptos.»`,
+        rightTitle: `Instrumento: metáforas frescas y juego estético`,
+        rightBody: `Lanza metáforas desordenadamente, desplaza los mojones de las abstracciones y juega con lo serio. Su intelecto, liberado de la triste servidumbre de buscar botín para la supervivencia, celebra sus saturnales.`,
+        rightQuote: `«El rapsoda le relata cuentos épicos como si fueran verdaderos o el actor representa en la escena al rey con rasgos más regios que en la realidad.»`
+      },
+      {
+        leftTitle: `Horizonte histórico: la era alejandrina y socrática`,
+        leftBody: `Corresponde al hombre teorético moderno y al erudito que se refugia al pie de la torre de la ciencia. Su cultura, si llega al exceso, separa el saber de la vida y convierte al conocimiento en sucedáneo de la cultura.`,
+        leftQuote: `«El investigador construye su cabaña inmediatamente al lado de la torre de la ciencia para poder colaborar en ella y encontrar protección.»`,
+        rightTitle: `Horizonte histórico: la antigua Grecia trágica`,
+        rightBody: `Cuando el hombre intuitivo maneja sus armas con triunfo, como en la antigua Grecia, surge una cultura unitaria donde el enmascaramiento y la inmediatez de la ilusión impregnan cada objeto cotidiano.`,
+        rightQuote: `«Ni la casa, ni el porte, ni el vestido, ni la jarra de arcilla indican que la necesidad les alcanzó: parece manifestarse una serenidad olímpica.»`
+      }
+    ];
+
+    // Data: Curated key fragments from the work
+    const FRAGMENTS = [
+      {
+        id: `§ 17`,
+        part: `Parte I`,
+        theme: `medico`,
+        themeLabel: `Médico de la cultura`,
+        quote: `Existe un puente invisible de un genio a otro. Esa es la verdadera «historia» real de un pueblo; todo lo demás es una variación innumerable y fantasmagórica realizada en un material peor, copias de manos inexpertas.`,
+        note: `Frente a la historia de masas, Nietzsche define la continuidad cultural como el diálogo suprahistórico entre grandes espíritus.`
+      },
+      {
+        id: `§ 20`,
+        part: `Parte I`,
+        theme: `arte-ciencia`,
+        themeLabel: `Arte vs. Ciencia`,
+        quote: `El instinto del conocimiento sin selección equivale al instinto sexual indiscriminado: signo de vulgaridad.`,
+        note: `Introduce la tesis de que el saber necesita un principio selectivo de valor que la ciencia empírica no posee por sí misma.`
+      },
+      {
+        id: `§ 24`,
+        part: `Parte I`,
+        theme: `medico`,
+        themeLabel: `Médico de la cultura`,
+        quote: `El filósofo como freno de la rueda del tiempo. Los filósofos aparecen en las épocas de gran peligro, cuando la rueda gira más veloz; ellos y el arte ocupan el lugar del mito en trance de desaparición.`,
+        note: `El pueblo consciente de sus peligros produce al genio filosófico como anticuerpo frente a la disolución cultural.`
+      },
+      {
+        id: `§ 28`,
+        part: `Parte I`,
+        theme: `arte-ciencia`,
+        themeLabel: `Arte vs. Ciencia`,
+        quote: `No se trata de anular la ciencia, sino de dominarla. Efectivamente, en todos sus objetivos y en todos sus métodos depende de intenciones filosóficas, pero fácilmente lo olvida.`,
+        note: `Aclara que Nietzsche no rechaza el rigor científico, sino su emancipación ciega respecto de fines culturales superiores.`
+      },
+      {
+        id: `§ 34`,
+        part: `Parte I`,
+        theme: `arte-ciencia`,
+        themeLabel: `Arte vs. Ciencia`,
+        quote: `La filosofía debe asegurar la cordillera espiritual a través de los siglos y la eterna fecundidad de todo lo grande. Para la ciencia no hay cosas grandes ni pequeñas, pero sí las hay para la filosofía.`,
+        note: `El criterio de magnitud y sublimidad mide el valor de las investigaciones científicas.`
+      },
+      {
+        id: `§ 37`,
+        part: `Parte I`,
+        theme: `ilusion`,
+        themeLabel: `Verdad e ilusión`,
+        quote: `El filósofo del conocimiento trágico domina el instinto desenfrenado del saber, no mediante una metafísica nueva… Al llegar a sus límites el instinto de conocimiento se vuelve contra sí mismo para acceder a la crítica del saber. Es preciso querer incluso la ilusión: en esto consiste lo trágico.`,
+        note: `Fragmento capital: opone el filósofo trágico al filósofo del conocimiento desesperado («saber a cualquier precio»).`
+      },
+      {
+        id: `§ 41`,
+        part: `Parte I`,
+        theme: `arte-ciencia`,
+        themeLabel: `Arte vs. Ciencia`,
+        quote: `Para nosotros únicamente tiene valor la escala estética: lo grande tiene derecho a la historia, pero no a una historiografía icónica, sino a una pintura histórica creadora y estimulante. Dejamos reposar las tumbas, pero nos enseñoreamos de lo eternamente vivo.`,
+        note: `Crítica directa al historicismo erudito que reduce el pasado a inventario de minucias.`
+      },
+      {
+        id: `§ 46`,
+        part: `Parte I`,
+        theme: `grecia`,
+        themeLabel: `Grecia y Sócrates`,
+        quote: `La finalidad de una cultura no consiste en la mayor felicidad posible de un pueblo, ni siquiera en el libre desarrollo de todas sus facultades, sino que se manifiesta en la proporción justa de tales desarrollos. La cultura se manifiesta en la sujeción unitaria de los instintos.`,
+        note: `Formula la noción de «Voluntad helénica» como equilibrio jerárquico entre filosofía, arte y eros.`
+      },
+      {
+        id: `§ 54`,
+        part: `Parte I`,
+        theme: `lenguaje`,
+        themeLabel: `Lenguaje y metáfora`,
+        quote: `Nuestro entendimiento es una fuerza de superficie, es superficial. Al concepto corresponde ante todo la imagen; las imágenes son pensamiento primitivo, es decir, las superficies de las cosas concentradas en el espejo del ojo. El arte descansa en la imprecisión de la visión.`,
+        note: `Vincula la teoría del conocimiento con la fisiología perceptiva: el ojo y el oído simplifican y estilizan de raíz.`
+      },
+      {
+        id: `§ 61`,
+        part: `Parte I`,
+        theme: `arte-ciencia`,
+        themeLabel: `Arte vs. Ciencia`,
+        quote: `El hecho de que una filosofía indemostrable tenga todavía un valor, en general más que una proposición científica, se funda en el valor estético de dicho filosofar. La filosofía mínimamente demostrada de Heráclito tiene un valor artístico superior a todas las proposiciones de Aristóteles.`,
+        note: `Subordina la demostración lógica a la potencia constructiva y poética de la visión filosófica.`
+      },
+      {
+        id: `§ 64`,
+        part: `Parte I`,
+        theme: `lenguaje`,
+        themeLabel: `Lenguaje y metáfora`,
+        quote: `Existen dos tipos de fuerza artística: la fuerza productora de imágenes y la selectora de las mismas. Vistas sobre una superficie, las radiaciones más delicadas de la actividad nerviosa se comportan como las figuras acústicas de Chladni respecto del mismo sonido.`,
+        note: `Establece el origen orgánico y necesario del proceso artístico en el sistema nervioso.`
+      },
+      {
+        id: `§ 73`,
+        part: `Parte I`,
+        theme: `ilusion`,
+        themeLabel: `Verdad e ilusión`,
+        quote: `Veracidad del arte: ahora es el único honesto. Así, después de un rodeo gigantesco, volvemos al comportamiento natural de los griegos. Se ha demostrado la imposibilidad de construir una cultura sobre el saber.`,
+        note: `Coloca la honestidad del arte por encima de las ciencias degradadas tras la crítica kantiana.`
+      },
+      {
+        id: `§ 87`,
+        part: `Parte I`,
+        theme: `ilusion`,
+        themeLabel: `Verdad e ilusión`,
+        quote: `EDIPO. Soliloquio del último filósofo: «Me llamo a mí mismo el último filósofo, pues soy el último hombre. Nadie sino yo habla conmigo y mi voz llega como la de un moribundo… a través de ti engaño mi soledad y me adentro en la mentira de una multiplicidad y de un amor.»`,
+        note: `Único pasaje abiertamente lírico-dramático de la parte I; encarna la soledad titánica tras la muerte de los mitos.`
+      },
+      {
+        id: `§ 142`,
+        part: `Parte I`,
+        theme: `lenguaje`,
+        themeLabel: `Lenguaje y metáfora`,
+        quote: `Todas las figuras retóricas (es decir, la esencia del lenguaje) son silogismos falsos. ¡Con ellas empieza la razón!`,
+        note: `Condensa la tesis filológica de Nietzsche: la lógica brota de transposiciones poéticas y metonímicas previas.`
+      },
+      {
+        id: `§ 150`,
+        part: `Parte I`,
+        theme: `lenguaje`,
+        themeLabel: `Lenguaje y metáfora`,
+        quote: `Todas las leyes de la naturaleza no son más que relaciones de una x a una y y a una z… En sentido riguroso, el conocimiento solo tiene la forma de la tautología y está vacío. Todo conocimiento que nos impulsa es una identificación de lo no idéntico y de lo similar, es decir, es esencialmente ilógico.`,
+        note: `Muestra cómo el concepto «árbol» o «hombre» finge identidades omitiendo lo singular.`
+      },
+      {
+        id: `§ 175`,
+        part: `Parte II`,
+        theme: `medico`,
+        themeLabel: `Médico de la cultura`,
+        quote: `Es imposible fundar en la filosofía una cultura popular. En consecuencia, en relación con una cultura la filosofía nunca puede tener una significación fundamental, sino solo accesoria: no puede crear una cultura; pero sí prepararla, o conservarla, o moderarla.`,
+        note: `Balance sistemático de la Parte II: la cultura solo brota de una obra de arte centralizadora preparada por el filósofo.`
+      },
+      {
+        id: `§ 176`,
+        part: `Parte III`,
+        theme: `ilusion`,
+        themeLabel: `Verdad e ilusión`,
+        quote: `Sin no-verdad, ni sociedad ni cultura. El conflicto trágico. Todo el bien y toda la belleza dependen de la ilusión: la verdad mata —incluso se mata a sí misma— en la medida en que reconoce que se funda en el error.`,
+        note: `Esbozo esquemático que sintetiza el núcleo paradójico de «Sobre verdad y mentira».`
+      },
+      {
+        id: `§ 195`,
+        part: `Parte IV`,
+        theme: `grecia`,
+        themeLabel: `Grecia y Sócrates`,
+        quote: `Con Empédocles y Demócrito los griegos estaban en el mejor camino para estimar correctamente la existencia humana, su sinrazón, su dolor; no llegaron a hacerlo debido a Sócrates. Sus mitos y sus tragedias son mucho más sabios que las éticas de Platón y de Aristóteles.`,
+        note: `Cierre de 1875: lamenta el «corte de tijeras» socrático que frustró la madurez trágica de Grecia.`
+      }
+    ];
+
+    let currentMetaphorStep = 0;
+    let currentThemeFilter = 'all';
+
+    function selectMetaphorStep(index) {
+      const clamped = Math.max(0, Math.min(METAPHOR_STEPS.length - 1, index));
+      currentMetaphorStep = clamped;
+      const data = METAPHOR_STEPS[clamped];
+
+      const metaEl = document.getElementById('md-meta');
+      const titleEl = document.getElementById('md-title');
+      const descEl = document.getElementById('md-desc');
+      const exEl = document.getElementById('md-example');
+      const verdictEl = document.getElementById('md-verdict');
+
+      if (metaEl) metaEl.textContent = data.meta;
+      if (titleEl) titleEl.textContent = data.title;
+      if (descEl) descEl.textContent = data.desc;
+      if (exEl) exEl.innerHTML = data.example;
+      if (verdictEl) verdictEl.innerHTML = data.verdict;
+
+      const stepBtns = document.querySelectorAll('[data-step-btn]');
+      stepBtns.forEach(function (btn) {
+        const bIndex = parseInt(btn.getAttribute('data-step-btn'), 10);
+        if (bIndex === clamped) {
+          btn.classList.add('is-active');
+        } else {
+          btn.classList.remove('is-active');
+        }
+      });
+
+      for (let i = 0; i < METAPHOR_STEPS.length; i++) {
+        const g = document.getElementById('svg-node-' + i);
+        if (!g) continue;
+        const rect = g.querySelector('rect');
+        if (!rect) continue;
+        if (i === clamped) {
+          rect.setAttribute('fill', 'var(--primary-container)');
+          rect.setAttribute('stroke', i === 6 ? 'var(--secondary)' : 'var(--primary)');
+          rect.setAttribute('stroke-width', '2.5');
+        } else {
+          rect.setAttribute('fill', 'var(--surface-container-low)');
+          rect.setAttribute('stroke', i === 6 ? 'var(--secondary)' : 'var(--outline)');
+          rect.setAttribute('stroke-width', '1.5');
+        }
+      }
+
+      const prevBtn = document.getElementById('btn-prev-step');
+      const nextBtn = document.getElementById('btn-next-step');
+      if (prevBtn) prevBtn.disabled = clamped === 0;
+      if (nextBtn) nextBtn.disabled = clamped === METAPHOR_STEPS.length - 1;
+    }
+
+    function stepMetaphor(delta) {
+      selectMetaphorStep(currentMetaphorStep + delta);
+    }
+
+    function selectCompareDim(index) {
+      const data = COMPARE_DIMS[index];
+      if (!data) return;
+
+      const lt = document.getElementById('cmp-left-title');
+      const lb = document.getElementById('cmp-left-body');
+      const lq = document.getElementById('cmp-left-quote');
+      const rt = document.getElementById('cmp-right-title');
+      const rb = document.getElementById('cmp-right-body');
+      const rq = document.getElementById('cmp-right-quote');
+
+      if (lt) lt.textContent = data.leftTitle;
+      if (lb) lb.textContent = data.leftBody;
+      if (lq) lq.textContent = data.leftQuote;
+      if (rt) rt.textContent = data.rightTitle;
+      if (rb) rb.textContent = data.rightBody;
+      if (rq) rq.textContent = data.rightQuote;
+
+      const btns = document.querySelectorAll('[data-cmp-btn]');
+      btns.forEach(function (btn) {
+        const bIndex = parseInt(btn.getAttribute('data-cmp-btn'), 10);
+        if (bIndex === index) {
+          btn.classList.add('is-active');
+        } else {
+          btn.classList.remove('is-active');
+        }
+      });
+    }
+
+    function setThemeFilter(theme) {
+      currentThemeFilter = theme;
+      const btns = document.querySelectorAll('[data-theme-btn]');
+      btns.forEach(function (btn) {
+        if (btn.getAttribute('data-theme-btn') === theme) {
+          btn.classList.add('is-active');
+        } else {
+          btn.classList.remove('is-active');
+        }
+      });
+      filterFragments();
+    }
+
+    function resetFragmentFilters() {
+      const searchEl = document.getElementById('fragment-search');
+      const partEl = document.getElementById('fragment-part-select');
+      if (searchEl) searchEl.value = '';
+      if (partEl) partEl.value = 'all';
+      setThemeFilter('all');
+    }
+
+    function normalizeText(str) {
+      return str
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function filterFragments() {
+      const searchEl = document.getElementById('fragment-search');
+      const partEl = document.getElementById('fragment-part-select');
+      const gridEl = document.getElementById('fragments-grid');
+      const statusEl = document.getElementById('fragment-count-status');
+      const emptyEl = document.getElementById('fragments-empty');
+
+      if (!gridEl) return;
+
+      const query = searchEl ? normalizeText(searchEl.value.trim()) : '';
+      const partFilter = partEl ? partEl.value : 'all';
+
+      const matches = FRAGMENTS.filter(function (item) {
+        const themeOk = currentThemeFilter === 'all' || item.theme === currentThemeFilter;
+        const partOk = partFilter === 'all' || item.part === partFilter;
+        const haystack = normalizeText(item.id + ' ' + item.part + ' ' + item.themeLabel + ' ' + item.quote + ' ' + item.note);
+        const searchOk = query === '' || haystack.indexOf(query) !== -1;
+        return themeOk && partOk && searchOk;
+      });
+
+      if (statusEl) {
+        statusEl.textContent = `Mostrando ${matches.length} de ${FRAGMENTS.length} fragmentos`;
+      }
+
+      if (matches.length === 0) {
+        gridEl.innerHTML = '';
+        if (emptyEl) emptyEl.classList.add('is-visible');
+        return;
+      }
+
+      if (emptyEl) emptyEl.classList.remove('is-visible');
+
+      const html = matches.map(function (item) {
+        return `<article class="fragment-card">
+          <div>
+            <div class="fragment-head">
+              <span class="fragment-id">${item.id}</span>
+              <span class="fragment-part">${item.part}</span>
+            </div>
+            <span class="tag">${item.themeLabel}</span>
+            <p class="fragment-quote">«${item.quote}»</p>
+          </div>
+          <div class="fragment-note">
+            <strong>Clave:</strong> ${item.note}
+          </div>
+        </article>`;
+      }).join('');
+
+      gridEl.innerHTML = html;
+    }
+
+    function toggleFaq(btn) {
+      if (!btn) return;
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      const nextState = !expanded;
+      btn.setAttribute('aria-expanded', nextState ? 'true' : 'false');
+
+      const icon = btn.querySelector('.faq-icon');
+      if (icon) {
+        icon.textContent = nextState ? '−' : '+';
+      }
+
+      const answer = btn.nextElementSibling;
+      if (answer) {
+        if (nextState) {
+          answer.removeAttribute('hidden');
+        } else {
+          answer.setAttribute('hidden', '');
+        }
+      }
+    }
+
+    // Keyboard activation for SVG nodes
+    document.addEventListener('DOMContentLoaded', function () {
+      selectMetaphorStep(0);
+      selectCompareDim(0);
+      filterFragments();
+
+      const svgNodes = document.querySelectorAll('.svg-node');
+      svgNodes.forEach(function (node) {
+        node.addEventListener('keydown', function (ev) {
+          if (ev.key === 'Enter' || ev.key === ' ') {
+            ev.preventDefault();
+            const idStr = node.getAttribute('id') || '';
+            const num = parseInt(idStr.replace('svg-node-', ''), 10);
+            if (!isNaN(num)) {
+              selectMetaphorStep(num);
+            }
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

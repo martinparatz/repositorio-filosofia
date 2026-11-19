@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>La genealogía de la moral — Base de conocimientos interactiva</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      /* Ink */
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      /* Rules */
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      /* Accents */
+      --primary: #990f3d;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      /* Fonts */
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* Shared semantic & focus tokens */
+      --positive: #1d6b42;
+      --positive-container: #e2efe7;
+      --warning: #8a5308;
+      --focus: #990f3d;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.5rem, 1.4rem + 4vw, 4.4rem);
+      --headline-size: clamp(1.75rem, 1.25rem + 1.9vw, 2.5rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.55vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.15rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      font-optical-sizing: auto;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-xl);
+      padding: var(--space-lg) var(--space-xl) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      margin: 0;
+      color: var(--on-surface);
+    }
+    h1 {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+    }
+    h2 {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.2;
+    }
+    h4 {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 66ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .lede {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 58ch;
+      margin-top: var(--space-md);
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+    }
+
+    .tag-claret {
+      color: var(--primary);
+    }
+
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    .small-note {
+      font-family: var(--font-label);
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
+      line-height: 1.45;
+    }
+
+    /* Masthead (Defining Treatment #1 - once on opening block only) */
+    .masthead-wrap {
+      padding-top: var(--space-sm);
+    }
+    .masthead-line {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm) var(--space-lg);
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+
+    /* Index navigation strip */
+    .index-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      border-bottom: var(--rule-column);
+      padding-block: var(--space-sm);
+    }
+    .index-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .index-links li {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-md);
+    }
+    .index-links li:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .nav-link {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      border-bottom: 2px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .progress-readout {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    /* Ruled columns (Defining Treatment #3) */
+    .columns {
+      display: flex;
+      gap: 0;
+    }
+    .columns > * {
+      flex: 1 1 0;
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    .key-figure-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .key-figure-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+      line-height: 1.1;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      display: block;
+    }
+    .key-figure-note {
+      font-family: var(--font-label);
+      font-size: 0.85rem;
+      color: var(--secondary);
+      font-weight: 600;
+      margin-top: var(--space-xs);
+      display: block;
+    }
+
+    /* Section openings (Defining Treatment #4) */
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-lg);
+      margin-top: var(--space-md);
+    }
+    .section-header-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+      margin-bottom: var(--space-lg);
+    }
+    .section-meta-col {
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+    }
+
+    /* Narrative + Interactive split grid */
+    .editorial-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.15fr);
+      gap: var(--space-xl);
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+    .editorial-split-wide {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr);
+      gap: var(--space-xl);
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+
+    /* Pull quotes */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-md) 0;
+      margin: var(--space-lg) 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.55rem);
+      line-height: 1.35;
+      color: var(--on-surface);
+    }
+    .pull-quote cite {
+      display: block;
+      margin-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    /* Interactive surfaces & controls */
+    .workbench {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg) 0;
+    }
+    .filled-panel {
+      background-color: var(--surface-container-low);
+      border: 1px solid var(--outline);
+      padding: var(--space-lg);
+    }
+    .filled-panel-strong {
+      background-color: var(--surface-container);
+      border: 1px solid var(--outline);
+      padding: var(--space-lg);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.65rem 1rem;
+      min-height: 44px;
+      border-radius: var(--rounded);
+      border: 1px solid var(--outline);
+      background-color: var(--background);
+      color: var(--on-surface);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover {
+      background-color: var(--surface-container-high);
+    }
+    .btn.is-active, .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+    }
+    .btn-secondary {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-secondary:hover {
+      background-color: var(--surface-container-high);
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Tables (Broadsheet rules: top/bottom ink rules, hairlines between rows, no vertical rules, no zebra) */
+    .broadsheet-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: var(--space-md);
+    }
+    table.broadsheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-section);
+      text-align: left;
+    }
+    table.broadsheet-table th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      border-bottom: var(--rule-ink);
+      vertical-align: bottom;
+    }
+    table.broadsheet-table td {
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+    table.broadsheet-table tr:last-child td {
+      border-bottom: 0;
+    }
+    table.broadsheet-table tr.row-highlight td {
+      background-color: var(--primary-container);
+    }
+    .num-col {
+      text-align: right;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    /* Interactive Detail Display */
+    .detail-box {
+      border-left: 3px solid var(--primary);
+      padding: var(--space-sm) 0 var(--space-sm) var(--space-md);
+      margin-top: var(--space-md);
+    }
+    .detail-box-teal {
+      border-left: 3px solid var(--secondary);
+      padding: var(--space-sm) 0 var(--space-sm) var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    /* SVG Diagram frame */
+    .diagram-well {
+      border-top: var(--rule-column);
+      border-bottom: var(--rule-column);
+      padding: var(--space-md) 0;
+      margin: var(--space-md) 0;
+      background: transparent;
+    }
+    .diagram-well svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Collapsible secondary reading */
+    details.editorial-note {
+      border-top: var(--rule-column);
+      border-bottom: var(--rule-column);
+      padding: var(--space-sm) 0;
+      margin-top: var(--space-md);
+    }
+    details.editorial-note summary {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      cursor: pointer;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      list-style: none;
+    }
+    details.editorial-note summary::-webkit-details-marker { display: none; }
+    details.editorial-note .details-body {
+      padding-top: var(--space-sm);
+      padding-bottom: var(--space-xs);
+      color: var(--on-surface-variant);
+      font-size: 0.98rem;
+    }
+
+    /* Quiz & Synthesis Form */
+    .quiz-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+    .quiz-question-block {
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+    .quiz-question-block:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .quiz-opt {
+      text-align: left;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.45;
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      border: 1px solid var(--outline);
+      background-color: var(--background);
+      color: var(--on-surface);
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-opt:hover:not(:disabled) {
+      background-color: var(--surface-container-low);
+    }
+    .quiz-opt.is-correct {
+      background-color: var(--positive-container);
+      border-color: var(--positive);
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+    .quiz-opt.is-wrong {
+      background-color: var(--primary-container);
+      border-color: var(--error);
+      color: var(--on-primary-container);
+    }
+    .quiz-feedback {
+      margin-top: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      border-left: 3px solid var(--outline);
+      background-color: var(--surface-container-low);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .quiz-feedback.feedback-ok {
+      border-left-color: var(--positive);
+    }
+    .quiz-feedback.feedback-err {
+      border-left-color: var(--error);
+    }
+
+    /* Form inputs */
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    textarea.broadsheet-input, select.broadsheet-input {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--on-surface);
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      width: 100%;
+    }
+    select.broadsheet-input {
+      padding-right: 2.2rem;
+      min-height: 44px;
+    }
+    textarea.broadsheet-input:focus, select.broadsheet-input:focus {
+      border-color: var(--primary);
+    }
+
+    /* Checklist toggle rows */
+    .mastery-list {
+      display: grid;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .mastery-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-sm);
+    }
+    .status-msg {
+      font-family: var(--font-label);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      min-height: 1.3em;
+      margin-top: var(--space-xs);
+    }
+
+    /* Container queries for interactive cards */
+    .card-wrapper { container-type: inline-size; }
+    .split-inner {
+      display: grid;
+      gap: var(--space-md);
+    }
+    @container (min-width: 480px) {
+      .split-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @container (max-width: 479px) {
+      .split-inner { grid-template-columns: 1fr; }
+    }
+
+    /* Reveal animation */
+    .reveal-section {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+    .reveal-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Footer */
+    footer.colophon {
+      border-top: var(--rule-section);
+      padding-top: var(--space-lg);
+      margin-top: var(--space-xl);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-lg);
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 860px) {
+      .section-header-grid,
+      .editorial-split,
+      .editorial-split-wide,
+      .quiz-grid {
+        grid-template-columns: 1fr;
+      }
+      .section-meta-col {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding-left: 0;
+        padding-top: var(--space-md);
+      }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: 1fr;
+        padding: var(--space-md);
+      }
+      .columns {
+        flex-direction: column;
+      }
+      .columns > * {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-md) 0;
+      }
+      .columns > :first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .index-links li {
+        border-left: 0;
+        padding: 0 var(--space-sm) 0 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-section {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- MASTHEAD -->
+    <header class="masthead-wrap">
+      <div class="masthead-line">
+        <span>Sils-Maria, Alta Engadina · Julio de 1887</span>
+        <span>Zur Genealogie der Moral: Eine Streitschrift · Base de conocimientos</span>
+      </div>
+      <div class="masthead">
+        <span class="tag">Edición analítica de estudio · Traducción de Andrés Sánchez Pascual</span>
+        <h1>La genealogía de la moral</h1>
+        <p class="lede">
+          Un escrito polémico en tres tratados donde Friedrich Nietzsche aplica su psicología de la voluntad de poder y el método histórico-filológico para poner en entredicho el valor mismo de los valores morales heredados.
+        </p>
+      </div>
+
+      <!-- FLUID INDEX NAVIGATION -->
+      <nav class="index-nav" aria-label="Navegación por la obra">
+        <ul class="index-links">
+          <li><a class="nav-link active" href="#prologo" data-nav="prologo">Prólogo y método</a></li>
+          <li><a class="nav-link" href="#tratado-1" data-nav="tratado-1">I. Bueno y malvado</a></li>
+          <li><a class="nav-link" href="#tratado-2" data-nav="tratado-2">II. Culpa y mala conciencia</a></li>
+          <li><a class="nav-link" href="#tratado-3" data-nav="tratado-3">III. Ideales ascéticos</a></li>
+          <li><a class="nav-link" href="#evaluacion" data-nav="evaluacion">Síntesis y evaluación</a></li>
+        </ul>
+        <div class="progress-readout" id="global-progress">
+          Tratados asimilados: 0/3 · Evaluación: 0/8
+        </div>
+      </nav>
+    </header>
+
+    <!-- KEY METRICS / STRUCTURAL OVERVIEW -->
+    <section aria-label="Panorama estructural de la obra">
+      <div class="columns">
+        <div>
+          <span class="key-figure-label">Arquitectura polémica</span>
+          <span class="key-figure-value">3 Tratados</span>
+          <span class="key-figure-note">De un inicio frío e irónico al «tempo feroce»</span>
+        </div>
+        <div>
+          <span class="key-figure-label">Eje histórico</span>
+          <span class="key-figure-value">2.000 años</span>
+          <span class="key-figure-note">Rebelión de los esclavos en la moral hasta hoy</span>
+        </div>
+        <div>
+          <span class="key-figure-label">Clave hermenéutica</span>
+          <span class="key-figure-value">Schuld / Böse</span>
+          <span class="key-figure-note">Deuda material y maldad frente a «malo» (schlecht)</span>
+        </div>
+        <div>
+          <span class="key-figure-label">Diagnóstico final</span>
+          <span class="key-figure-value">Horror vacui</span>
+          <span class="key-figure-note">«Querer la nada antes que no querer»</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRÓLOGO Y MÉTODO -->
+    <section id="prologo" class="section-open reveal-section">
+      <div class="section-header-grid">
+        <div>
+          <span class="section-label">Introducción y Prólogo (§§ 1–8)</span>
+          <h2>El color «gris» de la historia efectiva frente a las hipótesis «azules»</h2>
+        </div>
+        <div class="section-meta-col">
+          <span class="tag">Escuela de la sospecha</span>
+          <p class="small-note">
+            Nietzsche exige «rumiar» la lectura y abandonar la creencia acrítica en la verdad moral heredada, confrontando a Paul Rée y a su maestro Arthur Schopenhauer.
+          </p>
+        </div>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            «Nosotros los que conocemos somos desconocidos para nosotros mismos.» Con esta paradoja inaugura Nietzsche una obra que, según su propia autocrítica en <em>Ecce Homo</em>, constituye «tres decisivos trabajos preliminares de un psicólogo para una transvaloración de todos los valores». A diferencia de sus colecciones de aforismos anteriores como <em>Humano, demasiado humano</em>, aquí persigue sistemáticamente tres problemas hasta sus últimos escondrijos.
+          </p>
+          <p>
+            Frente a los genealogistas ingleses y al libro <em>El origen de los sentimientos morales</em> (1877) del doctor Paul Rée —cuyas hipótesis «se pierden en el azul del cielo» al derivar la moral de la utilidad olvidada o de la compasión—, Nietzsche reivindica el color <strong>gris</strong>: lo fundado en documentos, lo efectivamente existido, «la difícilmente descifrable escritura jeroglífica del pasado de la moral humana».
+          </p>
+          <p>
+            El objetivo último no es meramente histórico, sino axiológico: cuestionar el valor de lo «bueno» y de la compasión divinizada por Schopenhauer. ¿Y si la moral vigente fuese un síntoma de retroceso, un narcótico que hace vivir al presente a costa de la magnificencia futura del tipo hombre?
+          </p>
+        </div>
+
+        <!-- INTERACTIVE MODULE 0: LENTE GENEALÓGICA -->
+        <div class="workbench" aria-label="Explorador comparativo entre psicología inglesa y genealogía nietzscheana">
+          <span class="section-label">Módulo interactivo · Lente metodológica</span>
+          <h3>Contraste de enfoques: «El Azul» vs. «El Gris»</h3>
+          <p class="small-note">Seleccione una noción moral para contrastar la lectura tradicional o inglesa con la sospecha genealógica de Nietzsche.</p>
+
+          <div class="btn-row" role="group" aria-label="Nociones morales del Prólogo">
+            <button type="button" class="btn is-active" data-prolog-key="bien" onclick="selectPrologLens('bien')">Lo «Bueno»</button>
+            <button type="button" class="btn" data-prolog-key="compasion" onclick="selectPrologLens('compasion')">La Compasión</button>
+            <button type="button" class="btn" data-prolog-key="pena" onclick="selectPrologLens('pena')">La Pena</button>
+            <button type="button" class="btn" data-prolog-key="verdad" onclick="selectPrologLens('verdad')">La Verdad</button>
+          </div>
+
+          <div class="card-wrapper">
+            <div class="split-inner" id="prolog-lens-output">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <blockquote class="pull-quote">
+        «Necesitamos una crítica de los valores morales, hay que poner alguna vez en entredicho el valor mismo de esos valores —y para esto se necesita tener conocimiento de las condiciones y circunstancias de que aquéllos surgieron.»
+        <cite>Prólogo, § 6 · Julio de 1887</cite>
+      </blockquote>
+    </section>
+
+    <!-- TRATADO PRIMERO -->
+    <section id="tratado-1" class="section-open reveal-section">
+      <div class="section-header-grid">
+        <div>
+          <span class="section-label">Tratado Primero · §§ 1–16</span>
+          <h2>«Bueno y malvado», «bueno y malo»: la rebelión de los esclavos en la moral</h2>
+        </div>
+        <div class="section-meta-col">
+          <span class="tag">Psicología del cristianismo</span>
+          <p class="small-note">
+            Etimología de las lenguas, el <em>pathos de la distancia</em> aristocrático y la inversión de valores nacida del resentimiento sacerdotal.
+          </p>
+        </div>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            El Tratado Primero arranca con ironía hacia los «psicólogos ingleses», esas «ranas viejas, frías, aburridas» que atribuyen el juicio «bueno» a quienes <em>recibieron</em> acciones útiles no egoístas y luego olvidaron ese origen. Nietzsche señala un doble error: histórico y psicológico. Si la utilidad de tales acciones fuese cotidiana, jamás habría podido olvidarse (como advirtió con mayor coherencia Herbert Spencer, aunque equivocándose igualmente).
+          </p>
+          <p>
+            La verdadera fuente del valor brota del <strong>pathos de la distancia</strong>: fueron los propios nobles, los poderosos y señores quienes se autodenominaron «buenos» (<em>gut</em>) por una afirmación triunfante de su rango y plenitud vital, llamando «malo» (<em>schlecht</em>) —como mero contraste secundario— a lo simple, bajo y plebeyo.
+          </p>
+          <p>
+            La ruptura ocurre cuando la casta sacerdotal —impotente frente a la fuerza guerrera y afectada por hábitos sedentarios y neurastenia— incuba un odio sublime y espiritualizado. El resentimiento se vuelve creador e invierte la ecuación aristocrática: lo que antes era «bueno» (fuerte, vital, poderoso) es rebautizado como <strong>«malvado»</strong> (<em>böse</em>), mientras el débil, el pobre y el indigente pasan a ser los únicos «buenos». Para Nietzsche, el cristianismo hereda y corona esa transvaloración judía bajo el signo de la cruz.
+          </p>
+        </div>
+
+        <!-- INTERACTIVE MODULE 1A: CARTOGRAFÍA ETIMOLÓGICA -->
+        <div class="workbench">
+          <span class="section-label">Módulo interactivo 1 · Filología genealógica</span>
+          <h3>Metamorfosis etimológica de los valores</h3>
+          <p class="small-note">Explore cómo las lenguas conservan el rastro de la preeminencia política convertida en superioridad anímica.</p>
+
+          <div class="btn-row" role="group" aria-label="Raíces etimológicas">
+            <button type="button" class="btn is-active" data-etym-key="schlecht" onclick="selectEtymology('schlecht')">Schlecht vs. Böse</button>
+            <button type="button" class="btn" data-etym-key="teognis" onclick="selectEtymology('teognis')">Griego (Teognis)</button>
+            <button type="button" class="btn" data-etym-key="bonus" onclick="selectEtymology('bonus')">Latín: Bonus</button>
+            <button type="button" class="btn" data-etym-key="malus" onclick="selectEtymology('malus')">Malus / Fin</button>
+            <button type="button" class="btn" data-etym-key="puro" onclick="selectEtymology('puro')">Puro / Impuro</button>
+          </div>
+
+          <div id="etymology-output" class="filled-panel">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE MODULE 1B: SIMULADOR DE INVERSIÓN DE VALORES Y COMPARATIVA -->
+      <div class="workbench" style="margin-top: var(--space-xl);">
+        <span class="section-label">Esquema comparativo e interactivo · Tratado I</span>
+        <h3>Dinámica de la inversión axiológica: Señores vs. Esclavos</h3>
+        <p class="small-note">Recorra los tres estadios de la transvaloración para observar cómo cambia la dirección de la mirada valorativa y la estructura de los conceptos.</p>
+
+        <div class="btn-row" role="group" aria-label="Estadios de la inversión moral">
+          <button type="button" class="btn is-active" data-trans-stage="0" onclick="setTransStage(0)">1. Moral de Señores (Original)</button>
+          <button type="button" class="btn" data-trans-stage="1" onclick="setTransStage(1)">2. Casta Sacerdotal (Escisión)</button>
+          <button type="button" class="btn" data-trans-stage="2" onclick="setTransStage(2)">3. Rebelión de los Esclavos (Inversión)</button>
+        </div>
+
+        <div class="editorial-split-wide" style="margin-top: var(--space-md);">
+          <div>
+            <div class="diagram-well" id="trans-diagram-wrap">
+              <!-- Dynamic SVG rendered via JS -->
+            </div>
+            <div id="trans-stage-detail" class="detail-box">
+              <!-- Dynamic explanation -->
+            </div>
+          </div>
+
+          <div class="broadsheet-table-wrap">
+            <table class="broadsheet-table" aria-label="Comparación entre moral de señores y moral de esclavos">
+              <thead>
+                <tr>
+                  <th>Dimensión</th>
+                  <th>Moral Noble (Señores)</th>
+                  <th>Moral del Resentimiento (Esclavos)</th>
+                </tr>
+              </thead>
+              <tbody id="trans-table-body">
+                <tr data-row-stage="0">
+                  <td><strong>Acto originario</strong></td>
+                  <td>Afirmación espontánea: un triunfante «sí» a sí mismo desde la plenitud.</td>
+                  <td>Negación previa: un «no» dicho a un «fuera», a un «otro», a un «no-yo».</td>
+                </tr>
+                <tr data-row-stage="0">
+                  <td><strong>Concepto primario</strong></td>
+                  <td><em>Bueno</em> (<em>gut</em> = noble, poderoso, veraz, bello, feliz).</td>
+                  <td><em>Malvado</em> (<em>böse</em> = el enemigo temido, el poderoso visto con rencor).</td>
+                </tr>
+                <tr data-row-stage="2">
+                  <td><strong>Concepto derivado</strong></td>
+                  <td><em>Malo</em> (<em>schlecht</em> = simple, vulgar; contraste pálido con lástima).</td>
+                  <td><em>Bueno</em> (<em>gut</em> = el miserable, manso e impotente, como antítesis póstuma).</td>
+                </tr>
+                <tr data-row-stage="1">
+                  <td><strong>Relación con la acción</strong></td>
+                  <td>Actividad y felicidad son inseparables (<em>εὐπράττειν</em>); descarga inmediata.</td>
+                  <td>Reacción vedada; venganza imaginaria, prudencia calculadora, ocultamiento.</td>
+                </tr>
+                <tr data-row-stage="2">
+                  <td><strong>Noción de felicidad</strong></td>
+                  <td>Salud desbordante, aventura, respeto por el enemigo digno.</td>
+                  <td>Narcosis, quietud, paz, «sábado», distensión pasiva del ánimo.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRATADO SEGUNDO -->
+    <section id="tratado-2" class="section-open reveal-section">
+      <div class="section-header-grid">
+        <div>
+          <span class="section-label">Tratado Segundo · §§ 1–25</span>
+          <h2>«Culpa», «mala conciencia» y similares: de la deuda material al tormento interior</h2>
+        </div>
+        <div class="section-meta-col">
+          <span class="tag">Psicología de la conciencia</span>
+          <p class="small-note">
+            La conciencia no es «la voz de Dios en el hombre», sino el instinto de crueldad replegado hacia dentro tras el encierro en el Estado.
+          </p>
+        </div>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            ¿Cómo criar un animal al que le sea lícito hacer promesas? Para Nietzsche, el hombre es por naturaleza olvidadizo: la <strong>capacidad de olvido</strong> no es inercia, sino una fuerza activa de inhibición («asimilación anímica») indispensable para el orden interior y la jovialidad. Para instaurar una «memoria de la voluntad», la humanidad recurrió a la mnemotécnica del dolor: «para que algo permanezca en la memoria se lo grava a fuego».
+          </p>
+          <p>
+            Sobre esa base, Nietzsche resuelve el enigma de la <strong>culpa (<em>Schuld</em>)</strong> recurriendo a su doble sentido alemán: <em>Schuld</em> significa originariamente <strong>deuda material (<em>Schulden</em>)</strong>. En la relación contractual entre acreedor y deudor, la equivalencia entre perjuicio y dolor otorgaba al acreedor el derecho a ejercer la crueldad como compensación festiva.
+          </p>
+          <p>
+            La <strong>mala conciencia</strong> aparece con un salto brusco y violento: cuando una «horda de rubios animales de presa» encierra a una población semisalvaje en el «sortilegio de la sociedad y de la paz» (el <strong>Estado</strong> más antiguo). Impedidos de descargar hacia fuera sus pulsiones de agresión, persecución y cambio, los hombres las descargan contra sí mismos: así nace la <em>interiorización</em> y esa profunda dolencia que Nietzsche compara con el embarazo.
+          </p>
+        </div>
+
+        <!-- INTERACTIVE MODULE 2: MECANISMO CAUSAL DE LA MALA CONCIENCIA -->
+        <div class="workbench">
+          <span class="section-label">Módulo interactivo 2 · Mecanismo genealógico</span>
+          <h3>Génesis de la interioridad y la deuda infinita</h3>
+          <p class="small-note">Avance paso a paso para observar cómo una relación económica y corporal se transforma en teología del automartirio.</p>
+
+          <div class="btn-row" role="group" aria-label="Pasos de la génesis de la mala conciencia">
+            <button type="button" class="btn is-active" data-t2-step="0" onclick="setT2Step(0)">1. Olvido y Dolor</button>
+            <button type="button" class="btn" data-t2-step="1" onclick="setT2Step(1)">2. Acreedor / Deudor</button>
+            <button type="button" class="btn" data-t2-step="2" onclick="setT2Step(2)">3. Estado e Interiorización</button>
+            <button type="button" class="btn" data-t2-step="3" onclick="setT2Step(3)">4. Dios y Ateísmo</button>
+          </div>
+
+          <div class="diagram-well" id="t2-diagram-wrap">
+            <!-- Dynamic SVG rendered via JS -->
+          </div>
+
+          <div id="t2-step-output" class="filled-panel">
+            <!-- Dynamic text rendered via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPARATIVE TABLE: PENA Y CULPA -->
+      <div style="margin-top: var(--space-xl);">
+        <span class="section-label">Esquema comparativo · Tratado II (§§ 12–15)</span>
+        <h3>Deslinde histórico entre el origen de la pena y su finalidad moralizada</h3>
+        <div class="broadsheet-table-wrap">
+          <table class="broadsheet-table" aria-label="Comparativa sobre el origen y efecto de la pena">
+            <thead>
+              <tr>
+                <th>Aspecto analizado</th>
+                <th>Error de los genealogistas previos</th>
+                <th>Tesis genealógica de Nietzsche</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Causa productiva vs. utilidad</strong></td>
+                <td>Confunden la finalidad actual (intimidar, reformar) con la <em>causa fiendi</em> de la pena.</td>
+                <td>Origen y finalidad están <em>toto coelo</em> separados: una institución preexistente es reinterpretada por nuevas voluntades de poder.</td>
+              </tr>
+              <tr>
+                <td><strong>Libertad y responsabilidad</strong></td>
+                <td>Suponen que se castigó porque «el reo habría podido actuar de otro modo».</td>
+                <td>Durante milenios se castigó por cólera ante el daño, sin presupuestos morales; el criminal era visto como «fragmento de fatalidad».</td>
+              </tr>
+              <tr>
+                <td><strong>Efecto psicológico real</strong></td>
+                <td>Creen que la pena despierta el remordimiento («gusano roedor» de la mala conciencia).</td>
+                <td>La pena endurece, enfría y vuelve cauto (Spinoza: el <em>morsus conscientiae</em> es mera tristeza ante un contratiempo, no culpa moral).</td>
+              </tr>
+              <tr>
+                <td><strong>Deuda ante los dioses</strong></td>
+                <td>Asumen la existencia de Dios como presupuesto natural de la conciencia moral.</td>
+                <td>La deuda con los antepasados funda a los dioses; el Dios único cristiano representa la deuda impagable y el ateísmo abre una «segunda inocencia» (<em>Unschuld</em>).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <details class="editorial-note">
+        <summary>Nota filológica: El cierre del Tratado Segundo y el paso a Zaratustra</summary>
+        <div class="details-body">
+          <p>
+            Aunque Nietzsche apunta que la decadencia de la fe en el Dios cristiano podría liberar a la humanidad de la deuda con su <em>causa prima</em> (el ateísmo como segunda inocencia), advierte en los §§ 21–22 que la realidad es más sombría: la moralización de la deuda dentro de la mala conciencia ha convertido los instintos animales en rebelión contra Dios y en instrumento de autotortura. En el § 25 calla abruptamente, reservando la superación futura a «Zaratustra el ateo».
+          </p>
+        </div>
+      </details>
+    </section>
+
+    <!-- TRATADO TERCERO -->
+    <section id="tratado-3" class="section-open reveal-section">
+      <div class="section-header-grid">
+        <div>
+          <span class="section-label">Tratado Tercero · §§ 1–28</span>
+          <h2>¿Qué significan los ideales ascéticos? El enigma de querer incluso la nada</h2>
+        </div>
+        <div class="section-meta-col">
+          <span class="tag">Faute de mieux</span>
+          <p class="small-note">
+            El tratado más extenso e importante: descifra el poder del sacerdote ascético y revela que la ciencia moderna sigue siendo su aliada secreta.
+          </p>
+        </div>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            «Despreocupados, irónicos, violentos — así nos quiere la sabiduría.» Frente a esa divisa de Zaratustra, el ideal ascético parece una monstruosa autocontradicción: <em>vida contra vida</em>. Sin embargo, Nietzsche demuestra que fisiológicamente eso sería un sinsentido. El ideal ascético nace del <strong>instinto de protección y salud de una vida que degenera</strong>: es una estratagema para conservar atado a la existencia al «animal enfermo».
+          </p>
+          <p>
+            ¿Por qué ha reinado casi sin rival? Porque el hombre sufre de la <strong>falta de sentido de su sufrimiento</strong>. El sacerdote ascético ofrece al doliente una explicación —«tú mismo eres el culpable de tu dolor»— y reorienta su resentimiento hacia dentro, transformando la mala conciencia animal en <strong>pecado</strong>. Es un médico que envenena las heridas al curarlas, pero que cierra la puerta al nihilismo suicida.
+          </p>
+          <p>
+            La revelación más inquietante del tratado llega al final: ni siquiera la <strong>ciencia moderna</strong> constituye el antagonista de este ideal. Ambos comparten la misma fe incondicional y acrítica en el valor absoluto de la verdad. Sólo el <strong>arte</strong> —que santifica la ilusión y la mentira con buena conciencia, como vio Platón al combatir a Homero— se opone radicalmente al ascetismo.
+          </p>
+        </div>
+
+        <!-- INTERACTIVE MODULE 3: DIAGNÓSTICO DE ARQUETIPOS -->
+        <div class="workbench">
+          <span class="section-label">Módulo interactivo 3 · Psicología de los tipos</span>
+          <h3>¿Qué significa el ideal ascético en cada figura?</h3>
+          <p class="small-note">Seleccione un arquetipo del Tratado III para examinar su función, su contradicción interna y los recursos del sacerdote.</p>
+
+          <div class="btn-row" role="group" aria-label="Figuras del Tratado Tercero">
+            <button type="button" class="btn is-active" data-t3-type="artista" onclick="selectT3Type('artista')">Artistas (Wagner)</button>
+            <button type="button" class="btn" data-t3-type="filosofo" onclick="selectT3Type('filosofo')">Filósofos (La larva)</button>
+            <button type="button" class="btn" data-t3-type="mayoria" onclick="selectT3Type('mayoria')">Mayoría enferma</button>
+            <button type="button" class="btn" data-t3-type="sacerdote" onclick="selectT3Type('sacerdote')">Sacerdote ascético</button>
+            <button type="button" class="btn" data-t3-type="ciencia" onclick="selectT3Type('ciencia')">Ciencia moderna</button>
+          </div>
+
+          <div id="t3-type-output" class="filled-panel">
+            <!-- Dynamic content via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPARATIVE MATRIX: IDEAL ASCÉTICO, CIENCIA Y ARTE + TERAPÉUTICA SACERDOTAL -->
+      <div class="editorial-split" style="margin-top: var(--space-xl);">
+        <div>
+          <span class="section-label">Esquema comparativo · Tratado III (§§ 24–27)</span>
+          <h3>Ideal ascético, Ciencia moderna y Arte</h3>
+          <div class="broadsheet-table-wrap">
+            <table class="broadsheet-table" aria-label="Relación del ideal ascético con la ciencia y el arte">
+              <thead>
+                <tr>
+                  <th>Esfera</th>
+                  <th>Postura ante la verdad</th>
+                  <th>Relación con el ideal ascético</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Ideal ascético</strong></td>
+                  <td>La verdad se identifica con Dios y el ser; niega la realidad sensible.</td>
+                  <td>Sistema totalizador: ofrece sentido al dolor mediante la culpa (<em>faute de mieux</em>).</td>
+                </tr>
+                <tr>
+                  <td><strong>Ciencia moderna</strong></td>
+                  <td>Fe incondicional en la verdad; niega lo exotérico pero conserva el núcleo ascético.</td>
+                  <td><strong>Aliada involuntaria:</strong> comparte frialdad afectiva, desconfianza vital y autoempequeñecimiento copernicano.</td>
+                </tr>
+                <tr>
+                  <td><strong>El Arte (Homero)</strong></td>
+                  <td>Santifica la mentira y la apariencia con buena conciencia.</td>
+                  <td><strong>Antagonista genuino:</strong> diviniza la vida sensible frente al «allendismo» platónico-sacerdotal.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="workbench">
+          <span class="section-label">Terapéutica sacerdotal · §§ 18–20</span>
+          <h3>Los medios del sacerdote contra el desplacer</h3>
+          <p class="small-note">Alterne entre los remedios «inocentes» (calmantes cotidianos) y los «culpables» (desenfreno afectivo) descritos por Nietzsche.</p>
+          <div class="btn-row" role="group" aria-label="Medios sacerdotales">
+            <button type="button" class="btn is-active" data-remedy="noculpables" onclick="selectRemedy('noculpables')">Medios «no-culpables» (§ 18)</button>
+            <button type="button" class="btn" data-remedy="culpables" onclick="selectRemedy('culpables')">Medios «culpables» (§§ 19–20)</button>
+          </div>
+          <div id="remedy-output" class="detail-box-teal">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+
+      <blockquote class="pull-quote">
+        «La falta de sentido del sufrimiento, y no este mismo, era la maldición que hasta ahora yacía extendida sobre la humanidad, —¡y el ideal ascético ofreció a ésta un sentido! (…) El hombre prefiere querer la nada a no querer…»
+        <cite>Tratado Tercero, § 28 · Conclusión de la obra</cite>
+      </blockquote>
+    </section>
+
+    <!-- SÍNTESIS Y EVALUACIÓN -->
+    <section id="evaluacion" class="section-open reveal-section">
+      <div class="section-header-grid">
+        <div>
+          <span class="section-label">Síntesis transversal y componente didáctico</span>
+          <h2>Matriz de los tres tratados, autoevaluación y cuaderno de síntesis</h2>
+        </div>
+        <div class="section-meta-col">
+          <span class="tag tag-claret">Persistencia activa</span>
+          <p class="small-note">
+            Su progreso en la evaluación, los tratados marcados como asimilados y sus notas de síntesis se guardan automáticamente en la sesión del cuaderno.
+          </p>
+        </div>
+      </div>
+
+      <!-- MATRIZ DE SÍNTESIS TRANSVERSAL -->
+      <div>
+        <h3>Tabla sinóptica: arquitectura de <em>La genealogía de la moral</em></h3>
+        <div class="broadsheet-table-wrap">
+          <table class="broadsheet-table" aria-label="Síntesis comparativa de los tres tratados">
+            <thead>
+              <tr>
+                <th>Tratado</th>
+                <th>Problema central</th>
+                <th>Términos clave</th>
+                <th>Detonación final (Verdad nueva)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>I. «Bueno y malvado», «bueno y malo»</strong></td>
+                <td>Origen jerárquico y transformación histórica de los juicios de valor morales.</td>
+                <td><em>Gut</em>, <em>schlecht</em>, <em>böse</em>, <em>pathos</em> de la distancia, resentimiento.</td>
+                <td>El cristianismo surge del espíritu del resentimiento sacerdotal: rebelión de los esclavos contra los valores nobles.</td>
+              </tr>
+              <tr>
+                <td><strong>II. «Culpa», «mala conciencia» y similares</strong></td>
+                <td>Génesis de la memoria moral, la responsabilidad, el castigo y la conciencia.</td>
+                <td><em>Schuld</em> (culpa/deuda), <em>Unschuld</em>, mnemotécnica del dolor, interiorización.</td>
+                <td>La conciencia no es voz divina sino crueldad reprimida por el Estado que se vuelve contra su poseedor; la culpa culmina en Dios.</td>
+              </tr>
+              <tr>
+                <td><strong>III. ¿Qué significan los ideales ascéticos?</strong></td>
+                <td>Razón del dominio milenario del ideal sacerdotal pese a negar la vida.</td>
+                <td><em>Horror vacui</em>, <em>faute de mieux</em>, pecado, autosuperación de la verdad.</td>
+                <td>Triunfó porque no tuvo competidor y dio sentido al dolor; la ciencia es su aliada, y urge cuestionar el valor de la verdad.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE ASSESSMENT + SYNTHESIS WORKSPACE -->
+      <div class="quiz-grid">
+        <!-- QUIZ -->
+        <div class="filled-panel">
+          <span class="section-label">Evaluación diagnóstica · 8 preguntas</span>
+          <h3>Compruebe su comprensión de la obra</h3>
+          <p class="small-note" style="margin-bottom: var(--space-md);">
+            Seleccione una respuesta en cada reactivo para recibir retroalimentación fundamentada en el texto.
+          </p>
+
+          <div class="columns" style="margin-bottom: var(--space-lg); border-top: var(--rule-ink); border-bottom: var(--rule-ink); padding-block: var(--space-sm);">
+            <div>
+              <span class="key-figure-label">Aciertos</span>
+              <span class="key-figure-value" id="quiz-score-val">0 / 8</span>
+            </div>
+            <div>
+              <span class="key-figure-label">Respondidas</span>
+              <span class="key-figure-value" id="quiz-answered-val">0 / 8</span>
+            </div>
+            <div>
+              <span class="key-figure-label">Nivel</span>
+              <span class="key-figure-value" id="quiz-level-val" style="font-size: 1.2rem;">Sin iniciar</span>
+            </div>
+          </div>
+
+          <div id="quiz-container">
+            <!-- Quiz rendered via JS -->
+          </div>
+
+          <div style="margin-top: var(--space-lg); display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap;">
+            <button type="button" class="btn btn-secondary" id="reset-quiz-btn" onclick="resetQuiz(this)">Reiniciar evaluación</button>
+            <span class="status-msg" id="quiz-status-msg" aria-live="polite"></span>
+          </div>
+        </div>
+
+        <!-- SYNTHESIS & NOTES WORKSPACE -->
+        <div class="filled-panel-strong">
+          <span class="section-label">Cuaderno de síntesis personal</span>
+          <h3>Registro de asimilación y notas</h3>
+          <p class="small-note" style="margin-bottom: var(--space-md);">
+            Marque los tratados completados y redacte su propia síntesis filosófica para exportarla.
+          </p>
+
+          <div class="mastery-list" aria-label="Control de tratados asimilados">
+            <div class="mastery-item">
+              <span><strong>Tratado I:</strong> Señores, esclavos y resentimiento</span>
+              <button type="button" class="btn" id="mastery-btn-t1" onclick="toggleMastery('t1')">Marcar asimilado</button>
+            </div>
+            <div class="mastery-item">
+              <span><strong>Tratado II:</strong> Deuda (<em>Schuld</em>) e interiorización</span>
+              <button type="button" class="btn" id="mastery-btn-t2" onclick="toggleMastery('t2')">Marcar asimilado</button>
+            </div>
+            <div class="mastery-item">
+              <span><strong>Tratado III:</strong> Ideal ascético y verdad</span>
+              <button type="button" class="btn" id="mastery-btn-t3" onclick="toggleMastery('t3')">Marcar asimilado</button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="synthesis-focus">Eje temático de su síntesis</label>
+            <select id="synthesis-focus" class="broadsheet-input" onchange="saveSynthesisField()">
+              <option value="transvaloracion">Transvaloración de los valores (Tratado I)</option>
+              <option value="culpa-estado">Deuda material, Estado y mala conciencia (Tratado II)</option>
+              <option value="ascetismo-verdad">Ideal ascético, ciencia y valor de la verdad (Tratado III)</option>
+              <option value="global">Síntesis global de los tres tratados</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="synthesis-notes">Notas y tesis personal (mín. 10 caracteres para exportar)</label>
+            <textarea id="synthesis-notes" class="broadsheet-input" rows="5" oninput="saveSynthesisField()" aria-describedby="notes-hint"></textarea>
+            <span id="notes-hint" class="small-note">Escriba aquí sus conclusiones sobre el método genealógico y la crítica a los valores morales.</span>
+          </div>
+
+          <div class="btn-row" style="margin-bottom: 0;">
+            <button type="button" class="btn btn-primary" onclick="exportStudyReport()">Exportar síntesis (.txt)</button>
+            <button type="button" class="btn btn-secondary" id="clear-notes-btn" onclick="clearSynthesisNotes(this)">Limpiar notas</button>
+          </div>
+          <div class="status-msg" id="notes-status-msg" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOPHON / SOURCES -->
+    <footer class="colophon">
+      <div>
+        <span class="section-label">Fuentes de esta base de conocimientos</span>
+        <p class="small-note">
+          Basado en <em>La genealogía de la moral. Un escrito polémico</em> (<em>Zur Genealogie der Moral</em>, 1887) de Friedrich Nietzsche, en la traducción, introducción y notas de Andrés Sánchez Pascual (1971/1972), junto con los pasajes citados de <em>Ecce Homo</em>, <em>Así habló Zaratustra</em>, <em>Humano, demasiado humano</em> y <em>La gaya ciencia</em>.
+        </p>
+      </div>
+      <div>
+        <span class="tag">Lectura como arte: «el rumiar»</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    /* --- DATA (Backtick template literals for apostrophe/quote safety) --- */
+    const PROLOG_LENSES = {
+      bien: {
+        title: `Origen de lo «Bueno»`,
+        englishLabel: `Hipótesis inglesa («El Azul» — Rée, Spencer)`,
+        englishText: `Sostiene que originalmente se alabaron como «buenas» las acciones no egoístas porque resultaban útiles a quienes las recibían; luego ese origen útil se olvidó y el hábito hizo sentir lo no egoísta como bueno en sí. Spencer corrige el olvido identificando directamente «bueno» con «útil-conveniente».`,
+        nietzscheLabel: `Genealogía nietzscheana («El Gris» — Prólogo y Tratado I)`,
+        nietzscheText: `El juicio «bueno» no procede de los beneficiarios pasivos, sino de «los buenos» mismos —los nobles y poderosos— desde el pathos de la distancia. Además, una utilidad cotidiana jamás habría podido olvidarse: tuvo que grabarse cada vez más en la memoria.`
+      },
+      compasion: {
+        title: `Valor de la Compasión`,
+        englishLabel: `Idealización moderna (Schopenhauer y moralistas)`,
+        englishText: `Eleva los instintos «no-egoístas» —compasión, autonegación, autosacrificio— a «valores en sí» absolutos, recubriéndolos de oro y situándolos más allá de toda crítica como cima de la moral.`,
+        nietzscheLabel: `Sospecha genealógica (Prólogo, §§ 5–6)`,
+        nietzscheText: `Siguiendo la desconfianza clásica de Platón, Spinoza, La Rochefoucauld y Kant, Nietzsche diagnostica en la sobreestimación moderna de la compasión un síntoma de fatiga, reblandecimiento y «budismo europeo»: la voluntad volviéndose contra la vida y el futuro del tipo hombre.`
+      },
+      pena: {
+        title: `Procedencia de la Pena`,
+        englishLabel: `Finalismo ingenuo (Paul Rée)`,
+        englishText: `Supone que la pena nació con su finalidad intimidatoria o correctiva actual, proyectando los conceptos tardíos de imputabilidad moral y remordimiento hacia los comienzos de la historia.`,
+        nietzscheLabel: `Separación de origen y finalidad (Prólogo § 4; Tratado II, § 12)`,
+        nietzscheText: `La finalidad intimidatoria fue agregada tardíamente como algo accesorio. Originariamente la pena brotó de la cólera compensatoria y la lógica contractual acreedor-deudor: la causa de la génesis y la utilidad final están toto coelo separadas.`
+      },
+      verdad: {
+        title: `El valor de la Verdad`,
+        englishLabel: `Dogma filosófico tradicional`,
+        englishText: `Da por sentado que la verdad posee un valor supremo, divino e incriticable; el filósofo cree en la verdad sin interrogar jamás por qué es preferible la verdad al error o a la ilusión vital.`,
+        nietzscheLabel: `Crítica experimental (Introducción; Tratado III, §§ 24–27)`,
+        nietzscheText: `«La voluntad de verdad necesita una crítica.» Poner en entredicho por vía experimental el valor de la verdad revela que la fe moderna en la ciencia sigue atada al mismo terreno metafísico que el ideal ascético.`
+      }
+    };
+
+    const ETYMOLOGIES = {
+      schlecht: {
+        word: `Schlecht (malo) vs. Böse (malvado)`,
+        origin: `Alemán: schlecht proviene de schlicht («simple», «llano»), cf. schlechtweg («simplemente»).`,
+        shift: `Originariamente designaba al hombre simple y vulgar sin recelo moral, en mera contraposición estamental al noble. Hacia la Guerra de los Treinta Años su sentido se desplazó hacia lo peyorativo actual. En cambio, böse («malvado») nace del odio impotente del resentimiento como acusación moral contra el poderoso.`,
+        note: `Nota de traducción: Andrés Sánchez Pascual mantiene estrictamente «malo» para schlecht y «malvado» para böse.`
+      },
+      teognis: {
+        word: `Ἐσθλός (noble) frente a Κακός / Δειλός`,
+        origin: `Griego arcaico (portavoz: el poeta megarense Teognis).`,
+        shift: `Ἐσθλός significa etimológicamente alguien que «es», que tiene realidad y es verdadero; luego pasa a significar «veraz» y «aristocrático», frente al hombre vulgar mentiroso. En el otro polo, κακός (malo) y δειλός (cobarde/mísero) subrayan la cobardía y acaban derivando en matices de «infeliz» o «digno de lástima» (οἰζυρός, ἄνολβος).`,
+        note: `La aristocracia griega mezcla cierta indulgencia o lástima en su desprecio, lejos de la caricatura venenosa del resentimiento.`
+      },
+      bonus: {
+        word: `Bonus < Duonus (el guerrero)`,
+        origin: `Latín antiguo: duonus (análogo a bellum = duellum = duenlum).`,
+        shift: `Bonus designa literalmente al «varón de la disputa, de la división (duo)», es decir, al guerrero. Aquello que constituía en la antigua Roma la «bondad» de un varón era su capacidad combativa. De modo paralelo, sugiere Nietzsche, el alemán gut («bueno») podría remitir a «el divino» (estirpe divina / Gothen).`,
+        note: `Los nobles también se nombran por su poderío o riqueza (arya, «los señores», «los propietarios»).`
+      },
+      malus: {
+        word: `Malus (μέλας) y Gaélico Fin`,
+        origin: `Latín malus vinculado al griego μέλας («negro»), frente al gaélico fin (p. ej. Fin-Gal).`,
+        shift: `Con malus acaso se caracterizaba al habitante preario de suelo italiano por su piel oscura y cabellos negros, frente a los conquistadores rubios. De forma paralela, en gaélico fin significa hoy «bueno, noble, puro», pero en su origen designaba «cabeza rubia» frente a la población primitiva morena.`,
+        note: `Nietzsche añade que el propio texto admite que algunas etimologías puedan ser discutibles, pero lo decisivo es haber penetrado en la fuente jerárquica del valor.`
+      },
+      puro: {
+        word: `«Puro» e «Impuro» (Casta sacerdotal)`,
+        origin: `Distintivos estamentales cuando la casta suprema es a la vez sacerdotal.`,
+        shift: `En su origen no tuvieron sentido simbólico ni moral elevado, sino tosco, externo y físico: «puro» era simplemente quien se lavaba, evitaba ciertos alimentos causantes de enfermedades cutáneas, no yacía con mujeres del pueblo bajo y sentía asco de la sangre. Luego estas antítesis se interiorizaron y exacerbaron.`,
+        note: `De la casta sacerdotal sedentaria surge la metafísica hostil a los sentidos y se abre la profundidad (y maldad) del alma humana.`
+      }
+    };
+
+    const TRANS_STAGES = [
+      {
+        title: `Estadio 1 · Moral Noble: afirmación espontánea y contraste secundario`,
+        summary: `Los poderosos y guerreros se sienten «los buenos, los bellos, los felices». Su valoración brota hacia dentro como un triunfante «sí» a sí mismos; lo «malo» (schlecht) nace después como mero color complementario y pálido contraste de lo inferior.`
+      },
+      {
+        title: `Estadio 2 · Escisión Sacerdotal: impotencia e incubación del odio`,
+        summary: `Frente a la casta guerrera, la aristocracia sacerdotal —debilitada físicamente, dedicada a incubar ideas y sentimientos— desarrolla una hostilidad subterránea. Inventa el «otro mundo» hostil a los sentidos; el alma gana profundidad, pero también veneno y sed de venganza espiritual.`
+      },
+      {
+        title: `Estadio 3 · Rebelión de los Esclavos: inversión judeocristiana`,
+        summary: `El resentimiento se vuelve creador. La mirada apunta primero hacia fuera para decir «no» al noble y declararlo «malvado» (böse). Sólo por contraste póstumo el impotente y miserable se autoproclama «bueno». El cristianismo universaliza esta inversión bajo el símbolo de la cruz.`
+      }
+    ];
+
+    const T2_STEPS = [
+      {
+        title: `Paso 1 · Olvido activo y Mnemotécnica del dolor`,
+        tag: `Tratado II, §§ 1–3`,
+        body: `Para que el hombre pueda hacer promesas y disponer del futuro necesita una «memoria de la voluntad» que suspenda puntualmente su sana capacidad de olvido activo. Esa memoria se forjó mediante sangre y tortura: «sólo lo que no cesa de doler permanece en la memoria».`,
+        diagramMode: `memory`
+      },
+      {
+        title: `Paso 2 · Culpa (Schuld) como Deuda material (Schulden)`,
+        tag: `Tratado II, §§ 4–6`,
+        body: `El concepto moral «culpa» procede de la relación jurídica entre acreedor y deudor. Al faltar el pago, se establece una equivalencia entre perjuicio y dolor: el acreedor recibe como compensación el derecho a hacer sufrir y despreciar a un inferior («una auténtica fiesta»). Incluso el imperativo categórico kantiano «huele a crueldad».`,
+        diagramMode: `debt`
+      },
+      {
+        title: `Paso 3 · Surgimiento del Estado e Interiorización`,
+        tag: `Tratado II, §§ 16–18`,
+        body: `Cuando una horda de conquistadores organiza violentamente el Estado y encierra al hombre en la paz social, todos los instintos salvajes y agresivos quedan bloqueados hacia fuera y se vuelven hacia dentro contra su propio poseedor. Así nace el «alma» profunda y la «mala conciencia» como voluntad de autotortura.`,
+        diagramMode: `state`
+      },
+      {
+        title: `Paso 4 · Deuda con los antepasados, Dios único y Ateísmo`,
+        tag: `Tratado II, §§ 19–25`,
+        body: `Las estirpes primitivas sienten una deuda jurídica creciente hacia sus fundadores, elevándolos a dioses. La deuda máxima e impagable produce al Dios cristiano y transforma la mala conciencia en tormento ante Dios juez. El ateísmo victorioso podría devolver al hombre la «segunda inocencia» (Unschuld = sin deudas), tarea reservada a Zaratustra.`,
+        diagramMode: `god`
+      }
+    ];
+
+    const T3_TYPES = {
+      artista: {
+        role: `Los Artistas (caso Wagner y «Parsifal»)`,
+        meaning: `«¡Absolutamente nada!… ¡O tantas cosas distintas, que es lo mismo que absolutamente nada!»`,
+        detail: `Para Nietzsche, los artistas carecen de independencia suficiente y han sido siempre «ayudas de cámara» de una moral, filosofía o religión. Wagner necesitó la autoridad protectora de Schopenhauer para legitimar su giro hacia la castidad ascética en Parsifal. Con todo, el arte en sí —que santifica el engaño y la apariencia— es el enemigo natural del ascetismo cuando no se corrompe sirviendo al sacerdote.`,
+        ref: `Tratado III, §§ 1, 5 y 25`
+      },
+      filosofo: {
+        role: `Los Filósofos (la «forma larvaria»)`,
+        meaning: `«Un olfato y un instinto para percibir las condiciones más favorables de una espiritualidad elevada.»`,
+        detail: `Pobreza, humildad y castidad no son «virtudes» para el filósofo, sino el óptimum de su independencia frente a «la fama, los príncipes y las mujeres». Históricamente, como la vida contemplativa era temida o despreciada, la filosofía tuvo que disfrazarse y hacerse temer mediante la crueldad ascética: el sacerdote ascético fue la «repugnante y sombría forma larvaria» bajo la cual pudo existir el filósofo en la tierra.`,
+        ref: `Tratado III, §§ 7–10`
+      },
+      mayoria: {
+        role: `La mayoría fisiológicamente lisiada y destemplada`,
+        meaning: `«Un intento de encontrarse “demasiado buenas” para este mundo; su principal recurso contra el lento dolor y el aburrimiento.»`,
+        detail: `El hombre es el «animal enfermo» porque osa, experimenta e innova más que ningún otro, y su futuro le roe como un aguijón. En épocas de cansancio (como hacia 1348), el hastío amenaza con el suicidio nihilista. El ideal ascético actúa paradójicamente como «estratagema en la conservación de la vida» al dar un sentido (aunque sea doloroso) a su existencia.`,
+        ref: `Tratado III, §§ 1 y 13`
+      },
+      sacerdote: {
+        role: `El Sacerdote Ascético (el médico que envenena)`,
+        meaning: `«La auténtica fe sacerdotal, su mejor instrumento de poder y su suprema autorización.»`,
+        detail: `El doliente grita: «Yo sufro: alguien tiene que ser culpable». El sacerdote le responde: «¡Tú misma eres la única culpable de ti!». Con ello desvía la dirección del resentimiento hacia dentro y reinterpreta la mala conciencia animal como «pecado». Mantiene atado al rebaño a la vida mientras envenena sus heridas al curarlas.`,
+        ref: `Tratado III, §§ 11, 15 y 20`
+      },
+      ciencia: {
+        role: `La Ciencia Moderna (el aliado inconsciente)`,
+        meaning: `«No crea valores; descansa sobre el mismo terreno fisiológico y metafísico que el ideal ascético.»`,
+        detail: `Lejos de refutar el ideal ascético, la ciencia comparte con él la fe incondicional en la verdad como valor supremo e incriticable, además de enfriar los afectos y proseguir (desde Copérnico) el autoempequeñecimiento del hombre. El ateísmo sincero de la ciencia es el fruto final de la veracidad cristiana sublimada en limpieza intelectual: la autosuperación de la verdad exige ahora cuestionar el valor de la verdad misma.`,
+        ref: `Tratado III, §§ 23–27`
+      }
+    };
+
+    const REMEDIES = {
+      noculpables: {
+        title: `Medios «no-culpables» (§§ 18–19): anestesia y disciplina`,
+        items: [
+          `Sofocación global del sentimiento vital (estoicismo intelectual, letargo hipnótico).`,
+          `Actividad maquinal («la bendición del trabajo»): ocupar por completo la estrecha cámara de la conciencia con un hacer puntual e irreflexivo (incuria sui).`,
+          `Prescripción de la «pequeña alegría» fácilmente accesible (como el «amor al prójimo» en pequeñas dosis).`,
+          `Organización gregaria (el rebaño): acallar el hastío individual mediante el placer que produce el florecimiento de la comunidad.`
+        ]
+      },
+      culpables: {
+        title: `Medios «culpables» (§§ 19–20): desenfreno afectivo y pecado`,
+        items: [
+          `Excitación de afectos salvajes para amortiguar el sordo dolor crónico mediante una emoción violenta.`,
+          `Reinterpretación sacerdotal de la mala conciencia animal en «pecado» (el enfermo convertido en pecador).`,
+          `Búsqueda febril del dolor como supuesto camino de redención: disciplinas, cilicio, contrición y tormento («¡Más dolor! ¡Más dolor!»).`,
+          `Superación de la vieja fatiga a costa de una enfermedad espiritual más profunda y devoradora de vida.`
+        ]
+      }
+    };
+
+    const QUIZ_QUESTIONS = [
+      {
+        q: `1. ¿Qué reprocha principalmente Nietzsche a los «psicólogos ingleses» y a Paul Rée en el Prólogo y el Tratado I?`,
+        options: [
+          `Que defienden abiertamente la moral aristocrática de la antigua Grecia.`,
+          `Que piensan de manera a-histórica y atribuyen el concepto «bueno» a la utilidad olvidada de quienes reciben acciones no egoístas.`,
+          `Que utilizan exclusivamente la etimología latina y griega ignorando la biología.`
+        ],
+        correct: 1,
+        explain: `Tratado I, §§ 1–3: Nietzsche señala que carecen de «espíritu histórico» («hipótesis azules») y caen en un contrasentido psicológico al creer que una utilidad cotidiana pudo olvidarse.`
+      },
+      {
+        q: `2. En la distinción alemana señalada en el Tratado I, ¿qué diferencia separa a «schlecht» (malo) de «böse» (malvado)?`,
+        options: [
+          `Schlecht nació como contraste secundario frente a lo noble («simple, vulgar»), mientras böse es el concepto primario creado por el resentimiento contra el poderoso.`,
+          `Schlecht designa el pecado religioso y böse la torpeza física del guerrero.`,
+          `Son sinónimos intercambiables que surgieron simultáneamente en la casta caballeresca.`
+        ],
+        correct: 0,
+        explain: `Tratado I, §§ 4 y 11: La moral noble parte de afirmarse como «buena» (gut) y deriva lo «malo» (schlecht); la moral de esclavos inventa primero al «enemigo malvado» (böse) y se llama buena por contraste.`
+      },
+      {
+        q: `3. ¿Cómo caracteriza Nietzsche la «capacidad de olvido» al comienzo del Tratado II?`,
+        options: [
+          `Como un defecto pasivo e inercial (vis inertiae) que impide toda vida moral.`,
+          `Como una fuerza activa y positiva de inhibición indispensable para la salud anímica y el presente.`,
+          `Como una invención reciente de la casta sacerdotal para borrar la deuda ancestral.`
+        ],
+        correct: 1,
+        explain: `Tratado II, § 1: El olvido es una «guardiana de la puerta» activa; sin ella no habría felicidad, jovialidad ni presente. Para hacer promesas hubo que crear contra ella una «memoria de la voluntad».`
+      },
+      {
+        q: `4. ¿Cuál es el origen histórico del concepto moral de «culpa» (Schuld) según el Tratado II?`,
+        options: [
+          `La revelación interior de la voz de Dios en la conciencia racional.`,
+          `El concepto material de «tener deudas» (Schulden) en la relación contractual entre acreedor y deudor.`,
+          `El miedo instintivo a las fuerzas naturales inexplicables.`
+        ],
+        correct: 1,
+        explain: `Tratado II, §§ 4–6: Schuld significa indistintamente culpa y deuda. La equivalencia entre perjuicio y dolor dio al acreedor el derecho a compensar la deuda impagada infligiendo sufrimiento.`
+      },
+      {
+        q: `5. ¿Qué desencadena el nacimiento de la «mala conciencia» en el Tratado II (§ 16)?`,
+        options: [
+          `El surgimiento violento del Estado y de la paz social, que bloquea los instintos agresivos hacia fuera y los vuelve hacia dentro.`,
+          `El efecto pedagógico y moralizador de las prisiones modernas sobre los delincuentes.`,
+          `La lectura filosófica de Spinoza y Kant en las comunidades primitivas.`
+        ],
+        correct: 0,
+        explain: `Tratado II, §§ 14–16: La pena endurece y no produce remordimiento. La mala conciencia surge cuando los instintos salvajes del hombre encerrado en el Estado se descargan contra su propio poseedor (interiorización).`
+      },
+      {
+        q: `6. ¿Cómo explica Nietzsche que el ideal ascético («vida contra vida») haya dominado durante milenios?`,
+        options: [
+          `Porque la humanidad descubrió objetivamente que la nada es superior a la existencia terrestre.`,
+          `Porque es una estratagema de conservación de una vida que degenera, que salva la voluntad dando un sentido al sufrimiento (faute de mieux).`,
+          `Porque los filósofos impusieron el ascetismo mediante el poder militar de los Estados antiguos.`
+        ],
+        correct: 1,
+        explain: `Tratado III, §§ 13 y 28: La maldición humana no era el dolor sino su falta de sentido. Al interpretarlo como culpa, el ideal ascético cerró la puerta al nihilismo suicida: «el hombre prefiere querer la nada a no querer».`
+      },
+      {
+        q: `7. ¿Por qué afirma Nietzsche en el Tratado III (§ 25) que la ciencia moderna NO es el verdadero antagonista del ideal ascético?`,
+        options: [
+          `Porque la ciencia carece de método experimental para estudiar la historia.`,
+          `Porque comparte con el ideal ascético la fe incondicional en el valor incriticable de la verdad y es incapaz de crear valores nuevos por sí sola.`,
+          `Porque la ciencia defiende literalmente los dogmas de la teología medieval.`
+        ],
+        correct: 1,
+        explain: `Tratado III, §§ 24–25 y 27: Ciencia e ideal ascético reposan sobre la misma fe absoluta en la verdad (y en el enfriamiento de los afectos). Sólo el arte —que santifica la apariencia— se opone radicalmente al ascetismo.`
+      },
+      {
+        q: `8. ¿Qué relación establece el Tratado III (§ 27) entre la moral cristiana y el ateísmo científico moderno?`,
+        options: [
+          `El ateísmo incondicional es la consecuencia lógica final («autosuperación») de la veracidad cristiana sublimada en conciencia científica.`,
+          `El ateísmo destruye toda preocupación por la verdad y restaura inmediatamente la moral noble griega.`,
+          `La moral cristiana y la ciencia moderna son fuerzas completamente ajenas sin raíz común.`
+        ],
+        correct: 0,
+        explain: `Tratado III, § 27: Una educación bimilenaria para la verdad termina prohibiéndose a sí misma la mentira de creer en Dios; por ello «todas las grandes cosas perecen a sus propias manos, por un acto de autosupresión».`
+      }
+    ];
+
+    /* --- APPLICATION STATE (persisted via notebookAppApi) --- */
+    let appState = {
+      prologKey: 'bien',
+      etymKey: 'schlecht',
+      transStage: 0,
+      t2Step: 0,
+      t3Type: 'artista',
+      remedyKey: 'noculpables',
+      quizAnswers: {},
+      mastery: { t1: false, t2: false, t3: false },
+      synthesisFocus: 'transvaloracion',
+      synthesisNotes: ''
+    };
+
+    async function persistState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (e) {
+        /* Fail silently in standalone preview if shim is absent */
+      }
+    }
+
+    function updateProgressReadout() {
+      const readout = document.getElementById('global-progress');
+      if (!readout) return;
+      const doneMastery = ['t1', 't2', 't3'].filter(function(k) { return appState.mastery[k]; }).length;
+      const answeredCount = Object.keys(appState.quizAnswers).length;
+      readout.textContent = `Tratados asimilados: ${doneMastery}/3 · Evaluación: ${answeredCount}/${QUIZ_QUESTIONS.length}`;
+    }
+
+    /* --- INTERACTIVE RENDERERS (Hoisted function declarations) --- */
+    function selectPrologLens(key) {
+      if (!PROLOG_LENSES[key]) return;
+      appState.prologKey = key;
+      document.querySelectorAll('[data-prolog-key]').forEach(function(btn) {
+        btn.classList.toggle('is-active', btn.dataset.prologKey === key);
+      });
+      const data = PROLOG_LENSES[key];
+      const out = document.getElementById('prolog-lens-output');
+      if (out) {
+        out.innerHTML = `
+          <div class="filled-panel">
+            <span class="section-label">${data.englishLabel}</span>
+            <p style="font-size: 0.96rem; margin-top: var(--space-xs);">${data.englishText}</p>
+          </div>
+          <div class="filled-panel-strong">
+            <span class="section-label">${data.nietzscheLabel}</span>
+            <p style="font-size: 0.96rem; margin-top: var(--space-xs);">${data.nietzscheText}</p>
+          </div>
+        `;
+      }
+      persistState();
+    }
+
+    function selectEtymology(key) {
+      if (!ETYMOLOGIES[key]) return;
+      appState.etymKey = key;
+      document.querySelectorAll('[data-etym-key]').forEach(function(btn) {
+        btn.classList.toggle('is-active', btn.dataset.etymKey === key);
+      });
+      const item = ETYMOLOGIES[key];
+      const out = document.getElementById('etymology-output');
+      if (out) {
+        out.innerHTML = `
+          <span class="section-label">${item.origin}</span>
+          <h4 style="font-family: var(--font-headline); font-size: 1.25rem; text-transform: none; letter-spacing: 0; margin-bottom: var(--space-sm);">${item.word}</h4>
+          <p style="font-size: 0.98rem;">${item.shift}</p>
+          <p class="small-note" style="margin-top: var(--space-sm); border-top: var(--rule-column); padding-top: var(--space-sm);">${item.note}</p>
+        `;
+      }
+      persistState();
+    }
+
+    function setTransStage(stageIdx) {
+      const idx = Number(stageIdx);
+      if (isNaN(idx) || !TRANS_STAGES[idx]) return;
+      appState.transStage = idx;
+
+      document.querySelectorAll('[data-trans-stage]').forEach(function(btn) {
+        btn.classList.toggle('is-active', Number(btn.dataset.transStage) === idx);
+      });
+
+      const detail = document.getElementById('trans-stage-detail');
+      if (detail) {
+        detail.innerHTML = `
+          <span class="section-label">${TRANS_STAGES[idx].title}</span>
+          <p style="font-size: 0.98rem; margin-top: var(--space-xs);">${TRANS_STAGES[idx].summary}</p>
+        `;
+      }
+
+      const tbody = document.getElementById('trans-table-body');
+      if (tbody) {
+        tbody.querySelectorAll('tr').forEach(function(tr) {
+          tr.classList.toggle('row-highlight', Number(tr.dataset.rowStage) === idx);
+        });
+      }
+
+      const diag = document.getElementById('trans-diagram-wrap');
+      if (diag) {
+        diag.innerHTML = renderTransDiagramSVG(idx);
+      }
+      persistState();
+    }
+
+    function renderTransDiagramSVG(idx) {
+      if (idx === 0) {
+        return `
+          <svg viewBox="0 0 560 150" role="img" aria-hidden="true">
+            <rect x="10" y="24" width="215" height="96" fill="var(--surface-container-low)" stroke="var(--primary)" stroke-width="2"></rect>
+            <text x="24" y="48" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700" fill="var(--primary)">1. CONCEPTO PRIMARIO (NOBLE)</text>
+            <text x="24" y="72" font-family="Bitter, serif" font-size="16" font-weight="700" fill="var(--on-surface)">«Nosotros los buenos»</text>
+            <text x="24" y="94" font-family="Source Serif 4, serif" font-size="13" fill="var(--on-surface-variant)">gut · veraz · guerrero · feliz</text>
+
+            <line x1="232" y1="72" x2="318" y2="72" stroke="var(--on-surface)" stroke-width="2"></line>
+            <polygon points="318,67 328,72 318,77" fill="var(--on-surface)"></polygon>
+            <text x="275" y="60" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--on-surface-variant)">CONTRASTE PÁLIDO</text>
+
+            <rect x="334" y="34" width="214" height="76" fill="var(--background)" stroke="var(--outline-variant)" stroke-width="1.5"></rect>
+            <text x="348" y="56" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700" fill="var(--on-surface-variant)">2. DERIVADO SECUNDARIO</text>
+            <text x="348" y="78" font-family="Bitter, serif" font-size="15" font-weight="700" fill="var(--on-surface)">«Ellos los malos» (schlecht)</text>
+            <text x="348" y="97" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-surface-variant)">simple · bajo · digno de lástima</text>
+          </svg>
+        `;
+      } else if (idx === 1) {
+        return `
+          <svg viewBox="0 0 560 150" role="img" aria-hidden="true">
+            <rect x="10" y="24" width="220" height="96" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5"></rect>
+            <text x="24" y="48" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700" fill="var(--on-surface-variant)">CASTA GUERRERA</text>
+            <text x="24" y="72" font-family="Bitter, serif" font-size="15" font-weight="700" fill="var(--on-surface)">Acción física y poder</text>
+            <text x="24" y="94" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-surface-variant)">salud · caza · guerra · aventura</text>
+
+            <line x1="238" y1="72" x2="316" y2="72" stroke="var(--primary)" stroke-width="2" stroke-dasharray="4 3"></line>
+            <text x="277" y="58" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--primary)">CELOS E IMPOTENCIA</text>
+
+            <rect x="324" y="24" width="226" height="96" fill="var(--surface-container-low)" stroke="var(--secondary)" stroke-width="2"></rect>
+            <text x="338" y="48" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700" fill="var(--on-surface)">CASTA SACERDOTAL</text>
+            <text x="338" y="72" font-family="Bitter, serif" font-size="15" font-weight="700" fill="var(--on-surface)">Venganza espiritual</text>
+            <text x="338" y="94" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-surface-variant)">puro/impuro · otro mundo · odio</text>
+          </svg>
+        `;
+      }
+      return `
+        <svg viewBox="0 0 560 150" role="img" aria-hidden="true">
+          <rect x="10" y="24" width="224" height="96" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2"></rect>
+          <text x="24" y="48" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700" fill="var(--on-primary-container)">1. CONCEPTO PRIMARIO (REACCIÓN)</text>
+          <text x="24" y="72" font-family="Bitter, serif" font-size="16" font-weight="700" fill="var(--on-surface)">«¡Tú eres el malvado!»</text>
+          <text x="24" y="94" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-surface)">böse: el antiguo noble invertido</text>
+
+          <line x1="242" y1="72" x2="322" y2="72" stroke="var(--primary)" stroke-width="2"></line>
+          <polygon points="322,67 332,72 322,77" fill="var(--primary)"></polygon>
+          <text x="282" y="58" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--primary)">ANTÍTESIS PÓSTUMA</text>
+
+          <rect x="338" y="24" width="212" height="96" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5"></rect>
+          <text x="352" y="48" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700" fill="var(--on-surface)">2. AUTOIMAGEN DERIVADA</text>
+          <text x="352" y="72" font-family="Bitter, serif" font-size="15" font-weight="700" fill="var(--on-surface)">«Luego yo soy el bueno»</text>
+          <text x="352" y="94" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-surface-variant)">pobre · manso · piadoso · débil</text>
+        </svg>
+      `;
+    }
+
+    function setT2Step(stepIdx) {
+      const idx = Number(stepIdx);
+      if (isNaN(idx) || !T2_STEPS[idx]) return;
+      appState.t2Step = idx;
+
+      document.querySelectorAll('[data-t2-step]').forEach(function(btn) {
+        btn.classList.toggle('is-active', Number(btn.dataset.t2Step) === idx);
+      });
+
+      const step = T2_STEPS[idx];
+      const diag = document.getElementById('t2-diagram-wrap');
+      if (diag) {
+        diag.innerHTML = renderT2DiagramSVG(idx);
+      }
+
+      const out = document.getElementById('t2-step-output');
+      if (out) {
+        out.innerHTML = `
+          <span class="section-label">${step.tag}</span>
+          <h4 style="font-family: var(--font-headline); font-size: 1.2rem; text-transform: none; letter-spacing: 0; margin-bottom: var(--space-xs);">${step.title}</h4>
+          <p style="font-size: 0.98rem;">${step.body}</p>
+        `;
+      }
+      persistState();
+    }
+
+    function renderT2DiagramSVG(idx) {
+      const activeFill = 'var(--primary-container)';
+      const idleFill = 'var(--background)';
+      const activeStroke = 'var(--primary)';
+      const idleStroke = 'var(--outline-variant)';
+
+      return `
+        <svg viewBox="0 0 560 140" role="img" aria-hidden="true">
+          <rect x="8" y="22" width="122" height="92" fill="${idx === 0 ? activeFill : idleFill}" stroke="${idx === 0 ? activeStroke : idleStroke}" stroke-width="${idx === 0 ? 2 : 1.5}"></rect>
+          <text x="18" y="44" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--primary)">I. MEMORIA</text>
+          <text x="18" y="66" font-family="Bitter, serif" font-size="13" font-weight="700" fill="var(--on-surface)">Promesa y</text>
+          <text x="18" y="84" font-family="Bitter, serif" font-size="13" font-weight="700" fill="var(--on-surface)">Dolor</text>
+
+          <line x1="132" y1="68" x2="148" y2="68" stroke="var(--outline)" stroke-width="1.5"></line>
+
+          <rect x="150" y="22" width="122" height="92" fill="${idx === 1 ? activeFill : idleFill}" stroke="${idx === 1 ? activeStroke : idleStroke}" stroke-width="${idx === 1 ? 2 : 1.5}"></rect>
+          <text x="160" y="44" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--primary)">II. SCHULD</text>
+          <text x="160" y="66" font-family="Bitter, serif" font-size="13" font-weight="700" fill="var(--on-surface)">Acreedor /</text>
+          <text x="160" y="84" font-family="Bitter, serif" font-size="13" font-weight="700" fill="var(--on-surface)">Deudor</text>
+
+          <line x1="274" y1="68" x2="290" y2="68" stroke="var(--outline)" stroke-width="1.5"></line>
+
+          <rect x="292" y="22" width="122" height="92" fill="${idx === 2 ? activeFill : idleFill}" stroke="${idx === 2 ? activeStroke : idleStroke}" stroke-width="${idx === 2 ? 2 : 1.5}"></rect>
+          <text x="302" y="44" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--primary)">III. ESTADO</text>
+          <text x="302" y="66" font-family="Bitter, serif" font-size="13" font-weight="700" fill="var(--on-surface)">Pulsión hacia</text>
+          <text x="302" y="84" font-family="Bitter, serif" font-size="13" font-weight="700" fill="var(--on-surface)">dentro</text>
+
+          <line x1="416" y1="68" x2="432" y2="68" stroke="var(--outline)" stroke-width="1.5"></line>
+
+          <rect x="434" y="22" width="118" height="92" fill="${idx === 3 ? activeFill : idleFill}" stroke="${idx === 3 ? activeStroke : idleStroke}" stroke-width="${idx === 3 ? 2 : 1.5}"></rect>
+          <text x="444" y="44" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700" fill="var(--primary)">IV. TEOLOGÍA</text>
+          <text x="444" y="66" font-family="Bitter, serif" font-size="13" font-weight="700" fill="var(--on-surface)">Dios Acreedor</text>
+          <text x="444" y="84" font-family="Bitter, serif" font-size="13" font-weight="700" fill="var(--on-surface)">o Unschuld</text>
+        </svg>
+      `;
+    }
+
+    function selectT3Type(typeKey) {
+      if (!T3_TYPES[typeKey]) return;
+      appState.t3Type = typeKey;
+      document.querySelectorAll('[data-t3-type]').forEach(function(btn) {
+        btn.classList.toggle('is-active', btn.dataset.t3Type === typeKey);
+      });
+      const item = T3_TYPES[typeKey];
+      const out = document.getElementById('t3-type-output');
+      if (out) {
+        out.innerHTML = `
+          <span class="section-label">${item.ref}</span>
+          <h4 style="font-family: var(--font-headline); font-size: 1.25rem; text-transform: none; letter-spacing: 0; margin-bottom: var(--space-xs);">${item.role}</h4>
+          <p style="font-style: italic; color: var(--primary); font-weight: 600; margin-bottom: var(--space-sm);">${item.meaning}</p>
+          <p style="font-size: 0.98rem;">${item.detail}</p>
+        `;
+      }
+      persistState();
+    }
+
+    function selectRemedy(key) {
+      if (!REMEDIES[key]) return;
+      appState.remedyKey = key;
+      document.querySelectorAll('[data-remedy]').forEach(function(btn) {
+        btn.classList.toggle('is-active', btn.dataset.remedy === key);
+      });
+      const data = REMEDIES[key];
+      const out = document.getElementById('remedy-output');
+      if (out) {
+        const listItems = data.items.map(function(txt) {
+          return `<li style="margin-bottom: var(--space-xs);">${txt}</li>`;
+        }).join('');
+        out.innerHTML = `
+          <h4 style="font-family: var(--font-headline); font-size: 1.15rem; text-transform: none; letter-spacing: 0; margin-bottom: var(--space-sm);">${data.title}</h4>
+          <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.96rem; line-height: 1.55;">
+            ${listItems}
+          </ul>
+        `;
+      }
+      persistState();
+    }
+
+    /* --- QUIZ ENGINE --- */
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      if (!container) return;
+
+      let html = '';
+      QUIZ_QUESTIONS.forEach(function(item, qIdx) {
+        const chosen = appState.quizAnswers[qIdx];
+        const isAnswered = chosen !== undefined;
+        let optsHtml = '';
+
+        item.options.forEach(function(optText, oIdx) {
+          let cls = 'quiz-opt';
+          if (isAnswered) {
+            if (oIdx === item.correct) cls += ' is-correct';
+            else if (oIdx === chosen) cls += ' is-wrong';
+          }
+          const marker = String.fromCharCode(65 + oIdx) + '.';
+          optsHtml += `
+            <button type="button" class="${cls}" ${isAnswered ? 'disabled' : ''} onclick="answerQuiz(${qIdx}, ${oIdx})">
+              <strong>${marker}</strong>
+              <span>${optText}</span>
+            </button>
+          `;
+        });
+
+        let fbHtml = '';
+        if (isAnswered) {
+          const ok = chosen === item.correct;
+          fbHtml = `
+            <div class="quiz-feedback ${ok ? 'feedback-ok' : 'feedback-err'}">
+              <strong>${ok ? 'Correcto.' : 'Revisión conceptual.'}</strong> ${item.explain}
+            </div>
+          `;
+        }
+
+        html += `
+          <div class="quiz-question-block">
+            <p style="font-weight: 600; margin-bottom: var(--space-xs);">${item.q}</p>
+            <div class="quiz-options">${optsHtml}</div>
+            ${fbHtml}
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      updateQuizSummary();
+    }
+
+    function answerQuiz(qIdx, oIdx) {
+      if (appState.quizAnswers[qIdx] !== undefined) return;
+      appState.quizAnswers[qIdx] = oIdx;
+      const resetBtn = document.getElementById('reset-quiz-btn');
+      if (resetBtn) {
+        resetBtn.dataset.armed = 'false';
+        resetBtn.textContent = 'Reiniciar evaluación';
+      }
+      const msg = document.getElementById('quiz-status-msg');
+      if (msg) msg.textContent = '';
+      renderQuiz();
+      updateProgressReadout();
+      persistState();
+    }
+
+    function updateQuizSummary() {
+      const total = QUIZ_QUESTIONS.length;
+      const keys = Object.keys(appState.quizAnswers);
+      const answered = keys.length;
+      let score = 0;
+      keys.forEach(function(k) {
+        if (appState.quizAnswers[k] === QUIZ_QUESTIONS[Number(k)].correct) score++;
+      });
+
+      const scoreEl = document.getElementById('quiz-score-val');
+      const ansEl = document.getElementById('quiz-answered-val');
+      const lvlEl = document.getElementById('quiz-level-val');
+
+      if (scoreEl) scoreEl.textContent = `${score} / ${total}`;
+      if (ansEl) ansEl.textContent = `${answered} / ${total}`;
+      if (lvlEl) {
+        if (answered === 0) lvlEl.textContent = `Sin iniciar`;
+        else if (answered < total) lvlEl.textContent = `En curso`;
+        else if (score >= 7) lvlEl.textContent = `Dominio sólido`;
+        else if (score >= 5) lvlEl.textContent = `Comprensión media`;
+        else lvlEl.textContent = `Repaso sugerido`;
+      }
+    }
+
+    function resetQuiz(btn) {
+      const msg = document.getElementById('quiz-status-msg');
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = 'Confirmar reinicio';
+        if (msg) msg.textContent = `Pulse de nuevo para borrar sus respuestas actuales.`;
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = 'Reiniciar evaluación';
+      appState.quizAnswers = {};
+      if (msg) msg.textContent = `Evaluación reiniciada.`;
+      renderQuiz();
+      updateProgressReadout();
+      persistState();
+    }
+
+    /* --- MASTERY & SYNTHESIS WORKSPACE --- */
+    function renderMasteryButtons() {
+      ['t1', 't2', 't3'].forEach(function(key) {
+        const btn = document.getElementById(`mastery-btn-${key}`);
+        if (!btn) return;
+        const active = !!appState.mastery[key];
+        btn.classList.toggle('is-active', active);
+        btn.textContent = active ? 'Asimilado' : 'Marcar asimilado';
+      });
+      updateProgressReadout();
+    }
+
+    function toggleMastery(key) {
+      appState.mastery[key] = !appState.mastery[key];
+      renderMasteryButtons();
+      persistState();
+    }
+
+    function saveSynthesisField() {
+      const focusEl = document.getElementById('synthesis-focus');
+      const notesEl = document.getElementById('synthesis-notes');
+      if (focusEl) appState.synthesisFocus = focusEl.value;
+      if (notesEl) appState.synthesisNotes = notesEl.value;
+      const msg = document.getElementById('notes-status-msg');
+      if (msg) msg.textContent = `Borrador guardado automáticamente.`;
+      persistState();
+    }
+
+    function clearSynthesisNotes(btn) {
+      const msg = document.getElementById('notes-status-msg');
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = 'Confirmar borrado';
+        if (msg) msg.textContent = `Pulse de nuevo para vaciar sus notas de síntesis.`;
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = 'Limpiar notas';
+      appState.synthesisNotes = '';
+      const notesEl = document.getElementById('synthesis-notes');
+      if (notesEl) notesEl.value = '';
+      if (msg) msg.textContent = `Notas borradas.`;
+      persistState();
+    }
+
+    function exportStudyReport() {
+      const notesEl = document.getElementById('synthesis-notes');
+      const focusEl = document.getElementById('synthesis-focus');
+      const msg = document.getElementById('notes-status-msg');
+      const notesText = notesEl ? notesEl.value.trim() : '';
+
+      if (notesText.length < 10) {
+        if (msg) msg.textContent = `Redacte al menos 10 caracteres en sus notas antes de exportar la síntesis.`;
+        return;
+      }
+
+      const focusLabel = focusEl ? focusEl.options[focusEl.selectedIndex].text : '';
+      const total = QUIZ_QUESTIONS.length;
+      let score = 0;
+      Object.keys(appState.quizAnswers).forEach(function(k) {
+        if (appState.quizAnswers[k] === QUIZ_QUESTIONS[Number(k)].correct) score++;
+      });
+
+      const content = [
+        `LA GENEALOGÍA DE LA MORAL — SÍNTESIS DE ESTUDIO`,
+        `Eje seleccionado: ${focusLabel}`,
+        `Tratados asimilados: T1=${appState.mastery.t1 ? 'Sí' : 'No'}, T2=${appState.mastery.t2 ? 'Sí' : 'No'}, T3=${appState.mastery.t3 ? 'Sí' : 'No'}`,
+        `Evaluación diagnóstica: ${score}/${total} aciertos`,
+        ``,
+        `NOTAS PERSONALES:`,
+        notesText
+      ].join('\n');
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: 'text/plain',
+          encoding: 'UTF-8',
+          filename: 'sintesis_genealogia_moral.txt'
+        });
+        if (msg) msg.textContent = `Síntesis exportada como sintesis_genealogia_moral.txt.`;
+      } else {
+        if (msg) msg.textContent = `Exportación preparada (disponible en el visor integrado de Notebook).`;
+      }
+    }
+
+    /* --- SCROLL OBSERVERS (Navigation highlight + single-trigger reveal) --- */
+    function initScrollObservers() {
+      const reveals = document.querySelectorAll('.reveal-section');
+      if ('IntersectionObserver' in window) {
+        const revealObs = new IntersectionObserver(function(entries, observer) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08 });
+        reveals.forEach(function(el) { revealObs.observe(el); });
+
+        const navObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
+              document.querySelectorAll('.nav-link').forEach(function(link) {
+                link.classList.toggle('active', link.dataset.nav === id);
+              });
+            }
+          });
+        }, { rootMargin: '-20% 0px -60% 0px' });
+        ['prologo', 'tratado-1', 'tratado-2', 'tratado-3', 'evaluacion'].forEach(function(id) {
+          const sec = document.getElementById(id);
+          if (sec) navObs.observe(sec);
+        });
+      } else {
+        reveals.forEach(function(el) { el.classList.add('is-visible'); });
+      }
+    }
+
+    /* --- INITIALIZATION --- */
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            appState = Object.assign(appState, saved);
+            if (!appState.quizAnswers || typeof appState.quizAnswers !== 'object') appState.quizAnswers = {};
+            if (!appState.mastery || typeof appState.mastery !== 'object') appState.mastery = { t1: false, t2: false, t3: false };
+          }
+        }
+      } catch (e) {
+        /* Proceed with defaults */
+      }
+
+      selectPrologLens(appState.prologKey);
+      selectEtymology(appState.etymKey);
+      setTransStage(appState.transStage);
+      setT2Step(appState.t2Step);
+      selectT3Type(appState.t3Type);
+      selectRemedy(appState.remedyKey);
+      renderQuiz();
+      renderMasteryButtons();
+
+      const focusEl = document.getElementById('synthesis-focus');
+      if (focusEl && appState.synthesisFocus) focusEl.value = appState.synthesisFocus;
+      const notesEl = document.getElementById('synthesis-notes');
+      if (notesEl && appState.synthesisNotes) notesEl.value = appState.synthesisNotes;
+
+      updateProgressReadout();
+      initScrollObservers();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
