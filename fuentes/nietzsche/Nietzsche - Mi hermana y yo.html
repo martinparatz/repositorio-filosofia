@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="sonnet">
+  <title>Mi hermana y yo — Base de conocimientos sobre la obra atribuida a Friedrich Nietzsche</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Style tokens (Sonnet) */
+      --background: #f5efe0;
+      --surface-container-low: #f8f3e7;
+      --surface-container: #ece3cf;
+      --surface-container-high: #e4d8bf;
+
+      --on-surface: #1f1a17;
+      --on-surface-variant: #4a3f38;
+
+      --outline: #a8843f;
+      --outline-variant: #d8c7a3;
+
+      --primary: #6b1424;
+      --on-primary: #f5efe0;
+      --primary-container: #efe0dc;
+      --on-primary-container: #4a0d18;
+      --secondary: #2f4a3a;
+      --tertiary: #a8843f;
+      --error: #9b2c1f;
+      --on-error: #f5efe0;
+
+      --data-1: #6b1424;
+      --data-2: #2f4a3a;
+      --data-3: #a8843f;
+      --data-4: #3d5a73;
+      --data-context: #b9ad9c;
+
+      --font-headline: 'Cormorant Garamond', serif;
+      --font-body: 'Crimson Pro', serif;
+      --font-label: 'Cormorant Garamond', serif;
+
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 9999px;
+
+      --gilt-rule: 1px solid var(--outline);
+      --gilt-rule-soft: 1px solid var(--outline-variant);
+      --gilt-frame-inset: 5px;
+      --paper-vignette: inset 0 0 90px rgb(120 90 40 / 0.16);
+
+      /* 2. Shared semantic & scale tokens */
+      --positive: #2f4a3a;
+      --warning: #7a4b12;
+      --focus: #6b1424;
+
+      --display-size: clamp(2.75rem, 1.5rem + 4.5vw, 4.75rem);
+      --headline-size: clamp(1.875rem, 1.25rem + 2.2vw, 2.75rem);
+      --subhead-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.55rem);
+      --body-size: clamp(1.125rem, 1.04rem + 0.25vw, 1.22rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.15vw, 0.85rem);
+
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.68;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page {
+      min-height: 100vh;
+      box-shadow: var(--paper-vignette);
+      padding-bottom: var(--space-3xl);
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg);
+      max-width: 1120px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+      font-weight: 500;
+    }
+    h1 {
+      font-size: var(--display-size);
+      font-style: italic;
+      line-height: 1.06;
+      letter-spacing: -0.01em;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      font-style: italic;
+      line-height: 1.14;
+      letter-spacing: -0.005em;
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      font-weight: 600;
+      line-height: 1.25;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      font-variant-numeric: oldstyle-nums;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .measure {
+      max-width: 65ch;
+      margin-inline: auto;
+      text-align: left;
+    }
+
+    .kicker {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--primary);
+      display: block;
+    }
+
+    .lede {
+      font-size: clamp(1.18rem, 1.08rem + 0.4vw, 1.38rem);
+      color: var(--on-surface-variant);
+      font-style: italic;
+      line-height: 1.55;
+      max-width: 56ch;
+      margin-inline: auto;
+    }
+
+    /* Sonnet defining treatments */
+    .gilt-frame {
+      border: var(--gilt-rule);
+      outline: var(--gilt-rule);
+      outline-offset: calc(-1 * var(--gilt-frame-inset));
+      padding: var(--space-2xl) var(--space-xl);
+      text-align: center;
+      background-color: var(--surface-container-low);
+    }
+
+    .drop-cap::first-letter {
+      float: left;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 3.6em;
+      line-height: 0.84;
+      padding: 0.06em 0.1em 0 0;
+      color: var(--primary);
+    }
+
+    .ruled {
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--gilt-rule-soft);
+    }
+    .section-head .kicker {
+      margin-bottom: var(--space-xs);
+    }
+    .section-head p {
+      max-width: 56ch;
+      margin: var(--space-sm) auto 0;
+      color: var(--on-surface-variant);
+    }
+
+    .verse {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.24em;
+      line-height: 1.5;
+      color: var(--secondary);
+      border-left: var(--gilt-rule);
+      padding-left: var(--space-lg);
+      max-width: 44ch;
+      margin: var(--space-lg) auto;
+      text-align: left;
+    }
+    .verse cite {
+      display: block;
+      margin-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--on-surface-variant);
+    }
+
+    /* Navigation bar */
+    .toc-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-xs) var(--space-md);
+      margin-top: var(--space-lg);
+      padding-top: var(--space-md);
+      border-top: var(--gilt-rule-soft);
+    }
+    .toc-link {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-color: var(--outline);
+      text-underline-offset: 4px;
+      padding: var(--space-xs) var(--space-xs);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: color var(--dur-micro) var(--ease-out);
+    }
+    .toc-link:hover {
+      color: var(--on-primary-container);
+      text-decoration-color: var(--primary);
+    }
+    .toc-sep {
+      color: var(--on-surface-variant);
+      user-select: none;
+    }
+
+    /* Key figures strip */
+    .figures-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+      gap: var(--space-lg);
+      text-align: center;
+    }
+    .figure-item {
+      padding-inline: var(--space-sm);
+    }
+    .figure-label {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--primary);
+      display: block;
+    }
+    .figure-value {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: clamp(1.9rem, 1.4rem + 1.4vw, 2.5rem);
+      line-height: 1.1;
+      color: var(--on-surface);
+      margin-block: var(--space-xs);
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .figure-caption {
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Progress banner */
+    .study-status {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      background-color: var(--surface-container-low);
+      border-block: var(--gilt-rule-soft);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .study-status-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-lg);
+      align-items: center;
+    }
+    .status-pill {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--secondary);
+      border: 1px solid var(--secondary);
+      border-radius: var(--rounded-full);
+      padding: var(--space-xs) var(--space-md);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .study-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-lg);
+      min-height: 44px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      border: 1px solid var(--primary);
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--on-primary-container);
+    }
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary);
+    }
+    .btn-secondary:hover {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    .btn-secondary[aria-pressed="true"],
+    .btn-tab[aria-selected="true"] {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Section 1: Thematic Grid */
+    .axes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-xl) var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+    .axis-entry {
+      border-top: var(--gilt-rule);
+      border-bottom: var(--gilt-rule-soft);
+      padding-block: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .axis-entry h3 {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--on-surface);
+    }
+    .axis-meta {
+      margin-top: auto;
+      padding-top: var(--space-sm);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--secondary);
+      border: 1px solid var(--secondary);
+      border-radius: var(--rounded-full);
+      padding: 0.15rem 0.65rem;
+      display: inline-block;
+    }
+
+    /* Section 2: Relational Constellation Map */
+    .constellation-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-xl);
+    }
+    .svg-stage {
+      background-color: var(--surface-container-low);
+      border: var(--gilt-rule-soft);
+      padding: var(--space-md);
+    }
+    .constellation-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .rel-edge {
+      stroke: var(--outline-variant);
+      stroke-width: 1.5;
+      stroke-dasharray: 4 3;
+      fill: none;
+    }
+    .rel-edge.active-edge {
+      stroke: var(--primary);
+      stroke-width: 2;
+      stroke-dasharray: none;
+    }
+    .rel-node-group {
+      cursor: pointer;
+    }
+    .rel-node-circle {
+      fill: var(--background);
+      stroke: var(--outline);
+      stroke-width: 1.5;
+      transition: fill var(--dur-short) var(--ease-out), stroke var(--dur-short) var(--ease-out);
+    }
+    .rel-node-group:hover .rel-node-circle,
+    .rel-node-group.is-selected .rel-node-circle {
+      fill: var(--primary);
+      stroke: var(--primary);
+    }
+    .rel-node-label {
+      font-family: var(--font-headline);
+      font-size: 13px;
+      font-weight: 600;
+      fill: var(--on-surface);
+      text-anchor: middle;
+      pointer-events: none;
+    }
+    .rel-node-sub {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-style: italic;
+      fill: var(--on-surface-variant);
+      text-anchor: middle;
+      pointer-events: none;
+    }
+    .rel-node-icon {
+      font-family: var(--font-headline);
+      font-size: 14px;
+      font-weight: 700;
+      fill: var(--primary);
+      text-anchor: middle;
+      dominant-baseline: central;
+      pointer-events: none;
+    }
+    .rel-node-group:hover .rel-node-icon,
+    .rel-node-group.is-selected .rel-node-icon {
+      fill: var(--on-primary);
+    }
+    .node-buttons-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .node-detail-panel {
+      padding: var(--space-lg);
+      background-color: var(--surface-container-low);
+      border-left: var(--gilt-rule);
+    }
+    .node-detail-panel h3 {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.85rem;
+      margin-bottom: var(--space-xs);
+    }
+    .relation-list {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-md) 0;
+      border-top: var(--gilt-rule-soft);
+    }
+    .relation-list li {
+      padding-block: var(--space-sm);
+      border-bottom: var(--gilt-rule-soft);
+      font-size: 0.98rem;
+    }
+    .relation-list strong {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Section 3: Chapters Navigator */
+    .chapter-selector {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-xl);
+    }
+    .chapter-panel {
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-xl);
+    }
+    .chapter-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--gilt-rule-soft);
+    }
+    .chapter-body-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .fragment-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.98rem;
+    }
+    .fragment-table th {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--primary);
+      text-align: left;
+      padding: var(--space-sm) var(--space-sm);
+      border-top: var(--gilt-rule);
+      border-bottom: var(--gilt-rule);
+    }
+    .fragment-table td {
+      padding: var(--space-md) var(--space-sm);
+      border-bottom: var(--gilt-rule-soft);
+      vertical-align: top;
+    }
+    .frag-num {
+      font-variant-numeric: lining-nums tabular-nums;
+      font-weight: 600;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    /* Section 4: Aphorism Analyzer */
+    .filter-bar {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: end;
+      margin-bottom: var(--space-lg);
+      padding-bottom: var(--space-lg);
+      border-bottom: var(--gilt-rule-soft);
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--primary);
+    }
+    .text-input, .select-input, .textarea-input {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--on-surface);
+      background-color: transparent;
+      border: 0;
+      border-bottom: 1px solid var(--on-surface);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-xs);
+      min-height: 44px;
+      width: 100%;
+    }
+    .select-input {
+      padding-right: var(--space-xl);
+      background-color: var(--surface-container-low);
+    }
+    .textarea-input {
+      min-height: 84px;
+      resize: vertical;
+      background-color: var(--surface-container-low);
+      padding: var(--space-sm);
+    }
+    .text-input:focus, .select-input:focus, .textarea-input:focus {
+      border-bottom-color: var(--primary);
+    }
+
+    .theme-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-xl);
+    }
+
+    .aphorisms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+      gap: var(--space-xl);
+    }
+    .aphorism-card {
+      border-top: var(--gilt-rule);
+      border-bottom: var(--gilt-rule-soft);
+      padding-block: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .aphorism-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .aphorism-quote {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.28rem;
+      line-height: 1.45;
+      color: var(--secondary);
+      border-left: var(--gilt-rule);
+      padding-left: var(--space-md);
+    }
+    .aphorism-analysis {
+      font-size: 0.98rem;
+      color: var(--on-surface-variant);
+      background-color: var(--surface-container-low);
+      padding: var(--space-md);
+      border-left: 1px solid var(--outline-variant);
+    }
+    .aphorism-refs {
+      font-size: 0.92rem;
+      color: var(--on-surface-variant);
+    }
+    .aphorism-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: auto;
+    }
+    .empty-state {
+      text-align: center;
+      padding: var(--space-2xl) var(--space-lg);
+      border-block: var(--gilt-rule-soft);
+      color: var(--on-surface-variant);
+    }
+
+    /* Section 5: FAQ */
+    .faq-list {
+      max-width: 72ch;
+      margin-inline: auto;
+      border-top: var(--gilt-rule);
+    }
+    .faq-item {
+      border-bottom: var(--gilt-rule-soft);
+    }
+    .faq-trigger {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      padding: var(--space-lg) var(--space-sm);
+      min-height: 44px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      font-family: var(--font-headline);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--on-surface);
+      transition: color var(--dur-micro) var(--ease-out);
+    }
+    .faq-trigger:hover {
+      color: var(--primary);
+    }
+    .faq-icon {
+      flex-shrink: 0;
+      transition: transform var(--dur-short) var(--ease-out);
+      color: var(--primary);
+    }
+    .faq-trigger[aria-expanded="true"] .faq-icon {
+      transform: rotate(45deg);
+    }
+    .faq-panel {
+      padding: 0 var(--space-sm) var(--space-lg);
+      color: var(--on-surface-variant);
+      max-width: 65ch;
+    }
+
+    /* Section 6: Self-Assessment Quiz */
+    .quiz-container {
+      max-width: 74ch;
+      margin-inline: auto;
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-xl);
+    }
+    .quiz-summary-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md) var(--space-lg);
+      background-color: var(--surface-container-low);
+      border-bottom: var(--gilt-rule-soft);
+      margin-bottom: var(--space-xl);
+    }
+    .quiz-question-card {
+      padding-bottom: var(--space-xl);
+      margin-bottom: var(--space-xl);
+      border-bottom: var(--gilt-rule-soft);
+    }
+    .quiz-question-card:last-of-type {
+      border-bottom: 0;
+      margin-bottom: var(--space-md);
+    }
+    .quiz-prompt {
+      font-family: var(--font-headline);
+      font-size: 1.42rem;
+      font-weight: 600;
+      color: var(--on-surface);
+      margin: var(--space-xs) 0 var(--space-md);
+      line-height: 1.3;
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      background-color: var(--surface-container-low);
+      border: 1px solid var(--outline-variant);
+      padding: var(--space-md);
+      min-height: 44px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 1.04rem;
+      color: var(--on-surface);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      background-color: var(--surface-container);
+    }
+    .quiz-option.is-correct {
+      background-color: var(--primary-container);
+      box-shadow: inset 4px 0 0 var(--positive);
+      color: var(--on-surface);
+    }
+    .quiz-option.is-wrong {
+      background-color: var(--surface-container);
+      box-shadow: inset 4px 0 0 var(--error);
+      color: var(--error);
+    }
+    .quiz-feedback {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      border-left: 2px solid var(--secondary);
+      background-color: var(--surface-container-low);
+      font-size: 0.98rem;
+    }
+    .quiz-feedback.feedback-error {
+      border-left-color: var(--error);
+    }
+
+    /* Inline status message */
+    .inline-notice {
+      font-style: italic;
+      color: var(--secondary);
+      font-size: 0.96rem;
+      margin-top: var(--space-xs);
+    }
+
+    /* Footer */
+    .colophon {
+      text-align: center;
+      padding-top: var(--space-xl);
+      border-top: var(--gilt-rule);
+      color: var(--on-surface-variant);
+      font-size: 0.96rem;
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 820px) {
+      .constellation-layout,
+      .chapter-body-grid,
+      .filter-bar {
+        grid-template-columns: 1fr;
+      }
+      .node-detail-panel {
+        border-left: 0;
+        border-top: var(--gilt-rule);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .gilt-frame {
+        padding: var(--space-xl) var(--space-md);
+      }
+      .toc-nav {
+        gap: var(--space-xs) var(--space-sm);
+      }
+      .study-status {
+        padding: var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <main class="page-grid">
+
+      <!-- OPENING TITLE BLOCK (Single gilt-frame per view) -->
+      <header class="gilt-frame">
+        <span class="kicker">Base de Conocimientos Estructurada · Edición de 1951</span>
+        <h1>Mi hermana y yo</h1>
+        <p class="lede">
+          Estudio interactivo sobre el manuscrito confesional atribuido a Friedrich Nietzsche durante su reclusión en el asilo de Jena: arquitectura temática, cartografía afectiva, análisis de aforismos y autoevaluación crítica.
+        </p>
+        <nav class="toc-nav" aria-label="Navegación principal del estudio">
+          <a class="toc-link" href="#ejes">Ejes Temáticos</a>
+          <span class="toc-sep" aria-hidden="true">·</span>
+          <a class="toc-link" href="#mapa">Mapa Relacional</a>
+          <span class="toc-sep" aria-hidden="true">·</span>
+          <a class="toc-link" href="#capitulos">Capítulos</a>
+          <span class="toc-sep" aria-hidden="true">·</span>
+          <a class="toc-link" href="#aforismos">Aforismos</a>
+          <span class="toc-sep" aria-hidden="true">·</span>
+          <a class="toc-link" href="#faq">Preguntas Frecuentes</a>
+          <span class="toc-sep" aria-hidden="true">·</span>
+          <a class="toc-link" href="#autoevaluacion">Autoevaluación</a>
+        </nav>
+      </header>
+
+      <!-- KEY FIGURES STRIP -->
+      <section class="ruled" aria-label="Cifras clave de la obra">
+        <div class="figures-strip">
+          <div class="figure-item">
+            <span class="figure-label">Capítulos examinados</span>
+            <span class="figure-value">I, II, III, VIII y IX</span>
+            <span class="figure-caption">Fragmentos confesionales numerados</span>
+          </div>
+          <div class="figure-item">
+            <span class="figure-label">Ejes estructurales</span>
+            <span class="figure-value">6 núcleos</span>
+            <span class="figure-caption">Familia, Eros, Fe, Razón y Locura</span>
+          </div>
+          <div class="figure-item">
+            <span class="figure-label">Marco vital del autor</span>
+            <span class="figure-value">1844–1900</span>
+            <span class="figure-caption">Röcken · Naumburg · Jena · Weimar</span>
+          </div>
+          <div class="figure-item">
+            <span class="figure-label">Publicación inglesa</span>
+            <span class="figure-value">1951</span>
+            <span class="figure-caption">Versión castellana de Bella M. Albelia</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PERSISTENT STUDY PROGRESS STRIP -->
+      <section class="study-status" aria-label="Estado del cuaderno de estudio">
+        <div class="study-status-metrics">
+          <span class="status-pill" id="progress-chapters">Capítulos leídos: 0 / 5</span>
+          <span class="status-pill" id="progress-bookmarks">Aforismos guardados: 0</span>
+          <span class="status-pill" id="progress-quiz">Autoevaluación: 0 / 8</span>
+        </div>
+        <div class="study-actions">
+          <button type="button" class="btn btn-secondary" onclick="exportStudyNotes()">
+            Exportar cuaderno (.txt)
+          </button>
+          <button type="button" class="btn btn-secondary" id="reset-all-btn" onclick="resetAllProgress(this)">
+            Reiniciar progreso
+          </button>
+        </div>
+      </section>
+
+      <!-- SECTION 1: CORE CONTEXT & 6 THEMATIC AXES -->
+      <section id="ejes" class="reveal">
+        <div class="section-head">
+          <span class="kicker">Sección Primera · Síntesis Estructural</span>
+          <h2>Los seis ejes de una confesión en el encierro</h2>
+          <p>
+            Articulación de las fuerzas biográficas, religiosas y filosóficas que atraviesan el manuscrito clandestino.
+          </p>
+        </div>
+
+        <div class="measure">
+          <p class="drop-cap">
+            Terminado según su nota preliminar durante la reclusión en el asilo de Jena y amargado por las maniobras familiares destinadas a impedir la publicación de <em>Ecce Homo</em> en vida del filósofo, el texto de <em>Mi hermana y yo</em> se presenta como un documento extremo en el que la voz narradora interroga su existencia entera. Para burlar la vigilancia de su madre y de su hermana Elisabeth —quien registraba los cajones de su habitación en busca del diario—, confía los cuadernos a un vecino y compañero de asilo próximo a recibir el alta, un pequeño comerciante que aún lo llama respetuosamente <em>Herr Profesor</em>.
+          </p>
+        </div>
+
+        <blockquote class="verse">
+          «¡No hay nada sagrado para mí, ni siquiera mi propia madre y mi hermana!… La suerte está echada. He tomado la fortaleza de mi ser más íntimo.»
+          <cite>Capítulo Segundo, fragmento 1</cite>
+        </blockquote>
+
+        <div class="axes-grid">
+          <article class="axis-entry">
+            <span class="kicker">Eje I · Encierro y Legado</span>
+            <h3>Confinamiento en Jena y manuscrito clandestino</h3>
+            <p>
+              Redactado entre dolores de parálisis y dedos entumecidos, el texto denuncia la apropiación póstuma de su figura mientras aún vive: en el jardín de Weimar, Elisabeth sirve el té a visitantes de Brasil o Perú para exhibir al pensador como «una momia egipcia que ha olvidado morir».
+            </p>
+            <div class="axis-meta">
+              <span class="tag">Asilo de Jena</span>
+              <span class="tag">Censura de Ecce Homo</span>
+            </div>
+          </article>
+
+          <article class="axis-entry">
+            <span class="kicker">Eje II · Vínculo Fraterno</span>
+            <h3>Elisabeth («Lama») y la sombra del incesto</h3>
+            <p>
+              Oscila entre la gratitud —llamándola «el cálido puerto» y reconociendo su disciplina tras la muerte de Dios— y el rencor feroz: la acusa de iniciar intimidades prohibidas la noche en que murió su hermano menor Joseph, de sabotear su unión con Lou Salomé y de marchar al Paraguay junto al antisemita Bernhard Foerster.
+            </p>
+            <div class="axis-meta">
+              <span class="tag">Lama</span>
+              <span class="tag">Tía Rosalía</span>
+              <span class="tag">Paraguay</span>
+            </div>
+          </article>
+
+          <article class="axis-entry">
+            <span class="kicker">Eje III · Herencia Materna</span>
+            <h3>La madre y el puritanismo de Naumburg</h3>
+            <p>
+              Abre el libro con el sueño de la muerte y el entierro de su madre en cal. Evocando a Augier («Tengo el corazón de mi madre»), la culpa de haber cerrado su vida afectiva tras quedar viuda a menos de seis años de matrimonio, envenenando la existencia de sus hijos con un pudor ascético que compara con la mirada petrificante de Medusa.
+            </p>
+            <div class="axis-meta">
+              <span class="tag">Naumburg-an-der-Saale</span>
+              <span class="tag">Ideal ascético</span>
+            </div>
+          </article>
+
+          <article class="axis-entry">
+            <span class="kicker">Eje IV · Eros y Redención</span>
+            <h3>Lou Salomé («mi Helena rusa») y el Eterno Retorno</h3>
+            <p>
+              Frente al ascetismo familiar y al nihilismo wagneriano de Cosima («Ariadna»), Lou encarna en Tautenburg la unión de cuerpo e intelecto («Sofía»). Ella resignifica eróticamente el Eterno Retorno al preguntarle en sus brazos si desearía que ese instante se repitiera eternamente; su pérdida marca su «Waterloo moral».
+            </p>
+            <div class="axis-meta">
+              <span class="tag">Tautenburg</span>
+              <span class="tag">Eterno Retorno</span>
+              <span class="tag">Sofía</span>
+            </div>
+          </article>
+
+          <article class="axis-entry">
+            <span class="kicker">Eje V · Agonía Teológica</span>
+            <h3>Dionisio frente al Crucificado</h3>
+            <p>
+              El antiguo «pequeño pastor» descubre que la moral luterana sigue en su sangre. Su mente se escinde en dos polos incompatibles —firmando cartas en Turín como «el Crucificado» y «Dionisio»— y admite la derrota ante el Nazareno con las palabras de Juliano el Apóstata: «¡Tú has vencido, Galileo!».
+            </p>
+            <div class="axis-meta">
+              <span class="tag">El Crucificado</span>
+              <span class="tag">Dionisio</span>
+              <span class="tag">Lutero</span>
+            </div>
+          </article>
+
+          <article class="axis-entry">
+            <span class="kicker">Eje VI · Razón y Abismo</span>
+            <h3>La frontera entre cordura y locura</h3>
+            <p>
+              Aunque Peter Gast sugiere que simula la demencia como Baudelaire o Hölderlin para escapar del filisteísmo burgués, la voz confesional admite haber perdido durante meses la noción del tiempo y el espacio. Ironiza que en el asilo, al compararse con su médico Julius Langbein, se siente peligrosamente cuerdo.
+            </p>
+            <div class="axis-meta">
+              <span class="tag">Peter Gast</span>
+              <span class="tag">Strindberg</span>
+              <span class="tag">Julius Langbein</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION 2: INTERACTIVE RELATIONAL CONSTELLATION -->
+      <section id="mapa" class="reveal">
+        <div class="section-head">
+          <span class="kicker">Sección Segunda · Cartografía de Tensiones</span>
+          <h2>Constelación de figuras, lugares e ideas</h2>
+          <p>
+            Seleccione cualquier nodo en el diagrama o mediante los botones inferiores para examinar las relaciones de atracción, censura y ruptura que estructuran la obra.
+          </p>
+        </div>
+
+        <div class="constellation-layout">
+          <div>
+            <div class="svg-stage">
+              <svg class="constellation-svg" viewBox="0 0 600 440" role="img" aria-label="Mapa relacional interactivo entre Nietzsche, su familia, Lou Salomé, Wagner y la pugna Dionisio-Cristo">
+                <!-- Connecting edges -->
+                <line id="edge-elisabeth" class="rel-edge" x1="300" y1="220" x2="120" y2="105" />
+                <line id="edge-madre" class="rel-edge" x1="300" y1="220" x2="120" y2="335" />
+                <line id="edge-lou" class="rel-edge" x1="300" y1="220" x2="480" y2="105" />
+                <line id="edge-wagner" class="rel-edge" x1="300" y1="220" x2="480" y2="335" />
+                <line id="edge-dionisio" class="rel-edge" x1="300" y1="220" x2="300" y2="55" />
+                <line class="rel-edge" x1="120" y1="105" x2="120" y2="335" />
+                <line class="rel-edge" x1="120" y1="105" x2="480" y2="105" />
+                <line class="rel-edge" x1="480" y1="105" x2="300" y2="55" />
+
+                <!-- Node: Nietzsche (Center) -->
+                <g class="rel-node-group is-selected" id="svg-node-nietzsche" tabindex="0" role="button" aria-label="Seleccionar nodo Friedrich Nietzsche" onclick="selectConstellationNode('nietzsche')" onkeydown="handleNodeKey(event, 'nietzsche')">
+                  <circle class="rel-node-circle" cx="300" cy="220" r="34" />
+                  <text class="rel-node-icon" x="300" y="220">FN</text>
+                  <text class="rel-node-label" x="300" y="272">Friedrich Nietzsche</text>
+                  <text class="rel-node-sub" x="300" y="288">Jena · Weimar</text>
+                </g>
+
+                <!-- Node: Dionisio vs Cristo (Top) -->
+                <g class="rel-node-group" id="svg-node-dionisio" tabindex="0" role="button" aria-label="Seleccionar nodo Dionisio y el Crucificado" onclick="selectConstellationNode('dionisio')" onkeydown="handleNodeKey(event, 'dionisio')">
+                  <circle class="rel-node-circle" cx="300" cy="55" r="24" />
+                  <text class="rel-node-icon" x="300" y="55">D/C</text>
+                  <text class="rel-node-label" x="300" y="96">Dionisio vs. Cristo</text>
+                  <text class="rel-node-sub" x="300" y="111">Lutero · Heráclito</text>
+                </g>
+
+                <!-- Node: Elisabeth (Top Left) -->
+                <g class="rel-node-group" id="svg-node-elisabeth" tabindex="0" role="button" aria-label="Seleccionar nodo Elisabeth Lama" onclick="selectConstellationNode('elisabeth')" onkeydown="handleNodeKey(event, 'elisabeth')">
+                  <circle class="rel-node-circle" cx="120" cy="105" r="25" />
+                  <text class="rel-node-icon" x="120" y="105">EL</text>
+                  <text class="rel-node-label" x="120" y="148">Elisabeth («Lama»)</text>
+                  <text class="rel-node-sub" x="120" y="163">Paraguay · Foerster</text>
+                </g>
+
+                <!-- Node: Madre (Bottom Left) -->
+                <g class="rel-node-group" id="svg-node-madre" tabindex="0" role="button" aria-label="Seleccionar nodo La Madre y Naumburg" onclick="selectConstellationNode('madre')" onkeydown="handleNodeKey(event, 'madre')">
+                  <circle class="rel-node-circle" cx="120" cy="335" r="25" />
+                  <text class="rel-node-icon" x="120" y="335">MN</text>
+                  <text class="rel-node-label" x="120" y="378">Madre y Naumburg</text>
+                  <text class="rel-node-sub" x="120" y="393">Tía Rosalía · Pobles</text>
+                </g>
+
+                <!-- Node: Lou Salomé (Top Right) -->
+                <g class="rel-node-group" id="svg-node-lou" tabindex="0" role="button" aria-label="Seleccionar nodo Lou Salomé" onclick="selectConstellationNode('lou')" onkeydown="handleNodeKey(event, 'lou')">
+                  <circle class="rel-node-circle" cx="480" cy="105" r="25" />
+                  <text class="rel-node-icon" x="480" y="105">LS</text>
+                  <text class="rel-node-label" x="480" y="148">Lou Salomé</text>
+                  <text class="rel-node-sub" x="480" y="163">Tautenburg · Sofía</text>
+                </g>
+
+                <!-- Node: Wagner & Cosima (Bottom Right) -->
+                <g class="rel-node-group" id="svg-node-wagner" tabindex="0" role="button" aria-label="Seleccionar nodo Cosima y Wagner" onclick="selectConstellationNode('wagner')" onkeydown="handleNodeKey(event, 'wagner')">
+                  <circle class="rel-node-circle" cx="480" cy="335" r="25" />
+                  <text class="rel-node-icon" x="480" y="335">CW</text>
+                  <text class="rel-node-label" x="480" y="378">Cosima y Wagner</text>
+                  <text class="rel-node-sub" x="480" y="393">Bayreuth · Ariadna</text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="node-buttons-row" role="group" aria-label="Selector rápido de nodos">
+              <button type="button" class="btn btn-secondary" id="btn-node-nietzsche" aria-pressed="true" onclick="selectConstellationNode('nietzsche')">Nietzsche</button>
+              <button type="button" class="btn btn-secondary" id="btn-node-elisabeth" aria-pressed="false" onclick="selectConstellationNode('elisabeth')">Elisabeth</button>
+              <button type="button" class="btn btn-secondary" id="btn-node-madre" aria-pressed="false" onclick="selectConstellationNode('madre')">Madre</button>
+              <button type="button" class="btn btn-secondary" id="btn-node-lou" aria-pressed="false" onclick="selectConstellationNode('lou')">Lou Salomé</button>
+              <button type="button" class="btn btn-secondary" id="btn-node-wagner" aria-pressed="false" onclick="selectConstellationNode('wagner')">Cosima / Wagner</button>
+              <button type="button" class="btn btn-secondary" id="btn-node-dionisio" aria-pressed="false" onclick="selectConstellationNode('dionisio')">Dionisio / Cristo</button>
+            </div>
+          </div>
+
+          <aside class="node-detail-panel" id="node-detail-panel" aria-live="polite">
+            <!-- Populated by JS -->
+          </aside>
+        </div>
+      </section>
+
+      <!-- SECTION 3: NAVIGABLE CHAPTER MODULES -->
+      <section id="capitulos" class="reveal">
+        <div class="section-head">
+          <span class="kicker">Sección Tercera · Recorrido Textual</span>
+          <h2>Módulos navegables por capítulos</h2>
+          <p>
+            Explore la progresión narrativa del manuscrito a través de los capítulos conservados en el corpus y marque su avance de lectura.
+          </p>
+        </div>
+
+        <div class="chapter-selector" role="tablist" aria-label="Capítulos de Mi hermana y yo">
+          <button type="button" class="btn btn-secondary btn-tab" role="tab" id="tab-cap1" aria-selected="true" onclick="selectChapter('cap1')">Capítulo I</button>
+          <button type="button" class="btn btn-secondary btn-tab" role="tab" id="tab-cap2" aria-selected="false" onclick="selectChapter('cap2')">Capítulo II</button>
+          <button type="button" class="btn btn-secondary btn-tab" role="tab" id="tab-cap3" aria-selected="false" onclick="selectChapter('cap3')">Capítulo III</button>
+          <button type="button" class="btn btn-secondary btn-tab" role="tab" id="tab-cap8" aria-selected="false" onclick="selectChapter('cap8')">Capítulo VIII</button>
+          <button type="button" class="btn btn-secondary btn-tab" role="tab" id="tab-cap9" aria-selected="false" onclick="selectChapter('cap9')">Capítulo IX y Notas</button>
+        </div>
+
+        <article class="chapter-panel" id="chapter-panel" aria-live="polite">
+          <!-- Populated by JS -->
+        </article>
+      </section>
+
+      <!-- SECTION 4: CONFESSIONAL APHORISMS ANALYZER -->
+      <section id="aforismos" class="reveal">
+        <div class="section-head">
+          <span class="kicker">Sección Cuarta · Hermenéutica Textual</span>
+          <h2>Análisis de aforismos confesionales</h2>
+          <p>
+            Filtre las sentencias y confesiones más reveladoras por eje temático o palabra clave, examine sus referentes literarios y guarde sus anotaciones de estudio.
+          </p>
+        </div>
+
+        <div class="filter-bar">
+          <div class="field-group">
+            <label class="field-label" for="aphorism-search">Buscar palabra o concepto en los fragmentos</label>
+            <input type="search" id="aphorism-search" class="text-input" placeholder="Ej.: Zaratustra, Lutero, Paraguay, Sofía, martillo…" oninput="filterAphorisms()">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="aphorism-chapter-filter">Filtrar por capítulo</label>
+            <select id="aphorism-chapter-filter" class="select-input" onchange="filterAphorisms()">
+              <option value="all">Todos los capítulos</option>
+              <option value="Capítulo I">Capítulo I</option>
+              <option value="Capítulo II">Capítulo II</option>
+              <option value="Capítulo III">Capítulo III</option>
+              <option value="Capítulo VIII">Capítulo VIII</option>
+              <option value="Capítulo IX">Capítulo IX</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="theme-chips" role="group" aria-label="Filtrar aforismos por eje temático">
+          <button type="button" class="btn btn-secondary" id="chip-all" aria-pressed="true" onclick="setAphorismTheme('all')">Todos</button>
+          <button type="button" class="btn btn-secondary" id="chip-familia" aria-pressed="false" onclick="setAphorismTheme('familia')">Familia e incesto</button>
+          <button type="button" class="btn btn-secondary" id="chip-eros" aria-pressed="false" onclick="setAphorismTheme('eros')">Lou y Eros</button>
+          <button type="button" class="btn btn-secondary" id="chip-fe" aria-pressed="false" onclick="setAphorismTheme('fe')">Fe y Dionisio</button>
+          <button type="button" class="btn btn-secondary" id="chip-locura" aria-pressed="false" onclick="setAphorismTheme('locura')">Locura y filosofía</button>
+          <button type="button" class="btn btn-secondary" id="chip-cultura" aria-pressed="false" onclick="setAphorismTheme('cultura')">Política y cultura</button>
+        </div>
+
+        <div id="aphorisms-list" class="aphorisms-grid">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="field-group" style="max-width: 65ch; margin: var(--space-2xl) auto 0;">
+          <label class="field-label" for="personal-note-input">Cuaderno personal de lectura (se guarda automáticamente)</label>
+          <textarea id="personal-note-input" class="textarea-input" placeholder="Escriba aquí sus reflexiones sobre las tensiones entre Nietzsche, Elisabeth y Lou Salomé…" oninput="savePersonalNote(this.value)"></textarea>
+          <span class="inline-notice" id="note-save-status">Sus anotaciones permanecen en su cuaderno local del estudio.</span>
+        </div>
+      </section>
+
+      <!-- SECTION 5: FAQ -->
+      <section id="faq" class="reveal">
+        <div class="section-head">
+          <span class="kicker">Sección Quinta · Cuestiones Críticas</span>
+          <h2>Preguntas frecuentes sobre la obra</h2>
+          <p>
+            Aclaraciones basadas estrictamente en el manuscrito, el prólogo editorial y las notas del traductor incluidas en la edición.
+          </p>
+        </div>
+
+        <div class="faq-list" id="faq-list">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- SECTION 6: INTERACTIVE SELF-ASSESSMENT -->
+      <section id="autoevaluacion" class="reveal">
+        <div class="section-head">
+          <span class="kicker">Sección Sexta · Comprobación de Lectura</span>
+          <h2>Autoevaluación didáctica</h2>
+          <p>
+            Ocho preguntas basadas en episodios, citas y notas críticas de <em>Mi hermana y yo</em> con retroalimentación inmediata.
+          </p>
+        </div>
+
+        <div class="quiz-container">
+          <div class="quiz-summary-bar">
+            <div>
+              <span class="kicker">Resultado acumulado</span>
+              <strong id="quiz-score-readout">0 de 8 respuestas correctas (0 respondidas)</strong>
+            </div>
+            <button type="button" class="btn btn-secondary" id="reset-quiz-btn" onclick="resetQuiz(this)">
+              Reiniciar autoevaluación
+            </button>
+          </div>
+
+          <div id="quiz-questions">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- COLOPHON / SOURCES NOTE -->
+      <footer class="colophon">
+        <p>
+          <strong>Fuente documental:</strong> <em>Mi hermana y yo</em> (título original: <em>My Sister and I</em>, 1951), obra atribuida a Friedrich Nietzsche, traducción al español de Bella M. Albelia. Todas las citas, cifras biográficas, episodios y notas críticas proceden exclusivamente de los capítulos I, II, III, VIII, IX y del aparato de notas presentes en el texto fuente.
+        </p>
+      </footer>
+
+    </main>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    // =========================================================
+    // 1. STRUCTURED KNOWLEDGE BASE DATA (Backtick strings only)
+    // =========================================================
+
+    const CONSTELLATION_DATA = {
+      nietzsche: {
+        kicker: `Eje Central · El Autor en Jena y Weimar`,
+        title: `Friedrich Nietzsche («Herr Profesor»)`,
+        summary: `Se retrata como el «filósofo con el martillo» derribado por la parálisis física y el aislamiento. Escindido entre el orgullo titánico de Zaratustra y la nostalgia por la fe infantil de Naumburg, redacta estas confesiones en secreto para impedir que su familia controle su imagen póstuma.`,
+        quote: `«Soy el «devorado» y el «devorador», el asesino y el asesinado.»`,
+        quoteSource: `Capítulo III`,
+        relations: [
+          { target: `Con Elisabeth`, detail: `Tensión entre la complicidad infantil tras la muerte de Joseph y el rechazo a su tutela moral y su viaje al Paraguay.` },
+          { target: `Con la Madre`, detail: `Rencor hacia la represión puritana que lo obligó a heredar «el corazón de su madre».` },
+          { target: `Con Lou Salomé`, detail: `Única vía de redención erótica e intelectual que su hermana logró sabotear en Tautenburg.` },
+          { target: `Con el Confidente`, detail: `Entrega el manuscrito a un pequeño comerciante vecino, compañero de asilo, que aún lo llama Herr Profesor.` }
+        ]
+      },
+      elisabeth: {
+        kicker: `Polo Familiar · Vigilancia y Oposición`,
+        title: `Elisabeth Förster-Nietzsche («Lama»)`,
+        summary: `Hermana menor a quien apoda «Lama». La describe alternativamente como madre sustituta, guardiana celosa y «Yago hembra». Le reprocha haberlo inducido al secreto infantil del incesto, haber destruido su romance con Lou Salomé mediante la calumnia y haber exhibido su decadencia en Weimar.`,
+        quote: `«Para mí, Elisabeth es primeramente una mujer, el soleado y caluroso puerto hacia el cual gravita toda mi vida.»`,
+        quoteSource: `Capítulo I, §1`,
+        relations: [
+          { target: `Matrimonio con Foerster`, detail: `Se traslada al Paraguay junto a Bernhard Foerster, a quien Nietzsche califica de antisemita y «tinterillo».` },
+          { target: `Censura de Ecce Homo`, detail: `Intenta impedir la publicación en vida del filósofo y registra sus cajones buscando su diario.` },
+          { target: `Comparación literaria`, detail: `La equipara con Augusta, hermana de Lord Byron, y con una «abadesa medieval» del convento de Naumburg.` }
+        ]
+      },
+      madre: {
+        kicker: `Origen y Represión · Naumburg-an-der-Saale`,
+        title: `La Madre, el Padre y la Tía Rosalía`,
+        summary: `Tras la muerte temprana del padre —pastor luterano admirado por su devoción musical— la casa queda dominada por mujeres. La madre cierra su vida afectiva y erige un muro de pudor extremo que, según el relato, empuja a ambos hermanos hacia una intimidad cerrada y culpable.`,
+        quote: `«Mi madre, con sus ojos de Medusa, petrificaba nuestras emociones.»`,
+        quoteSource: `Capítulo II, §3`,
+        relations: [
+          { target: `El sueño inicial`, detail: `El libro abre con la pesadilla luminosa de ver a su madre enterrada en cal y regresar en carruaje con Elisabeth.` },
+          { target: `Tía Rosalía`, detail: `En su lecho de muerte, reprende a solas a Fritz por haber sorprendido su intimidad con Elisabeth y le ruega detenerse.` },
+          { target: `Abuelos Oehler`, detail: `Único refugio en las vacaciones de Pobles, donde ambos hermanos dormían en habitaciones separadas.` }
+        ]
+      },
+      lou: {
+        kicker: `Polo Vital · Tautenburg y el Eterno Retorno`,
+        title: `Lou Salomé («mi Helena rusa» / «Calipso»)`,
+        summary: `Presentada en 1882 por Malwida von Meysenburg, Lou reúne para el narrador la audacia intelectual de George Sand, el conocimiento intuitivo («Sofía») y una plenitud erótica libre de la moral filistea. Representa la oportunidad frustrada de unir filosofía y vida.`,
+        quote: `«Lou era mi ángel bueno que luchaba con Elisabeth, el ángel malo…»`,
+        quoteSource: `Capítulo IX, §12`,
+        relations: [
+          { target: `Relectura del Eterno Retorno`, detail: `En sus brazos pregunta si querría repetir aquel instante eternamente, transformando el dogma en éxtasis vital.` },
+          { target: `Círculo intelectual`, detail: `Confronta el orgullo del filósofo con los pensadores rusos (Tolstói, Dostoievski, Bakunin) y lo acerca al positivismo de Paul Rée.` },
+          { target: `Ruptura en Tautenburg`, detail: `Elisabeth y su madre difaman su conducta hasta forzar la separación, que Nietzsche lamenta hasta la ingestión de cloral.` }
+        ]
+      },
+      wagner: {
+        kicker: `Estética y Nihilismo · Tribschen y Bayreuth`,
+        title: `Cosima («Ariadna») y Richard Wagner`,
+        summary: `El wagnerianismo —contraído a los diecisiete años como «una peste»— fue a la vez hogar musical y trampa nihilista. Confiesa haber amado en silencio a Cosima Wagner (a quien identifica como Ariadna y su verdadera esposa en el delirio de Turín), mientras rompía con el egoísmo despótico de Wagner.`,
+        quote: `«¡Ariadna, os amo! Sólo mi mujer, Cosima, puede llevarme nuevamente al amor del mundo…»`,
+        quoteSource: `Capítulo II, §2`,
+        relations: [
+          { target: `Parsifal y la muerte`, detail: `Descubre en Cosima y en Tribschen la adoración por el Liebestod («Muerte, morir, gracia suprema») opuesta a Dionisio.` },
+          { target: `Peter Gast`, detail: `Reemplaza al «gigante Wagner» por el modesto Peter Gast, quien lo acompaña en paseos fuera del hospicio.` },
+          { target: `Rey Luis II`, detail: `Ve en el protector loco de Wagner el espejo del artista que abandona la realidad por el desvarío subjetivo.` }
+        ]
+      },
+      dionisio: {
+        kicker: `Pugna Espiritual · El Pequeño Pastor contra el Martillo`,
+        title: `Dionisio frente al Crucificado`,
+        summary: `El combate más íntimo del manuscrito no ocurre contra el clero externo, sino dentro del propio pensador. Educado en la Biblia hasta ser apodado «el pequeño pastor», descubre que su ataque feroz contra el cristianismo lo ha dejado sin Dios ni amigos, atrapado entre el dios griego de la vida y la sombra de Cristo.`,
+        quote: `«¡Al gritar contra la locura de Dios, enloquecí yo mismo!»`,
+        quoteSource: `Capítulo II, §8`,
+        relations: [
+          { target: `Cartas de Turín`, detail: `La fractura interior se expresa en las epístolas enviadas desde Turín firmadas alternativamente como «el Crucificado» y «Dionisio».` },
+          { target: `Herencia de Lutero`, detail: `Atribuye a la tradición luterana tanto su culpa ante la carne como las contradicciones europeas hacia el pueblo judío.` },
+          { target: `Heráclito vs. Sócrates`, detail: `Lamenta que diecinueve siglos de piedad cristiana lo separen de la inocencia cósmica de Heráclito.` }
+        ]
+      }
+    };
+
+    const CHAPTERS_DATA = {
+      cap1: {
+        id: `cap1`,
+        kicker: `Capítulo Primero · §1–§35`,
+        title: `El sueño del funeral y la sombra de la infancia`,
+        intro: `El capítulo inaugural establece el tono confesional y los cimientos psicológicos de toda la obra. Comienza con una «pesadilla feliz» —el entierro de su madre— que desemboca en un viaje en carruaje junto a Elisabeth, y recorre luego las muertes tempranas de su padre y su hermano Joseph, la infancia en Naumburg, la pérdida de la fe y la censura familiar sobre Ecce Homo.`,
+        quote: `«No era un fugitivo de Bonn, sino de la vida.»`,
+        quoteSource: `Capítulo I, §34`,
+        fragments: [
+          { num: `§1–2`, axis: `Madre / Elisabeth`, detail: `Sueña que su madre muere y es cubierta de cal. En el carruaje de regreso, percibe la tensión erótica hacia su hermana: «Hay tres camas en esta casa, y dos de ellas permanecerán desocupadas».` },
+          { num: `§3`, axis: `Política / Paraguay`, detail: `Rechaza furioso la invitación de Elisabeth a mudarse al Paraguay y condena el antisemitismo de su difunto cuñado Foerster, así como al Káiser y a Bismarck.` },
+          { num: `§4`, axis: `Correspondencia`, detail: `Transcribe la carta mordaz de August Strindberg sobre una fotografía suya («¿El Mefisto de un espectáculo de Fausto de tercera clase?») y menciona a Georg Brandes.` },
+          { num: `§5–12`, axis: `Infancia`, detail: `Recuerda al padre músico y devoto, la muerte de Joseph (dos años) y la primera noche en que Elisabeth entra en su lecho; las únicas pausas llegaban en Pobles con los abuelos Oehler.` },
+          { num: `§14–18`, axis: `Vocación`, detail: `Escribe cien versos entre los 10 y 12 años; sufre jaquecas y dolores oculares; contrae el «wagnerianismo» a los 17 años; identifica sus dos traumas: perder la fe y dudar de su inmortalidad poética.` },
+          { num: `§25–35`, axis: `Manuscrito`, detail: `Confía las notas a un compañero resfriado para esquivar la vigilancia familiar; denuncia que su familia impide publicar Ecce Homo por su claridad implacable.` }
+        ]
+      },
+      cap2: {
+        id: `cap2`,
+        kicker: `Capítulo Segundo · §1–§10`,
+        title: `El Anticristo ante el pie del Nazareno`,
+        intro: `Escrito bajo el peso de la parálisis física en Weimar, este capítulo enfrenta el terror a la exposición pública y la derrota del propio orgullo intelectual. Aquí cristaliza la paradoja central de su ateísmo: haber destruido a Dios para quedar varado en el vacío, mientras Elisabeth administra su fama prematura sirviendo el té en el jardín.`,
+        quote: `«Todo se puede adquirir en la soledad, excepto la cordura.»`,
+        quoteSource: `Capítulo II, §8`,
+        fragments: [
+          { num: `§1`, axis: `Confesión`, detail: `Se compara con Hamlet y Ricardo II; asume el costo de exponer ante la plebe sus relaciones con su madre, su hermana y Lou Salomé tras haber rasgado todas las máscaras de la filosofía.` },
+          { num: `§2`, axis: `Weimar / Ariadna`, detail: `Relata cómo Elisabeth registra sus cajones buscando su diario y exhibe su figura ante extranjeros de Brasil o Perú; invoca apasionadamente a «Ariadna» (Cosima Wagner).` },
+          { num: `§3–4`, axis: `Eros / Incesto`, detail: `Citando a Augier («Tengo el corazón de mi madre»), contrasta la luminosidad erótica de Lou Salomé con el incesto, descrito como «un jardín cerrado, una fuente sellada».` },
+          { num: `§6–7`, axis: `Parálisis`, detail: `Reconoce el colapso de la «sensación de distancia»: en su parálisis lo están amasando en la «pasta de la imbecilidad» (Goldoni) junto a Rousseau y Lessing.` },
+          { num: `§8–10`, axis: `Teología`, detail: `Cita la parábola evangélica de la casa sobre la arena y proclama la derrota de Juliano el Apóstata («¡Tú has vencido, Galileo!»), preguntando finalmente si Dios está muerto o lo espera tras la tumba.` }
+        ]
+      },
+      cap3: {
+        id: `cap3`,
+        kicker: `Capítulo Tercero · §1–§42 y desarrollos`,
+        title: `El útero desierto, la cultura y las dos ladronas`,
+        intro: `Combina una meditación cruda sobre la represión sexual en su hogar natal con una serie de aforismos sobre civilización, guerra e historia (Plutarco, Voltaire, Lavoisier, Montaigne), culminando en sus recuerdos de juventud: la condesa de Pforta, el burdel de Colonia y la escisión entre lo ideal y lo carnal.`,
+        quote: `«¡Hermana, me entierran vivo! ¡Ayúdame, Ifigenia!»`,
+        quoteSource: `Capítulo III`,
+        fragments: [
+          { num: `§1–6`, axis: `Represión`, detail: `A partir de un chiste vulgar en el asilo, reflexiona sobre la viudez hostil de su madre y compara un cuerpo reprimido con un pueblo fantasma abandonado tras la fiebre del oro.` },
+          { num: `§7–12`, axis: `Conjetura vital`, detail: `Recuerda a tía Rosalía («Yo sólo podría hacer la calle por Jesús») e imagina que, si su madre se hubiera vuelto a casar, él habría sido simplemente «un filólogo de primera categoría».` },
+          { num: `§14–40`, axis: `Aforismos`, detail: `Define la esencia de la cultura como «el predominio de la bondad»; analiza la ciencia bajo el Estado, el igualitarismo socialista y el necio sueño del pacifismo.` },
+          { num: `§40–42`, axis: `Diálogo con Lama`, detail: `Enfrenta a Elisabeth en el asilo acusándola de espiarlo junto a su madre y de haber recibido dinero por revelar intimidades suyas; lee a Hesíodo y Edipo Rey.` },
+          { num: `Pforta / Colonia`, axis: `Eros juvenil`, detail: `Narra su iniciación a los 15 años con una condesa en un invernáculo, el episodio del burdel en Colonia donde corrió a tocar un acorde en un piano polvoriento, y su crucifixión erótica entre la «rubia» y la «morena» hasta hallar a Lou.` }
+        ]
+      },
+      cap8: {
+        id: `cap8`,
+        kicker: `Capítulo Octavo · §1–§53`,
+        title: `El lecho de tía Rosalía y los días de Basilea`,
+        intro: `El capítulo octavo reconstruye episodios velados en la memoria del autor: la pérdida de un cuchillito de plata heredado de su padre, la convivencia con Elisabeth en Basilea tras renunciar a la cátedra, y la escena decisiva en que la moribunda tía Rosalía revela haber descubierto el secreto de los hermanos.`,
+        quote: `«Cuando un libro es realmente necesario, yo creo conveniente guardar el más profundo silencio.»`,
+        quoteSource: `Capítulo VIII, §8`,
+        fragments: [
+          { num: `§1`, axis: `Memoria`, detail: `Evoca el cuchillito de plata paterno desaparecido y las lagunas sobre su estancia con Elisabeth en Basilea tras la cura en Steinabad, en la Selva Negra.` },
+          { num: `§2–4`, axis: `Tía Rosalía`, detail: `En su lecho de muerte, tía Rosalía pide a la madre salir del cuarto y confronta a Fritz: vio con sus propios ojos las intimidades entre hermano y hermana y le advierte que arriesga su alma inmortal.` },
+          { num: `§5–6`, axis: `Sospechas de Bayreuth`, detail: `Recuerda que Wagner se asombró de su buen humor al volver de Clarens tras ver a su familia, y que Cosima le escribió sugiriendo alejar a Elisabeth para cuidar a sus hijos mientras ellos viajaban.` },
+          { num: `§51–53`, axis: `Sentencias`, detail: `Cierra con breves máximas: la búsqueda de la verdad como la forma más grande de rebelión y la civilización como lucha entre estilos de interpretar el pasado.` }
+        ]
+      },
+      cap9: {
+        id: `cap9`,
+        kicker: `Capítulo Noveno y Aparato Crítico · §1–§55`,
+        title: `Fausto, el manicomio, Wagner y la herencia de Lutero`,
+        intro: `Es el gran fresco de síntesis filosófica y biográfica: opone a Fausto y Helena contra el ascetismo, reivindica a Lou Salomé como maestra del Eterno Retorno, confiesa un experimento con venenos al estilo de César Borgia, conversa con Peter Gast fuera del hospicio y somete a juicio la influencia de Wagner, Cosima, Lutero y el doctor Julius Langbein.`,
+        quote: `«¡Si hubiera tenido que elegir entre Lou y Zaratustra, creo que la mujer sería mi elección final!»`,
+        quoteSource: `Capítulo IX, §20`,
+        fragments: [
+          { num: `§1–10`, axis: `Sofía y Tautenburg`, detail: `Lou lo inicia en los «ritos de Isis» y lo arranca de las estadísticas positivistas y de los «Cagliostros de la música» wagnerianos. Lamenta que los socialistas apropien al Superhombre.` },
+          { num: `§11–12`, axis: `Byron y César Borgia`, detail: `Paseando con Peter Gast, expone los «ismaelitas de Nietzsche» y admite que llegó a probar venenos pensando en su hermana, detenido al fin por su conciencia luterana.` },
+          { num: `§20–24`, axis: `Eterno Retorno`, detail: `Recuerda la pregunta de Lou en sus brazos («¿Te gustaría que esto se repitiera eternamente?»), su preferencia por ella frente a Zaratustra y la despedida con hidrato de cloral.` },
+          { num: `§33–55`, axis: `Cristo, Lutero y Langbein`, detail: `Analiza la psicología antisemita heredada de Lutero, la dominación femenina de Cosima en Parsifal, y se burla del doctor Julius Langbein (Rembrandt Educador), sintiéndose más cuerdo que sus médicos.` },
+          { num: `Notas del T. I.`, axis: `Aparato crítico`, detail: `El traductor inglés señala confusiones temporales (Elisabeth volvió de Paraguay al final de la estancia en Jena), identifica a «Ariadna» con Cosima Wagner, a «Lama» con Elisabeth, y advierte sobre el juego entre locura clínica y máscara literaria.` }
+        ]
+      }
+    };
+
+    const APHORISMS_DATA = [
+      {
+        id: `af1`,
+        chapter: `Capítulo I`,
+        section: `§3`,
+        theme: `cultura`,
+        themeLabel: `Política y cultura`,
+        quote: `«El antisemitismo, en un lugar donde ocasionalmente se puede echar una mirada a un rostro genuinamente judío, es una cosa. Pero debe ser imposible respirar donde hay sólo vacíos rostros cristianos que saludan.»`,
+        analysis: `Frente a la invitación de Elisabeth para emigrar al Paraguay, Nietzsche marca una ruptura radical con el proyecto de su cuñado Bernhard Foerster (Nueva Germania) y con el nacionalismo alemán del Káiser y Bismarck. Distingue su espíritu crítico de la vulgaridad racial de su entorno familiar.`,
+        refs: `Referentes: Paraguay (colonia de Foerster), Káiser Guillermo, Otto von Bismarck.`
+      },
+      {
+        id: `af2`,
+        chapter: `Capítulo II`,
+        section: `§1`,
+        theme: `familia`,
+        themeLabel: `Familia e incesto`,
+        quote: `«Yo soy el filósofo con el martillo, un enemigo jurado de todos los cultos de idolatría, aun el antiguo culto chino de venerar a la familia. ¡No hay nada sagrado para mí, ni siquiera mi propia madre y mi hermana!»`,
+        analysis: `Reivindica la continuidad metodológica entre su filosofía pública (El crepúsculo de los ídolos) y esta confesión íntima: quien ha exigido desnudar todas las convenciones morales de Europa no puede descender enmascarado a la tumba para proteger el decoro burgués de su casa.`,
+        refs: `Referentes: Galileo, Hamlet, Ricardo II, Víctor Hugo.`
+      },
+      {
+        id: `af3`,
+        chapter: `Capítulo II`,
+        section: `§3`,
+        theme: `familia`,
+        themeLabel: `Familia e incesto`,
+        quote: `«Tengo el corazón de mi madre: su hipócrita virtud me ligó con vínculos de acero toda su vida y sólo podría liberarme de ellos tratando de alcanzar un imposible…»`,
+        analysis: `Tomando el lema de una heroína dramática de Émile Augier, diagnostica la transmisión hereditaria de la represión. La castidad militante de la madre, lejos de engendrar pureza, encerró a los hijos en una prisión emocional que estalló como transgresión silenciosa.`,
+        refs: `Referentes: Émile Augier, Molière, Medusa, San Pablo.`
+      },
+      {
+        id: `af4`,
+        chapter: `Capítulo II`,
+        section: `§4`,
+        theme: `eros`,
+        themeLabel: `Lou y Eros`,
+        quote: `«El amor de una mujer es en verdad un bálsamo para el alma herida, pero el incesto es un jardín cerrado, una fuente sellada, donde las aguas de la vida se secan y las flores recién abiertas se marchitan con sólo tocarlas.»`,
+        analysis: `Contrasta la vitalidad expansiva del encuentro amoroso con Lou Salomé frente al carácter estéril, claustrofóbico y culposo de la dependencia fraterna con Elisabeth. La metáfora bíblica del «jardín cerrado» invierte el Cantar de los Cantares en signo de asfixia.`,
+        refs: `Referentes: Tautenburg, Lou Salomé, Cantar de los Cantares.`
+      },
+      {
+        id: `af5`,
+        chapter: `Capítulo II`,
+        section: `§8`,
+        theme: `fe`,
+        themeLabel: `Fe y Dionisio`,
+        quote: `«El Anticristo yace en ruinas frente al indestructible pie de Cristo, calzado con el amor del mundo… ¡Tú has vencido, Galileo, tú has vencido en el mismo corazón de tu mayor enemigo!»`,
+        analysis: `Uno de los pasajes más dramáticos del libro: el autor de El Anticristo reconoce la fuerza histórica y afectiva de la fe que combatió, aunque su orgullo intelectual —comparable al de Satán o Áyax— le impida arrodillarse. La soledad absoluta sin Dios ni amigos revela su límite humano.`,
+        refs: `Referentes: Juliano el Apóstata, Heine, Evangelio de Mateo, Pascal, Job.`
+      },
+      {
+        id: `af6`,
+        chapter: `Capítulo II`,
+        section: `§8`,
+        theme: `locura`,
+        themeLabel: `Locura y filosofía`,
+        quote: `«¡Al gritar contra la locura de Dios, enloquecí yo mismo! Todo se puede adquirir en la soledad, excepto la cordura.»`,
+        analysis: `Diagnóstico fulminante del colapso de Turín en 1889. La soledad heroica que el filósofo celebró como condición del genio se revela aquí como laboratorio de alienación cuando falta la reciprocidad afectiva y comunitaria.`,
+        refs: `Referentes: Swedenborg, August Strindberg, Napoleón en la tormenta.`
+      },
+      {
+        id: `af7`,
+        chapter: `Capítulo III`,
+        section: `§14`,
+        theme: `cultura`,
+        themeLabel: `Política y cultura`,
+        quote: `«He tenido oportunidad de leer y oír muchas definiciones interesantes sobre la cultura. Ninguna de ellas ha puesto debidamente en evidencia la única cualidad de la cultura que existe… el predominio de la bondad.»`,
+        analysis: `Sorprendente giro respecto a la lectura habitual de Nietzsche como apologeta de la dureza: opone el origen secreto de las armas en cuevas de Asia Menor al origen público y comunitario de la primera vasija de cocina al aire libre, donde la civilización nace del cuidado compartido.`,
+        refs: `Referentes: Plutarco, Voltaire, Montaigne, Stendhal.`
+      },
+      {
+        id: `af8`,
+        chapter: `Capítulo IX`,
+        section: `§22`,
+        theme: `eros`,
+        themeLabel: `Lou y Eros`,
+        quote: `«Lou me preguntó cuando estaba en sus brazos: «¿Te gustaría que esto se repitiera una vez más, eternamente?» Transformar la sagrada idea del eterno retorno en un perpetuo orgasmo… era un concepto esencialmente femenino.»`,
+        analysis: `Despoja al concepto metafísico central de Así habló Zaratustra de su abstracción cósmica y lo ancla en la experiencia vivida con Lou Salomé: el instante erótico pleno es la única prueba real de que la existencia merece repetirse sin fin.`,
+        refs: `Referentes: Así habló Zaratustra, Dionisio, Rey Salomón.`
+      },
+      {
+        id: `af9`,
+        chapter: `Capítulo IX`,
+        section: `§11`,
+        theme: `locura`,
+        themeLabel: `Locura y filosofía`,
+        quote: `«Sugirió que quizás estaba simulando la locura de acuerdo con la tesis de Baudelaire de que el único modo de mantenerse cuerdo es escapar de la civilización burguesa y encerrarse en un manicomio.»`,
+        analysis: `Durante un paseo con su discípulo Peter Gast, la frontera entre enfermedad mental y estrategia de resistencia queda deliberadamente ambigua. Aunque en otros pasajes admite la amnesia y la parálisis real, juega con la tradición de Hölderlin y Hamlet para denunciar la necedad del mundo «cuerdo».`,
+        refs: `Referentes: Peter Gast, Charles Baudelaire, Friedrich Hölderlin, Turguénev.`
+      },
+      {
+        id: `af10`,
+        chapter: `Capítulo IX`,
+        section: `§55`,
+        theme: `locura`,
+        themeLabel: `Locura y filosofía`,
+        quote: `«Cuando estaba en el manicomio yo esperaba su llegada con gran deleite, porque por comparación sentíame cuerdo y sobrio. Ahora que he vuelto a Naumburg sólo me recuerda el triste hecho de que únicamente los que están en su sano juicio viven presos en los asilos de lunáticos.»`,
+        analysis: `Sátira mordaz contra el doctor Julius Langbein (autor de Rembrandt Educador, imitación de Schopenhauer Educador), a quien su madre contrató para tratarlo. La inversión irónica cuestiona quién define la normalidad en la Alemania guillermina.`,
+        refs: `Referentes: Julius Langbein, Schopenhauer Educador, asilo de Jena.`
+      }
+    ];
+
+    const FAQ_DATA = [
+      {
+        q: `¿Cómo explica la obra la escritura y supervivencia del manuscrito de «Mi hermana y yo»?`,
+        a: `Según la nota introductoria y el fragmento 25 del Capítulo I, el libro fue terminado mientras el autor permanecía recluido en el asilo de Jena, vigilado por su madre y su hermana, quienes buscaban su diario y bloqueaban la publicación de Ecce Homo. Para salvar las páginas, las confió en secreto a un compañero de internamiento —un pequeño comerciante vecino que aún lo trataba como «Herr Profesor»— próximo a ser dado de alta.`
+      },
+      {
+        q: `¿Por qué llama «Lama» a su hermana Elisabeth y cuál es la ambivalencia hacia ella?`,
+        a: `Las notas del traductor indican que «Lama» era el apodo familiar que Nietzsche daba a Elisabeth. En el texto, la relación oscila entre dos polos extremos: por un lado, reconoce que su disciplina fue un sostén («un padre y una madre») cuando descubrió que Dios había muerto; por otro, la acusa de haber iniciado en la infancia una intimidad incestuosa, de haber destruido su relación con Lou Salomé mediante calumnias y de manipular su legado tras casarse con el antisemita Foerster.`
+      },
+      {
+        q: `¿Qué papel desempeñan la madre y la tía Rosalía en el drama familiar?`,
+        a: `La madre representa el puritanismo asfixiante de Naumburg-an-der-Saale: viuda a menos de seis años de matrimonio, cerró toda vida erótica y convirtió al joven Fritz en su único objeto masculino de aprobación, petrificando los afectos de ambos hijos. Tía Rosalía es la única figura familiar que rompe ese cerco al llamar a Fritz junto a su lecho de muerte (Cap. VIII) tras haber descubierto la intimidad entre los hermanos, advirtiéndole que detenga esa conducta antes de perder su alma.`
+      },
+      {
+        q: `¿Qué representa Lou Salomé frente a Cosima Wagner y Elisabeth?`,
+        a: `En la arquitectura simbólica de la obra, Cosima Wagner («Ariadna») encarna la seducción romántica de la muerte (Parsifal, Liebestod), y Elisabeth encarna la prisión incestuosa y el moralismo hipócrita. Lou Salomé («mi Helena rusa», «Calipso», «Sofía») representa, en cambio, la síntesis viva entre inteligencia filosófica y plenitud erótica sin culpa, capaz de devolver al pensador el cuerpo y darle sentido concreto al Eterno Retorno en Tautenburg.`
+      },
+      {
+        q: `¿Cuál es la posición de la obra frente al cristianismo, Lutero y el antisemitismo?`,
+        a: `Aunque se presenta como «el filósofo con el martillo» y «el Anticristo», el narrador confiesa que la educación luterana de su infancia («el pequeño pastor») jamás desapareció de su sangre, provocando una guerra civil interior entre Dionisio y Cristo. Respecto al antisemitismo, rechaza de plano el ideario de su cuñado Bernhard Foerster en Paraguay y de Treitschke, señalando que la hostilidad hacia los judíos es un veneno histórico heredado de Lutero.`
+      },
+      {
+        q: `¿Qué advierten las notas del traductor inglés (N. del T. I.) sobre la cronología y la cordura del texto?`,
+        a: `Las notas al pie subrayan que la noción de tiempo aparece confundida en varios pasajes —por ejemplo, Elisabeth no regresó definitivamente del Paraguay hasta los últimos tiempos del confinamiento en Jena, aunque el diálogo del Capítulo I parezca situarlo antes— y plantean la ambigüedad entre una locura clínica real (amnesia, parálisis, colapso de Turín) y la posibilidad de que la demencia funcione a ratos como un subterfugio o máscara literaria para decir verdades intolerables para su familia.`
+      }
+    ];
+
+    const QUIZ_DATA = [
+      {
+        id: `q1`,
+        axis: `Manuscrito y Encierro`,
+        prompt: `¿A quién confía el narrador las notas de «Mi hermana y yo» en el asilo para evitar que caigan en manos de Elisabeth y de su madre?`,
+        options: [
+          `A su amigo y editor Peter Gast durante un paseo por las montañas.`,
+          `A un compañero de asilo y pequeño comerciante que estaba por recibir el alta y lo llamaba Herr Profesor.`,
+          `Al dramaturgo sueco August Strindberg mediante correo certificado desde Turín.`,
+          `Al doctor Julius Langbein como parte de su terapia artística.`
+        ],
+        correct: 1,
+        explanation: `En la nota introductoria y en el Capítulo I (§25) y II (§2), explica que confió las notas a un vecino y pequeño comerciante internado con él que iba a salir en libertad y aún respetaba su intelecto llamándolo Herr Profesor.`
+      },
+      {
+        id: `q2`,
+        axis: `Infancia y Vínculo Fraterno`,
+        prompt: `¿En qué circunstancia precisa sitúa el Capítulo I el inicio de la intimidad nocturna entre Elisabeth y el joven Nietzsche?`,
+        options: [
+          `Durante las vacaciones de verano en la finca de los abuelos Oehler en Pobles.`,
+          `La noche en que murió su hermano menor Joseph, cuando Elisabeth se deslizó en su lecho quejándose de frío.`,
+          `Tras el primer concierto dirigido por su padre en Naumburg-an-der-Saale.`,
+          `Durante el viaje en carruaje de regreso de Bayreuth tras visitar a Wagner.`
+        ],
+        correct: 1,
+        explanation: `En el Capítulo I (§7), relata que ocurrió por primera vez la noche en que murió el pequeño Joseph (de dos años); en Pobles (§12), por el contrario, dormían en cuartos separados y él se sentía aliviado.`
+      },
+      {
+        id: `q3`,
+        axis: `Familia y Secretos`,
+        prompt: `¿Qué familiar descubre la relación secreta entre Fritz y Elisabeth y lo confronta en su lecho de muerte?`,
+        options: [
+          `La abuela materna Nietzsche en Naumburg.`,
+          `La tía Augusta antes de la mudanza.`,
+          `La tía Rosalía, tras pedirle a la madre que la dejara a solas con él.`,
+          `El abuelo Oehler antes de trasladarlo a la escuela privada.`
+        ],
+        correct: 2,
+        explanation: `En el Capítulo VIII (§2–4), tía Rosalía pide bruscamente a la madre que salga del cuarto y le dice a Fritz que ha visto con sus propios ojos sus intimidades con Elisabeth y le ruega detenerse.`
+      },
+      {
+        id: `q4`,
+        axis: `Eros y Juventud`,
+        prompt: `Cuando en sus tiempos de estudiante en Colonia un desconocido lo condujo por error a un burdel en lugar de a un restaurante, ¿cómo reaccionó Nietzsche?`,
+        options: [
+          `Se retiró de inmediato a leer a Schopenhauer y escribió una carta de arrepentimiento a su madre.`,
+          `Se abrió paso hacia un piano polvoriento en un rincón y tocó un solo acorde dilatado como grito de furia.`,
+          `Disertó sobre la tragedia griega y las sacerdotisas de Isis ante las jóvenes del lugar.`,
+          `Sufrió un desmayo atribuido a las jaquecas y la escarlatina de su niñez.`
+        ],
+        correct: 1,
+        explanation: `En el Capítulo III (§8), relata que se apartó del círculo de carne desnuda y se precipitó hacia el piano polvoriento del rincón para tocar un único acorde dilatado contra el universo convertido en prostíbulo.`
+      },
+      {
+        id: `q5`,
+        axis: `Lou Salomé y Filosofía`,
+        prompt: `Según el Capítulo IX (§22), ¿qué pregunta le hizo Lou Salomé en sus brazos que transformó la idea del Eterno Retorno?`,
+        options: [
+          `«¿Aceptarías que Zaratustra muriera para que viviéramos juntos en Basilea?»`,
+          `«¿Te gustaría que esto se repitiera una vez más, eternamente?»`,
+          `«¿Por qué temes más a tu hermana que al Dios de Lutero?»`,
+          `«¿Es el amor más fuerte que la voluntad de poder?»`
+        ],
+        correct: 1,
+        explanation: `Lou preguntó: «¿Te gustaría que esto se repitiera una vez más, eternamente?», convirtiendo la doctrina cósmica de Zaratustra en una afirmación corporal y erótica.`
+      },
+      {
+        id: `q6`,
+        axis: `Quiebre Religioso`,
+        prompt: `¿Qué frase histórica dirigida por Juliano el Apóstata a Cristo utiliza Nietzsche en el Capítulo II (§8) para describir su derrota espiritual?`,
+        options: [
+          `«Dios ha muerto y nosotros lo hemos matado.»`,
+          `«¡Tú has vencido, Galileo, tú has vencido en el mismo corazón de tu mayor enemigo!»`,
+          `«Todo está consumado bajo el cielo de Naumburg.»`,
+          `«Creo porque es absurdo, mas no seré salvado.»`
+        ],
+        correct: 1,
+        explanation: `En el Capítulo II (§8) y IX (§6), proclama «¡Tú has vencido, Galileo!» evocando a Juliano el Apóstata, reconociendo que el Anticristo yace en ruinas frente a la fuerza del amor cristiano, aunque su orgullo no le permita arrodillarse.`
+      },
+      {
+        id: `q7`,
+        axis: `Política y Antisemitismo`,
+        prompt: `¿Por qué motivo principal rechaza con cólera la propuesta de Elisabeth de irse a vivir con ella al Paraguay?`,
+        options: [
+          `Porque la música de Wagner y los archivos de Bayreuth estaban prohibidos en Sudamérica.`,
+          `Porque el viaje lo mataría y porque Bernhard Foerster había contaminado el Paraguay con su plaga antisemita.`,
+          `Porque Cosima Wagner le había ofrecido una cátedra en la Universidad de Turín.`,
+          `Porque ya había jurado permanecer encerrado en Jena como un monje trapense.`
+        ],
+        correct: 1,
+        explanation: `En el Capítulo I (§3) argumenta dos razones: la distancia mortal del viaje y que el difunto marido de Elisabeth, Bernhard Foerster, había contaminado el país con su antisemitismo.`
+      },
+      {
+        id: `q8`,
+        axis: `Cordura y Locura`,
+        prompt: `¿Qué médico contratado por su madre satiriza Nietzsche en el Capítulo IX (§55) por haber imitado su obra con un libro titulado «Rembrandt Educador»?`,
+        options: [
+          `El doctor Paul Rée.`,
+          `El doctor Julius Langbein.`,
+          `El doctor Georg Brandes.`,
+          `El doctor Cesare Lombroso.`
+        ],
+        correct: 1,
+        explanation: `En el Capítulo IX (§55) se burla del doctor Julius Langbein, autor de Rembrandt Educador (a imitación de Schopenhauer Educador), confesando que su presencia lo hacía sentirse comparativamente cuerdo y sobrio.`
+      }
+    ];
+
+    // =========================================================
+    // 2. APPLICATION STATE (Synced with notebookAppApi)
+    // =========================================================
+
+    let appState = {
+      selectedNode: `nietzsche`,
+      activeChapter: `cap1`,
+      completedChapters: [],
+      bookmarkedAphorisms: [],
+      aphorismTheme: `all`,
+      personalNote: ``,
+      quizAnswers: {}
+    };
+
+    function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        window.notebookAppApi.setAppState(appState).catch(function () {});
+      }
+    }
+
+    function updateProgressBadges() {
+      const chapBadge = document.getElementById(`progress-chapters`);
+      const bookBadge = document.getElementById(`progress-bookmarks`);
+      const quizBadge = document.getElementById(`progress-quiz`);
+
+      if (chapBadge) {
+        chapBadge.textContent = `Capítulos leídos: ` + appState.completedChapters.length + ` / 5`;
+      }
+      if (bookBadge) {
+        bookBadge.textContent = `Aforismos guardados: ` + appState.bookmarkedAphorisms.length;
+      }
+      if (quizBadge) {
+        let correctCount = 0;
+        const answeredKeys = Object.keys(appState.quizAnswers);
+        for (let i = 0; i < QUIZ_DATA.length; i++) {
+          const q = QUIZ_DATA[i];
+          if (appState.quizAnswers[q.id] === q.correct) {
+            correctCount++;
+          }
+        }
+        quizBadge.textContent = `Autoevaluación: ` + correctCount + ` / ` + QUIZ_DATA.length + ` (` + answeredKeys.length + ` resp.)`;
+      }
+    }
+
+    // =========================================================
+    // 3. CONSTELLATION INTERACTION
+    // =========================================================
+
+    function selectConstellationNode(nodeId) {
+      const data = CONSTELLATION_DATA[nodeId];
+      if (!data) return;
+
+      appState.selectedNode = nodeId;
+      persistState();
+
+      // Update SVG selected state
+      const allNodes = Object.keys(CONSTELLATION_DATA);
+      for (let i = 0; i < allNodes.length; i++) {
+        const key = allNodes[i];
+        const svgNode = document.getElementById(`svg-node-` + key);
+        const btnNode = document.getElementById(`btn-node-` + key);
+        const edgeNode = document.getElementById(`edge-` + key);
+        const isCurrent = key === nodeId;
+
+        if (svgNode) {
+          if (isCurrent) svgNode.classList.add(`is-selected`);
+          else svgNode.classList.remove(`is-selected`);
+        }
+        if (btnNode) {
+          btnNode.setAttribute(`aria-pressed`, isCurrent ? `true` : `false`);
+        }
+        if (edgeNode) {
+          if (isCurrent || nodeId === `nietzsche`) edgeNode.classList.add(`active-edge`);
+          else edgeNode.classList.remove(`active-edge`);
+        }
+      }
+
+      // Render detail panel
+      const panel = document.getElementById(`node-detail-panel`);
+      if (!panel) return;
+
+      let relationsHtml = ``;
+      for (let j = 0; j < data.relations.length; j++) {
+        const rel = data.relations[j];
+        relationsHtml += `<li><strong>` + escapeHtml(rel.target) + `:</strong> ` + escapeHtml(rel.detail) + `</li>`;
+      }
+
+      panel.innerHTML =
+        `<span class="kicker">` + escapeHtml(data.kicker) + `</span>` +
+        `<h3>` + escapeHtml(data.title) + `</h3>` +
+        `<p>` + escapeHtml(data.summary) + `</p>` +
+        `<blockquote class="verse">` + escapeHtml(data.quote) +
+          `<cite>` + escapeHtml(data.quoteSource) + `</cite>` +
+        `</blockquote>` +
+        `<span class="kicker">Vínculos clave en la obra</span>` +
+        `<ul class="relation-list">` + relationsHtml + `</ul>`;
+    }
+
+    function handleNodeKey(event, nodeId) {
+      if (event.key === `Enter` || event.key === ` `) {
+        event.preventDefault();
+        selectConstellationNode(nodeId);
+      }
+    }
+
+    // =========================================================
+    // 4. CHAPTER MODULES
+    // =========================================================
+
+    function selectChapter(chapterId) {
+      const chapter = CHAPTERS_DATA[chapterId];
+      if (!chapter) return;
+
+      appState.activeChapter = chapterId;
+      persistState();
+
+      const keys = Object.keys(CHAPTERS_DATA);
+      for (let i = 0; i < keys.length; i++) {
+        const tab = document.getElementById(`tab-` + keys[i]);
+        if (tab) {
+          tab.setAttribute(`aria-selected`, keys[i] === chapterId ? `true` : `false`);
+        }
+      }
+
+      renderActiveChapter();
+    }
+
+    function toggleChapterCompleted(chapterId) {
+      const idx = appState.completedChapters.indexOf(chapterId);
+      if (idx === -1) {
+        appState.completedChapters.push(chapterId);
+      } else {
+        appState.completedChapters.splice(idx, 1);
+      }
+      persistState();
+      updateProgressBadges();
+      renderActiveChapter();
+    }
+
+    function renderActiveChapter() {
+      const chapter = CHAPTERS_DATA[appState.activeChapter] || CHAPTERS_DATA.cap1;
+      const panel = document.getElementById(`chapter-panel`);
+      if (!panel) return;
+
+      const isDone = appState.completedChapters.indexOf(chapter.id) !== -1;
+
+      let rowsHtml = ``;
+      for (let i = 0; i < chapter.fragments.length; i++) {
+        const f = chapter.fragments[i];
+        rowsHtml +=
+          `<tr>` +
+            `<td class="frag-num">` + escapeHtml(f.num) + `</td>` +
+            `<td><span class="tag">` + escapeHtml(f.axis) + `</span></td>` +
+            `<td>` + escapeHtml(f.detail) + `</td>` +
+          `</tr>`;
+      }
+
+      panel.innerHTML =
+        `<div class="chapter-header">` +
+          `<div>` +
+            `<span class="kicker">` + escapeHtml(chapter.kicker) + `</span>` +
+            `<h3>` + escapeHtml(chapter.title) + `</h3>` +
+          `</div>` +
+          `<button type="button" class="btn ` + (isDone ? `btn-primary` : `btn-secondary`) + `" onclick="toggleChapterCompleted('` + chapter.id + `')">` +
+            (isDone ? `Capítulo marcado como leído` : `Marcar capítulo como leído`) +
+          `</button>` +
+        `</div>` +
+        `<div class="chapter-body-grid">` +
+          `<div>` +
+            `<p class="drop-cap">` + escapeHtml(chapter.intro) + `</p>` +
+            `<blockquote class="verse">` + escapeHtml(chapter.quote) +
+              `<cite>` + escapeHtml(chapter.quoteSource) + `</cite>` +
+            `</blockquote>` +
+          `</div>` +
+          `<div>` +
+            `<table class="fragment-table">` +
+              `<thead>` +
+                `<tr>` +
+                  `<th>Sección</th>` +
+                  `<th>Eje</th>` +
+                  `<th>Síntesis documental</th>` +
+                `</tr>` +
+              `</thead>` +
+              `<tbody>` + rowsHtml + `</tbody>` +
+            `</table>` +
+          `</div>` +
+        `</div>`;
+    }
+
+    // =========================================================
+    // 5. APHORISMS ANALYZER
+    // =========================================================
+
+    function setAphorismTheme(theme) {
+      appState.aphorismTheme = theme;
+      persistState();
+
+      const themes = [`all`, `familia`, `eros`, `fe`, `locura`, `cultura`];
+      for (let i = 0; i < themes.length; i++) {
+        const chip = document.getElementById(`chip-` + themes[i]);
+        if (chip) {
+          chip.setAttribute(`aria-pressed`, themes[i] === theme ? `true` : `false`);
+        }
+      }
+      filterAphorisms();
+    }
+
+    function toggleBookmarkAphorism(id) {
+      const idx = appState.bookmarkedAphorisms.indexOf(id);
+      if (idx === -1) {
+        appState.bookmarkedAphorisms.push(id);
+      } else {
+        appState.bookmarkedAphorisms.splice(idx, 1);
+      }
+      persistState();
+      updateProgressBadges();
+      filterAphorisms();
+    }
+
+    function resetAphorismFilters() {
+      const searchEl = document.getElementById(`aphorism-search`);
+      const chapEl = document.getElementById(`aphorism-chapter-filter`);
+      if (searchEl) searchEl.value = ``;
+      if (chapEl) chapEl.value = `all`;
+      setAphorismTheme(`all`);
+    }
+
+    function filterAphorisms() {
+      const container = document.getElementById(`aphorisms-list`);
+      if (!container) return;
+
+      const searchEl = document.getElementById(`aphorism-search`);
+      const chapEl = document.getElementById(`aphorism-chapter-filter`);
+      const query = searchEl ? searchEl.value.trim().toLowerCase() : ``;
+      const chapFilter = chapEl ? chapEl.value : `all`;
+      const themeFilter = appState.aphorismTheme || `all`;
+
+      const filtered = APHORISMS_DATA.filter(function (item) {
+        const matchTheme = themeFilter === `all` || item.theme === themeFilter;
+        const matchChap = chapFilter === `all` || item.chapter === chapFilter;
+        const haystack = (item.quote + ` ` + item.analysis + ` ` + item.refs + ` ` + item.chapter).toLowerCase();
+        const matchQuery = !query || haystack.indexOf(query) !== -1;
+        return matchTheme && matchChap && matchQuery;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML =
+          `<div class="empty-state" style="grid-column: 1 / -1;">` +
+            `<p>No se encontraron aforismos que coincidan con los filtros seleccionados.</p>` +
+            `<button type="button" class="btn btn-secondary" onclick="resetAphorismFilters()">Restablecer filtros</button>` +
+          `</div>`;
+        return;
+      }
+
+      let html = ``;
+      for (let i = 0; i < filtered.length; i++) {
+        const a = filtered[i];
+        const isSaved = appState.bookmarkedAphorisms.indexOf(a.id) !== -1;
+        html +=
+          `<article class="aphorism-card">` +
+            `<div class="aphorism-header">` +
+              `<span class="kicker">` + escapeHtml(a.chapter) + ` · ` + escapeHtml(a.section) + `</span>` +
+              `<span class="tag">` + escapeHtml(a.themeLabel) + `</span>` +
+            `</div>` +
+            `<blockquote class="aphorism-quote">` + escapeHtml(a.quote) + `</blockquote>` +
+            `<div class="aphorism-analysis">` +
+              `<strong>Lectura hermenéutica:</strong> ` + escapeHtml(a.analysis) +
+            `</div>` +
+            `<p class="aphorism-refs">` + escapeHtml(a.refs) + `</p>` +
+            `<div class="aphorism-actions">` +
+              `<button type="button" class="btn ` + (isSaved ? `btn-primary` : `btn-secondary`) + `" onclick="toggleBookmarkAphorism('` + a.id + `')">` +
+                (isSaved ? `Guardado en cuaderno` : `Guardar en cuaderno`) +
+              `</button>` +
+            `</div>` +
+          `</article>`;
+      }
+
+      container.innerHTML = html;
+    }
+
+    function savePersonalNote(val) {
+      appState.personalNote = val;
+      persistState();
+      const status = document.getElementById(`note-save-status`);
+      if (status) {
+        status.textContent = val.trim().length > 0
+          ? `Anotación guardada (` + val.trim().length + ` caracteres).`
+          : `Cuaderno de notas vacío.`;
+      }
+    }
+
+    // =========================================================
+    // 6. FAQ ACCORDION
+    // =========================================================
+
+    function renderFaq() {
+      const list = document.getElementById(`faq-list`);
+      if (!list) return;
+
+      let html = ``;
+      for (let i = 0; i < FAQ_DATA.length; i++) {
+        const item = FAQ_DATA[i];
+        const isOpen = i === 0;
+        html +=
+          `<div class="faq-item">` +
+            `<button type="button" class="faq-trigger" id="faq-btn-` + i + `" aria-expanded="` + (isOpen ? `true` : `false`) + `" aria-controls="faq-panel-` + i + `" onclick="toggleFaq(` + i + `)">` +
+              `<span>` + escapeHtml(item.q) + `</span>` +
+              `<svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">` +
+                `<line x1="12" y1="5" x2="12" y2="19"></line>` +
+                `<line x1="5" y1="12" x2="19" y2="12"></line>` +
+              `</svg>` +
+            `</button>` +
+            `<div class="faq-panel" id="faq-panel-` + i + `"` + (isOpen ? `` : ` hidden`) + `>` +
+              `<p>` + escapeHtml(item.a) + `</p>` +
+            `</div>` +
+          `</div>`;
+      }
+      list.innerHTML = html;
+    }
+
+    function toggleFaq(index) {
+      const btn = document.getElementById(`faq-btn-` + index);
+      const panel = document.getElementById(`faq-panel-` + index);
+      if (!btn || !panel) return;
+
+      const expanded = btn.getAttribute(`aria-expanded`) === `true`;
+      btn.setAttribute(`aria-expanded`, expanded ? `false` : `true`);
+      if (expanded) {
+        panel.setAttribute(`hidden`, ``);
+      } else {
+        panel.removeAttribute(`hidden`);
+      }
+    }
+
+    // =========================================================
+    // 7. INTERACTIVE SELF-ASSESSMENT QUIZ
+    // =========================================================
+
+    function answerQuiz(questionId, optionIndex) {
+      appState.quizAnswers[questionId] = optionIndex;
+      persistState();
+      updateProgressBadges();
+      renderQuiz();
+    }
+
+    function renderQuiz() {
+      const container = document.getElementById(`quiz-questions`);
+      const scoreEl = document.getElementById(`quiz-score-readout`);
+      if (!container) return;
+
+      let correctCount = 0;
+      const answeredCount = Object.keys(appState.quizAnswers).length;
+      let html = ``;
+
+      for (let i = 0; i < QUIZ_DATA.length; i++) {
+        const q = QUIZ_DATA[i];
+        const chosen = appState.quizAnswers[q.id];
+        const hasAnswered = typeof chosen === `number`;
+        if (hasAnswered && chosen === q.correct) {
+          correctCount++;
+        }
+
+        let optionsHtml = ``;
+        for (let j = 0; j < q.options.length; j++) {
+          let optClass = `quiz-option`;
+          if (hasAnswered) {
+            if (j === q.correct) optClass += ` is-correct`;
+            else if (j === chosen) optClass += ` is-wrong`;
+          }
+          const letter = String.fromCharCode(65 + j);
+          optionsHtml +=
+            `<button type="button" class="` + optClass + `" onclick="answerQuiz('` + q.id + `', ` + j + `)">` +
+              `<strong>` + letter + `.</strong> ` +
+              `<span>` + escapeHtml(q.options[j]) + `</span>` +
+            `</button>`;
+        }
+
+        let feedbackHtml = ``;
+        if (hasAnswered) {
+          const isRight = chosen === q.correct;
+          feedbackHtml =
+            `<div class="quiz-feedback ` + (isRight ? `` : `feedback-error`) + `">` +
+              `<strong>` + (isRight ? `Respuesta correcta.` : `Revisión necesaria.`) + `</strong> ` +
+              escapeHtml(q.explanation) +
+            `</div>`;
+        }
+
+        html +=
+          `<div class="quiz-question-card">` +
+            `<span class="kicker">Pregunta ` + (i + 1) + ` de ` + QUIZ_DATA.length + ` · ` + escapeHtml(q.axis) + `</span>` +
+            `<p class="quiz-prompt">` + escapeHtml(q.prompt) + `</p>` +
+            `<div class="quiz-options">` + optionsHtml + `</div>` +
+            feedbackHtml +
+          `</div>`;
+      }
+
+      container.innerHTML = html;
+      if (scoreEl) {
+        scoreEl.textContent = correctCount + ` de ` + QUIZ_DATA.length + ` respuestas correctas (` + answeredCount + ` respondidas)`;
+      }
+    }
+
+    function resetQuiz(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirmar reinicio`;
+        setTimeout(function () {
+          if (btn.dataset.armed === `true`) {
+            btn.dataset.armed = `false`;
+            btn.textContent = `Reiniciar autoevaluación`;
+          }
+        }, 4000);
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reiniciar autoevaluación`;
+      appState.quizAnswers = {};
+      persistState();
+      updateProgressBadges();
+      renderQuiz();
+    }
+
+    function resetAllProgress(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirmar borrado total`;
+        setTimeout(function () {
+          if (btn.dataset.armed === `true`) {
+            btn.dataset.armed = `false`;
+            btn.textContent = `Reiniciar progreso`;
+          }
+        }, 4000);
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reiniciar progreso`;
+
+      appState = {
+        selectedNode: `nietzsche`,
+        activeChapter: `cap1`,
+        completedChapters: [],
+        bookmarkedAphorisms: [],
+        aphorismTheme: `all`,
+        personalNote: ``,
+        quizAnswers: {}
+      };
+      const noteInput = document.getElementById(`personal-note-input`);
+      if (noteInput) noteInput.value = ``;
+      savePersonalNote(``);
+
+      persistState();
+      selectConstellationNode(`nietzsche`);
+      selectChapter(`cap1`);
+      setAphorismTheme(`all`);
+      renderQuiz();
+      updateProgressBadges();
+    }
+
+    // =========================================================
+    // 8. EXPORT NOTES VIA SHIM API
+    // =========================================================
+
+    function exportStudyNotes() {
+      const lines = [
+        `CUADERNO DE ESTUDIO: MI HERMANA Y YO (ATRIB. FRIEDRICH NIETZSCHE)`,
+        `================================================================`,
+        ``,
+        `Capítulos marcados como leídos: ` + appState.completedChapters.length + ` / 5`,
+        `Aforismos guardados: ` + appState.bookmarkedAphorisms.length,
+        ``
+      ];
+
+      if (appState.bookmarkedAphorisms.length > 0) {
+        lines.push(`AFORISMOS SELECCIONADOS:`);
+        lines.push(`------------------------`);
+        for (let i = 0; i < APHORISMS_DATA.length; i++) {
+          const af = APHORISMS_DATA[i];
+          if (appState.bookmarkedAphorisms.indexOf(af.id) !== -1) {
+            lines.push(af.chapter + ` (` + af.section + `) — ` + af.themeLabel);
+            lines.push(af.quote);
+            lines.push(`Análisis: ` + af.analysis);
+            lines.push(``);
+          }
+        }
+      }
+
+      lines.push(`ANOTACIONES PERSONALES:`);
+      lines.push(`-----------------------`);
+      lines.push(appState.personalNote.trim() ? appState.personalNote.trim() : `(Sin anotaciones registradas)`);
+
+      const content = lines.join(`\n`);
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `cuaderno-mi-hermana-y-yo.txt`
+        });
+      }
+    }
+
+    // =========================================================
+    // 9. UTILITIES & INITIALIZATION
+    // =========================================================
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, `&amp;`)
+        .replace(/</g, `&lt;`)
+        .replace(/>/g, `&gt;`)
+        .replace(/"/g, `&quot;`)
+        .replace(/'/g, `&#39;`);
+    }
+
+    function initScrollReveal() {
+      const targets = document.querySelectorAll(`.reveal`);
+      if (!(`IntersectionObserver` in window)) {
+        for (let i = 0; i < targets.length; i++) {
+          targets[i].classList.add(`is-visible`);
+        }
+        return;
+      }
+
+      const observer = new IntersectionObserver(function (entries, obs) {
+        for (let i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            entries[i].target.classList.add(`is-visible`);
+            obs.unobserve(entries[i].target);
+          }
+        }
+      }, { threshold: 0.08 });
+
+      for (let j = 0; j < targets.length; j++) {
+        observer.observe(targets[j]);
+      }
+    }
+
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            if (typeof saved.selectedNode === `string` && CONSTELLATION_DATA[saved.selectedNode]) {
+              appState.selectedNode = saved.selectedNode;
+            }
+            if (typeof saved.activeChapter === `string` && CHAPTERS_DATA[saved.activeChapter]) {
+              appState.activeChapter = saved.activeChapter;
+            }
+            if (Array.isArray(saved.completedChapters)) {
+              appState.completedChapters = saved.completedChapters;
+            }
+            if (Array.isArray(saved.bookmarkedAphorisms)) {
+              appState.bookmarkedAphorisms = saved.bookmarkedAphorisms;
+            }
+            if (typeof saved.aphorismTheme === `string`) {
+              appState.aphorismTheme = saved.aphorismTheme;
+            }
+            if (typeof saved.personalNote === `string`) {
+              appState.personalNote = saved.personalNote;
+            }
+            if (saved.quizAnswers && typeof saved.quizAnswers === `object`) {
+              appState.quizAnswers = saved.quizAnswers;
+            }
+          }
+        } catch (err) {
+          // Proceed with default state if host state fails
+        }
+      }
+
+      const noteInput = document.getElementById(`personal-note-input`);
+      if (noteInput && appState.personalNote) {
+        noteInput.value = appState.personalNote;
+        savePersonalNote(appState.personalNote);
+      }
+
+      selectConstellationNode(appState.selectedNode);
+      selectChapter(appState.activeChapter);
+      setAphorismTheme(appState.aphorismTheme);
+      renderFaq();
+      renderQuiz();
+      updateProgressBadges();
+      initScrollReveal();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>

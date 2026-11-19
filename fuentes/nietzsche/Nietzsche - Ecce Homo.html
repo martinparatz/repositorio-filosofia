@@ -1,0 +1,2431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>Ecce homo · Cómo se llega a ser lo que se es — Friedrich Nietzsche</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (Broadsheet) */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      /* Ink */
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      /* Rules */
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      /* Accents */
+      --primary: #990f3d;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      /* Semantic */
+      --positive: #1f6b43;
+      --positive-container: #dfece4;
+      --warning: #8f5b0d;
+      --map-ocean: #e4ded0;
+      --map-land: #f7f3eb;
+      --map-border: #bfb5a4;
+
+      /* Focus */
+      --focus: var(--primary);
+
+      /* Fonts */
+      --font-headline: 'Bitter', Georgia, serif;
+      --font-body: 'Source Serif 4', Georgia, serif;
+      --font-label: 'Source Sans 3', system-ui, sans-serif;
+
+      /* Shape (Broadsheet square geometry) */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* Narrative Type Scale */
+      --display-size: clamp(2.4rem, 1.5rem + 3.6vw, 4.1rem);
+      --headline-size: clamp(1.75rem, 1.25rem + 1.8vw, 2.5rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+    }
+    body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      font-optical-sizing: auto;
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-lg) var(--space-xl) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.2;
+    }
+    p {
+      margin: 0;
+      max-width: 65ch;
+    }
+    .prose-stack {
+      display: grid;
+      gap: var(--space-md);
+      max-width: 65ch;
+    }
+    .lede {
+      font-family: var(--font-body);
+      font-size: clamp(1.15rem, 1.05rem + 0.35vw, 1.35rem);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 58ch;
+    }
+
+    /* Broadsheet labels & tags */
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      display: block;
+    }
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+    }
+    .tag-claret {
+      color: var(--primary);
+    }
+    .tag-muted {
+      color: var(--on-surface-variant);
+    }
+    .tabular {
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    /* Masthead */
+    .masthead-wrap {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .masthead-line {
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm) var(--space-lg);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+    .masthead-edition {
+      color: var(--primary);
+    }
+    .masthead-hero {
+      padding-block: var(--space-lg) var(--space-xl);
+      border-bottom: var(--rule-ink);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .masthead-kicker {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--secondary);
+    }
+
+    /* Navigation strip */
+    .nav-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-xs) 0;
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-xs);
+    }
+    .nav-link {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      padding: var(--space-sm) var(--space-md);
+      border-left: var(--rule-column);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .nav-link:hover {
+      color: var(--primary);
+      background-color: var(--surface-container-low);
+    }
+    .nav-link.is-active {
+      color: var(--primary);
+    }
+
+    /* Broadsheet Hairline Columns */
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      border-bottom: var(--rule-ink);
+      padding-bottom: var(--space-lg);
+    }
+    .columns > .col-item {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+    }
+    .columns > .col-item:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .columns > .col-item:last-child {
+      padding-right: 0;
+    }
+    .fig-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+    .fig-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.5rem, 1.2rem + 0.8vw, 2rem);
+      line-height: 1.1;
+      color: var(--on-surface);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .fig-note {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: var(--on-surface-variant);
+      line-height: 1.4;
+    }
+
+    /* Section Architecture */
+    .section-block {
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    /* Editorial asymmetric grid */
+    .editorial-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .editorial-aside {
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    /* Pull quotes */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+      margin-block: var(--space-sm);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .pull-quote blockquote {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.65rem);
+      line-height: 1.38;
+      color: var(--on-surface);
+      max-width: 48ch;
+    }
+    .pull-quote cite {
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-radius: var(--rounded);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), outline-color var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+    }
+    .btn-secondary {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background-color: var(--surface-container-high);
+    }
+    .btn-secondary.is-selected {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+    }
+
+    /* Knowledge Base Dossier */
+    .kb-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+    }
+    .kb-list {
+      display: grid;
+      align-content: start;
+      border-right: var(--rule-column);
+    }
+    .kb-item-btn {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      border-bottom: var(--rule-column);
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      min-height: 54px;
+      cursor: pointer;
+      display: grid;
+      gap: var(--space-xs);
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .kb-item-btn:last-child {
+      border-bottom: 0;
+    }
+    .kb-item-btn:hover {
+      background-color: var(--surface-container-low);
+      padding-left: var(--space-sm);
+    }
+    .kb-item-btn.is-active {
+      background-color: var(--primary-container);
+      padding-left: var(--space-md);
+    }
+    .kb-item-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.08rem;
+      line-height: 1.25;
+      color: var(--on-surface);
+    }
+    .kb-item-btn.is-active .kb-item-title {
+      color: var(--on-primary-container);
+    }
+    .kb-detail {
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+    }
+    .kb-contrast-strip {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-top: var(--rule-column);
+      border-bottom: var(--rule-column);
+      padding-block: var(--space-md);
+      gap: var(--space-lg);
+    }
+    .kb-contrast-cell {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .kb-contrast-cell + .kb-contrast-cell {
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+    }
+
+    /* Broadsheet Table */
+    .broadsheet-table-wrap {
+      overflow-x: auto;
+    }
+    .broadsheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      font-size: 0.96rem;
+    }
+    .broadsheet-table th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      text-align: left;
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      border-bottom: var(--rule-ink);
+    }
+    .broadsheet-table td {
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+      line-height: 1.45;
+    }
+    .broadsheet-table tr:last-child td {
+      border-bottom: 0;
+    }
+    .broadsheet-table .num-col {
+      text-align: right;
+      font-variant-numeric: lining-nums tabular-nums;
+      white-space: nowrap;
+      padding-right: 0;
+    }
+
+    /* Physiology 3-Column Rules */
+    .three-cols {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+    .three-cols > .col-card {
+      border-left: var(--rule-column);
+      padding-inline: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+    }
+    .three-cols > .col-card:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .three-cols > .col-card:last-child {
+      padding-right: 0;
+    }
+
+    /* Interactive Map Module */
+    .map-module {
+      display: grid;
+      gap: var(--space-md);
+      border-top: var(--rule-section);
+      padding-top: var(--space-lg);
+    }
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .map-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: stretch;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+    .map-canvas-wrap {
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+    }
+    #nietzsche-map {
+      width: 100%;
+      height: 450px;
+      min-height: 450px;
+      background-color: var(--map-ocean);
+      border: 1px solid var(--outline);
+    }
+    .leaflet-container {
+      background-color: var(--map-ocean);
+      font-family: var(--font-label);
+    }
+    .map-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      padding-top: var(--space-xs);
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .legend-swatch {
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+      border: 1px solid var(--on-surface);
+    }
+    .swatch-salud { background-color: var(--primary); }
+    .swatch-creacion { background-color: var(--secondary); }
+    .swatch-nefasto { background-color: var(--error); }
+
+    .map-sidebar {
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+    }
+    .place-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .place-btn {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      min-height: 40px;
+      padding: var(--space-xs) var(--space-sm);
+      background-color: var(--background);
+      color: var(--on-surface);
+      border: 1px solid var(--outline-variant);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .place-btn:hover {
+      background-color: var(--surface-container-low);
+      border-color: var(--outline);
+    }
+    .place-btn.is-active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .place-dossier {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    /* Works Selector (Biblioteca Crítica) */
+    .works-explorer {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+    }
+    .works-index {
+      border-right: var(--rule-column);
+      display: grid;
+      align-content: start;
+    }
+    .work-tab {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      border-bottom: var(--rule-column);
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      min-height: 52px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-md);
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .work-tab:last-child { border-bottom: 0; }
+    .work-tab:hover {
+      background-color: var(--surface-container-low);
+      padding-left: var(--space-sm);
+    }
+    .work-tab.is-active {
+      background-color: var(--primary-container);
+      padding-left: var(--space-md);
+    }
+    .work-tab-name {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+    .work-tab.is-active .work-tab-name {
+      color: var(--on-primary-container);
+    }
+    .work-tab-year {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      font-variant-numeric: lining-nums tabular-nums;
+      flex-shrink: 0;
+    }
+    .work-detail {
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+    }
+    .work-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+      border-top: var(--rule-column);
+      border-bottom: var(--rule-column);
+      padding-block: var(--space-md);
+    }
+    .work-nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      padding-top: var(--space-sm);
+    }
+
+    /* Dichotomy Comparator (Dioniso vs Crucificado) */
+    .comparator-wrap {
+      display: grid;
+      gap: var(--space-md);
+      border-top: var(--rule-section);
+      padding-top: var(--space-lg);
+    }
+    .comparator-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: end;
+      gap: var(--space-md);
+    }
+    .comparator-cols {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+    }
+    .comp-col {
+      padding: var(--space-lg) var(--space-lg) var(--space-lg) 0;
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+    }
+    .comp-col + .comp-col {
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+      padding-right: 0;
+    }
+    .comp-badge-dioniso {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+    .comp-badge-cristo {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+    }
+
+    /* Quiz Module */
+    .quiz-panel {
+      background-color: var(--surface-container-low);
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-xl);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .quiz-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-md);
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-sm);
+    }
+    .quiz-progress-track {
+      width: 100%;
+      height: 6px;
+      background-color: var(--surface-container-high);
+      overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      width: 0%;
+      transition: width var(--dur-short) var(--ease-out);
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.45;
+      color: var(--on-surface);
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      padding: var(--space-md);
+      min-height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      background-color: var(--surface-container);
+    }
+    .quiz-option:disabled {
+      cursor: default;
+    }
+    .quiz-option.is-correct {
+      background-color: var(--positive-container);
+      border-color: var(--positive);
+      color: var(--on-surface);
+    }
+    .quiz-option.is-wrong {
+      background-color: var(--primary-container);
+      border-color: var(--error);
+      color: var(--on-surface);
+    }
+    .quiz-letter {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      color: var(--primary);
+      text-transform: uppercase;
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+    .quiz-feedback {
+      border-left: 3px solid var(--primary);
+      background-color: var(--background);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .quiz-feedback.is-good {
+      border-left-color: var(--positive);
+    }
+    .quiz-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      border-top: var(--rule-ink);
+      display: grid;
+    }
+    .faq-item {
+      border-bottom: var(--rule-column);
+    }
+    .faq-item:last-child {
+      border-bottom: var(--rule-ink);
+    }
+    .faq-trigger {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      padding: var(--space-md) 0;
+      min-height: 54px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-lg);
+      color: var(--on-surface);
+    }
+    .faq-trigger:hover .faq-q {
+      color: var(--primary);
+    }
+    .faq-q {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.15rem;
+      line-height: 1.3;
+    }
+    .faq-icon {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--primary);
+      flex-shrink: 0;
+      width: 24px;
+      text-align: center;
+    }
+    .faq-answer {
+      padding-bottom: var(--space-lg);
+      color: var(--on-surface-variant);
+      max-width: 65ch;
+      display: none;
+    }
+    .faq-answer.is-open {
+      display: block;
+    }
+
+    /* Footer / Colophon */
+    .colophon {
+      border-top: var(--rule-masthead);
+      padding-top: var(--space-lg);
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      font-size: 0.92rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Reveal animation */
+    .reveal-section {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-md);
+      }
+      .columns > .col-item:nth-child(3) {
+        border-left: 0;
+        padding-left: 0;
+      }
+      .editorial-split,
+      .kb-layout,
+      .map-grid,
+      .works-explorer,
+      .comparator-cols,
+      .colophon {
+        grid-template-columns: 1fr;
+      }
+      .editorial-aside,
+      .map-sidebar {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding-left: 0;
+        padding-top: var(--space-lg);
+      }
+      .kb-list,
+      .works-index {
+        border-right: 0;
+        border-bottom: var(--rule-ink);
+      }
+      .comp-col + .comp-col {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding-left: 0;
+        padding-top: var(--space-lg);
+      }
+      .three-cols {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+      }
+      .three-cols > .col-card {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding-inline: 0;
+        padding-top: var(--space-md);
+      }
+      .three-cols > .col-card:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-md) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .columns {
+        grid-template-columns: 1fr;
+      }
+      .columns > .col-item {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-sm) 0;
+      }
+      .columns > .col-item:first-child {
+        border-top: 0;
+      }
+      .kb-contrast-strip,
+      .work-meta-grid {
+        grid-template-columns: 1fr;
+      }
+      .kb-contrast-cell + .kb-contrast-cell {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding-left: 0;
+        padding-top: var(--space-md);
+      }
+      .nav-link {
+        border-left: 0;
+        padding: var(--space-xs) var(--space-sm) var(--space-xs) 0;
+      }
+      .quiz-panel {
+        padding: var(--space-md);
+      }
+      #nietzsche-map {
+        height: 360px;
+        min-height: 360px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- HEADER / MASTHEAD -->
+    <header class="masthead-wrap" id="inicio">
+      <div class="masthead-line">
+        <span class="masthead-edition">Dossier Filosófico · Otoño de 1888</span>
+        <span>Friedrich Nietzsche · Edición Interactiva de Estudio</span>
+      </div>
+
+      <div class="masthead-hero">
+        <span class="masthead-kicker">Autobiografía intelectual · «Wie man wird, was man ist»</span>
+        <h1>Ecce homo: Cómo se llega a ser lo que se es</h1>
+        <p class="lede">
+          Redactado en su cuadragésimo cuarto año, al borde de la crisis que lo llevaría a ser internado, Friedrich Nietzsche realiza un último ajuste de cuentas con su vida, su fisiología y sus libros bajo la óptica de lo dionisiaco, culminando en una disyuntiva irreconciliable: «¿Cristo o Dioniso?».
+        </p>
+      </div>
+
+      <nav class="nav-strip" aria-label="Navegación principal del tratado">
+        <a href="#prologo" class="nav-link is-active">Prólogo</a>
+        <a href="#conocimientos" class="nav-link">Base de Conocimientos</a>
+        <a href="#fisiologia" class="nav-link">Fisiología y Climas</a>
+        <a href="#biblioteca" class="nav-link">Biblioteca Crítica</a>
+        <a href="#destino" class="nav-link">El Gran Mediodía</a>
+        <a href="#autoevaluacion" class="nav-link">Autoevaluación</a>
+        <a href="#faq" class="nav-link">Preguntas Frecuentes</a>
+      </nav>
+
+      <div class="columns" aria-label="Datos clave de la obra">
+        <div class="col-item">
+          <span class="fig-label">Año de composición</span>
+          <span class="fig-value">1888</span>
+          <span class="fig-note">Escrito tras concluir el prólogo de «El crepúsculo de los ídolos» (3 de septiembre).</span>
+        </div>
+        <div class="col-item">
+          <span class="fig-label">Mínimum vital</span>
+          <span class="fig-value">36 años</span>
+          <span class="fig-note">En 1879 renuncia a su cátedra en Basilea; la enfermedad lo obliga a cambiar de óptica.</span>
+        </div>
+        <div class="col-item">
+          <span class="fig-label">Obras revisadas</span>
+          <span class="fig-value">9 libros</span>
+          <span class="fig-note">Desde «El nacimiento de la tragedia» (1872) hasta la «Transvaloración» (1888).</span>
+        </div>
+        <div class="col-item">
+          <span class="fig-label">Antítesis final</span>
+          <span class="fig-value">Dioniso / Cristo</span>
+          <span class="fig-note">Afirmación trágica de la realidad frente a la negación moral de la vida.</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECCIÓN 1: PRÓLOGO -->
+    <section id="prologo" class="section-block reveal-section" aria-labelledby="h-prologo">
+      <div class="section-open">
+        <span class="section-label">I · Prólogo</span>
+        <h2 id="h-prologo">«Escuchadme, pues yo soy tal y tal. ¡Sobre todo, no me confundáis con otros!»</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div class="prose-stack">
+          <p>
+            Nietzsche abre <em>Ecce homo</em> con una urgencia paradójica: prevé que pronto deberá presentar ante la humanidad «la más grave exigencia que jamás se le ha hecho» y advierte que sus contemporáneos ni lo han oído ni lo han visto siquiera. Vive «de su propio crédito». Para impedir abusos póstumos —y ante el temor espantoso de que algún día se le declare «santo»—, decide dar testimonio directo de quién es.
+          </p>
+          <p>
+            Frente a las figuras veneradas como virtuosas, se define como una naturaleza antitética: «Yo soy un discípulo del filósofo Dioniso, preferiría ser un sátiro antes que un santo». Su oficio no es «mejorar» a la humanidad ni erigir nuevos ídolos, sino derribar los antiguos —«ídolos» es su nombre para «ideales»— mostrando que tienen pies de barro. La mentira de un «mundo ideal» ha despojado a la realidad de su valor y su sentido.
+          </p>
+          <p>
+            Quien aspire a comprender sus escritos necesita estar hecho para un «aire de alturas, un aire fuerte», próximo al hielo y a la soledad. Para él, la filosofía es vida voluntaria en las altas montañas: caminar por lo prohibido (<em>Nitimur in vetitum</em>). La unidad de medida de un espíritu ya no es la fe, sino cuánta verdad soporta y osa sin refugiarse en la cobardía del ideal.
+          </p>
+        </div>
+
+        <aside class="editorial-aside" aria-label="Lugar aparte de Zaratustra">
+          <span class="tag">El mayor regalo</span>
+          <h3>Zaratustra y la ruptura con el discipulado</h3>
+          <p>
+            Entre sus libros, <em>Así habló Zaratustra</em> ocupa un lugar aparte. No habla en él un fanático ni un fundador de religiones que exija fe. Al retirarse a su soledad, Zaratustra da una orden contraria a la de todo «sabio» o «redentor»:
+          </p>
+          <div class="pull-quote">
+            <blockquote>
+              «Ahora os ordeno que me perdáis a mí y que os encontréis a vosotros; y sólo cuando todos hayáis renegado de mí volveré entre vosotros.»
+            </blockquote>
+            <cite>Prólogo, apartado 4</cite>
+          </div>
+          <p>
+            El día en que cumple cuarenta y cuatro años, Nietzsche mira atrás y adelante agradecido por los regalos de ese último trimestre: la <em>Transvaloración</em>, los <em>Ditirambos de Dioniso</em> y <em>El crepúsculo de los ídolos</em>.
+          </p>
+        </aside>
+      </div>
+
+      <div class="pull-quote">
+        <blockquote>
+          «Las palabras más silenciosas son las que traen la tempestad. Pensamientos que caminan con pies de paloma dirigen el mundo.»
+        </blockquote>
+        <cite>Cita de «Así habló Zaratustra» recogida en el Prólogo de «Ecce homo»</cite>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: BASE DE CONOCIMIENTOS ESTRUCTURADA -->
+    <section id="conocimientos" class="section-block reveal-section" aria-labelledby="h-conocimientos">
+      <div class="section-open">
+        <span class="section-label">II · Base de Conocimientos Estructurada</span>
+        <h2 id="h-conocimientos">Cinco pilares conceptuales para descifrar la filosofía de Ecce homo</h2>
+        <p class="lede">
+          Toda la autobiografía de Nietzsche gira en torno a cinco conceptos vertebrales que invierten la tradición metafísica y moral occidental. Seleccione cada pilar para examinar su tesis central, el ídolo al que destruye y su formulación textual.
+        </p>
+      </div>
+
+      <div class="kb-layout" role="region" aria-label="Explorador de pilares conceptuales">
+        <div class="kb-list" id="kb-list" role="tablist" aria-label="Pilares filosóficos">
+          <!-- Generado por JS -->
+        </div>
+        <div class="kb-detail" id="kb-detail" aria-live="polite">
+          <!-- Generado por JS -->
+        </div>
+      </div>
+
+      <div class="broadsheet-table-wrap">
+        <table class="broadsheet-table" aria-label="Resumen comparativo de conceptos clave">
+          <thead>
+            <tr>
+              <th>Concepto eje</th>
+              <th>Qué sustituye o destruye</th>
+              <th>Mecanismo filosófico</th>
+              <th class="num-col">Sección clave</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Fisiología vs. Idealismo</strong></td>
+              <td>«Dios», «alma», «más allá», «pecado»</td>
+              <td>Prioriza dieta, clima, lugar y recreación como cimiento real del pensamiento.</td>
+              <td class="num-col">Inteligente · §1–10</td>
+            </tr>
+            <tr>
+              <td><strong>La Gran Salud</strong></td>
+              <td>Pesimismo, compasión y búsqueda de consuelo</td>
+              <td>Salud conquistada tras la enfermedad; el sufrimiento actúa como estimulante vital.</td>
+              <td class="num-col">Sabio · §2 / Zaratustra · §2</td>
+            </tr>
+            <tr>
+              <td><strong>Amor fati y Fatalismo</strong></td>
+              <td>Resentimiento, venganza y «ajuste de cuentas»</td>
+              <td>No querer nada distinto; transformar todo «Fue» en un «Así lo quise yo».</td>
+              <td class="num-col">Sabio · §6 / Inteligente · §9</td>
+            </tr>
+            <tr>
+              <td><strong>Transvaloración</strong></td>
+              <td>Moral de la renuncia a sí mismo y casta sacerdotal</td>
+              <td>Invertir los valores de <em>décadence</em> en valores que dicen sí a la vida ascendente.</td>
+              <td class="num-col">Destino · §1–8</td>
+            </tr>
+            <tr>
+              <td><strong>Dioniso vs. el Crucificado</strong></td>
+              <td>Nihilismo cristiano y calumnia contra el cuerpo</td>
+              <td>Afirmación trágica y sobreabundante del devenir frente a la negación vital.</td>
+              <td class="num-col">Tragedia · §1 / Destino · §9</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: FISIOLOGÍA Y ESTILO DE VIDA -->
+    <section id="fisiologia" class="section-block reveal-section" aria-labelledby="h-fisiologia">
+      <div class="section-open">
+        <span class="section-label">III · Por qué soy tan sabio · Por qué soy tan inteligente</span>
+        <h2 id="h-fisiologia">Fisiología y estilo de vida: las «cosas pequeñas» que deciden el destino de un espíritu</h2>
+        <p class="lede">
+          Nietzsche sostiene que su ignorancia inicial <em>in physiologicis</em> —el «maldito idealismo» que le hizo estudiar filología y descuidar su cuerpo— fue la auténtica fatalidad de su vida. Fue la enfermedad la que lo condujo a la razón.
+        </p>
+      </div>
+
+      <div class="three-cols">
+        <div class="col-card">
+          <span class="tag">01 · Alimentación y movimiento</span>
+          <h3>«Todos los prejuicios proceden de los intestinos»</h3>
+          <p>
+            Reprueba la cocina alemana (sopas previas, carnes sobrecocidas, verduras grasas y beber después de comer) porque vuelve lento el metabolismo y convierte el espíritu alemán en «una indigestión». También rechaza la dieta inglesa y el alcohol: un solo vaso de vino o cerveza le hace la vida un «valle de lágrimas»; en él, «el espíritu flota sobre el agua».
+          </p>
+          <p>
+            Elogia la cocina del Piamonte, el té muy cargado solo por la mañana (o chocolate espeso y desgrasado en climas excitantes), no comer entre horas y caminar al aire libre: «la carne sedentaria es el auténtico pecado contra el espíritu santo».
+          </p>
+        </div>
+
+        <div class="col-card">
+          <span class="tag">02 · Óptica, enfermedad y guerra</span>
+          <h3>«Lo que no lo mata lo hace más fuerte»</h3>
+          <p>
+            Hijo de un padre delicado que murió a los 36 años, Nietzsche alcanzó su punto más bajo exactamente a esa edad en 1879. Sin embargo, al no ser un enfermizo estructural sino sano en el fondo, convirtió el dolor en maestro: aprendió a «dar la vuelta a las perspectivas» entre la óptica del enfermo y la plenitud vital.
+          </p>
+          <p>
+            Contra el resentimiento —ese fuego que consume al débil—, practicó el «fatalismo ruso» (dejar de reaccionar para conservar la vida). En cambio, cuando goza de fuerza es belicoso por naturaleza, bajo cuatro reglas estrictas: atacar solo causas triunfantes, hacerlo sin aliados, usar a personas (Strauss, Wagner) solo como lente de aumento de un peligro cultural, y excluir todo rencor personal.
+          </p>
+        </div>
+
+        <div class="col-card">
+          <span class="tag">03 · Recreación, lectura y devenir</span>
+          <h3>«En épocas de embarazo espiritual no se ve libro alguno»</h3>
+          <p>
+            Leer durante los periodos de creación equivale a dejar que un pensamiento ajeno escale la pared. El docto que «revuelve doscientos libros al día» pierde la capacidad de pensar y solo reacciona. Nietzsche reserva la lectura para descansar de su propia seriedad, volviendo una y otra vez a autores franceses (Montaigne, Pascal, Molière, Stendhal, Maupassant), Heine, Shakespeare y músicas del sur (Chopin, Rossini, Venecia y el <em>Tristán</em> de Wagner como contraveneno de lo alemán).
+          </p>
+          <p>
+            Así explica cómo se llega a ser lo que se es: mantener limpia la conciencia de grandes imperativos prematuros mientras en la profundidad crece la idea organizadora que convierte incluso los rodeos en medios necesarios.
+          </p>
+        </div>
+      </div>
+
+      <!-- MÓDULO INTERACTIVO 1: MAPA FISIOLÓGICO -->
+      <div class="map-module" id="modulo-mapa">
+        <div>
+          <span class="section-label">Módulo Interactivo 1 · Cartografía Metabólica</span>
+          <h3>Mapa fisiológico de la filosofía por lugares y climas</h3>
+          <p>
+            Para Nietzsche, el genio está condicionado por el aire seco y el cielo puro, que aceleran el metabolismo. Explore los enclaves europeos que enfermaron su organismo frente a aquellos que propiciaron su recuperación y sus obras mayores.
+          </p>
+        </div>
+
+        <div class="filter-row" role="group" aria-label="Filtrar enclaves por efecto fisiológico">
+          <button type="button" class="btn btn-secondary is-selected" data-map-filter="todos" onclick="filterMapPlaces('todos', this)">Todos los enclaves (11)</button>
+          <button type="button" class="btn btn-secondary" data-map-filter="salud" onclick="filterMapPlaces('salud', this)">Aire seco y altura · Salud</button>
+          <button type="button" class="btn btn-secondary" data-map-filter="creacion" onclick="filterMapPlaces('creacion', this)">Sur y música · Creación</button>
+          <button type="button" class="btn btn-secondary" data-map-filter="nefasto" onclick="filterMapPlaces('nefasto', this)">Humedad y desgaste · Crisis</button>
+        </div>
+
+        <div class="map-grid">
+          <div class="map-canvas-wrap">
+            <div id="nietzsche-map" role="region" aria-label="Mapa vectorial europeo de enclaves nietzscheanos"></div>
+            <div class="map-legend">
+              <span class="legend-item"><span class="legend-swatch swatch-salud"></span> Aire seco / Salud y altura</span>
+              <span class="legend-item"><span class="legend-swatch swatch-creacion"></span> Sur / Recreación y parto creador</span>
+              <span class="legend-item"><span class="legend-swatch swatch-nefasto"></span> Lugares nefastos / Desgaste</span>
+              <span class="legend-item">Fronteras: Natural Earth (dominio público)</span>
+            </div>
+          </div>
+
+          <aside class="map-sidebar" aria-label="Selector y ficha de enclave">
+            <div>
+              <span class="fig-label">Seleccione un enclave</span>
+              <div class="place-pills" id="place-pills">
+                <!-- Generado por JS -->
+              </div>
+            </div>
+            <div class="place-dossier" id="place-dossier" aria-live="polite">
+              <!-- Generado por JS -->
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: BIBLIOTECA CRÍTICA -->
+    <section id="biblioteca" class="section-block reveal-section" aria-labelledby="h-biblioteca">
+      <div class="section-open">
+        <span class="section-label">IV · Por qué escribo tan buenos libros</span>
+        <h2 id="h-biblioteca">Biblioteca crítica: autopsia retrospectiva de su obra (1872–1888)</h2>
+        <p class="lede">
+          «Nadie puede escuchar en las cosas, incluidos los libros, más de lo que ya sabe.» Nietzsche denuncia que sus lectores modernos proyectaron sus propios valores sobre libros como <em>Zaratustra</em> —leyendo el «superhombre» como un santo idealista o un culto darwiniano de los héroes— e invita a releer cada obra desde la psicología y la transvaloración.
+        </p>
+      </div>
+
+      <!-- MÓDULO INTERACTIVO 2: SELECTOR DE OBRAS -->
+      <div class="works-explorer" role="region" aria-label="Selector de obras con autocrítica nietzscheana">
+        <div class="works-index" id="works-index" role="tablist" aria-label="Lista cronológica de obras">
+          <!-- Generado por JS -->
+        </div>
+        <div class="work-detail" id="work-detail" aria-live="polite">
+          <!-- Generado por JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: EL GRAN MEDIODÍA -->
+    <section id="destino" class="section-block reveal-section" aria-labelledby="h-destino">
+      <div class="section-open">
+        <span class="section-label">V · Por qué soy yo un destino</span>
+        <h2 id="h-destino">El Gran Mediodía: el primer inmoralista ante la quiebra de dos milenios</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div class="prose-stack">
+          <p>
+            En el capítulo final, Nietzsche asume el papel de heraldo de una conmoción histórica sin precedentes: «Yo no soy un hombre, soy dinamita». No pretende fundar ninguna religión ni reunir creyentes; la verdad que encarna se ha vuelto terrible porque durante milenios se llamó «verdad» a la mentira. Cuando esa verdad entable combate con la falsedad acumulada, pronostica terremotos espirituales y guerras como jamás las ha habido en la Tierra, capaces de volar por los aires las viejas instituciones de poder.
+          </p>
+          <p>
+            ¿Por qué eligió el nombre persa de <em>Zaratustra</em>? Porque el Zaratustra histórico fue el primero en transponer la lucha entre el bien y el mal al orden metafísico, creando ese error fatal llamado moral. Por una exigencia de veracidad suprema, es el propio Zaratustra quien debe superar la moral convirtiéndose en su antítesis: la autosuperación del moralista en el primer inmoralista.
+          </p>
+          <p>
+            El término «inmoralista» encierra en Nietzsche dos negaciones precisas: niega el tipo humano venerado hasta entonces como «los buenos» (el animal de rebaño incapaz de crear, «el comienzo del final» que crucifica a quien escribe nuevos valores sobre nuevas tablas) y niega la moral cristiana de la renuncia a sí mismo, a la que define como «vampirismo» y «la idiosincrasia de <em>décadents</em>, con la intención oculta de vengarse de la vida».
+          </p>
+        </div>
+
+        <aside class="editorial-aside" aria-label="La última pregunta">
+          <span class="tag tag-claret">Cierre del libro</span>
+          <h3>«¿Se me ha comprendido?»</h3>
+          <p>
+            Para Nietzsche, el descubrimiento de la moral cristiana divide la historia de la humanidad en un antes y un después: lo que hasta ahora se adoró como «Dios», «alma inmortal», «pecado» y «más allá» fue un atentado contra el cuerpo y contra la única realidad existente.
+          </p>
+          <div class="pull-quote">
+            <blockquote>
+              «¿Se me ha comprendido? —Dioniso contra el Crucificado.»
+            </blockquote>
+            <cite>Última línea de «Ecce homo»</cite>
+          </div>
+        </aside>
+      </div>
+
+      <!-- MÓDULO INTERACTIVO 3: COMPARADOR DICOTÓMICO -->
+      <div class="comparator-wrap" id="modulo-comparador">
+        <div class="comparator-header">
+          <div>
+            <span class="section-label">Módulo Interactivo 3 · Antítesis Radical</span>
+            <h3>Comparador dicotómico: Dioniso contra el Crucificado</h3>
+          </div>
+          <div class="filter-row" role="group" aria-label="Modo de visualización del comparador">
+            <button type="button" class="btn btn-secondary is-selected" id="btn-comp-eje" onclick="setComparatorMode('eje')">Por eje temático</button>
+            <button type="button" class="btn btn-secondary" id="btn-comp-todo" onclick="setComparatorMode('todo')">Tabla completa (6 ejes)</button>
+          </div>
+        </div>
+
+        <div id="comp-controls" class="filter-row" role="tablist" aria-label="Ejes de comparación">
+          <!-- Generado por JS -->
+        </div>
+
+        <div id="comp-view" aria-live="polite">
+          <!-- Generado por JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 6: CUESTIONARIO DE AUTOEVALUACIÓN -->
+    <section id="autoevaluacion" class="section-block reveal-section" aria-labelledby="h-quiz">
+      <div class="section-open">
+        <span class="section-label">VI · Cuestionario de Autoevaluación</span>
+        <h2 id="h-quiz">Compruebe su comprensión crítica de «Ecce homo»</h2>
+        <p class="lede">
+          Seis preguntas fundamentadas exclusivamente en los argumentos y pasajes de la obra para evaluar su lectura de la fisiología, la estética trágica y la transvaloración nietzscheana.
+        </p>
+      </div>
+
+      <!-- MÓDULO INTERACTIVO 4: CUESTIONARIO -->
+      <div class="quiz-panel" id="quiz-panel" role="region" aria-label="Cuestionario interactivo">
+        <!-- Generado por JS -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN 7: PREGUNTAS FRECUENTES (FAQ) -->
+    <section id="faq" class="section-block reveal-section" aria-labelledby="h-faq">
+      <div class="section-open">
+        <span class="section-label">VII · Preguntas Frecuentes</span>
+        <h2 id="h-faq">Dudas esenciales al abordar la autobiografía filosófica de Nietzsche</h2>
+      </div>
+
+      <div class="faq-list" id="faq-list">
+        <!-- Generado por JS -->
+      </div>
+    </section>
+
+    <!-- COLOFÓN / FUENTES -->
+    <footer class="colophon">
+      <div class="prose-stack">
+        <span class="section-label">Fuente y metodología</span>
+        <p>
+          Todo el contenido filosófico, las citas, las cronologías de composición y los diagnósticos fisiológicos proceden íntegramente de la obra de Friedrich Nietzsche, <em>Ecce homo. Cómo se llega a ser lo que se es</em> (1888).
+        </p>
+      </div>
+      <div class="prose-stack">
+        <span class="section-label">Datos cartográficos</span>
+        <p>
+          El mapa fisiológico utiliza geometría vectorial de dominio público procedente de Natural Earth (conjunto <em>countries-50m</em>) renderizada mediante Leaflet y TopoJSON, sin servidores de teselas externos.
+        </p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    /* =========================================================================
+       DATA STORE — Todas las cadenas usan comillas invertidas (backticks)
+       para evitar errores de sintaxis con apóstrofos o comillas tipográficas.
+       ========================================================================= */
+
+    const KB_PILLARS = [
+      {
+        id: `fisiologia`,
+        tag: `Pilar 01 · Inversión material`,
+        title: `Fisiología frente al Idealismo`,
+        thesis: `Las cuestiones aparentemente «pequeñas» —alimentación, lugar, clima, recreación, toda la casuística del egoísmo— son inconcebiblemente más importantes que todo lo que la humanidad ha tomado en serio hasta hoy.`,
+        opposed: `«Dios», «alma», «virtud», «pecado», «más allá», «verdad» y «vida eterna»: meras patrañas o mentiras nacidas de instintos malos de naturalezas enfermas para desvalorizar el cuerpo.`,
+        mechanism: `Nietzsche interpreta los sistemas filosóficos y las «virtudes alemanas» como síntomas digestivos o climáticos. Su ignorancia juvenil en cuestiones fisiológicas (el idealismo que lo llevó a la filología y a Basilea) fue su gran error; el genio requiere aire seco y metabolismo ágil.`,
+        quote: `«No dar crédito a ningún pensamiento que no haya nacido al aire libre y pudiendo nosotros movernos con libertad... La carne sedentaria es el auténtico pecado contra el espíritu santo.»`,
+        ref: `Por qué soy yo tan inteligente, §1–2 y §10`
+      },
+      {
+        id: `gran-salud`,
+        tag: `Pilar 02 · Presupuesto de Zaratustra`,
+        title: `La Gran Salud`,
+        thesis: `No es una mera ausencia de malestar, sino una salud que no solo se posee, sino que debe conquistarse continuamente porque una y otra vez se entrega y se pone a prueba frente a lo problemático y terrible.`,
+        opposed: `El pesimismo, la filosofia de la pobreza y del desaliento, y el comportamiento del décadent típico que elige instintivamente los remedios que lo perjudican.`,
+        mechanism: `Un ser típicamente enfermizo no puede sanarse a sí mismo; en cambio, para un ser sano en el fondo, estar enfermo actúa como un enérgico estimulante para vivir y para «más-vivir». En los años de su vitalidad más baja (1879), Nietzsche dejó precisamente de ser pesimista.`,
+        quote: `«Adivina remedios curativos contra los daños, saca ventaja de sus contrariedades; lo que no lo mata lo hace más fuerte... Convertí mi voluntad de salud, de vida, en mi filosofía.»`,
+        ref: `Por qué soy tan sabio, §2 · Así habló Zaratustra, §2`
+      },
+      {
+        id: `amor-fati`,
+        tag: `Pilar 03 · Redención del azar`,
+        title: `Amor fati y Fatalismo Ruso`,
+        thesis: `Tomarse a sí mismo como un fatum (destino), no quererse distinto y amar la necesidad hasta el punto de justificar y redimir todo lo pasado transformando cada «Fue» en un «Así lo quise yo».`,
+        opposed: `El resentimiento, la sed de venganza, el «ajuste de cuentas», el remordimiento de conciencia («mal de ojo») y los falsos propósitos conscientes que violentan el crecimiento secreto.`,
+        mechanism: `Durante sus crisis, Nietzsche aplicó el «fatalismo ruso» (no aceptar nada, no reaccionar, como el soldado que se tiende en la nieve) para evitar el desgaste nervioso del rencor. En la plenitud, el amor al destino culmina en mirar el futuro como un mar liso sin deseos de alterar lo que es.`,
+        quote: `«No tengo el menor deseo de que algo se vuelva distinto de lo que es; yo mismo no quiero volverme distinto. Pero así he vivido siempre. No he tenido ningún deseo.»`,
+        ref: `Por qué soy tan sabio, §6 · Por qué soy yo tan inteligente, §9 · Zaratustra, §8`
+      },
+      {
+        id: `transvaloracion`,
+        tag: `Pilar 04 · Fórmula de destino`,
+        title: `Transvaloración de todos los Valores`,
+        thesis: `Acto de suprema autognosis de la humanidad mediante el cual se invierten los valores de décadence que han gobernado durante milenios bajo el manto de lo «santo» y lo «desinteresado».`,
+        opposed: `La moral cristiana y sacerdotal («la idiosincrasia de décadents con la intención oculta de vengarse de la vida»), el altruismo impuesto y el tipo humano «bueno» de rebaño.`,
+        mechanism: `Gracias a su doble experiencia —como décadent y como antítesis de la décadence— Nietzsche afirma poseer la mano capaz de «dar la vuelta a las perspectivas». En el inmoralista, negar y aniquilar son condiciones previas del decir sí creador.`,
+        quote: `«Transvaloración de todos los valores: ésta es mi fórmula para designar un acto de suprema autognosis de la humanidad, acto que en mí se ha hecho carne y genio.»`,
+        ref: `Por qué soy tan sabio, §1 · Por qué soy yo un destino, §1 y §7`
+      },
+      {
+        id: `dioniso-crucificado`,
+        tag: `Pilar 05 · Disyuntiva final`,
+        title: `Dioniso contra el Crucificado`,
+        thesis: `La oposición irreductible entre el símbolo máximo de la afirmación vital (Dioniso) y la negación extrema de todos los valores estéticos y vitales (el cristianismo).`,
+        opposed: `La calumnia contra el mundo terrenal, la hostilidad hacia la sexualidad y el egoísmo sano, y la invención de un «mundo verdadero» ficticio para volver anémica la existencia.`,
+        mechanism: `Lo dionisiaco es definido como el decir sí incluso al sufrimiento, al devenir, a la guerra y a la destrucción creadora («eterno placer del devenir»). Frente a ello, el cristianismo convierte la debilidad y el rechazo de la vida en «imperativo categórico».`,
+        quote: `«El cristianismo es nihilista en el más hondo sentido, mientras que en el símbolo dionisiaco se alcanza el límite extremo de la afirmación.»`,
+        ref: `El nacimiento de la tragedia, §1 · Por qué soy yo un destino, §9`
+      }
+    ];
+
+    const MAP_PLACES = [
+      {
+        id: `sils`,
+        name: `Alta Engadina (Sils-Maria / Silvaplana)`,
+        country: `Suiza`,
+        coords: [46.437, 9.764],
+        category: `salud`,
+        catLabel: `Aire seco y altura · Salud`,
+        climate: `Aire seco y fuerte de alta montaña, a 6.000 pies por encima de Bayreuth; cercanía del hielo y silencio luminoso.`,
+        physiology: `Entorno de libertad respiratoria y claridad extrema. Aquí Heinrich von Stein se sintió transformado en tres días por «un vendaval de libertad».`,
+        works: `«Así habló Zaratustra» (idea del eterno retorno en agosto de 1881 junto a la roca piramidal de Surlei) y prólogo de «El crepúsculo de los ídolos» (3 de septiembre de 1888).`
+      },
+      {
+        id: `turin`,
+        name: `Turín`,
+        country: `Italia (Piamonte)`,
+        coords: [45.070, 7.687],
+        category: `salud`,
+        catLabel: `Aire seco y altura · Salud`,
+        climate: `Ciudad «tranquila y aristocrática», cielo puro, fuentes de agua corriente y la mejor gastronomía del mundo (cocina del Piamonte).`,
+        physiology: `Máxima estabilidad digestiva y espiritual; contraste absoluto con la estrechez de la pequeña o gran ciudad alemana, donde tendría que «convertirse en un erizo».`,
+        works: `Redacción de «Ecce homo» en su cuadragésimo cuarto año y culminación de la «Transvaloración» en otoño de 1888.`
+      },
+      {
+        id: `niza`,
+        name: `Niza`,
+        country: `Francia`,
+        coords: [43.710, 7.262],
+        category: `salud`,
+        catLabel: `Aire seco y altura · Salud`,
+        climate: `Cielo despejado, aire seco y abundantes fuentes de agua corriente («un pequeño vaso marcha detrás de mí como un perro»).`,
+        physiology: `Recuperación física mediante abstención alcohólica absoluta, caminatas al aire libre y metabolismo veloz.`,
+        works: `Periodo de maduración de su filosofía afirmativa y de su última etapa productiva.`
+      },
+      {
+        id: `paris`,
+        name: `París y la Provenza`,
+        country: `Francia`,
+        coords: [48.857, 2.352],
+        category: `salud`,
+        catLabel: `Aire seco y altura · Salud`,
+        climate: `«Aire magníficamente seco» que condiciona el ingenio, el refinamiento y la maldad de los espíritus libres.`,
+        physiology: `Única patria europea del artista y hogar de los psicólogos más finos (Montaigne, Stendhal, Bourget, Maupassant) y de la «gaya scienza» provenzal.`,
+        works: `Referente espiritual constante en «Humano, demasiado humano» y en el ideal provenzal de cantor, caballero y espíritu libre.`
+      },
+      {
+        id: `genova`,
+        name: `Génova`,
+        country: `Italia`,
+        coords: [44.406, 8.934],
+        category: `creacion`,
+        catLabel: `Sur y música · Creación`,
+        climate: `Caos de peñascos soleados frente al mar en su primer invierno genovés.`,
+        physiology: `Pese a una extrema pobreza de sangre y músculos, generó una dulcificación y espiritualización luminosa, «orondo y feliz como un animal marino al sol».`,
+        works: `«Aurora» (1881): inicio de su campaña serena y sin pólvora contra la moral como prejuicio.`
+      },
+      {
+        id: `rapallo`,
+        name: `Rapallo y Portofino`,
+        country: `Italia`,
+        coords: [44.350, 9.231],
+        category: `creacion`,
+        catLabel: `Sur y música · Creación`,
+        climate: `Bahía entre Chiavari y Portofino; invierno frío y lluvioso con oleaje nocturno que impedía dormir.`,
+        physiology: `Demostración de que «todo lo decisivo surge a pesar de»: caminatas matutinas subiendo hacia Zoagli entre pinos sobre el mar y paseos vespertinos a Santa Margherita.`,
+        works: `Parto repentino de la primera parte de «Así habló Zaratustra» (febrero de 1883).`
+      },
+      {
+        id: `venecia`,
+        name: `Venecia`,
+        country: `Italia`,
+        coords: [45.440, 12.315],
+        category: `creacion`,
+        catLabel: `Sur y música · Creación`,
+        climate: `Más acá de los Alpes; ciudad de luces, góndolas y crepúsculo acuático.`,
+        physiology: `Para Nietzsche, sinónimo absoluto de música («no sé hacer ninguna diferencia entre lágrimas y música»), junto al maestro Pietro Gasti (Peter Gast).`,
+        works: `Poema de la canción de góndola («Junto al puente me hallaba...»); lugar donde murió Richard Wagner exactamente cuando él concluía el primer Zaratustra.`
+      },
+      {
+        id: `roma`,
+        name: `Roma`,
+        country: `Italia`,
+        coords: [41.902, 12.496],
+        category: `creacion`,
+        catLabel: `Sur y música · Creación`,
+        climate: `«Melancólica primavera» en una logia sobre la Piazza Barberini, intentando escapar de los malos olores históricos.`,
+        physiology: `Tensión profunda: la considera «el lugar más indecoroso de la Tierra para el poeta del Zaratustra», frente al cual prefirió evadirse hacia Aquila.`,
+        works: `Composición de «La canción de la noche», la canción más solitaria sobre el aislamiento solar en la luz.`
+      },
+      {
+        id: `basilea`,
+        name: `Basilea`,
+        country: `Suiza`,
+        coords: [47.559, 7.588],
+        category: `nefasto`,
+        catLabel: `Humedad y desgaste · Crisis`,
+        climate: `Uno de los lugares «falsos y realmente prohibidos» para su fisiología.`,
+        physiology: `Diez años de «desgaste completamente insensato de fuerzas extraordinarias» como catedrático y filólogo, sin reposo ni cuidado de sí. Renuncia en 1879 al tocar fondo vital.`,
+        works: `«El nacimiento de la tragedia» (1872), «Las Intempestivas» (1873–76) y crisis de «Humano, demasiado humano» (1878).`
+      },
+      {
+        id: `leipzig`,
+        name: `Leipzig`,
+        country: `Alemania`,
+        coords: [51.340, 12.375],
+        category: `nefasto`,
+        catLabel: `Humedad y desgaste · Crisis`,
+        climate: `Clima alemán húmedo que «desalienta incluso a intestinos nacidos para el heroísmo».`,
+        physiology: `En 1865 la cocina de Leipzig —alimentación insuficiente y estómago arruinado— lo llevó a negar seriamente su «voluntad de vida» en coincidencia con su primer estudio de Schopenhauer.`,
+        works: `Ironía sobre la imposible unión de «ciudadano de Leipzig» y «cultura clásica».`
+      },
+      {
+        id: `naumburgo`,
+        name: `Naumburgo y Schulpforta`,
+        country: `Alemania (Turingia / Sajonia)`,
+        coords: [51.152, 11.812],
+        category: `nefasto`,
+        catLabel: `Humedad y desgaste · Crisis`,
+        climate: `Escenario del «invierno más pobre de sol de toda mi vida» (1879–80), además del agrio vino local de su juventud.`,
+        physiology: `Llamados lugares nefastos para su fisiología; en Naumburgo sobrevivió «siendo una sombra» tras dejar Basilea, y en la Escuela de Pforta escribió disertaciones latinas bajo grog.`,
+        works: `«El caminante y su sombra» (nacido en su mínimum vital de Naumburgo).`
+      }
+    ];
+
+    const WORKS_DATA = [
+      {
+        id: `tragedia`,
+        year: `1872`,
+        title: `El nacimiento de la tragedia`,
+        tag: `Estética trágica`,
+        thesis: `Introduce dos innovaciones decisivas: comprende el fenómeno dionisiaco como raíz única de todo el arte griego y diagnostica a Sócrates por primera vez como instrumento de la disolución griega («racionalidad contra instinto», síntoma de décadence).`,
+        critique: `Nietzsche lamenta que la obra fascinara por lo que tenía de errado: su aplicación al wagnerismo como si éste fuera un síntoma de ascensión, y que desprendiera un «repugnante olor hegeliano» y perfume cadavérico de Schopenhauer. Su título menos ambiguo habría sido «Grecia y el pesimismo».`,
+        context: `Comenzado bajo los truenos de la batalla de Wörth y meditado ante los muros de Metz en septiembre de 1870 mientras servía en sanidad. Profundo y hostil silencio contra el cristianismo.`,
+        quote: `«El decir sí a la vida incluso en sus problemas más extraños y duros... a eso fue a lo que yo llamé dionisiaco. En este sentido tengo derecho a considerarme el primer filósofo trágico.»`
+      },
+      {
+        id: `intempestivas`,
+        year: `1873–1876`,
+        title: `Las cuatro Intempestivas`,
+        tag: `Escritos belicosos`,
+        thesis: `Demuestran que Nietzsche no era un «Juan el Soñador» sino alguien a quien le gusta desenvainar la espada: ataca la vacuidad de la «cultura» alemana tras la victoria sobre Francia (1ª), denuncia la ciencia mecanizada y el «sentido histórico» como enfermedad (2ª) y perfila dos tipos de duro egoísmo creador (3ª y 4ª).`,
+        critique: `Aclara que los textos dedicados a Schopenhauer y Wagner no sirven para hacer psicología de ambos: Nietzsche los «agarró por los cabellos» como semiótica para hablar en el fondo de sí mismo. «Schopenhauer como educador» es «Nietzsche como educador».`,
+        context: `Escritas aún en su oficio de docto universitario, expresan el sentimiento de distancia respecto a los «rumiantes» académicos y catedráticos de filosofía.`,
+        quote: `«El escrito "Wagner en Bayreuth" es una visión de mi futuro; en cambio, en "Schopenhauer como educador" está inscrita mi historia más íntima, mi devenir. ¡Sobre todo, mi voto solemne!»`
+      },
+      {
+        id: `humano`,
+        year: `1878`,
+        title: `Humano, demasiado humano`,
+        tag: `Espíritus libres`,
+        thesis: `Monumento de una crisis y ruptura con el idealismo: «donde vosotros veis cosas ideales, veo yo cosas humanas, ay, sólo demasiado humanas». En lugar de refutar el error con pólvora, lo deposita sobre el hielo hasta congelar «el genio», «el santo», «el héroe», «la fe» y «la compasión».`,
+        critique: `Tono frío, sarcástico y aristocrático, publicado en el centenario de la muerte de Voltaire («un grand seigneur del espíritu»). Marca su distancia definitiva respecto al «desinterés» y a la «bibliomanía» filológica.`,
+        context: `La enfermedad de sus ojos y su agotamiento lo «redimieron» del libro y de la cátedra, obligándolo al ocio, a la quietud y a escuchar de nuevo a su yo más profundo.`,
+        quote: `«Un error detrás del otro va quedando depositado sobre el hielo, el ideal no es refutado, se congela.»`
+      },
+      {
+        id: `aurora`,
+        year: `1881`,
+        title: `Aurora · Sobre la moral como prejuicio`,
+        tag: `Campaña antimoral`,
+        thesis: `Inicia su campaña frontal contra la moral de la renuncia a sí mismo y contra la casta sacerdotal que impuso lo «no-egoísta» para arruinar fisiológicamente a la humanidad. Devuelve la buena conciencia y el derecho de existir a las cosas prohibidas y maldecidas.`,
+        critique: `No huele a pólvora ni contiene artillería ni ataques malignos; reposa feliz al sol. Es el único libro que concluye con una pregunta abierta: «¿o acaso?».`,
+        context: `Casi cada frase fue «pescada» en el caos de peñascos cercano a Génova durante su primer invierno genovés, en soledad frente al mar.`,
+        quote: `«"Hay tantas auroras que todavía no han resplandecido" —esta inscripción india está colocada sobre la puerta que da entrada a este libro.»`
+      },
+      {
+        id: `gaya`,
+        year: `1882 / 1887`,
+        title: `La gaya ciencia y Príncipe Vogelfrei`,
+        tag: `La gran salud`,
+        thesis: `Periodo intermedio luminoso que contiene cien indicios de la proximidad de «Zaratustra», formula explícitamente el ideal de «la gran salud» en el libro quinto y anuncia el pensamiento del eterno retorno al final del libro cuarto.`,
+        critique: `Sus «Canciones del Príncipe Vogelfrei» (compuestas en su mayor parte en Sicilia, culminando en «Al mistral») recuperan el concepto provenzal de la «gaya scienza»: unidad de cantor, caballero y espíritu libre que baila por encima de la moral.`,
+        context: `Gestada tras el renacimiento musical en Recoaro (primavera de 1881) junto a Peter Gast, acompañada por la composición de su «Himno a la vida» sobre texto de Lou von Salomé.`,
+        quote: `«Nosotros, partos prematuros de un futuro no verificado todavía, necesitamos, para una finalidad nueva, también un medio nuevo, a saber, una salud nueva...»`
+      },
+      {
+        id: `zaratustra`,
+        year: `1883–1885`,
+        title: `Así habló Zaratustra`,
+        tag: `Cumbre dionisiaca`,
+        thesis: `Un libro «para todos y para nadie» cuyo eje es el pensamiento del eterno retorno —la fórmula suprema de afirmación posible— y la realidad del superhombre. Zaratustra encarna el concepto mismo de Dioniso: el danzarín que dice sí incluso al sufrimiento y redime el pasado.`,
+        critique: `Denuncia la incomprensión general: casi nadie tuvo oídos para su «sonido alciónico», leyendo el superhombre como idealista mitad santo y mitad genio, cuando requiere dureza de escultor («¡Endureceos!»). Su lectura desataba en el propio Nietzsche convulsiones de sollozos durante media hora.`,
+        context: `Concepción en agosto de 1881 junto al lago de Silvaplana («a 6.000 pies más allá del hombre y del tiempo»); dieciocho meses de gestación («elefante hembra») hasta el parto en Rapallo en febrero de 1883, justo a la hora en que Wagner moría en Venecia.`,
+        quote: `«Redimir a los que han pasado, y transformar todo "Fue" en un "Así lo quise yo" ¡sólo eso sería para mí redención!»`
+      },
+      {
+        id: `mas-alla`,
+        year: `1886`,
+        title: `Más allá del bien y del mal`,
+        tag: `Psicología del futuro`,
+        thesis: `Despliega su aguda garra psicológica contra los prejuicios filosóficos y analiza el fenómeno artístico moderno —situando a Wagner junto al tardío romanticismo francés de Delacroix, Berlioz y Baudelaire— antes de que éste condescendiera con el Reich alemán.`,
+        critique: `Nietzsche se burla de la prensa prusiana (como la National-Zeitung), que tomó con absoluta seriedad este libro como si fuese la auténtica filosofía conservadora de los hidalgos (Junker).`,
+        context: `Periodo posterior a la «miseria sin igual» y al «espantoso silencio» de siete pieles que siguió a la redacción de Zaratustra.`,
+        quote: `«En última instancia nadie puede escuchar en las cosas, incluidos los libros, más de lo que ya sabe. Se carece de oídos para escuchar aquello a lo cual no se tiene acceso desde la vivencia.»`
+      },
+      {
+        id: `genealogia`,
+        year: `1887`,
+        title: `La genealogía de la moral`,
+        tag: `Escrito polémico`,
+        thesis: `Tres tratados preliminares para una transvaloración de todos los valores con ritmo progresivo (tempo feroce): 1º) nacimiento del cristianismo desde el resentimiento; 2º) la conciencia como instinto de crueldad revertido hacia dentro; 3º) el poder del ideal ascético faute de mieux («el hombre prefiere querer incluso la nada a no querer»).`,
+        critique: `Cada tratado arranca con un comienzo frío, científico e irónico para inducir a error, antes de desencadenar relámpagos y detonaciones horribles. Contiene la primera psicología del sacerdote.`,
+        context: `Obra de choque destinada a cortar de raíz la «necesidad metafísica» al mostrar la crueldad como trasfondo oculto de la cultura.`,
+        quote: `«La verdad del primer tratado es la sicología del cristianismo: el nacimiento del cristianismo del espíritu del resentimiento, no del "espíritu", como de ordinario se cree.»`
+      },
+      {
+        id: `crepusculo`,
+        year: `1888`,
+        title: `El crepúsculo de los ídolos`,
+        tag: `Filosofar con el martillo`,
+        thesis: `Escrito breve (menos de ciento cincuenta páginas), de tono alegre y fatal («un demón que ríe»), donde declara que lo que hasta ahora se llamó «verdad» no es sino un ídolo que se acerca a su final.`,
+        critique: `No hay nada más sustancioso, independiente, demoledor ni malvado entre sus libros. Sirve como puerta de entrada sintética para comprender cómo antes de él todo estaba cabeza abajo.`,
+        context: `Escrito en poquísimos días en la Alta Engadina como recreación tras la Transvaloración; prólogo fechado el 3 de septiembre de 1888 en el día más hermoso vivido allí.`,
+        quote: `«Lo que en el título se denomina ídolo es sencillamente lo que hasta ahora fue llamado verdad. Crepúsculo de los ídolos, dicho claramente: la vieja verdad se acerca a su final.»`
+      }
+    ];
+
+    const COMPARATOR_AXES = [
+      {
+        id: `existencia`,
+        label: `1. Valor de la existencia`,
+        dioniso: `Afirmación ilimitada y gozosa («el inmenso e ilimitado decir sí y amén»): nada debe sustraerse de lo que existe, nada es superfluo; incluso los aspectos temibles de la realidad pertenecen a un orden superior.`,
+        cristo: `Negación extrema de la vida y de los valores vitales; convierte la impotencia («yo perezco») en imperativo universal («todos vosotros debéis perecer»), calumniando el mundo terrenal.`
+      },
+      {
+        id: `cuerpo`,
+        label: `2. Cuerpo y fisiología`,
+        dioniso: `El cuerpo, la salud, el clima, la alimentación y el egoísmo riguroso son la base misma del florecimiento. La sexualidad se honra como presupuesto de la vida.`,
+        cristo: `Finge un «alma» y un «espíritu inmortal» para despreciar el cuerpo, hacerlo enfermar («hacerlo santo») y enseñar a ver una cosa impura en la sexualidad y el crecimiento propio.`
+      },
+      {
+        id: `dolor`,
+        label: `3. Dolor y lo trágico`,
+        dioniso: `El sufrimiento no es una objeción contra la vida sino un estimulante y puente hacia el «eterno placer del devenir», que incluye el placer de destruir para crear.`,
+        cristo: `Huye frente a la realidad hacia el consuelo y el adormecimiento; ve los estados de necesidad como objeción contra el existir y explota el dolor mediante la «locura circular» de penitencia y redención.`
+      },
+      {
+        id: `valores`,
+        label: `4. Origen de los valores`,
+        dioniso: `Valores aristocráticos y estéticos nacidos de la abundancia, el coraje y la fuerza creadora; exige «¡Endureceos!» como condición de todo escultor de valores nuevos.`,
+        cristo: `Nace del espíritu del resentimiento y la venganza de los fracasados contra los fuertes; eleva a la categoría de «hombre bueno» al animal de rebaño y al débil.`
+      },
+      {
+        id: `verdad`,
+        label: `5. Verdad frente al ideal`,
+        dioniso: `El conocimiento es una necesidad del fuerte: cuánta verdad soporta un espíritu mide su rango. Derriba los «ídolos» (ideales ficticios) sin cobardía.`,
+        cristo: `«Los décadents tienen necesidad de la mentira, ella es una de sus condiciones de conservación.» Inventa un «mundo verdadero» y el concepto «Dios» como antítesis de la realidad.`
+      },
+      {
+        id: `futuro`,
+        label: `6. Destino humano`,
+        dioniso: `Superación del hombre actual hacia el superhombre (Übermensch): creador de sentido sobre la Tierra, redentor del azar que abraza el eterno retorno.`,
+        cristo: `Castración de la humanidad al sacrificar el futuro en aras de «los últimos hombres»; el sacerdote conserva lo degenerado para dominar a costa del porvenir.`
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        q: `1. En «Por qué soy tan sabio», ¿cómo interpreta Nietzsche su doble procedencia (padre muerto a los 36 años y madre viva) respecto a la «décadence»?`,
+        options: [
+          `Se considera exclusivamente un genio sano inmune a cualquier forma de debilidad física.`,
+          `Afirma ser décadent y a la vez su antítesis, lo que le permite cambiar de perspectiva entre la óptica del enfermo y la plenitud vital.`,
+          `Atribuye toda su sabiduría a la herencia moral y religiosa de sus padres y hermana.`
+        ],
+        correct: 1,
+        explanation: `En «Por qué soy tan sabio» (§1–2), Nietzsche explica que ser décadent y comienzo a la vez le otorgó un olfato finísimo para ascensos y decadencias, permitiéndole «dar la vuelta a las perspectivas» y sanarse por ser sano en el fondo.`
+      },
+      {
+        q: `2. ¿Qué papel desempeñan la cocina alemana, el alcohol y el sedentarismo en el diagnóstico filosófico de «Por qué soy yo tan inteligente»?`,
+        options: [
+          `Son asuntos triviales sin relación alguna con la metafísica o la cultura.`,
+          `El vino alegra necesariamente al pensador y la lectura temprana al amanecer fortalece el espíritu.`,
+          `La ignorancia fisiológica es la fatalidad del idealismo: la cocina alemana produce una «indigestión» intelectual y la carne sedentaria es el pecado contra el espíritu santo.`
+        ],
+        correct: 2,
+        explanation: `Nietzsche sostiene que «todos los prejuicios proceden de los intestinos», que un solo vaso de vino le arruina el día («en mí el espíritu flota sobre el agua») y que ningún pensamiento merece crédito si no nace al aire libre y en movimiento.`
+      },
+      {
+        q: `3. ¿En qué consiste el «fatalismo ruso» que Nietzsche elogia frente al resentimiento en los períodos de enfermedad?`,
+        options: [
+          `En dejar de reaccionar por completo —como el soldado que se tiende en la nieve— para ralentizar el metabolismo y no consumirse con el fuego del rencor.`,
+          `En responder inmediatamente a cada ofensa mediante la venganza pública y la polémica personal.`,
+          `En someterse a la fe cristiana y aceptar la culpa como instrumento de purificación.`
+        ],
+        correct: 0,
+        explanation: `En §6 de «Por qué soy tan sabio», explica que el resentimiento desgasta velozmente la energía nerviosa del enfermo; el fatalismo ruso (no acoger nada ni reaccionar) actúa como «voluntad de letargo invernal» para conservar la vida, paralelo a la higiene de Buda.`
+      },
+      {
+        q: `4. ¿Por qué afirma Nietzsche que el nombre «Zaratustra» en su boca significa «la autosuperación de la moral por veracidad»?`,
+        options: [
+          `Porque el Zaratustra persa fue el primer ateo materialista de la Antigüedad.`,
+          `Porque Zaratustra creó el error de transponer la lucha entre el bien y el mal a lo metafísico, y por su virtud suprema (la veracidad) debe ser el primero en reconocer y superar ese error.`,
+          `Porque Zaratustra predicó la obediencia absoluta de los discípulos hacia el maestro.`
+        ],
+        correct: 1,
+        explanation: `En «Por qué soy yo un destino» (§3), explica que el persa Zaratustra fue el inventor de la moral metafísica, y precisamente porque su doctrina exige veracidad por encima de todo, se supera a sí mismo en su antítesis: el primer inmoralista.`
+      },
+      {
+        q: `5. Según la revisión de «La genealogía de la moral», ¿por qué ha tenido tanto poder el ideal ascético o sacerdotal hasta hoy?`,
+        options: [
+          `Porque Dios actúa directamente detrás de los sacerdotes guiando la historia.`,
+          `Faute de mieux (a falta de algo mejor): fue el único ideal existente sin competidor, pues «el hombre prefiere querer incluso la nada a no querer».`,
+          `Porque la humanidad ha comprendido científicamente que la negación del cuerpo produce felicidad.`
+        ],
+        correct: 1,
+        explanation: `En el comentario a «La genealogía de la moral», Nietzsche señala que el tercer tratado responde que el ideal ascético dominó por falta de un contraideal hasta Zaratustra.`
+      },
+      {
+        q: `6. ¿Cómo define Nietzsche la moral cristiana en el capítulo final «Por qué soy yo un destino»?`,
+        options: [
+          `Como un impulso benigno de progreso social compatible con el superhombre.`,
+          `Como un simple error intelectual sin consecuencias sobre el cuerpo ni el futuro.`,
+          `Como «vampirismo» y «la idiosincrasia de décadents, con la intención oculta de vengarse de la vida, y con éxito».`
+        ],
+        correct: 2,
+        explanation: `En §7–8 de «Por qué soy yo un destino», define la moral como la idiosincrasia de los décadents para vengarse de la vida y describe su descubrimiento como el fin de una «mentira milenaria» resumida en la antítesis «Dioniso contra el Crucificado».`
+      }
+    ];
+
+    const FAQ_ITEMS = [
+      {
+        q: `¿Cuándo y en qué circunstancias escribió Nietzsche «Ecce homo»?`,
+        a: `Lo escribió en 1888 (su cuadragésimo cuarto año, inmediatamente después de redactar el prólogo de «El crepúsculo de los ídolos» el 3 de septiembre), casi al borde de la crisis que lo llevaría a ser internado en un hospital psiquiátrico. Su propósito declarado era decir quién es antes de presentar a la humanidad la exigencia de la transvaloración y evitar que se lo confunda con otros o se lo declare «santo».`
+      },
+      {
+        q: `¿Qué significa exactamente que Nietzsche se proclame «el primer inmoralista»?`,
+        a: `No significa ausencia de disciplina ni capricho, sino una doble negación consciente: niega al tipo humano venerado como «los buenos» (el animal de rebaño que miente frente a la realidad y sacrifica el futuro) y niega la moral de décadence o moral cristiana de la renuncia a sí mismo, para afirmar en su lugar valores que dicen sí a la vida ascendente y a la veracidad.`
+      },
+      {
+        q: `¿Por qué un libro de filosofía dedica tanto espacio a la comida, el agua, los viajes y la lectura?`,
+        a: `Porque Nietzsche invierte la jerarquía tradicional del idealismo. Sostiene que «Dios», «alma» y «más allá» son conceptos inventados para despreciar el cuerpo, mientras que la alimentación, el clima, el aire seco y el reposo determinan el ritmo del metabolismo y, con él, la agilidad o torpeza del espíritu.`
+      },
+      {
+        q: `¿Qué relación final mantiene Nietzsche con Richard Wagner en «Ecce homo»?`,
+        a: `Una relación profundamente ambivalente pero reconocida con gratitud: llama a los días de Tribschen sus más bellas recreaciones y al «Tristán» el «contraveneno par excellence de todo lo alemán». Sin embargo, nunca le perdonó haber «condescendido con los alemanes» convirtiéndose en «alemán del Reich», y lo utiliza en su práctica bélica como lente de aumento para exponer la falsedad cultural de su época.`
+      },
+      {
+        q: `¿Cómo debe entenderse el concepto de «superhombre» según las aclaraciones del propio autor?`,
+        a: `Nietzsche rechaza rotundamente que el «superhombre» sea un tipo idealista «mitad santo, mitad genio», una tesis darwiniana o el «culto de los héroes» de Carlyle. Designa un tipo de óptima constitución biológica y espiritual capaz de concebir la realidad entera tal como es —con todo lo terrible y problemático que encierra— y comparativamente más cercano a un Cesare Borgia que a un Parsifal.`
+      },
+      {
+        q: `¿Por qué concluye la obra con «¿Se me ha comprendido? —Dioniso contra el Crucificado»?`,
+        a: `Porque toda la autobiografía relee su existencia bajo la óptica dionisiaca (el sí trágico, sobreabundante e incondicional a la vida y al devenir) frente al cristianismo, al que identifica con el nihilismo y la negación extrema de los valores vitales. En esa última pregunta condensa el sentido histórico de la «guerra espiritual» que anuncia.`
+      }
+    ];
+
+    /* =========================================================================
+       STATE
+       ========================================================================= */
+    let activeKbId = KB_PILLARS[0].id;
+    let activeWorkId = WORKS_DATA[0].id;
+    let activeCompAxisId = COMPARATOR_AXES[0].id;
+    let compMode = `eje`;
+    let activeMapFilter = `todos`;
+    let activePlaceId = MAP_PLACES[0].id;
+    let leafletMap = null;
+    let leafletMarkersLayer = null;
+    const markersById = {};
+
+    const quizState = {
+      index: 0,
+      score: 0,
+      answered: false,
+      selectedOption: -1,
+      finished: false,
+      confirmReset: false
+    };
+
+    /* =========================================================================
+       UTILITIES
+       ========================================================================= */
+    function readToken(name, fallback) {
+      const val = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return val || fallback;
+    }
+
+    /* =========================================================================
+       1. KNOWLEDGE BASE EXPLORER
+       ========================================================================= */
+    function renderKbExplorer() {
+      const listEl = document.getElementById(`kb-list`);
+      const detailEl = document.getElementById(`kb-detail`);
+      if (!listEl || !detailEl) return;
+
+      listEl.innerHTML = KB_PILLARS.map((item) => {
+        const isActive = item.id === activeKbId;
+        return `
+          <button type="button"
+                  role="tab"
+                  aria-selected="${isActive}"
+                  class="kb-item-btn ${isActive ? `is-active` : ``}"
+                  onclick="selectKbPillar('${item.id}')">
+            <span class="tag ${isActive ? `tag-claret` : ``}">${item.tag}</span>
+            <span class="kb-item-title">${item.title}</span>
+          </button>
+        `;
+      }).join(``);
+
+      const current = KB_PILLARS.find((p) => p.id === activeKbId) || KB_PILLARS[0];
+      detailEl.innerHTML = `
+        <div>
+          <span class="tag tag-claret">${current.tag}</span>
+          <h3>${current.title}</h3>
+        </div>
+        <p><strong>Tesis central:</strong> ${current.thesis}</p>
+        <div class="kb-contrast-strip">
+          <div class="kb-contrast-cell">
+            <span class="fig-label">Ídolo o error combatido</span>
+            <p>${current.opposed}</p>
+          </div>
+          <div class="kb-contrast-cell">
+            <span class="fig-label">Operación filosófica</span>
+            <p>${current.mechanism}</p>
+          </div>
+        </div>
+        <div class="pull-quote">
+          <blockquote>${current.quote}</blockquote>
+          <cite>${current.ref}</cite>
+        </div>
+      `;
+    }
+
+    function selectKbPillar(id) {
+      activeKbId = id;
+      renderKbExplorer();
+    }
+
+    /* =========================================================================
+       2. PHYSIOLOGICAL MAP (LEAFLET + VECTOR TOPOJSON)
+       ========================================================================= */
+    function initNietzscheMap() {
+      const container = document.getElementById(`nietzsche-map`);
+      if (!container || typeof L === `undefined`) return;
+
+      const cLand = readToken(`--map-land`, `#f7f3eb`);
+      const cBorder = readToken(`--map-border`, `#bfb5a4`);
+      const cInk = readToken(`--on-surface`, `#1a1817`);
+
+      leafletMap = L.map(`nietzsche-map`, {
+        center: [47.2, 8.6],
+        zoom: 5,
+        minZoom: 4,
+        maxZoom: 7,
+        scrollWheelZoom: false
+      });
+
+      leafletMap.attributionControl.setPrefix(false);
+      leafletMap.attributionControl.addAttribution(`Fronteras: Natural Earth (dominio público)`);
+
+      fetch(`https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json`)
+        .then((res) => res.json())
+        .then((topo) => {
+          if (typeof topojson === `undefined` || !leafletMap) return;
+          const geo = topojson.feature(topo, topo.objects.countries);
+          L.geoJSON(geo, {
+            style: {
+              fillColor: cLand,
+              fillOpacity: 1,
+              color: cBorder,
+              weight: 0.9
+            },
+            interactive: false
+          }).addTo(leafletMap);
+
+          leafletMarkersLayer = L.layerGroup().addTo(leafletMap);
+          drawMapMarkers();
+          leafletMap.invalidateSize();
+        })
+        .catch(() => {
+          if (leafletMap) {
+            leafletMarkersLayer = L.layerGroup().addTo(leafletMap);
+            drawMapMarkers();
+          }
+        });
+
+      renderMapControls();
+    }
+
+    function getCategoryColor(cat) {
+      if (cat === `salud`) return readToken(`--primary`, `#990f3d`);
+      if (cat === `creacion`) return readToken(`--secondary`, `#0d7680`);
+      return readToken(`--error`, `#b3261e`);
+    }
+
+    function drawMapMarkers() {
+      if (!leafletMap || !leafletMarkersLayer) return;
+      leafletMarkersLayer.clearLayers();
+      const cInk = readToken(`--on-surface`, `#1a1817`);
+
+      const visiblePlaces = MAP_PLACES.filter((p) => activeMapFilter === `todos` || p.category === activeMapFilter);
+
+      visiblePlaces.forEach((place) => {
+        const isSelected = place.id === activePlaceId;
+        const fillCol = getCategoryColor(place.category);
+        const marker = L.circleMarker(place.coords, {
+          radius: isSelected ? 10 : 7,
+          color: cInk,
+          weight: isSelected ? 2.5 : 1.5,
+          fillColor: fillCol,
+          fillOpacity: isSelected ? 1 : 0.85
+        });
+
+        marker.bindTooltip(`${place.name} (${place.country})`, { direction: `top` });
+        marker.on(`click`, () => {
+          selectMapPlace(place.id, false);
+        });
+        marker.addTo(leafletMarkersLayer);
+        markersById[place.id] = marker;
+      });
+    }
+
+    function renderMapControls() {
+      const pillsEl = document.getElementById(`place-pills`);
+      const dossierEl = document.getElementById(`place-dossier`);
+      if (!pillsEl || !dossierEl) return;
+
+      const visiblePlaces = MAP_PLACES.filter((p) => activeMapFilter === `todos` || p.category === activeMapFilter);
+      if (!visiblePlaces.some((p) => p.id === activePlaceId) && visiblePlaces.length > 0) {
+        activePlaceId = visiblePlaces[0].id;
+      }
+
+      pillsEl.innerHTML = visiblePlaces.map((p) => {
+        const isActive = p.id === activePlaceId;
+        return `
+          <button type="button"
+                  class="place-btn ${isActive ? `is-active` : ``}"
+                  onclick="selectMapPlace('${p.id}', true)">
+            ${p.name}
+          </button>
+        `;
+      }).join(``);
+
+      const current = MAP_PLACES.find((p) => p.id === activePlaceId) || MAP_PLACES[0];
+      const tagClass = current.category === `salud` ? `tag tag-claret` : current.category === `creacion` ? `tag` : `tag tag-muted`;
+      dossierEl.innerHTML = `
+        <div>
+          <span class="${tagClass}">${current.catLabel}</span>
+          <h3>${current.name} · ${current.country}</h3>
+        </div>
+        <p><strong>Clima y entorno:</strong> ${current.climate}</p>
+        <p><strong>Efecto fisiológico:</strong> ${current.physiology}</p>
+        <p><strong>Obras e hitos:</strong> ${current.works}</p>
+      `;
+    }
+
+    function filterMapPlaces(filterKey, btnEl) {
+      activeMapFilter = filterKey;
+      const group = document.querySelectorAll(`[data-map-filter]`);
+      group.forEach((b) => b.classList.remove(`is-selected`));
+      if (btnEl) btnEl.classList.add(`is-selected`);
+
+      renderMapControls();
+      drawMapMarkers();
+
+      const current = MAP_PLACES.find((p) => p.id === activePlaceId);
+      if (current && leafletMap) {
+        leafletMap.flyTo(current.coords, 5, { duration: 0.5 });
+      }
+    }
+
+    function selectMapPlace(placeId, shouldFly) {
+      activePlaceId = placeId;
+      renderMapControls();
+      drawMapMarkers();
+
+      const place = MAP_PLACES.find((p) => p.id === placeId);
+      if (place && leafletMap && shouldFly) {
+        leafletMap.flyTo(place.coords, 6, { duration: 0.55 });
+      }
+    }
+
+    /* =========================================================================
+       3. WORKS EXPLORER (BIBLIOTECA CRÍTICA)
+       ========================================================================= */
+    function renderWorksExplorer() {
+      const indexEl = document.getElementById(`works-index`);
+      const detailEl = document.getElementById(`work-detail`);
+      if (!indexEl || !detailEl) return;
+
+      indexEl.innerHTML = WORKS_DATA.map((w) => {
+        const isActive = w.id === activeWorkId;
+        return `
+          <button type="button"
+                  role="tab"
+                  aria-selected="${isActive}"
+                  class="work-tab ${isActive ? `is-active` : ``}"
+                  onclick="selectWork('${w.id}')">
+            <span class="work-tab-name">${w.title}</span>
+            <span class="work-tab-year">${w.year}</span>
+          </button>
+        `;
+      }).join(``);
+
+      const idx = WORKS_DATA.findIndex((w) => w.id === activeWorkId);
+      const safeIdx = idx >= 0 ? idx : 0;
+      const w = WORKS_DATA[safeIdx];
+      const hasPrev = safeIdx > 0;
+      const hasNext = safeIdx < WORKS_DATA.length - 1;
+
+      detailEl.innerHTML = `
+        <div>
+          <span class="tag">${w.tag} · ${w.year}</span>
+          <h3>${w.title}</h3>
+        </div>
+        <p><strong>Innovación y tesis central:</strong> ${w.thesis}</p>
+        <div class="work-meta-grid">
+          <div>
+            <span class="fig-label">Autocrítica y malentendidos</span>
+            <p>${w.critique}</p>
+          </div>
+          <div>
+            <span class="fig-label">Génesis y fisiología</span>
+            <p>${w.context}</p>
+          </div>
+        </div>
+        <div class="pull-quote">
+          <blockquote>${w.quote}</blockquote>
+          <cite>Autovaloración en «Ecce homo»</cite>
+        </div>
+        <div class="work-nav-row">
+          <button type="button" class="btn btn-secondary" ${hasPrev ? `` : `disabled`} onclick="stepWork(-1)">
+            Obra anterior
+          </button>
+          <span class="fig-label tabular">${safeIdx + 1} / ${WORKS_DATA.length}</span>
+          <button type="button" class="btn btn-secondary" ${hasNext ? `` : `disabled`} onclick="stepWork(1)">
+            Obra siguiente
+          </button>
+        </div>
+      `;
+    }
+
+    function selectWork(id) {
+      activeWorkId = id;
+      renderWorksExplorer();
+    }
+
+    function stepWork(delta) {
+      const idx = WORKS_DATA.findIndex((w) => w.id === activeWorkId);
+      const nextIdx = idx + delta;
+      if (nextIdx >= 0 && nextIdx < WORKS_DATA.length) {
+        activeWorkId = WORKS_DATA[nextIdx].id;
+        renderWorksExplorer();
+      }
+    }
+
+    /* =========================================================================
+       4. COMPARATOR (DIONISO VS CRUCIFICADO)
+       ========================================================================= */
+    function renderComparator() {
+      const controlsEl = document.getElementById(`comp-controls`);
+      const viewEl = document.getElementById(`comp-view`);
+      const btnEje = document.getElementById(`btn-comp-eje`);
+      const btnTodo = document.getElementById(`btn-comp-todo`);
+      if (!controlsEl || !viewEl) return;
+
+      if (btnEje && btnTodo) {
+        btnEje.classList.toggle(`is-selected`, compMode === `eje`);
+        btnTodo.classList.toggle(`is-selected`, compMode === `todo`);
+      }
+
+      if (compMode === `eje`) {
+        controlsEl.style.display = `flex`;
+        controlsEl.innerHTML = COMPARATOR_AXES.map((ax) => {
+          const isActive = ax.id === activeCompAxisId;
+          return `
+            <button type="button"
+                    role="tab"
+                    aria-selected="${isActive}"
+                    class="btn btn-secondary ${isActive ? `is-selected` : ``}"
+                    onclick="selectCompAxis('${ax.id}')">
+              ${ax.label}
+            </button>
+          `;
+        }).join(``);
+
+        const current = COMPARATOR_AXES.find((a) => a.id === activeCompAxisId) || COMPARATOR_AXES[0];
+        viewEl.innerHTML = `
+          <div class="comparator-cols">
+            <div class="comp-col">
+              <span class="comp-badge-dioniso">Dioniso · Afirmación trágica</span>
+              <h3>${current.label}</h3>
+              <p>${current.dioniso}</p>
+            </div>
+            <div class="comp-col">
+              <span class="comp-badge-cristo">El Crucificado · Moral de décadence</span>
+              <h3>${current.label}</h3>
+              <p>${current.cristo}</p>
+            </div>
+          </div>
+        `;
+      } else {
+        controlsEl.style.display = `none`;
+        const rows = COMPARATOR_AXES.map((ax) => `
+          <tr>
+            <td><strong>${ax.label}</strong></td>
+            <td>${ax.dioniso}</td>
+            <td>${ax.cristo}</td>
+          </tr>
+        `).join(``);
+
+        viewEl.innerHTML = `
+          <div class="broadsheet-table-wrap">
+            <table class="broadsheet-table" aria-label="Tabla dicotómica Dioniso contra el Crucificado">
+              <thead>
+                <tr>
+                  <th>Dimensión filosófica</th>
+                  <th>Dioniso (Afirmación vital)</th>
+                  <th>El Crucificado (Negación / Décadence)</th>
+                </tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        `;
+      }
+    }
+
+    function setComparatorMode(mode) {
+      compMode = mode;
+      renderComparator();
+    }
+
+    function selectCompAxis(axisId) {
+      activeCompAxisId = axisId;
+      renderComparator();
+    }
+
+    /* =========================================================================
+       5. SELF-ASSESSMENT QUIZ
+       ========================================================================= */
+    function renderQuiz() {
+      const panel = document.getElementById(`quiz-panel`);
+      if (!panel) return;
+
+      const total = QUIZ_QUESTIONS.length;
+
+      if (quizState.finished) {
+        let diagnosis = ``;
+        if (quizState.score >= 5) {
+          diagnosis = `Lectura de alturas: ha captado la inversión fisiológica, la psicología del décadent y el sentido de la transvaloración sin confundir a Nietzsche con los ídolos idealistas.`;
+        } else if (quizState.score >= 3) {
+          diagnosis = `Comprensión intermedia: domina los rasgos centrales del Zaratustra y el inmoralismo, aunque conviene repasar los matices de la gran salud y la crítica fisiológica.`;
+        } else {
+          diagnosis = `Lectura preliminar: aún quedan por asimilar las claves corporales y antimetafísicas de Ecce homo. Repase los pilares de la Base de Conocimientos y vuelva a intentarlo.`;
+        }
+
+        const resetLabel = quizState.confirmReset ? `Confirmar reinicio ahora` : `Reiniciar cuestionario`;
+
+        panel.innerHTML = `
+          <div class="quiz-topbar">
+            <span class="section-label">Resultado final</span>
+            <span class="fig-value tabular">${quizState.score} / ${total} aciertos</span>
+          </div>
+          <div class="quiz-progress-track" aria-hidden="true">
+            <div class="quiz-progress-fill" style="width: 100%;"></div>
+          </div>
+          <p class="lede">${diagnosis}</p>
+          <div class="quiz-actions">
+            <button type="button" class="btn btn-primary" onclick="handleQuizReset()">
+              ${resetLabel}
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      const item = QUIZ_QUESTIONS[quizState.index];
+      const letters = [`A`, `B`, `C`];
+      const pct = Math.round(((quizState.index + (quizState.answered ? 1 : 0)) / total) * 100);
+
+      const optionsHtml = item.options.map((optText, i) => {
+        let cls = `quiz-option`;
+        if (quizState.answered) {
+          if (i === item.correct) cls += ` is-correct`;
+          else if (i === quizState.selectedOption) cls += ` is-wrong`;
+        }
+        return `
+          <button type="button"
+                  class="${cls}"
+                  ${quizState.answered ? `disabled` : ``}
+                  onclick="answerQuiz(${i})">
+            <span class="quiz-letter">${letters[i]}</span>
+            <span>${optText}</span>
+          </button>
+        `;
+      }).join(``);
+
+      let feedbackHtml = ``;
+      if (quizState.answered) {
+        const isRight = quizState.selectedOption === item.correct;
+        feedbackHtml = `
+          <div class="quiz-feedback ${isRight ? `is-good` : ``}" aria-live="polite">
+            <span class="fig-label">${isRight ? `Respuesta correcta` : `Revisión textual`}</span>
+            <p>${item.explanation}</p>
+          </div>
+        `;
+      }
+
+      const nextBtnText = quizState.index < total - 1 ? `Siguiente pregunta` : `Ver diagnóstico final`;
+      const resetLabel = quizState.confirmReset ? `Confirmar reinicio` : `Reiniciar`;
+
+      panel.innerHTML = `
+        <div class="quiz-topbar">
+          <span class="section-label tabular">Pregunta ${quizState.index + 1} de ${total}</span>
+          <span class="fig-label tabular">Puntuación: ${quizState.score} / ${total}</span>
+        </div>
+        <div class="quiz-progress-track" aria-hidden="true">
+          <div class="quiz-progress-fill" style="width: ${pct}%;"></div>
+        </div>
+        <h3>${item.q}</h3>
+        <div class="quiz-options">${optionsHtml}</div>
+        ${feedbackHtml}
+        <div class="quiz-actions">
+          <button type="button" class="btn btn-secondary" onclick="handleQuizReset()">${resetLabel}</button>
+          <button type="button" class="btn btn-primary" ${quizState.answered ? `` : `disabled`} onclick="nextQuizQuestion()">
+            ${nextBtnText}
+          </button>
+        </div>
+      `;
+    }
+
+    function answerQuiz(optionIndex) {
+      if (quizState.answered) return;
+      quizState.answered = true;
+      quizState.selectedOption = optionIndex;
+      quizState.confirmReset = false;
+      if (optionIndex === QUIZ_QUESTIONS[quizState.index].correct) {
+        quizState.score += 1;
+      }
+      renderQuiz();
+    }
+
+    function nextQuizQuestion() {
+      if (!quizState.answered) return;
+      if (quizState.index < QUIZ_QUESTIONS.length - 1) {
+        quizState.index += 1;
+        quizState.answered = false;
+        quizState.selectedOption = -1;
+      } else {
+        quizState.finished = true;
+      }
+      quizState.confirmReset = false;
+      renderQuiz();
+    }
+
+    function handleQuizReset() {
+      if (!quizState.confirmReset) {
+        quizState.confirmReset = true;
+        renderQuiz();
+        return;
+      }
+      quizState.index = 0;
+      quizState.score = 0;
+      quizState.answered = false;
+      quizState.selectedOption = -1;
+      quizState.finished = false;
+      quizState.confirmReset = false;
+      renderQuiz();
+    }
+
+    /* =========================================================================
+       6. FAQ ACCORDION
+       ========================================================================= */
+    function renderFaq() {
+      const faqEl = document.getElementById(`faq-list`);
+      if (!faqEl) return;
+
+      faqEl.innerHTML = FAQ_ITEMS.map((item, idx) => `
+        <div class="faq-item">
+          <button type="button"
+                  class="faq-trigger"
+                  aria-expanded="${idx === 0 ? `true` : `false`}"
+                  aria-controls="faq-ans-${idx}"
+                  onclick="toggleFaq(${idx}, this)">
+            <span class="faq-q">${item.q}</span>
+            <span class="faq-icon" aria-hidden="true">${idx === 0 ? `−` : `+`}</span>
+          </button>
+          <div id="faq-ans-${idx}" class="faq-answer ${idx === 0 ? `is-open` : ``}">
+            <p>${item.a}</p>
+          </div>
+        </div>
+      `).join(``);
+    }
+
+    function toggleFaq(idx, btn) {
+      const ans = document.getElementById(`faq-ans-${idx}`);
+      if (!ans || !btn) return;
+      const isOpen = ans.classList.contains(`is-open`);
+      ans.classList.toggle(`is-open`, !isOpen);
+      btn.setAttribute(`aria-expanded`, String(!isOpen));
+      const icon = btn.querySelector(`.faq-icon`);
+      if (icon) icon.textContent = !isOpen ? `−` : `+`;
+    }
+
+    /* =========================================================================
+       7. NAVIGATION SCROLL SPY
+       ========================================================================= */
+    function initScrollSpy() {
+      const links = document.querySelectorAll(`.nav-link`);
+      const sections = Array.from(links)
+        .map((l) => {
+          const href = l.getAttribute(`href`);
+          return href ? document.querySelector(href) : null;
+        })
+        .filter(Boolean);
+
+      if (!(`IntersectionObserver` in window) || sections.length === 0) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = `#` + entry.target.id;
+            links.forEach((lnk) => {
+              lnk.classList.toggle(`is-active`, lnk.getAttribute(`href`) === id);
+            });
+          }
+        });
+      }, { rootMargin: `-20% 0px -65% 0px`, threshold: 0.05 });
+
+      sections.forEach((sec) => observer.observe(sec));
+    }
+
+    /* =========================================================================
+       BOOT
+       ========================================================================= */
+    document.addEventListener(`DOMContentLoaded`, () => {
+      renderKbExplorer();
+      renderWorksExplorer();
+      renderComparator();
+      renderQuiz();
+      renderFaq();
+      initNietzscheMap();
+      initScrollSpy();
+    });
+  </script>
+</body>
+</html>

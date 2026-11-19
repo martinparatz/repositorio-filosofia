@@ -1,0 +1,2527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>Aforismos de Friedrich Nietzsche — Archivo Filosófico Interactivo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      /* Ink */
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      /* Rules */
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      /* Accents */
+      --primary: #990f3d;
+      --on-primary: #ffffff;
+      --primary-hover: #7a0b30;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+      --error-container: #f8e2e0;
+
+      /* Semantic */
+      --positive: #1f5c3a;
+      --positive-container: #e3efe8;
+      --warning: #8a5308;
+      --focus: #990f3d;
+
+      /* Data series */
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      /* Fonts */
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.35rem, 1.45rem + 3.6vw, 4.1rem);
+      --headline-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.5rem);
+      --subhead-size: clamp(1.2rem, 1.08rem + 0.45vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.15rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      font-optical-sizing: auto;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Accessibility & Focus */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: var(--primary);
+      color: var(--on-primary);
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-label);
+      font-weight: 700;
+      z-index: 100;
+    }
+    .skip-link:focus { left: var(--space-md); top: var(--space-md); }
+
+    /* Typography */
+    h1 {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+      margin: 0 0 var(--space-md) 0;
+      color: var(--on-surface);
+    }
+
+    h2 {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      margin: var(--space-xs) 0 var(--space-md) 0;
+      color: var(--on-surface);
+    }
+
+    h3 {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.18;
+      margin: 0 0 var(--space-sm) 0;
+      color: var(--on-surface);
+    }
+
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 66ch;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+      transition: color var(--dur-micro) var(--ease-out);
+    }
+    a:hover {
+      color: var(--primary-hover);
+      text-decoration-thickness: 2px;
+    }
+
+    /* Broadsheet Defining Treatments */
+    .masthead-line {
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .masthead-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .masthead-nav a {
+      color: var(--on-surface);
+      text-decoration: none;
+      padding: var(--space-xs) 0;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .masthead-nav a:hover,
+    .masthead-nav a.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+
+    .lede {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: clamp(1.15rem, 1.05rem + 0.35vw, 1.32rem);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 58ch;
+      margin-bottom: var(--space-lg);
+    }
+
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-column);
+      padding-top: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .columns > * {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    .columns-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+    }
+    .columns-2 > * {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+    }
+    .columns-2 > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    .columns-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+    }
+    .columns-3 > * {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+    }
+    .columns-3 > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+    }
+
+    /* Key figures */
+    .figure-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .figure-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.65rem, 1.3rem + 1vw, 2.2rem);
+      line-height: 1.1;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .figure-note {
+      font-size: 0.92rem;
+      line-height: 1.42;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+      margin-block: var(--space-lg);
+      max-width: 58ch;
+    }
+    .pull-quote blockquote {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.18rem, 1.05rem + 0.4vw, 1.4rem);
+      line-height: 1.4;
+      margin: 0 0 var(--space-sm) 0;
+      color: var(--on-surface);
+    }
+    .pull-quote cite {
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.65rem 1.15rem;
+      min-height: 44px;
+      border-radius: var(--rounded);
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      text-decoration: none;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), outline-color var(--dur-micro) var(--ease-out);
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--primary-hover);
+      color: var(--on-primary);
+    }
+    .btn-secondary {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--outline-variant);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background-color: var(--surface-container-high);
+      color: var(--on-surface);
+    }
+    .btn-ghost {
+      background-color: transparent;
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-ghost:hover:not(:disabled) {
+      background-color: var(--surface-container-low);
+    }
+    .btn-ghost.active-filter {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    /* Filled newsprint panel (rare, reserved for interactive workspace) */
+    .newsprint-panel {
+      background-color: var(--surface-container-low);
+      border: 1px solid var(--outline-variant);
+      padding: var(--space-lg);
+    }
+
+    /* Inputs */
+    .control-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 1.5fr) minmax(180px, 1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+      margin-bottom: var(--space-md);
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .input-control,
+    .select-control,
+    .textarea-control {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--on-surface);
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      padding: 0.55rem 0.75rem;
+      min-height: 44px;
+      width: 100%;
+    }
+    .select-control {
+      padding-right: 2rem;
+    }
+    .textarea-control {
+      min-height: 76px;
+      resize: vertical;
+      line-height: 1.45;
+    }
+    .input-control:focus,
+    .select-control:focus,
+    .textarea-control:focus {
+      border-color: var(--primary);
+      outline: 2px solid var(--focus);
+      outline-offset: 1px;
+    }
+
+    /* Aphorism paradox interactive layout */
+    .anatomy-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+    .diagram-box {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+    }
+    .diagram-caption {
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+      margin-top: var(--space-sm);
+    }
+
+    .pole-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .pole-btn {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.5rem 0.85rem;
+      min-height: 44px;
+      background: var(--background);
+      color: var(--on-surface);
+      border: 1px solid var(--outline);
+      cursor: pointer;
+    }
+    .pole-btn:hover { background: var(--surface-container-low); }
+    .pole-btn[aria-pressed="true"] {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    /* Comparison table */
+    table.editorial-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-block: var(--space-md);
+      font-size: 0.96rem;
+    }
+    .editorial-table th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: left;
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      color: var(--on-surface);
+    }
+    .editorial-table td {
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+      color: var(--on-surface);
+    }
+    .editorial-table tr:last-child td {
+      border-bottom: var(--rule-ink);
+    }
+    .num-cell {
+      font-variant-numeric: lining-nums tabular-nums;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Aphorism Explorer Grid & Detail Workspace */
+    .explorer-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+      margin-top: var(--space-md);
+    }
+    .aphorism-list {
+      display: flex;
+      flex-direction: column;
+      border-top: var(--rule-ink);
+    }
+    .aphorism-item {
+      border-bottom: var(--rule-column);
+      padding: var(--space-md) var(--space-sm);
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: start;
+      cursor: pointer;
+      text-align: left;
+      background: transparent;
+      border-left: 3px solid transparent;
+      border-right: 0;
+      border-top: 0;
+      width: 100%;
+      font: inherit;
+      color: inherit;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .aphorism-item:hover {
+      background-color: var(--surface-container-low);
+    }
+    .aphorism-item.selected {
+      background-color: var(--primary-container);
+      border-left-color: var(--primary);
+    }
+    .aphorism-num {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.15rem;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--primary);
+      min-width: 3ch;
+    }
+    .aphorism-excerpt {
+      font-size: 1rem;
+      line-height: 1.48;
+      margin: var(--space-xs) 0 0 0;
+      color: var(--on-surface);
+    }
+    .aphorism-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .saved-marker {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+    }
+
+    .detail-pane {
+      position: sticky;
+      top: var(--space-md);
+    }
+    .detail-quote {
+      font-family: var(--font-body);
+      font-size: 1.15rem;
+      line-height: 1.58;
+      color: var(--on-surface);
+      margin-block: var(--space-md);
+      padding-left: var(--space-md);
+      border-left: 2px solid var(--primary);
+    }
+    .detail-note-box {
+      border-top: var(--rule-column);
+      padding-top: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    /* Thematic Synthesis Grid */
+    .thematic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-xl) var(--space-lg);
+      margin-top: var(--space-md);
+    }
+    .theme-column {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-sm);
+    }
+    .theme-points {
+      padding-left: 1.15rem;
+      margin: var(--space-sm) 0 var(--space-md) 0;
+    }
+    .theme-points li {
+      margin-bottom: var(--space-sm);
+      line-height: 1.48;
+      font-size: 0.96rem;
+    }
+
+    /* Interactive Modules */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+      margin-top: var(--space-md);
+    }
+    .module-box {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+    }
+    .inversion-reveal {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      background-color: var(--surface-container-low);
+      border-left: 3px solid var(--primary);
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-block: var(--space-md);
+    }
+    .quiz-option {
+      text-align: left;
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      line-height: 1.42;
+      padding: 0.7rem 0.9rem;
+      min-height: 44px;
+      background-color: var(--background);
+      color: var(--on-surface);
+      border: 1px solid var(--outline);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      background-color: var(--surface-container-low);
+    }
+    .quiz-option.is-correct {
+      background-color: var(--positive-container);
+      border-color: var(--positive);
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+    .quiz-option.is-wrong {
+      background-color: var(--error-container);
+      border-color: var(--error);
+      color: var(--on-surface);
+    }
+
+    .feedback-banner {
+      padding: var(--space-md);
+      margin-top: var(--space-sm);
+      border-left: 3px solid var(--outline);
+      background-color: var(--surface-container-low);
+      font-size: 0.96rem;
+    }
+    .feedback-banner.is-ok { border-left-color: var(--positive); background-color: var(--positive-container); }
+    .feedback-banner.is-err { border-left-color: var(--error); background-color: var(--error-container); }
+
+    /* FAQ Accordion */
+    .faq-list {
+      border-top: var(--rule-ink);
+      margin-top: var(--space-md);
+    }
+    .faq-item {
+      border-bottom: var(--rule-column);
+    }
+    .faq-trigger {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      padding: var(--space-md) var(--space-xs);
+      min-height: 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      cursor: pointer;
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.12rem;
+      color: var(--on-surface);
+    }
+    .faq-trigger:hover {
+      color: var(--primary);
+    }
+    .faq-icon {
+      flex-shrink: 0;
+      transition: transform var(--dur-short) var(--ease-in-out);
+    }
+    .faq-trigger[aria-expanded="true"] .faq-icon {
+      transform: rotate(180deg);
+    }
+    .faq-panel {
+      padding: 0 var(--space-xs) var(--space-md) var(--space-xs);
+      max-width: 68ch;
+      color: var(--on-surface-variant);
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--rule-masthead);
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-2xl);
+      margin-top: var(--space-xl);
+      font-size: 0.94rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Scroll reveal */
+    .reveal-section {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+
+    /* Inline status message */
+    .status-line {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--positive);
+      margin-top: var(--space-xs);
+      min-height: 1.3em;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .columns { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md) 0; }
+      .columns > :nth-child(3) { border-left: 0; padding-left: 0; }
+      .anatomy-grid,
+      .explorer-split,
+      .modules-grid,
+      .columns-2,
+      .columns-3 {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+      }
+      .columns-2 > *,
+      .columns-3 > * {
+        border-left: 0;
+        padding-left: 0;
+        padding-right: 0;
+        border-top: var(--rule-column);
+        padding-top: var(--space-md);
+      }
+      .columns-2 > :first-child,
+      .columns-3 > :first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .detail-pane { position: static; }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid { padding: var(--space-md); gap: var(--space-lg); }
+      .columns { grid-template-columns: 1fr; }
+      .columns > * {
+        border-left: 0;
+        padding-left: 0;
+        padding-right: 0;
+        border-top: var(--rule-column);
+        padding-top: var(--space-sm);
+        padding-bottom: var(--space-sm);
+      }
+      .columns > :first-child { border-top: 0; padding-top: 0; }
+      .control-grid { grid-template-columns: 1fr; }
+      .masthead-line { align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#contenido-principal" class="skip-link">Saltar al contenido principal</a>
+
+  <div class="page-grid">
+    <!-- MASTHEAD & NAVIGATION -->
+    <header id="inicio" class="masthead">
+      <div class="masthead-line">
+        <span>Archivo Filosófico · Friedrich Nietzsche (1844–1900)</span>
+        <nav class="masthead-nav" aria-label="Navegación principal">
+          <a href="#aforismo">El Aforismo</a>
+          <a href="#explorador">Explorador</a>
+          <a href="#ejes">Ejes Temáticos</a>
+          <a href="#modulos">Módulos</a>
+          <a href="#cronologia">Cronología</a>
+          <a href="#faq">Preguntas Frecuentes</a>
+        </nav>
+      </div>
+
+      <div style="padding-top: var(--space-lg);">
+        <span class="tag">Edición comentada y guía de estudio · Traducción de Andrés Sánchez Pascual</span>
+        <h1>Aforismos de Friedrich Nietzsche: anatomía de una forma filosófica</h1>
+        <p class="lede">
+          Hasta Nietzsche, el aforismo europeo no había cobrado plena conciencia de su significado filosófico. Esta guía interactiva estructura las claves del prólogo, los cinco ejes temáticos de la colección y una selección comentada de sentencias sobre naturaleza humana, moral, lenguaje, verdad y sociedad.
+        </p>
+
+        <div class="btn-row">
+          <a href="#explorador" class="btn btn-primary">Explorar aforismos clave</a>
+          <a href="#modulos" class="btn btn-secondary">Probar módulos didácticos</a>
+        </div>
+
+        <!-- KEY FIGURES (Bare columns separated by hairlines) -->
+        <div class="columns" aria-label="Cifras clave de la colección">
+          <div>
+            <span class="figure-label">Colección base</span>
+            <span class="figure-value">591</span>
+            <p class="figure-note">Fragmentos y sentencias numeradas, incluidos póstumos traducidos por primera vez al castellano.</p>
+          </div>
+          <div>
+            <span class="figure-label">Ambición de estilo</span>
+            <span class="figure-value">10 frases</span>
+            <p class="figure-note">«Decir en diez frases lo que todos los demás dicen —y no dicen— en un libro» (Af. 391).</p>
+          </div>
+          <div>
+            <span class="figure-label">Raíces del género</span>
+            <span class="figure-value">2 causas</span>
+            <p class="figure-note">La ruptura con el saber absoluto poshegeliano y la crítica temprana al lenguaje (1873).</p>
+          </div>
+          <div>
+            <span class="figure-label">Obras de origen</span>
+            <span class="figure-value">1878–1889</span>
+            <p class="figure-note">De <em>Humano, demasiado humano</em> a <em>Crepúsculo de los ídolos</em> y cuadernos póstumos.</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="contenido-principal" style="display: grid; gap: var(--space-2xl);">
+      <!-- SECTION 1: KNOWLEDGE BASE ON THE APHORISM -->
+      <section id="aforismo" class="section-open reveal-section" aria-labelledby="h-aforismo">
+        <span class="section-label">01 · Base de Conocimientos</span>
+        <h2 id="h-aforismo">Por qué Nietzsche eligió el aforismo para salvar a la filosofía</h2>
+
+        <p>
+          En el prólogo a esta selección, Andrés Sánchez Pascual señala que el género aforístico —desde los primeros aforismos hipocráticos hasta las máximas y fragmentos románticos— mantuvo tres rasgos constantes: <strong>concisión didáctica</strong>, <strong>agilidad crítica</strong> y <strong>tendencia ilustrada</strong>. Sin embargo, su peor enemigo es la pereza mental que fabrica frases fáciles invirtiendo mecánicamente un «sí» por un «no».
+        </p>
+        <p>
+          Lejos de ser una ocurrencia rápida o una mezcla ambigua de «poeta y filósofo», el aforismo nietzscheano es una forma filosófica autónoma: «la expresión de una absoluta seriedad, que, sin embargo, sonríe». Dos circunstancias históricas obligaron a Nietzsche a adoptarlo frente al estilo discursivo tradicional impuesto por Aristóteles:
+        </p>
+
+        <div class="columns-2" style="margin-block: var(--space-md);">
+          <div>
+            <span class="tag">Circunstancia 1</span>
+            <h3>La situación filosófica poshegeliana</h3>
+            <p>
+              La dialéctica especulativa de Hegel —definida por él ante Goethe como contradicción «reglada»— convirtió el saber en certeza absoluta. La mediocridad posterior dejó la maquinaria dialéctica funcionando en el vacío. Mediante el aforismo, Nietzsche rompe el absolutismo del saber.
+            </p>
+          </div>
+          <div>
+            <span class="tag">Circunstancia 2</span>
+            <h3>La conciencia lingüística (1873)</h3>
+            <p>
+              En <em>Sobre verdad y mentira en sentido extramoral</em>, Nietzsche advierte que el lenguaje nace del disimulo y de convenciones útiles: capta el «ser», pero falsea el «devenir». Como recuerda José María Valverde, todo pensar ocurre como lenguaje, lo que corroe las pretensiones del intelecto puro.
+            </p>
+          </div>
+        </div>
+
+        <!-- INTERACTIVE ANATOMY & SVG SCHEMATIC -->
+        <div class="anatomy-grid">
+          <div>
+            <span class="tag">Esquema interactivo</span>
+            <h3>La paradoja de «decir verdad y media»</h3>
+            <p>
+              Como filólogo, Nietzsche sabía que «aforismo» significa literalmente «llevar algo fuera de su horizonte»: henchir las palabras de contenido hasta que una media verdad excedente rebose como ironía o parodia. Selecciona cada polo para inspeccionar su función:
+            </p>
+
+            <div class="pole-tabs" role="group" aria-label="Polos estructurales del aforismo">
+              <button type="button" class="pole-btn" id="pole-btn-forma" aria-pressed="true" onclick="selectAnatomyPole('forma')">1. Forma (Lógica cerrada)</button>
+              <button type="button" class="pole-btn" id="pole-btn-contenido" aria-pressed="false" onclick="selectAnatomyPole('contenido')">2. Contenido (Vida abierta)</button>
+              <button type="button" class="pole-btn" id="pole-btn-lector" aria-pressed="false" onclick="selectAnatomyPole('lector')">3. Lectura activa (Af. 9 y 340)</button>
+            </div>
+
+            <div id="anatomy-detail" class="newsprint-panel" aria-live="polite">
+              <span class="figure-label" id="anatomy-kicker">Lado cerrado · Creencia</span>
+              <h3 id="anatomy-title" style="margin-bottom: var(--space-xs);">La pared de las leyes de la lógica</h3>
+              <p id="anatomy-body" style="margin-bottom: var(--space-sm);">
+                En su escritura formal, el aforismo respeta la sintaxis y el rigor lógico. Esa «creencia» en la forma evita que el pensamiento caiga en el nihilismo o en la mera arbitrariedad estética.
+              </p>
+              <p id="anatomy-quote" style="margin-bottom: 0; font-style: italic; color: var(--on-surface-variant);">
+                Referencia: Prólogo — «Por el lado que da a la lógica, el aforismo, apretado contra la pared de las leyes de aquélla, permanece cerrado».
+              </p>
+            </div>
+          </div>
+
+          <div class="diagram-box">
+            <span class="figure-label">Arquitectura del pensar aforístico</span>
+            <svg id="anatomy-svg" viewBox="0 0 460 280" width="100%" height="auto" role="img" aria-label="Diagrama estructural de la paradoja del aforismo nietzscheano" style="display: block; max-height: 290px;">
+              <!-- Horizon baseline -->
+              <line x1="24" y1="225" x2="436" y2="225" stroke="var(--outline)" stroke-width="1.5" />
+              <text x="24" y="245" fill="var(--on-surface-variant)" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700">HORIZONTE LINGÜÍSTICO CONVENCIONAL</text>
+
+              <!-- Closed Logic Wall (Left) -->
+              <rect id="svg-rect-forma" x="40" y="55" width="145" height="145" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2.5" />
+              <text x="54" y="82" fill="var(--primary)" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700">FORMA · CERRADA</text>
+              <text x="54" y="106" fill="var(--on-surface)" font-family="Bitter, serif" font-size="15" font-weight="700">Leyes lógicas</text>
+              <text x="54" y="130" fill="var(--on-surface-variant)" font-family="Source Serif 4, serif" font-size="12">Cree en la forma</text>
+              <text x="54" y="150" fill="var(--on-surface-variant)" font-family="Source Serif 4, serif" font-size="12">Evita el nihilismo</text>
+
+              <!-- Overflow Arrow -->
+              <line x1="185" y1="127" x2="255" y2="127" stroke="var(--outline)" stroke-width="2" />
+              <polygon points="255,121 267,127 255,133" fill="var(--outline)" />
+              <text x="195" y="114" fill="var(--on-surface-variant)" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700">REBOSE</text>
+
+              <!-- Open Life Side (Right) -->
+              <path id="svg-rect-contenido" d="M 275 55 L 420 55 M 275 55 L 275 200 L 420 200" fill="none" stroke="var(--secondary)" stroke-width="2.5" />
+              <line x1="420" y1="55" x2="420" y2="200" stroke="var(--secondary)" stroke-width="2" stroke-dasharray="5 5" />
+              <text x="290" y="82" fill="var(--secondary)" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700">CONTENIDO · ABIERTO</text>
+              <text x="290" y="106" fill="var(--on-surface)" font-family="Bitter, serif" font-size="15" font-weight="700">Vida e ironía</text>
+              <text x="290" y="130" fill="var(--on-surface-variant)" font-family="Source Serif 4, serif" font-size="12">Descree del dogma</text>
+              <text x="290" y="150" fill="var(--on-surface-variant)" font-family="Source Serif 4, serif" font-size="12">«Verdad y media»</text>
+
+              <!-- Reader link badge at top -->
+              <rect id="svg-rect-lector" x="125" y="14" width="210" height="28" fill="var(--surface-container-low)" stroke="var(--outline-variant)" stroke-width="1.5" />
+              <text x="230" y="32" text-anchor="middle" fill="var(--on-surface)" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700">ESLABÓN PARA EL LECTOR (AF. 9)</text>
+            </svg>
+            <p class="diagram-caption">
+              Figura 1.1: En vez de clausurar una certeza, la regla en el aforismo confirma la excepción (Prólogo). La «sal» que impide que la verdad se corrompa es el excedente irónico fuera del horizonte lingüístico.
+            </p>
+          </div>
+        </div>
+
+        <div class="pull-quote">
+          <blockquote>
+            «Tuvo Nietzsche además talento y malicia de verdadero psicólogo —cosa poco frecuente en sus paisanos—, de hombre que ve muy hondo en sí mismo y apedrea con sus propias entrañas a su prójimo… Yo os aconsejo su lectura, porque fue también un maestro del aforismo y del epigrama.»
+          </blockquote>
+          <cite>Antonio Machado (por boca de Juan de Mairena), citado en el Prólogo</cite>
+        </div>
+
+        <!-- Comparison table -->
+        <table class="editorial-table" aria-label="Comparativa entre el sistema discursivo y el aforismo">
+          <thead>
+            <tr>
+              <th>Dimensión</th>
+              <th>Estilo discursivo y dialéctica hegeliana</th>
+              <th>Aforismo nietzscheano</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Relación con la verdad</strong></td>
+              <td>Aspira a la certeza absoluta integrando la contradicción «reglada».</td>
+              <td>Ofrece una visión verdadera, pero no una certeza conclusa.</td>
+            </tr>
+            <tr>
+              <td><strong>Uso del lenguaje</strong></td>
+              <td>Confía en que el concepto captura la realidad fija (el «ser»).</td>
+              <td>Sabe que cada palabra es un prejuicio (Af. 2) y apunta al devenir mediante la ironía.</td>
+            </tr>
+            <tr>
+              <td><strong>Exigencia al lector</strong></td>
+              <td>Expone la cadena argumental completa y pasiva.</td>
+              <td>Entrega un eslabón suelto; exige tiempo, agitación y reconstrucción personal (Af. 9, 340).</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- SECTION 2: INTERACTIVE APHORISM EXPLORER -->
+      <section id="explorador" class="section-open reveal-section" aria-labelledby="h-explorador">
+        <span class="section-label">02 · Explorador de Aforismos</span>
+        <h2 id="h-explorador">Archivo interactivo de fragmentos por eje temático</h2>
+        <p>
+          Filtra por los cinco ejes conceptuales de la colección, busca por palabra clave o número de aforismo, y utiliza el cuaderno lateral para anotar tu propia «cadena de pensamientos» (Af. 9). Las lecturas marcadas se conservan automáticamente en tu sesión.
+        </p>
+
+        <!-- Thematic distribution bar (Inline SVG) -->
+        <div style="margin-bottom: var(--space-lg); border-top: var(--rule-column); padding-top: var(--space-sm);">
+          <span class="figure-label">Distribución temática de los 48 fragmentos seleccionados en este archivo</span>
+          <svg id="theme-chart-svg" viewBox="0 0 720 112" width="100%" height="auto" role="img" aria-label="Distribución de fragmentos por tema" style="display: block; max-height: 120px;">
+            <g font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700">
+              <!-- Bars rendered dynamically via JS for active highlighting -->
+            </g>
+          </svg>
+        </div>
+
+        <div class="control-grid">
+          <div class="field-group">
+            <label for="search-input" class="field-label">Buscar texto o número</label>
+            <input id="search-input" type="search" class="input-control" placeholder="Ej. máscara, amistad, 274, verdad…" oninput="onSearchChange(this.value)">
+          </div>
+          <div class="field-group">
+            <label for="theme-select" class="field-label">Eje temático</label>
+            <select id="theme-select" class="select-control" onchange="onThemeSelect(this.value)">
+              <option value="todos">Todos los ejes (48)</option>
+              <option value="naturaleza">Naturaleza humana y psicología</option>
+              <option value="moral">La moral y las virtudes</option>
+              <option value="lenguaje">El lenguaje y el estilo</option>
+              <option value="verdad">Verdad, conocimiento y arte</option>
+              <option value="convenciones">Convenciones sociales y política</option>
+            </select>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-secondary" onclick="pickRandomAphorism()">Aforismo al azar</button>
+            <button type="button" class="btn btn-ghost" id="btn-only-saved" onclick="toggleSavedFilter()">Solo guardados (<span id="saved-count">0</span>)</button>
+          </div>
+        </div>
+
+        <p id="results-summary" class="figure-label" aria-live="polite">Mostrando 48 de 48 fragmentos seleccionados</p>
+
+        <div class="explorer-split">
+          <!-- List column -->
+          <div>
+            <div id="aphorism-list" class="aphorism-list" role="listbox" aria-label="Lista de aforismos filtrados"></div>
+            <div id="empty-explorer" class="newsprint-panel" style="display: none; margin-top: var(--space-md);">
+              <p style="margin-bottom: var(--space-sm);"><strong>Sin coincidencias en el archivo.</strong> Ningún aforismo de la selección coincide con el filtro actual.</p>
+              <button type="button" class="btn btn-primary" onclick="resetExplorerFilters()">Restablecer filtros</button>
+            </div>
+          </div>
+
+          <!-- Detail & Reflection Workspace -->
+          <aside class="detail-pane newsprint-panel" aria-labelledby="detail-heading">
+            <div class="aphorism-meta-row">
+              <span class="section-label" id="detail-theme-label" style="margin-bottom: 0;">Naturaleza humana</span>
+              <span class="figure-label" id="detail-num-label" style="margin-bottom: 0;">Aforismo n.º 1</span>
+            </div>
+            <h3 id="detail-heading" style="margin-top: var(--space-xs);">Lectura detenida</h3>
+
+            <blockquote id="detail-quote" class="detail-quote">
+              Todo lo que es profundo ama la máscara.
+            </blockquote>
+
+            <p id="detail-commentary" style="font-size: 0.96rem; color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+              Apertura emblemática de la colección: la profundidad no se exhibe de inmediato; requiere protección frente a las interpretaciones superficiales del entorno (ver también Af. 422 y 590).
+            </p>
+
+            <div class="btn-row" style="margin-bottom: var(--space-md);">
+              <button type="button" class="btn btn-primary" id="btn-toggle-save" onclick="toggleCurrentSaved()">Guardar en mi selección</button>
+              <button type="button" class="btn btn-secondary" onclick="exportReflections()">Exportar notas (.txt)</button>
+            </div>
+
+            <div class="detail-note-box">
+              <div class="field-group">
+                <label for="reflection-input" class="field-label">Tu cadena de pensamientos (Af. 9)</label>
+                <textarea id="reflection-input" class="textarea-control" placeholder="Escribe un ejemplo, objeción o vínculo con otro fragmento…" oninput="saveCurrentNote(this.value)"></textarea>
+              </div>
+              <div id="note-status" class="status-line" aria-live="polite"></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- SECTION 3: FIVE THEMATIC PILLARS (CONCISE WEB CONTENT) -->
+      <section id="ejes" class="section-open reveal-section" aria-labelledby="h-ejes">
+        <span class="section-label">03 · Síntesis Conceptual</span>
+        <h2 id="h-ejes">Cinco ejes clave de la colección</h2>
+        <p>
+          Resumen estructurado de los grandes núcleos temáticos presentes en los 591 fragmentos, con sus tesis principales y referencias textuales exactas.
+        </p>
+
+        <div class="thematic-grid">
+          <article class="theme-column">
+            <span class="tag">Eje I · Psicología</span>
+            <h3>Naturaleza humana, máscara y soledad</h3>
+            <ul class="theme-points">
+              <li><strong>La máscara necesaria:</strong> todo espíritu profundo necesita una máscara frente a la interpretación superficial ajena (Af. 1, 422, 590).</li>
+              <li><strong>Amistad sobre posesión:</strong> el amor exige exclusividad posesiva; la amistad permite el crecimiento mutuo y sostiene incluso al matrimonio (Af. 72, 120, 288, 364).</li>
+              <li><strong>Orgullo y memoria:</strong> cuando la memoria acusa un acto, el orgullo se resiste hasta que la memoria cede (Af. 491).</li>
+              <li><strong>Escuela de soledad:</strong> el defecto mayor de la educación moderna es no enseñar a soportar la soledad (Af. 92, 411, 434).</li>
+            </ul>
+            <button type="button" class="btn btn-ghost" onclick="jumpToTheme('naturaleza')">Ver fragmentos de este eje</button>
+          </article>
+
+          <article class="theme-column">
+            <span class="tag">Eje II · Ética crítica</span>
+            <h3>La moral y el examen de las virtudes</h3>
+            <ul class="theme-points">
+              <li><strong>Moralista vs. predicador:</strong> el moralista no predica normas; toma la moral misma como un problema discutible (Af. 4, 202).</li>
+              <li><strong>Origen de la virtud:</strong> la virtud no inventó la felicidad; fue inventada por personas felices (Af. 101).</li>
+              <li><strong>Ambigüedad de la compasión:</strong> en su dorada vaina puede esconderse el puñal de la envidia o la superioridad sobre el enfermo (Af. 147, 180, 276).</li>
+              <li><strong>Frialdad del castigo:</strong> la ejecución calculada ofende más que el crimen al usar a un ser humano como medio intimidatorio (Af. 128, 161).</li>
+            </ul>
+            <button type="button" class="btn btn-ghost" onclick="jumpToTheme('moral')">Ver fragmentos de este eje</button>
+          </article>
+
+          <article class="theme-column">
+            <span class="tag">Eje III · Filología</span>
+            <h3>El lenguaje, el tono y la lectura lenta</h3>
+            <ul class="theme-points">
+              <li><strong>Cada palabra es un prejuicio:</strong> las palabras fijan soluciones aparentes que bloquean los problemas reales (Af. 2, 344, 348).</li>
+              <li><strong>Lo incomunicable:</strong> el lenguaje vulgariza lo singular porque fue inventado para lo ordinario y mediano (Af. 97, 401).</li>
+              <li><strong>La música detrás del texto:</strong> lo más comprensible no es el vocablo escrito, sino el tono, el tempo y la pasión (Af. 505).</li>
+              <li><strong>Ética de la lectura:</strong> leer sentencias al mismo ritmo rápido destruye su peso; exigen pausa y mezcla con la vida (Af. 9, 340, 518).</li>
+            </ul>
+            <button type="button" class="btn btn-ghost" onclick="jumpToTheme('lenguaje')">Ver fragmentos de este eje</button>
+          </article>
+
+          <article class="theme-column">
+            <span class="tag">Eje IV · Epistemología y Estética</span>
+            <h3>Verdad, convicciones y arte de vivir</h3>
+            <ul class="theme-points">
+              <li><strong>Contra el espíritu de sistema:</strong> la voluntad de sistema es una falta de honestidad; la realidad no sigue rigurosamente la lógica (Af. 3, 396).</li>
+              <li><strong>Peces vivos vs. fósiles:</strong> las convicciones rígidas son enemigas de la verdad más peligrosas que las mentiras (Af. 14, 273, 426).</li>
+              <li><strong>Luz de astros lejanos:</strong> los pensamientos más grandes tardan siglos en ser comprendidos por sus contemporáneos (Af. 209).</li>
+              <li><strong>El arte como estimulante:</strong> frente a la esterilidad de <em>l’art pour l’art</em>, el arte y la música justifican e intensifican la vida (Af. 53, 116, 410).</li>
+            </ul>
+            <button type="button" class="btn btn-ghost" onclick="jumpToTheme('verdad')">Ver fragmentos de este eje</button>
+          </article>
+
+          <article class="theme-column">
+            <span class="tag">Eje V · Sociedad</span>
+            <h3>Convenciones sociales, Estado y modernidad</h3>
+            <ul class="theme-points">
+              <li><strong>Cultura frente a Estado:</strong> son rivales que viven uno a costa del otro; las grandes épocas culturales han sido apolíticas (Af. 274).</li>
+              <li><strong>Educación y masa:</strong> «educación superior» y «gran número» se contradicen; la universidad fabrica funcionarios mecánicos (Af. 30, 82, 313).</li>
+              <li><strong>Europa contra el nacionalismo:</strong> la insania nacionalista y los políticos de mirada corta frenan la unidad europea (Af. 42, 221).</li>
+              <li><strong>Éxito e historia:</strong> la fama y el «éxito» falsifican a los creadores; la edad de las máquinas exige pensar a mil años vista (Af. 155, 521, 562).</li>
+            </ul>
+            <button type="button" class="btn btn-ghost" onclick="jumpToTheme('convenciones')">Ver fragmentos de este eje</button>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION 4: INTERACTIVE MODULES -->
+      <section id="modulos" class="section-open reveal-section" aria-labelledby="h-modulos">
+        <span class="section-label">04 · Módulos Didácticos</span>
+        <h2 id="h-modulos">Laboratorio de antítesis y autoevaluación</h2>
+        <p>
+          Dos herramientas prácticas para comprobar cómo opera la crítica nietzscheana frente al lugar común y verificar tu comprensión de las fuentes.
+        </p>
+
+        <div class="modules-grid">
+          <!-- Module A: Antithesis Laboratory -->
+          <div class="module-box">
+            <span class="tag">Módulo A · Análisis comparativo</span>
+            <h3>Del lugar común al giro aforístico</h3>
+            <p style="font-size: 0.96rem; color: var(--on-surface-variant);">
+              El prólogo advierte que un aforismo no consiste en poner mecánicamente un «no» donde había un «sí». Selecciona una convención habitual y revela el desplazamiento crítico de Nietzsche:
+            </p>
+
+            <div class="field-group" style="margin-bottom: var(--space-md);">
+              <label for="case-select" class="field-label">Selecciona un tópico convencional</label>
+              <select id="case-select" class="select-control" onchange="selectInversionCase(this.value)">
+                <option value="0">1. «La mentira es el mayor enemigo de la verdad»</option>
+                <option value="1">2. «La educación superior debe masificarse junto al Estado»</option>
+                <option value="2">3. «Quien escribe oscuro es profundo; quien escribe claro, simple»</option>
+                <option value="3">4. «El amor garantiza por sí solo un buen matrimonio»</option>
+                <option value="4">5. «La virtud es la causa que inventa la felicidad»</option>
+                <option value="5">6. «Nuestra memoria registra objetivamente lo que hicimos»</option>
+              </select>
+            </div>
+
+            <div style="border-top: var(--rule-column); padding-top: var(--space-sm);">
+              <span class="figure-label">Supuesto habitual</span>
+              <p id="case-common" style="font-weight: 600; margin-bottom: var(--space-md);">
+                Se asume que el engaño deliberado es la amenaza principal contra la verdad.
+              </p>
+              <button type="button" class="btn btn-primary" id="btn-reveal-case" onclick="toggleInversionReveal()">Revelar giro nietzscheano</button>
+            </div>
+
+            <div id="case-reveal-box" class="inversion-reveal" style="display: none;" aria-live="polite">
+              <span class="figure-label" id="case-aphorism-ref">Aforismo 426</span>
+              <blockquote id="case-quote" style="margin: var(--space-xs) 0 var(--space-sm) 0; font-style: italic;">
+                «Las convicciones son enemigas de la verdad más peligrosas que las mentiras.»
+              </blockquote>
+              <p id="case-analysis" style="margin-bottom: 0; font-size: 0.94rem; color: var(--on-surface-variant);">
+                No elogia la mentira: señala que quien posee «convicciones» deja de investigar y confunde sus opiniones fosilizadas con la realidad viva (Af. 273).
+              </p>
+            </div>
+          </div>
+
+          <!-- Module B: Comprehension Quiz -->
+          <div class="module-box">
+            <span class="tag">Módulo B · Autoevaluación</span>
+            <h3>Diagnóstico de lectura (6 preguntas)</h3>
+            <div class="aphorism-meta-row" style="margin-bottom: var(--space-sm);">
+              <span class="figure-label" id="quiz-progress" style="margin-bottom: 0;">Pregunta 1 de 6</span>
+              <span class="figure-label" id="quiz-score-label" style="margin-bottom: 0; color: var(--primary);">Aciertos: 0 / 6</span>
+            </div>
+
+            <h3 id="quiz-question" style="font-size: 1.12rem; margin-bottom: var(--space-sm);">
+              Según el prólogo, ¿por qué se opuso Nietzsche a la dialéctica especulativa de Hegel?
+            </h3>
+
+            <div id="quiz-options" class="quiz-options" role="group" aria-label="Opciones de respuesta"></div>
+
+            <div id="quiz-feedback" class="feedback-banner" style="display: none;" aria-live="polite"></div>
+
+            <div class="btn-row" style="margin-top: var(--space-md);">
+              <button type="button" class="btn btn-primary" id="btn-quiz-next" onclick="nextQuizQuestion()" disabled>Siguiente pregunta</button>
+              <button type="button" class="btn btn-secondary" id="btn-quiz-reset" onclick="resetQuizInline(this)">Reiniciar test</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: CHRONOLOGY & SOURCE REFERENCE TABLE -->
+      <section id="cronologia" class="section-open reveal-section" aria-labelledby="h-cronologia">
+        <span class="section-label">05 · Cronología y Fuentes</span>
+        <h2 id="h-cronologia">Vida, obras y tabla de referencias (1844–1900)</h2>
+
+        <div class="columns-2" style="margin-top: var(--space-md);">
+          <div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+              <div>
+                <span class="tag">Biografía y publicación</span>
+                <h3 style="margin-bottom: 0;">Hitos cronológicos esenciales</h3>
+              </div>
+              <div class="field-group" style="min-width: 190px;">
+                <label for="era-filter" class="field-label">Etapa vital</label>
+                <select id="era-filter" class="select-control" onchange="filterTimeline(this.value)">
+                  <option value="todas">Todas las etapas</option>
+                  <option value="formacion">Formación y Basilea (1844–1877)</option>
+                  <option value="aforistico">Ciclo aforístico (1878–1882)</option>
+                  <option value="madurez">Madurez y últimos años (1883–1900)</option>
+                </select>
+              </div>
+            </div>
+
+            <table class="editorial-table" aria-label="Cronología de Friedrich Nietzsche">
+              <thead>
+                <tr>
+                  <th>Año</th>
+                  <th>Acontecimiento y obra</th>
+                </tr>
+              </thead>
+              <tbody id="timeline-tbody"></tbody>
+            </table>
+          </div>
+
+          <div>
+            <span class="tag">Aparato crítico</span>
+            <h3>Tabla de siglas de las obras fuente</h3>
+            <p style="font-size: 0.96rem; color: var(--on-surface-variant);">
+              Siglas empleadas en la tabla de referencias de la edición de Andrés Sánchez Pascual (Alianza Editorial y <em>Sämtliche Werke</em>, DTV Múnich, 1988):
+            </p>
+            <table class="editorial-table" aria-label="Tabla de referencias bibliográficas">
+              <thead>
+                <tr>
+                  <th>Sigla</th>
+                  <th>Obra de origen</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="num-cell">A</td><td><em>Aurora</em> (1881), seguido del número del aforismo.</td></tr>
+                <tr><td class="num-cell">CI</td><td><em>Crepúsculo de los ídolos</em> (1888–1889), traducción de A. Sánchez Pascual.</td></tr>
+                <tr><td class="num-cell">FP</td><td><em>Fragmento póstumo</em>, seguido del año, tomo y signatura de <em>Sämtliche Werke</em>.</td></tr>
+                <tr><td class="num-cell">GC</td><td><em>La gaya ciencia</em> (1882), seguido del número del aforismo.</td></tr>
+                <tr><td class="num-cell">HDH, I</td><td><em>Humano, demasiado humano</em>, primera parte (1878).</td></tr>
+                <tr><td class="num-cell">HDH, II, 1</td><td><em>Opiniones y sentencias mezcladas</em> (1879).</td></tr>
+                <tr><td class="num-cell">HDH, II, 2</td><td><em>El caminante y su sombra</em> (1880).</td></tr>
+                <tr><td class="num-cell">MBM</td><td><em>Más allá del bien y del mal</em> (1886), traducción de A. Sánchez Pascual.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 6: FAQ -->
+      <section id="faq" class="section-open reveal-section" aria-labelledby="h-faq">
+        <span class="section-label">06 · Preguntas Frecuentes</span>
+        <h2 id="h-faq">Claves rápidas para comprender la colección</h2>
+
+        <div class="faq-list" id="faq-container">
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="true" aria-controls="faq-p1" onclick="toggleFaq(this)">
+              <span>1. ¿Qué significa etimológicamente «aforismo» en el pensamiento de Nietzsche?</span>
+              <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div id="faq-p1" class="faq-panel">
+              <p>Según explica el prólogo, Nietzsche —como buen filólogo— conocía que el término significa «llevar algo fuera de su horizonte»: llenar de tanto sentido las palabras que una media verdad excedente rebose del límite lingüístico como parte oscura, irónica o paródica, impidiendo que la verdad se corrompa en dogma.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p2" onclick="toggleFaq(this)">
+              <span>2. ¿Es Nietzsche un «poeta-filósofo» o un autor de ocurrencias rápidas?</span>
+              <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div id="faq-p2" class="faq-panel" hidden>
+              <p>Ninguna de las dos cosas. El prólogo rechaza el ambiguo título de «poeta-filósofo» porque rebaja ambas cualidades, y aclara que el aforismo no es una ocurrencia escrita deprisa ni una mera inversión mecánica de «sí» por «no», sino una forma filosófica trabajada que une rigor formal e ironía abierta.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p3" onclick="toggleFaq(this)">
+              <span>3. ¿Por qué afirma que «cada palabra es un prejuicio» (Af. 2)?</span>
+              <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div id="faq-p3" class="faq-panel" hidden>
+              <p>Desde su texto de 1873 <em>Sobre verdad y mentira en sentido extramoral</em>, Nietzsche sostiene que el lenguaje nació de designaciones convencionales útiles para la vida en rebaño, no para expresar las vivencias auténticas ni el devenir. Por ello las palabras fijan ilusiones (Af. 344 y 348) y vulgarizan lo que comunicamos (Af. 97).</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p4" onclick="toggleFaq(this)">
+              <span>4. ¿Cómo deben leerse los aforismos según el propio autor?</span>
+              <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div id="faq-p4" class="faq-panel" hidden>
+              <p>En los aforismos 9 y 340 critica duramente al lector que devora páginas a velocidad constante cronometrada. Una sentencia es apenas un eslabón: exige detenerse, agitarla y mezclarla con ejemplos, experiencias e historias propias para rehacer toda la cadena de pensamientos.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p5" onclick="toggleFaq(this)">
+              <span>5. ¿Qué diferencia hay entre un moralista y un predicador de moral?</span>
+              <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div id="faq-p5" class="faq-panel" hidden>
+              <p>El predicador difunde certezas morales incuestionables; el moralista, en cambio, es su opuesto: un pensador que convierte la moral misma en algo discutible, cuestionable y problemático (Af. 4), asumiendo los riesgos de la sospecha frente a quienes veneran la moral sin examinarla (Af. 202).</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p6" onclick="toggleFaq(this)">
+              <span>6. ¿Por qué sostiene que el Estado y la cultura son rivales (Af. 274)?</span>
+              <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div id="faq-p6" class="faq-panel" hidden>
+              <p>Porque nadie —ni individuo ni pueblo— puede gastar más fuerza de la que posee. Cuando se disipa entendimiento, voluntad y seriedad en el poder estatal, el comercio o los intereses militares, esos recursos faltan para la cultura. Por eso las grandes épocas culturales han sido épocas de decadencia política.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER & SOURCES -->
+    <footer class="site-footer">
+      <div class="columns-2">
+        <div>
+          <span class="figure-label">Fuentes y rigor documental</span>
+          <p style="margin-bottom: var(--space-sm);">
+            Todo el contenido, las citas textuales, el prólogo analítico, la cronología (1844–1900) y las referencias bibliográficas proceden exclusivamente de la edición <em>Aforismos</em> de Friedrich Nietzsche (traducción y prólogo de Andrés Sánchez Pascual, edición digital 2021 / Titivillus 2025), incluyendo menciones a José María Valverde (<em>Nietzsche, de filólogo a Anticristo</em>, 1993) y Antonio Machado.
+          </p>
+        </div>
+        <div>
+          <span class="figure-label">Gestión de tu progreso de estudio</span>
+          <p style="margin-bottom: var(--space-sm);">
+            Tus fragmentos guardados, anotaciones personales y resultados del cuestionario se almacenan en el espacio de sesión del cuaderno.
+          </p>
+          <div class="btn-row">
+            <button type="button" class="btn btn-secondary" onclick="exportReflections()">Descargar resumen de notas (.txt)</button>
+            <button type="button" class="btn btn-ghost" id="btn-reset-all" onclick="resetAllSessionState(this)">Borrar progreso guardado</button>
+          </div>
+          <div id="global-status" class="status-line" aria-live="polite"></div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    /* =========================================================================
+       DATA CATALOG (100% grounded in Aforismos - Friedrich Nietzsche.pdf)
+       ========================================================================= */
+
+    var THEME_META = {
+      naturaleza: { label: `Naturaleza humana y psicología`, short: `Naturaleza humana`, color: `var(--data-1)` },
+      moral: { label: `La moral y las virtudes`, short: `Moral y virtud`, color: `var(--data-2)` },
+      lenguaje: { label: `El lenguaje y el estilo`, short: `Lenguaje y estilo`, color: `var(--data-3)` },
+      verdad: { label: `Verdad, conocimiento y arte`, short: `Verdad y arte`, color: `var(--data-4)` },
+      convenciones: { label: `Convenciones sociales y política`, short: `Convenciones`, color: `var(--outline)` }
+    };
+
+    var APHORISMS = [
+      {
+        num: 1,
+        theme: `naturaleza`,
+        text: `Todo lo que es profundo ama la máscara.`,
+        note: `Apertura emblemática de la colección: la profundidad se resguarda bajo velos frente a las lecturas superficiales (véase también Af. 422 y 590).`
+      },
+      {
+        num: 2,
+        theme: `lenguaje`,
+        text: `Peligro del lenguaje para la libertad de espíritu. Cada palabra es un prejuicio.`,
+        note: `Resume la desconfianza lingüística que Nietzsche ya había desarrollado en 1873 en Sobre verdad y mentira en sentido extramoral.`
+      },
+      {
+        num: 3,
+        theme: `verdad`,
+        text: `Yo desconfío de todos los sistemáticos y me aparto de su camino. La voluntad de sistema es una falta de honestidad.`,
+        note: `Rechazo directo al absolutismo del saber cerrado y a la maquinaria dialéctica poshegeliana.`
+      },
+      {
+        num: 4,
+        theme: `moral`,
+        text: `Un moralista es lo contrario de un predicador de moral: es, en efecto, un pensador que toma la moral como discutible, como cuestionable; en suma, como un problema. Lamento tener que añadir que, justo por ello, el moralista forma parte de los seres problemáticos.`,
+        note: `Define el oficio filosófico de Nietzsche frente a la moral tradicional: problematizar lo que otros dan por sentado.`
+      },
+      {
+        num: 7,
+        theme: `naturaleza`,
+        text: `La capacidad de alegría se atrofia cuando uno quiere ser igual que los otros.`,
+        note: `Crítica temprana al conformismo de rebaño como empobrecimiento vital.`
+      },
+      {
+        num: 9,
+        theme: `lenguaje`,
+        text: `Una sentencia es un eslabón de una cadena de pensamientos. Requiere que el lector rehaga con sus propios medios la cadena, eso es pedir mucho. Una sentencia es una petulancia. O una cautela, como bien supo Heraclito. Para poder saborear una sentencia es preciso agitarla antes y mezclarla con otros ingredientes (ejemplos, experiencias, historias). Muy pocos saben hacerlo, y por ello es lícito expresar tranquilamente en sentencias cosas inquietantes.`,
+        note: `Manual de uso del propio libro: el aforismo exige participación activa y experiencia vital del lector.`
+      },
+      {
+        num: 14,
+        theme: `verdad`,
+        text: `Morir por la «verdad». No iríamos a la hoguera por nuestras opiniones; no estamos tan seguros de ellas. Pero tal vez sí para que se nos permitiese tenerlas y modificarlas.`,
+        note: `Defensa de la libertad de revisión intelectual frente al fanatismo de las certezas inmutables.`
+      },
+      {
+        num: 22,
+        theme: `verdad`,
+        text: `Original. Lo que distingue a una auténtica cabeza original no es ser la primera en ver algo nuevo, sino el ver como nuevas las cosas viejas, conocidas de antiguo, vistas por todo el mundo y no tenidas en cuenta por nadie. El primer descubridor es por lo general aquel fantoche tan habitual y tan desangelado: el azar.`,
+        note: `Distingue la originalidad filosófica de la mera novedad accidental.`
+      },
+      {
+        num: 29,
+        theme: `naturaleza`,
+        text: `Los amigos como fantasmas. Si nosotros cambiamos mucho, los amigos nuestros que no han cambiado se convierten en fantasmas de nuestro propio pasado: su voz llega hasta nosotros con un sonido horrible, espectral, como si nos oyésemos a nosotros mismos, pero más jóvenes, duros, inmaduros.`,
+        note: `Observación psicológica sobre la transformación interior y la disonancia con quienes permanecen inmóviles.`
+      },
+      {
+        num: 30,
+        theme: `convenciones`,
+        text: `«Educación superior» y «gran número» son cosas que de antemano se contradicen. Toda educación superior pertenece sólo a la excepción; hay que ser privilegiado para tener derecho a un privilegio tan alto. Ninguna de las cosas grandes, ninguna de las cosas bellas puede ser jamás bien común: pulchrum est paucorum hominum.`,
+        note: `Posición aristocrática sobre la cultura y la formación frente a la masificación educativa.`
+      },
+      {
+        num: 35,
+        theme: `moral`,
+        text: `Virtudes peligrosas. «No olvida nada, pero perdona todo». En tal caso, se odia doblemente a esa persona, pues avergüenza por duplicado, con su memoria y con su magnanimidad.`,
+        note: `Análisis de la economía psicológica oculta tras ciertas virtudes celebradas.`
+      },
+      {
+        num: 42,
+        theme: `convenciones`,
+        text: `Gracias al morboso extrañamiento que la insania de las nacionalidades ha introducido y continúa introduciendo entre los pueblos de Europa; gracias, asimismo, a los políticos de mirada corta y de mano rápida que hoy están arriba con la ayuda de esa insania [...] ahora son pasados por alto o reinterpretados de manera arbitraria y mendaz los indicios más inequívocos en los cuales se expresa que Europa quiere llegar a ser una.`,
+        note: `Crítica contundente al nacionalismo europeo y defensa de una perspectiva supranacional.`
+      },
+      {
+        num: 51,
+        theme: `convenciones`,
+        text: `Se paga caro el llegar al poder. El poder vuelve estúpidas a las personas…`,
+        note: `Diagnóstico breve del coste intelectual que conlleva el ejercicio del poder político.`
+      },
+      {
+        num: 56,
+        theme: `verdad`,
+        text: `Una fábula. El don Juan del conocimiento: ningún filósofo ni poeta lo ha descubierto todavía. Es un hombre que no siente amor por las cosas que conoce, pero que tiene ingenio, ganas y gusto por la caza e intrigas del conocimiento. ¡Hasta subir a las más altas y lejanas estrellas de éste!; hasta que por fin ya no queda nada que cazar, excepto lo absolutamente doloroso del conocimiento…`,
+        note: `Retrato trágico del impulso puro de conocer cuando se desliga del consuelo y termina seducido por el abismo.`
+      },
+      {
+        num: 59,
+        theme: `convenciones`,
+        text: `Estamos en la época de las masas: éstas se prosternan ante todo lo masivo. Y eso ocurre también en los asuntos políticos.`,
+        note: `Diagnóstico de la modernidad como culto cuantitativo a lo grande y gregario.`
+      },
+      {
+        num: 60,
+        theme: `naturaleza`,
+        text: `Perecemos con más facilidad a causa de nuestros puntos fuertes que a causa de nuestras debilidades, pues en lo que respecta a estas últimas vivimos razonablemente, pero no en lo que respecta a los primeros.`,
+        note: `Paradoja de la autoprotección humana: la prudencia suele acompañar a la flaqueza, no a la fuerza.`
+      },
+      {
+        num: 66,
+        theme: `moral`,
+        text: `¡La doctrina de la igualdad! Pero si no existe veneno más venenoso que ése, pues esa doctrina parece ser predicada por la justicia misma, mientras que es el final de la justicia… «Igualdad para los iguales, desigualdad para los desiguales», ése sería el verdadero discurso de la justicia, y lo que de ahí se sigue, «no igualar jamás a los desiguales».`,
+        note: `Distinción polémica entre la justicia proporcional y la igualación niveladora.`
+      },
+      {
+        num: 72,
+        theme: `naturaleza`,
+        text: `Amistad y matrimonio. El mejor amigo obtendrá probablemente la mejor esposa, pues el buen matrimonio se basa en el talento para la amistad.`,
+        note: `Idea recurrente en la colección: la amistad y el diálogo prolongado (Af. 23, 120, 364) sostienen la vida en común.`
+      },
+      {
+        num: 81,
+        theme: `lenguaje`,
+        text: `Doble desconocimiento. La desgracia de los escritores agudos y claros está en que se los toma por superficiales y en consecuencia no se les dedica ningún esfuerzo, y la suerte de los escritores no claros, en que el lector les dedica mucho esfuerzo y atribuye a la bondad de ellos la alegría que a él le produce su propio celo.`,
+        note: `Ironía sobre cómo los lectores confunden la oscuridad estilística con la profundidad.`
+      },
+      {
+        num: 82,
+        theme: `convenciones`,
+        text: `De un examen de doctorado. «¿Cuál es la misión de las universidades?»: Hacer de la persona una máquina. «¿Cuál es el medio para ello?»: La persona tiene que aprender a aburrirse. «¿Cómo se consigue eso?»: Con el concepto del deber.`,
+        note: `Sátira mordaz contra la burocratización académica y la filosofía kantiana convertida en dogma estatal.`
+      },
+      {
+        num: 88,
+        theme: `moral`,
+        text: `El amor y la justicia. ¿Por qué se sobrevalora el amor a expensas de la justicia y se dicen de él las cosas más hermosas, como si fuera algo muy superior a ésta? ¿No es evidente que el amor es mucho más estúpido que la justicia? Desde luego que lo es, mas precisamente por ello resulta mucho más agradable a todos.`,
+        note: `Explica el prestigio del amor por su generosidad indiscriminada, semejante a la lluvia sobre justos e injustos.`
+      },
+      {
+        num: 97,
+        theme: `lenguaje`,
+        text: `No nos estimamos ya bastante cuando nos comunicamos. Nuestras vivencias auténticas no son, en modo alguno, charlatanas. No podrían comunicarse si quisieran. Es que les falta la palabra. [...] El lenguaje, parece, ha sido inventado sólo para decir lo ordinario, mediano, comunicable. Con el lenguaje se vulgariza ya el que habla.`,
+        note: `Subtitulado «De una moral para sordomudos y otros filósofos»; profundiza en la insuficiencia estructural del habla.`
+      },
+      {
+        num: 101,
+        theme: `moral`,
+        text: `Las personas virtuosas quieren hacernos creer a nosotros (y a veces también a sí mismas) que fueron ellas las que inventaron la felicidad. La verdad es que la virtud fue inventada por las personas felices.`,
+        note: `Inversión genealógica: la salud y la plenitud preceden a la virtud, no al revés.`
+      },
+      {
+        num: 116,
+        theme: `verdad`,
+        text: `El arte es el gran estimulante para vivir: ¿cómo podría concebírselo como algo carente de finalidad, desprovisto de meta, como l’art pour l’art?`,
+        note: `Contra el esteticismo vacío (véase también Af. 53): el arte afirma e intensifica la existencia.`
+      },
+      {
+        num: 120,
+        theme: `naturaleza`,
+        text: `No la ausencia de amor, sino la ausencia de amistad, eso es lo que hace los matrimonios desgraciados.`,
+        note: `Condensación aforística de su tesis sobre los vínculos duraderos.`
+      },
+      {
+        num: 121,
+        theme: `moral`,
+        text: `Por lo que más se nos castiga es por nuestras virtudes.`,
+        note: `Sentencia breve sobre el roce que las cualidades excepcionales provocan en el entorno.`
+      },
+      {
+        num: 128,
+        theme: `moral`,
+        text: `Ejecución. ¿Cómo es que toda ejecución nos ofende más que un asesinato? Es la frialdad de los jueces, la meticulosa preparación, la inteligencia de que aquí se utiliza a una persona como medio para intimidar a otras.`,
+        note: `Crítica a la hipocresía penal que descarga sobre un individuo la culpa colectiva del ambiente y los educadores.`
+      },
+      {
+        num: 147,
+        theme: `moral`,
+        text: `Compasión. En la dorada vaina de la compasión se esconde a veces el puñal de la envidia.`,
+        note: `Desenmascaramiento de los afectos morales aparentemente altruistas.`
+      },
+      {
+        num: 155,
+        theme: `convenciones`,
+        text: `Es raro que alguien que se ha hecho famoso no se vuelva por ello cobarde y ridículo. Los seguidores, que son masa, se adhieren siempre a sus debilidades y exageraciones y tienen fácil el convencerlo de que vea en eso su virtud, su vocación.`,
+        note: `Menciona a Schopenhauer como ejemplo de quien se volvió bufón de su fama antes incluso de poseerla.`
+      },
+      {
+        num: 168,
+        theme: `naturaleza`,
+        text: `La libre Naturaleza. Nos gusta tanto estar en la libre Naturaleza porque ésta no tiene opinión sobre nosotros.`,
+        note: `Contrasta la liberación del paisaje con la mirada constante de la sociedad humana.`
+      },
+      {
+        num: 202,
+        theme: `moral`,
+        text: `Por qué resultan desagradables los escépticos de la moral. Quien toma su moralidad como algo muy elevado y grave, ése se encoleriza con los escépticos en el terreno de la moral, pues se debe admirar, pero no investigar y dudar, allí donde él gasta toda su fuerza.`,
+        note: `Explica la hostilidad social hacia quien examina críticamente el origen de las normas morales.`
+      },
+      {
+        num: 209,
+        theme: `verdad`,
+        text: `Los acontecimientos y pensamientos más grandes —y los pensamientos más grandes son los acontecimientos más grandes— son los que más se tarda en comprender. Las generaciones contemporáneas de ellos no tienen la vivencia de tales acontecimientos; viven al margen de ellos. Ocurre aquí algo parecido a lo que ocurre en el reino de los astros. La luz de los astros más lejanos es la que más tarda en llegar a los hombres; y antes de que haya llegado, el hombre niega que allí existan astros.`,
+        note: `La jerarquía temporal del espíritu: la incomprensión contemporánea como signo de distancia estelar.`
+      },
+      {
+        num: 219,
+        theme: `naturaleza`,
+        text: `Todo pensador profundo tiene más miedo a ser entendido que a ser malentendido. A causa de esto último padece tal vez su vanidad; a causa de lo primero, en cambio, su corazón, su simpatía, que dice siempre: «Ay, ¿por qué queréis vosotros que las cosas os pesen tanto como a mí?».`,
+        note: `Muestra la compasión discreta del filósofo solitario hacia sus lectores.`
+      },
+      {
+        num: 273,
+        theme: `verdad`,
+        text: `Opiniones y peces. Somos propietarios de nuestras opiniones como somos propietarios de peces, a saber, siendo propietarios de un estanque de peces. Tenemos que ir a pescar y tener suerte; entonces tenemos nuestros peces, nuestras opiniones. Estoy hablando aquí de opiniones vivas, de peces vivos. Otros están contentos si poseen un gabinete de fósiles, y, en su cabeza, «convicciones».`,
+        note: `Metáfora brillante que opone el pensamiento vivo y móvil a la colección inmóvil de dogmas.`
+      },
+      {
+        num: 274,
+        theme: `convenciones`,
+        text: `La cultura y el Estado —no nos engañemos sobre esto— son rivales: el «Estado de cultura» no pasa de ser una idea moderna. Lo uno vive de lo otro, lo uno prospera a costa de lo otro. Todas las épocas grandes de la cultura son épocas de decadencia política; lo que es grande en el sentido de la cultura ha sido apolítico, incluso antipolítico.`,
+        note: `Tesis central sobre el conflicto inevitable entre el poder político-económico y la creación cultural.`
+      },
+      {
+        num: 298,
+        theme: `naturaleza`,
+        text: `De la escuela de guerra de la vida. Lo que no me mata me hace más fuerte.`,
+        note: `Una de las sentencias más célebres de la colección, formulada desde la resistencia vital ante el sufrimiento.`
+      },
+      {
+        num: 340,
+        theme: `lenguaje`,
+        text: `Observe usted lo rápido que ese lector lee, cómo vuelve las páginas; tarda en leer cada una el mismo número de segundos. Saque usted el reloj. Son, todos ellos, pensamientos sobre los que es preciso meditar bien, unos más pesados, otros más ligeros, ¡y él tiene para todos un solo modo de disfrutarlos! Los lee uno tras otro, el desgraciado, ¡como si fuera lícito leer así colecciones de pensamientos!`,
+        note: `Advertencia directa contra la lectura mecánica y uniforme de los libros aforísticos.`
+      },
+      {
+        num: 344,
+        theme: `lenguaje`,
+        text: `¡Las palabras se nos cruzan en el camino! En todas partes donde nuestros lejanos antepasados colocaron una palabra creyeron haber hecho un descubrimiento. ¡Qué distintas eran en verdad las cosas! Habían tocado un problema y, mientras se figuraban haberlo resuelto, habían creado un obstáculo para su solución.`,
+        note: `Los vocablos heredados actúan como peñascos que encubren interrogantes filosóficos aún abiertos.`
+      },
+      {
+        num: 348,
+        theme: `lenguaje`,
+        text: `Olvidar. Aún no está probado que exista el olvido; lo único que sabemos es que no está en nuestro poder volver a recordar. Provisionalmente hemos colocado en ese hueco de nuestro poder la palabra «olvido», como si fuera una facultad más en la lista de ellas.`,
+        note: `Ejemplo concreto de cómo el lenguaje inventa falsas facultades para tapar lagunas de nuestro poder.`
+      },
+      {
+        num: 391,
+        theme: `lenguaje`,
+        text: `El aforismo, la sentencia, en los que yo soy el primer maestro entre alemanes, son las formas de la «eternidad»; es mi ambición decir en diez frases lo que todos los demás dicen en un libro, lo que todos los demás… no dicen en un libro…`,
+        note: `Declaración programática citada en el prólogo: el aforismo condensa tanto lo dicho como lo callado.`
+      },
+      {
+        num: 410,
+        theme: `verdad`,
+        text: `Sin música la vida sería un error.`,
+        note: `Síntesis extrema de la importancia estética y existencial que Nietzsche otorga a la música (véase también Af. 134, 152, 439).`
+      },
+      {
+        num: 426,
+        theme: `verdad`,
+        text: `Enemigos de la verdad. Las convicciones son enemigas de la verdad más peligrosas que las mentiras.`,
+        note: `Porque quien miente sabe que se aparta de lo verdadero, mientras quien tiene convicciones bloquea la duda.`
+      },
+      {
+        num: 434,
+        theme: `naturaleza`,
+        text: `Para la educación. Poco a poco ha ido revelándoseme cuál es el defecto más general de nuestra especie de formación y educación: nadie aprende, nadie aspira, nadie enseña… a soportar la soledad.`,
+        note: `Señala la soledad como disciplina formativa indispensable e ignorada por la pedagogía moderna.`
+      },
+      {
+        num: 469,
+        theme: `moral`,
+        text: `De vez en cuando debemos mandar a dormir a nuestras virtudes.`,
+        note: `Anticipa el Af. 470: «Cuando la virtud ha dormido se levanta más fresca».`
+      },
+      {
+        num: 491,
+        theme: `naturaleza`,
+        text: `«Yo he hecho eso», dice mi memoria. «Yo no puedo haber hecho eso», dice mi orgullo, y permanece inflexible. Al final cede… la memoria.`,
+        note: `Miniatura dramática sobre el triunfo de la autoestima frente al recuerdo factual.`
+      },
+      {
+        num: 505,
+        theme: `lenguaje`,
+        text: `Lo más comprensible de un lenguaje no es la palabra misma, sino el tono, la intensidad, la modulación, el tempo con que se dice una serie de palabras. En suma, la música que está detrás de las palabras, la pasión que está detrás de esa música, la persona que está detrás de esa pasión; todo aquello, por tanto, que no puede ser escrito.`,
+        note: `Explica por qué la escritura desnuda resulta insuficiente sin el ritmo y la voz interior.`
+      },
+      {
+        num: 521,
+        theme: `convenciones`,
+        text: `Premisas de la edad de las máquinas. La prensa, la máquina, el ferrocarril, el telégrafo son premisas de las cuales aún no se ha atrevido nadie a sacar las conclusiones que se sacarán dentro de mil años.`,
+        note: `Visión prospectiva sobre las transformaciones técnicas y comunicativas de la modernidad.`
+      },
+      {
+        num: 562,
+        theme: `convenciones`,
+        text: `El éxito ha sido siempre el máximo mentiroso, y la «obra» misma es un éxito. [...] Los «grandes hombres», tal como se los venera, son poemas pequeños y malos compuestos con posterioridad. En el mundo de los valores históricos domina la moneda falsa.`,
+        note: `Desmonta la mitología historiográfica que confunde al creador real con el disfraz póstumo de su obra.`
+      }
+    ];
+
+    var INVERSION_CASES = [
+      {
+        common: `Se asume que el engaño deliberado es la amenaza principal contra la verdad.`,
+        ref: `Aforismo 426 · Verdad y conocimiento`,
+        quote: `«Las convicciones son enemigas de la verdad más peligrosas que las mentiras.»`,
+        analysis: `No se trata de elogiar la mentira invirtiendo un simple «sí» por un «no». Nietzsche muestra que las convicciones petrifican la búsqueda (como fósiles en lugar de peces vivos, Af. 273) y vuelven al sujeto inmune a la crítica.`
+      },
+      {
+        common: `Se da por sentado que el «Estado de cultura» fomenta simultáneamente el poder político y la alta cultura.`,
+        ref: `Aforismo 274 · Convenciones sociales y política`,
+        quote: `«La cultura y el Estado —no nos engañemos sobre esto— son rivales: el "Estado de cultura" no pasa de ser una idea moderna. Lo uno vive de lo otro, lo uno prospera a costa de lo otro.»`,
+        analysis: `Aplica un principio de economía de fuerzas: la energía, seriedad y entendimiento gastados en poder político, militar o comercial se restan necesariamente de la esfera cultural.`
+      },
+      {
+        common: `Se suele pensar que un estilo oscuro indica profundidad y un estilo transparente es superficial.`,
+        ref: `Aforismo 81 · El lenguaje y el estilo`,
+        quote: `«La desgracia de los escritores agudos y claros está en que se los toma por superficiales [...] y la suerte de los escritores no claros, en que el lector les dedica mucho esfuerzo y atribuye a la bondad de ellos la alegría que a él le produce su propio celo.»`,
+        analysis: `Desvela un sesgo psicológico del lector: proyectamos valor sobre la dificultad porque nos enorgullece nuestro propio esfuerzo de desciframiento.`
+      },
+      {
+        common: `La convención romántica sostiene que la pasión amorosa basta para sostener una vida compartida.`,
+        ref: `Aforismo 120 (y 23, 72, 364) · Naturaleza humana`,
+        quote: `«No la ausencia de amor, sino la ausencia de amistad, eso es lo que hace los matrimonios desgraciados.»`,
+        analysis: `Frente al ardor transitorio de la pasión exclusiva, Nietzsche revaloriza el talento para la amistad y la capacidad de mantener un largo diálogo hasta la vejez.`
+      },
+      {
+        common: `Las morales tradicionales enseñan que practicar la virtud produce finalmente la felicidad.`,
+        ref: `Aforismo 101 · La moral y las virtudes`,
+        quote: `«Las personas virtuosas quieren hacernos creer a nosotros (y a veces también a sí mismas) que fueron ellas las que inventaron la felicidad. La verdad es que la virtud fue inventada por las personas felices.»`,
+        analysis: `Invierte la relación causal histórica y fisiológica: la conducta virtuosa brota de una plenitud vital previa, no como receta ascética para alcanzarla.`
+      },
+      {
+        common: `Confiamos en que nuestra memoria conserva un registro fiel de nuestros actos pasados.`,
+        ref: `Aforismo 491 · Naturaleza humana`,
+        quote: `«"Yo he hecho eso", dice mi memoria. "Yo no puedo haber hecho eso", dice mi orgullo, y permanece inflexible. Al final cede… la memoria.»`,
+        analysis: `Observación psicológica fulgurante: el intelecto y el recuerdo no son jueces neutrales, sino instrumentos subordinados a la conservación de la propia estima.`
+      }
+    ];
+
+    var QUIZ_QUESTIONS = [
+      {
+        question: `Según el prólogo de Andrés Sánchez Pascual, ¿por qué se opuso Nietzsche a la dialéctica de Hegel?`,
+        options: [
+          `Porque la dialéctica convertía el saber en certeza absoluta mediante una contradicción «reglada», llevando a la mediocridad filosófica.`,
+          `Porque Hegel prohibió el uso de metáforas poéticas en los tratados de filología clásica.`,
+          `Porque Nietzsche defendía que el silogismo aristotélico era superior a cualquier forma breve.`
+        ],
+        correct: 0,
+        explanation: `Correcto. El prólogo explica que la dialéctica hegeliana domesticó la contradicción para alcanzar la certeza absoluta; mediante el aforismo, Nietzsche rompió ese absolutismo del saber.`
+      },
+      {
+        question: `¿Qué significa que el aforismo nietzscheano permanezca «cerrado por un lado y abierto por el otro»?`,
+        options: [
+          `Que sólo pueden leerlo los filólogos alemanes de Basilea.`,
+          `Que en su forma respeta las leyes de la lógica (salvándose del nihilismo), pero en su contenido descree de ellas y se abre a la vida (salvándose del dogmatismo).`,
+          `Que combina una mitad en verso y otra mitad en prosa académica.`
+        ],
+        correct: 1,
+        explanation: `Exacto. Esa doble condición de creencia en la forma e increencia en el contenido explica la paradoja dialéctica del aforismo descrita en el prólogo.`
+      },
+      {
+        question: `Según el aforismo 4, ¿qué distingue al «moralista» del «predicador de moral»?`,
+        options: [
+          `El moralista redacta leyes estatales más estrictas para el ciudadano.`,
+          `El moralista toma la moral misma como algo discutible, cuestionable y problemático.`,
+          `El moralista renuncia por completo a pensar sobre el bien y el mal.`
+        ],
+        correct: 1,
+        explanation: `Así es: en el aforismo 4 Nietzsche define al moralista como lo contrario del predicador, pues convierte la moral en un problema.`
+      },
+      {
+        question: `¿Qué reprocha el aforismo 340 al lector que vuelve las páginas de un libro de sentencias con el reloj en la mano?`,
+        options: [
+          `Que lea en voz alta como hacían los hombres antiguos.`,
+          `Que aplique un mismo ritmo apresurado a pensamientos desiguales que exigen meditación pausada.`,
+          `Que cite fragmentos aislados sin consultar la tabla de siglas.`
+        ],
+        correct: 1,
+        explanation: `Correcto. «Son, todos ellos, pensamientos sobre los que es preciso meditar bien, unos más pesados, otros más ligeros» (Af. 340).`
+      },
+      {
+        question: `Según el aforismo 274, ¿cómo se relacionan el Estado y la cultura?`,
+        options: [
+          `El «Estado de cultura» logra armonizar el poder militar con el florecimiento artístico.`,
+          `Son rivales que prosperan uno a costa del otro; las grandes épocas culturales han sido apolíticas o antipolíticas.`,
+          `La cultura depende de que las universidades formen funcionarios estatales.`
+        ],
+        correct: 1,
+        explanation: `Exacto: nadie puede gastar más fuerza de la que tiene; lo que se dedica al poder político falta en el lado de la cultura (Af. 274).`
+      },
+      {
+        question: `De acuerdo con la cronología biográfica de la fuente, ¿qué hito ocurrió en 1878?`,
+        options: [
+          `Nietzsche fue nombrado catedrático en Basilea a los 24 años.`,
+          `Publicó Humano, demasiado humano I y se produjo su ruptura con Wagner.`,
+          `Redactó Crepúsculo de los ídolos durante su estancia en Turín.`
+        ],
+        correct: 1,
+        explanation: `Correcto. La cátedra en Basilea fue en 1869, Turín en 1888 y en 1878 apareció Humano, demasiado humano I junto con la ruptura con Wagner.`
+      }
+    ];
+
+    var TIMELINE_EVENTS = [
+      { year: `1844`, era: `formacion`, text: `Nace el 15 de octubre en Röcken (Prusia), primer hijo de un pastor protestante.` },
+      { year: `1849–1850`, era: `formacion`, text: `Fallece su padre; traslado familiar a Naumburg (educado por su madre, abuela, tías y hermana).` },
+      { year: `1869`, era: `formacion`, text: `Estudia Filología Clásica en Bonn y Leipzig y es nombrado catedrático en la Universidad de Basilea con sólo 24 años.` },
+      { year: `1872–1873`, era: `formacion`, text: `Publica El nacimiento de la tragedia (1872) y escribe Sobre verdad y mentira en sentido extramoral (1873, inédito en vida).` },
+      { year: `1876`, era: `formacion`, text: `Asiste a los primeros festivales de Bayreuth; último encuentro con Wagner en Sorrento y deja temporalmente la docencia por enfermedad.` },
+      { year: `1878`, era: `aforistico`, text: `Humano, demasiado humano I. Ruptura definitiva con Richard Wagner.` },
+      { year: `1879–1880`, era: `aforistico`, text: `Opiniones y sentencias mezcladas (1879) y El caminante y su sombra (1880). Renuncia a la cátedra de Basilea; estancias en Venecia y Génova.` },
+      { year: `1881`, era: `aforistico`, text: `Publica Aurora. Primer verano en Sils-Maria.` },
+      { year: `1882`, era: `aforistico`, text: `Publica La gaya ciencia. Viaje a Sicilia y amistad con Lou Salomé.` },
+      { year: `1883–1885`, era: `madurez`, text: `Muere Wagner en Venecia (1883). Publica las cuatro partes de Así habló Zaratustra.` },
+      { year: `1886–1887`, era: `madurez`, text: `Publica Más allá del bien y del mal (1886) y La genealogía de la moral (1887).` },
+      { year: `1888`, era: `madurez`, text: `Primera estancia en Turín. Escribe El caso Wagner, Ditirambos de Dioniso, Crepúsculo de los ídolos, El Anticristo, Ecce homo y Nietzsche contra Wagner.` },
+      { year: `1889–1900`, era: `madurez`, text: `Colapso mental en Turín (enero de 1889). Cuidado por su madre en Naumburg y su hermana en Weimar, donde fallece el 25 de agosto de 1900.` }
+    ];
+
+    var ANATOMY_POLES = {
+      forma: {
+        kicker: `Lado cerrado · Creencia`,
+        title: `La pared de las leyes de la lógica`,
+        body: `En su escritura formal, el aforismo respeta la sintaxis y el rigor lógico. Esa «creencia» en la forma evita que el pensamiento caiga en el nihilismo o en la mera arbitrariedad estética.`,
+        quote: `Referencia: Prólogo — «Por el lado que da a la lógica, el aforismo, apretado contra la pared de las leyes de aquélla, permanece cerrado».`
+      },
+      contenido: {
+        kicker: `Lado abierto · Increencia`,
+        title: `La sal irónica que rebosa el horizonte`,
+        body: `En su contenido, el aforismo descree de los sistemas cerrados y se abre a la vida insondable. Así se salva del dogmatismo y convierte cada sentencia en una provocación abierta al devenir.`,
+        quote: `Referencia: Prólogo — «En vez de decir media verdad, el aforismo dirá verdad y media... Esa media verdad excedente, que queda fuera, es la sal que impide que la "verdad" se corrompa».`
+      },
+      lector: {
+        kicker: `Actividad interpretativa · Eslabón`,
+        title: `Rehacer la cadena de pensamientos`,
+        body: `Lejos de entregar un tratado digerido, el aforismo funciona como un eslabón suelto. Exige que el lector abandone la prisa cronometrada (Af. 340) y mezcle la sentencia con su propia experiencia (Af. 9).`,
+        quote: `Referencia: Af. 9 — «Para poder saborear una sentencia es preciso agitarla antes y mezclarla con otros ingredientes (ejemplos, experiencias, historias)».`
+      }
+    };
+
+    /* =========================================================================
+       APPLICATION STATE
+       ========================================================================= */
+
+    var appState = {
+      selectedNum: 1,
+      themeFilter: `todos`,
+      searchQuery: ``,
+      onlySaved: false,
+      savedNums: [],
+      notes: {},
+      quizIndex: 0,
+      quizAnswers: {},
+      anatomyPole: `forma`,
+      timelineEra: `todas`
+    };
+
+    var saveTimeout = null;
+
+    async function persistState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+          await window.notebookAppApi.setAppState({
+            selectedNum: appState.selectedNum,
+            themeFilter: appState.themeFilter,
+            onlySaved: appState.onlySaved,
+            savedNums: appState.savedNums,
+            notes: appState.notes,
+            quizIndex: appState.quizIndex,
+            quizAnswers: appState.quizAnswers,
+            anatomyPole: appState.anatomyPole,
+            timelineEra: appState.timelineEra
+          });
+        }
+      } catch (err) {
+        /* Fail silently in standalone mode */
+      }
+    }
+
+    /* =========================================================================
+       INITIALIZATION
+       ========================================================================= */
+
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+          var loaded = await window.notebookAppApi.getAppState();
+          if (loaded && typeof loaded === `object`) {
+            if (typeof loaded.selectedNum === `number`) appState.selectedNum = loaded.selectedNum;
+            if (typeof loaded.themeFilter === `string`) appState.themeFilter = loaded.themeFilter;
+            if (typeof loaded.onlySaved === `boolean`) appState.onlySaved = loaded.onlySaved;
+            if (Array.isArray(loaded.savedNums)) appState.savedNums = loaded.savedNums;
+            if (loaded.notes && typeof loaded.notes === `object`) appState.notes = loaded.notes;
+            if (typeof loaded.quizIndex === `number`) appState.quizIndex = loaded.quizIndex;
+            if (loaded.quizAnswers && typeof loaded.quizAnswers === `object`) appState.quizAnswers = loaded.quizAnswers;
+            if (typeof loaded.anatomyPole === `string`) appState.anatomyPole = loaded.anatomyPole;
+            if (typeof loaded.timelineEra === `string`) appState.timelineEra = loaded.timelineEra;
+          }
+        }
+      } catch (err) {
+        /* Use defaults if state unavailable */
+      }
+
+      var themeSelect = document.getElementById(`theme-select`);
+      if (themeSelect) themeSelect.value = appState.themeFilter;
+
+      var eraSelect = document.getElementById(`era-filter`);
+      if (eraSelect) eraSelect.value = appState.timelineEra;
+
+      updateSavedFilterButton();
+      selectAnatomyPole(appState.anatomyPole, true);
+      renderThemeDistributionSvg();
+      renderAphorismList();
+      renderDetailPane();
+      renderQuiz();
+      renderTimeline();
+      setupScrollObserver();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    /* =========================================================================
+       ANATOMY SCHEMATIC HANDLERS
+       ========================================================================= */
+
+    function selectAnatomyPole(poleKey, skipPersist) {
+      if (!ANATOMY_POLES[poleKey]) return;
+      appState.anatomyPole = poleKey;
+      var data = ANATOMY_POLES[poleKey];
+
+      var kicker = document.getElementById(`anatomy-kicker`);
+      var title = document.getElementById(`anatomy-title`);
+      var body = document.getElementById(`anatomy-body`);
+      var quote = document.getElementById(`anatomy-quote`);
+
+      if (kicker) kicker.textContent = data.kicker;
+      if (title) title.textContent = data.title;
+      if (body) body.textContent = data.body;
+      if (quote) quote.textContent = data.quote;
+
+      var poles = [`forma`, `contenido`, `lector`];
+      for (var i = 0; i < poles.length; i++) {
+        var key = poles[i];
+        var btn = document.getElementById(`pole-btn-` + key);
+        if (btn) btn.setAttribute(`aria-pressed`, key === poleKey ? `true` : `false`);
+      }
+
+      var rectForma = document.getElementById(`svg-rect-forma`);
+      var rectContenido = document.getElementById(`svg-rect-contenido`);
+      var rectLector = document.getElementById(`svg-rect-lector`);
+
+      if (rectForma) rectForma.setAttribute(`fill`, poleKey === `forma` ? `var(--primary-container)` : `var(--background)`);
+      if (rectContenido) rectContenido.setAttribute(`stroke-width`, poleKey === `contenido` ? `3.5` : `2`);
+      if (rectLector) {
+        rectLector.setAttribute(`fill`, poleKey === `lector` ? `var(--primary-container)` : `var(--surface-container-low)`);
+        rectLector.setAttribute(`stroke`, poleKey === `lector` ? `var(--primary)` : `var(--outline-variant)`);
+      }
+
+      if (!skipPersist) persistState();
+    }
+
+    /* =========================================================================
+       THEME DISTRIBUTION SVG BAR CHART
+       ========================================================================= */
+
+    function renderThemeDistributionSvg() {
+      var svg = document.getElementById(`theme-chart-svg`);
+      if (!svg) return;
+
+      var keys = [`naturaleza`, `moral`, `lenguaje`, `verdad`, `convenciones`];
+      var counts = {};
+      for (var k = 0; k < keys.length; k++) counts[keys[k]] = 0;
+      for (var i = 0; i < APHORISMS.length; i++) {
+        var th = APHORISMS[i].theme;
+        if (typeof counts[th] === `number`) counts[th]++;
+      }
+
+      var maxVal = 14;
+      var html = ``;
+      var y = 12;
+      for (var j = 0; j < keys.length; j++) {
+        var key = keys[j];
+        var meta = THEME_META[key];
+        var val = counts[key];
+        var isActive = appState.themeFilter === `todos` || appState.themeFilter === key;
+        var barW = Math.round((val / maxVal) * 410);
+        var fillColor = isActive ? meta.color : `var(--data-context)`;
+        var textColor = isActive ? `var(--on-surface)` : `var(--on-surface-variant)`;
+
+        html += `<g style="cursor: pointer;" onclick="onThemeSelect('${key}')">`;
+        html += `<text x="0" y="${y + 11}" fill="${textColor}" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700">${meta.short.toUpperCase()}</text>`;
+        html += `<line x1="175" y1="${y + 7}" x2="610" y2="${y + 7}" stroke="var(--outline-variant)" stroke-width="1" />`;
+        html += `<rect x="175" y="${y}" width="${barW}" height="14" fill="${fillColor}" />`;
+        html += `<text x="${183 + barW}" y="${y + 11}" fill="${textColor}" font-family="Bitter, serif" font-size="12" font-weight="700">${val}</text>`;
+        html += `</g>`;
+        y += 20;
+      }
+
+      svg.innerHTML = html;
+    }
+
+    /* =========================================================================
+       APHORISM EXPLORER
+       ========================================================================= */
+
+    function getFilteredAphorisms() {
+      var q = appState.searchQuery.trim().toLowerCase();
+      var list = [];
+      for (var i = 0; i < APHORISMS.length; i++) {
+        var item = APHORISMS[i];
+        if (appState.themeFilter !== `todos` && item.theme !== appState.themeFilter) continue;
+        if (appState.onlySaved && appState.savedNums.indexOf(item.num) === -1) continue;
+        if (q) {
+          var haystack = (String(item.num) + ` ` + item.text + ` ` + item.note + ` ` + THEME_META[item.theme].label).toLowerCase();
+          if (haystack.indexOf(q) === -1) continue;
+        }
+        list.push(item);
+      }
+      return list;
+    }
+
+    function renderAphorismList() {
+      var container = document.getElementById(`aphorism-list`);
+      var emptyBox = document.getElementById(`empty-explorer`);
+      var summary = document.getElementById(`results-summary`);
+      if (!container) return;
+
+      var items = getFilteredAphorisms();
+      if (summary) {
+        summary.textContent = `Mostrando ${items.length} de ${APHORISMS.length} fragmentos seleccionados`;
+      }
+
+      if (items.length === 0) {
+        container.innerHTML = ``;
+        if (emptyBox) emptyBox.style.display = `block`;
+        return;
+      }
+
+      if (emptyBox) emptyBox.style.display = `none`;
+
+      var html = ``;
+      for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        var isSel = item.num === appState.selectedNum;
+        var isSaved = appState.savedNums.indexOf(item.num) !== -1;
+        var hasNote = Boolean(appState.notes[item.num] && appState.notes[item.num].trim().length > 0);
+        var preview = item.text.length > 155 ? item.text.slice(0, 152) + `…` : item.text;
+
+        html += `<button type="button" class="aphorism-item${isSel ? ` selected` : ``}" role="option" aria-selected="${isSel ? `true` : `false`}" onclick="selectAphorism(${item.num})">`;
+        html += `<span class="aphorism-num">${item.num}.</span>`;
+        html += `<div>`;
+        html += `<div class="aphorism-meta-row">`;
+        html += `<span class="tag">${THEME_META[item.theme].short}</span>`;
+        if (isSaved || hasNote) {
+          html += `<span class="saved-marker">${isSaved ? `Guardado` : ``}${isSaved && hasNote ? ` · ` : ``}${hasNote ? `Con nota` : ``}</span>`;
+        }
+        html += `</div>`;
+        html += `<p class="aphorism-excerpt">${escapeHtml(preview)}</p>`;
+        html += `</div>`;
+        html += `</button>`;
+      }
+
+      container.innerHTML = html;
+    }
+
+    function renderDetailPane() {
+      var found = null;
+      for (var i = 0; i < APHORISMS.length; i++) {
+        if (APHORISMS[i].num === appState.selectedNum) {
+          found = APHORISMS[i];
+          break;
+        }
+      }
+      if (!found) found = APHORISMS[0];
+
+      var themeLabel = document.getElementById(`detail-theme-label`);
+      var numLabel = document.getElementById(`detail-num-label`);
+      var quoteEl = document.getElementById(`detail-quote`);
+      var commEl = document.getElementById(`detail-commentary`);
+      var btnSave = document.getElementById(`btn-toggle-save`);
+      var noteInput = document.getElementById(`reflection-input`);
+      var noteStatus = document.getElementById(`note-status`);
+
+      if (themeLabel) themeLabel.textContent = THEME_META[found.theme].label;
+      if (numLabel) numLabel.textContent = `Aforismo n.º ` + found.num;
+      if (quoteEl) quoteEl.textContent = found.text;
+      if (commEl) commEl.textContent = found.note;
+
+      var isSaved = appState.savedNums.indexOf(found.num) !== -1;
+      if (btnSave) {
+        btnSave.textContent = isSaved ? `Quitar de guardados` : `Guardar en mi selección`;
+      }
+
+      if (noteInput) {
+        noteInput.value = appState.notes[found.num] || ``;
+      }
+      if (noteStatus) noteStatus.textContent = ``;
+    }
+
+    function selectAphorism(num) {
+      appState.selectedNum = num;
+      renderAphorismList();
+      renderDetailPane();
+      persistState();
+    }
+
+    function onSearchChange(val) {
+      appState.searchQuery = val || ``;
+      renderAphorismList();
+    }
+
+    function onThemeSelect(val) {
+      appState.themeFilter = val || `todos`;
+      var selectEl = document.getElementById(`theme-select`);
+      if (selectEl && selectEl.value !== appState.themeFilter) {
+        selectEl.value = appState.themeFilter;
+      }
+      renderThemeDistributionSvg();
+      renderAphorismList();
+      persistState();
+    }
+
+    function jumpToTheme(themeKey) {
+      onThemeSelect(themeKey);
+      var filtered = getFilteredAphorisms();
+      if (filtered.length > 0) {
+        appState.selectedNum = filtered[0].num;
+        renderAphorismList();
+        renderDetailPane();
+      }
+      var target = document.getElementById(`explorador`);
+      if (target) target.scrollIntoView({ behavior: `smooth` });
+    }
+
+    function toggleSavedFilter() {
+      appState.onlySaved = !appState.onlySaved;
+      updateSavedFilterButton();
+      renderAphorismList();
+      persistState();
+    }
+
+    function updateSavedFilterButton() {
+      var btn = document.getElementById(`btn-only-saved`);
+      if (btn) {
+        if (appState.onlySaved) {
+          btn.classList.add(`active-filter`);
+        } else {
+          btn.classList.remove(`active-filter`);
+        }
+        btn.innerHTML = `Solo guardados (<span id="saved-count">${appState.savedNums.length}</span>)`;
+      }
+    }
+
+    function resetExplorerFilters() {
+      appState.searchQuery = ``;
+      appState.themeFilter = `todos`;
+      appState.onlySaved = false;
+      var searchInput = document.getElementById(`search-input`);
+      var themeSelect = document.getElementById(`theme-select`);
+      if (searchInput) searchInput.value = ``;
+      if (themeSelect) themeSelect.value = `todos`;
+      updateSavedFilterButton();
+      renderThemeDistributionSvg();
+      renderAphorismList();
+      persistState();
+    }
+
+    function pickRandomAphorism() {
+      var pool = getFilteredAphorisms();
+      if (pool.length === 0) pool = APHORISMS;
+      var idx = Math.floor(Math.random() * pool.length);
+      if (pool.length > 1 && pool[idx].num === appState.selectedNum) {
+        idx = (idx + 1) % pool.length;
+      }
+      selectAphorism(pool[idx].num);
+    }
+
+    function toggleCurrentSaved() {
+      var num = appState.selectedNum;
+      var pos = appState.savedNums.indexOf(num);
+      if (pos === -1) {
+        appState.savedNums.push(num);
+      } else {
+        appState.savedNums.splice(pos, 1);
+      }
+      updateSavedFilterButton();
+      renderAphorismList();
+      renderDetailPane();
+      persistState();
+    }
+
+    function saveCurrentNote(text) {
+      var num = appState.selectedNum;
+      appState.notes[num] = text;
+      var noteStatus = document.getElementById(`note-status`);
+      if (noteStatus) noteStatus.textContent = `Anotación guardada en sesión.`;
+
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(function () {
+        renderAphorismList();
+        persistState();
+      }, 280);
+    }
+
+    function exportReflections() {
+      var lines = [];
+      lines.push(`NIETZSCHE: AFORISMOS — CUADERNO PERSONAL DE LECTURA`);
+      lines.push(`==================================================`);
+      lines.push(``);
+
+      var hasContent = false;
+      for (var i = 0; i < APHORISMS.length; i++) {
+        var item = APHORISMS[i];
+        var isSaved = appState.savedNums.indexOf(item.num) !== -1;
+        var note = (appState.notes[item.num] || ``).trim();
+        if (isSaved || note.length > 0) {
+          hasContent = true;
+          lines.push(`Aforismo n.º ` + item.num + ` [` + THEME_META[item.theme].label + `]`);
+          lines.push(`"` + item.text + `"`);
+          if (note.length > 0) {
+            lines.push(`Tu reflexión: ` + note);
+          }
+          lines.push(``);
+        }
+      }
+
+      if (!hasContent) {
+        lines.push(`Aún no has guardado fragmentos ni redactado anotaciones. Se exporta el fragmento actual como ejemplo:`);
+        lines.push(``);
+        var current = APHORISMS[0];
+        for (var j = 0; j < APHORISMS.length; j++) {
+          if (APHORISMS[j].num === appState.selectedNum) { current = APHORISMS[j]; break; }
+        }
+        lines.push(`Aforismo n.º ` + current.num + `: "` + current.text + `"`);
+      }
+
+      var contentStr = lines.join(`\n`);
+      var statusEl = document.getElementById(`global-status`);
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: contentStr,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `nietzsche-cuaderno-aforismos.txt`
+        });
+        if (statusEl) statusEl.textContent = `Cuaderno exportado como archivo de texto.`;
+      } else {
+        var blob = new Blob([contentStr], { type: `text/plain;charset=utf-8` });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement(`a`);
+        a.href = url;
+        a.download = `nietzsche-cuaderno-aforismos.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        if (statusEl) statusEl.textContent = `Cuaderno descargado.`;
+      }
+    }
+
+    /* =========================================================================
+       MODULE A: ANTITHESIS LABORATORY
+       ========================================================================= */
+
+    function selectInversionCase(idxStr) {
+      var idx = parseInt(idxStr, 10);
+      if (isNaN(idx) || !INVERSION_CASES[idx]) idx = 0;
+      var item = INVERSION_CASES[idx];
+
+      var commonEl = document.getElementById(`case-common`);
+      var refEl = document.getElementById(`case-aphorism-ref`);
+      var quoteEl = document.getElementById(`case-quote`);
+      var analysisEl = document.getElementById(`case-analysis`);
+      var box = document.getElementById(`case-reveal-box`);
+      var btn = document.getElementById(`btn-reveal-case`);
+
+      if (commonEl) commonEl.textContent = item.common;
+      if (refEl) refEl.textContent = item.ref;
+      if (quoteEl) quoteEl.textContent = item.quote;
+      if (analysisEl) analysisEl.textContent = item.analysis;
+      if (box) box.style.display = `none`;
+      if (btn) btn.textContent = `Revelar giro nietzscheano`;
+    }
+
+    function toggleInversionReveal() {
+      var box = document.getElementById(`case-reveal-box`);
+      var btn = document.getElementById(`btn-reveal-case`);
+      if (!box || !btn) return;
+
+      var isHidden = box.style.display === `none`;
+      box.style.display = isHidden ? `block` : `none`;
+      btn.textContent = isHidden ? `Ocultar análisis` : `Revelar giro nietzscheano`;
+    }
+
+    /* =========================================================================
+       MODULE B: COMPREHENSION QUIZ
+       ========================================================================= */
+
+    function countQuizCorrect() {
+      var score = 0;
+      for (var i = 0; i < QUIZ_QUESTIONS.length; i++) {
+        if (appState.quizAnswers[i] === QUIZ_QUESTIONS[i].correct) score++;
+      }
+      return score;
+    }
+
+    function renderQuiz() {
+      var idx = appState.quizIndex;
+      if (idx < 0 || idx >= QUIZ_QUESTIONS.length) idx = 0;
+      var q = QUIZ_QUESTIONS[idx];
+      var chosen = appState.quizAnswers[idx];
+      var isAnswered = typeof chosen === `number`;
+
+      var progEl = document.getElementById(`quiz-progress`);
+      var scoreEl = document.getElementById(`quiz-score-label`);
+      var qEl = document.getElementById(`quiz-question`);
+      var optsEl = document.getElementById(`quiz-options`);
+      var fbEl = document.getElementById(`quiz-feedback`);
+      var nextBtn = document.getElementById(`btn-quiz-next`);
+
+      if (progEl) progEl.textContent = `Pregunta ${idx + 1} de ${QUIZ_QUESTIONS.length}`;
+      if (scoreEl) scoreEl.textContent = `Aciertos: ${countQuizCorrect()} / ${QUIZ_QUESTIONS.length}`;
+      if (qEl) qEl.textContent = q.question;
+
+      if (optsEl) {
+        var html = ``;
+        for (var i = 0; i < q.options.length; i++) {
+          var cls = `quiz-option`;
+          if (isAnswered) {
+            if (i === q.correct) cls += ` is-correct`;
+            else if (i === chosen) cls += ` is-wrong`;
+          }
+          html += `<button type="button" class="${cls}" ${isAnswered ? `disabled` : ``} onclick="answerQuizQuestion(${i})">${escapeHtml(q.options[i])}</button>`;
+        }
+        optsEl.innerHTML = html;
+      }
+
+      if (fbEl) {
+        if (isAnswered) {
+          var ok = chosen === q.correct;
+          fbEl.className = `feedback-banner ` + (ok ? `is-ok` : `is-err`);
+          fbEl.textContent = (ok ? `` : `Respuesta incorrecta. `) + q.explanation;
+          fbEl.style.display = `block`;
+        } else {
+          fbEl.style.display = `none`;
+        }
+      }
+
+      if (nextBtn) {
+        nextBtn.disabled = !isAnswered;
+        nextBtn.textContent = idx === QUIZ_QUESTIONS.length - 1 ? `Volver a la pregunta 1` : `Siguiente pregunta`;
+      }
+    }
+
+    function answerQuizQuestion(optionIdx) {
+      var idx = appState.quizIndex;
+      if (typeof appState.quizAnswers[idx] === `number`) return;
+      appState.quizAnswers[idx] = optionIdx;
+      renderQuiz();
+      persistState();
+    }
+
+    function nextQuizQuestion() {
+      appState.quizIndex = (appState.quizIndex + 1) % QUIZ_QUESTIONS.length;
+      renderQuiz();
+      persistState();
+    }
+
+    function resetQuizInline(btn) {
+      if (btn && btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Pulsa de nuevo para reiniciar`;
+        return;
+      }
+      if (btn) {
+        btn.dataset.armed = `false`;
+        btn.textContent = `Reiniciar test`;
+      }
+      appState.quizIndex = 0;
+      appState.quizAnswers = {};
+      renderQuiz();
+      persistState();
+    }
+
+    /* =========================================================================
+       TIMELINE & FAQ
+       ========================================================================= */
+
+    function filterTimeline(eraVal) {
+      appState.timelineEra = eraVal || `todas`;
+      renderTimeline();
+      persistState();
+    }
+
+    function renderTimeline() {
+      var tbody = document.getElementById(`timeline-tbody`);
+      if (!tbody) return;
+
+      var html = ``;
+      for (var i = 0; i < TIMELINE_EVENTS.length; i++) {
+        var ev = TIMELINE_EVENTS[i];
+        if (appState.timelineEra !== `todas` && ev.era !== appState.timelineEra) continue;
+        html += `<tr>`;
+        html += `<td class="num-cell">${escapeHtml(ev.year)}</td>`;
+        html += `<td>${escapeHtml(ev.text)}</td>`;
+        html += `</tr>`;
+      }
+      tbody.innerHTML = html;
+    }
+
+    function toggleFaq(btn) {
+      if (!btn) return;
+      var panelId = btn.getAttribute(`aria-controls`);
+      var panel = panelId ? document.getElementById(panelId) : null;
+      var expanded = btn.getAttribute(`aria-expanded`) === `true`;
+      btn.setAttribute(`aria-expanded`, expanded ? `false` : `true`);
+      if (panel) panel.hidden = expanded;
+    }
+
+    function resetAllSessionState(btn) {
+      if (btn && btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirmar borrado`;
+        return;
+      }
+      if (btn) {
+        btn.dataset.armed = `false`;
+        btn.textContent = `Borrar progreso guardado`;
+      }
+      appState.selectedNum = 1;
+      appState.themeFilter = `todos`;
+      appState.searchQuery = ``;
+      appState.onlySaved = false;
+      appState.savedNums = [];
+      appState.notes = {};
+      appState.quizIndex = 0;
+      appState.quizAnswers = {};
+      appState.anatomyPole = `forma`;
+      appState.timelineEra = `todas`;
+
+      var searchInput = document.getElementById(`search-input`);
+      var themeSelect = document.getElementById(`theme-select`);
+      var eraSelect = document.getElementById(`era-filter`);
+      if (searchInput) searchInput.value = ``;
+      if (themeSelect) themeSelect.value = `todos`;
+      if (eraSelect) eraSelect.value = `todas`;
+
+      updateSavedFilterButton();
+      selectAnatomyPole(`forma`, true);
+      renderThemeDistributionSvg();
+      renderAphorismList();
+      renderDetailPane();
+      renderQuiz();
+      renderTimeline();
+      persistState();
+
+      var statusEl = document.getElementById(`global-status`);
+      if (statusEl) statusEl.textContent = `Progreso de la sesión restablecido.`;
+    }
+
+    /* =========================================================================
+       UTILITIES & OBSERVERS
+       ========================================================================= */
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, `&amp;`)
+        .replace(/</g, `&lt;`)
+        .replace(/>/g, `&gt;`)
+        .replace(/"/g, `&quot;`);
+    }
+
+    function setupScrollObserver() {
+      if (!(`IntersectionObserver` in window)) return;
+      var sections = document.querySelectorAll(`.reveal-section`);
+      var observer = new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            entries[i].target.style.opacity = `1`;
+            entries[i].target.style.transform = `translateY(0)`;
+            observer.unobserve(entries[i].target);
+          }
+        }
+      }, { threshold: 0.1 });
+
+      for (var j = 0; j < sections.length; j++) {
+        observer.observe(sections[j]);
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>
