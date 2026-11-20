@@ -1,0 +1,2247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>Ciencia de la Lógica — G.W.F. Hegel · Explorador Dialéctico</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Broadsheet tokens */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      --primary: #990f3d;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* 3. Shared tokens */
+      --positive: #0d7680;
+      --warning: #9a6312;
+      --focus: #990f3d;
+
+      --display-size: clamp(2.35rem, 1.4rem + 3.6vw, 4.1rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.8vw, 2.45rem);
+      --subhead-size: clamp(1.2rem, 1.08rem + 0.5vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.25vw, 1.15rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
+
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      font-optical-sizing: auto;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      margin: 0;
+      color: var(--on-surface);
+    }
+    h1 {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+    }
+    h2 {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.18;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 66ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .lede {
+      font-family: var(--font-body);
+      font-size: clamp(1.15rem, 1.05rem + 0.45vw, 1.35rem);
+      line-height: 1.48;
+      color: var(--on-surface-variant);
+      max-width: 60ch;
+      margin-top: var(--space-md);
+    }
+
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+    }
+
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    .pull-quote {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem);
+      line-height: 1.38;
+      color: var(--on-surface);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+      margin-block: var(--space-lg);
+      max-width: 58ch;
+    }
+    .pull-quote cite {
+      display: block;
+      margin-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+
+    /* Masthead */
+    .masthead-line {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+    .masthead-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-lg);
+      padding-top: var(--space-md);
+      margin-top: var(--space-lg);
+      border-top: var(--rule-column);
+    }
+    .nav-link {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-block: var(--space-xs);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:hover {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* Ruled columns */
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+    }
+    .columns > * {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .columns > :last-child {
+      padding-right: 0;
+    }
+
+    .kpi-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .kpi-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.75rem, 1.4rem + 1vw, 2.35rem);
+      line-height: 1.05;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+    }
+    .kpi-note {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--secondary);
+      margin-top: var(--space-xs);
+      display: block;
+    }
+
+    /* Sections */
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .section-header {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    /* Two-column editorial split */
+    .editorial-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .editorial-split--equal {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    /* Interactive surfaces */
+    .desk-panel {
+      background: var(--surface-container-low);
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg);
+    }
+    .desk-panel--plain {
+      background: transparent;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-radius: var(--rounded);
+      min-height: 44px;
+      padding: 0 var(--space-md);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      border: 1px solid var(--outline);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      text-decoration: none;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover:not(:disabled) {
+      background: var(--surface-container-high);
+    }
+    .btn:active:not(:disabled) {
+      background: var(--surface-container);
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+    }
+    .btn-tab {
+      background: transparent;
+      border: 1px solid var(--outline-variant);
+      color: var(--on-surface-variant);
+    }
+    .btn-tab:hover:not(:disabled) {
+      border-color: var(--outline);
+      color: var(--on-surface);
+      background: var(--surface-container-low);
+    }
+    .btn-tab[aria-pressed="true"],
+    .btn-tab.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: end;
+    }
+
+    /* Architectural Map Module */
+    .map-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .tree-columns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+    }
+    .tree-col {
+      border-left: var(--rule-column);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .tree-col:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .tree-col:last-child {
+      padding-right: 0;
+    }
+    .tree-col-head {
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--rule-column);
+      margin-bottom: var(--space-xs);
+    }
+    .node-btn {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 1px solid transparent;
+      border-bottom: 1px solid var(--outline-variant);
+      padding: var(--space-sm);
+      min-height: 44px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      line-height: 1.3;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .node-btn:hover {
+      background: var(--surface-container-low);
+    }
+    .node-btn[aria-pressed="true"] {
+      background: var(--primary-container);
+      border-color: var(--primary);
+      color: var(--on-primary-container);
+    }
+    .node-btn .node-step {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+    .node-btn[aria-pressed="true"] .node-step {
+      color: var(--primary);
+    }
+
+    .inspector-box {
+      background: var(--surface-container-low);
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .inspector-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--rule-column);
+    }
+    .inspector-transitions {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-sm);
+      padding-top: var(--space-sm);
+      border-top: var(--rule-column);
+    }
+
+    /* Key points list */
+    .key-points {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0;
+      border-top: var(--rule-ink);
+    }
+    .key-points li {
+      padding: var(--space-md) 0;
+      border-bottom: var(--rule-column);
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: baseline;
+    }
+    .kp-num {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* SVG Diagram Frames */
+    .diagram-frame {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+      background: var(--background);
+    }
+    .diagram-frame svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .diagram-caption {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      margin-top: var(--space-sm);
+    }
+
+    /* Slider & Input */
+    .control-field {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .control-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      cursor: pointer;
+      min-height: 44px;
+    }
+    input[type="number"] {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: var(--space-sm);
+      border: 1px solid var(--outline);
+      background: var(--background);
+      color: var(--on-surface);
+      border-radius: var(--rounded);
+      min-height: 44px;
+      width: 100px;
+    }
+    input[type="number"]:focus {
+      border-color: var(--primary);
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      width: 100%;
+    }
+    table.broadsheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-section);
+      text-align: left;
+    }
+    table.broadsheet-table th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--rule-ink);
+      vertical-align: bottom;
+    }
+    table.broadsheet-table td {
+      padding: var(--space-md);
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+    table.broadsheet-table tr:last-child td {
+      border-bottom: 0;
+    }
+    table.broadsheet-table tr.is-highlighted {
+      background: var(--primary-container);
+    }
+    table.broadsheet-table th:first-child,
+    table.broadsheet-table td:first-child {
+      padding-left: 0;
+      font-weight: 600;
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      border-top: var(--rule-ink);
+      display: grid;
+    }
+    .faq-item {
+      border-bottom: var(--rule-column);
+    }
+    .faq-trigger {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      padding: var(--space-md) 0;
+      min-height: 48px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.12rem;
+      color: var(--on-surface);
+    }
+    .faq-trigger:hover {
+      color: var(--primary);
+    }
+    .faq-marker {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+    .faq-panel {
+      padding-bottom: var(--space-md);
+      color: var(--on-surface-variant);
+      max-width: 68ch;
+    }
+    .faq-panel[hidden] {
+      display: none;
+    }
+
+    /* Verification mini-quiz */
+    .quiz-box {
+      background: var(--surface-container-low);
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .quiz-option {
+      text-align: left;
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--background);
+      border: 1px solid var(--outline-variant);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      cursor: pointer;
+      transition: border-color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      border-color: var(--outline);
+    }
+    .quiz-option.is-correct {
+      border-color: var(--positive);
+      background: var(--background);
+      outline: 2px solid var(--positive);
+    }
+    .quiz-option.is-wrong {
+      border-color: var(--error);
+      background: var(--primary-container);
+    }
+
+    /* Readouts */
+    .readout-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-sm);
+    }
+    .readout-cell {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-md);
+    }
+    .readout-cell:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    /* Footer */
+    .edition-footer {
+      border-top: var(--rule-masthead);
+      padding-block: var(--space-lg) var(--space-2xl);
+      display: grid;
+      gap: var(--space-md);
+      color: var(--on-surface-variant);
+      font-size: 0.95rem;
+    }
+
+    /* Reveal animation */
+    .reveal-section {
+      opacity: 1;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .map-layout,
+      .editorial-split,
+      .editorial-split--equal {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .tree-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .tree-col {
+        border-left: 0;
+        border-top: var(--rule-ink);
+        padding: var(--space-md) 0;
+      }
+      .tree-col:first-child {
+        border-top: 0;
+      }
+      .columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-md) 0;
+      }
+      .columns > :nth-child(odd) {
+        border-left: 0;
+        padding-left: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .columns,
+      .readout-grid,
+      .inspector-transitions {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .columns > *,
+      .readout-cell {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-sm) 0;
+      }
+      .columns > :first-child,
+      .readout-cell:first-child {
+        border-top: 0;
+      }
+      .masthead-nav {
+        gap: var(--space-xs) var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- MASTHEAD -->
+    <header class="masthead">
+      <div class="masthead-line">
+        <span>CIENCIA DE LA LÓGICA · WISSENSCHAFT DER LOGIK (VOLS. I Y II)</span>
+        <span>GEORG WILHELM FRIEDRICH HEGEL · EDICIÓN INTERACTIVA</span>
+      </div>
+      <div style="margin-top: var(--space-lg);">
+        <span class="tag">LÓGICA ESPECULATIVA · METAFÍSICA DEL PENSAR PURO</span>
+        <h1 style="margin-top: var(--space-xs);">La arquitectura dialéctica de la Ciencia de la Lógica</h1>
+        <p class="lede">
+          Un recorrido hipermedial por la obra central de G. W. F. Hegel. A diferencia de la lógica formal tradicional —que trata los conceptos como moldes vacíos—, aquí el pensamiento y el ser se despliegan juntos desde la indeterminación del Ser puro hasta la totalidad concreta de la Idea Absoluta.
+        </p>
+      </div>
+      <nav class="masthead-nav" aria-label="Navegación filosófica principal">
+        <a class="nav-link" href="#mapa-logica">01 · Esquema General</a>
+        <a class="nav-link" href="#doctrina-ser">02 · Doctrina del Ser</a>
+        <a class="nav-link" href="#doctrina-esencia">03 · Doctrina de la Esencia</a>
+        <a class="nav-link" href="#doctrina-concepto">04 · Doctrina del Concepto</a>
+        <a class="nav-link" href="#cuadros-comparativos">05 · Cuadros Comparativos</a>
+        <a class="nav-link" href="#preguntas-frecuentes">06 · Preguntas y Síntesis</a>
+      </nav>
+    </header>
+
+    <!-- KEY METRICS / STRUCTURAL OVERVIEW -->
+    <section aria-label="Panorama estructural de la obra">
+      <div class="columns">
+        <div>
+          <span class="kpi-label">Grandes Esferas</span>
+          <span class="kpi-value">02</span>
+          <span class="kpi-note">Lógica Objetiva y Subjetiva</span>
+        </div>
+        <div>
+          <span class="kpi-label">Libros Doctrinales</span>
+          <span class="kpi-value">03</span>
+          <span class="kpi-note">Ser · Esencia · Concepto</span>
+        </div>
+        <div>
+          <span class="kpi-label">Grados del Juicio</span>
+          <span class="kpi-value">04</span>
+          <span class="kpi-note">Existencia a Concepto</span>
+        </div>
+        <div>
+          <span class="kpi-label">Motor Especulativo</span>
+          <span class="kpi-value">01</span>
+          <span class="kpi-note">Contradicción y Retorno en Sí</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: ARCHITECTURAL MAP & SYSTEM CONTEXT -->
+    <section id="mapa-logica" class="section-open">
+      <div class="section-header">
+        <span class="section-label">I · Panorama del Sistema y Navegación Filosófica</span>
+        <h2>Más allá de la lógica formal: la historia objetiva del espíritu puro</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            En el sistema hegeliano, la <em>Fenomenología del Espíritu</em> reconstruye la historia subjetiva del saber —la gnoseología— hasta alcanzar la ciencia del espíritu puro. Allí comienza la <em>Ciencia de la Lógica</em>, que contiene la metafísica misma: no reglas mecánicas comparables a «palitos de desigual longitud», sino las determinaciones objetivas que constituyen la naturaleza de las cosas.
+          </p>
+          <p>
+            Por ello, Hegel sustituye la antigua ontología por la <strong>Lógica Objetiva</strong> (<em>Doctrina del Ser</em> y <em>Doctrina de la Esencia</em>) y culmina en la <strong>Lógica Subjetiva</strong> (<em>Doctrina del Concepto</em>), preparando el tránsito hacia la Filosofía de la Naturaleza y la Filosofía del Espíritu expuestas en la <em>Enciclopedia de las ciencias filosóficas</em>.
+          </p>
+        </div>
+        <div>
+          <ul class="key-points">
+            <li>
+              <span class="kp-num">01</span>
+              <div><strong>Lógica Objetiva (Vol. I y parte del Vol. II):</strong> Investiga el ente en general en su inmediatez (<em>Ser</em>, <em>Sein</em>) y en su mediación interior (<em>Esencia</em>, <em>Wesen</em>), liberando las categorías de substratos meramente representativos como alma, universo o Dios.</div>
+            </li>
+            <li>
+              <span class="kp-num">02</span>
+              <div><strong>Lógica Subjetiva (Vol. II, Libro III):</strong> Expone el <em>Concepto</em> libre e independiente, que ya no es exterior a sus determinaciones sino el sujeto mismo que se autodetermina mediante Juicio, Silogismo, Objetividad e Idea.</div>
+            </li>
+            <li>
+              <span class="kp-num">03</span>
+              <div><strong>Crítica a la «cosa en sí» kantiana:</strong> Concebir el pensamiento como un medio que separa al sujeto de la cosa vuelve a ésta una abstracción vacía e indeterminada; el concepto objetivo es la realidad misma de la cosa.</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE MODULE 1: PHILOSOPHICAL NAVIGATION SCHEMA -->
+      <div class="section-header" style="margin-top: var(--space-md);">
+        <span class="tag">Módulo Interactivo 01 · Navegador Arquitectónico</span>
+        <h3>Esquema explorable de las tres doctrinas y sus categorías</h3>
+        <p style="color: var(--on-surface-variant);">
+          Selecciona cualquier nodo en las tres columnas del sistema para inspeccionar su definición, su relación dialéctica y el impulso que lo hace pasar al momento siguiente.
+        </p>
+      </div>
+
+      <div class="map-layout">
+        <div>
+          <div class="tree-columns" role="region" aria-label="Árbol estructural de la Ciencia de la Lógica">
+            <!-- Col 1: Ser -->
+            <div class="tree-col">
+              <div class="tree-col-head">
+                <span class="section-label">Lógica Objetiva · Libro I</span>
+                <strong>Doctrina del Ser</strong>
+              </div>
+              <button type="button" class="node-btn" data-node="ser-puro" aria-pressed="true" onclick="selectNode('ser-puro')">
+                <span class="node-step">1.1 · Comienzo</span>
+                <span>Ser puro y Nada</span>
+              </button>
+              <button type="button" class="node-btn" data-node="devenir" aria-pressed="false" onclick="selectNode('devenir')">
+                <span class="node-step">1.2 · Cualidad</span>
+                <span>Devenir y Dasein</span>
+              </button>
+              <button type="button" class="node-btn" data-node="infinitud" aria-pressed="false" onclick="selectNode('infinitud')">
+                <span class="node-step">1.3 · Cualidad</span>
+                <span>Finito, Infinito y Ser-para-sí</span>
+              </button>
+              <button type="button" class="node-btn" data-node="cantidad" aria-pressed="false" onclick="selectNode('cantidad')">
+                <span class="node-step">2 · Cantidad</span>
+                <span>Cuanto, Grado e Infinitesimal</span>
+              </button>
+              <button type="button" class="node-btn" data-node="medida" aria-pressed="false" onclick="selectNode('medida')">
+                <span class="node-step">3 · Medida</span>
+                <span>Medida específica, real e Indiferencia</span>
+              </button>
+            </div>
+
+            <!-- Col 2: Esencia -->
+            <div class="tree-col">
+              <div class="tree-col-head">
+                <span class="section-label">Lógica Objetiva · Libro II</span>
+                <strong>Doctrina de la Esencia</strong>
+              </div>
+              <button type="button" class="node-btn" data-node="reflexion" aria-pressed="false" onclick="selectNode('reflexion')">
+                <span class="node-step">1.1 · Reflexión</span>
+                <span>Apariencia y Reflexión en sí</span>
+              </button>
+              <button type="button" class="node-btn" data-node="contradiccion" aria-pressed="false" onclick="selectNode('contradiccion')">
+                <span class="node-step">1.2 · Esencialidades</span>
+                <span>Identidad, Diferencia y Contradicción</span>
+              </button>
+              <button type="button" class="node-btn" data-node="fundamento" aria-pressed="false" onclick="selectNode('fundamento')">
+                <span class="node-step">1.3 · Fundamento</span>
+                <span>Fundamento formal, real y condición</span>
+              </button>
+              <button type="button" class="node-btn" data-node="fenomeno" aria-pressed="false" onclick="selectNode('fenomeno')">
+                <span class="node-step">2 · Existencia</span>
+                <span>Existencia y Ley del Fenómeno</span>
+              </button>
+              <button type="button" class="node-btn" data-node="realidad" aria-pressed="false" onclick="selectNode('realidad')">
+                <span class="node-step">3 · Realidad Efectiva</span>
+                <span>Sustancia, Causalidad y Reciprocidad</span>
+              </button>
+            </div>
+
+            <!-- Col 3: Concepto -->
+            <div class="tree-col">
+              <div class="tree-col-head">
+                <span class="section-label">Lógica Subjetiva · Libro III</span>
+                <strong>Doctrina del Concepto</strong>
+              </div>
+              <button type="button" class="node-btn" data-node="concepto-puro" aria-pressed="false" onclick="selectNode('concepto-puro')">
+                <span class="node-step">1.1 · Subjetividad</span>
+                <span>Universal, Particular e Individual</span>
+              </button>
+              <button type="button" class="node-btn" data-node="juicio" aria-pressed="false" onclick="selectNode('juicio')">
+                <span class="node-step">1.2 · Subjetividad</span>
+                <span>Los cuatro grados del Juicio</span>
+              </button>
+              <button type="button" class="node-btn" data-node="silogismo" aria-pressed="false" onclick="selectNode('silogismo')">
+                <span class="node-step">1.3 · Subjetividad</span>
+                <span>El Silogismo mediador</span>
+              </button>
+              <button type="button" class="node-btn" data-node="objetividad" aria-pressed="false" onclick="selectNode('objetividad')">
+                <span class="node-step">2 · Objetividad</span>
+                <span>Mecanismo, Quimismo y Teleología</span>
+              </button>
+              <button type="button" class="node-btn" data-node="idea-absoluta" aria-pressed="false" onclick="selectNode('idea-absoluta')">
+                <span class="node-step">3 · La Idea</span>
+                <span>Idea del Conocer e Idea Absoluta</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inspector -->
+        <aside class="inspector-box" aria-live="polite" aria-label="Detalle de la categoría seleccionada">
+          <div class="inspector-meta">
+            <span id="insp-sphere" class="section-label" style="margin-bottom:0;">Lógica Objetiva · Doctrina del Ser</span>
+            <span id="insp-index" class="tag">Nodo 01 / 15</span>
+          </div>
+          <h3 id="insp-title">Ser puro y Nada</h3>
+          <p id="insp-desc">
+            El comienzo de la ciencia debe ser absolutamente vacío, pura inmediación sin relación interior ni contenido. Al carecer de toda determinación, el Ser puro es idéntico a la Nada pura.
+          </p>
+          <div>
+            <span class="kpi-label">Impulso del Tránsito Dialéctico</span>
+            <p id="insp-motor" style="font-size: 0.96rem; color: var(--on-surface-variant);">
+              Su indistinción encierra una diferencia absoluta: cada uno desaparece inmediatamente en su opuesto, revelando su verdad en el Devenir.
+            </p>
+          </div>
+          <div class="inspector-transitions">
+            <div>
+              <span class="kpi-label">Precedente</span>
+              <span id="insp-prev-label" style="font-size:0.92rem; color: var(--on-surface-variant);">Comienzo sin presupuestos</span>
+            </div>
+            <div>
+              <span class="kpi-label">Superación (Hacia)</span>
+              <span id="insp-next-label" style="font-size:0.92rem; font-weight: 600;">Devenir y Dasein</span>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn" id="btn-prev-node" onclick="stepNode(-1)">Anterior</button>
+            <button type="button" class="btn btn-primary" id="btn-next-node" onclick="stepNode(1)">Siguiente tránsito</button>
+            <a id="insp-jump-link" class="btn" href="#doctrina-ser">Ir al laboratorio</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECTION 2: DOCTRINE OF BEING -->
+    <section id="doctrina-ser" class="section-open">
+      <div class="section-header">
+        <span class="section-label">II · Lógica Objetiva — Libro Primero</span>
+        <h2>Doctrina del Ser: del Ser vacío al salto cualitativo de la Medida</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <h3>1. Comienzo, Ser, Nada y Devenir</h3>
+          <p>
+            ¿Cuál debe ser el comienzo de la ciencia? Hegel descarta partir de algo concreto —que ya presupone una mediación interior— para comenzar con la simple inmediación sin contenido: el <strong>Ser puro</strong>. Pero un ser vacío de toda determinación no es nada determinable; es igual a la <strong>Nada pura</strong>.
+          </p>
+          <p>
+            Sin embargo, la verdad no es su indistinción inerte, sino el movimiento inmediato en que cada uno desaparece en su opuesto: el <strong>Devenir</strong> (<em>nacer</em> y <em>perecer</em>). Esta inquietud se recoge en reposo y se vuelve <strong>Ser determinado</strong> o existencia (<em>Dasein</em>), donde aparece la <em>Cualidad</em> como límite y negación («toda determinación es negación», según Spinoza).
+          </p>
+          <blockquote class="pull-quote">
+            «El puro ser y la pura nada son por lo tanto la misma cosa. Su verdad consiste en este movimiento del inmediato desaparecer de uno en otro: el devenir.»
+            <cite>Ciencia de la Lógica · Vol. 1, Doctrina del Ser</cite>
+          </blockquote>
+        </div>
+
+        <!-- INTERACTIVE MODULE 2: DEVENIR & INFINITUD SIMULATOR -->
+        <div class="desk-panel">
+          <span class="section-label">Módulo Interactivo 02 · Simulador de la Tríada Inicial</span>
+          <h3 style="margin-bottom: var(--space-sm);">El movimiento del Devenir y la Infinitud Afirmativa</h3>
+          <div class="btn-row" style="margin-bottom: var(--space-md);">
+            <button type="button" class="btn btn-tab is-active" id="being-step-1" aria-pressed="true" onclick="setBeingPhase(1)">1. Ser Puro</button>
+            <button type="button" class="btn btn-tab" id="being-step-2" aria-pressed="false" onclick="setBeingPhase(2)">2. Nada Pura</button>
+            <button type="button" class="btn btn-tab" id="being-step-3" aria-pressed="false" onclick="setBeingPhase(3)">3. Devenir → Dasein</button>
+            <button type="button" class="btn btn-tab" id="being-step-4" aria-pressed="false" onclick="setBeingPhase(4)">4. Infinito Verdadero</button>
+          </div>
+
+          <div class="diagram-frame">
+            <svg id="svg-being" viewBox="0 0 600 210" role="img" aria-label="Diagrama dialéctico del Ser, la Nada, el Devenir y la Infinitud">
+              <!-- Ser node -->
+              <rect id="svg-ser-box" x="24" y="42" width="146" height="68" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2"></rect>
+              <text x="97" y="72" text-anchor="middle" font-family="Bitter, serif" font-weight="700" font-size="16" fill="var(--on-surface)">SER PURO</text>
+              <text x="97" y="93" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="600" font-size="12" fill="var(--on-surface-variant)">Inmediatez vacía</text>
+
+              <!-- Nada node -->
+              <rect id="svg-nada-box" x="430" y="42" width="146" height="68" fill="var(--background)" stroke="var(--outline-variant)" stroke-width="1.5"></rect>
+              <text x="503" y="72" text-anchor="middle" font-family="Bitter, serif" font-weight="700" font-size="16" fill="var(--on-surface)">NADA PURA</text>
+              <text x="503" y="93" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="600" font-size="12" fill="var(--on-surface-variant)">Ausencia absoluta</text>
+
+              <!-- Bidirectional arrows -->
+              <path id="svg-arrow-sn" d="M 176 62 L 422 62" stroke="var(--outline-variant)" stroke-width="2" fill="none"></path>
+              <polygon id="svg-head-sn" points="422,62 412,56 412,68" fill="var(--outline-variant)"></polygon>
+              <text x="300" y="52" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="700" font-size="11" fill="var(--on-surface-variant)">PERECER (TRASPASO INMEDIATO)</text>
+
+              <path id="svg-arrow-ns" d="M 424 90 L 178 90" stroke="var(--outline-variant)" stroke-width="2" fill="none"></path>
+              <polygon id="svg-head-ns" points="178,90 188,84 188,96" fill="var(--outline-variant)"></polygon>
+              <text x="300" y="109" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="700" font-size="11" fill="var(--on-surface-variant)">NACER (RETORNO INMEDIATO)</text>
+
+              <!-- Synthesis box -->
+              <rect id="svg-dev-box" x="195" y="132" width="210" height="62" fill="var(--background)" stroke="var(--outline-variant)" stroke-width="1.5"></rect>
+              <text id="svg-dev-title" x="300" y="159" text-anchor="middle" font-family="Bitter, serif" font-weight="700" font-size="15" fill="var(--on-surface)">DEVENIR → DASEIN</text>
+              <text id="svg-dev-sub" x="300" y="180" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="600" font-size="12" fill="var(--on-surface-variant)">Unidad inquieta en reposo</text>
+            </svg>
+          </div>
+
+          <div style="margin-top: var(--space-md);">
+            <h4 id="being-phase-title" style="font-family: var(--font-headline); font-weight: 700; margin-bottom: var(--space-xs);">Fase 1: El Ser puro como comienzo sin contenido</h4>
+            <p id="being-phase-text" style="font-size: 0.98rem;">
+              Tomado en su simple inmediación no llenada de contenido, el Ser puro carece de toda relación interior o exterior. Precisamente por estar absolutamente vacío de determinaciones, no hay nada que intuir ni pensar en él: resulta idéntico a la Nada.
+            </p>
+          </div>
+          <div class="btn-row" style="margin-top: var(--space-sm);">
+            <button type="button" class="btn btn-primary" onclick="advanceBeingPhase()">Avanzar al siguiente momento</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBSECTION 2: QUALITY, QUANTITY, MEASURE -->
+      <div class="editorial-split" style="margin-top: var(--space-md); padding-top: var(--space-lg); border-top: var(--rule-ink);">
+        <div>
+          <h3>2. De la Cualidad y el Cuanto a la Medida</h3>
+          <p>
+            Al superar la finitud mediante la <strong>negación de la negación</strong> (el infinito verdadero) y reunir repulsión y atracción en el <em>Ser-para-sí</em>, la cualidad se vuelve indiferente a sí misma: surge la <strong>Cantidad</strong> y el <strong>Cuanto</strong> (magnitud extensiva e intensiva o <em>grado</em>).
+          </p>
+          <p>
+            Aunque el cuanto parece variar de forma meramente gradual —como en la ilusión del cálculo mecánico o de los cambios imperceptibles—, Hegel demuestra el <em>doble traspaso</em>: en la <strong>Medida</strong>, cualidad y cantidad quedan unificadas. Todo ser existente posee una medida que limita hasta dónde puede variar su cuanto sin destruir su cualidad.
+          </p>
+          <p>
+            Al extremarse la relación de medidas independientes (peso específico, relaciones armónicas del sonido, afinidad entre ácidos y álcalis), la medida se hunde en la <strong>Indiferencia absoluta</strong>, dando nacimiento a la esfera de la <strong>Esencia</strong>.
+          </p>
+        </div>
+
+        <!-- INTERACTIVE MODULE 3: MEASURE EXPLORER -->
+        <div class="desk-panel--plain">
+          <span class="tag">Módulo Interactivo 03 · Laboratorio de la Medida</span>
+          <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">Gradualidad del Cuanto vs. Salto Cualitativo</h3>
+
+          <div class="btn-row" style="margin-bottom: var(--space-md);">
+            <button type="button" class="btn btn-tab is-active" id="measure-case-1" aria-pressed="true" onclick="selectMeasureCase(1)">Física: Caída y Órbita</button>
+            <button type="button" class="btn btn-tab" id="measure-case-2" aria-pressed="false" onclick="selectMeasureCase(2)">Materia: Peso Específico</button>
+            <button type="button" class="btn btn-tab" id="measure-case-3" aria-pressed="false" onclick="selectMeasureCase(3)">Química: Ácidos y Álcalis</button>
+          </div>
+
+          <div class="control-field" style="margin-bottom: var(--space-md);">
+            <label for="measure-slider" class="control-label">Variación del Cuanto indiferente (0 a 100 unidades de medida)</label>
+            <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-md); align-items: center;">
+              <input type="range" id="measure-slider" min="0" max="100" value="35" oninput="syncMeasureFromSlider(this.value)">
+              <input type="number" id="measure-number" min="0" max="100" value="35" aria-label="Valor numérico del cuanto" oninput="syncMeasureFromNumber(this.value)">
+            </div>
+          </div>
+
+          <div class="diagram-frame">
+            <svg id="svg-measure" viewBox="0 0 600 175" role="img" aria-label="Gráfico de umbral cualitativo en la Medida">
+              <!-- Gridlines -->
+              <line x1="40" y1="30" x2="570" y2="30" stroke="var(--outline-variant)" stroke-width="1"></line>
+              <line x1="40" y1="85" x2="570" y2="85" stroke="var(--outline-variant)" stroke-width="1"></line>
+              <line x1="40" y1="140" x2="570" y2="140" stroke="var(--outline)" stroke-width="1.5"></line>
+              <!-- Threshold line at x = 358 (60 units) -->
+              <line x1="358" y1="18" x2="358" y2="145" stroke="var(--primary)" stroke-width="1.5" stroke-dasharray="4 3"></line>
+              <text x="364" y="26" font-family="Source Sans 3, sans-serif" font-weight="700" font-size="11" fill="var(--primary)">LÍMITE DE MEDIDA (60)</text>
+
+              <!-- Step qualitative line -->
+              <polyline points="40,118 358,118 358,48 570,48" fill="none" stroke="var(--secondary)" stroke-width="2.5"></polyline>
+              <text x="50" y="109" font-family="Source Sans 3, sans-serif" font-weight="700" font-size="11" fill="var(--secondary)">CUALIDAD A (ESTABLE)</text>
+              <text x="410" y="39" font-family="Source Sans 3, sans-serif" font-weight="700" font-size="11" fill="var(--secondary)">CUALIDAD B (RUPTURA / NUEVA MEDIDA)</text>
+
+              <!-- Dynamic marker -->
+              <line id="svg-m-guide" x1="225" y1="20" x2="225" y2="140" stroke="var(--on-surface)" stroke-width="1.5"></line>
+              <circle id="svg-m-dot" cx="225" cy="118" r="6" fill="var(--primary)" stroke="var(--background)" stroke-width="2"></circle>
+
+              <!-- Axis labels -->
+              <text x="40" y="162" font-family="Source Sans 3, sans-serif" font-weight="600" font-size="11" fill="var(--on-surface-variant)">0</text>
+              <text x="358" y="162" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="700" font-size="11" fill="var(--on-surface)">60 (Punto nodal)</text>
+              <text x="570" y="162" text-anchor="end" font-family="Source Sans 3, sans-serif" font-weight="600" font-size="11" fill="var(--on-surface-variant)">100 (Más allá)</text>
+            </svg>
+          </div>
+
+          <div class="readout-grid" style="margin-top: var(--space-sm);">
+            <div class="readout-cell">
+              <span class="kpi-label">Cuanto Actual</span>
+              <strong id="measure-val-out" style="font-family: var(--font-headline); font-size: 1.25rem;">35</strong>
+            </div>
+            <div class="readout-cell">
+              <span class="kpi-label">Estado de Medida</span>
+              <strong id="measure-state-out" style="font-size: 0.98rem; color: var(--secondary);">Dentro del límite</strong>
+            </div>
+            <div class="readout-cell">
+              <span class="kpi-label">Relación Hegeliana</span>
+              <strong id="measure-formula-out" style="font-size: 0.98rem;">s = at² / s³ = at²</strong>
+            </div>
+          </div>
+
+          <p id="measure-case-desc" style="font-size: 0.96rem; margin-top: var(--space-md); color: var(--on-surface-variant);">
+            En la medida que especifica, espacio (extensivo) y tiempo (intensivo) no se vinculan en relación directa formal, sino potencial: la caída de los cuerpos sigue s = at² y el movimiento celeste s³ = at².
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: DOCTRINE OF ESSENCE -->
+    <section id="doctrina-esencia" class="section-open">
+      <div class="section-header">
+        <span class="section-label">III · Lógica Objetiva — Libro Segundo</span>
+        <h2>Doctrina de la Esencia: Reflexión, Contradicción y Realidad Efectiva</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            A diferencia del Ser —donde una determinación simplemente <em>traspasa</em> a otra—, la <strong>Esencia</strong> (<em>Wesen</em>) permanece dentro de su propia unidad negativa. Su movimiento es la <strong>Reflexión</strong>: un movimiento «de la nada hacia la nada» que vuelve sobre sí mismo y se manifiesta primero como <em>Apariencia</em> (<em>Schein</em>).
+          </p>
+          <p>
+            Al desarrollarse como determinaciones reflexivas o <em>esencialidades</em>, la Esencia revela el verdadero motor de lo real: la <strong>Contradicción</strong>. Lejos de ser una anomalía morbosa o un mero error subjetivo, la contradicción es el pulso interno de toda vitalidad. Lo viviente es precisamente aquello capaz de contener y sostener en sí su propia contradicción; lo que no la soporta, perece.
+          </p>
+          <blockquote class="pull-quote">
+            «Algo es viviente, sólo cuando contiene en sí la contradicción y justamente es esta fuerza de contener y sostener en sí la contradicción.»
+            <cite>Ciencia de la Lógica · Vol. 2, Doctrina de la Esencia</cite>
+          </blockquote>
+        </div>
+
+        <!-- INTERACTIVE MODULE 4: ESSENCE & CONTRADICTION LAB -->
+        <div class="desk-panel">
+          <span class="section-label">Módulo Interactivo 04 · Laboratorio de la Reflexión</span>
+          <h3 style="margin-bottom: var(--space-sm);">De la Identidad vacía al Fundamento y la Realidad Efectiva</h3>
+
+          <div class="btn-row" style="margin-bottom: var(--space-md);">
+            <button type="button" class="btn btn-tab is-active" id="ess-btn-1" aria-pressed="true" onclick="selectEssenceStage(1)">1. Identidad (A = A)</button>
+            <button type="button" class="btn btn-tab" id="ess-btn-2" aria-pressed="false" onclick="selectEssenceStage(2)">2. Oposición (+a / −a)</button>
+            <button type="button" class="btn btn-tab" id="ess-btn-3" aria-pressed="false" onclick="selectEssenceStage(3)">3. Contradicción</button>
+            <button type="button" class="btn btn-tab" id="ess-btn-4" aria-pressed="false" onclick="selectEssenceStage(4)">4. Fundamento → Realidad</button>
+          </div>
+
+          <div class="diagram-frame">
+            <svg id="svg-essence" viewBox="0 0 600 155" role="img" aria-label="Esquema visual de la reflexión en la Esencia">
+              <rect x="20" y="24" width="560" height="106" fill="var(--background)" stroke="var(--outline-variant)" stroke-width="1"></rect>
+              <g id="ess-viz-group"></g>
+            </svg>
+          </div>
+
+          <div style="margin-top: var(--space-md); display: grid; gap: var(--space-sm);">
+            <h4 id="ess-title" style="font-family: var(--font-headline); font-weight: 700;">1. La Identidad abstracta y su insuficiencia</h4>
+            <p id="ess-body" style="font-size: 0.98rem;">
+              El principio «A es A» («un árbol es un árbol») pretende fundarse en la experiencia inmediata, pero como mera referencia a sí misma carece de determinación y vitalidad. Ya al decir «A es…» la identidad supone una diferencia para poder afirmarse.
+            </p>
+            <div style="border-top: var(--rule-column); padding-top: var(--space-sm);">
+              <span class="kpi-label">Ejemplo de la fuente</span>
+              <p id="ess-example" style="font-size: 0.94rem; color: var(--on-surface-variant);">
+                «Un árbol es un árbol»: proposición que no precisa fundamento ni demostración, pero queda inmóvil hasta que la diferencia la pone en relación.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESSENCE TO ACTUALITY STEPS -->
+      <div class="columns" style="margin-top: var(--space-sm);">
+        <div>
+          <span class="kpi-label">Paso A · Fundamento</span>
+          <h3 style="margin-bottom: var(--space-xs);">Unidad eliminada y conservada</h3>
+          <p style="font-size: 0.95rem;">La contradicción solucionada se convierte en <strong>Fundamento</strong> (forma y materia, fundamento formal y real). Cuando todas las condiciones se reúnen, la cosa surge suprimiendo el propio fundamento.</p>
+        </div>
+        <div>
+          <span class="kpi-label">Paso B · Existencia</span>
+          <h3 style="margin-bottom: var(--space-xs);">Todo lo que es, existe</h3>
+          <p style="font-size: 0.95rem;">La esencia no queda oculta detrás de las cosas: traspasa íntegramente a la <strong>Existencia</strong> como su absoluta extrinsecación e inmediación reflejada.</p>
+        </div>
+        <div>
+          <span class="kpi-label">Paso C · Fenómeno</span>
+          <h3 style="margin-bottom: var(--space-xs);">La Ley en la apariencia</h3>
+          <p style="font-size: 0.95rem;">El fenómeno es unidad del parecer y la existencia. Su <strong>Ley</strong> no habita «más allá», sino en el alternarse mismo del mundo fenomenológico como lo que permanece igual.</p>
+        </div>
+        <div>
+          <span class="kpi-label">Paso D · Realidad Efectiva</span>
+          <h3 style="margin-bottom: var(--space-xs);">Causalidad y Acción Recíproca</h3>
+          <p style="font-size: 0.95rem;">Interior y exterior se compenetran en la <strong>Realidad</strong>. Causa activa y sustancia pasiva coinciden en la <em>acción recíproca</em>, completando la sustancia y abriendo la libertad del Concepto.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: DOCTRINE OF THE CONCEPT -->
+    <section id="doctrina-concepto" class="section-open">
+      <div class="section-header">
+        <span class="section-label">IV · Lógica Subjetiva — Libro Tercero</span>
+        <h2>Doctrina del Concepto: Juicio, Silogismo y la Idea Absoluta</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            Si en el Ser y la Esencia las determinaciones aún parecían atadas a la exterioridad o a la necesidad sustancial, el <strong>Concepto</strong> es lo absolutamente libre e incondicionado. Hegel advierte que para la lógica subjetiva ya existía un material «osificado» por la tradición; su tarea es devolverle fluidez y encender el concepto viviente mediante tres momentos inseparables: lo <strong>Universal</strong>, lo <strong>Particular</strong> y lo <strong>Individual</strong>, cada uno de los cuales es la totalidad misma.
+          </p>
+          <p>
+            En el <strong>Juicio</strong>, el concepto se divide originariamente entre un Sujeto (individual) y un Predicado (universal) unidos por la cópula «es». En el <strong>Silogismo</strong>, el término medio reúne esos extremos, haciendo posible pensar el mundo, el sistema solar o la sociedad humana como grandes silogismos.
+          </p>
+        </div>
+
+        <!-- INTERACTIVE MODULE 5: JUDGMENTS & SYLLOGISM -->
+        <div class="desk-panel">
+          <span class="section-label">Módulo Interactivo 05 · Anatomía del Juicio Hegeliano</span>
+          <h3 style="margin-bottom: var(--space-sm);">De la cualidad inmediata a la verdad del Concepto</h3>
+
+          <div class="btn-row" style="margin-bottom: var(--space-md);">
+            <button type="button" class="btn btn-tab is-active" id="j-btn-1" aria-pressed="true" onclick="selectJudgment(1)">1. Existencia</button>
+            <button type="button" class="btn btn-tab" id="j-btn-2" aria-pressed="false" onclick="selectJudgment(2)">2. Reflexión</button>
+            <button type="button" class="btn btn-tab" id="j-btn-3" aria-pressed="false" onclick="selectJudgment(3)">3. Necesidad</button>
+            <button type="button" class="btn btn-tab" id="j-btn-4" aria-pressed="false" onclick="selectJudgment(4)">4. Concepto</button>
+          </div>
+
+          <div class="readout-grid" style="background: var(--background); padding: var(--space-md);">
+            <div class="readout-cell">
+              <span class="kpi-label">Sujeto (Individual)</span>
+              <strong id="j-subj" style="font-family: var(--font-headline); font-size: 1.2rem;">Esta rosa</strong>
+            </div>
+            <div class="readout-cell">
+              <span class="kpi-label">Cópula</span>
+              <strong style="font-family: var(--font-headline); font-size: 1.2rem; color: var(--primary);">es</strong>
+            </div>
+            <div class="readout-cell">
+              <span class="kpi-label">Predicado (Universal)</span>
+              <strong id="j-pred" style="font-family: var(--font-headline); font-size: 1.2rem;">roja</strong>
+            </div>
+          </div>
+
+          <div style="margin-top: var(--space-md); display: grid; gap: var(--space-sm);">
+            <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap: var(--space-sm);">
+              <strong id="j-name">Juicio de Existencia</strong>
+              <span id="j-subtypes" class="tag" style="color: var(--primary);">Afirmativo · Negativo · Infinito</span>
+            </div>
+            <p id="j-desc" style="font-size: 0.96rem;">
+              Une débilmente un objeto concreto —que posee muchas otras cualidades— con una cualidad sensible inmediata que también pertenece a otros objetos.
+            </p>
+            <p id="j-transition" style="font-size: 0.92rem; color: var(--on-surface-variant); border-top: var(--rule-column); padding-top: var(--space-xs);">
+              Tránsito: Al superar lo puramente inmediato y conectar dos seres entre sí, el juicio pasa a ser Juicio de Reflexión.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- OBJECTIVITY & ABSOLUTE IDEA CIRCULAR DIAGRAM -->
+      <div class="editorial-split" style="margin-top: var(--space-md); padding-top: var(--space-lg); border-top: var(--rule-ink);">
+        <div>
+          <span class="tag">Culminación del Sistema · Del Silogismo a la Idea</span>
+          <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">Objetividad, Teleología e Idea Absoluta</h3>
+          <p>
+            Cuando el silogismo elimina la diferencia exterior entre el término medio y los extremos, la subjetividad traspasa a la <strong>Objetividad</strong>. Aquí el concepto recorre tres niveles: el <strong>Mecanismo</strong> (donde Hegel refuta la mónada cerrada sin influencia recíproca), el <strong>Quimismo</strong> (objetos en tensión y afinidad) y la <strong>Teleología</strong> (donde el fin subjetivo se realiza mediante un medio —como en una casa o un reloj— transformando la finalidad externa en interna).
+          </p>
+          <p>
+            Frente a la crítica kantiana de los «cien táleros» —que exige que el ser sea palpable con la mano en lugar de concebible por el espíritu—, Hegel muestra en la <strong>Idea</strong> (<em>Vida</em> y <em>Conocer</em>) la unidad efectiva de concepto y realidad. Finalmente, la <strong>Idea Absoluta</strong> es el método que se conoce a sí mismo y retorna al comienzo: el <strong>Ser</strong>, ahora convertido en <em>ser lleno y totalidad concreta</em>, que se liberta hacia la exterioridad del espacio y del tiempo (Naturaleza) para retornar en la Ciencia del Espíritu.
+          </p>
+        </div>
+
+        <div class="desk-panel--plain">
+          <span class="section-label">Esquema Circular del Método Absoluto</span>
+          <div class="diagram-frame">
+            <svg viewBox="0 0 560 270" role="img" aria-label="Círculo del método absoluto en Hegel: del Ser puro a la Esencia, el Concepto, la Idea Absoluta y el retorno al Ser lleno">
+              <!-- Outer circle path -->
+              <circle cx="280" cy="135" r="92" fill="none" stroke="var(--outline-variant)" stroke-width="2" stroke-dasharray="5 4"></circle>
+              <!-- Directional arcs -->
+              <path d="M 280 43 A 92 92 0 0 1 372 135" fill="none" stroke="var(--primary)" stroke-width="2.5"></path>
+              <path d="M 372 135 A 92 92 0 0 1 280 227" fill="none" stroke="var(--secondary)" stroke-width="2.5"></path>
+              <path d="M 280 227 A 92 92 0 0 1 188 135" fill="none" stroke="var(--tertiary)" stroke-width="2.5"></path>
+              <path d="M 188 135 A 92 92 0 0 1 280 43" fill="none" stroke="var(--outline)" stroke-width="2"></path>
+
+              <!-- Center -->
+              <text x="280" y="130" text-anchor="middle" font-family="Bitter, serif" font-weight="700" font-size="14" fill="var(--on-surface)">MÉTODO</text>
+              <text x="280" y="148" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="700" font-size="11" fill="var(--primary)">CÍRCULO DE TOTALIDAD</text>
+
+              <!-- Top: Ser Puro -> Ser Lleno -->
+              <rect x="200" y="12" width="160" height="44" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5"></rect>
+              <text x="280" y="31" text-anchor="middle" font-family="Bitter, serif" font-weight="700" font-size="13" fill="var(--on-surface)">1. SER PURO / LLENO</text>
+              <text x="280" y="47" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="600" font-size="11" fill="var(--on-surface-variant)">Inmediatez → Retorno</text>
+
+              <!-- Right: Esencia -->
+              <rect x="380" y="112" width="164" height="46" fill="var(--background)" stroke="var(--primary)" stroke-width="1.5"></rect>
+              <text x="462" y="132" text-anchor="middle" font-family="Bitter, serif" font-weight="700" font-size="13" fill="var(--on-surface)">2. ESENCIA</text>
+              <text x="462" y="148" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="600" font-size="11" fill="var(--on-surface-variant)">Reflexión y Contradicción</text>
+
+              <!-- Bottom: Concepto -->
+              <rect x="195" y="212" width="170" height="46" fill="var(--background)" stroke="var(--secondary)" stroke-width="1.5"></rect>
+              <text x="280" y="232" text-anchor="middle" font-family="Bitter, serif" font-weight="700" font-size="13" fill="var(--on-surface)">3. CONCEPTO</text>
+              <text x="280" y="248" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="600" font-size="11" fill="var(--on-surface-variant)">Juicio, Silogismo, Objeto</text>
+
+              <!-- Left: Idea Absoluta -->
+              <rect x="16" y="112" width="164" height="46" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="1.5"></rect>
+              <text x="98" y="132" text-anchor="middle" font-family="Bitter, serif" font-weight="700" font-size="13" fill="var(--on-primary-container)">4. IDEA ABSOLUTA</text>
+              <text x="98" y="148" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="600" font-size="11" fill="var(--on-primary-container)">Libertad → Naturaleza</text>
+            </svg>
+          </div>
+          <p class="diagram-caption">
+            Al llegar a la Idea Absoluta, el método lógico supera su subjetividad: comprende su propio concepto y se libera como exterioridad del espacio y del tiempo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: COMPARATIVE TABLES -->
+    <section id="cuadros-comparativos" class="section-open">
+      <div class="section-header">
+        <span class="section-label">V · Cuadros Comparativos de Categorías</span>
+        <h2>Contraste sistemático de formas lógicas y doctrinas</h2>
+        <div class="btn-row" style="margin-top: var(--space-xs);">
+          <button type="button" class="btn btn-tab is-active" id="tbl-filter-all" aria-pressed="true" onclick="highlightTableRow('all')">Vista completa</button>
+          <button type="button" class="btn btn-tab" id="tbl-filter-ser" aria-pressed="false" onclick="highlightTableRow('ser')">Resaltar Doctrina del Ser</button>
+          <button type="button" class="btn btn-tab" id="tbl-filter-esencia" aria-pressed="false" onclick="highlightTableRow('esencia')">Resaltar Doctrina de la Esencia</button>
+          <button type="button" class="btn btn-tab" id="tbl-filter-concepto" aria-pressed="false" onclick="highlightTableRow('concepto')">Resaltar Doctrina del Concepto</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="broadsheet-table" aria-label="Comparativa de las tres doctrinas de la Ciencia de la Lógica">
+          <thead>
+            <tr>
+              <th>Doctrina</th>
+              <th>División General</th>
+              <th>Forma del Movimiento</th>
+              <th>Categorías Nucleares</th>
+              <th>Culminación y Tránsito</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="row-ser">
+              <td>Doctrina del Ser (Vol. 1)</td>
+              <td>Lógica Objetiva · Libro I</td>
+              <td>Traspaso inmediato de una determinación a su otro</td>
+              <td>Ser puro, Nada, Devenir, Cualidad, Cuanto, Grado, Medida</td>
+              <td>Indiferencia absoluta → pasa a la Esencia</td>
+            </tr>
+            <tr id="row-esencia">
+              <td>Doctrina de la Esencia (Vol. 2)</td>
+              <td>Lógica Objetiva · Libro II</td>
+              <td>Reflexión en sí mismo; aparecer en el otro</td>
+              <td>Apariencia, Identidad, Diferencia, Contradicción, Fundamento, Fenómeno</td>
+              <td>Acción recíproca → se libera en el Concepto</td>
+            </tr>
+            <tr id="row-concepto">
+              <td>Doctrina del Concepto (Vol. 2)</td>
+              <td>Lógica Subjetiva · Libro III</td>
+              <td>Autodeterminación libre y desarrollo de la totalidad</td>
+              <td>Universal/Particular/Individual, Juicio, Silogismo, Teleología, Idea</td>
+              <td>Idea Absoluta → retorno al Ser lleno y Naturaleza</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top: var(--space-md);">
+        <h3 style="margin-bottom: var(--space-sm);">Lógica Formal Tradicional frente a Lógica Especulativa</h3>
+        <div class="table-wrap">
+          <table class="broadsheet-table" aria-label="Comparación entre lógica formal tradicional y lógica especulativa hegeliana">
+            <thead>
+              <tr>
+                <th>Dimensión Analizada</th>
+                <th>Lógica Formal / Escolar</th>
+                <th>Ciencia de la Lógica (Especulativa)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Naturaleza de las formas</td>
+                <td>Formas vacías y fijas, separadas de la materia y comparables a un cálculo aritmético o «palitos de desigual longitud».</td>
+                <td>Formas vivientes del intelecto objetivo; constituyen la propia naturaleza esencial del objeto.</td>
+              </tr>
+              <tr>
+                <td>Relación con la verdad</td>
+                <td>Incapaz de abarcar lo infinito; la cosa en sí queda relegada a un más allá inaccesible.</td>
+                <td>La realidad de algo reside en su concepto; el conocer supera la separación entre sujeto y objeto.</td>
+              </tr>
+              <tr>
+                <td>Papel de la contradicción</td>
+                <td>Vista como anomalía accidental o paroxismo morboso; principio rígido del tercero excluido.</td>
+                <td>Raíz de todo automovimiento y vitalidad; el pensar especulativo la sostiene y la resuelve en unidad.</td>
+              </tr>
+              <tr>
+                <td>Tratamiento de la infinitud</td>
+                <td>Progreso infinito monótono: contrapone lo finito y lo infinito como dos finitos excluyentes.</td>
+                <td>Infinitud afirmativa: negación de la negación e idealidad donde los opuestos son momentos conciliados.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: FAQ & CALLS TO ACTION -->
+    <section id="preguntas-frecuentes" class="section-open">
+      <div class="editorial-split">
+        <div>
+          <span class="section-label">VI · Preguntas Frecuentes</span>
+          <h2 style="margin-bottom: var(--space-md);">Claves de lectura desde los textos de Hegel</h2>
+          <div class="faq-list">
+            <div class="faq-item">
+              <button type="button" class="faq-trigger" aria-expanded="true" aria-controls="faq-1" onclick="toggleFaq(this)">
+                <span>¿En qué se distingue la Fenomenología de la Ciencia de la Lógica?</span>
+                <span class="faq-marker" aria-hidden="true">−</span>
+              </button>
+              <div id="faq-1" class="faq-panel">
+                <p>La <em>Fenomenología</em> expone la historia subjetiva del saber (la gnoseología hegeliana), alejándose de la filosofía romántica de Schelling. Al concluir ésta, comienza la ciencia del espíritu puro, es decir, la <em>Ciencia de la Lógica</em>, que constituye la metafísica y la historia objetiva del pensamiento.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-2" onclick="toggleFaq(this)">
+                <span>¿Por qué la Lógica no puede comenzar con algo concreto?</span>
+                <span class="faq-marker" aria-hidden="true">+</span>
+              </button>
+              <div id="faq-2" class="faq-panel" hidden>
+                <p>Porque todo lo concreto encierra ya múltiples determinaciones y una mediación interior entre un primero y un otro, cuya vinculación exigiría una prueba previa. El comienzo puro debe ser simple inmediación no analizable ni llenada de contenido: el Ser absolutamente vacío.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-3" onclick="toggleFaq(this)">
+                <span>¿Cómo justifica Hegel el paso gradual del Cuanto al salto de cualidad?</span>
+                <span class="faq-marker" aria-hidden="true">+</span>
+              </button>
+              <div id="faq-3" class="faq-panel" hidden>
+                <p>Aunque la representación suele refugiarse en la gradualidad —como si el perecer pudiera explicarse disminuyendo magnitudes imperceptibles—, Hegel muestra en la <em>Medida</em> que la cantidad está vinculada a la cualidad dentro de un término. Al rebasarlo, se produce necesariamente el traspaso de una cualidad a otra.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-4" onclick="toggleFaq(this)">
+                <span>¿Por qué critica Hegel el ejemplo kantiano de los «cien táleros»?</span>
+                <span class="faq-marker" aria-hidden="true">+</span>
+              </button>
+              <div id="faq-4" class="faq-panel" hidden>
+                <p>Porque reduce el ser y la verdad a lo meramente sensible, temporario y palpable con la mano —como el dinero en la situación económica personal—, en lugar de elevarse al ser que corresponde al concepto y es visible para el ojo interior del espíritu.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-5" onclick="toggleFaq(this)">
+                <span>¿Qué sucede al culminar la Lógica en la Idea Absoluta?</span>
+                <span class="faq-marker" aria-hidden="true">+</span>
+              </button>
+              <div id="faq-5" class="faq-panel" hidden>
+                <p>La Idea Absoluta comprende su propio método y retorna a la simple inmediatez del Ser inicial, pero ahora como ser lleno y totalidad concreta. Luego se liberta libremente hacia la exterioridad del espacio y el tiempo (la Naturaleza) para volver a sí en la Ciencia del Espíritu.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INTERACTIVE CALL TO ACTION: QUICK VERIFIER -->
+        <aside class="quiz-box" aria-label="Verificador de transiciones dialécticas">
+          <span class="section-label">Llamada a la Acción · Verificador de Transiciones</span>
+          <h3 id="quiz-heading">Comprueba tu lectura de las transiciones</h3>
+          <p id="quiz-question" style="font-size: 0.98rem;">
+            Pregunta 1 de 4: ¿Cuál es la verdad inmediata que surge del mutuo desaparecer del Ser puro y la Nada pura?
+          </p>
+          <div id="quiz-options" class="quiz-options"></div>
+          <p id="quiz-feedback" style="font-size: 0.94rem; min-height: 1.5em; color: var(--on-surface-variant);" aria-live="polite"></p>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" id="quiz-next-btn" onclick="nextQuizQuestion()" disabled>Siguiente pregunta</button>
+            <button type="button" class="btn" onclick="resetQuiz()">Reiniciar prueba</button>
+            <a class="btn" href="#mapa-logica">Volver al esquema general</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- FOOTER / SOURCES -->
+    <footer class="edition-footer">
+      <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap: var(--space-sm);">
+        <strong>Fuentes primarias consultadas</strong>
+        <span class="tag">Lógica Objetiva y Subjetiva</span>
+      </div>
+      <p style="max-width: 85ch; margin: 0;">
+        Todo el contenido conceptual, las citas, las tríadas dialécticas y los ejemplos (como la rosa roja, la planta curativa, la caída de los cuerpos, las sustancias químicas, las mónadas, el reloj y la casa, o los cien táleros) proceden directamente de <em>Ciencia de la Lógica</em> (<em>Wissenschaft der Logik</em>) de Georg Wilhelm Friedrich Hegel, Volumen 1 (Lógica Objetiva: Doctrina del Ser) y Volumen 2 (Doctrina de la Esencia y Lógica Subjetiva o Doctrina del Concepto).
+      </p>
+    </footer>
+
+  </div>
+
+  <script>
+    // 1. Data for Philosophical Navigator (Module 1)
+    const logicNodes = [
+      {
+        id: `ser-puro`,
+        sphere: `Lógica Objetiva · Doctrina del Ser`,
+        indexLabel: `Nodo 01 / 15`,
+        title: `Ser puro y Nada`,
+        desc: `El comienzo de la ciencia debe ser absolutamente vacío, pura inmediación sin relación interior ni contenido. Al carecer de toda determinación, el Ser puro es idéntico a la Nada pura.`,
+        motor: `Su indistinción encierra una diferencia absoluta: cada uno desaparece inmediatamente en su opuesto, revelando su verdad en el Devenir.`,
+        prevLabel: `Comienzo sin presupuestos`,
+        nextLabel: `Devenir y Dasein`,
+        jump: `#doctrina-ser`
+      },
+      {
+        id: `devenir`,
+        sphere: `Lógica Objetiva · Doctrina del Ser`,
+        indexLabel: `Nodo 02 / 15`,
+        title: `Devenir y Ser determinado (Dasein)`,
+        desc: `El Devenir es el movimiento del inmediato desaparecer del ser en la nada (perecer) y de la nada en el ser (nacer). Al recogerse en tranquila unidad produce el Ser determinado o existencia (Dasein).`,
+        motor: `Con la existencia surge la Cualidad: determinación como límite y negación («toda determinación es negación»), oponiendo el Algo al Otro.`,
+        prevLabel: `Ser puro y Nada`,
+        nextLabel: `Finito, Infinito y Ser-para-sí`,
+        jump: `#doctrina-ser`
+      },
+      {
+        id: `infinitud`,
+        sphere: `Lógica Objetiva · Doctrina del Ser`,
+        indexLabel: `Nodo 03 / 15`,
+        title: `Finito, Infinito y Ser-para-sí`,
+        desc: `Lo finito tiene su negación en su propio límite. El falso infinito es un mero ir más allá en alternación monótona; la infinitud afirmativa es la negación de la negación e idealidad, que retorna a sí como Ser-para-sí (Uno, Repulsión y Atracción).`,
+        motor: `Cuando lo Uno se vuelve indiferente a su determinación cualitativa, el Ser-para-sí traspasa a la esfera de la Cantidad.`,
+        prevLabel: `Devenir y Dasein`,
+        nextLabel: `Cuanto, Grado e Infinitesimal`,
+        jump: `#doctrina-ser`
+      },
+      {
+        id: `cantidad`,
+        sphere: `Lógica Objetiva · Doctrina del Ser`,
+        indexLabel: `Nodo 04 / 15`,
+        title: `Cuanto, Grado e Infinitesimal`,
+        desc: `La Cantidad es indiferencia frente a la determinación. El cuanto se especifica como magnitud extensiva e intensiva (grado en escala continua) y en las magnitudes infinitamente pequeñas (dx), que existen en su desaparecer.`,
+        motor: `Por medio del doble traspaso, la cantidad retorna en sí misma y recupera un significado cualitativo: nace la Medida.`,
+        prevLabel: `Finito, Infinito y Ser-para-sí`,
+        nextLabel: `Medida específica, real e Indiferencia`,
+        jump: `#doctrina-ser`
+      },
+      {
+        id: `medida`,
+        sphere: `Lógica Objetiva · Doctrina del Ser`,
+        indexLabel: `Nodo 05 / 15`,
+        title: `Medida específica, real e Indiferencia`,
+        desc: `La Medida unifica cualidad y cantidad: rige relaciones potenciales como la caída de los cuerpos (s = at²) y reales como el peso específico, el sonido o las afinidades químicas entre ácidos y álcalis.`,
+        motor: `Al extremarse en la Indiferencia absoluta, todas las determinaciones inmediatas del Ser quedan negadas y surge el substrato reflejado en sí: la Esencia.`,
+        prevLabel: `Cuanto, Grado e Infinitesimal`,
+        nextLabel: `Apariencia y Reflexión en sí`,
+        jump: `#doctrina-ser`
+      },
+      {
+        id: `reflexion`,
+        sphere: `Lógica Objetiva · Doctrina de la Esencia`,
+        indexLabel: `Nodo 06 / 15`,
+        title: `Apariencia y Reflexión en sí`,
+        desc: `La Esencia es unidad absoluta del ser-en-sí y ser-por-sí. Su devenir no es un traspasar exterior, sino Reflexión: movimiento de la nada hacia la nada que pone y presupone su propia apariencia (Schein).`,
+        motor: `La reflexión determinante fija sus momentos como esencialidades libres: Identidad, Diferencia y Contradicción.`,
+        prevLabel: `Medida e Indiferencia absoluta`,
+        nextLabel: `Identidad, Diferencia y Contradicción`,
+        jump: `#doctrina-esencia`
+      },
+      {
+        id: `contradiccion`,
+        sphere: `Lógica Objetiva · Doctrina de la Esencia`,
+        indexLabel: `Nodo 07 / 15`,
+        title: `Identidad, Diferencia y Contradicción`,
+        desc: `La identidad abstracta (A = A) es inmóvil; pasa a la diferencia y a la oposición (+a y −a). Su unidad tensionada es la Contradicción, raíz de todo impulso y vitalidad que el pensamiento especulativo sostiene en sí.`,
+        motor: `Al resolverse y conservarse la oposición, la contradicción solucionada se establece como Fundamento.`,
+        prevLabel: `Apariencia y Reflexión en sí`,
+        nextLabel: `Fundamento formal, real y condición`,
+        jump: `#doctrina-esencia`
+      },
+      {
+        id: `fundamento`,
+        sphere: `Lógica Objetiva · Doctrina de la Esencia`,
+        indexLabel: `Nodo 08 / 15`,
+        title: `Fundamento formal, real y condición`,
+        desc: `El Fundamento articula forma y materia, fundamento formal y real. Al reunirse todas las condiciones, la cosa surge de lo infundado porque el propio fundamento se suprime en la inmediatez.`,
+        motor: `La esencia sale de su fundamento y traspasa íntegramente a la Existencia.`,
+        prevLabel: `Identidad, Diferencia y Contradicción`,
+        nextLabel: `Existencia y Ley del Fenómeno`,
+        jump: `#doctrina-esencia`
+      },
+      {
+        id: `fenomeno`,
+        sphere: `Lógica Objetiva · Doctrina de la Esencia`,
+        indexLabel: `Nodo 09 / 15`,
+        title: `Existencia y Ley del Fenómeno`,
+        desc: `Todo lo que es, existe. La apariencia completada es el Fenómeno, cuya Ley no está en un más allá separado, sino presente en el fenómeno mismo como lo idéntico que permanece en el cambio.`,
+        motor: `La unión completa entre lo interior (esencia) y lo exterior (fenómeno) constituye la Realidad Efectiva.`,
+        prevLabel: `Fundamento formal, real y condición`,
+        nextLabel: `Sustancia, Causalidad y Reciprocidad`,
+        jump: `#doctrina-esencia`
+      },
+      {
+        id: `realidad`,
+        sphere: `Lógica Objetiva · Doctrina de la Esencia`,
+        indexLabel: `Nodo 10 / 15`,
+        title: `Realidad Efectiva: Sustancia y Causalidad`,
+        desc: `En la Realidad se reúnen posibilidad real y condiciones efectivas. La causa activa actúa sobre la sustancia pasiva, pero en la acción recíproca ambas se revelan idénticas consigo mismas en su opuesto.`,
+        motor: `Esta reflexión infinita completa la sustancia y la eleva más allá de la necesidad ciega hacia la libertad del Concepto.`,
+        prevLabel: `Existencia y Ley del Fenómeno`,
+        nextLabel: `Universal, Particular e Individual`,
+        jump: `#doctrina-esencia`
+      },
+      {
+        id: `concepto-puro`,
+        sphere: `Lógica Subjetiva · Doctrina del Concepto`,
+        indexLabel: `Nodo 11 / 15`,
+        title: `El Concepto: Universal, Particular e Individual`,
+        desc: `El Concepto es la verdad del Ser y la Esencia: lo libre e incondicionado. Su unidad inseparable abarca lo Universal, lo Particular y lo Individual, siendo cada momento la totalidad.`,
+        motor: `Como negatividad absoluta, el concepto se dirime y pone sus momentos como independientes e indiferentes en el Juicio.`,
+        prevLabel: `Sustancia, Causalidad y Reciprocidad`,
+        nextLabel: `Los cuatro grados del Juicio`,
+        jump: `#doctrina-concepto`
+      },
+      {
+        id: `juicio`,
+        sphere: `Lógica Subjetiva · Doctrina del Concepto`,
+        indexLabel: `Nodo 12 / 15`,
+        title: `Los cuatro grados del Juicio`,
+        desc: `El Juicio relaciona un Sujeto individual y un Predicado universal mediante la cópula «es». Evoluciona desde la Existencia («esta rosa es roja»), la Reflexión («esta planta es curativa») y la Necesidad («la rosa es una flor») hasta el Juicio de Concepto («esta rosa es hermosa»).`,
+        motor: `Siendo ya un juicio mediato, la conformidad entre sujeto y concepto exige un término medio mediador: el Silogismo.`,
+        prevLabel: `Universal, Particular e Individual`,
+        nextLabel: `El Silogismo mediador`,
+        jump: `#doctrina-concepto`
+      },
+      {
+        id: `silogismo`,
+        sphere: `Lógica Subjetiva · Doctrina del Concepto`,
+        indexLabel: `Nodo 13 / 15`,
+        title: `El Silogismo mediador`,
+        desc: `El Silogismo individualiza lo universal y universaliza lo individual. El mundo, el sistema solar y la sociedad humana son pensables porque la vinculación recíproca de sus momentos forma un gran silogismo.`,
+        motor: `Al completarse la mediación, desaparece la diferencia formal entre lo que media y lo mediado: la subjetividad pasa a la Objetividad.`,
+        prevLabel: `Los cuatro grados del Juicio`,
+        nextLabel: `Mecanismo, Quimismo y Teleología`,
+        jump: `#doctrina-concepto`
+      },
+      {
+        id: `objetividad`,
+        sphere: `Lógica Subjetiva · Doctrina del Concepto`,
+        indexLabel: `Nodo 14 / 15`,
+        title: `Objetividad: Mecanismo, Quimismo y Teleología`,
+        desc: `El objeto es el concepto realizado (refutando las mónadas aisladas y el realismo sensible de los «cien táleros»). Atraviesa el Mecanismo, el Quimismo (afinidad) y la Teleología, donde el fin se realiza por el medio.`,
+        motor: `Cuando la finalidad externa se vuelve finalidad interna, el concepto se libera de la exterioridad inmediata y surge como la Idea.`,
+        prevLabel: `El Silogismo mediador`,
+        nextLabel: `Idea del Conocer e Idea Absoluta`,
+        jump: `#doctrina-concepto`
+      },
+      {
+        id: `idea-absoluta`,
+        sphere: `Lógica Subjetiva · Doctrina del Concepto`,
+        indexLabel: `Nodo 15 / 15`,
+        title: `La Idea y la Idea Absoluta`,
+        desc: `La Idea es la unidad viviente de concepto subjetivo y objetividad (individuo viviente y conocimiento verdadero). En la Idea Absoluta, la ciencia lógica se comprende a sí misma como método absoluto.`,
+        motor: `Retorna a la simple inmediación del Ser —ahora como ser lleno y totalidad concreta— y se liberta como Naturaleza (espacio y tiempo) hacia el Espíritu.`,
+        prevLabel: `Mecanismo, Quimismo y Teleología`,
+        nextLabel: `Retorno al Ser lleno (Círculo)`,
+        jump: `#doctrina-concepto`
+      }
+    ];
+
+    let currentNodeIndex = 0;
+
+    function selectNode(nodeId) {
+      const idx = logicNodes.findIndex(function(n) { return n.id === nodeId; });
+      if (idx === -1) return;
+      currentNodeIndex = idx;
+      const node = logicNodes[idx];
+
+      const buttons = document.querySelectorAll('.node-btn');
+      buttons.forEach(function(btn) {
+        const active = btn.getAttribute('data-node') === nodeId;
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+
+      const elSphere = document.getElementById('insp-sphere');
+      const elIndex = document.getElementById('insp-index');
+      const elTitle = document.getElementById('insp-title');
+      const elDesc = document.getElementById('insp-desc');
+      const elMotor = document.getElementById('insp-motor');
+      const elPrev = document.getElementById('insp-prev-label');
+      const elNext = document.getElementById('insp-next-label');
+      const elJump = document.getElementById('insp-jump-link');
+      const btnPrev = document.getElementById('btn-prev-node');
+      const btnNext = document.getElementById('btn-next-node');
+
+      if (elSphere) elSphere.textContent = node.sphere;
+      if (elIndex) elIndex.textContent = node.indexLabel;
+      if (elTitle) elTitle.textContent = node.title;
+      if (elDesc) elDesc.textContent = node.desc;
+      if (elMotor) elMotor.textContent = node.motor;
+      if (elPrev) elPrev.textContent = node.prevLabel;
+      if (elNext) elNext.textContent = node.nextLabel;
+      if (elJump) elJump.setAttribute('href', node.jump);
+      if (btnPrev) btnPrev.disabled = (idx === 0);
+      if (btnNext) btnNext.disabled = (idx === logicNodes.length - 1);
+    }
+
+    function stepNode(delta) {
+      const nextIdx = currentNodeIndex + delta;
+      if (nextIdx >= 0 && nextIdx < logicNodes.length) {
+        selectNode(logicNodes[nextIdx].id);
+      }
+    }
+
+    // 2. Module 2: Being, Nothing, Becoming, True Infinity
+    let currentBeingPhase = 1;
+    const beingPhases = {
+      1: {
+        title: `Fase 1: El Ser puro como comienzo sin contenido`,
+        text: `Tomado en su simple inmediación no llenada de contenido, el Ser puro carece de toda relación interior o exterior. Precisamente por estar absolutamente vacío de determinaciones, no hay nada que intuir ni pensar en él: resulta idéntico a la Nada.`,
+        devTitle: `DEVENIR → DASEIN`,
+        devSub: `Aún en espera de mediación`
+      },
+      2: {
+        title: `Fase 2: La Nada pura y la irrupción de la diferencia`,
+        text: `La Nada es ausencia absoluta de determinación; sin embargo, al ser pensada, es exactamente lo mismo que el Ser indeterminado. Pero a la vez no son indistintos: el Ser ha traspasado a la Nada y la Nada ha traspasado al Ser inmediatamente.`,
+        devTitle: `DEVENIR → DASEIN`,
+        devSub: `Tensión de inmediato desaparecer`
+      },
+      3: {
+        title: `Fase 3: El Devenir y su reposo en el Dasein`,
+        text: `La verdad no es ni el Ser ni la Nada aislados, sino su movimiento: nacer (nada → ser) y perecer (ser → nada). Este movimiento inquieto se elimina a sí mismo y cae en reposo como Ser determinado o existencia (Dasein), ya provisto de Cualidad y límite.`,
+        devTitle: `DEVENIR → DASEIN`,
+        devSub: `Ser determinado con Cualidad`
+      },
+      4: {
+        title: `Fase 4: Falso infinito vs. Infinitud afirmativa`,
+        text: `El ser finito se niega en su límite. Si el infinito se pone sólo fuera de lo finito («progreso infinito»), queda limitado por él y resulta un «infinito finito». El infinito verdadero es la negación de la negación: unidad ideal que contiene ambos momentos en sí.`,
+        devTitle: `INFINITO VERDADERO`,
+        devSub: `Negación de la negación → Ser-para-sí`
+      }
+    };
+
+    function setBeingPhase(phase) {
+      currentBeingPhase = phase;
+      const data = beingPhases[phase];
+      if (!data) return;
+
+      for (let i = 1; i <= 4; i++) {
+        const b = document.getElementById('being-step-' + i);
+        if (b) {
+          const active = (i === phase);
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-pressed', active ? 'true' : 'false');
+        }
+      }
+
+      const titleEl = document.getElementById('being-phase-title');
+      const textEl = document.getElementById('being-phase-text');
+      const devTitleEl = document.getElementById('svg-dev-title');
+      const devSubEl = document.getElementById('svg-dev-sub');
+      if (titleEl) titleEl.textContent = data.title;
+      if (textEl) textEl.textContent = data.text;
+      if (devTitleEl) devTitleEl.textContent = data.devTitle;
+      if (devSubEl) devSubEl.textContent = data.devSub;
+
+      const serBox = document.getElementById('svg-ser-box');
+      const nadaBox = document.getElementById('svg-nada-box');
+      const devBox = document.getElementById('svg-dev-box');
+      const arrowSN = document.getElementById('svg-arrow-sn');
+      const headSN = document.getElementById('svg-head-sn');
+      const arrowNS = document.getElementById('svg-arrow-ns');
+      const headNS = document.getElementById('svg-head-ns');
+
+      if (serBox && nadaBox && devBox && arrowSN && headSN && arrowNS && headNS) {
+        serBox.setAttribute('fill', phase === 1 ? 'var(--primary-container)' : 'var(--background)');
+        serBox.setAttribute('stroke', phase === 1 || phase === 3 ? 'var(--primary)' : 'var(--outline-variant)');
+        serBox.setAttribute('stroke-width', phase === 1 || phase === 3 ? '2' : '1.5');
+
+        nadaBox.setAttribute('fill', phase === 2 ? 'var(--primary-container)' : 'var(--background)');
+        nadaBox.setAttribute('stroke', phase === 2 || phase === 3 ? 'var(--primary)' : 'var(--outline-variant)');
+        nadaBox.setAttribute('stroke-width', phase === 2 || phase === 3 ? '2' : '1.5');
+
+        const activeArrows = (phase === 2 || phase === 3);
+        arrowSN.setAttribute('stroke', activeArrows ? 'var(--secondary)' : 'var(--outline-variant)');
+        headSN.setAttribute('fill', activeArrows ? 'var(--secondary)' : 'var(--outline-variant)');
+        arrowNS.setAttribute('stroke', activeArrows ? 'var(--secondary)' : 'var(--outline-variant)');
+        headNS.setAttribute('fill', activeArrows ? 'var(--secondary)' : 'var(--outline-variant)');
+
+        devBox.setAttribute('fill', (phase === 3 || phase === 4) ? 'var(--primary-container)' : 'var(--background)');
+        devBox.setAttribute('stroke', (phase === 3 || phase === 4) ? 'var(--primary)' : 'var(--outline-variant)');
+        devBox.setAttribute('stroke-width', (phase === 3 || phase === 4) ? '2' : '1.5');
+      }
+    }
+
+    function advanceBeingPhase() {
+      const next = currentBeingPhase >= 4 ? 1 : currentBeingPhase + 1;
+      setBeingPhase(next);
+    }
+
+    // 3. Module 3: Measure Lab (Dual-input sync)
+    let activeMeasureCase = 1;
+    const measureCases = {
+      1: {
+        formula: `s = at² / s³ = at²`,
+        desc: `En la medida que especifica, espacio (extensivo) y tiempo (intensivo) no se vinculan en relación directa formal, sino potencial: la caída de los cuerpos sigue s = at² y el movimiento celeste s³ = at².`
+      },
+      2: {
+        formula: `Peso / Volumen · Sonido`,
+        desc: `En la medida real, el peso específico relaciona lo intensivo (peso) con lo extensivo (volumen), mientras en el sonido las vibraciones en el tiempo se combinan en relaciones numéricas armónicas.`
+      },
+      3: {
+        formula: `Ácido + Álcali → Saturación`,
+        desc: `Las sustancias químicas revelan su naturaleza cualitativa en su medida cuantitativa de saturación y afinidad exclusiva al combinarse con ácidos o álcalis contrapuestos.`
+      }
+    };
+
+    function selectMeasureCase(caseNum) {
+      activeMeasureCase = caseNum;
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById('measure-case-' + i);
+        if (btn) {
+          const active = (i === caseNum);
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        }
+      }
+      const c = measureCases[caseNum];
+      const formulaOut = document.getElementById('measure-formula-out');
+      const descOut = document.getElementById('measure-case-desc');
+      if (c && formulaOut) formulaOut.textContent = c.formula;
+      if (c && descOut) descOut.textContent = c.desc;
+    }
+
+    function updateMeasureView(rawVal) {
+      let num = Number(rawVal);
+      if (isNaN(num)) num = 0;
+      if (num < 0) num = 0;
+      if (num > 100) num = 100;
+
+      const valOut = document.getElementById('measure-val-out');
+      const stateOut = document.getElementById('measure-state-out');
+      const guide = document.getElementById('svg-m-guide');
+      const dot = document.getElementById('svg-m-dot');
+
+      if (valOut) valOut.textContent = String(Math.round(num));
+
+      const overThreshold = num >= 60;
+      if (stateOut) {
+        stateOut.textContent = overThreshold ? `Salto cualitativo (fuera de límite)` : `Dentro del límite (Cualidad A)`;
+        stateOut.style.color = overThreshold ? `var(--primary)` : `var(--secondary)`;
+      }
+
+      // Map 0..100 to x: 40..570
+      const xPos = 40 + (num / 100) * 530;
+      const yPos = overThreshold ? 48 : 118;
+      if (guide) {
+        guide.setAttribute('x1', String(xPos));
+        guide.setAttribute('x2', String(xPos));
+      }
+      if (dot) {
+        dot.setAttribute('cx', String(xPos));
+        dot.setAttribute('cy', String(yPos));
+      }
+    }
+
+    function syncMeasureFromSlider(val) {
+      const numInput = document.getElementById('measure-number');
+      if (numInput) numInput.value = val;
+      updateMeasureView(val);
+    }
+
+    function syncMeasureFromNumber(val) {
+      const sliderInput = document.getElementById('measure-slider');
+      if (sliderInput) sliderInput.value = val;
+      updateMeasureView(val);
+    }
+
+    // 4. Module 4: Essence & Contradiction Lab
+    const essenceStages = {
+      1: {
+        title: `1. La Identidad abstracta y su insuficiencia`,
+        body: `El principio «A es A» («un árbol es un árbol») pretende fundarse en la experiencia inmediata, pero como mera referencia a sí misma carece de determinación y vitalidad. Ya al decir «A es…» la identidad supone una diferencia para poder afirmarse.`,
+        example: `«Un árbol es un árbol»: proposición que no precisa fundamento ni demostración, pero queda inmóvil hasta que la diferencia la pone en relación.`,
+        svg: `
+          <rect x="215" y="47" width="170" height="60" fill="var(--background)" stroke="var(--outline)" stroke-width="2"></rect>
+          <text x="300" y="74" text-anchor="middle" font-family="Bitter, serif" font-weight="700" font-size="18" fill="var(--on-surface)">A = A</text>
+          <text x="300" y="95" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="600" font-size="11" fill="var(--on-surface-variant)">IDENTIDAD INMÓVIL</text>
+        `
+      },
+      2: {
+        title: `2. Diferencia, Oposición y crítica al tercero excluido`,
+        body: `La identidad traspasa a la diversidad y ésta a la oposición (+a y −a). Hegel critica el uso trivial del principio del tercero excluido («el espíritu es dulce o no es dulce»): sólo cuando el predicado se refiere a un opuesto real surge determinación.`,
+        example: `Dos caminos opuestos hacia el este y el oeste forman en sí un único trecho de camino; la ordenada +y y −y comparte una única ley.`,
+        svg: `
+          <rect x="65" y="47" width="150" height="60" fill="var(--background)" stroke="var(--secondary)" stroke-width="2"></rect>
+          <text x="140" y="75" text-anchor="middle" font-family="Bitter, serif" font-weight="700" font-size="18" fill="var(--on-surface)">+ a</text>
+          <text x="140" y="95" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="600" font-size="11" fill="var(--secondary)">POSITIVO</text>
+          <line x1="225" y1="77" x2="375" y2="77" stroke="var(--outline)" stroke-width="2"></line>
+          <text x="300" y="68" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="700" font-size="11" fill="var(--on-surface-variant)">EXCLUSIÓN RECÍPROCA</text>
+          <rect x="385" y="47" width="150" height="60" fill="var(--background)" stroke="var(--primary)" stroke-width="2"></rect>
+          <text x="460" y="75" text-anchor="middle" font-family="Bitter, serif" font-weight="700" font-size="18" fill="var(--on-surface)">− a</text>
+          <text x="460" y="95" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="600" font-size="11" fill="var(--primary)">NEGATIVO</text>
+        `
+      },
+      3: {
+        title: `3. La Contradicción como impulso interno y vitalidad`,
+        body: `Cada opuesto contiene al otro dentro de sí en un único aspecto. La representación ordinaria huye de la contradicción, pero el pensamiento especulativo la mantiene firme: el impulso (nisus de la mónada o entelequia) brota de ser la falta negativa de sí mismo.`,
+        example: `Lo viviente contiene la contradicción en sí y la sostiene; si algo existente no puede contener su determinación negativa, perece en ella.`,
+        svg: `
+          <rect x="140" y="40" width="320" height="74" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2"></rect>
+          <text x="300" y="70" text-anchor="middle" font-family="Bitter, serif" font-weight="700" font-size="17" fill="var(--on-primary-container)">+A Y −A EN UN MISMO SUJETO</text>
+          <text x="300" y="93" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="700" font-size="11" fill="var(--primary)">AUTOMOVIMIENTO · RAÍZ DE TODA VITALIDAD</text>
+        `
+      },
+      4: {
+        title: `4. Fundamento, Existencia y Realidad Efectiva`,
+        body: `La contradicción resuelta no desaparece en el cero vacío, sino que se conserva como Fundamento. Al reunirse todas sus condiciones, el fundamento desaparece en la Existencia, se manifiesta como Ley del Fenómeno y se completa como Realidad efectiva.`,
+        example: `Causa y sustancia pasiva coinciden en la acción recíproca: la sustancia se completa y se libera en la esfera del Concepto.`,
+        svg: `
+          <rect x="40" y="47" width="145" height="60" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5"></rect>
+          <text x="112" y="75" text-anchor="middle" font-family="Bitter, serif" font-weight="700" font-size="14" fill="var(--on-surface)">FUNDAMENTO</text>
+          <text x="112" y="94" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="600" font-size="11" fill="var(--on-surface-variant)">Forma y materia</text>
+          <line x1="190" y1="77" x2="220" y2="77" stroke="var(--primary)" stroke-width="2"></line>
+          <rect x="225" y="47" width="145" height="60" fill="var(--background)" stroke="var(--secondary)" stroke-width="1.5"></rect>
+          <text x="297" y="75" text-anchor="middle" font-family="Bitter, serif" font-weight="700" font-size="14" fill="var(--on-surface)">FENÓMENO</text>
+          <text x="297" y="94" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="600" font-size="11" fill="var(--secondary)">Ley inmanente</text>
+          <line x1="375" y1="77" x2="405" y2="77" stroke="var(--primary)" stroke-width="2"></line>
+          <rect x="410" y="47" width="150" height="60" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2"></rect>
+          <text x="485" y="75" text-anchor="middle" font-family="Bitter, serif" font-weight="700" font-size="14" fill="var(--on-primary-container)">REALIDAD</text>
+          <text x="485" y="94" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="700" font-size="11" fill="var(--primary)">Acción recíproca</text>
+        `
+      }
+    };
+
+    function selectEssenceStage(stage) {
+      const data = essenceStages[stage];
+      if (!data) return;
+      for (let i = 1; i <= 4; i++) {
+        const b = document.getElementById('ess-btn-' + i);
+        if (b) {
+          const active = (i === stage);
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-pressed', active ? 'true' : 'false');
+        }
+      }
+      const titleEl = document.getElementById('ess-title');
+      const bodyEl = document.getElementById('ess-body');
+      const exEl = document.getElementById('ess-example');
+      const svgGroup = document.getElementById('ess-viz-group');
+      if (titleEl) titleEl.textContent = data.title;
+      if (bodyEl) bodyEl.textContent = data.body;
+      if (exEl) exEl.textContent = data.example;
+      if (svgGroup) svgGroup.innerHTML = data.svg;
+    }
+
+    // 5. Module 5: Four Judgments
+    const judgments = {
+      1: {
+        subj: `Esta rosa`,
+        pred: `roja`,
+        name: `Juicio de Existencia`,
+        subtypes: `Afirmativo · Negativo · Infinito`,
+        desc: `Une débilmente un objeto concreto —que posee también muchas otras cualidades— con una cualidad sensible inmediata que pertenece asimismo a otros objetos.`,
+        transition: `Tránsito: Al superar lo puramente inmediato y conectar dos seres entre sí, el juicio pasa a ser Juicio de Reflexión.`
+      },
+      2: {
+        subj: `Esta planta`,
+        pred: `curativa`,
+        name: `Juicio de Reflexión`,
+        subtypes: `Individual · Particular · Universal`,
+        desc: `Relaciona dos seres distintos (la planta y la enfermedad), superando la simple comprobación de una propiedad aislada.`,
+        transition: `Tránsito: Esta relación todavía extrínseca traspasa a la identidad esencial de un nexo sustancial en el Juicio de Necesidad.`
+      },
+      3: {
+        subj: `La rosa`,
+        pred: `una flor`,
+        name: `Juicio de Necesidad`,
+        subtypes: `Categórico · Hipotético · Disyuntivo`,
+        desc: `Afirma la identidad sustancial y necesaria entre el sujeto y su género universal, no una cualidad contingente.`,
+        transition: `Tránsito: Del juicio disyuntivo surge el Concepto mismo como medida del sujeto en el Juicio de Concepto.`
+      },
+      4: {
+        subj: `Esta rosa`,
+        pred: `hermosa`,
+        name: `Juicio de Concepto`,
+        subtypes: `Asertórico · Problemático · Apodíctico`,
+        desc: `Expresa la conformidad de un sujeto real respecto a su propio concepto (su deber ser y su ser). Representa el juicio objetivo frente a las abstracciones anteriores.`,
+        transition: `Tránsito: Al ser ya un juicio mediato, conduce al dominio del razonamiento, cuya forma lógica es el Silogismo.`
+      }
+    };
+
+    function selectJudgment(num) {
+      const j = judgments[num];
+      if (!j) return;
+      for (let i = 1; i <= 4; i++) {
+        const b = document.getElementById('j-btn-' + i);
+        if (b) {
+          const active = (i === num);
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-pressed', active ? 'true' : 'false');
+        }
+      }
+      const elSubj = document.getElementById('j-subj');
+      const elPred = document.getElementById('j-pred');
+      const elName = document.getElementById('j-name');
+      const elSub = document.getElementById('j-subtypes');
+      const elDesc = document.getElementById('j-desc');
+      const elTrans = document.getElementById('j-transition');
+
+      if (elSubj) elSubj.textContent = j.subj;
+      if (elPred) elPred.textContent = j.pred;
+      if (elName) elName.textContent = j.name;
+      if (elSub) elSub.textContent = j.subtypes;
+      if (elDesc) elDesc.textContent = j.desc;
+      if (elTrans) elTrans.textContent = j.transition;
+    }
+
+    // 6. Table Row Highlighter
+    function highlightTableRow(key) {
+      const keys = ['all', 'ser', 'esencia', 'concepto'];
+      keys.forEach(function(k) {
+        const btn = document.getElementById('tbl-filter-' + k);
+        if (btn) {
+          const active = (k === key);
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        }
+      });
+
+      ['ser', 'esencia', 'concepto'].forEach(function(rowKey) {
+        const row = document.getElementById('row-' + rowKey);
+        if (row) {
+          row.classList.toggle('is-highlighted', key === rowKey);
+        }
+      });
+    }
+
+    // 7. FAQ Accordion
+    function toggleFaq(btn) {
+      const controlsId = btn.getAttribute('aria-controls');
+      if (!controlsId) return;
+      const panel = document.getElementById(controlsId);
+      if (!panel) return;
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+      panel.hidden = isExpanded;
+      const marker = btn.querySelector('.faq-marker');
+      if (marker) marker.textContent = isExpanded ? '+' : '−';
+    }
+
+    // 8. Verification Mini-Quiz
+    const quizQuestions = [
+      {
+        prompt: `Pregunta 1 de 4: ¿Cuál es la verdad inmediata que surge del mutuo desaparecer del Ser puro y la Nada pura?`,
+        options: [
+          `El Devenir (movimiento de nacer y perecer que reposa en el Dasein)`,
+          `La Identidad formal (A = A) como principio inamovible`,
+          `El Silogismo disyuntivo como forma acabada del concepto`
+        ],
+        correct: 0,
+        explanation: `Correcto. Ni el Ser ni la Nada aislados son la verdad, sino su inmediato traspasar mutuo: el Devenir.`
+      },
+      {
+        prompt: `Pregunta 2 de 4: En la Doctrina de la Esencia, ¿qué función cumple la Contradicción?`,
+        options: [
+          `Es una anomalía subjetiva que debe eliminarse por completo`,
+          `Es la raíz de todo automovimiento, impulso y vitalidad`,
+          `Es sinónimo del falso infinito en la escala de los grados`
+        ],
+        correct: 1,
+        explanation: `Correcto. Algo es viviente sólo cuando contiene y sostiene en sí su propia contradicción, resolviéndose luego en el Fundamento.`
+      },
+      {
+        prompt: `Pregunta 3 de 4: ¿Qué ejemplo utiliza Hegel en el Vol. 1 para ilustrar el Juicio de Concepto?`,
+        options: [
+          `«Esta rosa es roja»`,
+          `«La rosa es una flor»`,
+          `«Esta rosa es hermosa»`
+        ],
+        correct: 2,
+        explanation: `Correcto. «Esta rosa es hermosa» expresa la conformidad del sujeto con su concepto, a diferencia de la existencia («roja») o la necesidad («flor»).`
+      },
+      {
+        prompt: `Pregunta 4 de 4: ¿Adónde retorna la Ciencia de la Lógica al alcanzar la Idea Absoluta?`,
+        options: [
+          `A la nada abstracta sin contenido`,
+          `Al Ser inicial, pero ahora como ser lleno y totalidad concreta`,
+          `A las reglas de la lógica formal escolar`
+        ],
+        correct: 1,
+        explanation: `Correcto. La Idea Absoluta completa el círculo retornando al Ser del comienzo, ahora lleno de contenido, y se liberta hacia la Naturaleza.`
+      }
+    ];
+
+    let quizIdx = 0;
+    let quizScore = 0;
+    let quizAnswered = false;
+
+    function renderQuizQuestion() {
+      const q = quizQuestions[quizIdx];
+      const qEl = document.getElementById('quiz-question');
+      const optsEl = document.getElementById('quiz-options');
+      const fbEl = document.getElementById('quiz-feedback');
+      const nextBtn = document.getElementById('quiz-next-btn');
+      const headEl = document.getElementById('quiz-heading');
+
+      if (!q || !qEl || !optsEl) return;
+      quizAnswered = false;
+      if (headEl) headEl.textContent = `Comprueba tu lectura de las transiciones`;
+      qEl.textContent = q.prompt;
+      if (fbEl) fbEl.textContent = ``;
+      if (nextBtn) {
+        nextBtn.disabled = true;
+        nextBtn.textContent = (quizIdx === quizQuestions.length - 1) ? `Ver resultado` : `Siguiente pregunta`;
+      }
+
+      optsEl.innerHTML = ``;
+      q.options.forEach(function(optText, idx) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'quiz-option';
+        btn.textContent = optText;
+        btn.onclick = function() { answerQuiz(idx, btn); };
+        optsEl.appendChild(btn);
+      });
+    }
+
+    function answerQuiz(chosenIdx, btnEl) {
+      if (quizAnswered) return;
+      quizAnswered = true;
+      const q = quizQuestions[quizIdx];
+      const optsEl = document.getElementById('quiz-options');
+      const fbEl = document.getElementById('quiz-feedback');
+      const nextBtn = document.getElementById('quiz-next-btn');
+
+      if (optsEl) {
+        const allBtns = optsEl.querySelectorAll('.quiz-option');
+        allBtns.forEach(function(b, idx) {
+          b.disabled = true;
+          if (idx === q.correct) {
+            b.classList.add('is-correct');
+          } else if (idx === chosenIdx) {
+            b.classList.add('is-wrong');
+          }
+        });
+      }
+
+      if (chosenIdx === q.correct) {
+        quizScore += 1;
+        if (fbEl) {
+          fbEl.textContent = q.explanation;
+          fbEl.style.color = `var(--positive)`;
+        }
+      } else {
+        if (fbEl) {
+          fbEl.textContent = `Revisa esa transición: ` + q.explanation;
+          fbEl.style.color = `var(--error)`;
+        }
+      }
+
+      if (nextBtn) nextBtn.disabled = false;
+    }
+
+    function nextQuizQuestion() {
+      if (quizIdx < quizQuestions.length - 1) {
+        quizIdx += 1;
+        renderQuizQuestion();
+      } else {
+        const headEl = document.getElementById('quiz-heading');
+        const qEl = document.getElementById('quiz-question');
+        const optsEl = document.getElementById('quiz-options');
+        const fbEl = document.getElementById('quiz-feedback');
+        const nextBtn = document.getElementById('quiz-next-btn');
+
+        if (headEl) headEl.textContent = `Resultado del recorrido: ` + quizScore + ` de ` + quizQuestions.length;
+        if (qEl) qEl.textContent = `Has completado la verificación de las transiciones clave entre el Ser, la Esencia, el Concepto y la Idea Absoluta.`;
+        if (optsEl) optsEl.innerHTML = ``;
+        if (fbEl) {
+          fbEl.textContent = `Puedes reiniciar la prueba o volver al esquema general para explorar cada categoría en detalle.`;
+          fbEl.style.color = `var(--on-surface-variant)`;
+        }
+        if (nextBtn) nextBtn.disabled = true;
+      }
+    }
+
+    function resetQuiz() {
+      quizIdx = 0;
+      quizScore = 0;
+      renderQuizQuestion();
+    }
+
+    // Initialize interactive modules on load
+    document.addEventListener('DOMContentLoaded', function() {
+      selectNode('ser-puro');
+      setBeingPhase(1);
+      selectMeasureCase(1);
+      updateMeasureView(35);
+      selectEssenceStage(1);
+      selectJudgment(1);
+      renderQuizQuestion();
+    });
+  </script>
+</body>
+</html>

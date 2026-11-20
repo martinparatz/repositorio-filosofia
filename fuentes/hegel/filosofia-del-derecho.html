@@ -1,0 +1,2312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="charter">
+  <title>Filosofía del Derecho de Hegel — Arquitectura del Espíritu Objetivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #f7f4ec;
+      --surface-container-low: #fffdf8;
+      --surface-container: #ece5d4;
+      --surface-container-high: #e3dac4;
+
+      /* Ink */
+      --on-surface: #1c1f26;
+      --on-surface-variant: #4f5360;
+
+      /* Rules */
+      --outline: #b08d57;
+      --outline-variant: #d9cfb8;
+
+      /* Accents */
+      --primary: #14213d;
+      --on-primary: #f7f4ec;
+      --primary-container: #e3e6ee;
+      --on-primary-container: #14213d;
+      --secondary: #2d5a4a;
+      --tertiary: #8a6a35;
+      --error: #9b2c2c;
+      --on-error: #f7f4ec;
+
+      /* Derived tokens for contrast and semantic states */
+      --on-primary-muted: color-mix(in srgb, var(--on-primary) 80%, var(--primary));
+      --brass-on-navy: color-mix(in srgb, var(--outline) 75%, var(--on-primary));
+      --primary-hover: color-mix(in srgb, var(--primary) 86%, var(--on-surface));
+      --positive-tint: color-mix(in srgb, var(--secondary) 11%, var(--surface-container-low));
+      --error-tint: color-mix(in srgb, var(--error) 10%, var(--surface-container-low));
+      --warning-tint: color-mix(in srgb, var(--tertiary) 12%, var(--surface-container-low));
+
+      /* Data series */
+      --data-1: #14213d;
+      --data-2: #8a6a35;
+      --data-3: #2d5a4a;
+      --data-4: #5b7aa0;
+      --data-context: #c2bba9;
+
+      /* Semantic */
+      --positive: #2d5a4a;
+      --warning: #8a6a35;
+      --focus: #14213d;
+
+      /* Fonts */
+      --font-headline: 'Libre Caslon Text', serif;
+      --font-body: 'Inter', sans-serif;
+      --font-label: 'Inter', sans-serif;
+
+      /* Shape */
+      --rounded: 0.125rem;
+      --rounded-lg: 0.125rem;
+      --rounded-full: 0.125rem;
+
+      /* Style effects */
+      --brass-rule: 2px solid var(--outline);
+      --brass-rule-thick: 3px solid var(--outline);
+      --hairline: 1px solid var(--outline-variant);
+      --leaf-underline: 0 1px 0 var(--outline-variant);
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.125rem, 1.4rem + 2.6vw, 3.35rem);
+      --headline-size: clamp(1.625rem, 1.25rem + 1.25vw, 2.25rem);
+      --subhead-size: clamp(1.1875rem, 1.05rem + 0.45vw, 1.4375rem);
+      --body-size: clamp(1rem, 0.96rem + 0.18vw, 1.0625rem);
+      --label-size: 0.75rem;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus states */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+    .title-band :focus-visible {
+      outline-color: var(--brass-on-navy);
+    }
+
+    /* Typography */
+    h1, h2, h3 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-weight: 400;
+      font-size: var(--display-size);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+    }
+    h2 {
+      font-weight: 400;
+      font-size: var(--headline-size);
+      line-height: 1.14;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.24;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 65ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .kicker {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--tertiary);
+      margin-bottom: var(--space-sm);
+      display: block;
+    }
+
+    /* 1. Navy Title Band (Charter Treatment #1 & #2) */
+    .title-band {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-bottom: var(--brass-rule-thick);
+      padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+    }
+    .title-band-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .title-band .kicker {
+      color: var(--brass-on-navy);
+      margin-bottom: var(--space-md);
+    }
+    .title-band h1 {
+      color: var(--on-primary);
+      max-width: 24ch;
+      padding-bottom: var(--space-lg);
+      border-bottom: 1px solid var(--outline);
+    }
+    .title-band .lede {
+      color: var(--on-primary-muted);
+      font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+      line-height: 1.55;
+      max-width: 66ch;
+      margin-top: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .toc-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: 1px solid color-mix(in srgb, var(--outline) 45%, var(--primary));
+    }
+    .toc-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-lg);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .toc-links a {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-primary-muted);
+      text-decoration: none;
+      padding: var(--space-xs) 0;
+      border-bottom: 1px solid transparent;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .toc-links a:hover {
+      color: var(--on-primary);
+      border-bottom-color: var(--brass-on-navy);
+    }
+    .progress-pill {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--brass-on-navy);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    /* Statement Figures Row (Charter Treatment #3 & #4) */
+    .figures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .figure-card {
+      background-color: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-xs);
+    }
+    .figure-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--on-surface-variant);
+    }
+    .figure-value {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      font-size: clamp(1.65rem, 1.35rem + 0.9vw, 2.15rem);
+      line-height: 1.15;
+      font-variant-numeric: tabular-nums lining-nums;
+      color: var(--on-surface);
+      margin-top: var(--space-xs);
+    }
+    .figure-delta {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--tertiary);
+      margin-top: var(--space-xs);
+    }
+
+    /* Section Headers (Charter Treatment #5) */
+    .section-block {
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .section-head {
+      border-top: var(--brass-rule);
+      padding-top: var(--space-md);
+      border-bottom: var(--hairline);
+      padding-bottom: var(--space-md);
+    }
+    .section-head .section-lede {
+      color: var(--on-surface-variant);
+      margin-top: var(--space-sm);
+      font-size: 1rem;
+      max-width: 68ch;
+    }
+
+    /* Asymmetric Editorial Grid */
+    .editorial-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .prose-col p {
+      margin-bottom: var(--space-md);
+    }
+
+    .aside-leaf {
+      background-color: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .aside-leaf blockquote {
+      margin: var(--space-sm) 0 var(--space-md);
+      padding-left: var(--space-md);
+      border-left: 2px solid var(--outline);
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.125rem;
+      line-height: 1.45;
+      color: var(--on-surface);
+    }
+    .aside-meta {
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+      line-height: 1.55;
+    }
+
+    /* Tags & Stamps */
+    .stamp {
+      display: inline-block;
+      border: 1px solid var(--outline);
+      background: transparent;
+      color: var(--tertiary);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.1875rem 0.5rem;
+    }
+    .stamp-positive {
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+
+    /* Buttons */
+    .btn-primary, .btn-secondary {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      border-radius: var(--rounded);
+      min-height: 44px;
+      padding: 0.55rem 1.1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--primary-hover);
+    }
+    .btn-primary:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background-color: var(--primary-container);
+    }
+    .btn-secondary[aria-pressed="true"],
+    .btn-tab[aria-pressed="true"] {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* Interactive Module 1: Dialectical Explorer */
+    .dialectic-workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 1.12fr);
+      gap: var(--space-xl);
+      align-items: stretch;
+    }
+    .diagram-panel {
+      background-color: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .diagram-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--hairline);
+      padding-bottom: var(--space-sm);
+    }
+    .diagram-controls {
+      display: flex;
+      gap: var(--space-sm);
+    }
+    .diagram-svg-wrap {
+      width: 100%;
+      overflow: hidden;
+    }
+    .dialectic-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .svg-connector {
+      stroke: var(--outline-variant);
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .svg-connector-brass {
+      stroke: var(--outline);
+      stroke-width: 1.5;
+      stroke-dasharray: 4 3;
+      fill: none;
+    }
+    .node-group {
+      cursor: pointer;
+    }
+    .node-box {
+      fill: var(--background);
+      stroke: var(--outline-variant);
+      stroke-width: 1.5;
+      transition: fill var(--dur-micro) var(--ease-out), stroke var(--dur-micro) var(--ease-out);
+    }
+    .node-group:hover .node-box {
+      fill: var(--primary-container);
+      stroke: var(--primary);
+    }
+    .node-group.is-active .node-box {
+      fill: var(--primary);
+      stroke: var(--outline);
+      stroke-width: 2;
+    }
+    .node-title {
+      font-family: var(--font-headline);
+      font-size: 13.5px;
+      fill: var(--on-surface);
+      pointer-events: none;
+    }
+    .node-sub {
+      font-family: var(--font-label);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      fill: var(--on-surface-variant);
+      pointer-events: none;
+    }
+    .node-group.is-active .node-title {
+      fill: var(--on-primary);
+    }
+    .node-group.is-active .node-sub {
+      fill: var(--brass-on-navy);
+    }
+    .node-list-fallback {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      margin-top: var(--space-xs);
+    }
+    .node-chip-btn {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      background: var(--background);
+      color: var(--on-surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: 0.45rem 0.7rem;
+      min-height: 44px;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .node-chip-btn:hover {
+      background-color: var(--primary-container);
+      border-color: var(--primary);
+    }
+    .node-chip-btn[aria-pressed="true"] {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    .inspector-panel {
+      background-color: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .inspector-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--hairline);
+      padding-bottom: var(--space-sm);
+    }
+    .inspector-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+      padding: var(--space-md) 0;
+      border-top: var(--hairline);
+      border-bottom: var(--hairline);
+    }
+    .inspector-stat-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+    }
+    .inspector-stat-val {
+      font-weight: 600;
+      color: var(--on-surface);
+      font-size: 0.95rem;
+    }
+    .inspector-limit {
+      background-color: var(--background);
+      border-left: 3px solid var(--outline);
+      padding: var(--space-md);
+    }
+    .inspector-quote {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      padding-top: var(--space-sm);
+      border-top: var(--hairline);
+    }
+
+    /* Three Spheres Narrative Cards */
+    .spheres-stack {
+      display: grid;
+      gap: var(--space-xl);
+    }
+    .sphere-chapter {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.55fr);
+      gap: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: var(--hairline);
+      align-items: start;
+    }
+    .sphere-chapter:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+    .sphere-index-col {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .sphere-num {
+      font-family: var(--font-headline);
+      font-size: 2.25rem;
+      line-height: 1;
+      color: var(--tertiary);
+      font-variant-numeric: tabular-nums;
+    }
+    .sphere-content-col {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .sub-moments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-xs);
+    }
+    .moment-card {
+      background-color: var(--surface-container-low);
+      border-top: 2px solid var(--outline-variant);
+      box-shadow: var(--leaf-underline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+    .moment-card h4 {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1rem;
+      margin: 0 0 var(--space-xs) 0;
+      color: var(--primary);
+    }
+    .moment-card p {
+      font-size: 0.925rem;
+      color: var(--on-surface-variant);
+      line-height: 1.52;
+    }
+
+    /* Interactive Module 2: Case Analyzer */
+    .case-analyzer {
+      background-color: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .case-selector-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .case-btn {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 500;
+      background-color: var(--background);
+      color: var(--on-surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: 0.55rem 0.9rem;
+      min-height: 44px;
+      cursor: pointer;
+      text-align: left;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .case-btn:hover {
+      background-color: var(--primary-container);
+      border-color: var(--primary);
+    }
+    .case-btn[aria-pressed="true"] {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .case-statement {
+      padding: var(--space-md);
+      background-color: var(--background);
+      border-left: 3px solid var(--primary);
+    }
+    .case-lenses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .lens-card {
+      background-color: var(--background);
+      border-top: 2px solid var(--outline-variant);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .lens-card.is-synthesis {
+      background-color: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+    }
+    .lens-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-xs);
+    }
+    .lens-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--on-surface);
+    }
+    .lens-status {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--tertiary);
+    }
+    .lens-card.is-synthesis .lens-status {
+      color: var(--secondary);
+    }
+
+    /* Interactive Module 3: Comparative Tables */
+    .table-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .filter-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+
+    .table-wrap {
+      background-color: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      border-radius: var(--rounded-lg);
+      overflow-x: auto;
+    }
+    table.charter-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+    .charter-table thead th {
+      background-color: var(--surface-container-high);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      padding: var(--space-md);
+      border-bottom: var(--brass-rule);
+      vertical-align: bottom;
+    }
+    .charter-table tbody td {
+      padding: var(--space-md);
+      border-bottom: var(--hairline);
+      vertical-align: top;
+      color: var(--on-surface);
+    }
+    .charter-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+    .charter-table tbody td:first-child {
+      font-weight: 600;
+      color: var(--primary);
+      width: 18%;
+    }
+    .charter-table tbody tr.is-highlighted {
+      background-color: var(--primary-container);
+    }
+    .charter-table tbody tr.is-dimmed {
+      opacity: 0.42;
+    }
+    .col-num {
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    /* Marx 1844 Counterpoint Drawer/Panel */
+    .counterpoint-panel {
+      background-color: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .counterpoint-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+      padding-top: var(--space-sm);
+      border-top: var(--hairline);
+    }
+    .counterpoint-col {
+      padding: var(--space-md);
+      background-color: var(--background);
+      border-top: 2px solid var(--primary);
+    }
+    .counterpoint-col.is-critique {
+      border-top-color: var(--tertiary);
+    }
+
+    /* Interactive Module 4: Quiz */
+    .quiz-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .quiz-list {
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .quiz-card {
+      background-color: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .quiz-card-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .quiz-q-title {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      font-size: 1.15rem;
+      line-height: 1.38;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      background-color: var(--background);
+      color: var(--on-surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: 0.7rem 0.95rem;
+      min-height: 44px;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      line-height: 1.45;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      background-color: var(--primary-container);
+      border-color: var(--primary);
+    }
+    .quiz-option.is-correct {
+      background-color: var(--positive-tint);
+      border-color: var(--positive);
+      color: var(--on-surface);
+    }
+    .quiz-option.is-wrong {
+      background-color: var(--error-tint);
+      border-color: var(--error);
+      color: var(--on-surface);
+    }
+    .quiz-opt-letter {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--primary);
+      min-width: 1.25rem;
+      padding-top: 0.15rem;
+    }
+    .quiz-feedback {
+      padding: var(--space-md);
+      border-left: 3px solid var(--outline);
+      background-color: var(--background);
+      font-size: 0.925rem;
+      line-height: 1.55;
+      display: none;
+    }
+    .quiz-feedback.is-visible {
+      display: block;
+    }
+    .quiz-feedback.is-ok {
+      border-left-color: var(--positive);
+    }
+    .quiz-feedback.is-bad {
+      border-left-color: var(--error);
+    }
+
+    .quiz-sidebar {
+      background-color: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .score-breakdown {
+      display: grid;
+      gap: var(--space-sm);
+      padding: var(--space-md) 0;
+      border-top: var(--hairline);
+      border-bottom: var(--hairline);
+    }
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+      font-size: 0.9rem;
+    }
+    .score-row-val {
+      font-family: var(--font-headline);
+      font-variant-numeric: tabular-nums;
+      color: var(--primary);
+    }
+    .inline-notice {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      min-height: 1.2em;
+    }
+
+    /* Footer */
+    .source-footer {
+      border-top: var(--brass-rule);
+      padding-top: var(--space-lg);
+      color: var(--on-surface-variant);
+      font-size: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    /* Reveal animation */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal-item.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .editorial-split,
+      .dialectic-workspace,
+      .sphere-chapter,
+      .quiz-shell,
+      .counterpoint-grid,
+      .case-lenses-grid {
+        grid-template-columns: 1fr;
+      }
+      .inspector-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .title-band {
+        padding: var(--space-xl) var(--space-md) var(--space-lg);
+      }
+      .page-grid {
+        padding: var(--space-lg) var(--space-md) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .toc-links {
+        gap: var(--space-xs) var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-item {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="title-band">
+    <div class="title-band-inner">
+      <span class="kicker">Compendio de derecho natural y ciencia del estado · Berlín, 1820</span>
+      <h1>Filosofía del Derecho: La arquitectura del Espíritu Objetivo</h1>
+      <p class="lede">
+        En la obra de Georg Wilhelm Friedrich Hegel, el Derecho no es una mera técnica de códigos legales: es el reino de la libertad realizada como «segunda naturaleza». Recorre la progresión dialéctica desde la voluntad inmediata en el Derecho Abstracto y la conciencia interior de la Moralidad hasta su concreción institucional en la Eticidad: Familia, Sociedad Civil y Estado.
+      </p>
+      <nav class="toc-bar" aria-label="Índice del tratado">
+        <ul class="toc-links">
+          <li><a href="#sec-fundamento">01. Espíritu Objetivo</a></li>
+          <li><a href="#sec-mapa">02. Mapa Dialéctico</a></li>
+          <li><a href="#sec-esferas">03. Las Tres Esferas</a></li>
+          <li><a href="#sec-casos">04. Análisis de Casos</a></li>
+          <li><a href="#sec-comparativa">05. Cuadros Comparativos</a></li>
+          <li><a href="#sec-autoevaluacion">06. Autoevaluación</a></li>
+        </ul>
+        <span class="progress-pill" id="header-progress">Autoevaluación: 0 / 8 respondidas</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-grid">
+
+    <!-- Statement Figures Row -->
+    <section aria-label="Cifras estructurales de la obra">
+      <div class="figures-grid">
+        <div class="figure-card">
+          <span class="figure-label">División especulativa</span>
+          <div class="figure-value">3 Esferas</div>
+          <span class="figure-delta">Derecho Abstracto · Moralidad · Eticidad (§ 33)</span>
+        </div>
+        <div class="figure-card">
+          <span class="figure-label">Sustancia ética</span>
+          <div class="figure-value">3 Instancias</div>
+          <span class="figure-delta">Familia · Sociedad Civil · Estado (§ 157)</span>
+        </div>
+        <div class="figure-card">
+          <span class="figure-label">Arquitectura del tratado</span>
+          <div class="figure-value">§§ 1 – 360</div>
+          <span class="figure-delta">De la voluntad libre al juicio universal</span>
+        </div>
+        <div class="figure-card">
+          <span class="figure-label">Edición original de Berlín</span>
+          <div class="figure-value">1820</div>
+          <span class="figure-delta">«Lo que es racional es real» (Prefacio)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01. Fundamento -->
+    <section class="section-block reveal-item" id="sec-fundamento">
+      <div class="section-head">
+        <span class="kicker">Sección 01 · Premisa sistemática</span>
+        <h2>El Espíritu Objetivo como «segunda naturaleza» de la libertad</h2>
+        <p class="section-lede">
+          Antes de entrar en leyes, contratos o constituciones, Hegel redefine el objeto mismo de la filosofía jurídica: comprender racionalmente el mundo histórico e institucional que los seres humanos producen.
+        </p>
+      </div>
+
+      <div class="editorial-split">
+        <div class="prose-col">
+          <p>
+            En la <em>Enciclopedia de las Ciencias Filosóficas</em>, el despliegue del Espíritu a lo largo de las culturas históricas —Grecia antigua, Imperio romano, Antiguo régimen, Revolución francesa— recibe el nombre de <strong>Espíritu Objetivo</strong>. Mientras la historia universal estudia ese mundo en su devenir temporal, la <em>Filosofía del Derecho</em> lo examina en sus sedimentos estables: instituciones, costumbres, normas jurídicas, realidades económicas y organización política.
+          </p>
+          <p>
+            Por ello, Hegel define el campo del Derecho (§ 4) a partir de la <strong>voluntad libre</strong>: el sistema del Derecho es el reino de la libertad realizada, el mundo del Espíritu expresado por sí mismo «como en una segunda naturaleza». Frente a Kant —quien definía el derecho de modo negativo como la limitación recíproca de los arbitrios (§ 29)—, Hegel sostiene que una existencia cualquiera que sea existencia de la voluntad libre constituye el derecho, es decir, la <em>libertad en cuanto Idea</em>.
+          </p>
+          <p>
+            Esta concepción explica el tono polémico del Prefacio de 1820: contra los pensadores subjetivistas (como Jakob Friedrich Fries) que reducían la ética y el Estado al sentimiento, la amistad o el capricho individual, Hegel afirma que la filosofía debe aprehender la racionalidad inmanente a lo presente y efectivo, y no fabricar un Estado imaginario «como debe ser».
+          </p>
+        </div>
+
+        <aside class="aside-leaf">
+          <span class="stamp">Prefacio · Berlín, 25 de junio de 1820</span>
+          <blockquote>
+            «Lo que es racional es real; y lo que es real es racional.»
+          </blockquote>
+          <p class="aside-meta">
+            En el léxico especulativo de Hegel (§ 1), <em>realidad</em> no equivale a cualquier hecho transitorio o contingencia empírica, sino a la existencia efectiva en que el concepto racional logra darse forma. La misión del tratado es descifrar el «pulso interno» de lo racional bajo la apariencia cambiante de las instituciones jurídicas y políticas.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 02. Mapa Dialéctico Interactivo -->
+    <section class="section-block reveal-item" id="sec-mapa">
+      <div class="section-head">
+        <span class="kicker">Sección 02 · Explorador conceptual</span>
+        <h2>La progresión dialéctica: de la persona abstracta al Estado</h2>
+        <p class="section-lede">
+          Cada esfera del Espíritu Objetivo conserva lo verdadero de la anterior y supera su unilateralidad (<em>Aufhebung</em>). Selecciona cualquier nodo en el esquema o utiliza los botones de recorrido para inspeccionar su definición, sujeto, contradicción interna y referencia textual.
+        </p>
+      </div>
+
+      <div class="dialectic-workspace">
+        <div class="diagram-panel">
+          <div class="diagram-header">
+            <div>
+              <span class="kicker" style="margin-bottom: 0;">Esquema interactivo · § 33 y § 157</span>
+            </div>
+            <div class="diagram-controls">
+              <button type="button" class="btn-secondary" id="btn-prev-node" onclick="stepNode(-1)">Anterior</button>
+              <button type="button" class="btn-primary" id="btn-next-node" onclick="stepNode(1)">Siguiente</button>
+            </div>
+          </div>
+
+          <div class="diagram-svg-wrap">
+            <svg class="dialectic-svg" viewBox="0 0 540 430" role="img" aria-label="Diagrama jerárquico de la Filosofía del Derecho de Hegel">
+              <!-- Connectors -->
+              <path class="svg-connector" d="M270 58 L270 84" />
+              <path class="svg-connector" d="M90 84 L450 84" />
+              <path class="svg-connector" d="M90 84 L90 104" />
+              <path class="svg-connector" d="M270 84 L270 104" />
+              <path class="svg-connector" d="M450 84 L450 104" />
+
+              <!-- Horizontal dialectical progression arrows -->
+              <path class="svg-connector-brass" d="M174 134 L186 134" />
+              <path class="svg-connector-brass" d="M354 134 L366 134" />
+
+              <!-- Eticidad to sub-spheres -->
+              <path class="svg-connector" d="M450 164 L450 192" />
+              <path class="svg-connector" d="M105 192 L450 192" />
+              <path class="svg-connector" d="M105 192 L105 212" />
+              <path class="svg-connector" d="M275 192 L275 212" />
+              <path class="svg-connector" d="M445 192 L445 212" />
+
+              <!-- Progression within Eticidad -->
+              <path class="svg-connector-brass" d="M185 244 L195 244" />
+              <path class="svg-connector-brass" d="M355 244 L365 244" />
+
+              <!-- Estado to Historia Universal -->
+              <path class="svg-connector" d="M445 276 L445 312 L270 312 L270 338" />
+
+              <!-- Node 0: Voluntad Libre -->
+              <g class="node-group" id="svg-node-voluntad" tabindex="0" role="button" aria-label="Voluntad Libre (§ 4)" onclick="selectNode('voluntad')" onkeydown="handleNodeKey(event, 'voluntad')">
+                <rect class="node-box" x="155" y="10" width="230" height="48" rx="2" />
+                <text class="node-title" x="270" y="31" text-anchor="middle">Voluntad Libre e Idea del Derecho</text>
+                <text class="node-sub" x="270" y="48" text-anchor="middle">FUNDAMENTO · §§ 1–32</text>
+              </g>
+
+              <!-- Node 1: Derecho Abstracto -->
+              <g class="node-group" id="svg-node-derecho" tabindex="0" role="button" aria-label="I. Derecho Abstracto (§§ 33–104)" onclick="selectNode('derecho')" onkeydown="handleNodeKey(event, 'derecho')">
+                <rect class="node-box" x="10" y="104" width="164" height="60" rx="2" />
+                <text class="node-title" x="92" y="128" text-anchor="middle">I. Derecho Abstracto</text>
+                <text class="node-sub" x="92" y="148" text-anchor="middle">PERSONA Y COSA · §§ 33–104</text>
+              </g>
+
+              <!-- Node 2: Moralidad -->
+              <g class="node-group" id="svg-node-moralidad" tabindex="0" role="button" aria-label="II. Moralidad (§§ 105–141)" onclick="selectNode('moralidad')" onkeydown="handleNodeKey(event, 'moralidad')">
+                <rect class="node-box" x="186" y="104" width="168" height="60" rx="2" />
+                <text class="node-title" x="270" y="128" text-anchor="middle">II. Moralidad</text>
+                <text class="node-sub" x="270" y="148" text-anchor="middle">SUJETO Y BIEN · §§ 105–141</text>
+              </g>
+
+              <!-- Node 3: Eticidad -->
+              <g class="node-group" id="svg-node-eticidad" tabindex="0" role="button" aria-label="III. Eticidad (§§ 142–157)" onclick="selectNode('eticidad')" onkeydown="handleNodeKey(event, 'eticidad')">
+                <rect class="node-box" x="366" y="104" width="164" height="60" rx="2" />
+                <text class="node-title" x="448" y="128" text-anchor="middle">III. La Eticidad</text>
+                <text class="node-sub" x="448" y="148" text-anchor="middle">BIEN VIVIENTE · §§ 142–157</text>
+              </g>
+
+              <!-- Node 4: Familia -->
+              <g class="node-group" id="svg-node-familia" tabindex="0" role="button" aria-label="A. La Familia (§§ 158–181)" onclick="selectNode('familia')" onkeydown="handleNodeKey(event, 'familia')">
+                <rect class="node-box" x="25" y="212" width="160" height="64" rx="2" />
+                <text class="node-title" x="105" y="238" text-anchor="middle">A. La Familia</text>
+                <text class="node-sub" x="105" y="258" text-anchor="middle">AMOR E INMEDIATEZ · §§ 158–181</text>
+              </g>
+
+              <!-- Node 5: Sociedad Civil -->
+              <g class="node-group" id="svg-node-sociedad" tabindex="0" role="button" aria-label="B. Sociedad Civil (§§ 182–256)" onclick="selectNode('sociedad')" onkeydown="handleNodeKey(event, 'sociedad')">
+                <rect class="node-box" x="195" y="212" width="160" height="64" rx="2" />
+                <text class="node-title" x="275" y="238" text-anchor="middle">B. Sociedad Civil</text>
+                <text class="node-sub" x="275" y="258" text-anchor="middle">NECESIDAD Y LEY · §§ 182–256</text>
+              </g>
+
+              <!-- Node 6: Estado -->
+              <g class="node-group" id="svg-node-estado" tabindex="0" role="button" aria-label="C. El Estado (§§ 257–340)" onclick="selectNode('estado')" onkeydown="handleNodeKey(event, 'estado')">
+                <rect class="node-box" x="365" y="212" width="160" height="64" rx="2" />
+                <text class="node-title" x="445" y="238" text-anchor="middle">C. El Estado</text>
+                <text class="node-sub" x="445" y="258" text-anchor="middle">LIBERTAD OBJETIVA · §§ 257–340</text>
+              </g>
+
+              <!-- Node 7: Historia Universal -->
+              <g class="node-group" id="svg-node-historia" tabindex="0" role="button" aria-label="Historia Universal (§§ 341–360)" onclick="selectNode('historia')" onkeydown="handleNodeKey(event, 'historia')">
+                <rect class="node-box" x="120" y="338" width="300" height="66" rx="2" />
+                <text class="node-title" x="270" y="365" text-anchor="middle">Historia Universal (Weltgericht)</text>
+                <text class="node-sub" x="270" y="385" text-anchor="middle">ESPÍRITU DEL MUNDO · §§ 341–360</text>
+              </g>
+            </svg>
+          </div>
+
+          <div>
+            <span class="filter-label" style="display: block; margin-bottom: var(--space-xs);">Selección directa por momento</span>
+            <div class="node-list-fallback" id="node-chip-list">
+              <button type="button" class="node-chip-btn" data-node="voluntad" onclick="selectNode('voluntad')">0. Voluntad</button>
+              <button type="button" class="node-chip-btn" data-node="derecho" onclick="selectNode('derecho')">I. Derecho Abstracto</button>
+              <button type="button" class="node-chip-btn" data-node="moralidad" onclick="selectNode('moralidad')">II. Moralidad</button>
+              <button type="button" class="node-chip-btn" data-node="eticidad" onclick="selectNode('eticidad')">III. Eticidad</button>
+              <button type="button" class="node-chip-btn" data-node="familia" onclick="selectNode('familia')">III.a Familia</button>
+              <button type="button" class="node-chip-btn" data-node="sociedad" onclick="selectNode('sociedad')">III.b Sociedad Civil</button>
+              <button type="button" class="node-chip-btn" data-node="estado" onclick="selectNode('estado')">III.c Estado</button>
+              <button type="button" class="node-chip-btn" data-node="historia" onclick="selectNode('historia')">Historia Universal</button>
+            </div>
+          </div>
+        </div>
+
+        <article class="inspector-panel" aria-live="polite">
+          <div class="inspector-meta-row">
+            <span class="stamp" id="insp-paragraphs">§§ 33–104</span>
+            <span class="kicker" style="margin-bottom: 0;" id="insp-step-label">Momento 2 de 8</span>
+          </div>
+
+          <h3 id="insp-title">I. El Derecho Abstracto o Formal</h3>
+          <p id="insp-summary"></p>
+
+          <div class="inspector-grid">
+            <div>
+              <div class="inspector-stat-label">Figura del agente</div>
+              <div class="inspector-stat-val" id="insp-agent"></div>
+            </div>
+            <div>
+              <div class="inspector-stat-label">Principio rector</div>
+              <div class="inspector-stat-val" id="insp-principle"></div>
+            </div>
+          </div>
+
+          <div class="inspector-limit">
+            <div class="inspector-stat-label" style="color: var(--tertiary);">Tensión dialéctica y tránsito</div>
+            <p id="insp-limit" style="font-size: 0.9375rem;"></p>
+          </div>
+
+          <div class="inspector-quote" id="insp-quote"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 03. Las Tres Esferas en detalle -->
+    <section class="section-block reveal-item" id="sec-esferas">
+      <div class="section-head">
+        <span class="kicker">Sección 03 · Anatomía del sistema</span>
+        <h2>Las tres esferas del Derecho y sus instituciones</h2>
+        <p class="section-lede">
+          Siguiendo el orden estricto de los parágrafos del compendio, la libertad madura desde el vínculo exterior entre personas y cosas hasta la comunidad política consciente de sí misma.
+        </p>
+      </div>
+
+      <div class="spheres-stack">
+        <!-- Esfera I -->
+        <article class="sphere-chapter">
+          <div class="sphere-index-col">
+            <span class="sphere-num">I</span>
+            <span class="stamp">§§ 33–104</span>
+            <h3>El Derecho Abstracto</h3>
+            <p class="aside-meta">
+              Esfera de la voluntad inmediata y de la personalidad abstracta. Prescinde de los motivos internos, deseos o intenciones particulares (§ 37) y se formula primordialmente como prohibición: no lesionar la personalidad ajena (§ 38).
+            </p>
+          </div>
+          <div class="sphere-content-col">
+            <p>
+              Su mandato supremo reza: <em>«sé persona y respeta a los demás como personas»</em> (§ 36). Al ser todavía abstracta, la persona requiere darse una esfera externa de libertad mediante algo inmediatamente distinto de ella: una <strong>cosa</strong> (§§ 41–42). De ahí nace el derecho absoluto de apropiación sobre lo no-libre, lo que excluye de raíz la esclavitud (§ 57) y prohíbe enajenar la totalidad de la propia vida (§ 70).
+            </p>
+            <div class="sub-moments-grid">
+              <div class="moment-card">
+                <h4>1. La Propiedad (§§ 41–71)</h4>
+                <p>La voluntad se objetiva en una cosa exterior mediante la toma de posesión, el uso y la enajenación. Solo las cosas —nunca las personas— son apropiables.</p>
+              </div>
+              <div class="moment-card">
+                <h4>2. El Contrato (§§ 72–81)</h4>
+                <p>Mediación de dos voluntades comunes respecto a bienes enajenables. Hegel rechaza la idea de Kant de reducir el matrimonio o el Estado a mero contrato (§ 75).</p>
+              </div>
+              <div class="moment-card">
+                <h4>3. Lo Injusto y la Pena (§§ 82–104)</h4>
+                <p>Cuando la voluntad particular niega el derecho, surge el delito como primera violencia. La pena es la segunda violencia necesaria que anula la primera y restaura el derecho (§§ 93–94).</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Esfera II -->
+        <article class="sphere-chapter">
+          <div class="sphere-index-col">
+            <span class="sphere-num">II</span>
+            <span class="stamp">§§ 105–141</span>
+            <h3>La Moralidad</h3>
+            <p class="aside-meta">
+              La voluntad se repliega desde la exterioridad de las cosas hacia su propia interioridad. Aparece el <strong>sujeto</strong> y el derecho de la voluntad subjetiva a reconocer únicamente aquello que comprende como bueno (§ 107, § 132).
+            </p>
+          </div>
+          <div class="sphere-content-col">
+            <p>
+              En el plano moral, la libertad ya no se mide solo por el acto externo o el contrato, sino por el <strong>propósito</strong>, la <strong>intención</strong> y el <strong>bienestar</strong> (§ 114). Todo sujeto tiene derecho a hallar satisfacción en su obrar (§ 121). Sin embargo, el Bien pensado en esta esfera sigue siendo un universal abstracto frente a un mundo exterior contingente: ni el bienestar sin derecho es verdadero bien, ni el derecho sin bienestar basta (<em>fiat iustitia</em> sin <em>pereat mundus</em>, § 130).
+            </p>
+            <div class="sub-moments-grid">
+              <div class="moment-card">
+                <h4>1. Propósito y Responsabilidad</h4>
+                <p>Solo puede imputarse al sujeto aquello que estuvo en su saber y propósito al alterar la existencia inmediata (§ 114).</p>
+              </div>
+              <div class="moment-card">
+                <h4>2. Intención y Bienestar</h4>
+                <p>El valor universal de la acción junto al fin particular del agente. Aún permanece la escisión entre interés privado y bien universal.</p>
+              </div>
+              <div class="moment-card">
+                <h4>3. El Bien y la Conciencia (§§ 129–140)</h4>
+                <p>Hegel critica el formalismo vacío del «deber por el deber» kantiano (§ 135) y advierte que absolutizar la mera convicción subjetiva conduce a la hipocresía (§ 140).</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Esfera III -->
+        <article class="sphere-chapter">
+          <div class="sphere-index-col">
+            <span class="sphere-num">III</span>
+            <span class="stamp stamp-positive">§§ 142–360</span>
+            <h3>La Eticidad</h3>
+            <p class="aside-meta">
+              Unidad concreta del Derecho Abstracto y de la Moralidad: el Bien convertido en mundo existente, leyes e instituciones vivas (§ 142). Aquí deber y derecho dejan de oponerse e coinciden (§ 155).
+            </p>
+          </div>
+          <div class="sphere-content-col">
+            <p>
+              La Eticidad supera tanto la frialdad exterior del contrato como el aislamiento subjetivo de la conciencia moral. Como responde un pitagórico citado por Hegel (§ 153), el mejor modo de educar éticamente a un hijo es hacerlo ciudadano de un Estado con leyes justas. La sustancia ética se despliega en tres momentos institucionales articulados:
+            </p>
+            <div class="sub-moments-grid">
+              <div class="moment-card">
+                <h4>A. La Familia (§§ 158–181)</h4>
+                <p>Espíritu ético natural unido por el <strong>Amor</strong> (§ 158). Se realiza en el matrimonio (§ 161), el patrimonio común (§ 170) y la educación de los hijos, disolviéndose éticamente cuando alcanzan la mayoría de edad (§ 177).</p>
+              </div>
+              <div class="moment-card">
+                <h4>B. Sociedad Civil (§§ 182–256)</h4>
+                <p>«Estado externo de la necesidad» (§ 183): los ciudadanos (<em>bourgeois</em>) persiguen fines egoístas en una red de interdependencia mediante el sistema de necesidades, la administración de la justicia (§ 211) y la corporación como segunda raíz ética (§ 255).</p>
+              </div>
+              <div class="moment-card">
+                <h4>C. El Estado (§§ 257–360)</h4>
+                <p>«Realidad de la Idea ética» (§ 257). Articula poder legislativo, gubernativo y del soberano (§ 273) reconciliando libertad particular y fin universal (§ 261), antes de abrirse al tribunal de la Historia Universal (§ 340).</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 04. Analizador de Casos Filosóficos -->
+    <section class="section-block reveal-item" id="sec-casos">
+      <div class="section-head">
+        <span class="kicker">Sección 04 · Laboratorio conceptual</span>
+        <h2>Cómo juzga cada esfera un mismo conflicto humano</h2>
+        <p class="section-lede">
+          Para comprobar por qué Hegel exige pasar del Derecho Abstracto y la Moralidad hacia la Eticidad, selecciona un dilema extraído del texto y observa cómo cambia su diagnóstico según el nivel del Espíritu Objetivo desde el cual se analiza.
+        </p>
+      </div>
+
+      <div class="case-analyzer">
+        <div>
+          <span class="filter-label" style="display: block; margin-bottom: var(--space-sm);">Selecciona un caso de estudio</span>
+          <div class="case-selector-row" id="case-buttons">
+            <button type="button" class="case-btn" data-case="esclavitud" onclick="selectCase('esclavitud')">1. Propiedad y prohibición de la esclavitud (§§ 44, 57)</button>
+            <button type="button" class="case-btn" data-case="contrato" onclick="selectCase('contrato')">2. ¿Matrimonio y Estado como contratos? (§§ 75, 161)</button>
+            <button type="button" class="case-btn" data-case="conviccion" onclick="selectCase('conviccion')">3. Convicción subjetiva frente a la ley (§§ 135–140)</button>
+            <button type="button" class="case-btn" data-case="corporacion" onclick="selectCase('corporacion')">4. Egoísmo mercantil y corporación (§§ 183, 253)</button>
+            <button type="button" class="case-btn" data-case="deber" onclick="selectCase('deber')">5. Deber ciudadano e interés privado (§§ 155, 261)</button>
+          </div>
+        </div>
+
+        <div class="case-statement">
+          <span class="kicker" id="case-ref" style="margin-bottom: var(--space-xs);"></span>
+          <h3 id="case-title" style="margin-bottom: var(--space-xs);"></h3>
+          <p id="case-premise" style="font-size: 0.96rem;"></p>
+        </div>
+
+        <div class="case-lenses-grid" aria-live="polite">
+          <div class="lens-card">
+            <div class="lens-header">
+              <span class="lens-title">I. Derecho Abstracto</span>
+              <span class="lens-status">Visión formal</span>
+            </div>
+            <p id="lens-derecho" style="font-size: 0.9375rem;"></p>
+          </div>
+
+          <div class="lens-card">
+            <div class="lens-header">
+              <span class="lens-title">II. Moralidad</span>
+              <span class="lens-status">Visión subjetiva</span>
+            </div>
+            <p id="lens-moralidad" style="font-size: 0.9375rem;"></p>
+          </div>
+
+          <div class="lens-card is-synthesis">
+            <div class="lens-header">
+              <span class="lens-title">III. Eticidad</span>
+              <span class="lens-status">Síntesis concreta</span>
+            </div>
+            <p id="lens-eticidad" style="font-size: 0.9375rem;"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. Cuadros Comparativos y Contrapunto 1844 -->
+    <section class="section-block reveal-item" id="sec-comparativa">
+      <div class="section-head">
+        <span class="kicker">Sección 05 · Síntesis comparativa</span>
+        <h2>Cuadros comparativos del sistema y lectura crítica de 1844</h2>
+        <p class="section-lede">
+          Contrasta sistemáticamente las determinaciones de las tres esferas y de las tres instituciones éticas, y revisa el contrapunto histórico de Karl Marx incluido en el volumen fuente.
+        </p>
+      </div>
+
+      <div class="table-controls">
+        <div class="filter-group">
+          <span class="filter-label">Resaltar dimensión analítica en las tablas</span>
+          <div class="filter-pills">
+            <button type="button" class="btn-secondary btn-tab" data-dim="all" onclick="setTableFocus('all')">Todas las filas</button>
+            <button type="button" class="btn-secondary btn-tab" data-dim="agente" onclick="setTableFocus('agente')">Agente y vínculo</button>
+            <button type="button" class="btn-secondary btn-tab" data-dim="libertad" onclick="setTableFocus('libertad')">Forma de libertad</button>
+            <button type="button" class="btn-secondary btn-tab" data-dim="norma" onclick="setTableFocus('norma')">Norma, deber y derecho</button>
+            <button type="button" class="btn-secondary btn-tab" data-dim="limite" onclick="setTableFocus('limite')">Insuficiencia y tránsito</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla 1 -->
+      <div>
+        <h3 style="margin-bottom: var(--space-sm);">Tabla 1. Comparación estructural: Derecho Abstracto, Moralidad y Eticidad</h3>
+        <div class="table-wrap">
+          <table class="charter-table" id="table-spheres">
+            <thead>
+              <tr>
+                <th>Dimensión</th>
+                <th>I. Derecho Abstracto (§§ 33–104)</th>
+                <th>II. Moralidad (§§ 105–141)</th>
+                <th>III. Eticidad (§§ 142–360)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-dim="agente">
+                <td>Estatus del individuo</td>
+                <td><strong>Persona</strong> jurídica abstracta, indiferente a sus motivos particulares (§§ 36–37).</td>
+                <td><strong>Sujeto</strong> reflexivo que juzga desde su interioridad e intención (§ 107).</td>
+                <td><strong>Miembro</strong> de la familia, <em>bourgeois</em> en la sociedad civil y <strong>ciudadano</strong> del Estado (§ 190 obs.).</td>
+              </tr>
+              <tr data-dim="libertad">
+                <td>Existencia de la libertad</td>
+                <td>Inmediata y externa: puesta en las <strong>cosas</strong> (propiedad) y en el contrato (§§ 41, 72).</td>
+                <td>Interior y subjetiva: autodeterminación, propósito y búsqueda del Bien (§§ 105, 129).</td>
+                <td>Objetiva y concreta: mundo institucional vivo donde libertad y necesidad se unen (§ 142, § 265).</td>
+              </tr>
+              <tr data-dim="norma">
+                <td>Relación deber / derecho</td>
+                <td>Escindida: yo tengo el derecho sobre una cosa y otro el deber de respetarlo (§ 155). Predomina la prohibición (§ 38).</td>
+                <td>Exigencia de coincidencia interna: el sujeto solo reconoce como válido lo que aprueba como bueno (§ 132).</td>
+                <td>Identidad real: el hombre tiene derechos en cuanto tiene deberes y deberes en cuanto tiene derechos (§ 155, § 261).</td>
+              </tr>
+              <tr data-dim="limite">
+                <td>Límite y superación</td>
+                <td>Lo injusto y la violencia muestran que la norma externa sin voluntad moral es frágil (§§ 93–104).</td>
+                <td>El «deber por el deber» formal carece de contenido objetivo y arriesga caer en subjetivismo o hipocresía (§§ 135–140).</td>
+                <td>Culmina en el Estado constitucional y se somete finalmente al juicio de la Historia Universal (§ 340).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tabla 2 -->
+      <div>
+        <h3 style="margin-bottom: var(--space-sm);">Tabla 2. Despliegue de la Eticidad: Familia, Sociedad Civil y Estado</h3>
+        <div class="table-wrap">
+          <table class="charter-table" id="table-sittlichkeit">
+            <thead>
+              <tr>
+                <th>Dimensión</th>
+                <th>A. La Familia (§§ 158–181)</th>
+                <th>B. La Sociedad Civil (§§ 182–256)</th>
+                <th>C. El Estado (§§ 257–340)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-dim="agente">
+                <td>Principio cohesivo</td>
+                <td><strong>Amor</strong> y unidad afectiva inmediata; el individuo vive como miembro (§ 158).</td>
+                <td><strong>Interés particular</strong> egoísta mediatizado por la interdependencia universal (§§ 182–183).</td>
+                <td><strong>Libertad universal y objetiva</strong> consciente de sí; patriotismo y virtud política (§ 257, § 268).</td>
+              </tr>
+              <tr data-dim="libertad">
+                <td>Propiedad y economía</td>
+                <td>Patrimonio familiar permanente orientado al cuidado común (§ 170).</td>
+                <td>Sistema de las necesidades, trabajo especializado, clases sociales y mercado (§ 188, § 207).</td>
+                <td>Soberanía sobre los recursos públicos; el Estado no es mero seguro privado de la propiedad (§ 261, § 270).</td>
+              </tr>
+              <tr data-dim="norma">
+                <td>Institución clave</td>
+                <td>Matrimonio ético (no contractual) y educación de los hijos (§§ 161, 173).</td>
+                <td>Administración de la justicia (ley positiva, § 211), policía y <strong>corporación</strong> (§ 253).</td>
+                <td>Constitución orgánica: poder legislativo, gubernativo y poder del soberano (§ 273).</td>
+              </tr>
+              <tr data-dim="limite">
+                <td>Transición dialéctica</td>
+                <td>Al alcanzar la mayoría de edad, los hijos salen como personas autónomas y forman nuevas familias (§§ 177, 181).</td>
+                <td>La escisión entre riqueza y pobreza requiere la tutela ética superior de la corporación y del Estado (§§ 255–256).</td>
+                <td>En la relación entre Estados soberanos, ningún pretor juzga salvo el Espíritu del mundo en la Historia (§ 340).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Contrapunto Marx 1844 (presente en la fuente) -->
+      <div class="counterpoint-panel">
+        <div class="table-controls">
+          <div>
+            <span class="stamp">Contrapunto incluido en el volumen fuente</span>
+            <h3 style="margin-top: var(--space-xs);">De Hegel (1820) a la crítica de Karl Marx (París, 1844)</h3>
+          </div>
+          <div class="filter-pills">
+            <button type="button" class="btn-secondary btn-tab" data-cp="estado" onclick="selectCounterpoint('estado')">Estado y Sociedad</button>
+            <button type="button" class="btn-secondary btn-tab" data-cp="filosofia" onclick="selectCounterpoint('filosofia')">Papel de la Filosofía</button>
+            <button type="button" class="btn-secondary btn-tab" data-cp="emancipacion" onclick="selectCounterpoint('emancipacion')">Sujeto histórico</button>
+          </div>
+        </div>
+
+        <div class="counterpoint-grid" aria-live="polite">
+          <div class="counterpoint-col">
+            <span class="kicker" style="margin-bottom: var(--space-xs);">Posición de Hegel (Berlín, 1820)</span>
+            <h4 id="cp-hegel-title" style="font-family: var(--font-headline); margin: 0 0 var(--space-xs) 0;"></h4>
+            <p id="cp-hegel-text" style="font-size: 0.9375rem;"></p>
+          </div>
+          <div class="counterpoint-col is-critique">
+            <span class="kicker" style="margin-bottom: var(--space-xs);">Crítica de Marx (Anales Franco-Alemanes, 1844)</span>
+            <h4 id="cp-marx-title" style="font-family: var(--font-headline); margin: 0 0 var(--space-xs) 0;"></h4>
+            <p id="cp-marx-text" style="font-size: 0.9375rem;"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. Autoevaluación -->
+    <section class="section-block reveal-item" id="sec-autoevaluacion">
+      <div class="section-head">
+        <span class="kicker">Sección 06 · Autoevaluación conceptual</span>
+        <h2>Comprobación de dominio sobre la Filosofía del Derecho</h2>
+        <p class="section-lede">
+          Responde las ocho cuestiones para verificar tu comprensión del Espíritu Objetivo. Cada respuesta ofrece fundamentación inmediata con su parágrafo correspondiente y tu progreso se conserva automáticamente.
+        </p>
+      </div>
+
+      <div class="quiz-shell">
+        <div class="quiz-list" id="quiz-container"></div>
+
+        <aside class="quiz-sidebar">
+          <span class="kicker" style="margin-bottom: 0;">Resumen de desempeño</span>
+          <div class="figure-value" id="quiz-score-big" style="margin-top: 0;">0 / 8</div>
+          <span class="figure-delta" id="quiz-status-text">Aún no has respondido ninguna pregunta. Selecciona una opción en la primera cuestión para comenzar.</span>
+
+          <div class="score-breakdown">
+            <div class="score-row">
+              <span>Fundamento y Derecho Abstracto</span>
+              <span class="score-row-val" id="cat-derecho">0 / 3</span>
+            </div>
+            <div class="score-row">
+              <span>Moralidad y Conciencia</span>
+              <span class="score-row-val" id="cat-moralidad">0 / 2</span>
+            </div>
+            <div class="score-row">
+              <span>Eticidad e Historia Universal</span>
+              <span class="score-row-val" id="cat-eticidad">0 / 3</span>
+            </div>
+          </div>
+
+          <button type="button" class="btn-secondary" id="btn-reset-quiz" onclick="resetQuiz(this)">Reiniciar autoevaluación</button>
+          <p class="inline-notice" id="quiz-reset-notice" aria-live="polite"></p>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="source-footer">
+      <span>Fuente principal: Georg Wilhelm Friedrich Hegel, <em>Filosofía del Derecho</em> (<em>Grundlinien der Philosophie des Rechts</em>, Berlín, 1820; trad. Angélica Mendoza de Montero sobre la versión de Francesco Messineo) y estudio introductorio de Karl Marx (París, 1844).</span>
+      <span>Recurso didáctico interactivo · Espíritu Objetivo</span>
+    </footer>
+
+  </main>
+
+  <api-shim></api-shim>
+  <script>
+    const NODES_ORDER = [
+      `voluntad`,
+      `derecho`,
+      `moralidad`,
+      `eticidad`,
+      `familia`,
+      `sociedad`,
+      `estado`,
+      `historia`
+    ];
+
+    const NODES_DATA = {
+      voluntad: {
+        step: `Momento 1 de 8`,
+        paragraphs: `§§ 1–32`,
+        title: `Voluntad Libre e Idea del Derecho`,
+        summary: `El punto de partida de toda la Filosofía del Derecho es la voluntad libre (§ 4). El sistema jurídico no es una restricción externa de la libertad como pensaba Kant (§ 29), sino la «segunda naturaleza» en que el Espíritu realiza efectivamente su libertad como Idea (§ 1).`,
+        agent: `Voluntad racional en sí y por sí`,
+        principle: `Libertad realizada como Idea (§§ 4, 29)`,
+        limit: `En su concepto inicial la voluntad es todavía abstracta y requiere desplegarse en determinaciones externas, subjetivas e institucionales para alcanzar realidad plena.`,
+        quote: `«El sistema del Derecho es el reino de la libertad realizada, el mundo del Espíritu, expresado por sí mismo, como en una segunda naturaleza.» (§ 4)`
+      },
+      derecho: {
+        step: `Momento 2 de 8`,
+        paragraphs: `§§ 33–104`,
+        title: `I. El Derecho Abstracto o Formal`,
+        summary: `Primera esfera del Espíritu Objetivo. Considera al ser humano únicamente como «persona» jurídica abstracta capaz de apropiarse de cosas exteriores, celebrar contratos y sufrir penas si infringe la norma. No atiende todavía a las intenciones morales ni al bienestar particular (§ 37).`,
+        agent: `La Persona jurídica (§ 36)`,
+        principle: `Propiedad, contrato y prohibición (§§ 38, 44)`,
+        limit: `Al limitarse a prohibiciones formales y relaciones externas entre propietarios, queda expuesto a la arbitrariedad de lo injusto y la violencia (§§ 93–94), exigiendo interiorizarse en la voluntad subjetiva.`,
+        quote: `«La norma jurídica es, por lo tanto: “sé persona y respeta a los demás como personas”.» (§ 36)`
+      },
+      moralidad: {
+        step: `Momento 3 de 8`,
+        paragraphs: `§§ 105–141`,
+        title: `II. La Moralidad`,
+        summary: `La voluntad regresa de las cosas hacia su interioridad reflexiva. Aquí importa la responsabilidad del sujeto, su propósito, su intención, su bienestar y la búsqueda del Bien frente al mundo existente (§§ 107, 114).`,
+        agent: `El Sujeto moral (§ 107)`,
+        principle: `Autodeterminación y conciencia (§§ 129, 136)`,
+        limit: `Si el Bien permanece como un mero «deber ser» formal (§ 135) o se entrega a la sola convicción subjetiva sin contenido objetivo, puede derivar en vacío formalismo o hipocresía (§§ 137–140). Exige realizarse en instituciones éticas (§ 141).`,
+        quote: `«El Bienestar no es Bien sin el Derecho. Igualmente el Derecho no es el Bien sin el Bienestar.» (§ 130)`
+      },
+      eticidad: {
+        step: `Momento 4 de 8`,
+        paragraphs: `§§ 142–157`,
+        title: `III. La Eticidad (Sittlichkeit)`,
+        summary: `Síntesis verdadera de Derecho Abstracto y Moralidad. Es la Idea de la libertad convertida en mundo existente —leyes, costumbres e instituciones— en el que el sujeto se reconoce libre y donde deber y derecho coinciden (§§ 142, 155).`,
+        agent: `Individuo integrado en comunidad ética`,
+        principle: `Identidad de deber y derecho (§ 155)`,
+        limit: `La sustancia ética no es un bloque inmóvil: se despliega dialécticamente desde la inmediatez afectiva de la Familia, pasando por la escisión de la Sociedad Civil, hasta la unidad orgánica del Estado (§ 157).`,
+        quote: `«El hombre mediante lo ético tiene derechos en cuanto tiene deberes y deberes en cuanto tiene derechos.» (§ 155)`
+      },
+      familia: {
+        step: `Momento 5 de 8`,
+        paragraphs: `§§ 158–181`,
+        title: `III.a La Familia`,
+        summary: `Espíritu ético inmediato o natural, fundado en el Amor (§ 158). Sus miembros no se tratan como propietarios aislados sino como integrantes de una unidad sustancial expresada en el matrimonio (§ 161), el patrimonio común (§ 170) y la educación de los hijos (§ 173).`,
+        agent: `Miembro unido por el Amor (§ 158)`,
+        principle: `Unidad afectiva y patrimonio común`,
+        limit: `Al ser educados para la autonomía, los hijos alcanzan la mayoría de edad y abandonan la familia originaria para fundar otras nuevas; la unidad inmediata se escinde en una pluralidad de personas independientes: nace la Sociedad Civil (§§ 177, 181).`,
+        quote: `«La disolución ética de la familia consiste en que los hijos, al ser educados para personalidades libres, son reconocidos en la mayoría de edad como personas jurídicas.» (§ 177)`
+      },
+      sociedad: {
+        step: `Momento 6 de 8`,
+        paragraphs: `§§ 182–256`,
+        title: `III.b La Sociedad Civil`,
+        summary: `El «Estado externo, de la necesidad y del entendimiento» (§ 183). Cada persona concreta persigue su propio interés egoísta, pero solo puede satisfacerlo trabajando e intercambiando con todos los demás. Se articula en sistema de las necesidades, administración de la justicia (§ 211), policía y corporación (§ 188).`,
+        agent: `El Ciudadano como bourgeois (§ 190 obs.)`,
+        principle: `Interdependencia económica y ley positiva`,
+        limit: `Abandonada a sí misma, la dinámica industrial genera desigualdad, azar y formación de la plebe (§ 244 obs.). Aunque la Corporación actúa como «segunda raíz ética» (§ 255), sus fines son particulares y requieren integrarse en el fin universal del Estado (§ 256).`,
+        quote: `«La corporación es la segunda raíz, la raíz ética del Estado ahondada en la Sociedad Civil, después de la familia.» (§ 255)`
+      },
+      estado: {
+        step: `Momento 7 de 8`,
+        paragraphs: `§§ 257–340`,
+        title: `III.c El Estado`,
+        summary: `«La realidad de la Idea ética» (§ 257). No es un mero instrumento policial para proteger la propiedad privada, sino el fin inmanente donde el interés particular y el bien universal se compenetran (§ 261). Se organiza orgánicamente en poder legislativo, gubernativo y poder del soberano (§ 273).`,
+        agent: `El Ciudadano del Estado constitucional`,
+        principle: `Racionalidad objetiva y constitución (§§ 265, 273)`,
+        limit: `Cada Estado es una individualidad soberana finita frente a otros Estados. Al no existir un pretor supranacional, sus conflictos y destinos pasan al tribunal superior de la Historia Universal (§ 340).`,
+        quote: `«El Estado es la realidad de la Idea ética; es el Espíritu ético en cuanto voluntad patente, claro por sí mismo, sustancial, que se piensa y se conoce.» (§ 257)`
+      },
+      historia: {
+        step: `Momento 8 de 8`,
+        paragraphs: `§§ 341–360`,
+        title: `La Historia Universal (Weltgericht)`,
+        summary: `Culminación del Espíritu Objetivo. En las relaciones y conflictos entre los espíritus nacionales particulares (Volksgeist), el Espíritu del mundo ejercita su derecho supremo como juicio universal (§ 340), desplegando la autoconciencia progresiva de la libertad a través de cuatro grandes dominios históricos (§§ 352–353).`,
+        agent: `Los Espíritus Nacionales (Volksgeist)`,
+        principle: `Realización progresiva de la libertad mundial`,
+        limit: `Con la Historia Universal se cierra el ámbito finito del Espíritu Objetivo y el sistema filosófico de Hegel transita hacia el Espíritu Absoluto (Arte, Religión y Filosofía).`,
+        quote: `«El Espíritu universal, el Espíritu del mundo... ejercita su derecho —y su derecho es el más supremo de todos— por sobre ellos en la historia universal, como juicio universal.» (§ 340)`
+      }
+    };
+
+    const CASES_DATA = {
+      esclavitud: {
+        ref: `Caso 1 · Propiedad, cuerpo y libertad inalienable (§§ 41–44, 57, 70)`,
+        title: `¿Puede una persona venderse a sí misma o ser tratada como cosa apropiable?`,
+        premise: `El Derecho Abstracto otorga al ser humano el «absoluto derecho de apropiación sobre todas las cosas» (§ 44). Cabe preguntarse si ese poder permite convertir a otro ser humano —o a la propia vida— en mercancía.`,
+        derecho: `Aunque parte de la propiedad sobre cosas exteriores, el propio Derecho Abstracto traza un límite tajante: la «cosa» es lo no-libre y no-personal (§ 42). Por ello la esclavitud contradice el concepto mismo de persona (§ 57) y nadie tiene derecho a enajenar su propia vida (§ 70).`,
+        moralidad: `Desde la Moralidad se refuerza que el ser humano es un sujeto reflexivo con dignidad interna y fines propios (§ 107). Tratar al sujeto como simple medio o instrumento aniquila su autodeterminación moral.`,
+        eticidad: `La verdadera abolición de la esclavitud no queda en un mero «deber ser» moral: se garantiza objetivamente cuando el hombre es reconocido como ciudadano libre en un Estado con leyes justas, donde deberes y derechos pertenecen a toda persona libre (§ 57 obs., § 261 obs.).`
+      },
+      contrato: {
+        ref: `Caso 2 · Alcance y límites de la relación contractual (§§ 75, 161, 258)`,
+        title: `¿Son el matrimonio y el Estado meros contratos entre individuos?`,
+        premise: `Kant y las teorías contractualistas conciben tanto el matrimonio como el origen del Estado como contratos de todos con todos o con el gobernante (§ 75 obs.). Hegel somete esta tesis a una crítica radical.`,
+        derecho: `El contrato pertenece al Derecho Abstracto y versa exclusivamente sobre cosas externas y singulares susceptibles de intercambio (§ 72–75). Pretender incluir la vida familiar o política dentro del contrato reduce vínculos sustanciales al capricho arbitrario.`,
+        moralidad: `La Moralidad exige algo más profundo que un pacto de intereses: reclama una disposición interna y un compromiso con el Bien. Sin embargo, el puro sentimiento moral sigue siendo vulnerable a la inestabilidad de los afectos subjetivos.`,
+        eticidad: `En la Eticidad, el matrimonio (§ 161) supera el contrato al fundarse en la unidad espiritual del amor, y el Estado (§§ 257–258) supera el pacto utilitario porque el individuo ya nace dentro de su sustancia ética y solo en él realiza su libertad racional.`
+      },
+      conviccion: {
+        ref: `Caso 3 · Conciencia individual vs. validez objetiva de la ley (§§ 135–140, 211)`,
+        title: `¿Basta obrar «según mi propia convicción» para que una acción sea justa?`,
+        premise: `Un ciudadano alega que su conciencia íntima le dicta desobedecer la ley pública porque, según su convicción subjetiva, persigue un buen fin (§ 140).`,
+        derecho: `El Derecho Abstracto evalúa solo la lesión externa de la norma, sin indagar la convicción íntima del infractor; de hecho, en la sociedad civil la ley positiva debe ser públicamente conocida y válida para todos (§ 211).`,
+        moralidad: `La Moralidad consagra la conciencia como «santuario» de la autodeterminación (§ 137 obs.), pero Hegel demuestra su paradoja: si el bien se reduce a formalismo vacío (§ 135) o a la mera certeza subjetiva («yo creo que es bueno»), cualquier delito puede justificarse por una buena intención (§ 140 obs.).`,
+        eticidad: `La Eticidad reconcilia ambos extremos: el Estado no puede aceptar la opinión subjetiva por encima de la ley (§ 137 obs.), pero sus leyes justas y racionales encarnan el bien objetivo para que la conciencia recta pueda reconocerse en ellas.`
+      },
+      corporacion: {
+        ref: `Caso 4 · Mercado egoísta, pobreza y mediación corporativa (§§ 183, 244, 253–255)`,
+        title: `¿Puede el mercado autorregulado de la Sociedad Civil garantizar la dignidad social?`,
+        premise: `En la Sociedad Civil cada miembro trabaja para satisfacer sus propias necesidades privadas, generando riqueza, división del trabajo, pero también aislamiento, azar y pobreza (§§ 183, 244).`,
+        derecho: `El Derecho Abstracto protege formalmente la propiedad y el cumplimiento de los contratos de trabajo, pero es ciego ante la desigualdad material, la pérdida de sustento o la alienación del trabajador aislado.`,
+        moralidad: `La Moralidad apela a la caridad individual o al deber subjetivo de ayudar a los pobres (§ 140 obs.), pero deja la asistencia librada a la contingencia y a la humillación personal (§ 253 obs.).`,
+        eticidad: `A través de la Corporación profesional, el oficio particular se eleva a fin común: asegura la subsistencia, otorga «dignidad de clase» y elimina tanto el orgullo de la riqueza como el carácter humillante de la pobreza accidental, preparando éticamente al ciudadano para el Estado (§§ 253–255).`
+      },
+      deber: {
+        ref: `Caso 5 · Tensión entre interés privado y servicio público (§§ 155, 261, 265)`,
+        title: `¿Restringen las obligaciones hacia el Estado la libertad individual?`,
+        premise: `Desde una mirada liberal individualista, los impuestos, leyes y deberes cívicos aparecen como cargas externas que recortan la esfera privada de los ciudadanos.`,
+        derecho: `En el plano del Derecho Abstracto, deber y derecho aparecen repartidos entre sujetos distintos: si uno tiene el derecho, otro soporta la obligación (§ 155). El Estado se percibe como un mal necesario o guardián externo.`,
+        moralidad: `En la Moralidad, el deber se experimenta muchas veces como una exigencia dura frente a las inclinaciones e intereses particulares del sujeto (§ 133).`,
+        eticidad: `En el Estado ético, el deber frente a lo sustancial es al mismo tiempo la existencia real de mi libertad particular (§ 261 obs.). Las instituciones públicas son las «piedras angulares de la libertad pública» (§ 265), de modo que derechos y deberes forman una sola unidad (§ 155).`
+      }
+    };
+
+    const COUNTERPOINT_DATA = {
+      estado: {
+        hegelTitle: `El Estado como fundamento verdadero de la Sociedad Civil`,
+        hegelText: `Aunque en la exposición científica el Estado aparece como resultado tras la Familia y la Sociedad Civil (§ 256 obs.), Hegel sostiene que en la realidad el Estado es el fundamento primero dentro del cual ambas se desarrollan. El Estado realiza lo universal concreto y supera los egoísmos particulares (§ 261).`,
+        marxTitle: `La sociedad real y el Estado como abstracción invertida`,
+        marxText: `En su Introducción de 1844, Marx objeta que la filosofía alemana del derecho pensó el Estado moderno abstrayendo del hombre real, precisamente porque el propio Estado moderno hace abstracción de la vida material concreta. Alemania vive en el pensamiento filosófico lo que otros pueblos viven en la política práctica.`
+      },
+      filosofia: {
+        hegelTitle: `Aprehender racionalmente lo presente`,
+        hegelText: `Hegel asigna a la filosofía especulativa la tarea de comprender el universo ético tal como es («lo que es racional es real»), rechazando tanto el utopismo moralizante del «deber ser» como el desprecio superficial hacia la ley (§ 270, Prefacio).`,
+        marxTitle: `Realizar la filosofía mediante la praxis`,
+        marxText: `Marx replica que no se puede suprimir la filosofía sin realizarla, ni realizarla sin negarla como mera especulación. La crítica deja de ser «el escalpelo anatómico» para volverse un arma práctica: «el arma de la crítica no puede soportar la crítica de las armas», pero la teoría se hace fuerza material al adueñarse de las masas.`
+      },
+      emancipacion: {
+        hegelTitle: `Reconciliación en la ciudadanía estatal y la Historia`,
+        hegelText: `El individuo alcanza su dignidad objetiva integrándose en las clases sociales, las corporaciones (§ 207, § 253) y la vida pública estatal, mientras los espíritus nacionales cumplen su destino bajo el juicio de la Historia Universal (§ 340).`,
+        marxTitle: `El proletariado como corazón de la emancipación universal`,
+        marxText: `Ante el estancamiento de las clases alemanas incapaces de una revolución parcial, Marx identifica al proletariado naciente —clase que padece la injusticia en sí— como sujeto cuya emancipación exige la emancipación humana total: «el cerebro de esta emancipación es la filosofía y su corazón es el proletariado».`
+      }
+    };
+
+    const QUIZ_DATA = [
+      {
+        id: `q1`,
+        category: `derecho`,
+        categoryLabel: `Fundamento y Derecho Abstracto`,
+        ref: `§ 4 y § 29`,
+        question: `¿Cómo concibe Hegel el Derecho frente a la definición kantiana tradicional?`,
+        options: [
+          `Como un conjunto de reglas técnicas para limitar el arbitrio individual mediante la coacción externa.`,
+          `Como la existencia de la voluntad libre —la libertad realizada como «segunda naturaleza»— y no mera limitación negativa.`,
+          `Como un pacto revocable nacido únicamente del sentimiento moral y la amistad cívica.`,
+          `Como el reflejo ilusorio de las leyes religiosas proyectado sobre la sociedad.`
+        ],
+        correct: 1,
+        explanation: `Correcto según los §§ 4 y 29: mientras Kant enfatizaba la limitación mutua de los arbitrios, Hegel define el Derecho como toda existencia que encarna la voluntad libre, constituyendo el reino de la libertad realizada.`
+      },
+      {
+        id: `q2`,
+        category: `derecho`,
+        categoryLabel: `Fundamento y Derecho Abstracto`,
+        ref: `§§ 36–38`,
+        question: `¿Por qué las normas del Derecho Abstracto adoptan fundamentalmente la forma de prohibiciones?`,
+        options: [
+          `Porque la persona abstracta solo exige negativamente no lesionar la personalidad ajena ni su esfera externa, sin prescribir fines morales positivos.`,
+          `Porque Hegel desconfía de la existencia de leyes escritas y prefiere las costumbres silenciosas.`,
+          `Porque en el Derecho Abstracto el Estado ya ha absorbido todos los deberes familiares.`,
+          `Porque los contratos solo pueden celebrarse bajo amenaza militar permanente.`
+        ],
+        correct: 0,
+        explanation: `En los §§ 36–38, la prescripción jurídica se reduce a «sé persona y respeta a los demás como personas». Dado su carácter formal y abstracto, no impone virtudes positivas sino la prohibición de dañar la personalidad y su propiedad.`
+      },
+      {
+        id: `q3`,
+        category: `derecho`,
+        categoryLabel: `Fundamento y Derecho Abstracto`,
+        ref: `§ 75 obs.`,
+        question: `¿Qué critica Hegel cuando rechaza incluir el matrimonio y el Estado bajo la categoría de «contrato»?`,
+        options: [
+          `Que los contratos solo son válidos en el Derecho Romano antiguo y no en la Europa moderna.`,
+          `Que el contrato pertenece a cosas externas enajenables y al arbitrio común, mientras el matrimonio y el Estado son vínculos éticos sustanciales.`,
+          `Que el matrimonio carece de toda dimensión jurídica y patrimonial.`,
+          `Que el contrato exige necesariamente la intervención de una corporación artesanal.`
+        ],
+        correct: 1,
+        explanation: `En la Observación al § 75, Hegel califica de «torpe ocurrencia» de Kant subsumir el matrimonio y el Estado bajo el contrato, pues este versa sobre cosas singulares externas, no sobre la totalidad ética de la vida familiar o política.`
+      },
+      {
+        id: `q4`,
+        category: `moralidad`,
+        categoryLabel: `Moralidad y Conciencia`,
+        ref: `§ 135 obs.`,
+        question: `¿Cuál es la objeción central de Hegel al principio kantiano del «deber por el deber» en la esfera de la Moralidad?`,
+        options: [
+          `Que concede demasiado poder económico a la clase campesina.`,
+          `Que mantiene la moralidad en un formalismo vacío e indeterminado, incapaz por sí solo de deducir deberes concretos.`,
+          `Que niega por completo la autonomía de la voluntad subjetiva.`,
+          `Que identifica automáticamente el bienestar privado con la ley del Estado.`
+        ],
+        correct: 1,
+        explanation: `Aunque reconoce el mérito histórico de Kant al fundamentar la autonomía de la voluntad (§ 135 obs.), Hegel señala que reducir el deber a mera ausencia formal de contradicción no genera contenido concreto y puede justificar conductas opuestas.`
+      },
+      {
+        id: `q5`,
+        category: `moralidad`,
+        categoryLabel: `Moralidad y Conciencia`,
+        ref: `§§ 137–141`,
+        question: `¿Qué riesgo aparece cuando la conciencia subjetiva se absolutiza frente a las leyes objetivas?`,
+        options: [
+          `La conversión inmediata de la Sociedad Civil en una familia patriarcal.`,
+          `El retorno automático a la propiedad agraria feudal.`,
+          `La disolución de toda objetividad ética: la mera convicción privada puede revestir de «buena intención» cualquier acto injusto (hipocresía).`,
+          `La desaparición total del sistema de necesidades y del comercio.`
+        ],
+        correct: 2,
+        explanation: `En los §§ 137–140, Hegel muestra que sin un contenido objetivo en leyes e instituciones, la sola certeza subjetiva («yo creo que es bueno») iguala el bien con el capricho y abre la puerta a la hipocresía. De ahí la necesidad de transitar a la Eticidad (§ 141).`
+      },
+      {
+        id: `q6`,
+        category: `eticidad`,
+        categoryLabel: `Eticidad e Historia Universal`,
+        ref: `§§ 183, 253–255`,
+        question: `En la Sociedad Civil —llamada «Estado de la necesidad»—, ¿qué papel ético cumple la Corporación?`,
+        options: [
+          `Sustituir al poder legislativo del Estado mediante asambleas familiares.`,
+          `Actuar como «segunda raíz ética del Estado», unificando el interés particular del oficio con un fin común y otorgando dignidad de clase frente al azar del mercado.`,
+          `Eliminar la propiedad privada y prohibir toda división del trabajo.`,
+          `Reemplazar la administración de la justicia por juicios puramente afectivos.`
+        ],
+        correct: 1,
+        explanation: `Según los §§ 253–255, la Corporación (propia de las clases industriales y artesanales) rescata al individuo del aislamiento egoísta, asegura su subsistencia, elimina la humillación de la pobreza accidental y prepara la unidad con el Estado.`
+      },
+      {
+        id: `q7`,
+        category: `eticidad`,
+        categoryLabel: `Eticidad e Historia Universal`,
+        ref: `§§ 155, 261`,
+        question: `¿Cómo resuelve la Eticidad estatal la relación entre deberes y derechos del ciudadano?`,
+        options: [
+          `Los derechos corresponden exclusivamente al soberano y los deberes a los ciudadanos.`,
+          `El deber hacia el Estado y el derecho de la libertad particular coinciden: se tienen derechos en cuanto se tienen deberes, y viceversa.`,
+          `Los deberes pertenecen al Derecho Abstracto y los derechos desaparecen dentro del Estado.`,
+          `Solo los miembros de la familia poseen derechos, mientras la Sociedad Civil impone deberes.`
+        ],
+        correct: 1,
+        explanation: `A diferencia del Derecho Abstracto (donde mi derecho es deber de otro), en la Eticidad y el Estado (§§ 155, 261) deber y derecho forman una identidad sustancial: cumplir el deber ciudadano es el existir efectivo de la propia libertad.`
+      },
+      {
+        id: `q8`,
+        category: `eticidad`,
+        categoryLabel: `Eticidad e Historia Universal`,
+        ref: `§§ 340–347`,
+        question: `¿Qué instancia ejerce el juicio supremo sobre los Estados particulares y sus conflictos en el cierre de la obra?`,
+        options: [
+          `Un contrato perpetuo firmado entre las corporaciones mercantiles europeas.`,
+          `La conciencia moral privada del gobernante de turno.`,
+          `La Historia Universal como juicio universal (Weltgericht), donde se despliega el Espíritu del mundo a través de los espíritus nacionales.`,
+          `La disolución de todos los Estados en una única familia natural.`
+        ],
+        correct: 2,
+        explanation: `En los §§ 340–347, dado que los Estados son individuos soberanos particulares sin un juez superior externo, su dialéctica histórica se resuelve ante la Historia Universal (Weltgericht), expresión del Espíritu del mundo.`
+      }
+    ];
+
+    let appState = {
+      activeNode: `derecho`,
+      activeCase: `esclavitud`,
+      tableFocus: `all`,
+      activeCounterpoint: `estado`,
+      quizAnswers: {}
+    };
+
+    function selectNode(nodeId) {
+      if (!NODES_DATA[nodeId]) return;
+      appState.activeNode = nodeId;
+      renderNodeInspector();
+      persistState();
+    }
+
+    function stepNode(delta) {
+      const currentIdx = NODES_ORDER.indexOf(appState.activeNode);
+      const safeIdx = currentIdx === -1 ? 0 : currentIdx;
+      const nextIdx = Math.max(0, Math.min(NODES_ORDER.length - 1, safeIdx + delta));
+      selectNode(NODES_ORDER[nextIdx]);
+    }
+
+    function handleNodeKey(event, nodeId) {
+      if (event.key === `Enter` || event.key === ` `) {
+        event.preventDefault();
+        selectNode(nodeId);
+      }
+    }
+
+    function renderNodeInspector() {
+      const data = NODES_DATA[appState.activeNode];
+      if (!data) return;
+
+      const idx = NODES_ORDER.indexOf(appState.activeNode);
+      const prevBtn = document.getElementById(`btn-prev-node`);
+      const nextBtn = document.getElementById(`btn-next-node`);
+      if (prevBtn) prevBtn.disabled = idx <= 0;
+      if (nextBtn) nextBtn.disabled = idx >= NODES_ORDER.length - 1;
+
+      const elPara = document.getElementById(`insp-paragraphs`);
+      const elStep = document.getElementById(`insp-step-label`);
+      const elTitle = document.getElementById(`insp-title`);
+      const elSummary = document.getElementById(`insp-summary`);
+      const elAgent = document.getElementById(`insp-agent`);
+      const elPrinciple = document.getElementById(`insp-principle`);
+      const elLimit = document.getElementById(`insp-limit`);
+      const elQuote = document.getElementById(`insp-quote`);
+
+      if (elPara) elPara.textContent = data.paragraphs;
+      if (elStep) elStep.textContent = data.step;
+      if (elTitle) elTitle.textContent = data.title;
+      if (elSummary) elSummary.textContent = data.summary;
+      if (elAgent) elAgent.textContent = data.agent;
+      if (elPrinciple) elPrinciple.textContent = data.principle;
+      if (elLimit) elLimit.textContent = data.limit;
+      if (elQuote) elQuote.textContent = data.quote;
+
+      NODES_ORDER.forEach(function (id) {
+        const svgEl = document.getElementById(`svg-node-` + id);
+        if (svgEl) {
+          if (id === appState.activeNode) {
+            svgEl.classList.add(`is-active`);
+          } else {
+            svgEl.classList.remove(`is-active`);
+          }
+        }
+      });
+
+      const chips = document.querySelectorAll(`#node-chip-list .node-chip-btn`);
+      chips.forEach(function (btn) {
+        const isMatch = btn.getAttribute(`data-node`) === appState.activeNode;
+        btn.setAttribute(`aria-pressed`, isMatch ? `true` : `false`);
+      });
+    }
+
+    function selectCase(caseId) {
+      if (!CASES_DATA[caseId]) return;
+      appState.activeCase = caseId;
+      renderCaseAnalyzer();
+      persistState();
+    }
+
+    function renderCaseAnalyzer() {
+      const data = CASES_DATA[appState.activeCase];
+      if (!data) return;
+
+      const refEl = document.getElementById(`case-ref`);
+      const titleEl = document.getElementById(`case-title`);
+      const premEl = document.getElementById(`case-premise`);
+      const dEl = document.getElementById(`lens-derecho`);
+      const mEl = document.getElementById(`lens-moralidad`);
+      const eEl = document.getElementById(`lens-eticidad`);
+
+      if (refEl) refEl.textContent = data.ref;
+      if (titleEl) titleEl.textContent = data.title;
+      if (premEl) premEl.textContent = data.premise;
+      if (dEl) dEl.textContent = data.derecho;
+      if (mEl) mEl.textContent = data.moralidad;
+      if (eEl) eEl.textContent = data.eticidad;
+
+      const btns = document.querySelectorAll(`#case-buttons .case-btn`);
+      btns.forEach(function (btn) {
+        const isMatch = btn.getAttribute(`data-case`) === appState.activeCase;
+        btn.setAttribute(`aria-pressed`, isMatch ? `true` : `false`);
+      });
+    }
+
+    function setTableFocus(dim) {
+      appState.tableFocus = dim;
+      renderTableFocus();
+      persistState();
+    }
+
+    function renderTableFocus() {
+      const focus = appState.tableFocus || `all`;
+      const btns = document.querySelectorAll(`[data-dim].btn-tab`);
+      btns.forEach(function (btn) {
+        const isMatch = btn.getAttribute(`data-dim`) === focus;
+        btn.setAttribute(`aria-pressed`, isMatch ? `true` : `false`);
+      });
+
+      const rows = document.querySelectorAll(`.charter-table tbody tr[data-dim]`);
+      rows.forEach(function (row) {
+        const rowDim = row.getAttribute(`data-dim`);
+        row.classList.remove(`is-highlighted`, `is-dimmed`);
+        if (focus !== `all`) {
+          if (rowDim === focus) {
+            row.classList.add(`is-highlighted`);
+          } else {
+            row.classList.add(`is-dimmed`);
+          }
+        }
+      });
+    }
+
+    function selectCounterpoint(cpId) {
+      if (!COUNTERPOINT_DATA[cpId]) return;
+      appState.activeCounterpoint = cpId;
+      renderCounterpoint();
+      persistState();
+    }
+
+    function renderCounterpoint() {
+      const data = COUNTERPOINT_DATA[appState.activeCounterpoint];
+      if (!data) return;
+
+      const hTitle = document.getElementById(`cp-hegel-title`);
+      const hText = document.getElementById(`cp-hegel-text`);
+      const mTitle = document.getElementById(`cp-marx-title`);
+      const mText = document.getElementById(`cp-marx-text`);
+
+      if (hTitle) hTitle.textContent = data.hegelTitle;
+      if (hText) hText.textContent = data.hegelText;
+      if (mTitle) mTitle.textContent = data.marxTitle;
+      if (mText) mText.textContent = data.marxText;
+
+      const btns = document.querySelectorAll(`[data-cp]`);
+      btns.forEach(function (btn) {
+        const isMatch = btn.getAttribute(`data-cp`) === appState.activeCounterpoint;
+        btn.setAttribute(`aria-pressed`, isMatch ? `true` : `false`);
+      });
+    }
+
+    function buildQuiz() {
+      const container = document.getElementById(`quiz-container`);
+      if (!container) return;
+      container.innerHTML = ``;
+
+      const letters = [`A`, `B`, `C`, `D`];
+
+      QUIZ_DATA.forEach(function (item, index) {
+        const card = document.createElement(`article`);
+        card.className = `quiz-card`;
+        card.id = `card-` + item.id;
+
+        const head = document.createElement(`div`);
+        head.className = `quiz-card-head`;
+
+        const catSpan = document.createElement(`span`);
+        catSpan.className = `kicker`;
+        catSpan.style.marginBottom = `0`;
+        catSpan.textContent = `Cuestión 0` + (index + 1) + ` · ` + item.categoryLabel;
+
+        const refSpan = document.createElement(`span`);
+        refSpan.className = `stamp`;
+        refSpan.textContent = item.ref;
+
+        head.appendChild(catSpan);
+        head.appendChild(refSpan);
+
+        const qTitle = document.createElement(`h3`);
+        qTitle.className = `quiz-q-title`;
+        qTitle.textContent = item.question;
+
+        const optsWrap = document.createElement(`div`);
+        optsWrap.className = `quiz-options`;
+
+        item.options.forEach(function (optText, optIdx) {
+          const btn = document.createElement(`button`);
+          btn.type = `button`;
+          btn.className = `quiz-option`;
+          btn.setAttribute(`data-qid`, item.id);
+          btn.setAttribute(`data-oidx`, String(optIdx));
+          btn.onclick = function () {
+            answerQuiz(item.id, optIdx);
+          };
+
+          const letterSpan = document.createElement(`span`);
+          letterSpan.className = `quiz-opt-letter`;
+          letterSpan.textContent = letters[optIdx] + `.`;
+
+          const txtSpan = document.createElement(`span`);
+          txtSpan.textContent = optText;
+
+          btn.appendChild(letterSpan);
+          btn.appendChild(txtSpan);
+          optsWrap.appendChild(btn);
+        });
+
+        const feedback = document.createElement(`div`);
+        feedback.className = `quiz-feedback`;
+        feedback.id = `fb-` + item.id;
+        feedback.setAttribute(`aria-live`, `polite`);
+
+        card.appendChild(head);
+        card.appendChild(qTitle);
+        card.appendChild(optsWrap);
+        card.appendChild(feedback);
+
+        container.appendChild(card);
+      });
+    }
+
+    function answerQuiz(qid, optIdx) {
+      appState.quizAnswers[qid] = optIdx;
+      const resetBtn = document.getElementById(`btn-reset-quiz`);
+      if (resetBtn) {
+        resetBtn.dataset.armed = `false`;
+        resetBtn.textContent = `Reiniciar autoevaluación`;
+      }
+      const notice = document.getElementById(`quiz-reset-notice`);
+      if (notice) notice.textContent = ``;
+
+      renderQuizState();
+      persistState();
+    }
+
+    function renderQuizState() {
+      let totalAnswered = 0;
+      let totalCorrect = 0;
+      const catCounts = {
+        derecho: { ok: 0, total: 3 },
+        moralidad: { ok: 0, total: 2 },
+        eticidad: { ok: 0, total: 3 }
+      };
+
+      QUIZ_DATA.forEach(function (item) {
+        const chosen = appState.quizAnswers[item.id];
+        const hasAnswered = typeof chosen === `number`;
+        const optionBtns = document.querySelectorAll(`.quiz-option[data-qid="` + item.id + `"]`);
+        const fbEl = document.getElementById(`fb-` + item.id);
+
+        optionBtns.forEach(function (btn) {
+          const idx = Number(btn.getAttribute(`data-oidx`));
+          btn.classList.remove(`is-correct`, `is-wrong`);
+          btn.disabled = false;
+
+          if (hasAnswered) {
+            if (idx === item.correct) {
+              btn.classList.add(`is-correct`);
+            } else if (idx === chosen && chosen !== item.correct) {
+              btn.classList.add(`is-wrong`);
+            }
+          }
+        });
+
+        if (fbEl) {
+          fbEl.classList.remove(`is-visible`, `is-ok`, `is-bad`);
+          if (hasAnswered) {
+            totalAnswered += 1;
+            const isOk = chosen === item.correct;
+            if (isOk) {
+              totalCorrect += 1;
+              if (catCounts[item.category]) catCounts[item.category].ok += 1;
+            }
+            fbEl.classList.add(`is-visible`, isOk ? `is-ok` : `is-bad`);
+            fbEl.textContent = (isOk ? `Respuesta acertada (` + item.ref + `). ` : `Revisión necesaria (` + item.ref + `). `) + item.explanation;
+          } else {
+            fbEl.textContent = ``;
+          }
+        }
+      });
+
+      const headerProg = document.getElementById(`header-progress`);
+      if (headerProg) {
+        headerProg.textContent = `Autoevaluación: ` + totalAnswered + ` / ` + QUIZ_DATA.length + ` respondidas`;
+      }
+
+      const bigScore = document.getElementById(`quiz-score-big`);
+      if (bigScore) {
+        bigScore.textContent = totalCorrect + ` / ` + QUIZ_DATA.length;
+      }
+
+      const statusEl = document.getElementById(`quiz-status-text`);
+      if (statusEl) {
+        if (totalAnswered === 0) {
+          statusEl.textContent = `Aún no has respondido ninguna pregunta. Selecciona una opción en la primera cuestión para comenzar.`;
+        } else if (totalAnswered < QUIZ_DATA.length) {
+          statusEl.textContent = `Has completado ` + totalAnswered + ` de ` + QUIZ_DATA.length + ` cuestiones (` + totalCorrect + ` aciertos hasta ahora).`;
+        } else {
+          statusEl.textContent = `Autoevaluación completada: ` + totalCorrect + ` aciertos de ` + QUIZ_DATA.length + ` posibles. Puedes revisar cualquier explicación o reiniciar las respuestas.`;
+        }
+      }
+
+      const dScore = document.getElementById(`cat-derecho`);
+      const mScore = document.getElementById(`cat-moralidad`);
+      const eScore = document.getElementById(`cat-eticidad`);
+      if (dScore) dScore.textContent = catCounts.derecho.ok + ` / ` + catCounts.derecho.total;
+      if (mScore) mScore.textContent = catCounts.moralidad.ok + ` / ` + catCounts.moralidad.total;
+      if (eScore) eScore.textContent = catCounts.eticidad.ok + ` / ` + catCounts.eticidad.total;
+    }
+
+    function resetQuiz(btn) {
+      if (!btn) return;
+      const notice = document.getElementById(`quiz-reset-notice`);
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirmar reinicio`;
+        if (notice) notice.textContent = `Pulsa de nuevo para borrar tus respuestas actuales.`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reiniciar autoevaluación`;
+      appState.quizAnswers = {};
+      renderQuizState();
+      persistState();
+      if (notice) notice.textContent = `Autoevaluación reiniciada.`;
+    }
+
+    async function loadSavedState() {
+      if (!window.notebookAppApi || typeof window.notebookAppApi.getAppState !== `function`) return;
+      try {
+        const saved = await window.notebookAppApi.getAppState();
+        if (saved && typeof saved === `object`) {
+          if (saved.activeNode && NODES_DATA[saved.activeNode]) {
+            appState.activeNode = saved.activeNode;
+          }
+          if (saved.activeCase && CASES_DATA[saved.activeCase]) {
+            appState.activeCase = saved.activeCase;
+          }
+          if (typeof saved.tableFocus === `string`) {
+            appState.tableFocus = saved.tableFocus;
+          }
+          if (saved.activeCounterpoint && COUNTERPOINT_DATA[saved.activeCounterpoint]) {
+            appState.activeCounterpoint = saved.activeCounterpoint;
+          }
+          if (saved.quizAnswers && typeof saved.quizAnswers === `object`) {
+            appState.quizAnswers = saved.quizAnswers;
+          }
+        }
+      } catch (err) {
+        // Ignorar si no existe estado previo
+      }
+    }
+
+    async function persistState() {
+      if (!window.notebookAppApi || typeof window.notebookAppApi.setAppState !== `function`) return;
+      try {
+        await window.notebookAppApi.setAppState({
+          activeNode: appState.activeNode,
+          activeCase: appState.activeCase,
+          tableFocus: appState.tableFocus,
+          activeCounterpoint: appState.activeCounterpoint,
+          quizAnswers: appState.quizAnswers
+        });
+      } catch (err) {
+        // Ignorar fallo silencioso en previsualización
+      }
+    }
+
+    function setupRevealObserver() {
+      const items = document.querySelectorAll(`.reveal-item`);
+      if (!(`IntersectionObserver` in window)) {
+        items.forEach(function (el) { el.classList.add(`is-revealed`); });
+        return;
+      }
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(`is-revealed`);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      items.forEach(function (el) {
+        observer.observe(el);
+      });
+    }
+
+    async function initApp() {
+      buildQuiz();
+      await loadSavedState();
+      renderNodeInspector();
+      renderCaseAnalyzer();
+      renderTableFocus();
+      renderCounterpoint();
+      renderQuizState();
+      setupRevealObserver();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, function () {
+      initApp();
+    });
+  </script>
+</body>
+</html>

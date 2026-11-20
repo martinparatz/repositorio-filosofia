@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="sonnet">
+  <title>Fenomenología del espíritu — Guía dialéctica interactiva</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/scrollama@3.2.0/build/scrollama.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (Sonnet) */
+      --background: #f5efe0;
+      --surface-container-low: #f8f3e7;
+      --surface-container: #ece3cf;
+      --surface-container-high: #e4d8bf;
+
+      /* Ink */
+      --on-surface: #1f1a17;
+      --on-surface-variant: #4a3f38;
+
+      /* Rules */
+      --outline: #a8843f;
+      --outline-variant: #d8c7a3;
+
+      /* Accents */
+      --primary: #6b1424;
+      --on-primary: #f5efe0;
+      --primary-container: #efe0dc;
+      --on-primary-container: #4a0d18;
+      --secondary: #2f4a3a;
+      --tertiary: #a8843f;
+      --error: #9b2c1f;
+      --on-error: #f5efe0;
+
+      /* Data series */
+      --data-1: #6b1424;
+      --data-2: #2f4a3a;
+      --data-3: #a8843f;
+      --data-4: #3d5a73;
+      --data-context: #b9ad9c;
+
+      /* Fonts */
+      --font-headline: 'Cormorant Garamond', serif;
+      --font-body: 'Crimson Pro', serif;
+      --font-label: 'Cormorant Garamond', serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --gilt-rule: 1px solid var(--outline);
+      --gilt-rule-soft: 1px solid var(--outline-variant);
+      --gilt-frame-inset: 5px;
+      --paper-vignette: inset 0 0 90px rgb(120 90 40 / 0.16);
+
+      /* Shared semantic tokens */
+      --positive: #2f4a3a;
+      --warning: #8a5a10;
+      --focus: #6b1424;
+
+      /* Narrative type scale (adjusted for Cormorant Garamond & Crimson Pro) */
+      --display-size: clamp(2.85rem, 1.6rem + 4.4vw, 5rem);
+      --headline-size: clamp(1.95rem, 1.3rem + 2.2vw, 2.85rem);
+      --subhead-size: clamp(1.3rem, 1.1rem + 0.6vw, 1.625rem);
+      --body-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.84rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.68;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    /* Aged-paper vignette on the outer book page */
+    .page {
+      box-shadow: var(--paper-vignette);
+      min-height: 100vh;
+    }
+
+    /* ══ PIN CORE (Scrollytelling container without block overflow) ══ */
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 var(--space-lg);
+      overflow-x: clip;
+    }
+    .wrap * { min-width: 0; }
+
+    .scrolly {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: var(--space-xl);
+      align-items: start;
+      margin-top: var(--space-xl);
+    }
+    .scrolly-graphic {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: grid;
+      align-content: center;
+      gap: var(--space-md);
+      margin: 0;
+      padding: var(--space-md) 0;
+    }
+    .steps { padding: 14vh 0 24vh; }
+    .step {
+      min-height: 76vh;
+      display: grid;
+      align-content: center;
+    }
+    @media (max-width: 820px) {
+      .scrolly { grid-template-columns: 1fr; }
+      .scrolly-graphic {
+        height: auto;
+        min-height: 52vh;
+        background-color: var(--background);
+        border-bottom: var(--gilt-rule);
+        z-index: 5;
+        padding: var(--space-md) 0;
+      }
+      .steps { padding: 6vh 0 12vh; }
+      .step { min-height: 54vh; }
+    }
+
+    /* Typography & Editorial Hierarchy */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      color: var(--on-surface);
+      letter-spacing: -0.005em;
+      margin: 0;
+    }
+    h1 {
+      font-size: var(--display-size);
+      line-height: 1.06;
+      font-style: italic;
+    }
+    h1 em, h2 em {
+      color: var(--primary);
+      font-style: italic;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      line-height: 1.14;
+      font-style: italic;
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      line-height: 1.24;
+      font-weight: 600;
+    }
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 64ch;
+    }
+    .kicker, .label-voice {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-style: normal;
+      font-size: var(--label-size);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+    .muted {
+      color: var(--on-surface-variant);
+    }
+    .oldstyle { font-variant-numeric: oldstyle-nums; }
+    .tabular { font-variant-numeric: tabular-nums; }
+
+    /* Focus states (WCAG AA) */
+    button:focus-visible,
+    a:focus-visible,
+    [tabindex]:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Centered Editorial Rhythm (Sonnet) */
+    .centered-header {
+      text-align: center;
+      display: grid;
+      justify-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-xl);
+    }
+    .centered-header .lede {
+      max-width: 58ch;
+      color: var(--on-surface-variant);
+      font-size: var(--subhead-size);
+      line-height: 1.48;
+      margin: 0;
+    }
+    .measure {
+      max-width: 64ch;
+      margin-inline: auto;
+    }
+
+    /* Defining Treatment 1: Gilt double frame (Hero only — one per view) */
+    .hero-section {
+      padding: var(--space-2xl) 0 var(--space-xl);
+    }
+    .gilt-frame {
+      border: var(--gilt-rule);
+      outline: var(--gilt-rule);
+      outline-offset: calc(-1 * var(--gilt-frame-inset));
+      padding: var(--space-2xl) var(--space-xl);
+      background-color: var(--surface-container-low);
+      text-align: center;
+      display: grid;
+      justify-items: center;
+      gap: var(--space-md);
+    }
+    .hero-sub {
+      max-width: 56ch;
+      font-size: var(--subhead-size);
+      line-height: 1.45;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    /* Navigation contents (centered, middots) */
+    .toc-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-sm) var(--space-md);
+      padding: var(--space-md) 0;
+      margin-top: var(--space-lg);
+      border-top: var(--gilt-rule-soft);
+      border-bottom: var(--gilt-rule-soft);
+    }
+    .toc-link {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-color: var(--outline);
+      text-underline-offset: 3px;
+      padding: var(--space-xs) var(--space-sm);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: color var(--dur-short) var(--ease-out);
+    }
+    .toc-link:hover {
+      color: var(--on-surface);
+    }
+    .middot {
+      color: var(--outline);
+      user-select: none;
+    }
+
+    /* Defining Treatment 3: Gilt hairline rules & Key figures */
+    .ruled {
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-md);
+    }
+    .section-title {
+      border-bottom: var(--gilt-rule-soft);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .key-figures {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-lg);
+      width: 100%;
+      max-width: 820px;
+      margin: var(--space-md) auto 0;
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-md);
+    }
+    .key-figure {
+      text-align: center;
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .key-figure .kf-val {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.35rem);
+      line-height: 1.1;
+      color: var(--on-surface);
+    }
+    .key-figure .kf-cap {
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--on-surface-variant);
+      line-height: 1.35;
+    }
+
+    /* Defining Treatment 2: Drop cap (max one per major section) */
+    .drop-cap::first-letter {
+      float: left;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 3.6em;
+      line-height: 0.85;
+      padding: 0.06em 0.08em 0 0;
+      color: var(--primary);
+    }
+
+    /* Defining Treatment 4: Verse block (for real quotes from Hegel) */
+    .verse {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.25em;
+      line-height: 1.5;
+      color: var(--secondary);
+      border-left: var(--gilt-rule);
+      padding-left: var(--space-md);
+      max-width: 42ch;
+      text-align: left;
+      margin: var(--space-md) auto;
+    }
+    .verse-attr {
+      display: block;
+      margin-top: var(--space-xs);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+
+    /* Section spacing */
+    .chapter {
+      padding: var(--space-3xl) 0 var(--space-xl);
+      border-top: var(--gilt-rule-soft);
+    }
+
+    /* Buttons (square corners, oxblood fill / outline) */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.2rem;
+      min-height: 44px;
+      border-radius: var(--rounded);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      border: 1px solid var(--primary);
+      transition: background-color var(--dur-short) var(--ease-out),
+                  color var(--dur-short) var(--ease-out),
+                  opacity var(--dur-short) var(--ease-out);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--on-primary-container);
+    }
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary);
+    }
+    .btn-secondary:hover,
+    .btn-secondary.is-selected {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* Tags (1px green outline, green tracked label, pill) */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--secondary);
+      border-radius: var(--rounded-full);
+      padding: 0.2rem 0.75rem;
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--secondary);
+    }
+
+    /* Interactive Inset Panels */
+    .editorial-panel {
+      background-color: var(--surface-container-low);
+      border-block: var(--gilt-rule);
+      padding: var(--space-xl) var(--space-lg);
+      margin: var(--space-xl) auto;
+      max-width: 920px;
+    }
+    .panel-filled {
+      background-color: var(--surface-container);
+      border: var(--gilt-rule-soft);
+      padding: var(--space-lg);
+    }
+
+    /* Lab 1: Capullo, Flor, Fruto */
+    .aufhebung-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: var(--space-xl);
+      align-items: center;
+      margin-top: var(--space-lg);
+    }
+    .svg-stage {
+      width: 100%;
+      min-height: 280px;
+      display: grid;
+      place-items: center;
+      border: var(--gilt-rule-soft);
+      background-color: var(--background);
+      padding: var(--space-md);
+    }
+    .svg-stage svg {
+      width: 100%;
+      max-width: 380px;
+      height: auto;
+      display: block;
+    }
+    .triad-list {
+      display: grid;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .triad-item {
+      border-top: var(--gilt-rule-soft);
+      padding-top: var(--space-sm);
+    }
+    .triad-item strong {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      display: block;
+    }
+
+    /* Scrollytelling Step Cards */
+    .step-card {
+      background-color: var(--surface-container-low);
+      border-block: var(--gilt-rule);
+      padding: var(--space-lg);
+      opacity: 0.42;
+      transform: translateY(8px);
+      transition: opacity var(--dur-long) var(--ease-out),
+                  transform var(--dur-long) var(--ease-out),
+                  background-color var(--dur-long) var(--ease-out);
+    }
+    .step.is-active .step-card {
+      opacity: 1;
+      transform: none;
+      background-color: var(--background);
+    }
+    .step-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+      border-bottom: var(--gilt-rule-soft);
+      padding-bottom: var(--space-xs);
+      margin-bottom: var(--space-sm);
+    }
+    .step-german {
+      font-family: var(--font-headline);
+      font-style: italic;
+      color: var(--secondary);
+      font-size: 1.05rem;
+    }
+    .step-card h3 {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 1.95rem);
+      margin-bottom: var(--space-sm);
+    }
+    .subfigures-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs) var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    /* Sticky Spiral Graphic Panel */
+    .spiral-wrapper {
+      width: 100%;
+      background-color: var(--surface-container-low);
+      border-block: var(--gilt-rule);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .spiral-svg-box {
+      width: 100%;
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+    }
+    .spiral-svg-box svg {
+      width: 100%;
+      max-width: 480px;
+      height: auto;
+      display: block;
+    }
+    .stage-jumper {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      border-top: var(--gilt-rule-soft);
+      padding-top: var(--space-sm);
+    }
+    .jump-btn {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background-color: transparent;
+      color: var(--on-surface-variant);
+      border: 1px solid var(--outline-variant);
+      padding: 0.35rem 0.65rem;
+      min-height: 44px;
+      min-width: 44px;
+      cursor: pointer;
+      transition: background-color var(--dur-short) var(--ease-out),
+                  color var(--dur-short) var(--ease-out);
+    }
+    .jump-btn:hover {
+      color: var(--primary);
+      background-color: var(--primary-container);
+    }
+    .jump-btn.is-active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .dialectic-readout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      border-top: var(--gilt-rule-soft);
+      padding-top: var(--space-sm);
+      font-size: 0.98rem;
+      line-height: 1.48;
+    }
+    .dialectic-readout .full-span {
+      grid-column: 1 / -1;
+      border-top: var(--gilt-rule-soft);
+      padding-top: var(--space-xs);
+    }
+    .readout-label {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+      display: block;
+      margin-bottom: 2px;
+    }
+    .readout-label.is-green {
+      color: var(--secondary);
+    }
+
+    /* Interactive SVG transitions */
+    .spiral-progress {
+      transition: stroke-dashoffset var(--dur-long) var(--ease-out);
+    }
+    .node-group {
+      cursor: pointer;
+    }
+    .node-ring {
+      transition: r var(--dur-short) var(--ease-out),
+                  fill var(--dur-short) var(--ease-out),
+                  stroke var(--dur-short) var(--ease-out);
+    }
+    .sub-orbit {
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    /* Three Dialectical Micro-Labs */
+    .labs-stack {
+      display: grid;
+      gap: var(--space-2xl);
+      margin-top: var(--space-xl);
+    }
+    .lab-card {
+      border-block: var(--gilt-rule);
+      padding: var(--space-xl) var(--space-lg);
+      background-color: var(--surface-container-low);
+    }
+    .lab-head {
+      text-align: center;
+      display: grid;
+      justify-items: center;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-lg);
+    }
+    .lab-head p {
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+    .slate-box {
+      max-width: 680px;
+      margin: var(--space-lg) auto 0;
+      display: grid;
+      gap: var(--space-md);
+    }
+    .tablet {
+      background-color: var(--background);
+      border: var(--gilt-rule);
+      padding: var(--space-lg);
+      text-align: center;
+    }
+    .tablet-quote {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+      color: var(--primary);
+      margin: var(--space-xs) 0;
+    }
+    .comparison-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      container-type: inline-size;
+    }
+    .comp-col {
+      border-top: var(--gilt-rule);
+      padding-top: var(--space-sm);
+    }
+    .meter-track {
+      height: 8px;
+      background-color: var(--outline-variant);
+      margin-top: var(--space-xs);
+      position: relative;
+    }
+    .meter-fill {
+      height: 100%;
+      background-color: var(--primary);
+      transition: width var(--dur-long) var(--ease-out);
+    }
+    .meter-fill.is-green {
+      background-color: var(--secondary);
+    }
+
+    /* Speculative Proposition Diagram */
+    .spec-svg-box {
+      width: 100%;
+      min-height: 170px;
+      display: grid;
+      place-items: center;
+      background-color: var(--background);
+      border: var(--gilt-rule-soft);
+      padding: var(--space-sm);
+    }
+    .spec-svg-box svg {
+      width: 100%;
+      max-width: 620px;
+      height: auto;
+      display: block;
+    }
+
+    /* Figures Explorer Table (Sonnet table rules: no vertical lines, gold hairlines) */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-xs);
+      margin: var(--space-lg) 0;
+    }
+    .table-scroll {
+      overflow-x: auto;
+      margin-top: var(--space-md);
+    }
+    table.editorial-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 1.02rem;
+    }
+    .editorial-table thead th {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+      border-top: var(--gilt-rule);
+      border-bottom: var(--gilt-rule);
+      padding: var(--space-sm) var(--space-md);
+    }
+    .editorial-table tbody td {
+      border-bottom: var(--gilt-rule-soft);
+      padding: var(--space-md);
+      vertical-align: top;
+    }
+    .editorial-table tbody tr:last-child td {
+      border-bottom: var(--gilt-rule);
+    }
+
+    /* Glossary Grid */
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+    .glossary-entry {
+      border-top: var(--gilt-rule);
+      padding-top: var(--space-sm);
+    }
+    .glossary-term {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.35rem;
+      color: var(--primary);
+    }
+    .glossary-de {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin-left: var(--space-xs);
+    }
+
+    /* Self-Check Quiz */
+    .quiz-block {
+      max-width: 720px;
+      margin: var(--space-xl) auto 0;
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .quiz-item {
+      border-top: var(--gilt-rule);
+      padding-top: var(--space-md);
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-xs);
+      margin-top: var(--space-sm);
+    }
+    .quiz-opt {
+      text-align: left;
+      background-color: var(--surface-container-low);
+      border: var(--gilt-rule-soft);
+      padding: 0.65rem 1rem;
+      min-height: 44px;
+      font-family: var(--font-body);
+      font-size: 1.04rem;
+      color: var(--on-surface);
+      cursor: pointer;
+      transition: background-color var(--dur-short) var(--ease-out);
+    }
+    .quiz-opt:hover {
+      background-color: var(--surface-container);
+    }
+    .quiz-opt.is-correct {
+      background-color: var(--primary-container);
+      outline: 1px solid var(--secondary);
+    }
+    .quiz-opt.is-wrong {
+      background-color: var(--surface-container);
+      outline: 1px solid var(--error);
+    }
+    .quiz-feedback {
+      margin-top: var(--space-sm);
+      font-style: italic;
+      color: var(--secondary);
+      min-height: 1.4em;
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-long) var(--ease-out),
+                  transform var(--dur-long) var(--ease-out);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Footer */
+    footer.colophon {
+      border-top: var(--gilt-rule);
+      padding: var(--space-xl) 0 var(--space-2xl);
+      margin-top: var(--space-2xl);
+      text-align: center;
+      color: var(--on-surface-variant);
+      font-size: 0.98rem;
+    }
+    footer.colophon p {
+      margin-inline: auto;
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 780px) {
+      .aufhebung-grid,
+      .comparison-pair,
+      .dialectic-readout {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .wrap { padding: 0 var(--space-md); }
+      .gilt-frame { padding: var(--space-xl) var(--space-md); }
+      .key-figures { grid-template-columns: 1fr; gap: var(--space-md); }
+      .editorial-panel, .lab-card { padding: var(--space-lg) var(--space-md); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="wrap">
+
+      <!-- ═══════════════════════ HERO / PORTADA ═══════════════════════ -->
+      <header class="hero-section">
+        <div class="gilt-frame">
+          <span class="kicker">Jena y Bamberg, 1807 · Ciencia de la experiencia de la conciencia</span>
+          <h1>Fenomenología del <em>espíritu</em></h1>
+          <p class="hero-sub">
+            Una guía dialéctica interactiva por la obra capital de Georg Wilhelm Friedrich Hegel: desde la ilusión de la certeza sensible hasta la reconciliación de sustancia y sujeto en el saber absoluto.
+          </p>
+
+          <div class="verse">
+            «Lo verdadero es el todo. Pero el todo es solamente la esencia que se completa mediante su desarrollo.»
+            <span class="verse-attr">G. W. F. Hegel · Prólogo (trad. de Wenceslao Roces)</span>
+          </div>
+
+          <div class="key-figures" aria-label="Claves de la obra">
+            <div class="key-figure">
+              <span class="label-voice">Edición original</span>
+              <span class="kf-val tabular">1807</span>
+              <span class="kf-cap">Phänomenologie des Geistes</span>
+            </div>
+            <div class="key-figure">
+              <span class="label-voice">Estaciones</span>
+              <span class="kf-val tabular">VI</span>
+              <span class="kf-cap">De la conciencia al saber absoluto</span>
+            </div>
+            <div class="key-figure">
+              <span class="label-voice">Motor interno</span>
+              <span class="kf-val">Aufhebung</span>
+              <span class="kf-cap">Negar, conservar y elevar</span>
+            </div>
+          </div>
+
+          <nav class="toc-nav" aria-label="Índice de la obra">
+            <a class="toc-link" href="#metodo">I. El método y la Aufhebung</a>
+            <span class="middot" aria-hidden="true">·</span>
+            <a class="toc-link" href="#espiral">II. Las seis etapas dialécticas</a>
+            <span class="middot" aria-hidden="true">·</span>
+            <a class="toc-link" href="#laboratorios">III. Experimentos del texto</a>
+            <span class="middot" aria-hidden="true">·</span>
+            <a class="toc-link" href="#archivo">IV. Figuras y léxico de Roces</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- ═══════════════════════ SECCIÓN I: EL MÉTODO ═══════════════════════ -->
+      <section class="chapter" id="metodo">
+        <div class="centered-header reveal">
+          <span class="kicker">Prólogo e Introducción</span>
+          <h2>La verdad no es una <em>moneda acuñada</em></h2>
+          <p class="lede">
+            Antes de recorrer las estaciones del espíritu, Hegel desarma dos prejuicios: que la filosofía pueda resumirse en conclusiones fijas y que el conocer sea un instrumento separado de lo absoluto.
+          </p>
+        </div>
+
+        <div class="measure reveal">
+          <p class="drop-cap">
+            En el Prólogo a la <em>Fenomenología</em>, Hegel advierte que el resultado escueto de una investigación filosófica, separado de su devenir, es simplemente «el cadáver que la tendencia deja tras sí». Quien exige de un libro filosófico verdades listas para entregarse y recibirse —como si fueran monedas acuñadas— desconoce la naturaleza viva del concepto. Tampoco sirve tratar el conocimiento como un instrumento que modela el objeto o como un médium pasivo que refracta la luz de la verdad: si el conocer estuviera fuera de lo absoluto, estaría también fuera de la verdad.
+          </p>
+          <p>
+            ¿Cómo avanza entonces la ciencia sin imponer una pauta externa? La respuesta de Hegel funda el método fenomenológico: la conciencia lleva en sí misma su propia pauta. Distingue continuamente entre lo que considera el <em>en sí</em> (el objeto verdadero) y lo que es <em>para ella</em> (su saber del objeto). Cada vez que descubre una desigualdad entre ambos, la conciencia sufre el colapso de su certeza anterior —un «camino de la duda o, más propiamente, el camino de la desesperación»— y de esa <strong>negación determinada</strong> brota un nuevo objeto y una nueva figura espiritual.
+          </p>
+        </div>
+
+        <!-- Lab 1: Capullo, Flor y Fruto -->
+        <div class="editorial-panel reveal" aria-labelledby="lab1-title">
+          <div class="lab-head">
+            <span class="kicker">Laboratorio I · El movimiento de lo negativo</span>
+            <h3 id="lab1-title">El capullo, la flor y el fruto: entender la <em>Aufhebung</em></h3>
+            <p>
+              Alterna entre la mirada dogmática y la mirada dialéctica sobre la célebre metáfora orgánica del Prólogo.
+            </p>
+          </div>
+
+          <div class="btn-row" role="group" aria-label="Modo de lectura">
+            <button type="button" class="btn btn-secondary is-selected" id="btn-lens-dialectic" onclick="setPlantLens('dialectic')">
+              Lectura dialéctica (Aufhebung)
+            </button>
+            <button type="button" class="btn btn-secondary" id="btn-lens-dogmatic" onclick="setPlantLens('dogmatic')">
+              Lectura dogmática (Antagonismo)
+            </button>
+          </div>
+
+          <div class="btn-row" style="margin-top: var(--space-sm);" role="group" aria-label="Momentos de la planta">
+            <button type="button" class="btn btn-secondary is-selected" id="btn-plant-0" onclick="setPlantStage(0)">1. Capullo</button>
+            <button type="button" class="btn btn-secondary" id="btn-plant-1" onclick="setPlantStage(1)">2. Flor</button>
+            <button type="button" class="btn btn-secondary" id="btn-plant-2" onclick="setPlantStage(2)">3. Fruto</button>
+          </div>
+
+          <div class="aufhebung-grid">
+            <div class="svg-stage">
+              <svg viewBox="0 0 360 270" aria-hidden="true">
+                <!-- Baseline and timeline -->
+                <line x1="30" y1="225" x2="330" y2="225" stroke="var(--outline)" stroke-width="1.5" />
+                <line x1="75" y1="225" x2="75" y2="170" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="3 3" />
+                <line x1="180" y1="225" x2="180" y2="120" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="3 3" />
+                <line x1="285" y1="225" x2="285" y2="130" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="3 3" />
+
+                <!-- Connecting dialectical arc -->
+                <path id="plant-arc" d="M 75 160 Q 128 95 180 120 Q 232 145 285 115" fill="none" stroke="var(--outline)" stroke-width="1.5" />
+
+                <!-- Stage 1: Capullo -->
+                <g id="svg-bud">
+                  <path d="M 75 225 L 75 165" stroke="var(--secondary)" stroke-width="2" />
+                  <path d="M 75 165 C 62 152, 65 132, 75 122 C 85 132, 88 152, 75 165 Z" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="1.5" />
+                  <circle cx="75" cy="225" r="4" fill="var(--primary)" />
+                  <text x="75" y="246" text-anchor="middle" font-family="var(--font-label)" font-size="11" letter-spacing="1.5" fill="var(--on-surface)">CAPULLO</text>
+                </g>
+
+                <!-- Stage 2: Flor -->
+                <g id="svg-flower" opacity="0.35">
+                  <path d="M 180 225 L 180 125" stroke="var(--secondary)" stroke-width="2" />
+                  <path d="M 180 125 C 160 100, 145 115, 165 130 C 145 128, 152 150, 180 135 C 208 150, 215 128, 195 130 C 215 115, 200 100, 180 125 Z" fill="var(--background)" stroke="var(--primary)" stroke-width="1.5" />
+                  <circle cx="180" cy="126" r="5" fill="var(--primary)" />
+                  <circle cx="180" cy="225" r="4" fill="var(--secondary)" />
+                  <text x="180" y="246" text-anchor="middle" font-family="var(--font-label)" font-size="11" letter-spacing="1.5" fill="var(--on-surface)">FLOR</text>
+                </g>
+
+                <!-- Stage 3: Fruto -->
+                <g id="svg-fruit" opacity="0.35">
+                  <path d="M 285 225 L 285 128" stroke="var(--secondary)" stroke-width="2" />
+                  <circle cx="285" cy="108" r="22" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="1.5" />
+                  <circle cx="285" cy="108" r="6" fill="var(--secondary)" />
+                  <path d="M 285 86 Q 297 74 307 82" fill="none" stroke="var(--secondary)" stroke-width="1.5" />
+                  <circle cx="285" cy="225" r="4" fill="var(--outline)" />
+                  <text x="285" y="246" text-anchor="middle" font-family="var(--font-label)" font-size="11" letter-spacing="1.5" fill="var(--on-surface)">FRUTO</text>
+                </g>
+              </svg>
+            </div>
+
+            <div>
+              <span class="tag" id="plant-tag">Inmediatez inicial</span>
+              <h4 id="plant-heading" style="font-size: 1.55rem; font-style: italic; margin-top: var(--space-sm);">El capullo encierra la potencia del todo</h4>
+              <p id="plant-desc" style="margin-top: var(--space-xs);"></p>
+
+              <div class="triad-list" id="aufhebung-triad">
+                <div class="triad-item">
+                  <strong>1. Negación (Tollere)</strong>
+                  <span id="triad-neg">La flor cancela la forma cerrada del capullo; ya no puede permanecer idéntico a sí mismo.</span>
+                </div>
+                <div class="triad-item">
+                  <strong>2. Conservación (Conservare)</strong>
+                  <span id="triad-cons">Nada vital se pierde: la savia y la estructura del brote pasan a sostener la corola.</span>
+                </div>
+                <div class="triad-item">
+                  <strong>3. Elevación (Elevare)</strong>
+                  <span id="triad-elev">La unidad orgánica se despliega en una forma más rica y diferenciada rumbo al fruto.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════ SECCIÓN II: SCROLLYTELLING ═══════════════════════ -->
+      <section class="chapter" id="espiral">
+        <div class="centered-header reveal">
+          <span class="kicker">Arquitectura de la obra</span>
+          <h2>Las seis estaciones del <em>espíritu</em></h2>
+          <p class="lede">
+            Desplázate paso a paso por el ascenso fenomenológico. A la derecha, la espiral dialéctica registra qué toma la conciencia por verdadero (<em>en sí</em>), cómo se sabe a sí misma (<em>para ella</em>) y qué contradicción la impulsa a la siguiente etapa.
+          </p>
+        </div>
+
+        <div class="scrolly">
+          <!-- Steps column -->
+          <div class="steps" id="steps"></div>
+
+          <!-- Sticky Graphic column (PIN CORE) -->
+          <figure class="scrolly-graphic" aria-label="Espiral interactiva de las seis etapas de la Fenomenología del espíritu">
+            <div class="spiral-wrapper">
+              <div class="spiral-svg-box">
+                <svg id="spiral-svg" viewBox="0 0 480 390" role="img" aria-label="Diagrama en espiral de las seis estaciones dialécticas">
+                  <!-- Concentric reference circles -->
+                  <circle cx="240" cy="195" r="165" fill="none" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="3 4" />
+                  <circle cx="240" cy="195" r="112" fill="none" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="3 4" />
+                  <circle cx="240" cy="195" r="58" fill="none" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="3 4" />
+
+                  <!-- Axis crosshairs -->
+                  <line x1="40" y1="195" x2="440" y2="195" stroke="var(--outline-variant)" stroke-width="0.75" />
+                  <line x1="240" y1="20" x2="240" y2="370" stroke="var(--outline-variant)" stroke-width="0.75" />
+
+                  <!-- Full spiral background path (context) -->
+                  <path id="spiral-bg"
+                    d="M 96 300 C 52 225, 70 112, 148 64 C 228 16, 344 38, 392 118 C 432 186, 404 274, 336 306 C 266 338, 174 306, 152 232 C 134 170, 178 106, 240 108 C 292 110, 326 154, 304 196 C 284 232, 240 225, 240 195"
+                    fill="none" stroke="var(--data-context)" stroke-width="1.5" stroke-dasharray="4 4" />
+
+                  <!-- Progressive active spiral path -->
+                  <path id="spiral-active" class="spiral-progress"
+                    d="M 96 300 C 52 225, 70 112, 148 64 C 228 16, 344 38, 392 118 C 432 186, 404 274, 336 306 C 266 338, 174 306, 152 232 C 134 170, 178 106, 240 108 C 292 110, 326 154, 304 196 C 284 232, 240 225, 240 195"
+                    fill="none" stroke="var(--primary)" stroke-width="2.25" stroke-linecap="square" />
+
+                  <!-- Sub-figure orbit annotations (updated per beat) -->
+                  <g id="sub-orbit-layer" class="sub-orbit"></g>
+
+                  <!-- 6 Station Nodes (positioned along the spiral) -->
+                  <g id="nodes-layer"></g>
+
+                  <!-- Center title watermark -->
+                  <text x="240" y="378" text-anchor="middle" font-family="var(--font-label)" font-size="10.5" letter-spacing="1.8" fill="var(--on-surface-variant)">
+                    ESPIRAL DIALÉCTICA · DEL EN SÍ AL EN Y PARA SÍ
+                  </text>
+                </svg>
+              </div>
+
+              <!-- Quick jump strip (touch & keyboard accessible) -->
+              <div class="stage-jumper" role="group" aria-label="Saltar a estación">
+                <button type="button" class="jump-btn is-active" onclick="jumpToStep(0)">I</button>
+                <button type="button" class="jump-btn" onclick="jumpToStep(1)">II</button>
+                <button type="button" class="jump-btn" onclick="jumpToStep(2)">III</button>
+                <button type="button" class="jump-btn" onclick="jumpToStep(3)">IV</button>
+                <button type="button" class="jump-btn" onclick="jumpToStep(4)">V</button>
+                <button type="button" class="jump-btn" onclick="jumpToStep(5)">VI</button>
+              </div>
+
+              <!-- Live Dialectic Readout -->
+              <div class="dialectic-readout" aria-live="polite">
+                <div>
+                  <span class="readout-label">Objeto (En sí)</span>
+                  <span id="rd-ensi"></span>
+                </div>
+                <div>
+                  <span class="readout-label is-green">Saber (Para ella)</span>
+                  <span id="rd-parasi"></span>
+                </div>
+                <div class="full-span">
+                  <span class="readout-label">Contradicción y tránsito (Aufhebung)</span>
+                  <span id="rd-transito"></span>
+                </div>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════ SECCIÓN III: LABORATORIOS DEL TEXTO ═══════════════════════ -->
+      <section class="chapter" id="laboratorios">
+        <div class="centered-header reveal">
+          <span class="kicker">Pruebas en el texto original</span>
+          <h2>Tres experiencias clave de la <em>Fenomenología</em></h2>
+          <p class="lede">
+            Para Hegel, la dialéctica no es un esquema aplicado desde fuera, sino lo que ocurre cuando ponemos a prueba nuestras propias certezas. Comprueba tres argumentos célebres del libro.
+          </p>
+        </div>
+
+        <div class="labs-stack">
+
+          <!-- LAB A: El ahora es la noche -->
+          <article class="lab-card reveal" aria-labelledby="laba-title">
+            <div class="lab-head">
+              <span class="kicker">Experimento A · Conciencia / Certeza sensible</span>
+              <h3 id="laba-title">La prueba de «El ahora es la noche»</h3>
+              <p>
+                En el capítulo primero, Hegel invita a escribir una verdad inmediata para demostrar que el lenguaje refuta nuestra suposición particular y revela un universal.
+              </p>
+            </div>
+
+            <div class="btn-row" role="group" aria-label="Momento del día">
+              <button type="button" class="btn btn-secondary is-selected" id="btn-now-0" onclick="setNowPhase(0)">00:00 · Escribir la verdad</button>
+              <button type="button" class="btn btn-secondary" id="btn-now-1" onclick="setNowPhase(1)">06:00 · Llega el alba</button>
+              <button type="button" class="btn btn-secondary" id="btn-now-2" onclick="setNowPhase(2)">12:00 · Revisar al mediodía</button>
+            </div>
+
+            <div class="slate-box">
+              <div class="tablet">
+                <span class="label-voice" id="now-clock">Medianoche · 00:00 h</span>
+                <div class="tablet-quote">«El ahora es la noche.»</div>
+                <span class="muted" id="now-status">Texto fijado por escrito sobre la hoja.</span>
+              </div>
+
+              <div class="comparison-pair">
+                <div class="comp-col">
+                  <span class="readout-label">Lo que suponemos (Meinung)</span>
+                  <p id="now-sup" style="margin: 0;"></p>
+                </div>
+                <div class="comp-col">
+                  <span class="readout-label is-green">Lo que el lenguaje dice</span>
+                  <p id="now-lang" style="margin: 0;"></p>
+                </div>
+              </div>
+
+              <div class="verse" id="now-verdict" style="margin: var(--space-xs) auto 0;">
+                «Una verdad nada pierde con ser puesta por escrito, como no pierde nada tampoco con ser conservada. Pero si ahora, este mediodía revisamos esta verdad escrita, no tendremos más remedio que decir que dicha verdad ha quedado ya vacía.»
+              </div>
+            </div>
+          </article>
+
+          <!-- LAB B: Señorío y servidumbre -->
+          <article class="lab-card reveal" aria-labelledby="labb-title">
+            <div class="lab-head">
+              <span class="kicker">Experimento B · Autoconciencia / Reconocimiento</span>
+              <h3 id="labb-title">La inversión dialéctica del Señor y el Siervo</h3>
+              <p>
+                Recorre los tres momentos en que la victoria aparente del Señor se invierte en dependencia, mientras el trabajo del Siervo forja la verdadera autonomía.
+              </p>
+            </div>
+
+            <div class="btn-row" role="group" aria-label="Momentos de Señorío y Servidumbre">
+              <button type="button" class="btn btn-secondary is-selected" id="btn-ms-0" onclick="setMasterPhase(0)">1. Lucha por el reconocimiento</button>
+              <button type="button" class="btn btn-secondary" id="btn-ms-1" onclick="setMasterPhase(1)">2. Triunfo del Señor</button>
+              <button type="button" class="btn btn-secondary" id="btn-ms-2" onclick="setMasterPhase(2)">3. Inversión por el trabajo</button>
+            </div>
+
+            <div class="slate-box">
+              <div class="comparison-pair">
+                <div class="comp-col">
+                  <span class="readout-label">El Señor (Herr)</span>
+                  <p id="ms-master-text" style="margin: 0 0 var(--space-sm);"></p>
+                  <span class="label-voice tabular" id="ms-master-score">Autonomía real: 50%</span>
+                  <div class="meter-track">
+                    <div class="meter-fill" id="ms-master-bar" style="width: 50%;"></div>
+                  </div>
+                </div>
+                <div class="comp-col">
+                  <span class="readout-label is-green">El Siervo (Knecht)</span>
+                  <p id="ms-slave-text" style="margin: 0 0 var(--space-sm);"></p>
+                  <span class="label-voice tabular" id="ms-slave-score" style="color: var(--secondary);">Autonomía real: 50%</span>
+                  <div class="meter-track">
+                    <div class="meter-fill is-green" id="ms-slave-bar" style="width: 50%;"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="ruled" style="text-align: center;">
+                <span class="readout-label">Saldo dialéctico</span>
+                <p id="ms-summary" style="margin: var(--space-xs) auto 0;"></p>
+              </div>
+            </div>
+          </article>
+
+          <!-- LAB C: Proposición especulativa -->
+          <article class="lab-card reveal" aria-labelledby="labc-title">
+            <div class="lab-head">
+              <span class="kicker">Experimento C · Prólogo / Pensamiento especulativo</span>
+              <h3 id="labc-title">El «contragolpe» de la proposición especulativa</h3>
+              <p>
+                ¿Por qué cuesta tanto leer a Hegel? Porque la proposición filosófica destruye la gramática pasiva entre sujeto y predicado, obligando al pensamiento a retornar sobre sí.
+              </p>
+            </div>
+
+            <div class="btn-row" role="group" aria-label="Elegir proposición">
+              <button type="button" class="btn btn-secondary is-selected" id="btn-prop-0" onclick="setPropExample(0)">«Dios es el ser»</button>
+              <button type="button" class="btn btn-secondary" id="btn-prop-1" onclick="setPropExample(1)">«Lo real es lo universal»</button>
+            </div>
+
+            <div class="btn-row" style="margin-top: var(--space-sm);" role="group" aria-label="Modo de lectura proposicional">
+              <button type="button" class="btn btn-secondary is-selected" id="btn-pmode-0" onclick="setPropMode(0)">Lectura ordinaria (Entendimiento)</button>
+              <button type="button" class="btn btn-secondary" id="btn-pmode-1" onclick="setPropMode(1)">Lectura especulativa (Contragolpe)</button>
+            </div>
+
+            <div class="slate-box">
+              <div class="spec-svg-box">
+                <svg viewBox="0 0 600 155" aria-hidden="true">
+                  <!-- Subject node -->
+                  <rect x="45" y="45" width="165" height="58" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="127" y="68" text-anchor="middle" font-family="var(--font-label)" font-size="10.5" letter-spacing="1.4" fill="var(--primary)">SUJETO</text>
+                  <text id="svg-prop-subj" x="127" y="90" text-anchor="middle" font-family="var(--font-headline)" font-style="italic" font-size="20" fill="var(--on-surface)">Dios</text>
+
+                  <!-- Predicate node -->
+                  <rect x="390" y="45" width="165" height="58" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="472" y="68" text-anchor="middle" font-family="var(--font-label)" font-size="10.5" letter-spacing="1.4" fill="var(--secondary)">PREDICADO</text>
+                  <text id="svg-prop-pred" x="472" y="90" text-anchor="middle" font-family="var(--font-headline)" font-style="italic" font-size="20" fill="var(--on-surface)">el ser</text>
+
+                  <!-- Forward arrow (ordinary reading) -->
+                  <line x1="215" y1="64" x2="380" y2="64" stroke="var(--on-surface-variant)" stroke-width="1.5" />
+                  <polygon points="384,64 375,59 375,69" fill="var(--on-surface-variant)" />
+                  <text x="300" y="54" text-anchor="middle" font-family="var(--font-label)" font-size="10" letter-spacing="1.2" fill="var(--on-surface-variant)">TRÁNSITO LINEAL</text>
+
+                  <!-- Rebound arrow (speculative contragolpe) -->
+                  <g id="svg-rebound" opacity="0.2">
+                    <path d="M 385 88 Q 300 132 220 88" fill="none" stroke="var(--primary)" stroke-width="2" />
+                    <polygon points="215,86 225,85 221,94" fill="var(--primary)" />
+                    <text x="300" y="132" text-anchor="middle" font-family="var(--font-label)" font-size="10.5" letter-spacing="1.3" fill="var(--primary)">CONTRAGOLPE · EL PREDICADO ES LA SUSTANCIA</text>
+                  </g>
+                </svg>
+              </div>
+              <p id="prop-explanation" style="margin: 0 auto; text-align: center;"></p>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ═══════════════════════ SECCIÓN IV: ARCHIVO Y LÉXICO ═══════════════════════ -->
+      <section class="chapter" id="archivo">
+        <div class="centered-header reveal">
+          <span class="kicker">Mapa completo y vocabulario</span>
+          <h2>Índice de figuras y léxico de <em>Wenceslao Roces</em></h2>
+          <p class="lede">
+            Filtra las dieciocho configuraciones que articulan el viaje fenomenológico y consulta las decisiones terminológicas de la edición española de Wenceslao Roces.
+          </p>
+        </div>
+
+        <div class="filter-bar reveal" role="group" aria-label="Filtrar figuras por etapa">
+          <button type="button" class="btn btn-secondary is-selected" data-stage="todas" onclick="filterFigures('todas', this)">Todas</button>
+          <button type="button" class="btn btn-secondary" data-stage="Conciencia" onclick="filterFigures('Conciencia', this)">I. Conciencia</button>
+          <button type="button" class="btn btn-secondary" data-stage="Autoconciencia" onclick="filterFigures('Autoconciencia', this)">II. Autoconciencia</button>
+          <button type="button" class="btn btn-secondary" data-stage="Razón" onclick="filterFigures('Razón', this)">III. Razón</button>
+          <button type="button" class="btn btn-secondary" data-stage="Espíritu" onclick="filterFigures('Espíritu', this)">IV. Espíritu</button>
+          <button type="button" class="btn btn-secondary" data-stage="Religión" onclick="filterFigures('Religión', this)">V. Religión</button>
+          <button type="button" class="btn btn-secondary" data-stage="Saber Absoluto" onclick="filterFigures('Saber Absoluto', this)">VI. Saber Absoluto</button>
+        </div>
+
+        <div class="table-scroll reveal">
+          <table class="editorial-table">
+            <thead>
+              <tr>
+                <th>Etapa</th>
+                <th>Figura</th>
+                <th>Tensión dialéctica</th>
+                <th>Tránsito (Aufhebung)</th>
+              </tr>
+            </thead>
+            <tbody id="figures-tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- Translator's Glossary -->
+        <div style="margin-top: var(--space-3xl);" class="reveal">
+          <div class="centered-header" style="margin-bottom: var(--space-lg);">
+            <span class="kicker">Nota del traductor</span>
+            <h3>Cómo tradujo Wenceslao Roces los conceptos de Hegel</h3>
+          </div>
+
+          <div class="glossary-grid">
+            <div class="glossary-entry">
+              <span class="glossary-term">Superar</span>
+              <span class="glossary-de">Aufheben</span>
+              <p>Término medular de la dialéctica hegeliana. Significa a la vez abolir una forma unilateral, conservar su verdad esencial y elevarla a un nivel superior.</p>
+            </div>
+            <div class="glossary-entry">
+              <span class="glossary-term">Ser allí</span>
+              <span class="glossary-de">Dasein</span>
+              <p>Traducido al pie de la letra como «ser allí» para distinguir la existencia determinada e inmediata frente a la categoría más abstracta de «existencia» (<em>Existenz</em>).</p>
+            </div>
+            <div class="glossary-entry">
+              <span class="glossary-term">Suposición y suponer</span>
+              <span class="glossary-de">Meinung · meinen</span>
+              <p>El «opinar» o «mentarse» inmediato de la conciencia sensible que cree señalar algo singular («lo mío»), antes de ser refutado por la universalidad del lenguaje.</p>
+            </div>
+            <div class="glossary-entry">
+              <span class="glossary-term">Enajenación y extrañamiento</span>
+              <span class="glossary-de">Entäusserung · Entfremdung</span>
+              <p>Roces distingue con rigor entre <em>enajenación</em> (el exteriorizarse necesario del espíritu en su obra) y <em>extrañamiento</em> (sentirse ajeno frente al propio mundo cultural).</p>
+            </div>
+            <div class="glossary-entry">
+              <span class="glossary-term">Realidad efectiva</span>
+              <span class="glossary-de">Realität · Wirklichkeit</span>
+              <p>En pasajes decisivos Roces marca entre corchetes el término alemán para diferenciar la mera facticidad (<em>Realität</em>) de la realidad racional plena (<em>Wirklichkeit</em>).</p>
+            </div>
+            <div class="glossary-entry">
+              <span class="glossary-term">Ético y moral</span>
+              <span class="glossary-de">Sittlich · Moralisch</span>
+              <p><em>Ético</em> designa la eticidad objetiva de las leyes y costumbres de una comunidad (<em>Sittlichkeit</em>), mientras <em>moral</em> refiere al deber interior de la conciencia individual.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Self-check Quiz -->
+        <div style="margin-top: var(--space-3xl);" class="reveal">
+          <div class="centered-header" style="margin-bottom: var(--space-md);">
+            <span class="kicker">Comprobación de lectura</span>
+            <h3>Tres preguntas sobre el movimiento dialéctico</h3>
+          </div>
+
+          <div class="quiz-block" id="quiz-container"></div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════ COLOFÓN ═══════════════════════ -->
+      <footer class="colophon">
+        <p>
+          <strong>Fuentes:</strong> Georg Wilhelm Friedrich Hegel, <em>Fenomenología del espíritu</em> (<em>Phänomenologie des Geistes</em>, 1807), versión española de Wenceslao Roces con la colaboración del Dr. Ricardo Guerra, basada en el texto de Johannes Hoffmeister (1936) y los epígrafes de C. Lasson.
+        </p>
+      </footer>
+
+    </div>
+  </div>
+
+  <script>
+    // ═══ DATA: LAB 1 (Capullo, Flor, Fruto) ════════════════════════════════════
+    const PLANT_STAGES = [
+      {
+        tag: `Momento I · Inmediatez`,
+        title: `El capullo encierra la potencia del todo`,
+        dialecticDesc: `El capullo es la primera existencia simple de la planta. No es un error que deba desecharse, sino el comienzo necesario que guarda dentro de sí la necesidad de su propio despliegue.`,
+        dogmaticDesc: `Para el entendimiento dogmático, si el capullo es «lo verdadero» de la planta, entonces cualquier forma posterior que lo altere sería una desviación o falsedad.`,
+        neg: `El capullo parece bastarse a sí mismo, pero su quietud es unilateral: permanecer cerrado impediría la vida de la planta.`,
+        cons: `Contiene la esencia viva, el germen y el impulso interno del desarrollo vegetativo.`,
+        elev: `Al abrirse hacia la luz, su propia tensión interna lo impulsa a convertirse en flor.`
+      },
+      {
+        tag: `Momento II · Diferenciación`,
+        title: `La flor despliega y niega el capullo`,
+        dialecticDesc: `Cuando la flor se abre, el capullo desaparece. Hegel advierte que podría decirse que el capullo es «refutado» por la flor; pero en verdad la flor realiza lo que el capullo solo era en potencia.`,
+        dogmaticDesc: `Quien ve la diversidad de sistemas filosóficos como mero antagonismo piensa que la flor destruye y refuta al capullo, igual que una doctrina aniquila a la anterior.`,
+        neg: `La envoltura cerrada del capullo queda cancelada; su forma inmediata deja de existir.`,
+        cons: `La energía y la estructura orgánica del brote se conservan transformadas en los pétalos y el cáliz.`,
+        elev: `La planta alcanza una figura más articulada, capaz de abrirse al mundo y preparar la fecundación.`
+      },
+      {
+        tag: `Momento III · Unidad retornada`,
+        title: `El fruto reconcilia el proceso entero`,
+        dialecticDesc: `El fruto hace aparecer la flor como un «falso ser allí» de la planta, pero él mismo no existiría sin el capullo ni la flor. Los tres momentos forman una unidad orgánica igualmente necesaria.`,
+        dogmaticDesc: `El dogmatismo se queda solo con el fruto final como si fuera un resultado muerto, olvidando que la verdad no reside en el desenlace aislado sino en todo el devenir.`,
+        neg: `Los pétalos de la flor caen y su esplendor efímero es negado para que madure la semilla.`,
+        cons: `Reúne el impulso originario del capullo y la diferenciación fecunda de la flor.`,
+        elev: `El todo retorna a una nueva simplicidad rica en contenido: el fruto es verdad solo junto con su desarrollo.`
+      }
+    ];
+
+    let currentPlantStage = 0;
+    let currentPlantLens = 'dialectic';
+
+    function renderPlantLab() {
+      const st = PLANT_STAGES[currentPlantStage];
+      const tagEl = document.getElementById('plant-tag');
+      const headEl = document.getElementById('plant-heading');
+      const descEl = document.getElementById('plant-desc');
+      const triadBox = document.getElementById('aufhebung-triad');
+      const negEl = document.getElementById('triad-neg');
+      const consEl = document.getElementById('triad-cons');
+      const elevEl = document.getElementById('triad-elev');
+
+      if (tagEl) tagEl.textContent = currentPlantLens === 'dialectic' ? st.tag : `Visión dogmática · Oposición fija`;
+      if (headEl) headEl.textContent = st.title;
+      if (descEl) descEl.textContent = currentPlantLens === 'dialectic' ? st.dialecticDesc : st.dogmaticDesc;
+      if (negEl) negEl.textContent = st.neg;
+      if (consEl) consEl.textContent = st.cons;
+      if (elevEl) elevEl.textContent = st.elev;
+      if (triadBox) triadBox.style.opacity = currentPlantLens === 'dialectic' ? '1' : '0.45';
+
+      const bud = document.getElementById('svg-bud');
+      const flower = document.getElementById('svg-flower');
+      const fruit = document.getElementById('svg-fruit');
+      if (bud) bud.setAttribute('opacity', currentPlantStage >= 0 ? '1' : '0.35');
+      if (flower) flower.setAttribute('opacity', currentPlantStage >= 1 ? '1' : '0.35');
+      if (fruit) fruit.setAttribute('opacity', currentPlantStage >= 2 ? '1' : '0.35');
+
+      for (let idx = 0; idx < 3; idx++) {
+        const btn = document.getElementById(`btn-plant-${idx}`);
+        if (btn) btn.classList.toggle('is-selected', idx === currentPlantStage);
+      }
+      const btnDia = document.getElementById('btn-lens-dialectic');
+      const btnDog = document.getElementById('btn-lens-dogmatic');
+      if (btnDia) btnDia.classList.toggle('is-selected', currentPlantLens === 'dialectic');
+      if (btnDog) btnDog.classList.toggle('is-selected', currentPlantLens === 'dogmatic');
+    }
+
+    function setPlantStage(idx) {
+      currentPlantStage = idx;
+      renderPlantLab();
+    }
+
+    function setPlantLens(lens) {
+      currentPlantLens = lens;
+      renderPlantLab();
+    }
+
+    // ═══ [1] SCROLLYTELLING STEPS DATA (6 HEGELIAN STAGES) ═════════════════════
+    const STEPS = [
+      {
+        roman: `I`,
+        title: `Conciencia`,
+        german: `Bewusstsein`,
+        body: `El espíritu comienza creyendo que la verdad habita por completo fuera de él, en el objeto sensible inmediato. Al intentar decir «esto», «aquí» y «ahora», la conciencia descubre que el lenguaje siempre expresa universales. Pasa entonces a la percepción de la cosa con propiedades y, finalmente, al entendimiento, donde descubre que tras los fenómenos rigen leyes e inteligibilidad que remiten al propio pensamiento.`,
+        subfigures: [`Certeza sensible`, `Percepción`, `Fuerza y entendimiento`],
+        ensi: `El objeto inmediato («esto»), la cosa de múltiples propiedades y el mundo suprasensible de las leyes.`,
+        parasi: `Un yo pasivo que pretende solo recibir lo dado, hasta advertir que su propio entendimiento articula las leyes.`,
+        transito: `Al ver que detrás del telón de los fenómenos no hay nada oculto salvo ella misma, la conciencia se vuelve autoconciencia.`
+      },
+      {
+        roman: `II`,
+        title: `Autoconciencia`,
+        german: `Selbstbewusstsein`,
+        body: `La conciencia ya no busca su verdad en las cosas inertes, sino en sí misma y en el deseo de ser reconocida por otra autoconciencia libre. De la lucha a muerte surge la relación asimétrica entre Señor y Siervo. Mientras el Señor se vuelve ocioso y dependiente del reconocimiento servil, el Siervo vence el temor mediante el trabajo, imprime su forma en la materia y conquista autonomía real, transitando luego por el estoicismo, el escepticismo y la conciencia desventurada.`,
+        subfigures: [`Deseo y vida`, `Señorío y servidumbre`, `Conciencia desventurada`],
+        ensi: `Otra autoconciencia viva y libre cuyo reconocimiento confirma el propio valor; luego lo Inmutable trascendente.`,
+        parasi: `Certeza de sí que quiere afirmarse consumiendo el mundo o sometiéndose a una autoridad inalcanzable.`,
+        transito: `Superado el desgarramiento entre lo finito y lo inmutable, la conciencia comprende que su propio pensar es la realidad del mundo.`
+      },
+      {
+        roman: `III`,
+        title: `Razón`,
+        german: `Vernunft`,
+        body: `Segura de que el mundo es racional e inteligible, la autoconciencia se lanza a observar la naturaleza (física, biología, psicología) buscando hallarse reflejada en ella. Al notar que los objetos no agotan su libertad, pasa a la acción práctica: busca la felicidad inmediata, impone la «ley del corazón» o enfrenta la virtud moral al «curso del mundo». Comprende al fin que ningún individuo aislado puede legislar lo universal por sí solo.`,
+        subfigures: [`Razón observante`, `Ley del corazón y virtud`, `La cosa misma`],
+        ensi: `Las leyes racionales de la naturaleza y los ideales morales abstractos del individuo.`,
+        parasi: `La certeza de ser toda realidad mediante la observación científica o el empeño solitario de la virtud.`,
+        transito: `La razón individual descubre que las normas solo son reales cuando encarnan en las costumbres, el derecho y la historia de un pueblo.`
+      },
+      {
+        roman: `IV`,
+        title: `Espíritu`,
+        german: `Geist`,
+        body: `Aquí la razón se convierte en mundo histórico compartido: «un yo que es un nosotros, y un nosotros que es un yo». Hegel sigue su drama desde la armonía trágica de la polis griega (Antígona frente a Creonte), pasando por el extrañamiento de la cultura moderna, la Ilustración y la «libertad absoluta y el terror» revolucionario, hasta la moralidad kantiana y la reconciliación mediante la confesión y el perdón entre conciencias que se juzgan.`,
+        subfigures: [`Eticidad (Antígona)`, `Ilustración y Terror`, `Moralidad y perdón`],
+        ensi: `La sustancia ética, el Estado, la cultura y la comunidad humana históricamente desplegada.`,
+        parasi: `La conciencia moral y ciudadana que a veces se extraña de sus instituciones o se encierra en la pureza del «alma bella».`,
+        transito: `El perdón recíproco revela la presencia de lo absoluto en la comunidad humana: el espíritu se contempla ahora en la religión.`
+      },
+      {
+        roman: `V`,
+        title: `Religión`,
+        german: `Religion`,
+        body: `El espíritu adquiere conciencia de sí mismo como totalidad bajo la forma de la representación simbólica y comunitaria. Evoluciona desde la religión natural (que venera lo divino como luz, planta o animal), pasando por la religión del arte griego (donde el escultor y la tragedia dan rostro humano a los dioses), hasta la religión revelada o manifiesta, donde lo absoluto se encarna en la historia y habita en el espíritu de la comunidad.`,
+        subfigures: [`Religión natural`, `Religión del arte`, `Religión revelada`],
+        ensi: `Lo Absoluto representado en la naturaleza, la obra de arte clásica o la historia de la encarnación.`,
+        parasi: `La comunidad creyente que todavía proyecta su propia esencia divina en un «más allá» figurado o narrativo.`,
+        transito: `Cuando la forma exterior de la representación se disuelve, el contenido espiritual pasa a la transparencia pura del concepto.`
+      },
+      {
+        roman: `VI`,
+        title: `Saber Absoluto`,
+        german: `Das absolute Wissen`,
+        body: `El largo camino concluye cuando desaparece la última barrera entre el sujeto que conoce y la sustancia conocida. El saber absoluto no es poseer datos enciclopédicos, sino comprender que la verdad de todas las figuras anteriores era el automovimiento del espíritu recordando (Erinnerung) su propia historia. La sustancia se revela plenamente como sujeto, abriendo la puerta a la ciencia especulativa o Lógica.`,
+        subfigures: [`Fin de la representación`, `Sustancia es sujeto`, `Recuerdo (Erinnerung)`],
+        ensi: `El todo desplegado en su necesidad orgánica: unidad de ser y pensar.`,
+        parasi: `El concepto que se sabe a sí mismo en todo lo otro sin perderse ni extrañarse.`,
+        transito: `La Fenomenología termina aquí su labor propedéutica y entrega a la ciencia el elemento puro del saber.`
+      }
+    ];
+
+    // Coordinates of the 6 nodes along the spiral SVG path
+    const SPIRAL_NODES = [
+      { x: 96,  y: 300, labelDx: 14,  labelDy: 18,  anchor: `start`,  subPos: [[-18,-38],[42,-42],[62,-6]] },
+      { x: 148, y: 64,  labelDx: -12, labelDy: -18, anchor: `end`,    subPos: [[78,-22],[98,8],[52,32]] },
+      { x: 392, y: 118, labelDx: 12,  labelDy: -16, anchor: `start`,  subPos: [[-72,-28],[-98,6],[-65,36]] },
+      { x: 336, y: 306, labelDx: 14,  labelDy: 18,  anchor: `start`,  subPos: [[-84,-24],[-98,8],[-60,34]] },
+      { x: 152, y: 232, labelDx: -14, labelDy: 6,   anchor: `end`,    subPos: [[46,-36],[78,-6],[54,28]] },
+      { x: 240, y: 195, labelDx: 0,   labelDy: -22, anchor: `middle`, subPos: [[-66,-44],[66,-44],[0,38]] }
+    ];
+
+    // Cumulative progress fraction of the spiral path per step
+    const SPIRAL_FRACTIONS = [0.04, 0.24, 0.45, 0.66, 0.84, 1.0];
+    let spiralTotalLen = 1000;
+
+    // ═══ [2]/[3] GRAPHIC: build once, mutate per beat ════════════════════════════
+    function buildGraphic() {
+      const activePath = document.getElementById('spiral-active');
+      if (activePath && typeof activePath.getTotalLength === 'function') {
+        spiralTotalLen = activePath.getTotalLength();
+        activePath.style.strokeDasharray = `${spiralTotalLen}`;
+        activePath.style.strokeDashoffset = `${spiralTotalLen}`;
+      }
+
+      const nodesLayer = document.getElementById('nodes-layer');
+      if (!nodesLayer) return;
+      nodesLayer.innerHTML = '';
+
+      STEPS.forEach((s, i) => {
+        const pos = SPIRAL_NODES[i];
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('class', 'node-group');
+        g.setAttribute('tabindex', '0');
+        g.setAttribute('role', 'button');
+        g.setAttribute('aria-label', `Estación ${s.roman}: ${s.title}`);
+        g.addEventListener('click', function() { jumpToStep(i); });
+        g.addEventListener('keydown', function(ev) {
+          if (ev.key === 'Enter' || ev.key === ' ') {
+            ev.preventDefault();
+            jumpToStep(i);
+          }
+        });
+
+        const outer = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        outer.setAttribute('cx', pos.x);
+        outer.setAttribute('cy', pos.y);
+        outer.setAttribute('r', '13');
+        outer.setAttribute('fill', 'var(--background)');
+        outer.setAttribute('stroke', 'var(--data-context)');
+        outer.setAttribute('stroke-width', '1.5');
+        outer.setAttribute('class', 'node-ring');
+        outer.setAttribute('id', `node-outer-${i}`);
+
+        const inner = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        inner.setAttribute('cx', pos.x);
+        inner.setAttribute('cy', pos.y);
+        inner.setAttribute('r', '5');
+        inner.setAttribute('fill', 'var(--data-context)');
+        inner.setAttribute('id', `node-inner-${i}`);
+
+        const romanTxt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        romanTxt.setAttribute('x', pos.x + pos.labelDx);
+        romanTxt.setAttribute('y', pos.y + pos.labelDy);
+        romanTxt.setAttribute('text-anchor', pos.anchor);
+        romanTxt.setAttribute('font-family', 'var(--font-label)');
+        romanTxt.setAttribute('font-size', '11');
+        romanTxt.setAttribute('font-weight', '600');
+        romanTxt.setAttribute('letter-spacing', '1.2');
+        romanTxt.setAttribute('fill', 'var(--on-surface-variant)');
+        romanTxt.setAttribute('id', `node-label-${i}`);
+        romanTxt.textContent = `${s.roman}. ${s.title.toUpperCase()}`;
+
+        g.appendChild(outer);
+        g.appendChild(inner);
+        g.appendChild(romanTxt);
+        nodesLayer.appendChild(g);
+      });
+    }
+
+    function renderGraphic(i) {
+      const s = STEPS[i];
+      if (!s) return;
+
+      const activePath = document.getElementById('spiral-active');
+      if (activePath) {
+        const offset = spiralTotalLen * (1 - SPIRAL_FRACTIONS[i]);
+        activePath.style.strokeDashoffset = `${offset}`;
+      }
+
+      STEPS.forEach((_, idx) => {
+        const outer = document.getElementById(`node-outer-${idx}`);
+        const inner = document.getElementById(`node-inner-${idx}`);
+        const lbl = document.getElementById(`node-label-${idx}`);
+        if (!outer || !inner || !lbl) return;
+
+        if (idx === i) {
+          outer.setAttribute('r', '17');
+          outer.setAttribute('stroke', 'var(--primary)');
+          outer.setAttribute('fill', 'var(--primary-container)');
+          inner.setAttribute('r', '7');
+          inner.setAttribute('fill', 'var(--primary)');
+          lbl.setAttribute('fill', 'var(--primary)');
+        } else if (idx < i) {
+          outer.setAttribute('r', '12');
+          outer.setAttribute('stroke', 'var(--secondary)');
+          outer.setAttribute('fill', 'var(--background)');
+          inner.setAttribute('r', '5');
+          inner.setAttribute('fill', 'var(--secondary)');
+          lbl.setAttribute('fill', 'var(--secondary)');
+        } else {
+          outer.setAttribute('r', '11');
+          outer.setAttribute('stroke', 'var(--data-context)');
+          outer.setAttribute('fill', 'var(--background)');
+          inner.setAttribute('r', '4');
+          inner.setAttribute('fill', 'var(--data-context)');
+          lbl.setAttribute('fill', 'var(--on-surface-variant)');
+        }
+      });
+
+      // Render sub-figure callouts for active node
+      const orbitLayer = document.getElementById('sub-orbit-layer');
+      if (orbitLayer) {
+        orbitLayer.innerHTML = '';
+        const center = SPIRAL_NODES[i];
+        const offsets = center.subPos;
+        s.subfigures.forEach((subName, subIdx) => {
+          const dx = offsets[subIdx][0];
+          const dy = offsets[subIdx][1];
+          const tx = Math.max(66, Math.min(414, center.x + dx));
+          const ty = Math.max(24, Math.min(352, center.y + dy));
+
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('x1', center.x);
+          line.setAttribute('y1', center.y);
+          line.setAttribute('x2', tx);
+          line.setAttribute('y2', ty);
+          line.setAttribute('stroke', 'var(--outline)');
+          line.setAttribute('stroke-width', '1');
+          line.setAttribute('stroke-dasharray', '2 2');
+
+          const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          dot.setAttribute('cx', tx);
+          dot.setAttribute('cy', ty);
+          dot.setAttribute('r', '3');
+          dot.setAttribute('fill', 'var(--secondary)');
+
+          const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          txt.setAttribute('x', tx);
+          txt.setAttribute('y', ty - 7);
+          txt.setAttribute('text-anchor', 'middle');
+          txt.setAttribute('font-family', 'var(--font-body)');
+          txt.setAttribute('font-style', 'italic');
+          txt.setAttribute('font-size', '12.5');
+          txt.setAttribute('fill', 'var(--secondary)');
+          txt.textContent = subName;
+
+          orbitLayer.appendChild(line);
+          orbitLayer.appendChild(dot);
+          orbitLayer.appendChild(txt);
+        });
+      }
+
+      // Update jump buttons
+      const jumpBtns = document.querySelectorAll('.jump-btn');
+      jumpBtns.forEach((btn, idx) => btn.classList.toggle('is-active', idx === i));
+
+      // Update Dialectic Readout
+      const ensiEl = document.getElementById('rd-ensi');
+      const parasiEl = document.getElementById('rd-parasi');
+      const transitoEl = document.getElementById('rd-transito');
+      if (ensiEl) ensiEl.textContent = s.ensi;
+      if (parasiEl) parasiEl.textContent = s.parasi;
+      if (transitoEl) transitoEl.textContent = s.transito;
+    }
+
+    // ═══ ENGINE (Scrollytelling) ════════════════════════════════════════════════
+    const stepsEl = document.getElementById('steps');
+    if (stepsEl) {
+      STEPS.forEach((s, i) => {
+        const subTags = s.subfigures.map((sub) => `<span class="tag">${sub}</span>`).join('');
+        stepsEl.insertAdjacentHTML('beforeend',
+          `<div class="step" data-step="${i}" id="step-beat-${i}">` +
+          `<div class="step-card">` +
+          `<div class="step-header">` +
+          `<span class="label-voice">Estación ${s.roman} de VI</span>` +
+          `<span class="step-german">${s.german}</span>` +
+          `</div>` +
+          `<h3>${s.title}</h3>` +
+          `<p>${s.body}</p>` +
+          `<div class="subfigures-row">${subTags}</div>` +
+          `</div></div>`
+        );
+      });
+    }
+
+    buildGraphic();
+    renderGraphic(0);
+
+    const nodes = document.querySelectorAll('.scrolly .step');
+    function activate(i) {
+      if (!nodes.length || i < 0 || i >= nodes.length) return;
+      nodes.forEach((n) => n.classList.remove('is-active'));
+      nodes[i].classList.add('is-active');
+      renderGraphic(i);
+    }
+
+    function jumpToStep(i) {
+      activate(i);
+      const target = document.getElementById(`step-beat-${i}`);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    if (window.scrollama) {
+      const sc = scrollama();
+      sc.setup({ step: '.scrolly .step', offset: 0.55 })
+        .onStepEnter(function(res) { activate(res.index); });
+      window.addEventListener('resize', sc.resize);
+    } else {
+      const io = new IntersectionObserver(function(es) {
+        es.forEach(function(e) {
+          if (e.isIntersecting) activate(Number(e.target.dataset.step));
+        });
+      }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+      nodes.forEach((n) => io.observe(n));
+    }
+
+    // ═══ DATA & LOGIC: LAB A ("El ahora es la noche") ══════════════════════════
+    const NOW_PHASES = [
+      {
+        clock: `Medianoche · 00:00 h`,
+        status: `Acabamos de escribir esta verdad sobre el papel. Parece plena y certera.`,
+        sup: `Creemos señalar este instante nocturno único, irrepetible e inmediato, sin mediación conceptual.`,
+        lang: `Incluso aquí, la palabra «ahora» ya es un universal vacío capaz de nombrar cualquier instante.`,
+        verdict: `«Una verdad nada pierde con ser puesta por escrito, como no pierde nada tampoco con ser conservada.»`
+      },
+      {
+        clock: `Alba · 06:00 h`,
+        status: `El cielo clarea; la hoja conserva intacta la frase escrita a medianoche.`,
+        sup: `La certeza sensible todavía intenta aferrarse al recuerdo de la noche como su contenido verdadero.`,
+        lang: `El «ahora» sigue siendo verdadero como forma, precisamente porque NO es ni noche ni día: es indiferente a ambos.`,
+        verdict: `Lo inmediato se desvanece al pasar el tiempo; lo único que permanece es el universal mediado por la negación.`
+      },
+      {
+        clock: `Mediodía · 12:00 h`,
+        status: `Revisamos la hoja a plena luz del día: «El ahora es la noche» ha quedado vacía.`,
+        sup: `Nuestra suposición singular fracasa: aquello que queríamos decir resulta inefable en su pura inmediatez.`,
+        lang: `«El lenguaje es lo más verdadero; nosotros mismos refutamos inmediatamente en él nuestra suposición.»`,
+        verdict: `«Pero si ahora, este mediodía revisamos esta verdad escrita, no tendremos más remedio que decir que dicha verdad ha quedado ya vacía.»`
+      }
+    ];
+
+    function setNowPhase(idx) {
+      const p = NOW_PHASES[idx];
+      if (!p) return;
+      const clock = document.getElementById('now-clock');
+      const status = document.getElementById('now-status');
+      const sup = document.getElementById('now-sup');
+      const lang = document.getElementById('now-lang');
+      const verdict = document.getElementById('now-verdict');
+
+      if (clock) clock.textContent = p.clock;
+      if (status) status.textContent = p.status;
+      if (sup) sup.textContent = p.sup;
+      if (lang) lang.textContent = p.lang;
+      if (verdict) verdict.textContent = p.verdict;
+
+      for (let i = 0; i < 3; i++) {
+        const b = document.getElementById(`btn-now-${i}`);
+        if (b) b.classList.toggle('is-selected', i === idx);
+      }
+    }
+
+    // ═══ DATA & LOGIC: LAB B (Señor y Siervo) ══════════════════════════════════
+    const MASTER_PHASES = [
+      {
+        masterText: `Dos autoconciencias se enfrentan para demostrar que no están atadas a la mera vida biológica. Ambas exigen reconocimiento absoluto.`,
+        masterScore: 50,
+        slaveText: `Arriesga su existencia en igualdad de condiciones, hasta que el temor a la muerte absoluta quiebra su resistencia.`,
+        slaveScore: 50,
+        summary: `Todavía no hay dominación estable: el reconocimiento exige que ambos sobrevivan, pues un cadáver no puede reconocer al vencedor.`
+      },
+      {
+        masterText: `Se sitúa como conciencia independiente: disfruta de las cosas ya elaboradas sin trabajarlas, dejando la resistencia de la materia al Siervo.`,
+        masterScore: 78,
+        slaveText: `Se somete para conservar la vida y queda ligado al mundo material, obligado a transformar la naturaleza para el Señor.`,
+        slaveScore: 22,
+        summary: `Paradoja oculta: el Señor solo recibe reconocimiento de alguien a quien ha rebajado a cosa no libre, y depende de él para subsistir.`
+      },
+      {
+        masterText: `Su goce pasivo desaparece sin dejar rastro; al no trabajar ni dominar la materia por sí mismo, se vuelve dependiente e inerte.`,
+        masterScore: 26,
+        slaveText: `Al frenar su deseo y trabajar la materia con disciplina bajo el temor, descubre su propio poder formativo y permanente en la obra creada.`,
+        slaveScore: 86,
+        summary: `Inversión dialéctica: la verdad de la conciencia independiente resulta ser la conciencia servil formada por el trabajo.`
+      }
+    ];
+
+    function setMasterPhase(idx) {
+      const m = MASTER_PHASES[idx];
+      if (!m) return;
+      const mt = document.getElementById('ms-master-text');
+      const ms = document.getElementById('ms-master-score');
+      const mb = document.getElementById('ms-master-bar');
+      const st = document.getElementById('ms-slave-text');
+      const ss = document.getElementById('ms-slave-score');
+      const sb = document.getElementById('ms-slave-bar');
+      const sum = document.getElementById('ms-summary');
+
+      if (mt) mt.textContent = m.masterText;
+      if (ms) ms.textContent = `Autonomía real: ${m.masterScore}%`;
+      if (mb) mb.style.width = `${m.masterScore}%`;
+      if (st) st.textContent = m.slaveText;
+      if (ss) ss.textContent = `Autonomía real: ${m.slaveScore}%`;
+      if (sb) sb.style.width = `${m.slaveScore}%`;
+      if (sum) sum.textContent = m.summary;
+
+      for (let i = 0; i < 3; i++) {
+        const b = document.getElementById(`btn-ms-${i}`);
+        if (b) b.classList.toggle('is-selected', i === idx);
+      }
+    }
+
+    // ═══ DATA & LOGIC: LAB C (Proposición especulativa) ═════════════════════════
+    const PROP_EXAMPLES = [
+      {
+        subj: `Dios`,
+        pred: `el ser`,
+        ordinary: `El entendimiento toma «Dios» como un punto fijo ya conocido y le cuelga «el ser» como un atributo externo más, sin salir de su propia representación habitual.`,
+        speculative: `Aquí «el ser» no es un adjetivo accidental: es la esencia misma en la que el sujeto fijo se disuelve. El pensamiento sufre un «contragolpe», pierde su apoyo inmóvil y debe volver sobre el sujeto para pensarlo como movimiento.`
+      },
+      {
+        subj: `Lo real`,
+        pred: `lo universal`,
+        ordinary: `La conciencia corriente cree que «lo real» es una cosa estable a la que simplemente le añadimos la cualidad de ser universal, manteniendo ambos términos separados.`,
+        speculative: `Al expresar «lo universal» la esencia misma de «lo real», el sujeto se esfuma en su predicado. Como en el ritmo musical entre metro y acento, la identidad de ambos brota como una armonía dinámica que obliga a releer la frase.`
+      }
+    ];
+
+    let curPropEx = 0;
+    let curPropMode = 0;
+
+    function renderPropLab() {
+      const ex = PROP_EXAMPLES[curPropEx];
+      const subjEl = document.getElementById('svg-prop-subj');
+      const predEl = document.getElementById('svg-prop-pred');
+      const rebound = document.getElementById('svg-rebound');
+      const expEl = document.getElementById('prop-explanation');
+
+      if (subjEl) subjEl.textContent = ex.subj;
+      if (predEl) predEl.textContent = ex.pred;
+      if (rebound) rebound.setAttribute('opacity', curPropMode === 1 ? '1' : '0.18');
+      if (expEl) expEl.textContent = curPropMode === 0 ? ex.ordinary : ex.speculative;
+
+      for (let i = 0; i < 2; i++) {
+        const bEx = document.getElementById(`btn-prop-${i}`);
+        const bMd = document.getElementById(`btn-pmode-${i}`);
+        if (bEx) bEx.classList.toggle('is-selected', i === curPropEx);
+        if (bMd) bMd.classList.toggle('is-selected', i === curPropMode);
+      }
+    }
+
+    function setPropExample(idx) {
+      curPropEx = idx;
+      renderPropLab();
+    }
+
+    function setPropMode(mode) {
+      curPropMode = mode;
+      renderPropLab();
+    }
+
+    // ═══ DATA & LOGIC: ARCHIVO DE FIGURAS ══════════════════════════════════════
+    const FIGURES_DATA = [
+      { stage: `Conciencia`, name: `Certeza sensible (Die sinnliche Gewissheit)`, tension: `Cree captar la riqueza singular del «esto», «aquí» y «ahora» sin mediación alguna.`, transit: `Al enunciarla en el lenguaje, la singularidad se revela como un universal vacío.` },
+      { stage: `Conciencia`, name: `Percepción (Die Wahrnehmung)`, tension: `Intenta fijar la «cosa» como unidad estable de múltiples propiedades sensibles.`, transit: `Oscila sin salida entre la unidad de la cosa y la pluralidad de sus cualidades.` },
+      { stage: `Conciencia`, name: `Fuerza y entendimiento (Kraft und Verstand)`, tension: `Busca detrás del flujo sensible un «mundo suprasensible» tranquilo de leyes.`, transit: `Advierte que tras el velo de los fenómenos no hay nada oculto salvo el propio yo que entiende.` },
+
+      { stage: `Autoconciencia`, name: `Deseo y lucha a muerte`, tension: `La autoconciencia afirma su certeza destruyendo objetos, hasta exigir reconocimiento de otro yo.`, transit: `Matar al otro anula el reconocimiento; de la vida conservada nace la desigualdad Señor-Siervo.` },
+      { stage: `Autoconciencia`, name: `Señorío y servidumbre`, tension: `El Señor goza pasivamente; el Siervo teme y trabaja la materia.`, transit: `El trabajo disciplina al Siervo y lo hace autónomo; el Señor queda dependiente de lo servil.` },
+      { stage: `Autoconciencia`, name: `Estoicismo, escepticismo y conciencia desventurada`, tension: `El yo se refugia en la libertad interior abstracta o se desgarra frente a un más allá inmutable.`, transit: `Al entregar su voluntad particular, descubre una unidad mediadora entre lo finito y lo universal.` },
+
+      { stage: `Razón`, name: `Razón observante`, tension: `Busca reencontrarse como pensamiento dentro de la naturaleza física, orgánica y psíquica.`, transit: `Fracasa al reducir la libertad del espíritu a leyes inertes o huesos craneales (frenología).` },
+      { stage: `Razón`, name: `Realización de la autoconciencia racional`, tension: `El individuo intenta imponer su placer, la «ley del corazón» o la virtud abstracta al curso del mundo.`, transit: `Descubre que el «curso del mundo» triunfa porque ya encarna la actividad universal de todos.` },
+      { stage: `Razón`, name: `La individualidad en y para sí real`, tension: `La razón pretende legislar leyes morales puramente formales desde el individuo aislado.`, transit: `Comprende que solo la sustancia ética de una comunidad concreta da contenido real a la ley.` },
+
+      { stage: `Espíritu`, name: `Espíritu verdadero: la eticidad (Sittlichkeit)`, tension: `La polis griega enfrenta la ley humana del Estado (Creonte) contra la ley divina familiar (Antígona).`, transit: `El conflicto trágico destruye la armonía inmediata y conduce al estado jurídico abstracto del Imperio.` },
+      { stage: `Espíritu`, name: `Espíritu extrañado de sí mismo: cultura e Ilustración`, tension: `La fe y la pura intelección ilustrada combaten; la voluntad general exige «libertad absoluta».`, transit: `La libertad abstracta desemboca en el Terror revolucionario, forzando el tránsito hacia la moralidad.` },
+      { stage: `Espíritu`, name: `Espíritu cierto de sí mismo: moralidad y perdón`, tension: `El rigor moral del deber puro choca con la realidad y se refugia en el «alma bella» que juzga sin actuar.`, transit: `La confesión de la finitud y el perdón mutuo reconcilian a los sujetos como Espíritu vivo.` },
+
+      { stage: `Religión`, name: `Religión natural`, tension: `Lo divino se intuye aún como objeto exterior: luz, planta o animal sagrado.`, transit: `El artesano humano empieza a dar forma autoconsciente a lo sagrado.` },
+      { stage: `Religión`, name: `Religión del arte`, tension: `En Grecia, la estatua, el himno y la tragedia muestran a los dioses con figura humana.`, transit: `La comedia y el destino disuelven la bella apariencia clásica, dejando sed de interioridad.` },
+      { stage: `Religión`, name: `Religión revelada / manifiesta`, tension: `La comunidad concibe a Dios como espíritu encarnado, aunque todavía en la forma de relato o representación.`, transit: `Al superar la forma exterior de la representación, el contenido religioso se vuelve concepto filosófico.` },
+
+      { stage: `Saber Absoluto`, name: `Superación de la representación`, tension: `El objeto aún parece distinguirse en el tiempo histórico de la conciencia que lo recuerda.`, transit: `La conciencia reúne en su interioridad (Erinnerung) todas sus figuras pasadas.` },
+      { stage: `Saber Absoluto`, name: `El concepto que se sabe a sí mismo`, tension: `Ya no hay brecha entre certeza y verdad, ni entre sustancia y sujeto.`, transit: `El ser se muestra como absolutamente mediado por el pensar y el devenir histórico.` },
+      { stage: `Saber Absoluto`, name: `Ingreso a la Ciencia (Lógica)`, tension: `Fin del camino fenomenológico de la conciencia natural.`, transit: `Comienza la filosofía especulativa pura en el elemento transparente del saber.` }
+    ];
+
+    function renderFiguresTable(stageFilter) {
+      const tbody = document.getElementById('figures-tbody');
+      if (!tbody) return;
+      const rows = stageFilter === 'todas'
+        ? FIGURES_DATA
+        : FIGURES_DATA.filter((f) => f.stage === stageFilter);
+
+      tbody.innerHTML = rows.map((f) =>
+        `<tr>` +
+        `<td><span class="label-voice">${f.stage}</span></td>` +
+        `<td><strong>${f.name}</strong></td>` +
+        `<td>${f.tension}</td>` +
+        `<td>${f.transit}</td>` +
+        `</tr>`
+      ).join('');
+    }
+
+    function filterFigures(stage, btn) {
+      document.querySelectorAll('.filter-bar .btn').forEach((b) => b.classList.remove('is-selected'));
+      if (btn) btn.classList.add('is-selected');
+      renderFiguresTable(stage);
+    }
+
+    // ═══ DATA & LOGIC: QUIZ DE COMPROBACIÓN ════════════════════════════════════
+    const QUIZ_QUESTIONS = [
+      {
+        q: `1. Cuando Hegel afirma que la «negación determinada» impulsa el camino fenomenológico, ¿qué quiere decir?`,
+        opts: [
+          `Que cada figura errónea se arroja a la nada vacía y se empieza desde cero.`,
+          `Que la refutación tiene un contenido concreto: conserva lo verdadero del estadio anterior y genera una nueva figura.`,
+          `Que la verdad filosófica puede resumirse en axiomas matemáticos fijos.`
+        ],
+        correct: 1,
+        explain: `Exacto. Frente al escepticismo vacío, la negación determinada es siempre la nada de aquello de lo que proviene, por lo que contiene ya el tránsito hacia la figura siguiente.`
+      },
+      {
+        q: `2. ¿Qué significa la tesis central del Prólogo de que lo verdadero debe concebirse «no solo como sustancia, sino también como sujeto»?`,
+        opts: [
+          `Que lo absoluto es un movimiento vivo de mediación, reflexión y autodesarrollo, no un bloque inerte e inmóvil.`,
+          `Que la verdad depende únicamente del capricho subjetivo de cada individuo.`,
+          `Que Dios es un nombre fijo al que se añaden predicados desde el exterior.`
+        ],
+        correct: 0,
+        explain: `Correcto. La sustancia viva es sujeto precisamente porque se desdobla, deviene otro y retorna a sí misma mediante el trabajo de lo negativo.`
+      },
+      {
+        q: `3. ¿Por qué fracasa la «certeza sensible» al intentar expresar «El ahora es la noche»?`,
+        opts: [
+          `Porque los sentidos humanos engañan siempre y la noche no existe.`,
+          `Porque al ponerla por escrito o pronunciarla, el lenguaje expresa un universal («el ahora») indiferente a la noche o al mediodía.`,
+          `Porque la ciencia exige usar fórmulas matemáticas en lugar de palabras.`
+        ],
+        correct: 1,
+        explain: `Así es. «El lenguaje es lo más verdadero»: refuta nuestra suposición singular mostrando que el «ahora» y el «esto» son universales mediados.`
+      }
+    ];
+
+    function buildQuiz() {
+      const box = document.getElementById('quiz-container');
+      if (!box) return;
+      box.innerHTML = QUIZ_QUESTIONS.map((item, qIdx) => {
+        const optsHtml = item.opts.map((opt, oIdx) =>
+          `<button type="button" class="quiz-opt" id="qopt-${qIdx}-${oIdx}" onclick="answerQuiz(${qIdx}, ${oIdx})">${opt}</button>`
+        ).join('');
+        return `<div class="quiz-item">` +
+          `<h4 style="font-size: 1.25rem; font-weight: 600;">${item.q}</h4>` +
+          `<div class="quiz-options">${optsHtml}</div>` +
+          `<div class="quiz-feedback" id="qfb-${qIdx}" aria-live="polite"></div>` +
+          `</div>`;
+      }).join('');
+    }
+
+    function answerQuiz(qIdx, oIdx) {
+      const q = QUIZ_QUESTIONS[qIdx];
+      if (!q) return;
+      q.opts.forEach((_, idx) => {
+        const btn = document.getElementById(`qopt-${qIdx}-${idx}`);
+        if (!btn) return;
+        btn.classList.remove('is-correct', 'is-wrong');
+        if (idx === oIdx) {
+          btn.classList.add(idx === q.correct ? 'is-correct' : 'is-wrong');
+        }
+      });
+      const fb = document.getElementById(`qfb-${qIdx}`);
+      if (fb) {
+        fb.textContent = oIdx === q.correct
+          ? q.explain
+          : `No exactamente: observa que para Hegel el movimiento dialéctico nunca se detiene en lo fijo ni en la nada vacía. Intenta otra opción.`;
+        fb.style.color = oIdx === q.correct ? 'var(--secondary)' : 'var(--error)';
+      }
+    }
+
+    // ═══ SCROLL-TRIGGERED REVEALS (one-shot IntersectionObserver) ═══════════════
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const revIo = new IntersectionObserver(function(entries, obs) {
+        entries.forEach(function(e) {
+          if (!e.isIntersecting) return;
+          e.target.classList.add('is-visible');
+          obs.unobserve(e.target);
+        });
+      }, { threshold: 0.1 });
+      revealEls.forEach((el) => revIo.observe(el));
+    } else {
+      revealEls.forEach((el) => el.classList.add('is-visible'));
+    }
+
+    // Initialize interactive labs & tables
+    renderPlantLab();
+    setNowPhase(0);
+    setMasterPhase(0);
+    renderPropLab();
+    renderFiguresTable('todas');
+    buildQuiz();
+  </script>
+</body>
+</html>

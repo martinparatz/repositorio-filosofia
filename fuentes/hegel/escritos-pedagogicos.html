@@ -1,0 +1,2166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="artifact-type" content="narrative">
+<meta name="design-style" content="charter">
+<title>Escritos pedagógicos de G. W. F. Hegel — Bildung, escuela y universalidad del espíritu</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  color-scheme: light;
+
+  /* 1. Charter style tokens */
+  --background: #f7f4ec;
+  --surface-container-low: #fffdf8;
+  --surface-container: #ece5d4;
+  --surface-container-high: #e3dac4;
+
+  --on-surface: #1c1f26;
+  --on-surface-variant: #4f5360;
+
+  --outline: #b08d57;
+  --outline-variant: #d9cfb8;
+
+  --primary: #14213d;
+  --on-primary: #f7f4ec;
+  --primary-container: #e3e6ee;
+  --on-primary-container: #14213d;
+  --secondary: #2d5a4a;
+  --tertiary: #8a6a35;
+  --error: #9b2c2c;
+  --on-error: #f7f4ec;
+
+  --data-1: #14213d;
+  --data-2: #8a6a35;
+  --data-3: #2d5a4a;
+  --data-4: #5b7aa0;
+  --data-context: #c2bba9;
+
+  --font-headline: 'Libre Caslon Text', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-label: 'Inter', sans-serif;
+
+  --rounded: 0.125rem;
+  --rounded-lg: 0.125rem;
+  --rounded-full: 0.125rem;
+
+  --brass-rule: 2px solid var(--outline);
+  --brass-band-border: 3px solid var(--outline);
+  --hairline: 1px solid var(--outline-variant);
+  --navy-outline: 1px solid var(--primary);
+  --brass-stamp-border: 1px solid var(--outline);
+  --leaf-underline: 0 1px 0 var(--outline-variant);
+
+  /* 2. Shared foundation tokens */
+  --positive: #2d5a4a;
+  --warning: #8a6a35;
+  --focus: #14213d;
+
+  /* Type scale for Narrative */
+  --display-size: clamp(2.35rem, 1.4rem + 3.6vw, 4.1rem);
+  --headline-size: clamp(1.75rem, 1.25rem + 1.8vw, 2.5rem);
+  --subhead-size: clamp(1.1875rem, 1.05rem + 0.5vw, 1.4375rem);
+  --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+  --label-size: 0.75rem;
+  --figure-size: clamp(1.75rem, 1.35rem + 1.3vw, 2.35rem);
+
+  /* Spacing scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+
+  /* Derived surface mixes */
+  --title-lede: color-mix(in srgb, var(--on-primary) 80%, var(--primary));
+  --title-kicker: color-mix(in srgb, var(--outline) 75%, var(--on-primary));
+  --title-divider: color-mix(in srgb, var(--outline) 45%, var(--primary));
+  --positive-wash: color-mix(in srgb, var(--secondary) 10%, var(--surface-container-low));
+  --error-wash: color-mix(in srgb, var(--error) 8%, var(--surface-container-low));
+}
+
+/* Base reset */
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  overflow-x: clip;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+header { position: static !important; }
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.title-band :focus-visible {
+  outline-color: var(--on-primary);
+}
+
+/* Full-bleed Navy Title Band */
+.title-band {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border-bottom: var(--brass-band-border);
+  padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+}
+
+.title-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.title-kicker {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--title-kicker);
+  margin: 0 0 var(--space-md);
+}
+
+.title-band h1 {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  font-size: var(--display-size);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--on-primary);
+  margin: 0 0 var(--space-md);
+  max-width: 24ch;
+}
+
+.title-band .lede {
+  font-size: var(--subhead-size);
+  line-height: 1.45;
+  color: var(--title-lede);
+  max-width: 62ch;
+  margin: 0 0 var(--space-lg);
+}
+
+.title-meta-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--title-divider);
+  align-items: center;
+}
+
+.title-nav-label {
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--title-kicker);
+  margin-right: var(--space-xs);
+}
+
+.toc-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-md);
+}
+
+.toc-link {
+  color: var(--on-primary);
+  text-decoration: none;
+  font-size: var(--label-size);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: var(--space-xs) 0;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  transition: border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+}
+
+.toc-link:hover {
+  border-bottom-color: var(--outline);
+  color: var(--title-kicker);
+}
+
+/* Main Page Container */
+.page-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2xl);
+  padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+  max-width: 1160px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.page-grid * { min-width: 0; }
+
+/* Figure Card Row */
+.figures-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
+  gap: var(--space-lg);
+}
+
+.figure-card {
+  background-color: var(--surface-container-low);
+  border-top: var(--brass-rule);
+  box-shadow: var(--leaf-underline);
+  border-radius: var(--rounded-lg);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.figure-label {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--on-surface-variant);
+  margin: 0 0 var(--space-xs);
+}
+
+.figure-value {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  font-size: var(--figure-size);
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--on-surface);
+  margin: 0 0 var(--space-xs);
+}
+
+.figure-delta {
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--tertiary);
+  font-weight: 500;
+  margin: 0;
+}
+
+.figure-delta.positive {
+  color: var(--secondary);
+}
+
+/* Sections & Asymmetric Layout */
+.content-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-lg);
+}
+
+.section-head {
+  border-top: var(--brass-rule);
+  padding-top: var(--space-md);
+  border-bottom: var(--hairline);
+  padding-bottom: var(--space-md);
+}
+
+.section-kicker {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tertiary);
+  margin: 0 0 var(--space-xs);
+}
+
+.section-head h2 {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  font-size: var(--headline-size);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--on-surface);
+  margin: 0 0 var(--space-sm);
+  max-width: 34ch;
+}
+
+.section-standfirst {
+  font-size: var(--subhead-size);
+  line-height: 1.45;
+  color: var(--on-surface-variant);
+  margin: 0;
+  max-width: 65ch;
+}
+
+.asymmetric-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.prose-col {
+  max-width: 65ch;
+}
+
+.prose-col p {
+  margin: 0 0 var(--space-md);
+  color: var(--on-surface);
+}
+
+.prose-col p:last-child {
+  margin-bottom: 0;
+}
+
+.prose-col strong {
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+.prose-col h3, .panel-title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: var(--subhead-size);
+  line-height: 1.25;
+  color: var(--on-surface);
+  margin: var(--space-lg) 0 var(--space-sm);
+}
+
+.prose-col h3:first-child {
+  margin-top: 0;
+}
+
+/* Notes / Quote Leaf Panel */
+.leaf-panel {
+  background-color: var(--surface-container-low);
+  border-top: var(--brass-rule);
+  box-shadow: var(--leaf-underline);
+  border-radius: var(--rounded-lg);
+  padding: var(--space-lg);
+}
+
+.leaf-panel-kicker {
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--tertiary);
+  margin: 0 0 var(--space-sm);
+}
+
+.source-quote {
+  font-family: var(--font-headline);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--on-surface);
+  margin: 0 0 var(--space-sm);
+  padding-left: var(--space-md);
+  border-left: var(--brass-rule);
+}
+
+.quote-attrib {
+  font-size: 0.875rem;
+  color: var(--on-surface-variant);
+  margin: 0;
+}
+
+.definition-list {
+  list-style: none;
+  margin: var(--space-md) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-md);
+}
+
+.definition-list li {
+  padding-top: var(--space-sm);
+  border-top: var(--hairline);
+}
+
+.definition-term {
+  display: block;
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--primary);
+  margin-bottom: var(--space-xs);
+}
+
+.definition-desc {
+  font-size: 0.9375rem;
+  color: var(--on-surface-variant);
+  margin: 0;
+}
+
+/* Interactive Controls & Buttons */
+.interactive-box {
+  background-color: var(--surface-container-low);
+  border-top: var(--brass-rule);
+  box-shadow: var(--leaf-underline);
+  border-radius: var(--rounded-lg);
+  padding: var(--space-lg);
+  container-type: inline-size;
+}
+
+.interactive-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-md);
+  padding-bottom: var(--space-md);
+  border-bottom: var(--hairline);
+  margin-bottom: var(--space-lg);
+}
+
+.interactive-title {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  font-size: var(--subhead-size);
+  color: var(--on-surface);
+  margin: var(--space-xs) 0 0;
+}
+
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.btn {
+  appearance: none;
+  border-radius: var(--rounded);
+  padding: var(--space-sm) var(--space-md);
+  min-height: 44px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border: var(--navy-outline);
+}
+
+.btn-primary:hover {
+  background-color: var(--on-surface);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--primary);
+  border: var(--navy-outline);
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary-container);
+}
+
+.btn-secondary[aria-pressed="true"],
+.btn-tab[aria-pressed="true"] {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+}
+
+.btn-tab {
+  background-color: var(--surface-container-low);
+  color: var(--primary);
+  border: var(--hairline);
+}
+
+.btn-tab:hover {
+  background-color: var(--primary-container);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Stamp Tags */
+.stamp-tag {
+  display: inline-block;
+  border: var(--brass-stamp-border);
+  border-radius: var(--rounded);
+  padding: 0.15rem var(--space-sm);
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--tertiary);
+  background-color: transparent;
+}
+
+.stamp-tag.green {
+  border-color: var(--secondary);
+  color: var(--secondary);
+}
+
+/* Tables */
+.table-wrap {
+  overflow-x: auto;
+  border-bottom: var(--hairline);
+}
+
+table.charter-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9375rem;
+}
+
+.charter-table thead th {
+  background-color: var(--surface-container-high);
+  color: var(--on-surface);
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: var(--brass-rule);
+}
+
+.charter-table tbody td {
+  padding: var(--space-md);
+  border-bottom: var(--hairline);
+  vertical-align: top;
+}
+
+.charter-table tbody tr.row-highlight {
+  background-color: var(--primary-container);
+}
+
+.num-col {
+  text-align: right;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Dialectical Simulator Grid */
+.dialectic-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.dialectic-svg-wrap {
+  background-color: var(--background);
+  border: var(--hairline);
+  border-radius: var(--rounded);
+  padding: var(--space-md);
+}
+
+.dialectic-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.svg-node {
+  cursor: pointer;
+  transition: opacity var(--dur-micro) var(--ease-out);
+}
+
+.svg-node-box {
+  fill: var(--surface-container-low);
+  stroke: var(--outline-variant);
+  stroke-width: 1.5;
+  transition: fill var(--dur-micro) var(--ease-out), stroke var(--dur-micro) var(--ease-out);
+}
+
+.svg-node[aria-selected="true"] .svg-node-box {
+  fill: var(--primary);
+  stroke: var(--outline);
+  stroke-width: 2;
+}
+
+.svg-node-num {
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 600;
+  fill: var(--tertiary);
+  letter-spacing: 0.06em;
+}
+
+.svg-node[aria-selected="true"] .svg-node-num {
+  fill: var(--title-kicker);
+}
+
+.svg-node-label {
+  font-family: var(--font-headline);
+  font-size: 14px;
+  fill: var(--on-surface);
+}
+
+.svg-node[aria-selected="true"] .svg-node-label {
+  fill: var(--on-primary);
+}
+
+.svg-node-sub {
+  font-family: var(--font-body);
+  font-size: 11px;
+  fill: var(--on-surface-variant);
+}
+
+.svg-node[aria-selected="true"] .svg-node-sub {
+  fill: var(--title-lede);
+}
+
+.svg-arrow {
+  stroke: var(--outline);
+  stroke-width: 1.75;
+  fill: none;
+}
+
+.svg-arrow-head {
+  fill: var(--outline);
+}
+
+.phase-detail-card {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.phase-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: var(--hairline);
+}
+
+.phase-meta-item h4 {
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--tertiary);
+  margin: 0 0 var(--space-xs);
+}
+
+.phase-meta-item p {
+  font-size: 0.9375rem;
+  color: var(--on-surface);
+  margin: 0;
+}
+
+/* Chart Container & Curriculum Split */
+.curriculum-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.chart-container {
+  position: relative;
+  min-height: 300px;
+  width: 100%;
+  padding-top: var(--space-sm);
+}
+
+.subject-chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.subject-item {
+  border-top: var(--hairline);
+  padding-top: var(--space-xs);
+}
+
+.subject-item-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  display: block;
+}
+
+.subject-item-note {
+  font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+}
+
+/* Dilemma Case Selector */
+.dilemma-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.option-stack {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.option-btn {
+  text-align: left;
+  justify-content: flex-start;
+  padding: var(--space-md);
+  line-height: 1.45;
+  height: auto;
+}
+
+.resolution-box {
+  background-color: var(--background);
+  border-left: var(--brass-rule);
+  padding: var(--space-md) var(--space-lg);
+  margin-top: var(--space-md);
+}
+
+.resolution-box.is-hidden {
+  display: none;
+}
+
+/* Corpus Filter & Inputs */
+.filter-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto;
+  gap: var(--space-md);
+  align-items: end;
+  margin-bottom: var(--space-lg);
+}
+
+.field-group {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.field-label {
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--on-surface-variant);
+}
+
+.charter-input,
+.charter-select {
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--surface-container-low);
+  color: var(--on-surface);
+  border: var(--hairline);
+  border-radius: var(--rounded);
+  font-size: 0.9375rem;
+}
+
+.charter-select {
+  padding-right: var(--space-xl);
+}
+
+.charter-input:focus,
+.charter-select:focus {
+  border-color: var(--primary);
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.corpus-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: var(--space-lg);
+}
+
+.corpus-card {
+  background-color: var(--background);
+  border-top: var(--brass-rule);
+  border-bottom: var(--hairline);
+  padding: var(--space-md);
+  display: grid;
+  gap: var(--space-sm);
+  align-content: start;
+}
+
+.corpus-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.corpus-date {
+  font-size: var(--label-size);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--tertiary);
+  letter-spacing: 0.04em;
+}
+
+.corpus-card h4 {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.3;
+  margin: 0;
+  color: var(--on-surface);
+}
+
+.corpus-card p {
+  font-size: 0.9375rem;
+  color: var(--on-surface-variant);
+  margin: 0;
+}
+
+/* Seminar Quiz */
+.quiz-question-card {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.quiz-progress-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--on-surface-variant);
+}
+
+.quiz-feedback {
+  padding: var(--space-md);
+  border-radius: var(--rounded);
+  border-left: var(--brass-rule);
+  background-color: var(--background);
+}
+
+.quiz-feedback.correct {
+  border-left-color: var(--secondary);
+  background-color: var(--positive-wash);
+}
+
+.quiz-feedback.incorrect {
+  border-left-color: var(--error);
+  background-color: var(--error-wash);
+}
+
+/* Collapsible Details */
+.charter-details {
+  border-top: var(--hairline);
+  border-bottom: var(--hairline);
+  padding: var(--space-md) 0;
+}
+
+.charter-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--primary);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.charter-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.charter-details summary::after {
+  content: '+';
+  font-family: var(--font-headline);
+  font-size: 1.25rem;
+  color: var(--tertiary);
+}
+
+.charter-details[open] summary::after {
+  content: '−';
+}
+
+.details-body {
+  padding-top: var(--space-sm);
+  color: var(--on-surface-variant);
+  max-width: 68ch;
+}
+
+/* Footer / Sources */
+.sources-footer {
+  border-top: var(--brass-rule);
+  padding-top: var(--space-lg);
+  color: var(--on-surface-variant);
+  font-size: 0.9375rem;
+}
+
+.sources-footer h2 {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  font-size: var(--subhead-size);
+  color: var(--on-surface);
+  margin: 0 0 var(--space-sm);
+}
+
+/* Container queries for interactive boxes */
+@container (max-width: 680px) {
+  .dialectic-layout,
+  .curriculum-grid,
+  .dilemma-grid,
+  .filter-bar,
+  .phase-meta-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Scroll reveal animation */
+.reveal-section {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+}
+
+.reveal-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile Layout Breakpoint */
+@media (max-width: 640px) {
+  .title-band {
+    padding: var(--space-xl) var(--space-md) var(--space-lg);
+  }
+  .page-grid {
+    padding: var(--space-lg) var(--space-md) var(--space-2xl);
+    gap: var(--space-xl);
+  }
+  .asymmetric-split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+  }
+  .interactive-box {
+    padding: var(--space-md);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal-section {
+    opacity: 1;
+    transform: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="title-band">
+  <div class="title-inner">
+    <p class="title-kicker">Edición de Arsenio Ginzo · Núremberg (1808–1816) y Berlín (1822)</p>
+    <h1>Escritos pedagógicos de Georg Wilhelm Friedrich Hegel</h1>
+    <p class="lede">La formación (<em>Bildung</em>) como segundo nacimiento del sujeto, el oficio del gimnasio humanístico en Núremberg, la disciplina frente a la inmediatez natural y el ascenso de la conciencia hacia la universalidad del espíritu.</p>
+    <div class="title-meta-bar">
+      <span class="title-nav-label">Recorrido:</span>
+      <nav class="toc-nav" aria-label="Secciones principales">
+        <a class="toc-link" href="#sec-bildung">I. Segundo nacimiento</a>
+        <a class="toc-link" href="#sec-dialectica">II. Alienación y retorno</a>
+        <a class="toc-link" href="#sec-gimnasio">III. Gimnasio de Núremberg</a>
+        <a class="toc-link" href="#sec-disciplina">IV. Disciplina y Estado</a>
+        <a class="toc-link" href="#sec-filosofia">V. Filosofía y archivo</a>
+        <a class="toc-link" href="#sec-seminario">VI. Seminario</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="page-grid">
+
+  <!-- Key Figures Row -->
+  <section aria-label="Claves de los Escritos pedagógicos">
+    <div class="figures-grid">
+      <article class="figure-card">
+        <p class="figure-label">Período rector en Núremberg</p>
+        <p class="figure-value">1808–1816</p>
+        <p class="figure-delta">8 años como director del Gimnasio y consejero escolar mientras redacta la Ciencia de la Lógica</p>
+      </article>
+      <article class="figure-card">
+        <p class="figure-label">Peso de las lenguas antiguas</p>
+        <p class="figure-value">40 % / 50 %</p>
+        <p class="figure-delta positive">2/5 del horario completo; exactamente la mitad al excluir francés, hebreo, dibujo y caligrafía</p>
+      </article>
+      <article class="figure-card">
+        <p class="figure-label">Definición de la Pedagogía</p>
+        <p class="figure-value">2.º nacimiento</p>
+        <p class="figure-delta">Transformar la primera naturaleza animal en una segunda naturaleza ética y espiritual</p>
+      </article>
+      <article class="figure-card">
+        <p class="figure-label">Horizonte del proceso</p>
+        <p class="figure-value">Universalidad</p>
+        <p class="figure-delta">Allanamiento de la particularidad subjetiva e integración racional en el seno del Estado</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Section I -->
+  <section id="sec-bildung" class="content-section reveal-section">
+    <div class="section-head">
+      <p class="section-kicker">Sección I · Antropología de la formación</p>
+      <h2>El hombre solo es lo que debe ser mediante la formación (<em>Bildung</em>)</h2>
+      <p class="section-standfirst">A diferencia del animal, el ser humano no nace acabado: la educación rompe la inmediatez natural para volver a alumbrarlo como sujeto ético y racional.</p>
+    </div>
+
+    <div class="asymmetric-split">
+      <div class="prose-col">
+        <p>Aunque Hegel nunca redactó un tratado sistemático titulado Pedagogía —en Berlín proyectó escribir uno como explicitación de la Normativa escolar de Inmanuel Niethammer—, casi toda su vida profesional giró en torno a la enseñanza: fue preceptor privado, profesor y rector del Gimnasio humanístico de Núremberg, consejero escolar de la ciudad y profesor universitario en la recién fundada Universidad de Berlín impulsada por Wilhelm von Humboldt.</p>
+        <p>Esta praxis docente entronca con el núcleo mismo de su sistema filosófico. El marco de referencia de Hegel ya no es la <em>Physis</em> intemporal de los griegos, sino el <em>Geist</em> (Espíritu) que se despliega en el tiempo hacia la libertad. Si bien la filosofía del espíritu no debe reducirse sin más a una pedagogía, ambos movimientos están estrechamente conectados: en la <em>Fenomenología del Espíritu</em>, el individuo en su desarrollo educativo debe recorrer las etapas formativas del espíritu universal como un camino ya elaborado y allanado.</p>
+        <p>Por ello, frente a la llamada «educación negativa» de Jean-Jacques Rousseau —que pedía no poner trabas a una bondad natural espontánea—, Hegel se sitúa en la estela de Immanuel Kant y Johann Gottlieb Fichte. El animal es ya por naturaleza lo que debe ser; el ser humano, en cambio, debe romper con lo inmediato e instintivo mediante el trabajo duro de la formación.</p>
+      </div>
+
+      <aside class="leaf-panel" aria-label="Citas y conceptos clave">
+        <p class="leaf-panel-kicker">Testimonio textual</p>
+        <blockquote class="source-quote">«La Pedagogía es el arte de hacer éticos (<em>sittlich</em>) a los hombres: considera al hombre en cuanto natural y muestra el camino de volverlo a alumbrar, de transformar su primera naturaleza en una segunda, de carácter espiritual.»</blockquote>
+        <p class="quote-attrib">G. W. F. Hegel, citado en el estudio introductorio de Arsenio Ginzo</p>
+        <ul class="definition-list">
+          <li>
+            <span class="definition-term">Segundo nacimiento</span>
+            <p class="definition-desc">«El hombre debe nacer dos veces, en cuanto natural y en cuanto espiritual.» Educar a los niños para hacerlos personas autónomas equivale a alumbrarlos por segunda vez.</p>
+          </li>
+          <li>
+            <span class="definition-term">El espíritu del tiempo (<em>Zeitgeist</em>)</span>
+            <p class="definition-desc">La sociedad educa por «contagio espiritual»: los individuos asimilan inconscientemente las valoraciones de su pueblo antes incluso de la instrucción escolar.</p>
+          </li>
+        </ul>
+      </aside>
+    </div>
+
+    <!-- Interactive 1: Pedagogical Traditions Comparator -->
+    <div class="interactive-box" aria-labelledby="comp-title">
+      <div class="interactive-header">
+        <div>
+          <span class="stamp-tag">Contraste histórico</span>
+          <h3 id="comp-title" class="interactive-title">Rousseau, Kant y Fichte frente al planteamiento de Hegel</h3>
+        </div>
+        <div class="btn-group" role="group" aria-label="Filtrar tradición pedagógica">
+          <button type="button" class="btn btn-tab" id="btn-trad-all" aria-pressed="true" onclick="selectTradition('all')">Comparativa completa</button>
+          <button type="button" class="btn btn-tab" id="btn-trad-rousseau" aria-pressed="false" onclick="selectTradition('rousseau')">Rousseau</button>
+          <button type="button" class="btn btn-tab" id="btn-trad-kant" aria-pressed="false" onclick="selectTradition('kant')">Kant y Fichte</button>
+          <button type="button" class="btn btn-tab" id="btn-trad-hegel" aria-pressed="false" onclick="selectTradition('hegel')">Hegel</button>
+        </div>
+      </div>
+
+      <div id="tradition-summary" class="prose-col" style="margin-bottom: var(--space-md);">
+        <p>Selecciona un pensador para aislar su postura o mantén la tabla completa para contrastar cómo la ruptura hegeliana con lo inmediato supera tanto el naturalismo de Rousseau como el formalismo kantiano.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="charter-table">
+          <thead>
+            <tr>
+              <th>Eje pedagógico</th>
+              <th>Rousseau (<em>Emilio</em>)</th>
+              <th>Kant y Fichte</th>
+              <th>Hegel (<em>Escritos pedagógicos</em>)</th>
+            </tr>
+          </thead>
+          <tbody id="tradition-tbody">
+            <tr id="row-naturaleza">
+              <td><strong>Punto de partida natural</strong></td>
+              <td>El hombre es naturalmente bueno; la «educación negativa» evita estorbar el ritmo de la naturaleza.</td>
+              <td>Kant exige hacer violencia a la animalidad para abrir paso a la humanidad racional.</td>
+              <td>Ruptura radical con la inmediatez instintiva; el espíritu requiere negación y disciplina para realizarse.</td>
+            </tr>
+            <tr id="row-trabajo">
+              <td><strong>Juego frente a trabajo</strong></td>
+              <td>No forzar el aprendizaje libresco («a los doce años Emilio apenas sabrá qué es un libro»).</td>
+              <td>Kant: es vital que los niños aprendan a trabajar. Fichte: exigencia de unir aprender y trabajar.</td>
+              <td>La formación (<em>Bildung</em>) es «trabajo duro» contra la vanidad y arbitrariedad meramente subjetivas.</td>
+            </tr>
+            <tr id="row-escuela">
+              <td><strong>Función de la escuela</strong></td>
+              <td>Preservar al individuo de la corrupción social convencional mediante un entorno protegido.</td>
+              <td>Iniciar en el hábito del trabajo (Kant) y forjar una nueva educación nacional (Fichte).</td>
+              <td>Esfera intermedia entre la familia y el Estado: hábito de la objetividad y estudio de la «cosa» en sí.</td>
+            </tr>
+            <tr id="row-filosofia">
+              <td><strong>Enseñanza filosófica</strong></td>
+              <td>Prioridad de la experiencia sensible y moral natural sobre los sistemas especulativos.</td>
+              <td>Kant sostiene que no se puede enseñar filosofía, sino solo «a filosofar» mediante la razón propia.</td>
+              <td>La filosofía tiene contenido objetivo y puede enseñarse y aprenderse como «cualquier otra ciencia».</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section II -->
+  <section id="sec-dialectica" class="content-section reveal-section">
+    <div class="section-head">
+      <p class="section-kicker">Sección II · Dinámica del espíritu</p>
+      <h2>Educación, alienación y retorno a sí mismo (<em>Erinnerung</em>)</h2>
+      <p class="section-standfirst">Formarse no consiste en sumar eslabones armónicos sin conflicto, sino en atreverse al rodeo por lo extraño para interiorizarlo y volver a sí con mayor profundidad.</p>
+    </div>
+
+    <div class="prose-col">
+      <p>Hegel rechaza como banal la idea de que la vida del espíritu sea un crecimiento plácido y sin escisiones. Todo desarrollo auténtico reserva un espacio al «dolor, a la paciencia y al trabajo de lo negativo». En la <em>Fenomenología del Espíritu</em>, la cultura de la formación aparece precisamente bajo la figura del «espíritu alienado de sí»: el sujeto debe salir de la unidad indiferenciada de sus sentimientos inmediatos y enfrentarse a un mundo objetivo que primero se le presenta como ajeno.</p>
+      <p>En sus discursos de Núremberg, Hegel describe este extrañamiento como un «engaño necesario» y un impulso universal de la juventud, que sueña con alejarse del hogar y habitar como Robinson una isla lejana. El estudio de los clásicos griegos y latinos cumple esta función de distanciamiento fecundo sin desgarrar los lazos afectivos del corazón: ofrece el «esfuerzo más suave de la representación» al ocuparse de lenguas y mundos distantes.</p>
+      <p>Pero la alienación nunca es la última palabra. Su sentido reside en el retorno mediante la <em>Erinnerung</em> —término alemán con el que Hegel enlaza el recuerdo memorístico con la interiorización (<em>Sich-innerlich-machen</em>, <em>In-sich-gehen</em>)—. Cada nueva etapa educativa replantea y vuelve a formar lo ya formado, conservando el pasado en la profundidad del presente.</p>
+    </div>
+
+    <!-- Interactive 2: Dialectical Cycle Step-by-Step Simulator -->
+    <div class="interactive-box" aria-labelledby="dial-title">
+      <div class="interactive-header">
+        <div>
+          <span class="stamp-tag green">Simulador dialéctico</span>
+          <h3 id="dial-title" class="interactive-title">El circuito en cuatro momentos del proceso formativo</h3>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary" id="btn-phase-prev" onclick="stepPhase(-1)">Fase anterior</button>
+          <button type="button" class="btn btn-primary" id="btn-phase-next" onclick="stepPhase(1)">Siguiente fase</button>
+        </div>
+      </div>
+
+      <div class="dialectic-layout">
+        <div class="dialectic-svg-wrap">
+          <svg class="dialectic-svg" viewBox="0 0 460 360" role="img" aria-label="Diagrama interactivo de las cuatro fases dialécticas de la formación en Hegel">
+            <defs>
+              <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" class="svg-arrow-head"></polygon>
+              </marker>
+            </defs>
+
+            <!-- Connecting curved/orthogonal paths -->
+            <path d="M 210 66 L 250 66" class="svg-arrow" marker-end="url(#arrowhead)" />
+            <path d="M 355 112 L 355 218" class="svg-arrow" marker-end="url(#arrowhead)" />
+            <path d="M 250 264 L 210 264" class="svg-arrow" marker-end="url(#arrowhead)" />
+            <path d="M 105 218 L 105 112" class="svg-arrow" marker-end="url(#arrowhead)" />
+
+            <!-- Center motto -->
+            <text x="230" y="160" text-anchor="middle" font-family="Libre Caslon Text, serif" font-size="13" font-style="italic" fill="#4f5360">«Volver a formar</text>
+            <text x="230" y="178" text-anchor="middle" font-family="Libre Caslon Text, serif" font-size="13" font-style="italic" fill="#4f5360">lo ya formado»</text>
+
+            <!-- Node 0 -->
+            <g id="svg-node-0" class="svg-node" role="button" tabindex="0" aria-selected="true" onclick="setPhase(0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setPhase(0);}">
+              <rect x="20" y="24" width="185" height="84" rx="2" class="svg-node-box" />
+              <text x="34" y="46" class="svg-node-num">FASE I · PARTIDA</text>
+              <text x="34" y="68" class="svg-node-label">Inmediatez natural</text>
+              <text x="34" y="88" class="svg-node-sub">Familia, instinto y sentimiento</text>
+            </g>
+
+            <!-- Node 1 -->
+            <g id="svg-node-1" class="svg-node" role="button" tabindex="0" aria-selected="false" onclick="setPhase(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setPhase(1);}">
+              <rect x="255" y="24" width="185" height="84" rx="2" class="svg-node-box" />
+              <text x="269" y="46" class="svg-node-num">FASE II · RUPTURA</text>
+              <text x="269" y="68" class="svg-node-label">Alienación y rodeo</text>
+              <text x="269" y="88" class="svg-node-sub">Lo extraño, gramática y trabajo</text>
+            </g>
+
+            <!-- Node 2 -->
+            <g id="svg-node-2" class="svg-node" role="button" tabindex="0" aria-selected="false" onclick="setPhase(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setPhase(2);}">
+              <rect x="255" y="222" width="185" height="84" rx="2" class="svg-node-box" />
+              <text x="269" y="244" class="svg-node-num">FASE III · RETORNO</text>
+              <text x="269" y="266" class="svg-node-label">Interiorización</text>
+              <text x="269" y="286" class="svg-node-sub">Erinnerung y apropiación</text>
+            </g>
+
+            <!-- Node 3 -->
+            <g id="svg-node-3" class="svg-node" role="button" tabindex="0" aria-selected="false" onclick="setPhase(3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setPhase(3);}">
+              <rect x="20" y="222" width="185" height="84" rx="2" class="svg-node-box" />
+              <text x="34" y="244" class="svg-node-num">FASE IV · SÍNTESIS</text>
+              <text x="34" y="266" class="svg-node-label">Universalidad ética</text>
+              <text x="34" y="286" class="svg-node-sub">Autonomía objetiva en el Estado</text>
+            </g>
+          </svg>
+        </div>
+
+        <div id="phase-detail-panel" class="phase-detail-card" aria-live="polite">
+          <div>
+            <p class="figure-label" id="phase-kicker">Fase I · Punto de partida</p>
+            <h4 class="panel-title" id="phase-heading" style="margin-top: 0;">La inmediatez del espíritu natural</h4>
+            <p id="phase-desc" style="margin: 0;"></p>
+          </div>
+          <blockquote class="source-quote" id="phase-quote"></blockquote>
+          <div class="phase-meta-grid">
+            <div class="phase-meta-item">
+              <h4>Trabajo del sujeto</h4>
+              <p id="phase-subject"></p>
+            </div>
+            <div class="phase-meta-item">
+              <h4>Mediación institucional</h4>
+              <p id="phase-institution"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section III -->
+  <section id="sec-gimnasio" class="content-section reveal-section">
+    <div class="section-head">
+      <p class="section-kicker">Sección III · El Gimnasio de Núremberg</p>
+      <h2>La antigüedad clásica y la gramática como fragua de la razón</h2>
+      <p class="section-standfirst">Entre 1808 y 1816, Hegel dirige el Gimnasio humanístico bávaro siguiendo las reformas de Niethammer y defendiendo el equilibrio entre el mundo clásico y las ciencias modernas.</p>
+    </div>
+
+    <div class="asymmetric-split">
+      <div class="prose-col">
+        <p>Al asumir la dirección del Gimnasio en Núremberg, Hegel agradeció expresamente a Inmanuel Niethammer la centralidad otorgada al estudio de los griegos, frente a la alternativa utilitarista de las escuelas reales. Para Hegel, la lectura de los Antiguos en su lengua propia y el estudio riguroso de la gramática no eran un mero adorno erudito, sino un ejercicio lógico en acto: aprender las reglas gramaticales exige una continua subsunción de lo particular en lo universal y particularización de lo universal, estructura idéntica a la de la actividad racional.</p>
+        <p>Sin embargo, el Gimnasio de Núremberg distaba de descuidar las materias modernas. Como expone Hegel en su discurso rectoral, el centro impartía religión, lengua alemana con clásicos nacionales, aritmética, álgebra, geometría, geografía, historia, fisiografía (cosmografía, historia natural y física) y ciencias filosóficas preparatorias, además de francés, hebreo (para futuros teólogos), dibujo y caligrafía.</p>
+      </div>
+
+      <aside class="leaf-panel">
+        <p class="leaf-panel-kicker">El desafío de la claridad docente</p>
+        <blockquote class="source-quote">«Es más fácil hacerse incomprensible de una forma sublime, que ser comprensible de una forma sencilla, y la instrucción de la juventud y la preparación de la materia para ello constituyen la última piedra de toque de la claridad.»</blockquote>
+        <p class="quote-attrib">Carta de Hegel a Niethammer, previa a su incorporación en Núremberg</p>
+      </aside>
+    </div>
+
+    <!-- Interactive 3: Curriculum Breakdown Chart + Realinstitut Comparator -->
+    <div class="interactive-box" aria-labelledby="curr-title">
+      <div class="interactive-header">
+        <div>
+          <span class="stamp-tag">Datos curriculares · Discurso de Núremberg</span>
+          <h3 id="curr-title" class="interactive-title">Distribución del tiempo lectivo en el Gimnasio de Núremberg</h3>
+        </div>
+        <div class="btn-group" role="group" aria-label="Modo de cálculo curricular">
+          <button type="button" class="btn btn-tab" id="btn-curr-full" aria-pressed="true" onclick="setCurriculumView('full')">Plan completo (40 % / 60 %)</button>
+          <button type="button" class="btn btn-tab" id="btn-curr-core" aria-pressed="false" onclick="setCurriculumView('core')">Núcleo sin complementarias (50 % / 50 %)</button>
+        </div>
+      </div>
+
+      <div class="curriculum-grid">
+        <div>
+          <p id="curr-explanation" style="margin-top: 0; color: var(--on-surface-variant);"></p>
+          <div class="chart-container" style="min-height: 280px;">
+            <canvas id="curriculumChart" aria-label="Gráfico de barras sobre la distribución horaria del Gimnasio de Núremberg"></canvas>
+          </div>
+          <p style="font-size: 0.8125rem; color: var(--on-surface-variant); margin: var(--space-sm) 0 0;">Fuente: Discurso rectoral de G. W. F. Hegel en el Gimnasio de Núremberg.</p>
+        </div>
+
+        <div>
+          <p class="leaf-panel-kicker">Informe sobre Gimnasio vs. Instituto Real</p>
+          <p style="margin-top: 0; font-size: 0.9375rem;">En su informe sobre la relación entre el Instituto Real (<em>Realinstitut</em>) y el Gimnasio, Hegel advierte que reunir ambos perfiles en una misma clase perjudicaría a ambos grupos de alumnos. Explora la distinción:</p>
+          <div class="btn-group" style="margin-bottom: var(--space-md);" role="group" aria-label="Comparar perfiles escolares">
+            <button type="button" class="btn btn-secondary" id="btn-inst-gimnasio" aria-pressed="true" onclick="selectInstitution('gimnasio')">Gimnasio Humanístico</button>
+            <button type="button" class="btn btn-secondary" id="btn-inst-real" aria-pressed="false" onclick="selectInstitution('real')">Instituto Real</button>
+          </div>
+          <div id="institution-detail" class="leaf-panel" style="background-color: var(--background);"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section IV -->
+  <section id="sec-disciplina" class="content-section reveal-section">
+    <div class="section-head">
+      <p class="section-kicker">Sección IV · Ética escolar y vida pública</p>
+      <h2>Disciplina, mérito escolar y tránsito hacia el Estado</h2>
+      <p class="section-standfirst">La escuela no sustituye a la disciplina doméstica sino que la presupone: su tarea es formar las costumbres mediante el saber, evaluando el mérito sin ceder a la indulgencia privada.</p>
+    </div>
+
+    <div class="asymmetric-split">
+      <div class="prose-col">
+        <p>Hegel traza una frontera nítida entre la disciplina básica de las costumbres (<em>Zucht</em>), que incumbe a los padres —«hemos de exigir que los niños vengan ya educados a nuestra escuela»—, y la formación ética vinculada a la enseñanza escolar. Rechaza la vieja costumbre de escindir «cabeza y corazón» o pensamiento y sentimiento como realidades indiferentes: el espíritu humano es una unidad, y familiarizar la conciencia con determinaciones éticas permite orientar la voluntad arbitraria hacia lo universalmente válido.</p>
+        <p>De ahí se sigue la concepción objetiva de la pedagogía hegeliana, subrayada ya por su biógrafo Karl Rosenkranz: más que una mera influencia privada de un individuo sobre otro, educar significa elevar al sujeto a través de organismos sucesivos —familia, escuela y sociedad civil— hasta integrarlo en el Estado. «El hombre formado es aquel que sabe imprimir a todo su obrar el sello de la universalidad, el que ha renunciado a su particularidad, el que actúa conforme a principios universales.»</p>
+      </div>
+
+      <aside class="leaf-panel">
+        <p class="leaf-panel-kicker">Principio de universalidad</p>
+        <blockquote class="source-quote">«Toda educación conduce a que el individuo no permanezca algo subjetivo, sino que se haga objetivo en el seno del Estado.»</blockquote>
+        <p class="quote-attrib">G. W. F. Hegel, citado en la introducción sobre Estado y educación</p>
+        <p style="font-size: 0.9375rem; color: var(--on-surface-variant); margin: var(--space-md) 0 0;">A diferencia del Estado platónico, que carecía de libertad subjetiva, el Estado moderno aspirado por Hegel busca conciliar la voluntad particular libre con la ley universal.</p>
+      </aside>
+    </div>
+
+    <!-- Interactive 4: Rectorate Dilemmas -->
+    <div class="interactive-box" aria-labelledby="dilemma-title">
+      <div class="interactive-header">
+        <div>
+          <span class="stamp-tag">Criterio del rectorado</span>
+          <h3 id="dilemma-title" class="interactive-title">Tres dilemas escolares resueltos desde los discursos de Núremberg</h3>
+        </div>
+        <div class="btn-group" role="group" aria-label="Elegir caso escolar">
+          <button type="button" class="btn btn-tab" id="btn-case-0" aria-pressed="true" onclick="selectCase(0)">1. Ritmos de maduración</button>
+          <button type="button" class="btn btn-tab" id="btn-case-1" aria-pressed="false" onclick="selectCase(1)">2. Promoción de curso</button>
+          <button type="button" class="btn btn-tab" id="btn-case-2" aria-pressed="false" onclick="selectCase(2)">3. Profesión y destino</button>
+        </div>
+      </div>
+
+      <div class="dilemma-grid">
+        <div>
+          <p class="figure-label" id="case-context-label">Caso 1 · Discursos del Gimnasio</p>
+          <h4 class="panel-title" id="case-heading" style="margin-top: 0;"></h4>
+          <p id="case-scenario" style="margin-bottom: var(--space-md);"></p>
+          <p class="field-label" style="margin-bottom: var(--space-sm);">¿Cuál sería el criterio pedagógico más coherente con Hegel?</p>
+          <div id="case-options" class="option-stack"></div>
+        </div>
+
+        <div>
+          <p class="leaf-panel-kicker">Análisis y respuesta textual</p>
+          <div id="case-placeholder" class="leaf-panel" style="background-color: var(--background);">
+            <p style="margin: 0; color: var(--on-surface-variant);">Elige una de las opciones de la izquierda para contrastar tu juicio con el texto de los discursos de Núremberg o del curso de la <em>Unterklasse</em>.</p>
+          </div>
+          <div id="case-resolution" class="resolution-box is-hidden" aria-live="polite">
+            <p class="figure-label" id="case-verdict-label" style="margin-bottom: var(--space-xs);"></p>
+            <p id="case-explanation" style="margin: 0 0 var(--space-sm);"></p>
+            <p id="case-source-note" style="font-size: 0.875rem; color: var(--on-surface-variant); margin: 0;"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section V -->
+  <section id="sec-filosofia" class="content-section reveal-section">
+    <div class="section-head">
+      <p class="section-kicker">Sección V · Propedéutica y corpus documental</p>
+      <h2>La enseñanza de la filosofía y el archivo de Núremberg y Berlín</h2>
+      <p class="section-standfirst">Frente al formalismo vacío, Hegel sostiene que la filosofía se enseña como cualquier otra ciencia, aunque distingue con cautela lo que corresponde al Gimnasio y lo que pertenece a la Universidad.</p>
+    </div>
+
+    <div class="prose-col">
+      <p>Tanto en sus aforismos de Jena como en sus informes de 1812 (para Niethammer) y de 1822 (para el Ministerio prusiano), Hegel ironiza sobre la pretensión de aprender únicamente «a filosofar» sin aprender filosofía. Ese divorcio fomenta el prurito de originalidad arbitraria, como si cada cual debiera inventar su propio sistema. La filosofía posee un contenido objetivo que el alumno debe asimilar metódica y críticamente.</p>
+      <p>Al mismo tiempo, los testimonios de antiguos alumnos y de Rosenkranz muestran a un profesor riguroso y nada complaciente con la improvisación socrática. En sintonía parcial con Humboldt y Süvern —quienes acabaron reservando la filosofía sistemática para la Universidad—, Hegel aboga en su informe prusiano de 1822 por una iniciación propedéutica centrada en pensamientos formales (lógica y nociones éticas), suficiente para que los jóvenes descubran al menos una vez que existe un «reino del pensamiento» digno de consideración pública.</p>
+    </div>
+
+    <details class="charter-details">
+      <summary>Nota historiográfica: ¿Cuál fue el balance crítico según Arsenio Ginzo?</summary>
+      <div class="details-body">
+        <p style="margin-top: 0;">El editor y traductor señala que los planteamientos hegelianos no pueden seguirse hoy sin reservas: por un lado, el individuo corre el riesgo de quedar demasiado absorbido por la lógica de la Totalidad y del Estado; por otro, el idealismo concedió un peso excesivo a la instrucción intelectual y al conocimiento de verdades ya constituidas, mostrando menor sensibilidad hacia la iniciativa viva del sujeto educativo. Pese a ello, su concepción de la <em>Bildung</em> como mediación, trabajo y retorno desde la alienación conserva una notable fecundidad filosófica.</p>
+      </div>
+    </details>
+
+    <!-- Interactive 5: Searchable Corpus Explorer -->
+    <div class="interactive-box" aria-labelledby="corpus-title">
+      <div class="interactive-header">
+        <div>
+          <span class="stamp-tag">Archivo de la edición</span>
+          <h3 id="corpus-title" class="interactive-title">Explorar los documentos reunidos en los <em>Escritos pedagógicos</em></h3>
+        </div>
+        <p id="corpus-count" class="figure-label" style="margin: 0;"></p>
+      </div>
+
+      <div class="filter-bar">
+        <div class="field-group">
+          <label for="corpus-search" class="field-label">Buscar tema, destinatario o concepto</label>
+          <input type="text" id="corpus-search" class="charter-input" placeholder="Ej.: Niethammer, gramática, Estado, Berlín…" oninput="filterCorpus()">
+        </div>
+        <div class="field-group">
+          <label for="corpus-type" class="field-label">Tipo de documento</label>
+          <select id="corpus-type" class="charter-select" onchange="filterCorpus()">
+            <option value="all">Todos los documentos (8)</option>
+            <option value="discursos">Discursos de Núremberg</option>
+            <option value="informes">Informes pedagógicos</option>
+            <option value="apendices">Apéndices y Propedéutica</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-secondary" onclick="resetCorpusFilters()">Restablecer filtros</button>
+      </div>
+
+      <div id="corpus-results" class="corpus-grid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- Section VI -->
+  <section id="sec-seminario" class="content-section reveal-section">
+    <div class="section-head">
+      <p class="section-kicker">Sección VI · Comprobación de lectura</p>
+      <h2>Seminario interactivo sobre la pedagogía hegeliana</h2>
+      <p class="section-standfirst">Pon a prueba tu comprensión de los conceptos centrales de los <em>Escritos pedagógicos</em> a partir de cinco cuestiones extraídas de los textos.</p>
+    </div>
+
+    <div class="interactive-box" aria-labelledby="quiz-title">
+      <div class="interactive-header">
+        <div>
+          <span class="stamp-tag green">Autoevaluación</span>
+          <h3 id="quiz-title" class="interactive-title">Cuestionario de lectura guiada</h3>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary" id="btn-quiz-reset" onclick="resetQuiz(this)">Reiniciar seminario</button>
+        </div>
+      </div>
+
+      <div id="quiz-container" class="quiz-question-card">
+        <div class="quiz-progress-row">
+          <span id="quiz-progress-text">Pregunta 1 de 5</span>
+          <span id="quiz-score-text">Aciertos: 0 / 0</span>
+        </div>
+        <h4 class="panel-title" id="quiz-question" style="margin: 0;"></h4>
+        <div id="quiz-options" class="option-stack"></div>
+        <div id="quiz-feedback" class="quiz-feedback is-hidden" aria-live="polite"></div>
+        <div class="btn-group" style="justify-content: flex-start;">
+          <button type="button" class="btn btn-primary" id="btn-quiz-next" onclick="nextQuizQuestion()" disabled>Siguiente pregunta</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sources Footer -->
+  <footer class="sources-footer">
+    <h2>Fuentes y referencias empleadas</h2>
+    <p style="margin: 0 0 var(--space-sm);">Todo el contenido conceptual, histórico y cuantitativo de este recurso procede de la edición en español de <em>Escritos pedagógicos</em> de Georg Wilhelm Friedrich Hegel, preparada, traducida y prologada por el profesor Arsenio Ginzo (discursos rectorales de Núremberg de 1809, 1810, 1811, 1813 y 1815; informes de 1812 para Niethammer, de 1822 para el Ministerio prusiano, para Fr. von Raumer y sobre el Instituto Real; carta a Niethammer del 23 de octubre de 1812 y fragmento del curso de la <em>Unterklasse</em>).</p>
+    <p style="margin: 0;">Se recogen asimismo las referencias historiográficas y filosóficas citadas en el estudio introductorio de dicha edición: Inmanuel Niethammer, Wilhelm von Humboldt, Süvern, Immanuel Kant, Johann Gottlieb Fichte, Jean-Jacques Rousseau, Karl Rosenkranz, Hans-Georg Gadamer, W. Moog y Jacques D’Hondt.</p>
+  </footer>
+
+</main>
+
+<script>
+// Read CSS design tokens dynamically for Chart.js
+function getCssToken(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+// 1. Pedagogical Traditions Comparator
+var TRADITION_MESSAGES = {
+  all: `Comparativa completa: frente a la confianza rousseauniana en la bondad natural espontánea, Hegel prolonga la exigencia de trabajo y disciplina de Kant y Fichte, pero la integra en una teoría dialéctica del espíritu que culmina en la universalidad del Estado.`,
+  rousseau: `Jean-Jacques Rousseau (Emilio): defiende la «educación negativa», consistente en no estorbar la marcha espontánea de una naturaleza buena ni forzar el aprendizaje libresco antes de tiempo.`,
+  kant: `Immanuel Kant y Johann Gottlieb Fichte: coinciden en que el ser humano es el único animal que debe trabajar; la escuela no puede convertirlo todo en juego, sino que debe unir aprender y trabajar sometiendo la animalidad.`,
+  hegel: `Georg Wilhelm Friedrich Hegel: la formación (Bildung) exige romper con la inmediatez natural mediante el trabajo duro y el rodeo por lo extraño, elevando al sujeto particular hacia la objetividad ética del Estado.`
+};
+
+function selectTradition(mode) {
+  var modes = ['all', 'rousseau', 'kant', 'hegel'];
+  for (var i = 0; i < modes.length; i++) {
+    var btn = document.getElementById('btn-trad-' + modes[i]);
+    if (btn) btn.setAttribute('aria-pressed', modes[i] === mode ? 'true' : 'false');
+  }
+
+  var summaryEl = document.getElementById('tradition-summary');
+  if (summaryEl) {
+    summaryEl.innerHTML = '<p>' + (TRADITION_MESSAGES[mode] || TRADITION_MESSAGES.all) + '</p>';
+  }
+
+  var table = document.querySelector('.charter-table');
+  if (!table) return;
+  var rows = table.querySelectorAll('tbody tr');
+  for (var r = 0; r < rows.length; r++) {
+    var cells = rows[r].querySelectorAll('td');
+    for (var c = 1; c < cells.length; c++) {
+      cells[c].style.opacity = '1';
+      cells[c].style.backgroundColor = 'transparent';
+    }
+    if (mode === 'rousseau' && cells[1]) {
+      cells[1].style.backgroundColor = 'var(--primary-container)';
+      if (cells[2]) cells[2].style.opacity = '0.45';
+      if (cells[3]) cells[3].style.opacity = '0.45';
+    } else if (mode === 'kant' && cells[2]) {
+      cells[2].style.backgroundColor = 'var(--primary-container)';
+      if (cells[1]) cells[1].style.opacity = '0.45';
+      if (cells[3]) cells[3].style.opacity = '0.45';
+    } else if (mode === 'hegel' && cells[3]) {
+      cells[3].style.backgroundColor = 'var(--primary-container)';
+      if (cells[1]) cells[1].style.opacity = '0.45';
+      if (cells[2]) cells[2].style.opacity = '0.45';
+    }
+  }
+}
+
+// 2. Dialectical Cycle Step-by-Step Simulator
+var DIALECTIC_PHASES = [
+  {
+    kicker: `Fase I · Punto de partida`,
+    heading: `La inmediatez del espíritu natural`,
+    desc: `Tanto la especie como cada niño comienzan existiendo como espíritu natural inmerso en el instinto, el capricho y la calidez inmediata del ámbito doméstico. A diferencia del animal, el hombre no es aún por naturaleza aquello que está llamado a ser.`,
+    quote: `«El hombre debe nacer dos veces, en cuanto natural y en cuanto espiritual.»`,
+    subject: `Superar la mera arbitrariedad subjetiva y la inmediatez de los impulsos naturales.`,
+    institution: `La familia aporta los vínculos de amor, confianza y la disciplina doméstica básica (Zucht) previa a la escuela.`
+  },
+  {
+    kicker: `Fase II · Ruptura y mediación`,
+    heading: `Alienación y rodeo hacia lo extraño`,
+    desc: `Para que la sustancia de la naturaleza y del espíritu se convierta en objeto de conocimiento, debe contraponerse al alumno bajo la forma de algo distante. Como el joven que sueña con una isla lejana al estilo de Robinson, la formación teorética requiere ocuparse de lo no inmediato: lenguas clásicas y reglas gramaticales.`,
+    quote: `«Constituye un engaño necesario tener que buscar primeramente lo profundo bajo la forma de la distancia, pero la profundidad y la fuerza que alcanzamos solo pueden ser medidas mediante la amplitud en que nos hemos distanciado del centro.»`,
+    subject: `Soportar el «esfuerzo más suave de la representación», la memoria y el trabajo duro frente a la vanidad.`,
+    institution: `El Gimnasio humanístico ofrece el estudio de los Antiguos en su propia lengua como mundo ajeno pero no hostil.`
+  },
+  {
+    kicker: `Fase III · Retorno e interiorización`,
+    heading: `Erinnerung: hacer propio lo extraño`,
+    desc: `La alienación no es un fin, sino el camino para un reencuentro más profundo consigo mismo. Mediante la Erinnerung —que une el recuerdo con la interiorización (In-sich-gehen)—, el espíritu asimila lo aprendido, replantea las etapas previas y vuelve a formar lo ya formado.`,
+    quote: `«La educación del niño consiste en que la conciencia puesta en él como un otro que lo que es él mismo, se convierta en su propia conciencia.»`,
+    subject: `Reconocer en lo extraño lo propio y hacerlo familiar, integrando el pasado en el presente vivo.`,
+    institution: `La enseñanza escolar articula pensamiento y sentimiento, evitando divorciar la cabeza del corazón.`
+  },
+  {
+    kicker: `Fase IV · Síntesis objetiva`,
+    heading: `Universalidad ética en el Estado`,
+    desc: `El proceso educativo culmina cuando el individuo renuncia a su mera particularidad y aprende a obrar conforme a la «naturaleza de la cosa» y a principios universales. El sujeto alcanza así su existencia racional y objetiva como miembro libre de la comunidad política.`,
+    quote: `«El hombre formado es aquel que sabe imprimir a todo su obrar el sello de la universalidad, el que ha renunciado a su particularidad, el que actúa conforme a principios universales.»`,
+    subject: `Asumir con libertad la propia profesión y deberes, superando la forma de un destino externo.`,
+    institution: `El Estado moderno armoniza la libertad subjetiva con la voluntad universal objetiva.`
+  }
+];
+
+var currentPhase = 0;
+
+function renderPhase() {
+  var p = DIALECTIC_PHASES[currentPhase];
+  if (!p) return;
+  var kicker = document.getElementById('phase-kicker');
+  var heading = document.getElementById('phase-heading');
+  var desc = document.getElementById('phase-desc');
+  var quote = document.getElementById('phase-quote');
+  var subj = document.getElementById('phase-subject');
+  var inst = document.getElementById('phase-institution');
+
+  if (kicker) kicker.textContent = p.kicker;
+  if (heading) heading.textContent = p.heading;
+  if (desc) desc.textContent = p.desc;
+  if (quote) quote.textContent = p.quote;
+  if (subj) subj.textContent = p.subject;
+  if (inst) inst.textContent = p.institution;
+
+  for (var i = 0; i < DIALECTIC_PHASES.length; i++) {
+    var node = document.getElementById('svg-node-' + i);
+    if (node) node.setAttribute('aria-selected', i === currentPhase ? 'true' : 'false');
+  }
+
+  var prevBtn = document.getElementById('btn-phase-prev');
+  var nextBtn = document.getElementById('btn-phase-next');
+  if (prevBtn) prevBtn.disabled = currentPhase === 0;
+  if (nextBtn) nextBtn.disabled = currentPhase === DIALECTIC_PHASES.length - 1;
+}
+
+function setPhase(idx) {
+  if (idx < 0 || idx >= DIALECTIC_PHASES.length) return;
+  currentPhase = idx;
+  renderPhase();
+}
+
+function stepPhase(delta) {
+  setPhase(currentPhase + delta);
+}
+
+// 3. Curriculum Chart & Institution Comparator
+var curriculumChartInstance = null;
+
+var CURRICULUM_VIEWS = {
+  full: {
+    explanation: `Si se incluye la totalidad de las asignaturas impartidas en el Gimnasio —sumando lengua francesa, hebreo (para futuros teólogos), dibujo y caligrafía—, al estudio de las lenguas antiguas le corresponden exactamente dos quintas partes (40 %) de la enseñanza total.`,
+    labels: [
+      `Lenguas antiguas y clásicos (2/5)`,
+      `Religión, alemán, matemáticas, historia y filosofía`,
+      `Francés, hebreo, dibujo y caligrafía`
+    ],
+    values: [40, 40, 20]
+  },
+  core: {
+    explanation: `Si se dejan fuera los cuatro objetos complementarios (francés, hebreo, dibujo y caligrafía), Hegel subraya mediante un cálculo exacto que el tiempo en todas las clases se reparte a partes iguales: 50 % para las lenguas antiguas y 50 % para las demás materias troncales.`,
+    labels: [
+      `Lenguas antiguas (latín y griego)`,
+      `Materias modernas y preparatorias`
+    ],
+    values: [50, 50]
+  }
+};
+
+function renderCurriculumChart(mode) {
+  var canvas = document.getElementById('curriculumChart');
+  var expl = document.getElementById('curr-explanation');
+  var viewData = CURRICULUM_VIEWS[mode] || CURRICULUM_VIEWS.full;
+  if (expl) expl.textContent = viewData.explanation;
+  if (!canvas || typeof Chart === 'undefined') return;
+
+  var c1 = getCssToken('--data-1');
+  var c2 = getCssToken('--data-2');
+  var c3 = getCssToken('--data-3');
+  var ink = getCssToken('--on-surface');
+  var muted = getCssToken('--on-surface-variant');
+  var grid = getCssToken('--outline-variant');
+  var fontLabel = getCssToken('--font-label');
+
+  var colors = mode === 'full' ? [c1, c3, c2] : [c1, c3];
+
+  if (curriculumChartInstance) {
+    curriculumChartInstance.destroy();
+  }
+
+  curriculumChartInstance = new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: viewData.labels,
+      datasets: [{
+        label: `Porcentaje del tiempo lectivo`,
+        data: viewData.values,
+        backgroundColor: colors,
+        borderRadius: 2,
+        barThickness: 32
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              return ` ` + ctx.parsed.x + `% del tiempo lectivo`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          min: 0,
+          max: 60,
+          ticks: {
+            callback: function(val) { return val + '%'; },
+            color: muted,
+            font: { family: fontLabel, size: 12 }
+          },
+          grid: { color: grid }
+        },
+        y: {
+          ticks: {
+            color: ink,
+            font: { family: fontLabel, size: 12, weight: '600' }
+          },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+}
+
+function setCurriculumView(mode) {
+  var btnFull = document.getElementById('btn-curr-full');
+  var btnCore = document.getElementById('btn-curr-core');
+  if (btnFull) btnFull.setAttribute('aria-pressed', mode === 'full' ? 'true' : 'false');
+  if (btnCore) btnCore.setAttribute('aria-pressed', mode === 'core' ? 'true' : 'false');
+  renderCurriculumChart(mode);
+}
+
+var INSTITUTION_DATA = {
+  gimnasio: {
+    tag: `Estudios espirituales y propedéuticos`,
+    title: `El Gimnasio Humanístico`,
+    summary: `Orientado a la formación integral previa a la Universidad mediante materias de carácter espiritual y profundización del ánimo.`,
+    subjects: [
+      `Lenguas antiguas y clásicos griegos y latinos`,
+      `Gramática como ejercicio lógico racional`,
+      `Religión, lengua alemana y clásicos nacionales`,
+      `Ciencias filosóficas preparatorias, historia y fisiografía`
+    ],
+    note: `Si se mezclaran alumnos sin disposición ni constancia para el esfuerzo espiritual en las clases del Gimnasio, quedarían como «figuras decorativas» o frenarían a los demás.`
+  },
+  real: {
+    tag: `Orientación técnico-científica`,
+    title: `El Instituto Real (Realinstitut)`,
+    summary: `Destinado a alumnos que se apartan de los estudios humanísticos —sea por inclinación práctica o por rechazo del esfuerzo clásico— pero muestran utilidad y talento en lo real.`,
+    subjects: [
+      `Matemáticas aplicadas y cálculo`,
+      `Física y química`,
+      `Historia natural descriptiva`,
+      `Conocimientos y habilidades técnicas para lo real`
+    ],
+    note: `Hegel señala que estas ciencias no exigen la misma profundidad particular del ánimo ni pensamiento especulativo que los estudios clásicos, por lo que requieren una vía propia.`
+  }
+};
+
+function selectInstitution(kind) {
+  var btnG = document.getElementById('btn-inst-gimnasio');
+  var btnR = document.getElementById('btn-inst-real');
+  if (btnG) btnG.setAttribute('aria-pressed', kind === 'gimnasio' ? 'true' : 'false');
+  if (btnR) btnR.setAttribute('aria-pressed', kind === 'real' ? 'true' : 'false');
+
+  var box = document.getElementById('institution-detail');
+  var d = INSTITUTION_DATA[kind];
+  if (!box || !d) return;
+
+  var listHtml = '';
+  for (var i = 0; i < d.subjects.length; i++) {
+    listHtml += `<li style="padding-top: var(--space-xs); border-top: var(--hairline); font-size: 0.9375rem;">` + d.subjects[i] + `</li>`;
+  }
+
+  box.innerHTML =
+    `<span class="stamp-tag" style="margin-bottom: var(--space-sm);">` + d.tag + `</span>` +
+    `<h4 class="panel-title" style="margin-top: 0;">` + d.title + `</h4>` +
+    `<p style="font-size: 0.9375rem; margin: 0 0 var(--space-sm);">` + d.summary + `</p>` +
+    `<ul style="list-style: none; padding: 0; margin: 0 0 var(--space-sm); display: grid; gap: var(--space-xs);">` + listHtml + `</ul>` +
+    `<p style="font-size: 0.875rem; color: var(--on-surface-variant); margin: 0;">` + d.note + `</p>`;
+}
+
+// 4. Rectorate Dilemmas
+var CASES_DATA = [
+  {
+    context: `Caso 1 · Evaluación de la juventud en la escuela`,
+    heading: `¿Cómo juzgar al alumno brillante al inicio frente al lento «núcleo cerrado»?`,
+    scenario: `Durante el curso escolar conviven jóvenes que destacan de inmediato en nociones elementales con otros que parecen lentos, callados y cerrados al progreso rápido. ¿Qué actitud debe adoptar el rector ante esta disparidad?`,
+    options: [
+      {
+        text: `Clasificar de forma definitiva al alumno lento como incapaz para el estudio superior.`,
+        correct: false
+      },
+      {
+        text: `Reconocer el valor relativo de los juicios escolares: quien hoy parece un núcleo cerrado puede enraizar profundamente y abrirse luego a la fluidez.`,
+        correct: true
+      },
+      {
+        text: `Eximir de exigencia profunda al alumno rápido para preservar su entusiasmo inicial.`,
+        correct: false
+      }
+    ],
+    explanation: `Hegel recuerda que los trabajos escolares tienen una importancia relativa porque los jóvenes se encuentran aún en proceso de aspiración. Quien destaca rápido en nociones elementales puede marchitarse ante la exigencia de penetrar a fondo —como semilla sobre roca—, mientras otros que parecen un «núcleo cerrado» imprimen todo en profundidad hasta abrirse de golpe a la fluidez.`,
+    source: `Referencia: Discursos del Gimnasio de Núremberg (evaluación anual del progreso escolar).`
+  },
+  {
+    context: `Caso 2 · Criterio de ascenso de curso`,
+    heading: `¿Debe promocionarse automáticamente a los alumnos al finalizar el año escolar?`,
+    scenario: `Al concluir el año lectivo, tanto ciertos alumnos como sus padres esperan que el mero transcurso del tiempo garantice el paso a la clase superior; incluso los profesores sentirían alivio al dejar marchar a alumnos desatentos.`,
+    options: [
+      {
+        text: `Promocionar a todos cada año para evitar conflictos con las familias y descargar a los docentes.`,
+        correct: false
+      },
+      {
+        text: `Negar la promoción automática y ascender únicamente por merecimiento y aplicación demostrados.`,
+        correct: true
+      },
+      {
+        text: `Dejar la decisión al criterio exclusivo de los padres según sus planes profesionales.`,
+        correct: false
+      }
+    ],
+    explanation: `Hegel rechaza frontalmente la promoción automática. Los institutos públicos son «semilleros para los servidores del Estado» y tienen una doble responsabilidad: ante el Gobierno, no entregarle servidores ineptos; ante los padres, no alimentar falsas esperanzas. Además, es contradictorio que las familias quieran jueces justos, médicos hábiles y dignos eclesiásticos y a la vez exijan que sus hijos sin preparación accedan a esos cargos.`,
+    source: `Referencia: Discursos del Gimnasio de Núremberg sobre la promoción escolar.`
+  },
+  {
+    context: `Caso 3 · Curso de la Unterklasse (parágrafo 44)`,
+    heading: `La profesión determinada: ¿condena externa o ámbito de libertad?`,
+    scenario: `Un estudiante siente que el oficio o estado al que lo orientan las circunstancias se le impone como un destino externo y extraño, generando conflicto interior.`,
+    options: [
+      {
+        text: `Abandonar cualquier profesión fija para conservar intacta la pura libertad abstracta.`,
+        correct: false
+      },
+      {
+        text: `Elaborar ese material en todas direcciones hasta hacerlo propio y desempeñar con libertad sus cometidos.`,
+        correct: true
+      },
+      {
+        text: `Someterse pasivamente a la necesidad externa sin intentar comprenderla ni apropiársela.`,
+        correct: false
+      }
+    ],
+    explanation: `En la aclaración al parágrafo 44 del curso sobre derecho, deberes y religión, Hegel enseña que debe suprimirse la forma de necesidad externa de la profesión. El oficio es como un material que el sujeto ha de trabajar en todas direcciones para que no quede en él nada extraño ni resistente. Quien no desempeña su profesión vive en relación conflictiva consigo mismo; quien la convierte en lo suyo, es libre en ella.`,
+    source: `Referencia: Apéndices · Fragmento de un curso para la clase inferior (Unterklasse), parágrafo 44.`
+  }
+];
+
+var currentCaseIndex = 0;
+
+function selectCase(idx) {
+  currentCaseIndex = idx;
+  for (var i = 0; i < CASES_DATA.length; i++) {
+    var btn = document.getElementById('btn-case-' + i);
+    if (btn) btn.setAttribute('aria-pressed', i === idx ? 'true' : 'false');
+  }
+  var c = CASES_DATA[idx];
+  if (!c) return;
+
+  var ctx = document.getElementById('case-context-label');
+  var hd = document.getElementById('case-heading');
+  var sc = document.getElementById('case-scenario');
+  var opts = document.getElementById('case-options');
+  var ph = document.getElementById('case-placeholder');
+  var res = document.getElementById('case-resolution');
+
+  if (ctx) ctx.textContent = c.context;
+  if (hd) hd.textContent = c.heading;
+  if (sc) sc.textContent = c.scenario;
+  if (ph) ph.style.display = 'block';
+  if (res) res.classList.add('is-hidden');
+
+  if (opts) {
+    var html = '';
+    for (var j = 0; j < c.options.length; j++) {
+      html += `<button type="button" class="btn btn-secondary option-btn" id="case-opt-` + j + `" onclick="answerCase(` + j + `)">` + c.options[j].text + `</button>`;
+    }
+    opts.innerHTML = html;
+  }
+}
+
+function answerCase(optIdx) {
+  var c = CASES_DATA[currentCaseIndex];
+  if (!c || !c.options[optIdx]) return;
+  var chosen = c.options[optIdx];
+
+  for (var j = 0; j < c.options.length; j++) {
+    var b = document.getElementById('case-opt-' + j);
+    if (b) b.setAttribute('aria-pressed', j === optIdx ? 'true' : 'false');
+  }
+
+  var ph = document.getElementById('case-placeholder');
+  var res = document.getElementById('case-resolution');
+  var vLabel = document.getElementById('case-verdict-label');
+  var expl = document.getElementById('case-explanation');
+  var src = document.getElementById('case-source-note');
+
+  if (ph) ph.style.display = 'none';
+  if (res) {
+    res.classList.remove('is-hidden');
+    res.style.borderLeftColor = chosen.correct ? 'var(--secondary)' : 'var(--error)';
+  }
+  if (vLabel) {
+    vLabel.textContent = chosen.correct ? `Coincide con la posición hegeliana` : `Contrasta con el planteamiento de Hegel`;
+    vLabel.style.color = chosen.correct ? 'var(--secondary)' : 'var(--error)';
+  }
+  if (expl) expl.textContent = c.explanation;
+  if (src) src.textContent = c.source;
+}
+
+// 5. Searchable Corpus Explorer
+var CORPUS_ITEMS = [
+  {
+    type: `discursos`,
+    typeLabel: `Discursos`,
+    date: `1809–1815`,
+    title: `Discursos como rector del Gimnasio de Núremberg`,
+    summary: `Cinco discursos de clausura escolar (1809, 1810, 1811, 1813 y 1815) donde Hegel expone el valor formativo de los Antiguos y de la gramática, el reparto horario de las asignaturas, el papel de la alienación juvenil (metáfora de Robinson), la formación de las costumbres y el criterio de promoción por mérito.`
+  },
+  {
+    type: `informes`,
+    typeLabel: `Informes`,
+    date: `23 oct. 1812`,
+    title: `Informe privado para Inmanuel Niethammer`,
+    summary: `Dirigido al Consejero escolar superior del Reino de Baviera sobre la exposición de las ciencias filosóficas preparatorias en el Gimnasio. Se divide en dos partes: I. Las materias de enseñanza mismas; II. El método docente.`
+  },
+  {
+    type: `informes`,
+    typeLabel: `Informes`,
+    date: `16 abr. 1822`,
+    title: `Informe al Ministerio de Prusia sobre la enseñanza filosófica`,
+    summary: `Redactado ya en Berlín para el Ministerio del Culto, la Enseñanza y la Sanidad ante la queja de que los estudiantes llegaban a la Universidad sin preparación. Defiende introducir pensamientos formales y lógica en el Gimnasio para revelar que existe un «reino del pensamiento».`
+  },
+  {
+    type: `informes`,
+    typeLabel: `Informes`,
+    date: `Período de Berlín / Prusia`,
+    title: `Informe para Fr. von Raumer sobre la filosofía universitaria`,
+    summary: `Destinado al profesor y consejero del gobierno prusiano Fr. von Raumer. Aborda la enseñanza sistemática de la filosofía en el marco de las universidades y su continuidad respecto a la formación preparatoria.`
+  },
+  {
+    type: `informes`,
+    typeLabel: `Informes`,
+    date: `Período de Núremberg`,
+    title: `Informe sobre el Instituto Real y los demás institutos`,
+    summary: `Escrito dirigido al Comisariado general real donde el rectorado de Hegel distingue el Gimnasio humanístico —orientado al pensamiento espiritual y clásico— del Instituto Real centrado en matemáticas, física, química, historia natural y habilidades técnicas.`
+  },
+  {
+    type: `apendices`,
+    typeLabel: `Apéndices`,
+    date: `23 oct. 1812`,
+    title: `Carta de Hegel a Inmanuel Niethammer`,
+    summary: `Misiva redactada en Núremberg que acompaña y matiza el informe privado de la misma fecha. Hegel se disculpa por el estilo abrupto o polémico de su borrador al no haber tenido tiempo de pulir su forma.`
+  },
+  {
+    type: `apendices`,
+    typeLabel: `Apéndices`,
+    date: `Período de Núremberg`,
+    title: `Curso para la clase inferior (Unterklasse): Derecho, deberes y religión`,
+    summary: `Muestra de la propedéutica hegeliana para principiantes. En él aborda de manera clara el concepto de formación (Bildung) y explica en el parágrafo 44 cómo transformar la profesión determinada de destino externo en ámbito de libertad propia.`
+  },
+  {
+    type: `apendices`,
+    typeLabel: `Estudio introductorio`,
+    date: `Edición crítica`,
+    title: `Hegel y el problema de la educación (Arsenio Ginzo)`,
+    summary: `Estudio preliminar que sitúa los textos en el contexto reformista de Niethammer, Humboldt y Süvern, analiza el concepto de segundo nacimiento, el trabajo de lo negativo, la Erinnerung y ofrece un balance crítico de su legado.`
+  }
+];
+
+function filterCorpus() {
+  var searchEl = document.getElementById('corpus-search');
+  var typeEl = document.getElementById('corpus-type');
+  var resultsEl = document.getElementById('corpus-results');
+  var countEl = document.getElementById('corpus-count');
+  if (!resultsEl) return;
+
+  var q = searchEl ? searchEl.value.trim().toLowerCase() : '';
+  var t = typeEl ? typeEl.value : 'all';
+
+  var filtered = [];
+  for (var i = 0; i < CORPUS_ITEMS.length; i++) {
+    var item = CORPUS_ITEMS[i];
+    var matchesType = t === 'all' || item.type === t;
+    var haystack = (item.title + ' ' + item.summary + ' ' + item.date + ' ' + item.typeLabel).toLowerCase();
+    var matchesQuery = q === '' || haystack.indexOf(q) !== -1;
+    if (matchesType && matchesQuery) {
+      filtered.push(item);
+    }
+  }
+
+  if (countEl) {
+    countEl.textContent = filtered.length + (filtered.length === 1 ? ` documento visible` : ` documentos visibles`);
+  }
+
+  if (filtered.length === 0) {
+    resultsEl.innerHTML =
+      `<div class="leaf-panel" style="grid-column: 1 / -1; background-color: var(--background);">` +
+      `<p style="margin: 0 0 var(--space-sm);">Ningún documento coincide con «` + (searchEl ? searchEl.value : '') + `» bajo este filtro.</p>` +
+      `<button type="button" class="btn btn-secondary" onclick="resetCorpusFilters()">Mostrar todos los documentos</button>` +
+      `</div>`;
+    return;
+  }
+
+  var html = '';
+  for (var k = 0; k < filtered.length; k++) {
+    var doc = filtered[k];
+    html +=
+      `<article class="corpus-card">` +
+      `<div class="corpus-card-top">` +
+      `<span class="stamp-tag">` + doc.typeLabel + `</span>` +
+      `<span class="corpus-date">` + doc.date + `</span>` +
+      `</div>` +
+      `<h4>` + doc.title + `</h4>` +
+      `<p>` + doc.summary + `</p>` +
+      `</article>`;
+  }
+  resultsEl.innerHTML = html;
+}
+
+function resetCorpusFilters() {
+  var searchEl = document.getElementById('corpus-search');
+  var typeEl = document.getElementById('corpus-type');
+  if (searchEl) searchEl.value = '';
+  if (typeEl) typeEl.value = 'all';
+  filterCorpus();
+}
+
+// 6. Interactive Seminar Quiz
+var QUIZ_QUESTIONS = [
+  {
+    q: `¿Por qué compara Hegel la educación y la formación (Bildung) con un «segundo nacimiento»?`,
+    opts: [
+      `Porque el alumno solo adquiere personalidad jurídica al ingresar en la Universidad de Berlín.`,
+      `Porque el ser humano comienza en la inmediatez natural y solo llega a ser lo que debe ser al transformarse en un ser espiritual, ético y autónomo.`,
+      `Porque la escuela sustituye íntegramente el afecto familiar por la disciplina espartana.`
+    ],
+    correct: 1,
+    feedback: `Correcto: frente al animal, que ya es por naturaleza lo que debe ser, el hombre necesita romper con su primera naturaleza instintiva para volver a nacer como ser espiritual y ético.`
+  },
+  {
+    q: `En el Gimnasio humanístico de Núremberg, ¿qué papel filosófico desempeñaba el estudio riguroso de la gramática?`,
+    opts: [
+      `Ejercitaba la mente en la forma misma de la actividad racional: subsumir continuamente lo particular en lo universal y particularizar lo universal.`,
+      `Servía únicamente como adorno retórico para futuros teólogos y juristas.`,
+      `Sustituía por completo la enseñanza de las matemáticas, la geografía y la historia natural.`
+    ],
+    correct: 0,
+    feedback: `Exacto: Hegel consideraba el estudio gramatical riguroso uno de los medios formativos más nobles precisamente porque entrena al pensamiento en la relación lógica entre lo universal y lo particular.`
+  },
+  {
+    q: `Según el reparto horario descrito por Hegel en Núremberg, ¿qué proporción del tiempo lectivo total correspondía a las lenguas antiguas al incluir todas las asignaturas (francés, hebreo, dibujo y caligrafía)?`,
+    opts: [
+      `Exactamente tres cuartas partes (75 %).`,
+      `Dos quintas partes (40 %), mientras que al excluir las cuatro materias complementarias alcanzaban la mitad (50 %).`,
+      `Menos de una décima parte, dado el predominio de la física y la química.`
+    ],
+    correct: 1,
+    feedback: `Correcto: Hegel precisa que el tiempo se reparte a partes iguales (50 %) entre lenguas antiguas y materias troncales, y que al contar las cuatro asignaturas complementarias las lenguas antiguas ocupan dos quintas partes (40 %).`
+  },
+  {
+    q: `¿Qué sentido otorga Hegel al concepto alemán de Erinnerung dentro de la dialéctica educativa?`,
+    opts: [
+      `La repetición mecánica de fechas sin relación con la conciencia presente.`,
+      `El olvido total de la infancia al salir de la casa paterna.`,
+      `La interiorización (Sich-innerlich-machen) de lo aprendido tras el rodeo de la alienación, conservando el pasado en la profundidad del presente.`
+    ],
+    correct: 2,
+    feedback: `Muy bien: Erinnerung une el recuerdo con el «irse hacia dentro» del espíritu, permitiendo reconocer lo propio en lo extraño y volver a formar lo ya formado.`
+  },
+  {
+    q: `¿Cómo responde Hegel en sus informes de 1812 y 1822 al dilema kantiano de si se debe enseñar «filosofía» o «a filosofar»?`,
+    opts: [
+      `Sostiene que la filosofía posee un contenido objetivo enseñable como cualquier otra ciencia, aunque en el Gimnasio debe impartirse como propedéutica de pensamientos formales.`,
+      `Defiende que cada estudiante del Gimnasio debe inventar su propio sistema original sin estudiar doctrinas previas.`,
+      `Propone prohibir incluso el estudio de la lógica formal antes del doctorado.`
+    ],
+    correct: 0,
+    feedback: `Correcto: Hegel rechaza disociar aprender filosofía y aprender a filosofar; aunque reserva el sistema desarrollado para la Universidad, defiende iniciar en pensamientos formales en el Gimnasio para revelar el «reino del pensamiento».`
+  }
+];
+
+var quizIndex = 0;
+var quizAnsweredCount = 0;
+var quizScore = 0;
+var quizCurrentAnswered = false;
+
+function renderQuiz() {
+  var qObj = QUIZ_QUESTIONS[quizIndex];
+  var progEl = document.getElementById('quiz-progress-text');
+  var scoreEl = document.getElementById('quiz-score-text');
+  var qEl = document.getElementById('quiz-question');
+  var optsEl = document.getElementById('quiz-options');
+  var fbEl = document.getElementById('quiz-feedback');
+  var nextBtn = document.getElementById('btn-quiz-next');
+
+  if (!qObj) return;
+  quizCurrentAnswered = false;
+
+  if (progEl) progEl.textContent = `Pregunta ` + (quizIndex + 1) + ` de ` + QUIZ_QUESTIONS.length;
+  if (scoreEl) scoreEl.textContent = `Aciertos: ` + quizScore + ` / ` + quizAnsweredCount;
+  if (qEl) qEl.textContent = qObj.q;
+  if (fbEl) {
+    fbEl.className = 'quiz-feedback is-hidden';
+    fbEl.textContent = '';
+  }
+  if (nextBtn) {
+    nextBtn.disabled = true;
+    nextBtn.textContent = quizIndex === QUIZ_QUESTIONS.length - 1 ? `Ver balance final` : `Siguiente pregunta`;
+  }
+
+  if (optsEl) {
+    var html = '';
+    for (var i = 0; i < qObj.opts.length; i++) {
+      html += `<button type="button" class="btn btn-secondary option-btn" id="quiz-opt-` + i + `" onclick="answerQuiz(` + i + `)">` + qObj.opts[i] + `</button>`;
+    }
+    optsEl.innerHTML = html;
+  }
+}
+
+function answerQuiz(idx) {
+  if (quizCurrentAnswered) return;
+  var qObj = QUIZ_QUESTIONS[quizIndex];
+  if (!qObj) return;
+
+  quizCurrentAnswered = true;
+  quizAnsweredCount++;
+  var isCorrect = idx === qObj.correct;
+  if (isCorrect) quizScore++;
+
+  for (var i = 0; i < qObj.opts.length; i++) {
+    var btn = document.getElementById('quiz-opt-' + i);
+    if (btn) {
+      btn.disabled = true;
+      if (i === idx) btn.setAttribute('aria-pressed', 'true');
+    }
+  }
+
+  var scoreEl = document.getElementById('quiz-score-text');
+  var fbEl = document.getElementById('quiz-feedback');
+  var nextBtn = document.getElementById('btn-quiz-next');
+
+  if (scoreEl) scoreEl.textContent = `Aciertos: ` + quizScore + ` / ` + quizAnsweredCount;
+  if (fbEl) {
+    fbEl.className = 'quiz-feedback ' + (isCorrect ? 'correct' : 'incorrect');
+    fbEl.innerHTML =
+      `<p style="margin: 0 0 var(--space-xs); font-weight: 600;">` +
+      (isCorrect ? `Respuesta acertada` : `Revisa el matiz hegeliano`) +
+      `</p><p style="margin: 0;">` + qObj.feedback + `</p>`;
+  }
+  if (nextBtn) nextBtn.disabled = false;
+}
+
+function nextQuizQuestion() {
+  if (quizIndex < QUIZ_QUESTIONS.length - 1) {
+    quizIndex++;
+    renderQuiz();
+    return;
+  }
+  // Final summary view
+  var qEl = document.getElementById('quiz-question');
+  var optsEl = document.getElementById('quiz-options');
+  var fbEl = document.getElementById('quiz-feedback');
+  var nextBtn = document.getElementById('btn-quiz-next');
+  var progEl = document.getElementById('quiz-progress-text');
+
+  if (progEl) progEl.textContent = `Seminario completado`;
+  if (qEl) qEl.textContent = `Balance de tu recorrido por la pedagogía de Hegel: ` + quizScore + ` de ` + QUIZ_QUESTIONS.length + ` aciertos`;
+  if (optsEl) optsEl.innerHTML = '';
+  if (fbEl) {
+    fbEl.className = 'quiz-feedback correct';
+    fbEl.innerHTML = `<p style="margin: 0;">Has recorrido las claves centrales de los <em>Escritos pedagógicos</em>: la formación como segundo nacimiento, el trabajo dialéctico de la alienación y la <em>Erinnerung</em>, la proporción curricular de Núremberg y la defensa de una propedéutica filosófica objetiva. Puedes pulsar «Reiniciar seminario» para repetir las preguntas.</p>`;
+  }
+  if (nextBtn) {
+    nextBtn.disabled = true;
+    nextBtn.textContent = `Completado`;
+  }
+}
+
+function resetQuiz(btn) {
+  if (btn && btn.dataset.armed !== 'true' && quizAnsweredCount > 0) {
+    btn.dataset.armed = 'true';
+    btn.textContent = `Confirmar reinicio`;
+    return;
+  }
+  if (btn) {
+    btn.dataset.armed = 'false';
+    btn.textContent = `Reiniciar seminario`;
+  }
+  quizIndex = 0;
+  quizAnsweredCount = 0;
+  quizScore = 0;
+  renderQuiz();
+}
+
+// Scroll Reveal Observer
+function initScrollReveal() {
+  var els = document.querySelectorAll('.reveal-section');
+  if (!('IntersectionObserver' in window)) {
+    for (var i = 0; i < els.length; i++) {
+      els[i].classList.add('is-visible');
+    }
+    return;
+  }
+  var observer = new IntersectionObserver(function(entries, obs) {
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) {
+        entries[i].target.classList.add('is-visible');
+        obs.unobserve(entries[i].target);
+      }
+    }
+  }, { threshold: 0.1 });
+
+  for (var j = 0; j < els.length; j++) {
+    observer.observe(els[j]);
+  }
+}
+
+// Initialize all modules on DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+  selectTradition('all');
+  renderPhase();
+  renderCurriculumChart('full');
+  selectInstitution('gimnasio');
+  selectCase(0);
+  filterCorpus();
+  renderQuiz();
+  initScrollReveal();
+});
+</script>
+</body>
+</html>

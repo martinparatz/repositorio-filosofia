@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>Fe y saber (1802) — Crítica de Hegel a Kant, Jacobi y Fichte</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Broadsheet palette and tokens */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      --primary: #990f3d;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* 3. Shared foundation tokens */
+      --positive: #1d6342;
+      --positive-container: #e0efe7;
+      --warning: #8a5308;
+      --focus: var(--primary);
+
+      /* Type scale — Narrative */
+      --display-size: clamp(2.35rem, 1.35rem + 3.6vw, 4.1rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.6vw, 2.3rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.55vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.22vw, 1.1875rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      font-optical-sizing: auto;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1160px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      margin: 0;
+      color: var(--on-surface);
+      font-family: var(--font-headline);
+    }
+    h1 {
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.07;
+      letter-spacing: -0.015em;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.18;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 65ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .lede {
+      font-size: clamp(1.1875rem, 1.08rem + 0.4vw, 1.375rem);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 58ch;
+    }
+
+    /* Broadsheet defining treatments */
+    .masthead-line {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm) var(--space-lg);
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .masthead-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs) var(--space-md);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .masthead-nav a {
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      padding: var(--space-xs) 0;
+      border-bottom: 1px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    .masthead-nav a:hover,
+    .masthead-nav a.is-current {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg) var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+    }
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-md);
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Hairline columns */
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-lg);
+    }
+    .columns > * {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .columns > :last-child {
+      padding-right: 0;
+    }
+
+    .kpi-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .kpi-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+      line-height: 1.1;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .kpi-delta {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      display: block;
+      line-height: 1.35;
+    }
+    .kpi-note {
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+      line-height: 1.45;
+      margin-top: var(--space-xs);
+    }
+
+    /* Two-column editorial layout */
+    .editorial-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .editorial-aside {
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+    }
+    .panel-box {
+      background-color: var(--surface-container-low);
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg);
+    }
+    .panel-box .panel-kicker {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      margin-bottom: var(--space-sm);
+      display: block;
+    }
+
+    /* Pull quotes */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+      margin-block: var(--space-lg);
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.1875rem, 1.06rem + 0.45vw, 1.4rem);
+      line-height: 1.42;
+      color: var(--on-surface);
+      max-width: 52ch;
+    }
+    .pull-quote cite {
+      display: block;
+      margin-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+
+    /* Interactive controls — Broadsheet square buttons */
+    .control-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: end;
+    }
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: var(--rounded);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      cursor: pointer;
+      border: 1px solid var(--outline);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+    }
+    .btn:hover:not(:disabled) {
+      background-color: var(--surface-container-high);
+    }
+    .btn.is-active,
+    .btn-primary {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn.is-active:hover:not(:disabled),
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Explorer layout */
+    .explorer-container {
+      container-type: inline-size;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .explorer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .diagram-frame {
+      border: 1px solid var(--outline-variant);
+      background-color: var(--background);
+      padding: var(--space-md);
+      min-height: 330px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .diagram-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      min-height: 260px;
+    }
+    .diagram-caption {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      border-top: var(--rule-column);
+      padding-top: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+
+    .readout-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+    }
+    .readout-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+      border-top: var(--rule-column);
+      border-bottom: var(--rule-column);
+      padding-block: var(--space-md);
+    }
+    .readout-item-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      display: block;
+      margin-bottom: 2px;
+    }
+    .readout-item-val {
+      font-size: 0.96rem;
+      line-height: 1.45;
+      color: var(--on-surface);
+    }
+
+    /* Three-part philosophical critique chapters */
+    .thinker-columns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+    }
+    .thinker-col {
+      border-left: var(--rule-column);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .thinker-col:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .thinker-col:last-child {
+      padding-right: 0;
+    }
+    .thinker-rule-box {
+      border-top: var(--rule-column);
+      padding-top: var(--space-sm);
+      font-size: 0.95rem;
+      color: var(--on-surface-variant);
+    }
+    .thinker-rule-box strong {
+      color: var(--on-surface);
+    }
+
+    /* Broadsheet Tables */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.96rem;
+      line-height: 1.45;
+    }
+    thead th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: left;
+      color: var(--on-surface);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      vertical-align: bottom;
+    }
+    tbody td {
+      border-bottom: var(--rule-column);
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      vertical-align: top;
+      color: var(--on-surface);
+    }
+    tbody tr:last-child td {
+      border-bottom: var(--rule-ink);
+    }
+    tbody tr.is-highlighted td {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    tbody tr.is-dimmed {
+      opacity: 0.45;
+    }
+    .num-cell {
+      font-variant-numeric: lining-nums tabular-nums;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    /* Infinity Simulator */
+    .sim-panel {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .sim-controls {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .field-block {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface);
+    }
+    .range-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    input[type="range"] {
+      flex: 1;
+      height: 44px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+    .number-readout {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.25rem;
+      font-variant-numeric: lining-nums tabular-nums;
+      min-width: 3ch;
+      text-align: right;
+    }
+    .sim-formula {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 0.95rem;
+      background-color: var(--surface-container-low);
+      border-left: 3px solid var(--primary);
+      padding: var(--space-sm) var(--space-md);
+      color: var(--on-surface);
+    }
+
+    /* Glossary grid */
+    .glossary-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: end;
+      gap: var(--space-md);
+    }
+    .search-field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      min-width: min(280px, 100%);
+    }
+    .text-input {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--on-surface);
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+    }
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr));
+      gap: var(--space-lg) var(--space-xl);
+      border-top: var(--rule-ink);
+      padding-top: var(--space-lg);
+    }
+    .glossary-entry {
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-md);
+    }
+    .glossary-term {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: var(--on-surface);
+      margin-bottom: var(--space-xs);
+    }
+    .glossary-german {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      font-size: 0.95rem;
+    }
+    .glossary-def {
+      font-size: 0.96rem;
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+    }
+
+    /* Quiz */
+    .quiz-block {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+      border-top: var(--rule-ink);
+      padding-top: var(--space-lg);
+    }
+    .quiz-card {
+      border: 1px solid var(--outline-variant);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      background-color: var(--background);
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .quiz-opt {
+      text-align: left;
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      line-height: 1.4;
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      border: 1px solid var(--outline);
+      background-color: var(--background);
+      color: var(--on-surface);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-opt:hover:not(:disabled) {
+      background-color: var(--surface-container-low);
+    }
+    .quiz-opt.is-correct {
+      background-color: var(--positive-container);
+      border-color: var(--positive);
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+    .quiz-opt.is-wrong {
+      background-color: var(--primary-container);
+      border-color: var(--error);
+      color: var(--on-primary-container);
+    }
+    .quiz-feedback {
+      font-size: 0.94rem;
+      line-height: 1.48;
+      padding-top: var(--space-sm);
+      border-top: var(--rule-column);
+      color: var(--on-surface-variant);
+    }
+    .quiz-feedback.ok { color: var(--positive); }
+    .quiz-feedback.err { color: var(--error); }
+
+    .quiz-footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+    }
+
+    /* Colophon */
+    .colophon {
+      border-top: var(--rule-section);
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-2xl);
+      font-size: 0.94rem;
+      color: var(--on-surface-variant);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Container queries */
+    @container (max-width: 720px) {
+      .explorer-grid {
+        grid-template-columns: 1fr;
+      }
+      .readout-stack {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding-left: 0;
+        padding-top: var(--space-md);
+      }
+    }
+
+    /* Mobile breakpoint */
+    @media (max-width: 860px) {
+      .columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-md);
+      }
+      .columns > * {
+        border-left: 0;
+        padding-inline: 0;
+        border-top: var(--rule-column);
+        padding-top: var(--space-sm);
+      }
+      .columns > :nth-child(-n+2) {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .editorial-split,
+      .sim-panel,
+      .thinker-columns,
+      .quiz-block {
+        grid-template-columns: 1fr;
+      }
+      .editorial-aside,
+      .thinker-col {
+        border-left: 0;
+        padding-left: 0;
+        border-top: var(--rule-column);
+        padding-top: var(--space-md);
+      }
+      .thinker-col:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: 1fr;
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .columns {
+        grid-template-columns: 1fr;
+      }
+      .columns > * {
+        border-top: var(--rule-column);
+        padding-top: var(--space-sm);
+      }
+      .columns > :first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .readout-meta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- MASTHEAD -->
+    <header>
+      <div class="masthead-line">
+        <span>Revista Crítica de Filosofía · Jena, 1802 · Dossier Analítico</span>
+        <nav aria-label="Navegación de secciones">
+          <ul class="masthead-nav">
+            <li><a href="#diagnostico">I. Diagnóstico</a></li>
+            <li><a href="#explorador">II. Mapa de la reflexión</a></li>
+            <li><a href="#critica-sistemas">III. Kant, Jacobi y Fichte</a></li>
+            <li><a href="#superacion">IV. Finito e infinito</a></li>
+            <li><a href="#glosario">V. Glosario y práctica</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="masthead">
+        <div class="tag-row">
+          <span class="tag">Idealismo Alemán</span>
+          <span class="tag">G. W. F. Hegel</span>
+          <span class="tag">Glauben und Wissen</span>
+        </div>
+        <h1>Fe y saber: la crítica de Hegel a las filosofías de la reflexión y la superación del dualismo</h1>
+        <p class="lede">Publicado en Jena en 1802, el tratado ajusta cuentas con Kant, Jacobi y Fichte: muestra cómo la Ilustración, al quedar atrapada en la subjetividad y el entendimiento finito, volvió a convertir a la razón en sierva de la fe, y traza el camino hacia la razón especulativa.</p>
+      </div>
+
+      <!-- KEY FIGURES ROW -->
+      <div class="columns" aria-label="Datos clave de la obra">
+        <div>
+          <span class="kpi-label">Publicación</span>
+          <span class="kpi-value">1802</span>
+          <span class="kpi-delta">Jena · Revista Crítica</span>
+          <p class="kpi-note">Escrito a los 32 años, coeditando con Schelling tras dejar Fráncfort.</p>
+        </div>
+        <div>
+          <span class="kpi-label">Objeto de crítica</span>
+          <span class="kpi-value">3 sistemas</span>
+          <span class="kpi-delta">Kant · Jacobi · Fichte</span>
+          <p class="kpi-note">Reunidos como totalidad de formas de la subjetividad reflexiva.</p>
+        </div>
+        <div>
+          <span class="kpi-label">Diagnóstico central</span>
+          <span class="kpi-value">Escisión</span>
+          <span class="kpi-delta">Finito vs. Más allá</span>
+          <p class="kpi-note">Lo Absoluto queda fuera del saber racional, confinado a la fe.</p>
+        </div>
+        <div>
+          <span class="kpi-label">Horizonte sistemático</span>
+          <span class="kpi-value">1807</span>
+          <span class="kpi-delta">Hacia la Fenomenología</span>
+          <p class="kpi-note">Umbral donde el «ideal juvenil» madura en razón dialéctica.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECCIÓN I: DIAGNÓSTICO -->
+    <section id="diagnostico" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">Parte I · Contexto histórico y diagnóstico inicial</span>
+        <h2>La Ilustración derrotó a la religión positiva, pero dejó a la razón convertida en sierva de la fe</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>En la apertura de <em>Fe y saber</em> (<em>Glauben und Wissen</em>), Hegel plantea una paradoja histórica. La cultura ilustrada se jactaba de haber superado la vieja subordinación medieval de la filosofía frente a la teología dogmática. Sin embargo, al examinar el resultado de aquella victoria, Hegel descubre que la razón vencedora sucumbió espiritualmente ante el derrotado: ni la religión positiva conservó su vieja forma, ni la razón ilustrada siguió siendo verdadera razón. Sobre ambos cadáveres flotaba un hijo bastardo nacido de su mutuo empobrecimiento.</p>
+
+          <p>¿Por qué ocurrió esta recaída? Porque la Ilustración —a la que Hegel llama irónicamente <em>Aufklärerei</em> («seudoilustración»)— redujo la razón a mero <strong>entendimiento</strong> (<em>Verstand</em>). El entendimiento solo sabe analizar lo empírico, dividirlo y fijar oposiciones rígidas entre sujeto y objeto, concepto y realidad, finito e infinito. Cuando esa razón mutilada se vuelve sobre sí misma y reconoce sus límites, concluye que lo Eterno y lo Absoluto son incognoscibles. Así, para salvar algún sentido superior, relega lo verdadero a un «más allá» inalcanzable y huye hacia la <strong>fe</strong> (<em>Glauben</em>).</p>
+
+          <p>Hegel denomina a esta constelación moderna <strong>«el principio del norte»</strong> o el principio religioso del protestantismo llevado al concepto: la interioridad del sujeto construye sus altares en el corazón y contempla con nostalgia (<em>Sehnsucht</em>) una divinidad ausente, mientras entrega el mundo presente a la prosa empírica y al eudemonismo (la búsqueda de felicidad individual). Kant, Jacobi y Fichte combatieron el eudemonismo vulgar, pero al absolutizar la finitud del sujeto pensante permanecieron prisioneros dentro de la misma esfera.</p>
+
+          <blockquote class="pull-quote">
+            «Mi formación científica comenzó por necesidades humanas de carácter secundario; así tuve que ir siendo empujado hacia la ciencia, y el ideal juvenil tuvo que tomar la forma de la reflexión, convirtiéndose en sistema.»
+            <cite>Carta de Hegel a Schelling, noviembre de 1800 (Fráncfort, antes de partir a Jena)</cite>
+          </blockquote>
+        </div>
+
+        <aside class="editorial-aside">
+          <div class="panel-box">
+            <span class="panel-kicker">Del ideal juvenil de Tubinga a Jena</span>
+            <p style="font-size: 0.95rem;">Entre 1788 y 1793, Hegel compartió en el <em>Stift</em> de Tubinga con Hölderlin y Schelling cuatro pilares juveniles que explican las metas de <em>Fe y saber</em>:</p>
+            <div class="table-wrap" style="margin-top: var(--space-sm);">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Hito</th>
+                    <th>Significado para Fe y saber</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="num-cell">1789</td>
+                    <td><strong>Revolución Francesa:</strong> negación crítica del Antiguo Régimen; el joven Hegel busca unir libertad política y comunidad ética.</td>
+                  </tr>
+                  <tr>
+                    <td class="num-cell">1791</td>
+                    <td><strong>Lema <em>Hen kai pan</em>:</strong> Hölderlin escribe en el álbum de Hegel el símbolo spinozista «Uno y Todo» (citado por Lessing), germen de la totalidad.</td>
+                  </tr>
+                  <tr>
+                    <td class="num-cell">1795</td>
+                    <td><strong>Berna y Kant:</strong> Hegel asume el antidogmatismo kantiano contra la «positividad» autoritaria del cristianismo, pero pronto percibe su dualismo.</td>
+                  </tr>
+                  <tr>
+                    <td class="num-cell">1798</td>
+                    <td><strong>Fráncfort y Hölderlin:</strong> en <em>Juicio y Ser</em>, Hölderlin muestra que la <em>reflexión</em> escinde la unidad originaria; Hegel busca pensar el Todo sin renunciar a la ciencia.</td>
+                  </tr>
+                  <tr>
+                    <td class="num-cell">1802</td>
+                    <td><strong>Jena · <em>Fe y saber</em>:</strong> balance completo contra Kant, Jacobi y Fichte para fundar una razón dialéctica capaz de pensar la contradicción.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECCIÓN II: EXPLORADOR DIALÉCTICO -->
+    <section id="explorador" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">Parte II · Anatomía de la filosofía de la reflexión</span>
+        <h2>Cómo organiza cada sistema la frontera entre lo finito y lo infinito</h2>
+        <p class="lede">Aunque Kant, Jacobi y Fichte polemizan entre sí, comparten una misma arquitectura de la escisión. Selecciona cada postura para observar cómo se reconfigura la relación entre el Sujeto, el Mundo empírico y lo Absoluto.</p>
+      </div>
+
+      <div class="explorer-container" id="dialectic-explorer">
+        <div class="control-group" role="tablist" aria-label="Selector de sistemas filosóficos">
+          <button type="button" class="btn is-active" role="tab" aria-selected="true" id="tab-kant" onclick="selectThinker('kant')">1. Kant · Polo objetivo</button>
+          <button type="button" class="btn" role="tab" aria-selected="false" id="tab-jacobi" onclick="selectThinker('jacobi')">2. Jacobi · Polo subjetivo</button>
+          <button type="button" class="btn" role="tab" aria-selected="false" id="tab-fichte" onclick="selectThinker('fichte')">3. Fichte · Síntesis formal</button>
+          <button type="button" class="btn" role="tab" aria-selected="false" id="tab-hegel" onclick="selectThinker('hegel')">4. Hegel · Razón especulativa</button>
+        </div>
+
+        <div class="explorer-grid">
+          <div class="diagram-frame">
+            <svg id="thinker-svg" class="diagram-svg" viewBox="0 0 560 300" role="img" aria-labelledby="svg-title svg-desc">
+              <title id="svg-title">Esquema de escisión en Kant</title>
+              <desc id="svg-desc">Diagrama conceptual de la filosofía seleccionada</desc>
+              <!-- Populated dynamically by script -->
+            </svg>
+            <div id="diagram-caption" class="diagram-caption">
+              Esquema estructural: Kant fija el concepto puro frente al mundo empírico y coloca lo Absoluto detrás de un límite infranqueable.
+            </div>
+          </div>
+
+          <div class="readout-stack" aria-live="polite">
+            <div>
+              <span id="readout-tag" class="tag">IDEALISMO CRÍTICO · FORMA OBJETIVA</span>
+              <h3 id="readout-title" style="margin-top: var(--space-xs);">Immanuel Kant: el concepto vacío y la cosa en sí</h3>
+            </div>
+
+            <p id="readout-summary">Kant eleva la subjetividad finita a la forma objetiva del concepto universal y de la ley moral. Aunque roza la verdadera razón en la imaginación productiva, la relega enseguida para declarar incognoscible lo suprasensible.</p>
+
+            <div class="readout-meta-grid">
+              <div>
+                <span class="readout-item-label">Principio rector</span>
+                <span id="readout-principle" class="readout-item-val">Concepto infinito formal y ley práctica universal</span>
+              </div>
+              <div>
+                <span class="readout-item-label">Papel de la fe (Glauben)</span>
+                <span id="readout-faith" class="readout-item-val">Fe moral y postulados subjetivos (Dios, inmortalidad)</span>
+              </div>
+              <div>
+                <span class="readout-item-label">Estatuto de lo finito</span>
+                <span id="readout-finite" class="readout-item-val">Fenómeno organizado por categorías; cosa en sí ajena</span>
+              </div>
+              <div>
+                <span class="readout-item-label">Diagnóstico de Hegel</span>
+                <span id="readout-verdict" class="readout-item-val">Dualismo absoluto: «abolir el saber para dejar lugar a la fe»</span>
+              </div>
+            </div>
+
+            <blockquote class="pull-quote" style="margin-block: 0;">
+              <span id="readout-quote">«Según Kant lo suprasensible es incapaz de ser reconocido por la razón. La idea suprema no posee a la vez realidad.»</span>
+              <cite id="readout-cite">Hegel, Fe y saber, Introducción</cite>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN III: CRÍTICA DETALLADA A LOS TRES SISTEMAS -->
+    <section id="critica-sistemas" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">Parte III · El triple ajuste de cuentas</span>
+        <h2>Kant, Jacobi y Fichte: la totalidad de las formas de la subjetividad</h2>
+        <p class="lede">Hegel sostiene que estos tres autores agotan todas las posibilidades del principio reflexivo. Lo que Kant objetiva en la ley, Jacobi lo interioriza en el sentimiento y Fichte lo proyecta en un esfuerzo moral interminable.</p>
+      </div>
+
+      <div class="thinker-columns">
+        <!-- KANT -->
+        <article class="thinker-col">
+          <div>
+            <span class="tag">1. Polo objetivo · El concepto</span>
+            <h3 style="margin-top: var(--space-xs);">La filosofía de Kant</h3>
+          </div>
+          <p><strong>El mérito especulativo oculto:</strong> Hegel elogia a Kant por mostrar que el entendimiento no conoce nada «en sí» y que la intuición sin concepto es ciega, igual que el concepto sin intuición es vacío. En la pregunta <em>«¿cómo son posibles juicios sintéticos a priori?»</em>, Kant vislumbró la auténtica razón: la <strong>imaginación productiva</strong> (la unidad sintética originaria de la apercepción), raíz común de sensibilidad y entendimiento.</p>
+          <p><strong>La recaída en la escisión:</strong> Sin embargo, Kant reduce esa imaginación a una facultad psicológica del sujeto humano finito. Al convertir espacio, tiempo y categorías en meras formas subjetivas, deja frente al «Yo pienso» un conglomerado de sensaciones y una <em>cosa en sí</em> incognoscible —un <em>Plus</em> extraño que se suma mecánicamente a la identidad formal (<code>A + B</code>)—.</p>
+          <div class="thinker-rule-box">
+            <strong>Antinomias y moral:</strong> Su solución de las antinomias dinamiza el dualismo al separar libertad y necesidad en dos mundos incomunicados. Su crítica al argumento ontológico celebra el triunfo del entendimiento limitado, y su razón práctica desemboca en un formalismo vacío que solo armoniza virtud y felicidad mediante postulados de fe.
+          </div>
+        </article>
+
+        <!-- JACOBI -->
+        <article class="thinker-col">
+          <div>
+            <span class="tag">2. Polo subjetivo · El sentimiento</span>
+            <h3 style="margin-top: var(--space-xs);">La filosofía de Jacobi</h3>
+          </div>
+          <p><strong>Empirismo vulgar y doble fe:</strong> Jacobi invierte a Kant manteniendo la misma premisa: la finitud absoluta. Mientras Kant y Fichte reservan la fe para lo suprasensible, Jacobi degrada el término <em>Glauben</em> al aplicarlo también a la certeza inmediata de las cosas sensibles y finitas (tomando el uso de Locke y Hume). Abomina de que Kant niegue realidad en sí a los objetos empíricos.</p>
+          <p><strong>Polémica y «galimatías»:</strong> Hegel defiende a Spinoza y a Kant frente a los ataques de Jacobi en sus <em>Cartas sobre la doctrina de Spinoza</em> y los cuadernos de Reinhold. Muestra que Jacobi falsea citas y fabrica un <em>galimatías</em> al leer la eternidad e infinitud de Spinoza desde el tiempo, o al caricaturizar las facultades kantianas como «una tortuga que no reposa en nada».</p>
+          <div class="thinker-rule-box">
+            <strong>Ética del egoísmo nostálgico:</strong> Al rechazar la ley objetiva en nombre del instinto individual (como en su <em>Carta a Fichte</em> y sus novelas <em>Allwill</em> y <em>Woldemar</em>), Jacobi cae en una eticidad enfermiza: un sujeto condenado a contemplar perpetuamente su propia belleza moral interior.
+          </div>
+        </article>
+
+        <!-- FICHTE -->
+        <article class="thinker-col">
+          <div>
+            <span class="tag">3. Síntesis formal · El deber ser</span>
+            <h3 style="margin-top: var(--space-xs);">La filosofía de Fichte</h3>
+          </div>
+          <p><strong>El «monedero vacío» del Yo = Yo:</strong> Fichte pretende unir la forma objetiva kantiana con el anhelo subjetivo de Jacobi. Parte del principio <code>Yo = Yo</code> (pura autoconciencia obtenida por abstracción de todo contenido) para deducir desde él el mundo sensible. Hegel replica que esta deducción es ilusoria: como un <em>monedero vacío</em> que presupone el dinero ausente, Fichte solo invierte el signo de lo abstraído, pasando del <code>minus</code> teórico al <code>plus</code> práctico.</p>
+          <p><strong>Dualismo perpetuo y Sollen:</strong> El segundo principio (el <code>No-Yo</code>) nunca puede deducirse del <code>Yo = Yo</code>; aparece como un choque incomprensible (<em>per hiatum irrationalem</em>). Si el Yo alcanzara plenamente al No-Yo, desaparecería la oposición y el Yo dejaría de actuar. Por ello, la identidad se aplaza a un progreso infinito bajo la forma del <strong>deber ser</strong> (<em>Sollen</em>).</p>
+          <div class="thinker-rule-box">
+            <strong>Naturaleza desacralizada y nihilismo:</strong> Fichte reduce la naturaleza a simple materia muerta y «mal absoluto» que el sujeto libre debe negar. Su «nihilismo» —término con el que Jacobi le atacó— es insuficiente para Hegel porque no destruye la finitud empírica en la razón, sino que la conserva intacta como obstáculo eterno.
+          </div>
+        </article>
+      </div>
+
+      <!-- MATRIZ COMPARATIVA INTERACTIVA -->
+      <div style="margin-top: var(--space-md);">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--space-md); margin-bottom: var(--space-md);">
+          <div>
+            <h3>Matriz comparativa de la crítica hegeliana</h3>
+            <p style="font-size: 0.95rem; color: var(--on-surface-variant);">Filtra por ámbito filosófico para contrastar cómo cada autor resuelve el vínculo entre subjetividad y verdad.</p>
+          </div>
+          <div class="control-group" role="group" aria-label="Filtro de dimensiones comparativas">
+            <button type="button" class="btn is-active" id="filter-all" onclick="filterMatrix('all')">Todas</button>
+            <button type="button" class="btn" id="filter-conocimiento" onclick="filterMatrix('conocimiento')">Conocimiento</button>
+            <button type="button" class="btn" id="filter-fe" onclick="filterMatrix('fe')">Fe e Infinitud</button>
+            <button type="button" class="btn" id="filter-etica" onclick="filterMatrix('etica')">Ética y Naturaleza</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Dimensión</th>
+                <th>Kant (Objetividad formal)</th>
+                <th>Jacobi (Subjetividad inmediata)</th>
+                <th>Fichte (Síntesis del esfuerzo)</th>
+                <th>Hegel (Razón especulativa)</th>
+              </tr>
+            </thead>
+            <tbody id="matrix-body">
+              <tr data-dim="conocimiento">
+                <td><strong>Primer principio</strong></td>
+                <td>Unidad sintética de la apercepción («Yo pienso»), limitada al entendimiento.</td>
+                <td>Certeza inmediata de los sentidos y del sentimiento individual.</td>
+                <td>Autoposición pura del <code>Yo = Yo</code> mediante intuición intelectual formal.</td>
+                <td>Identidad absoluta originaria (razón que contiene en sí la diferencia).</td>
+              </tr>
+              <tr data-dim="conocimiento">
+                <td><strong>Relación sujeto / objeto</strong></td>
+                <td>El entendimiento impone categorías a un material empírico extraño; cosa en sí aparte.</td>
+                <td>El objeto finito dado posee absoluta realidad independiente del concepto.</td>
+                <td>El Yo opone el No-Yo sin poder deducirlo racionalmente; relación causal recíproca.</td>
+                <td>Sujeto y objeto son momentos escindidos de una totalidad previa que los reúne.</td>
+              </tr>
+              <tr data-dim="fe">
+                <td><strong>Estatuto de la fe (<em>Glauben</em>)</strong></td>
+                <td>Fe práctica racional: postula a Dios y la inmortalidad fuera del saber teórico.</td>
+                <td>Doble fe: revelación de lo sensible empírico y salto hacia lo eterno.</td>
+                <td>Fe en el orden moral del mundo como tránsito del <em>minus</em> al <em>plus</em>.</td>
+                <td>La fe reflexiva es síntoma de impotencia; el saber especulativo accede a lo Absoluto.</td>
+              </tr>
+              <tr data-dim="fe">
+                <td><strong>Concepción de lo infinito</strong></td>
+                <td>Infinitud vacía de la razón pura opuesta a la finitud empírica.</td>
+                <td>Anhelo nostálgico infinito e incomprensible; confunde eternidad con duración.</td>
+                <td>Progreso empírico al infinito (<em>Sollen</em>) que nunca alcanza su meta.</td>
+                <td>Verdadera infinitud (<em>infinitu actu</em>): lo infinito que asume e integra lo finito.</td>
+              </tr>
+              <tr data-dim="etica">
+                <td><strong>Moral y eticidad</strong></td>
+                <td>Formalismo del deber universal y tiranía del concepto sobre las inclinaciones.</td>
+                <td>Individualismo moralista; rechazo de la ley común (<em>Allwill</em>, <em>Woldemar</em>).</td>
+                <td>«Deber por el deber»; catálogo interminable de obligaciones contradictorias.</td>
+                <td>Eticidad viva: unidad del concepto universal y la individualidad en el pueblo y las leyes.</td>
+              </tr>
+              <tr data-dim="etica">
+                <td><strong>Visión de la naturaleza</strong></td>
+                <td>Conglomerado fenoménico sin vida propia; teleología meramente reflexionante.</td>
+                <td>Realidad finita y temporal sacralizada en su inmediatez sensible.</td>
+                <td>Naturaleza muerta y desacralizada: simple límite que el Yo debe someter.</td>
+                <td>Naturaleza ética y viva, expresión de la razón e idéntica en su fondo al espíritu.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN IV: SUPERACIÓN DEL DUALISMO -->
+    <section id="superacion" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">Parte IV · La superación del dualismo finito / infinito</span>
+        <h2>De la «mala infinitud» al <em>infinitu actu</em> y el Viernes Santo especulativo</h2>
+        <p class="lede">Para salir del atolladero donde la fe sustituye al conocimiento, Hegel rescata a Spinoza contra Jacobi y formula el núcleo de su dialéctica: la negatividad no es un límite externo, sino el movimiento mismo de la Idea.</p>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <h3>Dos conceptos de infinitud: imaginación frente a razón</h3>
+          <p>Al analizar la polémica de Jacobi contra Spinoza, Hegel traza una distinción decisiva que conservará durante toda su madurez en la <em>Ciencia de la Lógica</em>. Cuando el entendimiento reflexivo piensa lo infinito simplemente como «lo que no es finito», lo convierte de inmediato en algo limitado por aquello que deja fuera. Esa infinitud opuesta a lo finito —propia de Kant y Fichte— es tan finita como su contrario.</p>
+          <p>Siguiendo a Spinoza, Hegel distingue:</p>
+          <ul>
+            <li><strong>La infinitud de la imaginación (mala infinitud):</strong> surge al abstraer la cantidad y la duración fuera de la sustancia. Es una contradicción no resuelta: una serie interminable de momentos finitos que añaden un término tras otro sin formar jamás una totalidad real.</li>
+            <li><strong>La infinitud del intelecto (<em>infinitu actu</em>):</strong> es la verdadera Idea absoluta, donde lo universal y lo particular, el todo y las partes, son idénticos. No huye de la determinación ni del polo negativo (<code>+A − A = 0</code>), sino que contiene la negatividad dentro de sí como fuente de movimiento eterno.</li>
+          </ul>
+        </div>
+        <div class="editorial-aside">
+          <div class="panel-box">
+            <span class="panel-kicker">La clave lógica: +A − A = 0</span>
+            <p style="font-size: 0.95rem;">Hegel utiliza la fórmula <code>+A − A = 0</code> para explicar cómo el pensamiento absoluto es al mismo tiempo afirmación y negación:</p>
+            <p style="font-size: 0.95rem;">En Kant y Fichte, el cero (la nada de lo finito) queda fijado en un polo como pura abstracción subjetiva frente a la realidad empírica. En la razón especulativa, en cambio, esa nada es el abismo donde se hunde la falsa independencia de las cosas finitas para reaparecer como determinaciones internas del Todo.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIMULADOR DE INFINITUD -->
+      <div class="sim-panel" id="infinity-simulator">
+        <div class="sim-controls">
+          <div>
+            <span class="tag">Simulador conceptual</span>
+            <h3 style="margin-top: var(--space-xs);">Experimenta el contraste entre ambas infinitudes</h3>
+            <p style="font-size: 0.95rem; color: var(--on-surface-variant);">Alterna el modo filosófico y avanza los pasos finitos para observar por qué el progreso al infinito nunca alcanza el Absoluto.</p>
+          </div>
+
+          <div class="control-group" role="group" aria-label="Modo de infinitud">
+            <button type="button" class="btn is-active" id="mode-bad" onclick="setInfMode('bad')">Mala infinitud (Reflexión)</button>
+            <button type="button" class="btn" id="mode-true" onclick="setInfMode('true')">Infinitu actu (Razón)</button>
+          </div>
+
+          <div class="field-block">
+            <label for="slider-steps" class="field-label">Determinaciones finitas añadidas (pasos n)</label>
+            <div class="range-row">
+              <input type="range" id="slider-steps" min="1" max="10" value="4" oninput="syncStepsFromSlider(this.value)">
+              <input type="number" id="input-steps" class="text-input" min="1" max="10" value="4" aria-label="Número de pasos finitos" style="width: 72px; text-align: center;" oninput="syncStepsFromNumber(this.value)">
+            </div>
+          </div>
+
+          <div id="sim-formula" class="sim-formula">
+            Finito (n=4) frente a Más Allá: brecha persistente (Sollen)
+          </div>
+
+          <p id="sim-explanation" style="font-size: 0.96rem; color: var(--on-surface);">
+            En el modo de la reflexión (Kant / Fichte), cada nueva determinación añadida solo desplaza el límite hacia adelante. Lo infinito permanece como un horizonte inalcanzable fuera de la serie, reducido a un objeto de deber o de fe.
+          </p>
+        </div>
+
+        <div class="diagram-frame">
+          <svg id="sim-svg" class="diagram-svg" viewBox="0 0 560 280" role="img" aria-labelledby="sim-svg-title sim-svg-desc">
+            <title id="sim-svg-title">Simulación visual de la mala infinitud frente al infinitu actu</title>
+            <desc id="sim-svg-desc">Representación geométrica de la relación entre finitud e infinitud</desc>
+          </svg>
+          <div id="sim-caption" class="diagram-caption">
+            Progreso al infinito: cuanto más avanza la línea finita, más se confirma su separación respecto al Absoluto.
+          </div>
+        </div>
+      </div>
+
+      <!-- VIERNES SANTO ESPECULATIVO -->
+      <div class="editorial-split" style="margin-top: var(--space-sm);">
+        <div>
+          <h3>El «Viernes Santo especulativo» y la muerte de Dios</h3>
+          <p>En la célebre frase única con la que cierra <em>Fe y saber</em>, Hegel extrae la consecuencia radical de todo su análisis. Si la modernidad ha vivido el sentimiento histórico de que <em>«Dios mismo ha muerto»</em> —expresión que Hegel conecta con la observación empírica de Pascal sobre una naturaleza que señala por todas partes a un Dios perdido—, las filosofías de la reflexión intentan suavizar esa pérdida refugiando a lo divino en un más allá sentimental o moral.</p>
+          <p>Frente a esa evasión, la verdadera filosofía debe asumir plenamente ese abismo negativo. Hegel exige restablecer para la filosofía el sufrimiento absoluto o <strong>«viernes santo especulativo»</strong> en toda la dureza y verdad de su ateísmo: hay que dejar morir al Dios exterior de la dogmática, pero también a la idolatría del yo finito que pretende salvarse fuera del todo. Solo atravesando esa muerte conceptual de la subjetividad aislada puede resucitar la suprema totalidad en la figura de la libertad racional.</p>
+        </div>
+        <div class="editorial-aside">
+          <blockquote class="pull-quote" style="margin-top: 0;">
+            «Tiene que restablecer para la filosofía la idea de la libertad absoluta, y con ella el sufrimiento absoluto o viernes santo especulativo, que por lo demás fue histórico, y a éste incluso en toda la dureza y la verdad de su ateísmo […]. Sólo de esta dureza puede y debe resucitar la suprema totalidad en toda su seriedad y desde su más profundo fundamento.»
+            <cite>Hegel, Fe y saber, conclusión (1802)</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN V: GLOSARIO Y AUTOEVALUACIÓN -->
+    <section id="glosario" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">Parte V · Aparato conceptual y síntesis activa</span>
+        <h2>Vocabulario técnico de <em>Fe y saber</em> y comprobación de lectura</h2>
+      </div>
+
+      <div class="glossary-controls">
+        <div>
+          <h3>Glosario de términos alemanes clave</h3>
+          <p style="font-size: 0.95rem; color: var(--on-surface-variant);">Conceptos fundamentales utilizados por Hegel en el tratado y su traducción castellana.</p>
+        </div>
+        <div class="search-field">
+          <label for="glossary-search" class="field-label">Filtrar término o concepto</label>
+          <input type="search" id="glossary-search" class="text-input" placeholder="Ej. reflexión, Sollen, imaginación…" oninput="filterGlossary(this.value)">
+        </div>
+      </div>
+
+      <div id="glossary-grid" class="glossary-grid">
+        <!-- Populated from structured data -->
+      </div>
+      <p id="glossary-empty" style="display: none; color: var(--on-surface-variant); padding-block: var(--space-md);">
+        Ningún término coincide con la búsqueda actual. Borra el filtro para ver las doce voces del glosario.
+      </p>
+
+      <!-- QUIZ -->
+      <div style="margin-top: var(--space-lg);">
+        <h3>Comprueba tu comprensión</h3>
+        <p style="font-size: 0.95rem; color: var(--on-surface-variant); margin-bottom: var(--space-md);">Cuatro cuestiones para verificar las distinciones centrales de la crítica hegeliana.</p>
+
+        <div id="quiz-container" class="quiz-block">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="quiz-footer" style="margin-top: var(--space-lg);">
+          <div id="quiz-score" style="font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">
+            Progreso: 0 de 4 respondidas · 0 aciertos
+          </div>
+          <button type="button" class="btn" id="quiz-reset-btn" onclick="resetQuiz(this)">Reiniciar cuestionario</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOFÓN Y FUENTES -->
+    <footer class="colophon">
+      <span class="section-label">Referencias y fuentes del dossier</span>
+      <p>Contenido elaborado íntegramente a partir de Georg Wilhelm Friedrich Hegel, <em>Fe y saber. O la filosofía de la reflexión de la subjetividad en la totalidad de sus formas como filosofía de Kant, Jacobi y Fichte</em> (<em>Glauben und Wissen</em>, 1802), en la traducción castellana, introducción, cronología, glosario y notas de Vicente Serrano (texto base de la edición de Lasson, Félix Meiner, y edición crítica en <em>Gesammelte Werke</em>, vol. 4, <em>Jenaer kritische Schriften</em>).</p>
+    </footer>
+
+  </div>
+
+  <script>
+    const THINKER_DATA = {
+      kant: {
+        tag: `IDEALISMO CRÍTICO · POLO OBJETIVO`,
+        title: `Immanuel Kant: el concepto vacío y la cosa en sí`,
+        summary: `Kant eleva la subjetividad finita a la forma objetiva del concepto universal y de la ley moral. Aunque roza la verdadera razón en la imaginación productiva, la relega enseguida para declarar incognoscible lo suprasensible.`,
+        principle: `Concepto infinito formal y ley práctica universal`,
+        faith: `Fe moral y postulados subjetivos (Dios e inmortalidad)`,
+        finite: `Fenómeno ordenado por categorías; cosa en sí ajena`,
+        verdict: `Dualismo absoluto: «abolir el saber para dejar lugar a la fe»`,
+        quote: `«Según Kant lo suprasensible es incapaz de ser reconocido por la razón. La idea suprema no posee a la vez realidad.»`,
+        cite: `Hegel, Fe y saber, Introducción`,
+        caption: `Esquema estructural: Kant fija el concepto puro frente al mundo empírico y coloca lo Absoluto detrás de un límite infranqueable.`
+      },
+      jacobi: {
+        tag: `EMPIRISMO SUBJETIVO · POLO DEL SENTIMIENTO`,
+        title: `Friedrich Heinrich Jacobi: individualidad, doble fe y nostalgia`,
+        summary: `En el polo opuesto a Kant dentro de la misma finitud absoluta, Jacobi convierte la subjetividad en individualidad sintiente. Extiende la «fe» a la certeza empírica de lo sensible y opone a Spinoza un anhelo nostálgico sin concepto.`,
+        principle: `Inmediatez del sentimiento, instinto y certeza empírica`,
+        faith: `Doble sentido de Glauben: creencia en cuerpos finitos y salto hacia Dios`,
+        finite: `Realidad absoluta e intocable de las cosas sensibles e individuales`,
+        verdict: `«Galimatías» polémico y moralismo egoísta (Allwill y Woldemar)`,
+        quote: `«La filosofía de Jacobi tiene en común con la filosofía de Kant la absoluta finitud… convierte a la subjetividad en individualidad.»`,
+        cite: `Hegel, Fe y saber, Capítulo II`,
+        caption: `Esquema estructural: Jacobi sacraliza lo sensible finito y proyecta hacia el Más Allá un anhelo subjetivo (Sehnsucht) imposible de colmar.`
+      },
+      fichte: {
+        tag: `IDEALISMO SUBJETIVO · SÍNTESIS FORMAL`,
+        title: `Johann Gottlieb Fichte: Yo = Yo y el esfuerzo al infinito`,
+        summary: `Fichte sintetiza el anhelo subjetivo de Jacobi con la forma objetiva kantiana mediante la exigencia absoluta «Yo debe ser igual a No-Yo». Pero su deducción parte de un Yo vacío y condena a la razón a un deber interminable (Sollen).`,
+        principle: `Autoposición formal del Yo = Yo frente a un No-Yo opuesto`,
+        faith: `Fe como puente formal del tránsito entre carencia y plenitud`,
+        finite: `Naturaleza desacralizada que el Yo debe negar y someter sin fin`,
+        verdict: `«Monedero vacío» e incapacidad de deducir la realidad empírica`,
+        quote: `«Según Fichte Dios es algo inconcebible e impensable; el saber no sabe nada y debe huir hacia la fe.»`,
+        cite: `Hegel, Fe y saber, Introducción`,
+        caption: `Esquema estructural: Fichte empuja el Yo sobre el No-Yo en un progreso al infinito, sin lograr nunca un punto de indiferencia o unidad real.`
+      },
+      hegel: {
+        tag: `FILOSOFÍA ESPECULATIVA · SUPERACIÓN DIALÉCTICA`,
+        title: `G. W. F. Hegel: totalidad, negatividad y razón especulativa`,
+        summary: `Frente al entendimiento reflexivo que separa finitud e infinitud, Hegel propone una razón que asume la contradicción y la negatividad como su propio motor. Lo Absoluto no está más allá del saber: es la totalidad viva que integra lo finito.`,
+        principle: `Identidad especulativa que incluye la diferencia (infinitu actu)`,
+        faith: `Superada en el saber racional tras atravesar el «viernes santo especulativo»`,
+        finite: `Momento negado en su falsa autonomía, pero conservado en el Todo`,
+        verdict: `Reconciliación racional: lo verdadero es la totalidad concreta`,
+        quote: `«En la idea finito e infinito son uno, y por eso lo finito como tal desaparecería… sólo ha sido negado aquello que es negación.»`,
+        cite: `Hegel, Fe y saber, Introducción`,
+        caption: `Esquema estructural: la razón especulativa disuelve el muro de la reflexión; finito e infinito coexisten como momentos de una misma totalidad.`
+      }
+    };
+
+    function renderThinkerSvg(key) {
+      const svg = document.getElementById('thinker-svg');
+      if (!svg) return;
+
+      const titleText = {
+        kant: `Esquema de escisión en Kant`,
+        jacobi: `Esquema de escisión en Jacobi`,
+        fichte: `Esquema de escisión en Fichte`,
+        hegel: `Esquema de superación en Hegel`
+      }[key] || `Esquema filosófico`;
+
+      let inner = `<title id="svg-title">${titleText}</title>
+        <desc id="svg-desc">Diagrama conceptual de la relación entre sujeto, objeto e infinito</desc>
+        <defs>
+          <marker id="arrow-claret" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--primary)" />
+          </marker>
+          <marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--secondary)" />
+          </marker>
+          <marker id="arrow-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--on-surface)" />
+          </marker>
+        </defs>`;
+
+      if (key === 'kant') {
+        inner += `
+          <rect x="20" y="34" width="320" height="232" fill="var(--surface-container-low)" stroke="var(--outline-variant)" stroke-width="1"/>
+          <text x="34" y="56" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--on-surface-variant)">ESFERA DEL ENTENDIMIENTO FINITO</text>
+
+          <rect x="38" y="88" width="128" height="74" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5"/>
+          <text x="102" y="118" text-anchor="middle" font-family="var(--font-headline)" font-size="14" font-weight="700" fill="var(--on-surface)">«Yo pienso»</text>
+          <text x="102" y="138" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">Categorías (A)</text>
+
+          <rect x="194" y="88" width="128" height="74" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5"/>
+          <text x="258" y="118" text-anchor="middle" font-family="var(--font-headline)" font-size="14" font-weight="700" fill="var(--on-surface)">Mundo empírico</text>
+          <text x="258" y="138" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">Sensaciones (+ B)</text>
+
+          <line x1="166" y1="125" x2="192" y2="125" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrow-claret)"/>
+          <rect x="78" y="190" width="206" height="48" fill="var(--background)" stroke="var(--secondary)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="181" y="211" text-anchor="middle" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">IMAGINACIÓN PRODUCTIVA</text>
+          <text x="181" y="227" text-anchor="middle" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">Raíz común vislumbrada y luego abandonada</text>
+
+          <line x1="364" y1="24" x2="364" y2="276" stroke="var(--primary)" stroke-width="3"/>
+          <text x="364" y="289" text-anchor="middle" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--primary)">LÍMITE DEL SABER</text>
+
+          <rect x="392" y="64" width="148" height="172" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text x="466" y="106" text-anchor="middle" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--primary)">Lo Absoluto</text>
+          <text x="466" y="128" text-anchor="middle" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">Cosa en sí / Dios</text>
+          <line x1="414" y1="148" x2="518" y2="148" stroke="var(--outline-variant)" stroke-width="1"/>
+          <text x="466" y="172" text-anchor="middle" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">SOLO FE MORAL</text>
+          <text x="466" y="192" text-anchor="middle" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">Postulado subjetivo</text>
+          <text x="466" y="210" text-anchor="middle" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">vacío de conocimiento</text>
+        `;
+      } else if (key === 'jacobi') {
+        inner += `
+          <rect x="20" y="34" width="320" height="232" fill="var(--surface-container-low)" stroke="var(--outline-variant)" stroke-width="1"/>
+          <text x="34" y="56" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--on-surface-variant)">EMPIRISMO DE LA SUBJETIVIDAD</text>
+
+          <rect x="44" y="84" width="272" height="72" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5"/>
+          <text x="180" y="112" text-anchor="middle" font-family="var(--font-headline)" font-size="14" font-weight="700" fill="var(--on-surface)">Individuo sintiente + Cosas finitas</text>
+          <text x="180" y="134" text-anchor="middle" font-family="var(--font-body)" font-size="12" fill="var(--primary)">Certeza inmediata por «creencia» sensible</text>
+
+          <rect x="44" y="180" width="272" height="62" fill="var(--background)" stroke="var(--secondary)" stroke-width="1.5"/>
+          <text x="180" y="206" text-anchor="middle" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">ANHELO NOSTÁLGICO (SEHNSUCHT)</text>
+          <text x="180" y="226" text-anchor="middle" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">Sentimiento privado que rechaza la ley y el concepto</text>
+
+          <line x1="364" y1="24" x2="364" y2="276" stroke="var(--primary)" stroke-width="3"/>
+          <text x="364" y="289" text-anchor="middle" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--primary)">SALTO MORTAL DE LA FE</text>
+
+          <path d="M 316 211 Q 364 176 390 154" fill="none" stroke="var(--primary)" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrow-claret)"/>
+
+          <rect x="392" y="64" width="148" height="172" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text x="466" y="106" text-anchor="middle" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--primary)">Lo Eterno</text>
+          <text x="466" y="128" text-anchor="middle" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">Fuera de la razón</text>
+          <line x1="414" y1="148" x2="518" y2="148" stroke="var(--outline-variant)" stroke-width="1"/>
+          <text x="466" y="172" text-anchor="middle" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">NO-FILOSOFÍA</text>
+          <text x="466" y="192" text-anchor="middle" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">La razón «no tiene manos</text>
+          <text x="466" y="210" text-anchor="middle" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">ni pies para cavar»</text>
+        `;
+      } else if (key === 'fichte') {
+        inner += `
+          <rect x="20" y="34" width="330" height="232" fill="var(--surface-container-low)" stroke="var(--outline-variant)" stroke-width="1"/>
+          <text x="34" y="56" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--on-surface-variant)">TENSIÓN PRÁCTICA SIN SÍNTESIS REAL</text>
+
+          <rect x="38" y="82" width="124" height="72" fill="var(--background)" stroke="var(--primary)" stroke-width="2"/>
+          <text x="100" y="112" text-anchor="middle" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--primary)">Yo = Yo</text>
+          <text x="100" y="133" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">Identidad vacía (-)</text>
+
+          <rect x="208" y="82" width="124" height="72" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5"/>
+          <text x="270" y="112" text-anchor="middle" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--on-surface)">No-Yo</text>
+          <text x="270" y="133" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">Naturaleza opuesta (+)</text>
+
+          <line x1="164" y1="118" x2="204" y2="118" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrow-claret)"/>
+          <line x1="204" y1="132" x2="164" y2="132" stroke="var(--outline)" stroke-width="1.5" marker-end="url(#arrow-ink)"/>
+
+          <rect x="38" y="182" width="294" height="62" fill="var(--background)" stroke="var(--secondary)" stroke-width="1.5"/>
+          <text x="185" y="206" text-anchor="middle" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">DEBER SER (SOLLEN) · PROGRESO INFINITO</text>
+          <text x="185" y="226" text-anchor="middle" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">«Yo debe ser igual a No-Yo» (meta perpetuamente aplazada)</text>
+
+          <line x1="370" y1="24" x2="370" y2="276" stroke="var(--primary)" stroke-width="3"/>
+          <text x="370" y="289" text-anchor="middle" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--primary)">HIATO IRRACIONAL</text>
+
+          <rect x="394" y="64" width="146" height="172" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text x="467" y="106" text-anchor="middle" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--primary)">Orden Moral</text>
+          <text x="467" y="128" text-anchor="middle" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">Fuera del saber</text>
+          <line x1="414" y1="148" x2="520" y2="148" stroke="var(--outline-variant)" stroke-width="1"/>
+          <text x="467" y="172" text-anchor="middle" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">FE EN LA ACCIÓN</text>
+          <text x="467" y="192" text-anchor="middle" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">Si el No-Yo desaparece,</text>
+          <text x="467" y="210" text-anchor="middle" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">el Yo deja de ser Yo</text>
+        `;
+      } else {
+        inner += `
+          <rect x="24" y="28" width="512" height="244" fill="var(--background)" stroke="var(--outline)" stroke-width="2"/>
+          <text x="40" y="52" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--primary)">RAZÓN ESPECULATIVA · TOTALIDAD CONCRETA (INFINITU ACTU)</text>
+
+          <circle cx="280" cy="154" r="96" fill="var(--surface-container-low)" stroke="var(--primary)" stroke-width="2"/>
+          <circle cx="280" cy="154" r="56" fill="var(--background)" stroke="var(--secondary)" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+          <rect x="64" y="124" width="132" height="58" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5"/>
+          <text x="130" y="149" text-anchor="middle" font-family="var(--font-headline)" font-size="13" font-weight="700" fill="var(--on-surface)">Sujeto / Pensar</text>
+          <text x="130" y="168" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">Momento ideal</text>
+
+          <rect x="364" y="124" width="132" height="58" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5"/>
+          <text x="430" y="149" text-anchor="middle" font-family="var(--font-headline)" font-size="13" font-weight="700" fill="var(--on-surface)">Objeto / Naturaleza</text>
+          <text x="430" y="168" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">Momento real</text>
+
+          <text x="280" y="148" text-anchor="middle" font-family="var(--font-headline)" font-size="14" font-weight="700" fill="var(--primary)">La Idea</text>
+          <text x="280" y="167" text-anchor="middle" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--on-surface)">+A − A = 0</text>
+
+          <line x1="196" y1="145" x2="222" y2="145" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrow-claret)"/>
+          <line x1="364" y1="163" x2="338" y2="163" stroke="var(--secondary)" stroke-width="2" marker-end="url(#arrow-teal)"/>
+
+          <text x="280" y="232" text-anchor="middle" font-family="var(--font-body)" font-size="12" font-style="italic" fill="var(--on-surface)">Sin «más allá» inalcanzable: la negatividad supera la escisión dentro del saber</text>
+        `;
+      }
+
+      svg.innerHTML = inner;
+    }
+
+    function selectThinker(key) {
+      const data = THINKER_DATA[key];
+      if (!data) return;
+
+      const tabs = ['kant', 'jacobi', 'fichte', 'hegel'];
+      tabs.forEach(function(id) {
+        const btn = document.getElementById('tab-' + id);
+        if (btn) {
+          const active = (id === key);
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-selected', active ? 'true' : 'false');
+        }
+      });
+
+      const setField = function(id, text) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      };
+
+      setField('readout-tag', data.tag);
+      setField('readout-title', data.title);
+      setField('readout-summary', data.summary);
+      setField('readout-principle', data.principle);
+      setField('readout-faith', data.faith);
+      setField('readout-finite', data.finite);
+      setField('readout-verdict', data.verdict);
+      setField('readout-quote', data.quote);
+      setField('readout-cite', data.cite);
+      setField('diagram-caption', data.caption);
+
+      renderThinkerSvg(key);
+    }
+
+    function filterMatrix(dim) {
+      const buttons = ['all', 'conocimiento', 'fe', 'etica'];
+      buttons.forEach(function(id) {
+        const btn = document.getElementById('filter-' + id);
+        if (btn) btn.classList.toggle('is-active', id === dim);
+      });
+
+      const tbody = document.getElementById('matrix-body');
+      if (!tbody) return;
+      const rows = tbody.querySelectorAll('tr');
+      rows.forEach(function(row) {
+        const rowDim = row.getAttribute('data-dim');
+        if (dim === 'all') {
+          row.classList.remove('is-highlighted', 'is-dimmed');
+        } else if (rowDim === dim) {
+          row.classList.add('is-highlighted');
+          row.classList.remove('is-dimmed');
+        } else {
+          row.classList.remove('is-highlighted');
+          row.classList.add('is-dimmed');
+        }
+      });
+    }
+
+    let currentInfMode = 'bad';
+    let currentSteps = 4;
+
+    function setInfMode(mode) {
+      currentInfMode = mode;
+      const badBtn = document.getElementById('mode-bad');
+      const trueBtn = document.getElementById('mode-true');
+      if (badBtn) badBtn.classList.toggle('is-active', mode === 'bad');
+      if (trueBtn) trueBtn.classList.toggle('is-active', mode === 'true');
+      updateInfinitySim();
+    }
+
+    function syncStepsFromSlider(val) {
+      const parsed = Math.max(1, Math.min(10, parseInt(val, 10) || 1));
+      currentSteps = parsed;
+      const numInput = document.getElementById('input-steps');
+      if (numInput) numInput.value = parsed;
+      updateInfinitySim();
+    }
+
+    function syncStepsFromNumber(val) {
+      const parsed = Math.max(1, Math.min(10, parseInt(val, 10) || 1));
+      currentSteps = parsed;
+      const slider = document.getElementById('slider-steps');
+      if (slider) slider.value = parsed;
+      updateInfinitySim();
+    }
+
+    function updateInfinitySim() {
+      const svg = document.getElementById('sim-svg');
+      const formula = document.getElementById('sim-formula');
+      const expl = document.getElementById('sim-explanation');
+      const cap = document.getElementById('sim-caption');
+      if (!svg) return;
+
+      const n = currentSteps;
+
+      if (currentInfMode === 'bad') {
+        if (formula) formula.textContent = `Finito (n=${n} determinaciones) frente a Más Allá: brecha irreductible (Sollen)`;
+        if (expl) expl.textContent = `En la «mala infinitud» de la reflexión (Kant y Fichte), añadir ${n} determinaciones finitas no acerca al Absoluto: solo empuja la frontera hacia adelante. Al dejar lo infinito fuera de lo finito, lo infinito mismo queda limitado y finito.`;
+        if (cap) cap.textContent = `Progreso al infinito (n=${n}): cada segmento finito termina en un nuevo límite que posterga la reconciliación.`;
+
+        let blocks = '';
+        const startX = 28;
+        const stepW = 36;
+        for (let i = 0; i < n; i++) {
+          const x = startX + i * stepW;
+          blocks += `<rect x="${x}" y="122" width="${stepW - 4}" height="38" fill="var(--surface-container)" stroke="var(--outline)" stroke-width="1"/>`;
+          blocks += `<text x="${x + (stepW - 4) / 2}" y="145" text-anchor="middle" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--on-surface)">+B</text>`;
+        }
+        const frontierX = startX + n * stepW + 6;
+        svg.innerHTML = `
+          <title id="sim-svg-title">Simulación de la mala infinitud</title>
+          <desc id="sim-svg-desc">Línea de segmentos finitos separada de un más allá inalcanzable</desc>
+          <text x="28" y="34" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--primary)">INFINITUD DE LA IMAGINACIÓN (PROGRESO LINEAL)</text>
+          <line x1="28" y1="184" x2="532" y2="184" stroke="var(--outline-variant)" stroke-width="1"/>
+          ${blocks}
+          <line x1="${frontierX}" y1="74" x2="${frontierX}" y2="210" stroke="var(--primary)" stroke-width="2.5" stroke-dasharray="4 3"/>
+          <text x="${frontierX}" y="64" text-anchor="middle" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--primary)">LÍMITE (n=${n})</text>
+          <rect x="424" y="88" width="112" height="106" fill="var(--background)" stroke="var(--secondary)" stroke-width="1.5" stroke-dasharray="5 3"/>
+          <text x="480" y="130" text-anchor="middle" font-family="var(--font-headline)" font-size="14" font-weight="700" fill="var(--secondary)">Más Allá</text>
+          <text x="480" y="150" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">Fe / Deber ser</text>
+          <text x="480" y="168" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">(Inalcanzable)</text>
+          <text x="28" y="242" font-family="var(--font-body)" font-size="12" font-style="italic" fill="var(--on-surface-variant)">La oposición A frente a B permanece intacta: lo infinito queda fuera de la serie.</text>
+        `;
+      } else {
+        if (formula) formula.textContent = `Infinitu actu (n=${n} momentos internos): Todo que contiene sus determinaciones (+A − A = 0)`;
+        if (expl) expl.textContent = `En la verdadera infinitud (Spinoza asumido por Hegel), las ${n} determinaciones finitas no corren tras un Absoluto exterior: existen dentro de la totalidad como momentos negados en su aislamiento pero conservados en la unidad de la Idea.`;
+        if (cap) cap.textContent = `Círculo especulativo (n=${n}): centro y periferia coinciden; no hay «más allá» fuera de la razón.`;
+
+        let nodes = '';
+        const cx = 280;
+        const cy = 142;
+        const r = 82;
+        for (let i = 0; i < n; i++) {
+          const angle = (-Math.PI / 2) + (i * 2 * Math.PI) / n;
+          const nx = cx + Math.cos(angle) * r;
+          const ny = cy + Math.sin(angle) * r;
+          nodes += `<line x1="${cx}" y1="${cy}" x2="${nx.toFixed(1)}" y2="${ny.toFixed(1)}" stroke="var(--outline-variant)" stroke-width="1.2"/>`;
+          nodes += `<rect x="${(nx - 14).toFixed(1)}" y="${(ny - 11).toFixed(1)}" width="28" height="22" fill="var(--background)" stroke="var(--outline)" stroke-width="1.5"/>`;
+          nodes += `<text x="${nx.toFixed(1)}" y="${(ny + 4).toFixed(1)}" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="700" fill="var(--on-surface)">M${i + 1}</text>`;
+        }
+        svg.innerHTML = `
+          <title id="sim-svg-title">Simulación de la verdadera infinitud</title>
+          <desc id="sim-svg-desc">Círculo orgánico que contiene las determinaciones finitas como momentos internos</desc>
+          <text x="28" y="34" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">INFINITUD DEL INTELECTO / RAZÓN (INFINITU ACTU)</text>
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="var(--surface-container-low)" stroke="var(--primary)" stroke-width="2"/>
+          ${nodes}
+          <circle cx="${cx}" cy="${cy}" r="32" fill="var(--primary)" stroke="var(--on-surface)" stroke-width="1"/>
+          <text x="${cx}" y="${cy - 2}" text-anchor="middle" font-family="var(--font-headline)" font-size="12" font-weight="700" fill="var(--on-primary)">El Todo</text>
+          <text x="${cx}" y="${cy + 13}" text-anchor="middle" font-family="var(--font-label)" font-size="10" fill="var(--on-primary)">n=${n}</text>
+          <text x="28" y="256" font-family="var(--font-body)" font-size="12" font-style="italic" fill="var(--on-surface-variant)">Toda determinación es negación sobre el fondo de la totalidad, sin residuo irracional.</text>
+        `;
+      }
+    }
+
+    const GLOSSARY_ITEMS = [
+      {
+        term: `Reflexión`,
+        german: `Reflexion`,
+        def: `Operación por la que la conciencia vuelve sobre sí misma y se separa del objeto. En Fe y saber designa el rasgo común de Kant, Jacobi y Fichte: quedar atrapados en la dualidad sin alcanzar la unidad de la razón.`
+      },
+      {
+        term: `Entendimiento`,
+        german: `Verstand`,
+        def: `Facultad de los conceptos finitos y de las distinciones fijas. Hegel le reprocha ocupar indebidamente el lugar de la razón, convirtiendo lo finito en absoluto.`
+      },
+      {
+        term: `Razón`,
+        german: `Vernunft`,
+        def: `Capacidad especulativa de superar las escisiones del entendimiento, pensar la contradicción y conocer lo Absoluto sin relegarlo a la fe.`
+      },
+      {
+        term: `Escisión`,
+        german: `Entzweiung`,
+        def: `Desgarramiento propio de la filosofía moderna en dualismos insolubles: sujeto y objeto, ser y pensar, fenómeno y cosa en sí, finito e infinito.`
+      },
+      {
+        term: `Fe / Creencia`,
+        german: `Glauben`,
+        def: `Término doble: en Kant y Fichte designa la adhesión práctica a lo suprasensible vedado al saber; en Jacobi, además, la certeza inmediata en la existencia de los objetos sensibles.`
+      },
+      {
+        term: `Imaginación productiva`,
+        german: `Produktive Einbildungskraft`,
+        def: `Facultad kantiana que une sensibilidad y entendimiento. Hegel ve en ella el destello de verdadera razón en Kant, lamentando que la rebajara a mera capacidad subjetiva.`
+      },
+      {
+        term: `Infinitud (mala / actu)`,
+        german: `Unendlichkeit`,
+        def: `La «mala infinitud» opone lo infinito a lo finito en una serie sin término (Kant/Fichte); la verdadera infinitud (infinitu actu de Spinoza) integra lo finito en la totalidad.`
+      },
+      {
+        term: `Deber ser`,
+        german: `Sollen`,
+        def: `Exigencia moral vacía de Kant y Fichte («Yo debe ser igual a No-Yo») que posterga indefinidamente la reconciliación entre razón y realidad.`
+      },
+      {
+        term: `Nihilismo`,
+        german: `Nihilismus`,
+        def: `Reproche lanzado por Jacobi contra Fichte por someter el mundo sensible al Yo. Hegel replica que el nihilismo de Fichte es insuficiente por no disolver de verdad el dualismo empírico.`
+      },
+      {
+        term: `Nostalgia / Anhelo`,
+        german: `Sehnsucht`,
+        def: `Sentimiento propio del protestantismo subjetivo y de Jacobi: añorar lo eterno como un más allá ausente sin poder reconciliarse racionalmente con él.`
+      },
+      {
+        term: `Galimatías`,
+        german: `Galimathias`,
+        def: `Expresión irónica con la que Hegel describe la estrategia polémica de Jacobi, consistente en juzgar ideas racionales (Spinoza, Kant) con categorías del entendimiento finito para volverlas absurdas.`
+      },
+      {
+        term: `Seudoilustración`,
+        german: `Aufklärerei`,
+        def: `Neologismo de Hegel para criticar una Ilustración deformada y superficial que, al creer liquidar la religión, vació la razón y terminó restaurando la fe en el más allá.`
+      }
+    ];
+
+    function renderGlossary(items) {
+      const grid = document.getElementById('glossary-grid');
+      const emptyMsg = document.getElementById('glossary-empty');
+      if (!grid) return;
+
+      if (items.length === 0) {
+        grid.innerHTML = '';
+        if (emptyMsg) emptyMsg.style.display = 'block';
+        return;
+      }
+
+      if (emptyMsg) emptyMsg.style.display = 'none';
+      grid.innerHTML = items.map(function(item) {
+        return `<article class="glossary-entry">
+          <div class="glossary-term">${item.term} <span class="glossary-german">(${item.german})</span></div>
+          <p class="glossary-def">${item.def}</p>
+        </article>`;
+      }).join('');
+    }
+
+    function filterGlossary(query) {
+      const q = (query || '').trim().toLowerCase();
+      if (!q) {
+        renderGlossary(GLOSSARY_ITEMS);
+        return;
+      }
+      const filtered = GLOSSARY_ITEMS.filter(function(item) {
+        return item.term.toLowerCase().includes(q) ||
+               item.german.toLowerCase().includes(q) ||
+               item.def.toLowerCase().includes(q);
+      });
+      renderGlossary(filtered);
+    }
+
+    const QUIZ_QUESTIONS = [
+      {
+        q: `1. ¿Por qué afirma Hegel que la Ilustración volvió a convertir la filosofía en «sierva de la fe»?`,
+        options: [
+          `Porque prohibió la lectura de Spinoza en las universidades alemanas.`,
+          `Porque redujo la razón a entendimiento finito, dejando lo Absoluto como un más allá incognoscible.`,
+          `Porque adoptó íntegramente los milagros y dogmas de la teología escolástica.`
+        ],
+        correct: 1,
+        explain: `Exacto: al limitarse al entendimiento empírico, la razón ilustrada reconoció su nulidad ante lo Eterno y tuvo que cederlo a una fe fuera del saber.`
+      },
+      {
+        q: `2. ¿En qué punto de la filosofía de Kant vislumbra Hegel una auténtica idea especulativa de la razón?`,
+        options: [
+          `En la imaginación productiva como unidad sintética originaria de sensibilidad y entendimiento.`,
+          `En la demostración de que la felicidad empírica equivale a la virtud moral.`,
+          `En la separación definitiva entre la cosa en sí y los fenómenos sensibles.`
+        ],
+        correct: 0,
+        explain: `Correcto: Hegel valora la imaginación productiva (raíz común de categorías e intuición) como el núcleo especulativo que Kant luego abandona.`
+      },
+      {
+        q: `3. ¿Qué uso particular hace Jacobi del término fe (Glauben) que lo distingue de Kant y Fichte?`,
+        options: [
+          `Limita la fe exclusivamente a los postulados de la razón práctica matemática.`,
+          `Extiende la fe también a la certeza inmediata de las cosas finitas y sensibles.`,
+          `Elimina la fe por completo para sustituirla por el sistema de la identidad de Schelling.`
+        ],
+        correct: 1,
+        explain: `Exacto: mientras Kant y Fichte reservan la fe para lo suprasensible, Jacobi llama «fe» también a la creencia inmediata en la realidad empírica de los cuerpos.`
+      },
+      {
+        q: `4. ¿Qué significa el «viernes santo especulativo» con el que concluye Fe y saber?`,
+        options: [
+          `Un retorno nostálgico a la cristiandad medieval frente al avance científico.`,
+          `La renuncia definitiva de la filosofía a ocuparse de lo infinito y de la libertad.`,
+          `Asumir la muerte de la subjetividad aislada y del Dios exterior para que resucite la totalidad racional.`
+        ],
+        correct: 2,
+        explain: `Correcto: solo atravesando conceptualmente la dureza de esa negatividad («Dios mismo ha muerto») puede superarse la escisión y resucitar la totalidad.`
+      }
+    ];
+
+    const quizAnswers = {};
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      if (!container) return;
+
+      container.innerHTML = QUIZ_QUESTIONS.map(function(item, qIdx) {
+        const answered = quizAnswers[qIdx];
+        const optsHtml = item.options.map(function(opt, oIdx) {
+          let cls = 'quiz-opt';
+          if (answered !== undefined) {
+            if (oIdx === item.correct) cls += ' is-correct';
+            else if (oIdx === answered) cls += ' is-wrong';
+          }
+          return `<button type="button" class="${cls}" ${answered !== undefined ? 'disabled' : ''} onclick="answerQuiz(${qIdx}, ${oIdx})">${opt}</button>`;
+        }).join('');
+
+        let feedbackHtml = '';
+        if (answered !== undefined) {
+          const isOk = answered === item.correct;
+          feedbackHtml = `<div class="quiz-feedback ${isOk ? 'ok' : 'err'}">${isOk ? 'Acertado. ' : 'Revisa este matiz: '}${item.explain}</div>`;
+        }
+
+        return `<article class="quiz-card">
+          <h4 style="font-family: var(--font-headline); font-weight: 700; font-size: 1.0625rem; line-height: 1.3;">${item.q}</h4>
+          <div class="quiz-options">${optsHtml}</div>
+          ${feedbackHtml}
+        </article>`;
+      }).join('');
+
+      updateQuizScore();
+    }
+
+    function answerQuiz(qIdx, oIdx) {
+      if (quizAnswers[qIdx] !== undefined) return;
+      quizAnswers[qIdx] = oIdx;
+      renderQuiz();
+    }
+
+    function updateQuizScore() {
+      const scoreEl = document.getElementById('quiz-score');
+      if (!scoreEl) return;
+      const keys = Object.keys(quizAnswers);
+      let hits = 0;
+      keys.forEach(function(k) {
+        const idx = parseInt(k, 10);
+        if (quizAnswers[idx] === QUIZ_QUESTIONS[idx].correct) hits++;
+      });
+      scoreEl.textContent = `Progreso: ${keys.length} de ${QUIZ_QUESTIONS.length} respondidas · ${hits} aciertos`;
+    }
+
+    function resetQuiz(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = 'Confirmar reinicio';
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = 'Reiniciar cuestionario';
+      Object.keys(quizAnswers).forEach(function(k) { delete quizAnswers[k]; });
+      renderQuiz();
+    }
+
+    function initReveals() {
+      const els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function(el) { el.classList.add('is-visible'); });
+        return;
+      }
+      const obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      els.forEach(function(el) { obs.observe(el); });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      selectThinker('kant');
+      updateInfinitySim();
+      renderGlossary(GLOSSARY_ITEMS);
+      renderQuiz();
+      initReveals();
+    });
+  </script>
+</body>
+</html>
