@@ -1,0 +1,2727 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>Jugarse la piel — Asimetrías ocultas en la vida cotidiana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      /* Ink */
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      /* Rules */
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      /* Accents */
+      --primary: #990f3d;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      /* Fonts */
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* Shared semantic tokens */
+      --positive: #1f5f3b;
+      --warning: #8a5300;
+      --focus: var(--primary);
+
+      /* Narrative type scale */
+      --display-size: clamp(2.35rem, 1.4rem + 3.4vw, 3.85rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.8vw, 2.35rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.15rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { overflow-x: clip; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      font-optical-sizing: auto;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1120px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-size: var(--display-size);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      font-weight: 700;
+      line-height: 1.18;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 66ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .lede {
+      font-family: var(--font-body);
+      font-size: clamp(1.1875rem, 1.08rem + 0.4vw, 1.35rem);
+      line-height: 1.48;
+      color: var(--on-surface-variant);
+      max-width: 58ch;
+      margin-top: var(--space-md);
+      margin-bottom: 0;
+    }
+
+    .label-text {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+    }
+
+    .tag-on-panel {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+    }
+
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+      margin-block: var(--space-lg);
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.45rem);
+      line-height: 1.38;
+      color: var(--on-surface);
+      max-width: 54ch;
+    }
+    .pull-quote cite {
+      display: block;
+      margin-top: var(--space-sm);
+      font-style: normal;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+
+    .figure-num {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-variant-numeric: lining-nums tabular-nums;
+      font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.35rem);
+      line-height: 1.05;
+      color: var(--on-surface);
+    }
+
+    /* Masthead & top index */
+    .masthead-line {
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm) var(--space-lg);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+    .masthead-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-md);
+      padding-top: var(--space-md);
+      border-top: var(--rule-column);
+      margin-top: var(--space-lg);
+    }
+    .masthead-nav a {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-block: var(--space-xs);
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .masthead-nav a:hover {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* Section structure */
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .section-header {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .section-lead-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Broadsheet hairline columns */
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-column);
+      border-bottom: var(--rule-column);
+      padding-block: var(--space-md);
+    }
+    .columns-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .columns > * {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .columns > :last-child {
+      padding-right: 0;
+    }
+
+    /* Rare filled interactive module panel */
+    .module-panel {
+      background-color: var(--surface-container-low);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .module-panel-dense {
+      background-color: var(--surface-container);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .aside-ruled {
+      border-left: 2px solid var(--primary);
+      padding-left: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    /* Controls, buttons, inputs */
+    button, input, select {
+      font-family: inherit;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: 0 var(--space-md);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+    }
+    .btn-secondary {
+      background-color: var(--background);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background-color: var(--surface-container-high);
+    }
+    .btn-toggle {
+      background-color: var(--background);
+      color: var(--on-surface);
+      border: 1px solid var(--outline);
+    }
+    .btn-toggle.active {
+      background-color: var(--on-surface);
+      color: var(--background);
+      border-color: var(--on-surface);
+    }
+    .btn:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: end;
+    }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md) var(--space-lg);
+      align-items: end;
+    }
+    .control-field {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .control-field label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .slider-pair {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 82px;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      height: 44px;
+      margin: 0;
+      cursor: pointer;
+    }
+    input[type="number"], select {
+      min-height: 44px;
+      padding: 0 var(--space-sm);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      font-variant-numeric: tabular-nums;
+    }
+    select {
+      padding-right: var(--space-lg);
+      cursor: pointer;
+    }
+    input[type="number"]:focus, select:focus {
+      border-color: var(--primary);
+      outline: 2px solid var(--primary);
+      outline-offset: 1px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      cursor: pointer;
+    }
+    .checkbox-row input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .checkbox-row span {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--on-surface);
+    }
+
+    /* Moral symmetry ladder */
+    .ladder-tabs {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+    }
+    .ladder-tab {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--background);
+      color: var(--on-surface);
+      border: 0;
+      border-left: var(--rule-column);
+      text-align: left;
+      cursor: pointer;
+      display: grid;
+      gap: 2px;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .ladder-tab:first-child { border-left: 0; }
+    .ladder-tab:hover { background-color: var(--surface-container-low); }
+    .ladder-tab.active {
+      background-color: var(--on-surface);
+      color: var(--background);
+    }
+    .ladder-tab .step-code {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+    .ladder-tab.active .step-code {
+      color: var(--primary-container);
+    }
+    .ladder-tab .step-name {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 0.95rem;
+      line-height: 1.2;
+    }
+
+    .ladder-detail {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      padding-top: var(--space-md);
+    }
+
+    /* Expandable cards (Tarjetas desplegables) */
+    .accordion-list {
+      border-top: var(--rule-ink);
+    }
+    .accordion-item {
+      border-bottom: var(--rule-column);
+    }
+    .accordion-trigger {
+      width: 100%;
+      min-height: 52px;
+      padding: var(--space-md) 0;
+      background: transparent;
+      border: 0;
+      text-align: left;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: center;
+      color: var(--on-surface);
+      transition: color var(--dur-micro) var(--ease-out);
+    }
+    .accordion-trigger:hover {
+      color: var(--primary);
+    }
+    .accordion-head {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .accordion-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.15rem;
+      line-height: 1.22;
+    }
+    .accordion-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--outline);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .accordion-trigger[aria-expanded="true"] .accordion-icon {
+      background-color: var(--on-surface);
+      color: var(--background);
+    }
+    .accordion-body {
+      padding: 0 0 var(--space-md) 0;
+      display: none;
+    }
+    .accordion-body.open {
+      display: grid;
+      gap: var(--space-md);
+      animation: fadeSlide var(--dur-short) var(--ease-out);
+    }
+
+    .compare-two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+      border-top: var(--rule-column);
+      padding-top: var(--space-md);
+    }
+
+    /* Charts */
+    .chart-block {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .chart-header {
+      display: grid;
+      gap: 2px;
+    }
+    .chart-header h4 {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .chart-sub {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+    }
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+      min-height: 320px;
+      height: 320px;
+      background-color: var(--background);
+      border-top: var(--rule-column);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-sm) 0;
+    }
+    .chart-source {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Minority Rule 10x10 Grid */
+    .minority-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .agent-matrix {
+      display: grid;
+      grid-template-columns: repeat(10, minmax(0, 1fr));
+      gap: 4px;
+      padding: var(--space-md);
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+    }
+    .agent-cell {
+      aspect-ratio: 1 / 1;
+      border: 1px solid var(--outline-variant);
+      background-color: var(--background);
+      transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .agent-cell.minority {
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+    .agent-cell.conformed {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+    }
+    .agent-cell.majority-flex {
+      background-color: var(--surface-container-high);
+      border-color: var(--outline);
+    }
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-top: var(--space-sm);
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+    .legend-swatch {
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+      border: 1px solid var(--outline);
+    }
+    .swatch-minority { background-color: var(--primary); border-color: var(--primary); }
+    .swatch-conformed { background-color: var(--secondary); border-color: var(--secondary); }
+    .swatch-flex { background-color: var(--surface-container-high); }
+    .swatch-open { background-color: var(--background); }
+
+    /* Broadsheet table */
+    .table-scroll {
+      overflow-x: auto;
+      width: 100%;
+    }
+    table.broadsheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    .broadsheet-table thead th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: left;
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      color: var(--on-surface);
+    }
+    .broadsheet-table tbody td {
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+    }
+    .broadsheet-table tbody tr:last-child td {
+      border-bottom: var(--rule-ink);
+    }
+    .broadsheet-table td.num, .broadsheet-table th.num {
+      text-align: right;
+      font-variant-numeric: lining-nums tabular-nums;
+      padding-right: 0;
+    }
+
+    /* Decision Simulator */
+    .scenario-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      border-bottom: var(--rule-ink);
+      padding-bottom: var(--space-md);
+    }
+    .scenario-pill {
+      min-height: 44px;
+      padding: 0 var(--space-md);
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+    }
+    .scenario-pill.current {
+      background-color: var(--on-surface);
+      color: var(--background);
+    }
+    .scenario-pill.answered-ok {
+      border-bottom: 3px solid var(--positive);
+    }
+    .scenario-pill.answered-trap {
+      border-bottom: 3px solid var(--primary);
+    }
+
+    .choice-list {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .choice-btn {
+      width: 100%;
+      min-height: 48px;
+      padding: var(--space-md);
+      text-align: left;
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      color: var(--on-surface);
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: var(--space-sm);
+      align-items: start;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .choice-btn:hover {
+      background-color: var(--surface-container-high);
+    }
+    .choice-btn.selected-ok {
+      background-color: var(--primary-container);
+      border-color: var(--positive);
+      border-left: 4px solid var(--positive);
+    }
+    .choice-btn.selected-trap {
+      background-color: var(--primary-container);
+      border-color: var(--primary);
+      border-left: 4px solid var(--primary);
+    }
+    .choice-letter {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      color: var(--primary);
+      padding-top: 2px;
+    }
+
+    .feedback-box {
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      background-color: var(--background);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .status-good { color: var(--positive); }
+    .status-bad { color: var(--primary); }
+    .status-warn { color: var(--warning); }
+
+    /* Footer */
+    footer.colophon {
+      border-top: var(--rule-section);
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-2xl);
+      display: grid;
+      gap: var(--space-sm);
+      color: var(--on-surface-variant);
+      font-size: 0.9375rem;
+    }
+
+    /* Reveal animation */
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .section-lead-grid,
+      .minority-layout,
+      .ladder-detail,
+      .compare-two {
+        grid-template-columns: 1fr;
+      }
+      .columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-md);
+      }
+      .columns-3 {
+        grid-template-columns: 1fr;
+      }
+      .columns > * {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-sm) 0 0 0;
+      }
+      .columns > :first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .ladder-tabs {
+        grid-template-columns: 1fr;
+      }
+      .ladder-tab {
+        border-left: 0;
+        border-top: var(--rule-column);
+      }
+      .ladder-tab:first-child { border-top: 0; }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: 1fr;
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .columns {
+        grid-template-columns: 1fr;
+      }
+      .slider-pair {
+        grid-template-columns: 1fr;
+      }
+      .chart-wrap {
+        min-height: 270px;
+        height: 270px;
+      }
+      aside { display: block; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid">
+
+    <!-- MASTHEAD -->
+    <header class="masthead">
+      <div class="masthead-line">
+        <span>Incerto · Tratado interactivo sobre riesgo y simetría</span>
+        <span>Basado en «Jugarse la piel» de Nassim Nicholas Taleb</span>
+      </div>
+      <div style="padding-top: var(--space-lg);">
+        <span class="tag">Epistemología práctica · Ética · Teoría del riesgo</span>
+        <h1 style="margin-top: var(--space-xs);">Jugarse la piel: la simetría que sostiene la realidad</h1>
+        <p class="lede">No basta con opinar desde la tribuna ni diseñar modelos sin riesgo propio. Taleb demuestra cómo el aprendizaje real, la justicia y la supervivencia colectiva dependen de que quienes deciden paguen el precio de sus errores.</p>
+      </div>
+      <nav class="masthead-nav" aria-label="Índice de secciones">
+        <a href="#intro">I. Anteo y simetría</a>
+        <a href="#agencia">II. Problema de agencia</a>
+        <a href="#minoria">III. Minoría intransigente</a>
+        <a href="#ipi">IV. El IPI</a>
+        <a href="#ergodicidad">V. Ergodicidad y ruina</a>
+        <a href="#lindy">VI. Lindy y vía negativa</a>
+        <a href="#simulador">VII. Simulador de decisiones</a>
+      </nav>
+    </header>
+
+    <!-- SECCIÓN I: ANTEO Y SIMETRÍA MORAL -->
+    <section id="intro" class="section-open">
+      <div class="section-header">
+        <span class="section-label">Libro I · Prólogo: Anteo vapuleado</span>
+        <h2>El conocimiento no puede separarse del contacto con la tierra</h2>
+      </div>
+
+      <div class="section-lead-grid">
+        <div>
+          <p>En la mitología griega, el gigante Anteo —hijo de Poseidón y de Gea, la Tierra— era invencible mientras mantuviera los pies sobre el suelo. Hércules solo logró vencerlo al levantarlo en el aire y privarlo de ese contacto. Para Taleb, esa es la metáfora central de la modernidad: cuando separamos una teoría, una política o una opinión financiera del riesgo de sufrir sus consecuencias, perdemos el contacto con la realidad.</p>
+          <p>Jugarse la piel no es simplemente tener «incentivos» para ganar dinero; es un filtro de <strong>simetría en los perjuicios</strong>. Los griegos lo llamaban <em>pathemata mathemata</em>: guiar el aprendizaje a través del dolor. Por eso, en las calles y en los mercados reales rige una máxima opuesta a la cháchara académica: «No me digas lo que piensas; dime lo que hay en tu cartera».</p>
+        </div>
+        <aside class="aside-ruled">
+          <span class="tag">Principio de realidad</span>
+          <h3>«La maldición de la modernidad es estar colonizados por personas cuya capacidad para explicar supera a su capacidad de comprensión.»</h3>
+          <p style="font-size: 0.95rem; color: var(--on-surface-variant);">Los sistemas no aprenden mediante conferencias ni discursos morales, sino por eliminación (<em>via negativa</em>): el mal piloto o el diseño frágil desaparecen al chocar contra la realidad.</p>
+        </aside>
+      </div>
+
+      <div class="columns" aria-label="Cuatro pilares de Jugarse la piel">
+        <div>
+          <span class="tag">Pilar 01</span>
+          <h3 style="margin-top: var(--space-xs);">Detección de mierda</h3>
+          <p style="font-size: 0.95rem; margin-top: var(--space-xs);">Distingue el conocimiento real (probado por el daño) de la erudición cosmética y la charlatanería.</p>
+        </div>
+        <div>
+          <span class="tag">Pilar 02</span>
+          <h3 style="margin-top: var(--space-xs);">Simetría y justicia</h3>
+          <p style="font-size: 0.95rem; margin-top: var(--space-xs);">Quien captura recompensas debe absorber pérdidas; transferir el riesgo oculto equivale a robar.</p>
+        </div>
+        <div>
+          <span class="tag">Pilar 03</span>
+          <h3 style="margin-top: var(--space-xs);">Igualdad en incertidumbre</h3>
+          <p style="font-size: 0.95rem; margin-top: var(--space-xs);">En una transacción honesta, vendedor y comprador comparten la misma información relevante (prohibición de <em>gharar</em>).</p>
+        </div>
+        <div>
+          <span class="tag">Pilar 04</span>
+          <h3 style="margin-top: var(--space-xs);">Racionalidad y tiempo</h3>
+          <p style="font-size: 0.95rem; margin-top: var(--space-xs);">Lo racional no es lo «lógico» sobre el papel, sino aquello que permite sobrevivir en el tiempo sin ruina.</p>
+        </div>
+      </div>
+
+      <!-- MÓDULO INTERACTIVO 1: LA ESCALERA DE LA SIMETRÍA MORAL -->
+      <div class="module-panel" aria-labelledby="ladder-heading">
+        <div>
+          <span class="tag-on-panel">Explorador histórico · Cuadro 1 del libro</span>
+          <h3 id="ladder-heading" style="margin-top: var(--space-xs);">Evolución de la simetría moral: de Hammurabi a Tony el Gordo</h3>
+          <p style="font-size: 0.95rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">Selecciona cada peldaño histórico para examinar cómo evoluciona la regla de reciprocidad y por qué la <strong>Regla de plata</strong> supera al universalismo abstracto de Kant.</p>
+        </div>
+
+        <div class="ladder-tabs" role="tablist" aria-label="Peldaños de simetría moral">
+          <button type="button" class="ladder-tab active" role="tab" aria-selected="true" id="tab-ladder-0" onclick="selectLadderStep(0)">
+            <span class="step-code">01 · ~1750 a. C.</span>
+            <span class="step-name">Hammurabi / Lex Talionis</span>
+          </button>
+          <button type="button" class="ladder-tab" role="tab" aria-selected="false" id="tab-ladder-1" onclick="selectLadderStep(1)">
+            <span class="step-code">02 · Antigüedad</span>
+            <span class="step-name">Levítico 19, 18</span>
+          </button>
+          <button type="button" class="ladder-tab" role="tab" aria-selected="false" id="tab-ladder-2" onclick="selectLadderStep(2)">
+            <span class="step-code">03 · Regla de oro</span>
+            <span class="step-name">Mateo 7, 12</span>
+          </button>
+          <button type="button" class="ladder-tab" role="tab" aria-selected="false" id="tab-ladder-3" onclick="selectLadderStep(3)">
+            <span class="step-code">04 · Vía negativa</span>
+            <span class="step-name">Regla de plata</span>
+          </button>
+          <button type="button" class="ladder-tab" role="tab" aria-selected="false" id="tab-ladder-4" onclick="selectLadderStep(4)">
+            <span class="step-code">05 · Escala vs. abstracto</span>
+            <span class="step-name">Kant y Tony el Gordo</span>
+          </button>
+        </div>
+
+        <div id="ladder-content" class="ladder-detail" role="tabpanel" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN II: PROBLEMA DE AGENCIA Y COMERCIO A LO BOB RUBIN -->
+    <section id="agencia" class="section-open">
+      <div class="section-header">
+        <span class="section-label">Libro I y II · Agencia y asimetría de colas</span>
+        <h2>El «comercio a lo Bob Rubin»: privatizar las ganancias y socializar la ruina</h2>
+      </div>
+
+      <div class="section-lead-grid">
+        <div>
+          <p>Hace 3.800 años, el Código de Hammurabi ya combatía el riesgo oculto con una sentencia directa: «Si un constructor erige una casa y la casa se derrumba y mata a su propietario, el constructor será condenado a muerte». La razón era probabilística: solo el arquitecto sabe dónde enterró una vulnerabilidad de baja frecuencia y alto impacto (una <em>cola</em>).</p>
+          <p>En 2008 ocurrió exactamente lo opuesto. Robert Rubin, exsecretario del Tesoro estadounidense, cobró más de 120 millones de dólares de Citibank en la década previa al crac bancario. Cuando el banco quebró por riesgos explosivos ocultos, no devolvió sus ingresos: invocó un «cisne negro» imprevisible y el rescate recayó sobre los contribuyentes comunes —profesores, panaderos y especialistas en gramática española—. A esa ruptura del problema de agencia Taleb la bautiza como <strong>comercio a lo Bob Rubin</strong>.</p>
+        </div>
+        <aside class="aside-ruled">
+          <span class="tag">Frontera moral y comercial</span>
+          <h3>La prohibición de «gharar»</h3>
+          <p style="font-size: 0.95rem;">La ley comercial mediterránea antigua —preservada en la <em>sharía</em> mediante la prohibición de <em>gharar</em>— exige igualdad en la incertidumbre: si ocultas un defecto grave en el coche usado que vendes o trasladas una pérdida latente a tu cliente, la asimetría equivale al robo.</p>
+        </aside>
+      </div>
+
+      <!-- TARJETAS DESPLEGABLES: CUADRO 2 ASIMETRÍAS EN LA SOCIEDAD -->
+      <div>
+        <span class="section-label">Tarjetas desplegables · Cuadro 2 del libro</span>
+        <h3>Tres formas de situarse frente al riesgo ajeno</h3>
+        <div class="accordion-list" style="margin-top: var(--space-sm);">
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-head">
+                <span class="tag">Categoría A · Riesgo transferido</span>
+                <span class="accordion-title">1. Quienes no se juegan la piel (burócratas, intervencionistas y banqueros rescatados)</span>
+              </span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-body">
+              <p>Conservan los beneficios visibles, cobran primas anuales o gozan de prestigio institucional mientras transfieren los perjuicios ocultos a terceros. Poseen una «opción gratuita» a costa de la sociedad.</p>
+              <p><strong>Ejemplo del libro:</strong> Los intervencionistas de escritorio que promovieron cambios de régimen en Irak (2003) y Libia (2011) desde oficinas climatizadas. Cuando Libia terminó con mercados de esclavos en párkings, ellos siguieron opinando sin coste personal.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-head">
+                <span class="tag">Categoría B · Simetría directa</span>
+                <span class="accordion-title">2. Quienes se juegan la piel (artesanos, emprendedores, fondos con patrimonio propio)</span>
+              </span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-body">
+              <p>Conservan sus beneficios pero asumen plenamente sus propias pérdidas. La exposición directa al error los mantiene humildes, elimina las soluciones innecesariamente complejas y los obliga a leer la letra pequeña.</p>
+              <p><strong>Ejemplo del libro:</strong> Los gestores de fondos de cobertura descentralizados que mantienen al menos la mitad de su patrimonio neto invertido en el propio fondo: si el barco se hunde, se hunden con él. Igual que el fontanero, el taxista o el médico expuesto a responsabilidad real.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-head">
+                <span class="tag">Categoría C · Poner el alma en juego</span>
+                <span class="accordion-title">3. Quienes se juegan la piel por otros (héroes, santos y líderes de primera línea)</span>
+              </span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-body">
+              <p>Asumen voluntariamente las desventajas o el peligro físico en beneficio de su comunidad o por valores universales. La legitimidad histórica de los reyes y señores nacía precisamente de este contrato.</p>
+              <p><strong>Ejemplo del libro:</strong> Solo el 30 % de los emperadores romanos murió en su lecho. Juliano el Apóstata cayó en combate con una lanza persa tras prescindir de su armadura; Constantino XI Paleólogo se arrancó la toga púrpura para cargar contra las tropas turcas; y el príncipe Andrés voló en primera línea en 1982 porque <em>nobleza obliga</em>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIMULACIÓN 1: BOB RUBIN VS HAMMURABI -->
+      <div class="module-panel" aria-labelledby="rubin-sim-title">
+        <div style="display: grid; gap: var(--space-xs);">
+          <span class="tag-on-panel">Simulación práctica 01 · Modelo de colas ocultas</span>
+          <h3 id="rubin-sim-title">Simulador de Agencia: Comercio a lo Bob Rubin vs. Simetría de Hammurabi</h3>
+          <p style="font-size: 0.95rem; color: var(--on-surface-variant);">Compara qué ocurre durante diez años cuando un gestor acumula riesgos de cola ocultos («gana a menudo en pequeña cuantía, pierde todo una vez») bajo dos regímenes de responsabilidad distintos.</p>
+        </div>
+
+        <div class="controls-grid">
+          <div class="control-field">
+            <label for="rubin-regime">Régimen de responsabilidad</label>
+            <select id="rubin-regime" onchange="runRubinSimulation()">
+              <option value="rubin">Comercio a lo Bob Rubin (conserva bonos, tercero paga rescate)</option>
+              <option value="hammurabi">Regla de Hammurabi (devuelve bonos y responde con patrimonio)</option>
+            </select>
+          </div>
+
+          <div class="control-field">
+            <label for="rubin-tail-input">Probabilidad anual de evento de cola oculto (%)</label>
+            <div class="slider-pair">
+              <input type="range" id="rubin-tail-slider" min="2" max="20" step="1" value="8" oninput="syncRubinSlider(this.value)">
+              <input type="number" id="rubin-tail-input" min="2" max="20" step="1" value="8" oninput="syncRubinInput(this.value)">
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" onclick="runRubinSimulation()">Simular nueva década (10 años)</button>
+          </div>
+        </div>
+
+        <div class="columns columns-3" style="border-top: var(--rule-ink); border-bottom: var(--rule-ink);">
+          <div>
+            <span class="tag-on-panel">Patrimonio neto del agente</span>
+            <div id="rubin-agent-net" class="figure-num" style="margin-top: var(--space-xs);">+0 M$</div>
+            <p id="rubin-agent-note" style="font-size: 0.875rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">Bonos netos tras 10 años.</p>
+          </div>
+          <div>
+            <span class="tag-on-panel">Pérdida transferida al contribuyente</span>
+            <div id="rubin-public-loss" class="figure-num" style="margin-top: var(--space-xs);">0 M$</div>
+            <p id="rubin-public-note" style="font-size: 0.875rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">Coste del rescate sistémico.</p>
+          </div>
+          <div>
+            <span class="tag-on-panel">Diagnóstico del sistema</span>
+            <div id="rubin-verdict" class="figure-num" style="font-size: 1.35rem; margin-top: var(--space-xs);">—</div>
+            <p id="rubin-verdict-note" style="font-size: 0.875rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">Evaluación de simetría.</p>
+          </div>
+        </div>
+
+        <div class="chart-block">
+          <div class="chart-header">
+            <h4>Flujo acumulado de compensaciones del agente frente al daño sistémico (Millones $)</h4>
+            <p class="chart-sub">Barras claret: resultado neto del gestor. Línea petróleo/teal: impacto acumulado soportado por la sociedad.</p>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="rubin-chart"></canvas>
+          </div>
+          <span class="chart-source">Modelo conceptual basado en la Figura 7 (Comercio a lo Bob Rubin) y el caso Indy Mac (Figura 8).</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN III: REGLA DE LA MINORÍA INTRANSIGENTE -->
+    <section id="minoria" class="section-open">
+      <div class="section-header">
+        <span class="section-label">Libro III · Esa enorme asimetría</span>
+        <h2>Gana el más intolerante: cómo un 3–4 % dicta la regla para el 100 %</h2>
+      </div>
+
+      <div class="section-lead-grid">
+        <div>
+          <p>En los sistemas complejos el todo no se comporta como la suma ni el promedio de sus partes: importan las interacciones. En una barbacoa del Instituto de Sistemas Complejos, Taleb notó que una limonada común llevaba impresa una diminuta «U» dentro de un círculo: era <em>kósher</em>. Quien come <em>kósher</em> nunca beberá algo no <em>kósher</em>, mientras que quien no sigue esa dieta puede beber perfectamente algo <em>kósher</em>.</p>
+          <p>Esa asimetría binaria explica por qué la sociedad no evoluciona por consenso ni votación mayoritaria. Si el coste de mantener dos líneas de producción separadas es mayor que estandarizar bajo la norma estricta, basta con que una minoría intransigente supere un umbral diminuto (alrededor del <strong>3 % al 4 %</strong>) para que toda la oferta se adapte. Un observador ingenuo pensará que es la preferencia de la mayoría; en realidad, el mercado funciona como «un cine con una puerta diminuta» donde la obstinación asimétrica fija el precio y la regla.</p>
+        </div>
+        <aside class="aside-ruled">
+          <span class="tag">Paradoja de la intolerancia</span>
+          <h3>Baja varianza y dominio binario</h3>
+          <p style="font-size: 0.95rem;">Un grupo que aplica una regla binaria estricta (<em>halal/haram</em>, no fumador frente a fumador, alergia al cacahuete en colegios) estabiliza el resultado colectivo más rápido que una mayoría flexible, pero también exige vigilancia: ser tolerante con minorías intolerantes que niegan la reciprocidad conduce al suicidio de la sociedad abierta.</p>
+        </aside>
+      </div>
+
+      <!-- SIMULACIÓN 2: LABORATORIO DE MINORÍA INTRANSIGENTE -->
+      <div class="module-panel" aria-labelledby="minority-sim-title">
+        <div>
+          <span class="tag-on-panel">Simulación interactiva 02 · Propiedad emergente de renormalización</span>
+          <h3 id="minority-sim-title" style="margin-top: var(--space-xs);">Matriz de 100 agentes: umbral de imposición de la minoría</h3>
+          <p style="font-size: 0.95rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">Ajusta el porcentaje de minoría intransigente y cambia la naturaleza de la regla para observar cuándo un grupo minúsculo reconfigura todo el sistema colectivo.</p>
+        </div>
+
+        <div class="controls-grid">
+          <div class="control-field">
+            <label for="minority-pct-input">Tamaño de la minoría (%)</label>
+            <div class="slider-pair">
+              <input type="range" id="minority-pct-slider" min="0" max="15" step="1" value="4" oninput="syncMinoritySlider(this.value)">
+              <input type="number" id="minority-pct-input" min="0" max="15" step="1" value="4" oninput="syncMinorityInput(this.value)">
+            </div>
+          </div>
+
+          <div class="control-field">
+            <label for="minority-rule">Naturaleza de la regla</label>
+            <select id="minority-rule" onchange="updateMinorityGrid()">
+              <option value="asymmetric">Asimétrica estricta (Kósher / No fumador / Alergia)</option>
+              <option value="symmetric">Simétrica flexible (Preferencia común negociable)</option>
+            </select>
+          </div>
+
+          <div class="control-field">
+            <label for="minority-domain">Escenario de aplicación</label>
+            <select id="minority-domain" onchange="updateMinorityGrid()">
+              <option value="drinks">Bebidas en supermercado / evento (Kósher)</option>
+              <option value="smoke">Sección de fumadores vs. no fumadores</option>
+              <option value="market">Orden obstinada en mercado bursátil</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="minority-layout">
+          <div>
+            <div id="agent-matrix" class="agent-matrix" aria-label="Matriz de 100 participantes"></div>
+            <div class="legend-row">
+              <span class="legend-item"><span class="legend-swatch swatch-minority"></span>Minoría intransigente</span>
+              <span class="legend-item"><span class="legend-swatch swatch-conformed"></span>Mayoría que adopta la regla</span>
+              <span class="legend-item"><span class="legend-swatch swatch-flex"></span>Convivencia dividida</span>
+              <span class="legend-item"><span class="legend-swatch swatch-open"></span>Sin restricción</span>
+            </div>
+          </div>
+
+          <div style="display: grid; gap: var(--space-md);">
+            <div style="border-top: var(--rule-ink); border-bottom: var(--rule-ink); padding-block: var(--space-md); display: grid; gap: var(--space-xs);">
+              <span class="tag-on-panel">Adopción efectiva del sistema</span>
+              <div id="minority-adoption-num" class="figure-num">100 %</div>
+              <p id="minority-explanation" style="font-size: 0.95rem; margin-top: var(--space-xs);"></p>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--on-surface-variant);"><strong>Regla de Taleb:</strong> Los no fumadores no pueden permanecer en zonas de fumadores, pero los fumadores sí pueden estar en zonas libres de humo. Por eso, al superar el ~3–4 %, la minoría asimétrica domina todo el espacio.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN IV: EL INTELECTUAL PERO IDIOTA (IPI) -->
+    <section id="ipi" class="section-open">
+      <div class="section-header">
+        <span class="section-label">Libro V · Capítulo 6 y Libro VI</span>
+        <h2>El Intelectual Pero Idiota (IPI): razonamiento de primer orden sin cicatrices</h2>
+      </div>
+
+      <div class="section-lead-grid">
+        <div>
+          <p>El <strong>IPI</strong> es un producto característico de la modernidad burocrática: personas con credenciales prestigiosas cuya habilidad para aprobar exámenes y publicar artículos que leen otros IPI les hace creer que saben qué debemos comer, cómo debemos hablar y a quién votar. Pueden comprender mecanismos lineales de primer orden, pero son ciegos ante las interacciones de segundo orden, la ergodicidad y el riesgo oculto.</p>
+          <p>Quien no se juega la piel complica las cosas porque se le recompensa por la <em>percepción de sofisticación</em> y no por los resultados reales. Cuando el diseño se separa del usuario —como el ingeniero que nunca viaja en el tren cuyo reposavasos rediseñó—, las consecuencias son absurdas o catastróficas.</p>
+        </div>
+        <aside class="aside-ruled">
+          <span class="tag">Indicador inequívoco</span>
+          <h3>«El cirujano no debe parecer un cirujano»</h3>
+          <p style="font-size: 0.95rem;">Entre dos cirujanos de igual currículo, Taleb elige al que <em>menos</em> se parece a un actor de televisión haciendo de cirujano: quien carece del aspecto cosmético del cargo tuvo que superar filtros reales de competencia para llegar allí.</p>
+        </aside>
+      </div>
+
+      <!-- TARJETAS DESPLEGABLES CON FILTRO: DETECTOR DE IPI -->
+      <div>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--space-md); margin-bottom: var(--space-md);">
+          <div>
+            <span class="section-label">Tarjetas desplegables · Contraste empírico</span>
+            <h3>Seis choques entre la lógica del IPI y el mundo real</h3>
+          </div>
+          <div class="btn-row" role="group" aria-label="Filtrar casos de IPI">
+            <button type="button" class="btn btn-toggle active" id="filter-all" onclick="filterIpiCards('all', this)">Todos (6)</button>
+            <button type="button" class="btn btn-toggle" id="filter-politica" onclick="filterIpiCards('politica', this)">Política</button>
+            <button type="button" class="btn btn-toggle" id="filter-diseno" onclick="filterIpiCards('diseno', this)">Diseño y empresa</button>
+            <button type="button" class="btn btn-toggle" id="filter-ciencia" onclick="filterIpiCards('ciencia', this)">Ciencia y salud</button>
+          </div>
+        </div>
+
+        <div id="ipi-accordion" class="accordion-list">
+          <div class="accordion-item" data-cat="politica">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-head">
+                <span class="tag">Política exterior</span>
+                <span class="accordion-title">1. Cambios de régimen en Irak y Libia: pensar en un solo paso</span>
+              </span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-body">
+              <div class="compare-two">
+                <div>
+                  <span class="tag">Lógica del IPI (Primer orden)</span>
+                  <p style="margin-top: var(--space-xs); font-size: 0.95rem;">«Si derrocamos a un dictador, surgirá la democracia.» Comparan al gobernante local con un primer ministro sueco e ignoran qué fuerzas locales ocuparán el vacío.</p>
+                </div>
+                <div>
+                  <span class="tag">Filtro de la realidad (Anteo)</span>
+                  <p style="margin-top: var(--space-xs); font-size: 0.95rem;">Es como inyectar células cancerosas para mejorar el colesterol y cantar victoria en la autopsia. Libia pasó a tener mercados de esclavos, y los responsables no pagaron coste alguno.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-cat="diseno">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-head">
+                <span class="tag">Diseño urbano</span>
+                <span class="accordion-title">2. El saliente inclinado de los trenes Metro North en Nueva York</span>
+              </span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-body">
+              <div class="compare-two">
+                <div>
+                  <span class="tag">Lógica del IPI (Estética sin uso)</span>
+                  <p style="margin-top: var(--space-xs); font-size: 0.95rem;">El diseñador del vagón renovado inclinó el saliente junto a la pared para darle un aspecto más moderno y limpio, sin viajar él mismo leyendo con un café.</p>
+                </div>
+                <div>
+                  <span class="tag">Filtro de la realidad (Usuario)</span>
+                  <p style="margin-top: var(--space-xs); font-size: 0.95rem;">Ahora resulta imposible apoyar la taza de café mientras se lee un libro. La especialización separa al productor del usuario y multiplica las pequeñas disfunciones irreversibles.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-cat="diseno">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-head">
+                <span class="tag">Arquitectura y eventos</span>
+                <span class="accordion-title">3. Cómo iluminar a un orador y edificios para otros arquitectos</span>
+              </span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-body">
+              <div class="compare-two">
+                <div>
+                  <span class="tag">Lógica del IPI (Autorreferencial)</span>
+                  <p style="margin-top: var(--space-xs); font-size: 0.95rem;">Los técnicos de iluminación apuntan focos directos a los ojos del conferenciante (como en un interrogatorio policial) porque no dan charlas. Los arquitectos construyen para impresionar a colegas.</p>
+                </div>
+                <div>
+                  <span class="tag">Filtro de la realidad (Sencillez)</span>
+                  <p style="margin-top: var(--space-xs); font-size: 0.95rem;">Quienes se juegan la piel generan la sencillez de las cosas bien hechas; quienes viven de la percepción de su gremio fabrican estructuras complejas antes de su colapso.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-cat="ciencia">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-head">
+                <span class="tag">Salud y estadística</span>
+                <span class="accordion-title">4. Fobia a los lípidos, margarina y la crisis de replicación</span>
+              </span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-body">
+              <div class="compare-two">
+                <div>
+                  <span class="tag">Lógica del IPI (Cientifismo)</span>
+                  <p style="margin-top: var(--space-xs); font-size: 0.95rem;">Durante treinta años recomendaron sustituir grasas ancestrales por margarina y carbohidratos refinados amparándose en estudios frágiles, antes de cambiar por completo de opinión.</p>
+                </div>
+                <div>
+                  <span class="tag">Filtro de la realidad (Abuelas y Lindy)</span>
+                  <p style="margin-top: var(--space-xs); font-size: 0.95rem;">Con estudios psicológicos que apenas replican el 40 % de las veces y ensayos farmacéuticos en ~30 %, confiar en tradiciones culinarias milenarias resulta estadísticamente más seguro.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-cat="ciencia">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-head">
+                <span class="tag">Academia y escepticismo</span>
+                <span class="accordion-title">5. Revisión por pares endogámica frente a la investigación con piel en juego</span>
+              </span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-body">
+              <div class="compare-two">
+                <div>
+                  <span class="tag">Lógica del IPI (Ritual académico)</span>
+                  <p style="margin-top: var(--space-xs); font-size: 0.95rem;">Si veinte personas forman un departamento y aprueban sus propias estupideces por «evaluación de pares», convierten el conocimiento en una competición deportiva autorreferencial.</p>
+                </div>
+                <div>
+                  <span class="tag">Filtro de la realidad (Desprostitucionalización)</span>
+                  <p style="margin-top: var(--space-xs); font-size: 0.95rem;">Las grandes contribuciones vinieron a menudo de personas con oficios reales (empleados de patentes, fabricantes de lentes, bomberos, comerciantes) que investigaban por convicción y contradecían al consenso.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-cat="politica">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-head">
+                <span class="tag">Vida pública</span>
+                <span class="accordion-title">6. Por qué los políticos con defectos visibles parecen más auténticos que los burócratas impecables</span>
+              </span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-body">
+              <div class="compare-two">
+                <div>
+                  <span class="tag">Lógica del IPI (Simulación cosmética)</span>
+                  <p style="margin-top: var(--space-xs); font-size: 0.95rem;">El IPI confunde el pulido superficial y el discurso ensayado de «presidenciable» con competencia real y honestidad moral.</p>
+                </div>
+                <div>
+                  <span class="tag">Filtro de la realidad (Señalización costosa)</span>
+                  <p style="margin-top: var(--space-xs); font-size: 0.95rem;">Quien asume riesgos y muestra cicatrices reales —aunque resulte incómodo— genera señales costosas y difíciles de falsificar frente a la máquina de simulación corporativa.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN V: ERGODICIDAD VS PROBABILIDAD DE CONJUNTO -->
+    <section id="ergodicidad" class="section-open">
+      <div class="section-header">
+        <span class="section-label">Libro VIII · Capítulo 19 y Apéndice técnico</span>
+        <h2>Ergodicidad: 100 personas en el casino no equivalen a 1 persona 100 veces</h2>
+      </div>
+
+      <div class="section-lead-grid">
+        <div>
+          <p>Imaginemos el experimento de la Figura 5 del libro: cien personas entran a un casino a apostar durante una noche. Si el jugador número 28 se arruina, ¿afecta eso al jugador número 29? No. Al final de la noche promediamos los bolsillos de los cien asistentes y calculamos la <strong>probabilidad de conjunto</strong>.</p>
+          <p>Ahora bien, si una sola persona (tu primo Theodorus) entra cien noches seguidas, en el instante en que toca la barrera de absorción —la <strong>ruina</strong>— el juego termina para siempre. Cuando hay ruina o rendimientos multiplicativos, la probabilidad de conjunto deja de aplicarse al individuo en el tiempo (<em>fallo de ergodicidad</em>). Por eso muchos economistas tachan de «irracional» preocuparse por las colas: confunden la media de un grupo estático con tu supervivencia secuencial. Como dice Taleb: «Nunca cruces un río si tiene una profundidad media de 1,2 metros».</p>
+        </div>
+        <aside class="aside-ruled">
+          <span class="tag">Teorema de Peters y Gell-Mann</span>
+          <h3>Para tener éxito, primero hay que sobrevivir</h3>
+          <p style="font-size: 0.95rem;">Una apuesta de moneda donde ganas +50 % y pierdes −40 % tiene una media de conjunto positiva de <strong>+5 % por ronda</strong>. Sin embargo, para un jugador que encadena rondas (1,5 × 0,6 = 0,90), la tasa de crecimiento temporal es de <strong>−5,13 % por ronda</strong>: la ruina es casi segura si apuesta todo su capital.</p>
+        </aside>
+      </div>
+
+      <!-- SIMULACIÓN 3: MONTE CARLO ERGODICIDAD -->
+      <div class="module-panel" aria-labelledby="ergodic-sim-title">
+        <div>
+          <span class="tag-on-panel">Simulación práctica 03 · Experimento de Monte Carlo en tiempo real</span>
+          <h3 id="ergodic-sim-title" style="margin-top: var(--space-xs);">Probabilidad de conjunto vs. Trayectoria temporal (100 rondas)</h3>
+          <p style="font-size: 0.95rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">Compara el promedio de 100 jugadores que apuestan en paralelo frente a un único individuo que reinvierte su capital ronda tras ronda. Observa cómo la fracción apostada (criterio de Kelly / acotación de cola izquierda) decide entre la ruina y la supervivencia.</p>
+        </div>
+
+        <div class="controls-grid">
+          <div class="control-field">
+            <label for="ergodic-preset">Estructura de apuesta</label>
+            <select id="ergodic-preset" onchange="runErgodicSimulation()">
+              <option value="peters">Moneda de Peters–Gell-Mann (+50 % / −40 %, media +5 %)</option>
+              <option value="russian">Ruleta bancaria (5/6 ganas +15 %, 1/6 pierdes −95 %)</option>
+              <option value="prudent">Estrategia convexa (+25 % / −12 %, media +6,5 %)</option>
+            </select>
+          </div>
+
+          <div class="control-field">
+            <label for="ergodic-bet-input">Fracción del capital expuesta por ronda (%)</label>
+            <div class="slider-pair">
+              <input type="range" id="ergodic-bet-slider" min="10" max="100" step="5" value="100" oninput="syncErgodicSlider(this.value)">
+              <input type="number" id="ergodic-bet-input" min="10" max="100" step="5" value="100" oninput="syncErgodicInput(this.value)">
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" onclick="runErgodicSimulation()">Ejecutar nueva simulación</button>
+          </div>
+        </div>
+
+        <div class="columns" style="border-top: var(--rule-ink); border-bottom: var(--rule-ink);">
+          <div>
+            <span class="tag-on-panel">Media de conjunto (100 jugadores)</span>
+            <div id="ergodic-ensemble-val" class="figure-num" style="margin-top: var(--space-xs);">—</div>
+            <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">Capital final promedio del grupo.</p>
+          </div>
+          <div>
+            <span class="tag-on-panel">Tu trayectoria (1 jugador × 100)</span>
+            <div id="ergodic-time-val" class="figure-num" style="margin-top: var(--space-xs);">—</div>
+            <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">Capital del jugador individual seguido.</p>
+          </div>
+          <div>
+            <span class="tag-on-panel">Tasa temporal esperada / ronda</span>
+            <div id="ergodic-geom-rate" class="figure-num" style="margin-top: var(--space-xs);">—</div>
+            <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">Media geométrica por turno.</p>
+          </div>
+          <div>
+            <span class="tag-on-panel">Jugadores arruinados (&lt; 5 %)</span>
+            <div id="ergodic-ruin-pct" class="figure-num" style="margin-top: var(--space-xs);">—</div>
+            <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">Atrapados en barrera de absorción.</p>
+          </div>
+        </div>
+
+        <div class="chart-block">
+          <div class="chart-header">
+            <h4>Evolución del capital (base 100, escala logarítmica): Promedio del conjunto frente al individuo</h4>
+            <p class="chart-sub">Teal: media de los 100 jugadores. Claret: trayectoria de un único jugador. Gris: otras 4 trayectorias individuales de muestra.</p>
+          </div>
+          <div class="chart-wrap" style="min-height: 340px; height: 340px;">
+            <canvas id="ergodic-chart"></canvas>
+          </div>
+          <span class="chart-source">Simulación basada en el Teorema 1 (Desigualdad de estado espacio-temporal) y Figura 5 del Capítulo 19.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN VI: EFECTO LINDY Y VÍA NEGATIVA -->
+    <section id="lindy" class="section-open">
+      <div class="section-header">
+        <span class="section-label">Libro V · Capítulo 8: Un experto llamado Lindy</span>
+        <h2>El tiempo es el único experto: lo no perecedero envejece a la inversa</h2>
+      </div>
+
+      <div class="section-lead-grid">
+        <div>
+          <p>En la cafetería neoyorquina Lindy, los actores descubrieron una heurística implacable: una obra de Broadway que llevaba 100 días en cartelera tenía una esperanza de vida adicional de otros 100 días; la que llevaba 200 podía durar 200 más. Para las cosas <strong>no perecederas</strong> (ideas, libros, tecnologías de cocina, reglas jurídicas o costumbres), la volatilidad y el tiempo actúan como un filtro ex post de solidez.</p>
+          <p>A diferencia de un ser humano —cuya esperanza de vida disminuye con la edad—, una idea o una obra literaria sometida a los golpes reales de la historia <em>aumenta</em> su esperanza de vida con cada década que sobrevive. Por eso, el tiempo responde a la antigua pregunta «¿quién juzgará a los jueces?»: lo hará la supervivencia, actuando de la mano de la <strong>vía negativa</strong> (saber qué eliminar antes de añadir novedades frágiles).</p>
+        </div>
+        <aside class="aside-ruled">
+          <span class="tag">Máxima de Lindy sobre el consejo</span>
+          <h3>«Cuando la barba sea negra, atiende al razonamiento pero obvia la conclusión; cuando sea blanca, sáltate el razonamiento pero piensa en la conclusión.»</h3>
+          <p style="font-size: 0.95rem;">Una tradición o superstición que ha protegido a una comunidad durante siglos (como no dormir bajo árboles muertos en Papúa Nueva Guinea) merece más respeto estadístico que una moda académica reciente.</p>
+        </aside>
+      </div>
+
+      <!-- EXPLORADOR LINDY + TABLA VIA NEGATIVA -->
+      <div class="module-panel" aria-labelledby="lindy-title">
+        <div>
+          <span class="tag-on-panel">Explorador interactivo · Esperanza de vida inversa</span>
+          <h3 id="lindy-title" style="margin-top: var(--space-xs);">Calculadora de Prueba Lindy: ¿resistirá el paso del tiempo?</h3>
+          <p style="font-size: 0.95rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">Elige una referencia de la obra o introduce cualquier edad para comparar la esperanza de vida restante de elementos no perecederos frente a los protegidos artificialmente.</p>
+        </div>
+
+        <div class="controls-grid">
+          <div class="control-field">
+            <label for="lindy-preset">Ejemplos de la obra</label>
+            <select id="lindy-preset" onchange="applyLindyPreset(this.value)">
+              <option value="custom">Personalizado</option>
+              <option value="3800">Código de Hammurabi (~3.800 años)</option>
+              <option value="2800">Epopeyas homéricas (~2.800 años)</option>
+              <option value="157">Guerra y paz de Tolstói (~157 años)</option>
+              <option value="50">Heurística de Lindy en Broadway (~50 años)</option>
+              <option value="2" selected>Libro de moda o «best-seller» reciente (~2 años)</option>
+            </select>
+          </div>
+
+          <div class="control-field">
+            <label for="lindy-age-input">Años sobrevividos hasta hoy</label>
+            <div class="slider-pair">
+              <input type="range" id="lindy-age-slider" min="1" max="4000" step="1" value="2" oninput="syncLindySlider(this.value)">
+              <input type="number" id="lindy-age-input" min="1" max="5000" step="1" value="2" oninput="syncLindyInput(this.value)">
+            </div>
+          </div>
+
+          <div class="control-field">
+            <label>Condición de filtro real</label>
+            <label class="checkbox-row">
+              <input type="checkbox" id="lindy-exposed" checked onchange="updateLindyView()">
+              <span>No perecedero y expuesto al mundo real (sin subsidio estatal)</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="columns columns-3" style="border-top: var(--rule-ink); border-bottom: var(--rule-ink);">
+          <div>
+            <span class="tag-on-panel">Edad actual probada</span>
+            <div id="lindy-current-age" class="figure-num" style="margin-top: var(--space-xs);">2 años</div>
+          </div>
+          <div>
+            <span class="tag-on-panel">Vida restante esperada (Lindy)</span>
+            <div id="lindy-remaining-age" class="figure-num" style="margin-top: var(--space-xs);">~2 años</div>
+          </div>
+          <div>
+            <span class="tag-on-panel">Veredicto epistemológico</span>
+            <div id="lindy-verdict" class="figure-num" style="font-size: 1.25rem; margin-top: var(--space-xs);">Alta fragilidad</div>
+          </div>
+        </div>
+
+        <p id="lindy-analysis" style="font-size: 0.95rem;"></p>
+
+        <div class="chart-block">
+          <div class="chart-header">
+            <h4>Comparación de esperanza de vida restante (escala en años)</h4>
+            <p class="chart-sub">Tu elemento evaluado frente a hitos históricos de supervivencia citados en «Jugarse la piel».</p>
+          </div>
+          <div class="chart-wrap" style="min-height: 290px; height: 290px;">
+            <canvas id="lindy-chart"></canvas>
+          </div>
+          <span class="chart-source">Nota: el efecto Lindy solo opera cuando no existe protección artificial contra la quiebra o la falsación.</span>
+        </div>
+      </div>
+
+      <div>
+        <span class="section-label">Síntesis operativa · Vía negativa vs. Vía positiva</span>
+        <h3>Por qué la sustracción vence a la adición en sistemas complejos</h3>
+        <div class="table-scroll" style="margin-top: var(--space-sm);">
+          <table class="broadsheet-table">
+            <thead>
+              <tr>
+                <th>Ámbito</th>
+                <th>Vía Positiva (Añadir · Propenso al error)</th>
+                <th>Vía Negativa (Sustraer · Robusto y Lindy)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Ética cotidiana</strong></td>
+                <td>Regla de oro: imponer a otros lo que supones que es «bueno» para ellos.</td>
+                <td>Regla de plata: no hagas a los demás lo que no quieres que te hagan a ti.</td>
+              </tr>
+              <tr>
+                <td><strong>Conocimiento y ciencia</strong></td>
+                <td>Acumular confirmaciones en revistas endogámicas sin exponerse al riesgo.</td>
+                <td>Refutación de Popper + filtro de daño: lo que sobrevive sin dañar a sus usuarios perdura.</td>
+              </tr>
+              <tr>
+                <td><strong>Gestión de riesgos</strong></td>
+                <td>Añadir miles de páginas de reglamentos que los bancos aprenden a eludir.</td>
+                <td>Eliminar el rescate público y exigir que el gestor responda con su patrimonio.</td>
+              </tr>
+              <tr>
+                <td><strong>Salud y hábitos</strong></td>
+                <td>Seguir dietas sintéticas de moda o ingerir sustancias nuevas sin historial secular.</td>
+                <td>Eliminar alimentos industriales recientes y respetar costumbres alimentarias ancestrales.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN VII: SIMULADOR PRÁCTICO DE TOMA DE DECISIONES -->
+    <section id="simulador" class="section-open">
+      <div class="section-header">
+        <span class="section-label">Módulo práctico · Prueba tus decisiones cotidianas</span>
+        <h2>Simulador de detección de asimetrías en la vida real</h2>
+      </div>
+
+      <p>Pon a prueba tu criterio ante cinco dilemas cotidianos inspirados directamente en los capítulos de <em>Jugarse la piel</em>. Tus decisiones y tu puntuación se guardan automáticamente para tu próxima lectura.</p>
+
+      <div class="module-panel" aria-labelledby="sim-active-title">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md);">
+          <div style="display: grid; gap: 2px;">
+            <span class="tag-on-panel">Progreso del examen práctico</span>
+            <div id="sim-progress-text" style="font-family: var(--font-headline); font-weight: 700; font-size: 1.15rem;">0 de 5 dilemas evaluados · 0 aciertos</div>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-secondary" onclick="exportScorecard()">
+              <i data-lucide="download" style="width:16px;height:16px;" aria-hidden="true"></i>
+              <span>Exportar resumen (.txt)</span>
+            </button>
+            <button type="button" class="btn btn-secondary" id="reset-sim-btn" onclick="resetSimulator(this)">Reiniciar respuestas</button>
+          </div>
+        </div>
+
+        <div id="scenario-nav" class="scenario-nav" role="tablist" aria-label="Dilemas prácticos"></div>
+
+        <div id="scenario-stage" style="display: grid; gap: var(--space-md);">
+          <div>
+            <span id="sim-active-tag" class="tag-on-panel">Dilema 01</span>
+            <h3 id="sim-active-title" style="margin-top: var(--space-xs);">—</h3>
+          </div>
+          <p id="sim-active-prompt" style="margin: 0;"></p>
+          <div id="sim-choices" class="choice-list"></div>
+          <div id="sim-feedback" class="feedback-box" style="display: none;" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOFÓN -->
+    <footer class="colophon">
+      <span class="label-text" style="color: var(--on-surface);">Nota editorial y fuentes</span>
+      <p style="margin: 0;">Este ensayo interactivo sintetiza y modela los argumentos centrales de <em>Jugarse la piel: Asimetrías ocultas en la vida cotidiana</em> (<em>Skin in the Game</em>, colección <em>Incerto</em>) de Nassim Nicholas Taleb, traducción de Antonio Francisco Rodríguez Esteban. Las simulaciones de agencia, minoría intransigente, ergodicidad y efecto Lindy ilustran cuantitativamente los mecanismos formales expuestos en los prólogos, capítulos 1, 2, 6, 7, 8, 10, 19 y apéndice técnico de la obra.</p>
+    </footer>
+
+  </main>
+
+  <api-shim></api-shim>
+  <script>
+    /* ==========================================================================
+       1. ESTADO GLOBAL Y PERSISTENCIA (notebookAppApi)
+       ========================================================================== */
+    const DEFAULT_STATE = {
+      ladderIndex: 3,
+      rubinRegime: `rubin`,
+      rubinTailPct: 8,
+      minorityPct: 4,
+      minorityRule: `asymmetric`,
+      minorityDomain: `drinks`,
+      ergodicPreset: `peters`,
+      ergodicBetPct: 100,
+      lindyAge: 2,
+      lindyExposed: true,
+      currentScenario: 0,
+      scenarioAnswers: {}
+    };
+
+    let appState = Object.assign({}, DEFAULT_STATE);
+    let rubinChartInstance = null;
+    let ergodicChartInstance = null;
+    let lindyChartInstance = null;
+
+    function getCssToken(name) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    async function saveAppState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (e) {
+        // Silencioso en entorno local sin anfitrión
+      }
+    }
+
+    async function loadInitialState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+          const loaded = await window.notebookAppApi.getAppState();
+          if (loaded && typeof loaded === `object`) {
+            appState = Object.assign({}, DEFAULT_STATE, loaded);
+            if (!appState.scenarioAnswers || typeof appState.scenarioAnswers !== `object`) {
+              appState.scenarioAnswers = {};
+            }
+          }
+        }
+      } catch (e) {
+        // Continuar con estado inicial por defecto
+      }
+    }
+
+    /* ==========================================================================
+       2. MÓDULO 1: ESCALERA DE LA SIMETRÍA MORAL (CUADRO 1)
+       ========================================================================== */
+    const LADDER_DATA = [
+      {
+        title: `Código de Hammurabi y Lex Talionis (~1750 a. C.)`,
+        maxim: `«Ojo por ojo y diente por diente» · Si la casa se derrumba y mata al propietario, el constructor es condenado a muerte.`,
+        analysis: `Primera codificación escrita contra la transferencia de riesgos ocultos. No es una venganza literal —como aclaró el debate talmúdico en Baba Kama—, sino un castigo simétrico suficiente para impedir que el arquitecto o banquero entierre vulnerabilidades en las esquinas y huya lejos antes del derrumbe.`
+      },
+      {
+        title: `Levítico 19, 18: La ley de santidad y justicia`,
+        maxim: `«Amarás a tu prójimo como a ti mismo.»`,
+        analysis: `Suaviza la literalidad babilónica trasladando la simetría al plano comunitario. La regla es fractal: opera entre individuos, entre familias y entre comunidades próximas, siempre que exista una noción clara de reciprocidad mutua y responsabilidad compartida.`
+      },
+      {
+        title: `La Regla de Oro (Mateo 7, 12)`,
+        maxim: `«Todas las cosas que queráis que los hombres hagan con vosotros, así haced vosotros también con ellos.»`,
+        analysis: `Atractiva en apariencia, pero vulnerable a la vía positiva: puedes creer sinceramente que algo es bueno para ti e imponérselo a otro que no lo desea (como el intervencionista que impone su modelo político o el cocinero que sirve comida que a él le gusta a alguien alérgico).`
+      },
+      {
+        title: `La Regla de Plata (Vía Negativa · Isócrates)`,
+        maxim: `«No trates a los demás como no quisieras que los demás te trataran a ti.» — «Trata a los Estados más débiles como creas que los más fuertes han de tratarte a ti.»`,
+        analysis: `Mucho más sólida que la Regla de Oro porque actúa por sustracción (vía negativa). Sabemos con mucha más claridad qué provoca daño que qué constituye el bien ajeno. Te obliga a ocuparte de tus propios asuntos y fundamenta la Primera Enmienda: tolerar tu derecho a contradecirme mientras yo conserve el mío.`
+      },
+      {
+        title: `El universalismo de Kant vs. Tony el Gordo`,
+        maxim: `Kant: «Obra solo según aquella máxima que pueda convertirse en ley universal.» · Tony el Gordo: «No sirvas mierda y no comas mierda.»`,
+        analysis: `Lo universal funciona bien sobre el papel, pero fracasa en la realidad porque los humanos somos animales locales y sensibles a la escala. Kant no entendió que lo micro no es igual que lo macro. En la vida práctica funciona mejor la regla simple y simétrica de Tony el Gordo: sé amable de entrada, pero responde con firmeza si alguien intenta imponerte la fuerza.`
+      }
+    ];
+
+    function selectLadderStep(idx) {
+      appState.ladderIndex = idx;
+      for (let i = 0; i < LADDER_DATA.length; i++) {
+        const tab = document.getElementById(`tab-ladder-${i}`);
+        if (tab) {
+          const isActive = i === idx;
+          tab.classList.toggle(`active`, isActive);
+          tab.setAttribute(`aria-selected`, isActive ? `true` : `false`);
+        }
+      }
+      const container = document.getElementById(`ladder-content`);
+      const item = LADDER_DATA[idx];
+      if (container && item) {
+        container.innerHTML = `
+          <div>
+            <span class="tag-on-panel">Máxima original</span>
+            <h4 style="margin-top: var(--space-xs); font-size: 1.2rem;">${item.title}</h4>
+            <p style="margin-top: var(--space-sm); font-family: var(--font-headline); font-style: italic; font-size: 1.1rem; border-left: 2px solid var(--primary); padding-left: var(--space-md);">${item.maxim}</p>
+          </div>
+          <div>
+            <span class="tag-on-panel">Lectura de Taleb (Asimetría y escala)</span>
+            <p style="margin-top: var(--space-xs); font-size: 0.95rem;">${item.analysis}</p>
+          </div>
+        `;
+      }
+      saveAppState();
+    }
+
+    /* ==========================================================================
+       3. ACORDEONES (TARJETAS DESPLEGABLES) Y FILTRO IPI
+       ========================================================================== */
+    function toggleAccordion(btn) {
+      if (!btn) return;
+      const expanded = btn.getAttribute(`aria-expanded`) === `true`;
+      btn.setAttribute(`aria-expanded`, expanded ? `false` : `true`);
+      const icon = btn.querySelector(`.accordion-icon`);
+      if (icon) icon.textContent = expanded ? `+` : `−`;
+      const body = btn.nextElementSibling;
+      if (body) {
+        body.classList.toggle(`open`, !expanded);
+      }
+    }
+
+    function filterIpiCards(category, clickedBtn) {
+      const group = [`filter-all`, `filter-politica`, `filter-diseno`, `filter-ciencia`];
+      group.forEach(function (id) {
+        const b = document.getElementById(id);
+        if (b) b.classList.remove(`active`);
+      });
+      if (clickedBtn) clickedBtn.classList.add(`active`);
+
+      const list = document.getElementById(`ipi-accordion`);
+      if (!list) return;
+      const items = list.querySelectorAll(`.accordion-item`);
+      items.forEach(function (item) {
+        const cat = item.getAttribute(`data-cat`);
+        item.style.display = (category === `all` || cat === category) ? `block` : `none`;
+      });
+    }
+
+    /* ==========================================================================
+       4. SIMULACIÓN 1: COMERCIO A LO BOB RUBIN VS HAMMURABI
+       ========================================================================== */
+    function syncRubinSlider(val) {
+      const num = document.getElementById(`rubin-tail-input`);
+      if (num) num.value = val;
+      runRubinSimulation();
+    }
+
+    function syncRubinInput(val) {
+      let parsed = parseInt(val, 10);
+      if (isNaN(parsed)) parsed = 8;
+      parsed = Math.max(2, Math.min(20, parsed));
+      const slider = document.getElementById(`rubin-tail-slider`);
+      if (slider) slider.value = parsed;
+      runRubinSimulation();
+    }
+
+    function runRubinSimulation() {
+      const regimeEl = document.getElementById(`rubin-regime`);
+      const tailEl = document.getElementById(`rubin-tail-input`);
+      const regime = regimeEl ? regimeEl.value : `rubin`;
+      const tailPct = tailEl ? Math.max(2, Math.min(20, parseFloat(tailEl.value) || 8)) : 8;
+
+      appState.rubinRegime = regime;
+      appState.rubinTailPct = tailPct;
+
+      const years = [];
+      const agentSeries = [];
+      const publicSeries = [];
+      let agentCum = 0;
+      let publicCum = 0;
+      let crashYears = [];
+
+      // En régimen Bob Rubin el agente asume más riesgo oculto; en Hammurabi su propia piel limita la exposición extrema
+      const tailProb = tailPct / 100;
+      const annualBonus = regime === `rubin` ? 14 : 9;
+      const tailDamage = regime === `rubin` ? 180 : 55;
+
+      for (let y = 1; y <= 10; y++) {
+        years.push(`Año ${y}`);
+        const hitTail = Math.random() < tailProb;
+        if (!hitTail) {
+          agentCum += annualBonus;
+        } else {
+          crashYears.push(y);
+          if (regime === `rubin`) {
+            // Conserva bonos pasados, año de rescate cobra 0 o indemnización y el contribuyente paga todo
+            publicCum -= tailDamage;
+          } else {
+            // Hammurabi: responde con sus bonos acumulados y patrimonio antes de afectar a terceros
+            const absorbed = Math.min(agentCum + 40, tailDamage);
+            agentCum -= absorbed;
+            const spillover = Math.max(0, tailDamage - absorbed);
+            publicCum -= spillover;
+          }
+        }
+        agentSeries.push(agentCum);
+        publicSeries.push(publicCum);
+      }
+
+      const netEl = document.getElementById(`rubin-agent-net`);
+      const netNoteEl = document.getElementById(`rubin-agent-note`);
+      const pubEl = document.getElementById(`rubin-public-loss`);
+      const pubNoteEl = document.getElementById(`rubin-public-note`);
+      const verdEl = document.getElementById(`rubin-verdict`);
+      const verdNoteEl = document.getElementById(`rubin-verdict-note`);
+
+      if (netEl) {
+        netEl.textContent = `${agentCum >= 0 ? `+` : ``}${agentCum} M$`;
+        netEl.className = `figure-num ${agentCum >= 0 ? `status-good` : `status-bad`}`;
+      }
+      if (netNoteEl) {
+        netNoteEl.textContent = regime === `rubin`
+          ? `Conserva íntegramente las primas previas pese al riesgo latente.`
+          : `Capital propio sujeto a devolución (clawback) ante pérdidas.`;
+      }
+      if (pubEl) {
+        pubEl.textContent = `${publicCum} M$`;
+        pubEl.className = `figure-num ${publicCum < 0 ? `status-bad` : `status-good`}`;
+      }
+      if (pubNoteEl) {
+        pubNoteEl.textContent = crashYears.length > 0
+          ? `Colapso(s) de cola en el año ${crashYears.join(`, `)}.`
+          : `Sin estallido esta década; el riesgo oculto sigue acumulándose.`;
+      }
+      if (verdEl) {
+        if (regime === `rubin`) {
+          verdEl.textContent = crashYears.length > 0 ? `Asimetría activada` : `Ilusión de estabilidad`;
+          verdEl.className = `figure-num status-bad`;
+        } else {
+          verdEl.textContent = `Riesgo contenido`;
+          verdEl.className = `figure-num status-good`;
+        }
+      }
+      if (verdNoteEl) {
+        verdNoteEl.textContent = regime === `rubin`
+          ? `«Si sale cara, gana; si sale cruz, grita ¡Cisne negro!».`
+          : `El filtro de responsabilidad disuade de ocultar colas explosivas.`;
+      }
+
+      renderRubinChart(years, agentSeries, publicSeries);
+      saveAppState();
+    }
+
+    function renderRubinChart(labels, agentSeries, publicSeries) {
+      const canvas = document.getElementById(`rubin-chart`);
+      if (!canvas || typeof Chart === `undefined`) return;
+
+      const c1 = getCssToken(`--data-1`);
+      const c2 = getCssToken(`--data-2`);
+      const ink = getCssToken(`--on-surface`);
+      const muted = getCssToken(`--on-surface-variant`);
+      const grid = getCssToken(`--outline-variant`);
+
+      if (rubinChartInstance) {
+        rubinChartInstance.destroy();
+      }
+
+      rubinChartInstance = new Chart(canvas.getContext(`2d`), {
+        type: `bar`,
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: `Acumulado del gestor (M$)`,
+              data: agentSeries,
+              backgroundColor: c1,
+              borderRadius: 0,
+              order: 2
+            },
+            {
+              label: `Impacto neto en terceros / contribuyentes (M$)`,
+              data: publicSeries,
+              type: `line`,
+              borderColor: c2,
+              backgroundColor: c2,
+              borderWidth: 2.5,
+              pointRadius: 4,
+              tension: 0,
+              order: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: `top`,
+              align: `start`,
+              labels: { color: ink, boxWidth: 14, font: { family: `Source Sans 3`, weight: `700` } }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: muted, font: { family: `Source Sans 3`, weight: `600` } }
+            },
+            y: {
+              grid: { color: grid },
+              ticks: {
+                color: muted,
+                font: { family: `Source Sans 3`, weight: `600` },
+                callback: function (v) { return `${v} M$`; }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    /* ==========================================================================
+       5. SIMULACIÓN 2: REGLA DE LA MINORÍA INTRANSIGENTE
+       ========================================================================== */
+    function syncMinoritySlider(val) {
+      const num = document.getElementById(`minority-pct-input`);
+      if (num) num.value = val;
+      updateMinorityGrid();
+    }
+
+    function syncMinorityInput(val) {
+      let parsed = parseInt(val, 10);
+      if (isNaN(parsed)) parsed = 4;
+      parsed = Math.max(0, Math.min(15, parsed));
+      const slider = document.getElementById(`minority-pct-slider`);
+      if (slider) slider.value = parsed;
+      updateMinorityGrid();
+    }
+
+    function updateMinorityGrid() {
+      const pctInput = document.getElementById(`minority-pct-input`);
+      const ruleEl = document.getElementById(`minority-rule`);
+      const domainEl = document.getElementById(`minority-domain`);
+
+      const pct = pctInput ? Math.max(0, Math.min(15, parseInt(pctInput.value, 10) || 0)) : 4;
+      const rule = ruleEl ? ruleEl.value : `asymmetric`;
+      const domain = domainEl ? domainEl.value : `drinks`;
+
+      appState.minorityPct = pct;
+      appState.minorityRule = rule;
+      appState.minorityDomain = domain;
+
+      const matrix = document.getElementById(`agent-matrix`);
+      const numEl = document.getElementById(`minority-adoption-num`);
+      const expEl = document.getElementById(`minority-explanation`);
+
+      const threshold = 3;
+      let totalAdoptedPct = pct;
+
+      if (rule === `asymmetric`) {
+        if (pct >= threshold) {
+          totalAdoptedPct = 100;
+        } else {
+          totalAdoptedPct = pct * 5;
+        }
+      } else {
+        totalAdoptedPct = pct;
+      }
+
+      if (matrix) {
+        let html = ``;
+        for (let i = 0; i < 100; i++) {
+          let cls = `agent-cell`;
+          if (i < pct) {
+            cls += ` minority`;
+          } else if (rule === `asymmetric` && pct >= threshold) {
+            cls += ` conformed`;
+          } else if (rule === `symmetric`) {
+            cls += ` majority-flex`;
+          }
+          html += `<div class="${cls}" title="Agente ${i + 1}"></div>`;
+        }
+        matrix.innerHTML = html;
+      }
+
+      const domainLabels = {
+        drinks: `las bebidas distribuidas en supermercados y eventos`,
+        smoke: `los espacios compartidos libres de humo`,
+        market: `el precio global del mercado bursátil ante una orden obstinada`
+      };
+      const domainDesc = domainLabels[domain] || domainLabels.drinks;
+
+      if (numEl) {
+        numEl.textContent = `${totalAdoptedPct} %`;
+        numEl.className = `figure-num ${totalAdoptedPct === 100 ? `status-good` : `status-warn`}`;
+      }
+
+      if (expEl) {
+        if (rule === `asymmetric` && pct >= threshold) {
+          expEl.textContent = `Con apenas un ${pct} % intransigente, la regla binaria cruza el umbral crítico (3–4 %). El 100 % de ${domainDesc} adopta la norma de la minoría porque para el resto resulta indiferente o más barato unificar que duplicar líneas.`;
+        } else if (rule === `asymmetric` && pct > 0) {
+          expEl.textContent = `Con un ${pct} % (por debajo del umbral del 3 %), la minoría aún es demasiado pequeña para forzar una transición completa, aunque ya ejerce una influencia desproporcionada (${totalAdoptedPct} %) en entornos locales.`;
+        } else if (rule === `asymmetric` && pct === 0) {
+          expEl.textContent = `Con 0 % de minoría intransigente, no existe ninguna fuerza asimétrica que empuje al sistema hacia un estándar único.`;
+        } else {
+          expEl.textContent = `Cuando la preferencia es simétrica y negociable, un ${pct} % sigue siendo un ${pct} %. No hay efecto de renormalización: la mayoría conserva sus hábitos variados sin someterse a la minoría.`;
+        }
+      }
+
+      saveAppState();
+    }
+
+    /* ==========================================================================
+       6. SIMULACIÓN 3: ERGODICIDAD (MONTE CARLO)
+       ========================================================================== */
+    function syncErgodicSlider(val) {
+      const num = document.getElementById(`ergodic-bet-input`);
+      if (num) num.value = val;
+      runErgodicSimulation();
+    }
+
+    function syncErgodicInput(val) {
+      let parsed = parseInt(val, 10);
+      if (isNaN(parsed)) parsed = 100;
+      parsed = Math.max(10, Math.min(100, parsed));
+      const slider = document.getElementById(`ergodic-bet-slider`);
+      if (slider) slider.value = parsed;
+      runErgodicSimulation();
+    }
+
+    function runErgodicSimulation() {
+      const presetEl = document.getElementById(`ergodic-preset`);
+      const betEl = document.getElementById(`ergodic-bet-input`);
+      const preset = presetEl ? presetEl.value : `peters`;
+      const betPct = betEl ? Math.max(10, Math.min(100, parseInt(betEl.value, 10) || 100)) : 100;
+
+      appState.ergodicPreset = preset;
+      appState.ergodicBetPct = betPct;
+
+      const f = betPct / 100;
+      let winProb = 0.5;
+      let winGain = 0.5;
+      let lossDrop = 0.4;
+
+      if (preset === `peters`) {
+        winProb = 0.5; winGain = 0.50; lossDrop = 0.40;
+      } else if (preset === `russian`) {
+        winProb = 5 / 6; winGain = 0.15; lossDrop = 0.95;
+      } else {
+        winProb = 0.5; winGain = 0.25; lossDrop = 0.12;
+      }
+
+      const winMult = 1 + f * winGain;
+      const lossMult = Math.max(0.001, 1 - f * lossDrop);
+
+      const rounds = 100;
+      const numPlayers = 100;
+      const paths = [];
+      let ruinedCount = 0;
+
+      for (let p = 0; p < numPlayers; p++) {
+        const series = [100];
+        let cap = 100;
+        let ruined = false;
+        for (let r = 1; r <= rounds; r++) {
+          if (cap < 5) {
+            ruined = true;
+            cap = Math.max(0.1, cap);
+          } else {
+            cap = Math.random() < winProb ? cap * winMult : cap * lossMult;
+          }
+          series.push(cap);
+        }
+        if (ruined || cap < 5) ruinedCount++;
+        paths.push(series);
+      }
+
+      const ensembleAvg = [];
+      const labels = [];
+      for (let r = 0; r <= rounds; r++) {
+        labels.push(r === 0 ? `Inicio` : `R${r}`);
+        let sum = 0;
+        for (let p = 0; p < numPlayers; p++) {
+          sum += paths[p][r];
+        }
+        ensembleAvg.push(sum / numPlayers);
+      }
+
+      // Calcular crecimiento geométrico teórico por ronda
+      const geomFactor = Math.pow(winMult, winProb) * Math.pow(lossMult, 1 - winProb);
+      const geomRatePct = (geomFactor - 1) * 100;
+
+      const finalEnsemble = ensembleAvg[rounds];
+      const finalHero = paths[0][rounds];
+
+      const ensEl = document.getElementById(`ergodic-ensemble-val`);
+      const timeEl = document.getElementById(`ergodic-time-val`);
+      const geomEl = document.getElementById(`ergodic-geom-rate`);
+      const ruinEl = document.getElementById(`ergodic-ruin-pct`);
+
+      if (ensEl) ensEl.textContent = formatCap(finalEnsemble);
+      if (timeEl) {
+        timeEl.textContent = formatCap(finalHero);
+        timeEl.className = `figure-num ${finalHero >= 100 ? `status-good` : `status-bad`}`;
+      }
+      if (geomEl) {
+        geomEl.textContent = `${geomRatePct >= 0 ? `+` : ``}${geomRatePct.toFixed(2)} %`;
+        geomEl.className = `figure-num ${geomRatePct >= 0 ? `status-good` : `status-bad`}`;
+      }
+      if (ruinEl) {
+        ruinEl.textContent = `${ruinedCount} %`;
+        ruinEl.className = `figure-num ${ruinedCount > 20 ? `status-bad` : `status-good`}`;
+      }
+
+      renderErgodicChart(labels, ensembleAvg, paths);
+      saveAppState();
+    }
+
+    function formatCap(val) {
+      if (val >= 1000000) return `${(val / 1000000).toFixed(1)} M`;
+      if (val >= 10000) return `${Math.round(val).toLocaleString(`es-ES`)}`;
+      if (val >= 10) return `${val.toFixed(0)}`;
+      return `${val.toFixed(2)}`;
+    }
+
+    function renderErgodicChart(labels, ensembleAvg, paths) {
+      const canvas = document.getElementById(`ergodic-chart`);
+      if (!canvas || typeof Chart === `undefined`) return;
+
+      const c1 = getCssToken(`--data-1`);
+      const c2 = getCssToken(`--data-2`);
+      const ctxColor = getCssToken(`--data-context`);
+      const ink = getCssToken(`--on-surface`);
+      const muted = getCssToken(`--on-surface-variant`);
+      const grid = getCssToken(`--outline-variant`);
+
+      if (ergodicChartInstance) {
+        ergodicChartInstance.destroy();
+      }
+
+      const datasets = [
+        {
+          label: `Media de conjunto (100 personas)`,
+          data: ensembleAvg,
+          borderColor: c2,
+          backgroundColor: c2,
+          borderWidth: 3,
+          pointRadius: 0,
+          tension: 0.1
+        },
+        {
+          label: `Trayectoria de 1 individuo (100 rondas)`,
+          data: paths[0],
+          borderColor: c1,
+          backgroundColor: c1,
+          borderWidth: 2.5,
+          pointRadius: 0,
+          tension: 0.1
+        }
+      ];
+
+      for (let i = 1; i <= 4; i++) {
+        datasets.push({
+          label: `Muestra individual ${i}`,
+          data: paths[i],
+          borderColor: ctxColor,
+          borderWidth: 1,
+          pointRadius: 0,
+          tension: 0.1
+        });
+      }
+
+      ergodicChartInstance = new Chart(canvas.getContext(`2d`), {
+        type: `line`,
+        data: { labels: labels, datasets: datasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: `top`,
+              align: `start`,
+              labels: {
+                color: ink,
+                boxWidth: 14,
+                filter: function (item) { return item.datasetIndex < 2; },
+                font: { family: `Source Sans 3`, weight: `700` }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: muted, maxTicksLimit: 11, font: { family: `Source Sans 3`, weight: `600` } }
+            },
+            y: {
+              type: `logarithmic`,
+              grid: { color: grid },
+              ticks: {
+                color: muted,
+                font: { family: `Source Sans 3`, weight: `600` },
+                callback: function (v) {
+                  if (v === 0.1 || v === 1 || v === 10 || v === 100 || v === 1000 || v === 10000 || v === 100000) {
+                    return v.toLocaleString(`es-ES`);
+                  }
+                  return ``;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    /* ==========================================================================
+       7. EXPLORADOR DEL EFECTO LINDY
+       ========================================================================== */
+    function applyLindyPreset(val) {
+      if (val === `custom`) return;
+      const age = parseInt(val, 10) || 2;
+      const slider = document.getElementById(`lindy-age-slider`);
+      const input = document.getElementById(`lindy-age-input`);
+      if (slider) slider.value = Math.min(4000, age);
+      if (input) input.value = age;
+      updateLindyView();
+    }
+
+    function syncLindySlider(val) {
+      const input = document.getElementById(`lindy-age-input`);
+      const preset = document.getElementById(`lindy-preset`);
+      if (input) input.value = val;
+      if (preset) preset.value = `custom`;
+      updateLindyView();
+    }
+
+    function syncLindyInput(val) {
+      let parsed = parseInt(val, 10);
+      if (isNaN(parsed)) parsed = 2;
+      parsed = Math.max(1, Math.min(5000, parsed));
+      const slider = document.getElementById(`lindy-age-slider`);
+      const preset = document.getElementById(`lindy-preset`);
+      if (slider) slider.value = Math.min(4000, parsed);
+      if (preset) preset.value = `custom`;
+      updateLindyView();
+    }
+
+    function updateLindyView() {
+      const input = document.getElementById(`lindy-age-input`);
+      const exposedEl = document.getElementById(`lindy-exposed`);
+
+      const age = input ? Math.max(1, Math.min(5000, parseInt(input.value, 10) || 2)) : 2;
+      const exposed = exposedEl ? exposedEl.checked : true;
+
+      appState.lindyAge = age;
+      appState.lindyExposed = exposed;
+
+      const curEl = document.getElementById(`lindy-current-age`);
+      const remEl = document.getElementById(`lindy-remaining-age`);
+      const verdEl = document.getElementById(`lindy-verdict`);
+      const anaEl = document.getElementById(`lindy-analysis`);
+
+      const remaining = exposed ? age : Math.max(1, Math.round(age * 0.15));
+
+      if (curEl) curEl.textContent = `${age.toLocaleString(`es-ES`)} años`;
+      if (remEl) {
+        remEl.textContent = exposed ? `~${remaining.toLocaleString(`es-ES`)} años` : `Imprevisible (frágil)`;
+        remEl.className = `figure-num ${exposed && age >= 50 ? `status-good` : `status-warn`}`;
+      }
+
+      if (verdEl) {
+        if (!exposed) {
+          verdEl.textContent = `No apto para Lindy`;
+          verdEl.className = `figure-num status-bad`;
+        } else if (age >= 500) {
+          verdEl.textContent = `Antifrágil / Clásico`;
+          verdEl.className = `figure-num status-good`;
+        } else if (age >= 40) {
+          verdEl.textContent = `Compatible con Lindy`;
+          verdEl.className = `figure-num status-good`;
+        } else {
+          verdEl.textContent = `Alta fragilidad`;
+          verdEl.className = `figure-num status-warn`;
+        }
+      }
+
+      if (anaEl) {
+        if (!exposed) {
+          anaEl.textContent = `Si una institución o idea sobrevive gracias a subsidios estatales o sin exponerse a la falsación real, el filtro Lindy queda interrumpido: puede durar años artificialmente hasta quebrarse de golpe con grandes daños colaterales.`;
+        } else if (age >= 500) {
+          anaEl.textContent = `Con ${age.toLocaleString(`es-ES`)} años de supervivencia expuesta, este elemento ha resistido innumerables cambios de época, traducciones y crisis. El tiempo confirma su utilidad protectora.`;
+        } else if (age >= 40) {
+          anaEl.textContent = `Tras superar la barrera generacional (${age} años), ya ha vencido el ruido inicial del mercado y la prensa; su esperanza de vida restante tiende a igualar su antigüedad.`;
+        } else {
+          anaEl.textContent = `Con apenas ${age} año(s), su tasa de supervivencia en los próximos cinco años es comparable a la de las modas efímeras o los best-sellers promocionados del New York Times: el tiempo aún no ha depurado su fragilidad.`;
+        }
+      }
+
+      renderLindyChart(age, exposed ? remaining : 1);
+      saveAppState();
+    }
+
+    function renderLindyChart(userAge, userRemaining) {
+      const canvas = document.getElementById(`lindy-chart`);
+      if (!canvas || typeof Chart === `undefined`) return;
+
+      const c1 = getCssToken(`--data-1`);
+      const ctxColor = getCssToken(`--data-context`);
+      const ink = getCssToken(`--on-surface`);
+      const muted = getCssToken(`--on-surface-variant`);
+      const grid = getCssToken(`--outline-variant`);
+
+      if (lindyChartInstance) {
+        lindyChartInstance.destroy();
+      }
+
+      lindyChartInstance = new Chart(canvas.getContext(`2d`), {
+        type: `bar`,
+        data: {
+          labels: [
+            `Tu selección`,
+            `Moda / Best-seller (2a)`,
+            `Guerra y paz (157a)`,
+            `Homero (2.800a)`,
+            `Hammurabi (3.800a)`
+          ],
+          datasets: [{
+            label: `Esperanza de vida restante estimada (años)`,
+            data: [userRemaining, 2, 157, 2800, 3800],
+            backgroundColor: [c1, ctxColor, ctxColor, ctxColor, ctxColor],
+            borderRadius: 0
+          }]
+        },
+        options: {
+          indexAxis: `y`,
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            x: {
+              grid: { color: grid },
+              ticks: { color: muted, font: { family: `Source Sans 3`, weight: `600` } }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { color: ink, font: { family: `Source Sans 3`, weight: `700` } }
+            }
+          }
+        }
+      });
+    }
+
+    /* ==========================================================================
+       8. SIMULADOR PRÁCTICO DE TOMA DE DECISIONES (5 DILEMAS)
+       ========================================================================== */
+    const SCENARIOS = [
+      {
+        tag: `Dilema 01 · Detección de charlatanería`,
+        title: `El tertuliano financiero en televisión`,
+        prompt: `Un analista de prestigio aparece en un programa económico recomendando comprar acciones de una gran corporación tecnológica. Al preguntarle si él mismo posee esas acciones, responde con orgullo que las reglas de imparcialidad le prohíben invertir en lo que analiza.`,
+        choices: [
+          {
+            letter: `A`,
+            text: `Confiar en su análisis porque la ausencia de conflicto de interés garantiza imparcialidad científica.`,
+            ok: false,
+            feedback: `Trampa del IPI: quien opina sin tener dinero en juego no sufre castigo si se equivoca. Como respondió Taleb en televisión sobre Microsoft: «No me digas lo que piensas, dime lo que hay en tu cartera». El conflicto de interés es aceptable si conlleva simetría ante las pérdidas.`
+          },
+          {
+            letter: `B`,
+            text: `Descartar su recomendación: sin exposición financiera real, sus palabras carecen del filtro de la piel en juego.`,
+            ok: true,
+            feedback: `Criterio simétrico: jugarse la piel es más importante que una imparcialidad cosmética. Sin exposición al daño, el analista puede equivocarse sin coste mientras quien sigue su consejo asume todo el riesgo.`
+          },
+          {
+            letter: `C`,
+            text: `Seguir su consejo solo si cita estudios académicos recientes revisados por pares.`,
+            ok: false,
+            feedback: `Error de cientifismo: los estudios académicos en economía o ciencias sociales que no pasan la prueba del daño real suelen ser autorreferenciales y no garantizan supervivencia financiera.`
+          }
+        ]
+      },
+      {
+        tag: `Dilema 02 · Prohibición de gharar`,
+        title: `La compra del vehículo de segunda mano`,
+        prompt: `Quieres comprar un coche usado. El vendedor afirma que el motor está perfecto pero insiste en firmar una cláusula estricta de «venta tal cual» (caveat emptor absoluto) sin mostrarte el historial reciente de taller ni ofrecer ninguna garantía frente a fallos ocultos graves.`,
+        choices: [
+          {
+            letter: `A`,
+            text: `Aceptar si el precio es un 10 % inferior al de mercado, ya que la responsabilidad es siempre del comprador.`,
+            ok: false,
+            feedback: `Riesgo de cola asimétrico: el vendedor conoce mejor que tú los defectos enterrados en el coche (como el «limón» que Taleb describe con su Mini descapotable). Esa desigualdad en la incertidumbre convierte la operación en una transferencia oculta de daño.`
+          },
+          {
+            letter: `B`,
+            text: `Exigir transparencia completa y una garantía parcial que obligue al vendedor a compartir la incertidumbre (regla de Hammurabi / Rav Safra).`,
+            ok: true,
+            feedback: `Correcto: la prohibición mediterránea de gharar exige que ninguna parte se aproveche de una asimetría oculta de información o incertidumbre. Cuando el vendedor responde por defectos graves, su interés se alinea con la verdad.`
+          },
+          {
+            letter: `C`,
+            text: `Pedirle al vendedor que jure por su reputación profesional que no hay averías.`,
+            ok: false,
+            feedback: `Señalización barata: las palabras y promesas verbales no cuestan nada. Para revelar preferencias reales hace falta un compromiso vinculante o costoso, como una fianza o garantía.`
+          }
+        ]
+      },
+      {
+        tag: `Dilema 03 · Ergodicidad y ruina`,
+        title: `La inversión con alta rentabilidad media pero riesgo de quiebra`,
+        prompt: `Un asesor bancario te ofrece una estrategia apalancada: históricamente el conjunto de inversores que participó en ella ganó un +15 % anual en el 85 % de los casos, aunque existe un pequeño riesgo anual de liquidación total si sobreviene una crisis severa.`,
+        choices: [
+          {
+            letter: `A`,
+            text: `Invertir todo tu patrimonio porque la esperanza matemática de conjunto es claramente positiva.`,
+            ok: false,
+            feedback: `Fallo de ergodicidad: estás confundiendo a 100 inversores en un año con tu propia trayectoria durante 30 años. Una sola liquidación total es una barrera de absorción irreversible; después de la ruina, ningún rendimiento futuro importa.`
+          },
+          {
+            letter: `B`,
+            text: `Rechazar cualquier exposición que permita la ruina o acotar el tamaño de la apuesta para garantizar la supervivencia temporal.`,
+            ok: true,
+            feedback: `Racionalidad ergódica: en presencia de ruina, el análisis clásico de coste-beneficio queda anulado. Para obtener los rendimientos del mercado a largo plazo, primero debes eliminar los límites (uncle points) que te expulsan del juego.`
+          },
+          {
+            letter: `C`,
+            text: `Invertir todo pero contratar a un psicólogo conductual para controlar tu «aversión irracional al riesgo de cola».`,
+            ok: false,
+            feedback: `Ironía del libro: muchos psicólogos y economistas conductuales llaman «irracional» a sobreestimar el riesgo de cola precisamente porque ignoran la ergodicidad. Temer la ruina es pura racionalidad de supervivencia.`
+          }
+        ]
+      },
+      {
+        tag: `Dilema 04 · Regla de la minoría`,
+        title: `El cambio de estándar en una organización`,
+        prompt: `En una conferencia internacional con 200 asistentes, 192 personas no tienen restricciones alimentarias y 8 participantes siguen estrictamente una dieta sin alérgenos y halal. El comité organizador quiere que todos puedan comer juntos sin separar cocinas ni gastar el doble.`,
+        choices: [
+          {
+            letter: `A`,
+            text: `Someter el menú a votación democrática de la mayoría para reflejar el gusto del 96 % de los invitados.`,
+            ok: false,
+            feedback: `Ilusión mayoritaria: si gana el menú no halal o con alérgenos, el 4 % queda excluido y la cocina debe duplicarse. El comité ignora la asimetría binaria entre quienes pueden comer de todo y quienes no pueden transigir.`
+          },
+          {
+            letter: `B`,
+            text: `Servir un menú único compatible con la restricción estricta de la minoría del 4 %.`,
+            ok: true,
+            feedback: `Exacto: por la regla de la minoría intransigente, la mayoría flexible puede consumir el menú estricto sin problema, logrando un equilibrio único estable y económico con apenas un 4 % de grupo intransigente.`
+          },
+          {
+            letter: `C`,
+            text: `Pedir a la minoría que haga una «pequeña excepción moderada» solo por un día.`,
+            ok: false,
+            feedback: `Incomprensión de lo binario: las reglas morales, dietéticas o de seguridad de este tipo son discretas (todo o nada). No se puede cumplir una norma halal o celíaca «solo un poquito».`
+          }
+        ]
+      },
+      {
+        tag: `Dilema 05 · Lindy y vía negativa`,
+        title: `Rediseñar una institución o hábito complejo`,
+        prompt: `Acabas de asumir la dirección de una institución histórica que muestra señales de ineficiencia. Dos consultores te presentan propuestas opuestas para el primer trimestre.`,
+        choices: [
+          {
+            letter: `A`,
+            text: `Consultor 1: Implantar un nuevo marco burocrático integral de 400 páginas con evaluaciones trimestrales de métricas de percepción.`,
+            ok: false,
+            feedback: `Error de IPI y vía positiva: las personas sin piel en el juego proponen soluciones complicadas. Añadir formularios de evaluación solo incentiva ocultar riesgos raros para lucir métricas estables a corto plazo.`
+          },
+          {
+            letter: `B`,
+            text: `Consultor 2: Descentralizar decisiones, identificar y eliminar las prácticas que crean fragilidad sin coste para sus responsables, y conservar las reglas centenarias que funcionan (vía negativa).`,
+            ok: true,
+            feedback: `Acierto pleno: es más fácil hacer macromierda que micromierda. Descentralizar reduce las asimetrías estructurales, la vía negativa elimina la fragilidad sin efectos secundarios imprevistos y el efecto Lindy respeta lo que el tiempo ya validó.`
+          },
+          {
+            letter: `C`,
+            text: `Sustituir inmediatamente todas las costumbres antiguas por la última teoría publicada hace seis meses en una revista de gestión.`,
+            ok: false,
+            feedback: `Trampa anti-Lindy: lo que lleva seis meses en circulación tiene una esperanza de vida bajísima frente a prácticas que han sobrevivido siglos de pruebas reales.`
+          }
+        ]
+      }
+    ];
+
+    function renderSimulator() {
+      const navEl = document.getElementById(`scenario-nav`);
+      const tagEl = document.getElementById(`sim-active-tag`);
+      const titleEl = document.getElementById(`sim-active-title`);
+      const promptEl = document.getElementById(`sim-active-prompt`);
+      const choicesEl = document.getElementById(`sim-choices`);
+      const feedbackEl = document.getElementById(`sim-feedback`);
+      const progressEl = document.getElementById(`sim-progress-text`);
+
+      const currentIdx = Math.max(0, Math.min(SCENARIOS.length - 1, appState.currentScenario || 0));
+      const answers = appState.scenarioAnswers || {};
+
+      let answeredCount = 0;
+      let correctCount = 0;
+      for (let i = 0; i < SCENARIOS.length; i++) {
+        if (typeof answers[i] === `number`) {
+          answeredCount++;
+          const chosen = SCENARIOS[i].choices[answers[i]];
+          if (chosen && chosen.ok) correctCount++;
+        }
+      }
+
+      if (progressEl) {
+        progressEl.textContent = `${answeredCount} de ${SCENARIOS.length} dilemas evaluados · ${correctCount} aciertos`;
+      }
+
+      if (navEl) {
+        let navHtml = ``;
+        for (let i = 0; i < SCENARIOS.length; i++) {
+          let cls = `scenario-pill`;
+          if (i === currentIdx) cls += ` current`;
+          if (typeof answers[i] === `number`) {
+            const c = SCENARIOS[i].choices[answers[i]];
+            cls += (c && c.ok) ? ` answered-ok` : ` answered-trap`;
+          }
+          navHtml += `<button type="button" class="${cls}" role="tab" aria-selected="${i === currentIdx ? `true` : `false`}" onclick="selectScenario(${i})">Dilema 0${i + 1}</button>`;
+        }
+        navEl.innerHTML = navHtml;
+      }
+
+      const sc = SCENARIOS[currentIdx];
+      if (!sc) return;
+      if (tagEl) tagEl.textContent = sc.tag;
+      if (titleEl) titleEl.textContent = sc.title;
+      if (promptEl) promptEl.textContent = sc.prompt;
+
+      const selectedIdx = typeof answers[currentIdx] === `number` ? answers[currentIdx] : -1;
+
+      if (choicesEl) {
+        let cHtml = ``;
+        for (let j = 0; j < sc.choices.length; j++) {
+          const ch = sc.choices[j];
+          let btnCls = `choice-btn`;
+          if (j === selectedIdx) {
+            btnCls += ch.ok ? ` selected-ok` : ` selected-trap`;
+          }
+          cHtml += `
+            <button type="button" class="${btnCls}" onclick="chooseScenarioOption(${currentIdx}, ${j})">
+              <span class="choice-letter">${ch.letter}.</span>
+              <span>${ch.text}</span>
+            </button>
+          `;
+        }
+        choicesEl.innerHTML = cHtml;
+      }
+
+      if (feedbackEl) {
+        if (selectedIdx >= 0 && sc.choices[selectedIdx]) {
+          const chosen = sc.choices[selectedIdx];
+          feedbackEl.style.display = `grid`;
+          feedbackEl.innerHTML = `
+            <span class="tag ${chosen.ok ? `status-good` : `status-bad`}">${chosen.ok ? `Diagnóstico simétrico · Acierto` : `Asimetría detectada · Error`}</span>
+            <p style="margin: 0; font-size: 0.95rem;">${chosen.feedback}</p>
+          `;
+        } else {
+          feedbackEl.style.display = `none`;
+          feedbackEl.innerHTML = ``;
+        }
+      }
+    }
+
+    function selectScenario(idx) {
+      appState.currentScenario = idx;
+      renderSimulator();
+      saveAppState();
+    }
+
+    function chooseScenarioOption(scIdx, choiceIdx) {
+      if (!appState.scenarioAnswers) appState.scenarioAnswers = {};
+      appState.scenarioAnswers[scIdx] = choiceIdx;
+      appState.currentScenario = scIdx;
+      renderSimulator();
+      saveAppState();
+    }
+
+    function resetSimulator(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Pulsa otra vez para confirmar`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reiniciar respuestas`;
+      appState.scenarioAnswers = {};
+      appState.currentScenario = 0;
+      renderSimulator();
+      saveAppState();
+    }
+
+    function exportScorecard() {
+      const answers = appState.scenarioAnswers || {};
+      const lines = [
+        `RESUMEN DE DECISIONES — JUGARSE LA PIEL (N. N. TALEB)`,
+        `=======================================================`,
+        ``
+      ];
+      let okCount = 0;
+      for (let i = 0; i < SCENARIOS.length; i++) {
+        const sc = SCENARIOS[i];
+        const aIdx = answers[i];
+        lines.push(`${i + 1}. ${sc.title}`);
+        if (typeof aIdx === `number` && sc.choices[aIdx]) {
+          const ch = sc.choices[aIdx];
+          if (ch.ok) okCount++;
+          lines.push(`   Tu elección (${ch.letter}): ${ch.ok ? `[ACIERTO]` : `[ASIMETRÍA]`}`);
+          lines.push(`   Diagnóstico: ${ch.feedback}`);
+        } else {
+          lines.push(`   Sin responder.`);
+        }
+        lines.push(``);
+      }
+      lines.push(`Puntuación final: ${okCount} / ${SCENARIOS.length}`);
+      lines.push(`Regla final: Quienes hablan deberían actuar; quienes no asumen riesgos no deberían decidir por otros.`);
+
+      const content = lines.join(`\n`);
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `diagnostico_jugarse_la_piel.txt`
+        });
+      } else {
+        const blob = new Blob([content], { type: `text/plain;charset=utf-8` });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement(`a`);
+        a.href = url;
+        a.download = `diagnostico_jugarse_la_piel.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    /* ==========================================================================
+       9. INICIALIZACIÓN DE LA APLICACIÓN
+       ========================================================================== */
+    function applyRestoredControls() {
+      const rubinRegime = document.getElementById(`rubin-regime`);
+      const rubinSlider = document.getElementById(`rubin-tail-slider`);
+      const rubinInput = document.getElementById(`rubin-tail-input`);
+      if (rubinRegime) rubinRegime.value = appState.rubinRegime || `rubin`;
+      if (rubinSlider) rubinSlider.value = appState.rubinTailPct || 8;
+      if (rubinInput) rubinInput.value = appState.rubinTailPct || 8;
+
+      const minSlider = document.getElementById(`minority-pct-slider`);
+      const minInput = document.getElementById(`minority-pct-input`);
+      const minRule = document.getElementById(`minority-rule`);
+      const minDom = document.getElementById(`minority-domain`);
+      if (minSlider) minSlider.value = typeof appState.minorityPct === `number` ? appState.minorityPct : 4;
+      if (minInput) minInput.value = typeof appState.minorityPct === `number` ? appState.minorityPct : 4;
+      if (minRule) minRule.value = appState.minorityRule || `asymmetric`;
+      if (minDom) minDom.value = appState.minorityDomain || `drinks`;
+
+      const ergPreset = document.getElementById(`ergodic-preset`);
+      const ergSlider = document.getElementById(`ergodic-bet-slider`);
+      const ergInput = document.getElementById(`ergodic-bet-input`);
+      if (ergPreset) ergPreset.value = appState.ergodicPreset || `peters`;
+      if (ergSlider) ergSlider.value = appState.ergodicBetPct || 100;
+      if (ergInput) ergInput.value = appState.ergodicBetPct || 100;
+
+      const lindySlider = document.getElementById(`lindy-age-slider`);
+      const lindyInput = document.getElementById(`lindy-age-input`);
+      const lindyExp = document.getElementById(`lindy-exposed`);
+      const ageVal = appState.lindyAge || 2;
+      if (lindySlider) lindySlider.value = Math.min(4000, ageVal);
+      if (lindyInput) lindyInput.value = ageVal;
+      if (lindyExp) lindyExp.checked = appState.lindyExposed !== false;
+    }
+
+    async function initApp() {
+      await loadInitialState();
+      applyRestoredControls();
+
+      selectLadderStep(typeof appState.ladderIndex === `number` ? appState.ladderIndex : 3);
+      runRubinSimulation();
+      updateMinorityGrid();
+      runErgodicSimulation();
+      updateLindyView();
+      renderSimulator();
+
+      if (window.lucide && typeof window.lucide.createIcons === `function`) {
+        window.lucide.createIcons();
+      }
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>

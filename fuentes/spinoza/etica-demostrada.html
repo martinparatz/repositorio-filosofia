@@ -1,0 +1,2483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="charter">
+  <title>Ética demostrada según el orden geométrico — Base de conocimientos sobre Baruch Spinoza</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (Charter) */
+      --background: #f7f4ec;
+      --surface-container-low: #fffdf8;
+      --surface-container: #ece5d4;
+      --surface-container-high: #e3dac4;
+
+      /* Ink */
+      --on-surface: #1c1f26;
+      --on-surface-variant: #4f5360;
+
+      /* Rules */
+      --outline: #b08d57;
+      --outline-variant: #d9cfb8;
+
+      /* Accents */
+      --primary: #14213d;
+      --on-primary: #f7f4ec;
+      --primary-container: #e3e6ee;
+      --on-primary-container: #14213d;
+      --secondary: #2d5a4a;
+      --tertiary: #8a6a35;
+      --error: #9b2c2c;
+      --on-error: #f7f4ec;
+
+      /* Data series */
+      --data-1: #14213d;
+      --data-2: #8a6a35;
+      --data-3: #2d5a4a;
+      --data-4: #5b7aa0;
+      --data-context: #c2bba9;
+
+      /* Fonts */
+      --font-headline: 'Libre Caslon Text', serif;
+      --font-body: 'Inter', sans-serif;
+      --font-label: 'Inter', sans-serif;
+
+      /* Shape */
+      --rounded: 0.125rem;
+      --rounded-lg: 0.125rem;
+      --rounded-full: 0.125rem;
+
+      /* Style effects */
+      --brass-rule: 2px solid var(--outline);
+      --brass-rule-thick: 3px solid var(--outline);
+      --hairline: 1px solid var(--outline-variant);
+      --navy-rule: 1px solid var(--primary);
+      --leaf-underline: 0 1px 0 var(--outline-variant);
+
+      /* Shared derived tokens */
+      --positive: #2d5a4a;
+      --warning: #8a6a35;
+      --focus: #14213d;
+      --brass-on-navy: color-mix(in srgb, var(--outline) 75%, var(--on-primary));
+      --lede-on-navy: color-mix(in srgb, var(--on-primary) 82%, var(--primary));
+      --positive-tint: color-mix(in srgb, var(--positive) 10%, var(--surface-container-low));
+      --error-tint: color-mix(in srgb, var(--error) 10%, var(--surface-container-low));
+      --warning-tint: color-mix(in srgb, var(--warning) 12%, var(--surface-container-low));
+      --navy-border-subtle: color-mix(in srgb, var(--on-primary) 18%, transparent);
+
+      /* Narrative type scale */
+      --display-size: clamp(2.15rem, 1.35rem + 2.8vw, 3.6rem);
+      --headline-size: clamp(1.6rem, 1.15rem + 1.5vw, 2.25rem);
+      --subhead-size: clamp(1.15rem, 1.05rem + 0.45vw, 1.375rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { overflow-x: clip; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+    .title-band :focus-visible {
+      outline: 2px solid var(--brass-on-navy);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      margin: 0;
+      color: var(--on-surface);
+    }
+    h1 {
+      font-weight: 400;
+      font-size: var(--display-size);
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+    }
+    h2 {
+      font-weight: 400;
+      font-size: var(--headline-size);
+      line-height: 1.14;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.25;
+    }
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 65ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .label-caps {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--on-surface-variant);
+      display: block;
+    }
+    .label-brass { color: var(--tertiary); }
+    .label-navy-band { color: var(--brass-on-navy); }
+    .tabular { font-variant-numeric: tabular-nums lining-nums; }
+
+    /* Title Band (Charter Treatment #1 & #2) */
+    .title-band {
+      background: var(--primary);
+      color: var(--on-primary);
+      padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+      border-bottom: var(--brass-rule-thick);
+    }
+    .title-band-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .title-band h1 {
+      color: var(--on-primary);
+      margin-top: var(--space-sm);
+      margin-bottom: var(--space-md);
+      max-width: 24ch;
+    }
+    .title-band .lede {
+      color: var(--lede-on-navy);
+      font-size: var(--subhead-size);
+      line-height: 1.5;
+      max-width: 62ch;
+      padding-bottom: var(--space-lg);
+      border-bottom: 1px solid var(--navy-border-subtle);
+    }
+    .title-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-lg);
+      padding-top: var(--space-md);
+      align-items: center;
+      justify-content: space-between;
+    }
+    .title-meta-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-lg);
+    }
+    .title-meta-item .label-caps { color: var(--brass-on-navy); margin-bottom: var(--space-xs); }
+    .title-meta-item span:last-child {
+      font-family: var(--font-body);
+      font-size: var(--label-size);
+      color: var(--on-primary);
+    }
+
+    /* Section Navigation Bar */
+    .site-nav {
+      background: var(--surface-container-low);
+      border-bottom: var(--hairline);
+      padding: 0 var(--space-lg);
+    }
+    .site-nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: var(--space-sm) 0;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs) var(--space-md);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      padding: var(--space-sm) var(--space-xs);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+      border-bottom-color: var(--outline);
+    }
+    .study-status-pill {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--surface-container);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    /* Main Page Grid */
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Section Structure (Charter Treatment #5) */
+    .content-section {
+      display: grid;
+      gap: var(--space-lg);
+      scroll-margin-top: var(--space-lg);
+    }
+    .section-head {
+      border-top: var(--brass-rule);
+      padding-top: var(--space-md);
+      border-bottom: var(--hairline);
+      padding-bottom: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .section-kicker {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--tertiary);
+    }
+    .section-summary {
+      color: var(--on-surface-variant);
+      max-width: 68ch;
+      margin-top: var(--space-xs);
+      margin-bottom: 0;
+    }
+
+    /* Asymmetric Split Layouts */
+    .split-asymmetric {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .split-balanced {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Key Figure Cards (Charter Treatment #3 & #4) */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .figure-card {
+      background: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+    }
+    .figure-value {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      font-size: var(--headline-size);
+      line-height: 1.15;
+      font-variant-numeric: tabular-nums lining-nums;
+      color: var(--on-surface);
+    }
+    .figure-delta {
+      font-size: var(--label-size);
+      color: var(--tertiary);
+      font-weight: 600;
+    }
+    .figure-note {
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+      line-height: 1.48;
+      margin: 0;
+    }
+
+    /* Leaf Panels & Rules */
+    .leaf-panel {
+      background: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .cream-band {
+      background: var(--surface-container);
+      border-top: var(--hairline);
+      border-bottom: var(--hairline);
+      padding: var(--space-lg);
+      border-radius: var(--rounded);
+    }
+    .stamp-tag {
+      display: inline-block;
+      border: 1px solid var(--outline);
+      color: var(--tertiary);
+      background: transparent;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--rounded);
+    }
+    .stamp-tag-green {
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+
+    /* Tables (Charter style: no vertical lines, header band, pale hairlines) */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      background: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9375rem;
+    }
+    thead th {
+      background: var(--surface-container-high);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--navy-rule);
+    }
+    tbody td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--hairline);
+      vertical-align: top;
+      color: var(--on-surface);
+    }
+    tbody tr:hover {
+      background: var(--surface-container);
+    }
+    .num-col {
+      text-align: right;
+      font-variant-numeric: tabular-nums lining-nums;
+      white-space: nowrap;
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border-radius: var(--rounded);
+      padding: 0.625rem var(--space-md);
+      min-height: 44px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      border: 1px solid var(--primary);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), opacity var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: color-mix(in srgb, var(--primary) 85%, var(--on-surface));
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--primary-container);
+    }
+    .btn-secondary.active {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    /* Expandable Explanations / Accordions */
+    .accordion-group {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .accordion-item {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-left: 3px solid var(--outline);
+      border-radius: var(--rounded);
+    }
+    .accordion-trigger {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      padding: var(--space-md) var(--space-lg);
+      min-height: 48px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .accordion-trigger:hover {
+      background: var(--surface-container);
+    }
+    .accordion-icon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      color: var(--primary);
+      transition: transform var(--dur-short) var(--ease-in-out);
+    }
+    .accordion-trigger[aria-expanded="true"] .accordion-icon {
+      transform: rotate(180deg);
+    }
+    .accordion-body {
+      padding: 0 var(--space-lg) var(--space-md);
+      border-top: var(--hairline);
+      padding-top: var(--space-md);
+      color: var(--on-surface);
+      font-size: 0.96rem;
+    }
+    .accordion-body[hidden] { display: none; }
+
+    /* Interactive 1: Geometric Chain Explorer */
+    .geo-explorer {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .geo-steps-list {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .geo-step-btn {
+      width: 100%;
+      text-align: left;
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-left: 3px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 48px;
+      cursor: pointer;
+      display: grid;
+      gap: 2px;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .geo-step-btn:hover {
+      background: var(--surface-container);
+    }
+    .geo-step-btn.active {
+      background: var(--primary-container);
+      border-color: var(--primary);
+      border-left: 4px solid var(--primary);
+    }
+    .geo-step-code {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--tertiary);
+    }
+    .geo-step-btn.active .geo-step-code {
+      color: var(--primary);
+    }
+    .geo-step-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--on-surface);
+    }
+    .geo-detail-card {
+      background: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .geo-dependency-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      align-items: center;
+      padding-top: var(--space-sm);
+      border-top: var(--hairline);
+    }
+    .dep-chip {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      padding: 0.15rem 0.5rem;
+      background: var(--surface-container);
+      border: 1px solid var(--outline-variant);
+      color: var(--on-surface);
+      border-radius: var(--rounded);
+    }
+
+    /* Interactive 2: Ontology Comparator */
+    .comparator-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+    .compare-col {
+      background: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+    }
+    .compare-col.spinoza-col {
+      border-top: 3px solid var(--primary);
+    }
+    .compare-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .compare-list li {
+      padding-top: var(--space-sm);
+      border-top: var(--hairline);
+      font-size: 0.95rem;
+    }
+    .compare-list li:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    /* Interactive 3: Parallelism SVG Schematic */
+    .parallel-lab {
+      background: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .svg-frame {
+      background: var(--background);
+      border: var(--hairline);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      overflow: hidden;
+    }
+    .svg-frame svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .svg-text-primary { fill: var(--primary); font-family: var(--font-label); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .svg-text-brass { fill: var(--tertiary); font-family: var(--font-label); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .svg-text-body { fill: var(--on-surface); font-family: var(--font-headline); font-size: 14px; }
+    .svg-text-muted { fill: var(--on-surface-variant); font-family: var(--font-body); font-size: 12px; }
+
+    /* Interactive 4: Affects Explorer */
+    .affects-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      align-items: end;
+      background: var(--surface-container);
+      padding: var(--space-md) var(--space-lg);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+    }
+    .field-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    select, input[type="text"] {
+      background: var(--surface-container-low);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      padding: 0.55rem 2rem 0.55rem 0.75rem;
+      min-height: 44px;
+      width: 100%;
+    }
+    input[type="text"] { padding-right: 0.75rem; }
+    select:focus, input[type="text"]:focus {
+      border-color: var(--primary);
+    }
+    .affect-spotlight {
+      background: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .affect-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+      gap: var(--space-md);
+      padding-top: var(--space-sm);
+      border-top: var(--hairline);
+    }
+
+    /* Interactive 5: Servitude to Freedom Scale */
+    .freedom-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .freedom-stage {
+      background: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+    }
+    .freedom-stage.stage-liberated {
+      border-top-color: var(--secondary);
+    }
+    .freedom-stage.stage-active {
+      border-top-color: var(--primary);
+    }
+
+    /* Interactive 6: Quiz */
+    .quiz-shell {
+      background: var(--surface-container-low);
+      border-top: var(--brass-rule);
+      box-shadow: var(--leaf-underline);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .quiz-header-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--hairline);
+    }
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      transition: width var(--dur-short) var(--ease-out);
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .quiz-option-btn {
+      width: 100%;
+      text-align: left;
+      background: var(--background);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      min-height: 48px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.975rem;
+      color: var(--on-surface);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option-btn:hover:not(:disabled) {
+      background: var(--surface-container);
+      border-color: var(--primary);
+    }
+    .quiz-option-btn.opt-correct {
+      background: var(--positive-tint);
+      border-color: var(--positive);
+      color: var(--on-surface);
+    }
+    .quiz-option-btn.opt-wrong {
+      background: var(--error-tint);
+      border-color: var(--error);
+      color: var(--on-surface);
+    }
+    .quiz-feedback {
+      padding: var(--space-md);
+      border-left: 3px solid var(--primary);
+      background: var(--surface-container);
+      font-size: 0.95rem;
+    }
+    .quiz-feedback.fb-correct {
+      border-left-color: var(--positive);
+      background: var(--positive-tint);
+    }
+    .quiz-feedback.fb-wrong {
+      border-left-color: var(--error);
+      background: var(--error-tint);
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--brass-rule);
+      padding: var(--space-xl) var(--space-lg);
+      background: var(--surface-container);
+      color: var(--on-surface-variant);
+      font-size: 0.9rem;
+    }
+    .site-footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    /* Container queries for component cards */
+    .card-wrapper { container-type: inline-size; }
+    @container (max-width: 480px) {
+      .comparator-grid, .freedom-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Mobile breakpoint */
+    @media (max-width: 760px) {
+      .split-asymmetric,
+      .split-balanced,
+      .geo-explorer,
+      .comparator-grid,
+      .freedom-grid {
+        grid-template-columns: 1fr;
+      }
+      .title-band { padding: var(--space-xl) var(--space-md) var(--space-lg); }
+      .page-grid { padding: var(--space-lg) var(--space-md) var(--space-2xl); gap: var(--space-xl); }
+      .site-nav { padding: 0 var(--space-md); }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid { grid-template-columns: minmax(0, 1fr); }
+      body { padding: 0; }
+      .nav-links { gap: var(--space-xs) var(--space-sm); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Portada / Title Band -->
+  <header class="title-band" id="top">
+    <div class="title-band-inner">
+      <span class="label-caps label-navy-band">Base de Conocimientos Filosóficos · Spinoza (1632–1677)</span>
+      <h1>Ética demostrada según el orden geométrico</h1>
+      <p class="lede">
+        Guía estructurada de la obra capital de Baruch Spinoza: del método deductivo euclidiano y la ontología única de Dios o la Naturaleza al paralelismo mente-cuerpo, la mecánica de los afectos y el tránsito racional hacia la libertad humana.
+      </p>
+      <div class="title-meta-row">
+        <div class="title-meta-items">
+          <div class="title-meta-item">
+            <span class="label-caps">Redacción</span>
+            <span class="tabular">1661–1675</span>
+          </div>
+          <div class="title-meta-item">
+            <span class="label-caps">Publicación póstuma</span>
+            <span class="tabular">Noviembre de 1677 (Opera posthuma)</span>
+          </div>
+          <div class="title-meta-item">
+            <span class="label-caps">Edición de referencia</span>
+            <span>Pedro Lomba Falcón (sobre texto latino de Carl Gebhardt)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navegación de Filosofía -->
+  <nav class="site-nav" aria-label="Navegación principal del sitio">
+    <div class="site-nav-inner">
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#inicio" class="active">Inicio</a></li>
+        <li><a href="#metodo">Método geométrico</a></li>
+        <li><a href="#sustancia">Sustancia y Dios</a></li>
+        <li><a href="#mente-cuerpo">Mente y cuerpo</a></li>
+        <li><a href="#afectos">Afectos</a></li>
+        <li><a href="#libertad">Servidumbre y libertad</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#cuestionario">Autoevaluación</a></li>
+      </ul>
+      <div class="study-status-pill" id="study-status-pill" aria-live="polite">
+        Progreso: 0/6 ejes · Test: pendiente
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-grid">
+
+    <!-- 1. INICIO Y ARQUITECTURA DE LA OBRA -->
+    <section id="inicio" class="content-section" data-track-section="inicio">
+      <div class="section-head">
+        <span class="section-kicker">01 · Panorama general y génesis histórica</span>
+        <h2>Una filosofía intempestiva frente a su época</h2>
+        <p class="section-summary">
+          Compuesta y recompuesta durante catorce años, la <em>Ética</em> articula un racionalismo absoluto que rompe con la metafísica cartesiana y la teología tradicional.
+        </p>
+      </div>
+
+      <!-- Cifras clave (Charter Statement Figures) -->
+      <div class="card-grid" aria-label="Datos fundamentales de la obra">
+        <article class="figure-card">
+          <span class="label-caps">Gestación teórica</span>
+          <div class="figure-value tabular">14 años</div>
+          <div class="figure-delta">1661 – Agosto de 1675</div>
+          <p class="figure-note">Desde el primer borrador geométrico enviado a Henry Oldenburg hasta el manuscrito listo para imprenta, retirado ante el rumor de ateísmo.</p>
+        </article>
+        <article class="figure-card">
+          <span class="label-caps">Arquitectura definitiva</span>
+          <div class="figure-value tabular">5 partes</div>
+          <div class="figure-delta">De 2 y 3 partes a 5</div>
+          <p class="figure-note">Concebida primero como bipartita (1663) y luego tripartita (1665, con 80 proposiciones en la parte III), se divide en cinco libros tras 1670.</p>
+        </article>
+        <article class="figure-card">
+          <span class="label-caps">Censura e Índice</span>
+          <div class="figure-value tabular">1677 / 1678</div>
+          <div class="figure-delta">Denuncia ante el Santo Oficio</div>
+          <p class="figure-note">Niels Stensen entrega en septiembre de 1677 un manuscrito titulado <em>Tractatus theologiae</em>; en 1678 la obra entra en el Índice de libros prohibidos.</p>
+        </article>
+        <article class="figure-card">
+          <span class="label-caps">Motor afectivo</span>
+          <div class="figure-value tabular">3 primarios</div>
+          <div class="figure-delta">Deseo · Alegría · Tristeza</div>
+          <p class="figure-note">De estos tres afectos primitivos derivan todas las pasiones humanas, analizadas como fenómenos naturales y no como vicios morales.</p>
+        </article>
+      </div>
+
+      <div class="split-asymmetric">
+        <div>
+          <h3>El ajuste de cuentas con Descartes y la Modernidad</h3>
+          <p>
+            Lejos de ser un mero discípulo que prolonga con rigor a Descartes —como propuso Hegel en sus <em>Lecciones sobre la historia de la filosofía</em>—, Spinoza construye la <em>Ética</em> desde un antagonismo teórico total. Ya en su primera carta conservada a Henry Oldenburg (1661), denuncia tres errores capitales de Descartes y Bacon: desconocer la causa primera de todas las cosas, ignorar la verdadera naturaleza de la mente humana y no descubrir la verdadera causa del error.
+          </p>
+          <p>
+            Frente al voluntarismo creacionista cartesiano —donde Dios crea verdades eternas por voluntad indeterminada y el hombre constituye un supuesto «imperio dentro de otro imperio» gracias al libre albedrío—, Spinoza propone un <strong>necesitarismo absoluto</strong> regido por la lógica de la univocidad: Dios, la Sustancia y la Naturaleza son una única realidad enteramente inteligible.
+          </p>
+        </div>
+
+        <aside class="leaf-panel" aria-label="Hitos documentales y cultura hispánica">
+          <span class="label-caps label-brass">Claves editoriales e históricas</span>
+          <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">Manuscritos y biblioteca</h3>
+          <p style="font-size: 0.93rem;">
+            <strong>Doble edición de 1677:</strong> Publicada tras la muerte de Spinoza en latín (<em>Opera posthuma</em>) y traducida al neerlandés por Jan Hendrik Glazemaker (<em>Nagelate Schriften</em>, sigla <code>NS</code>), con variantes que en ocasiones aclaran pasajes difíciles.
+          </p>
+          <p style="font-size: 0.93rem;">
+            <strong>El hallazgo del Vaticano (2010):</strong> Leen Spruit y Pina Totaro descubrieron en los archivos del Santo Oficio el único manuscrito anterior a la edición póstuma, entregado por Niels Stensen bajo el título encubierto de <em>Tractatus theologiae</em>.
+          </p>
+          <p style="font-size: 0.93rem;">
+            <strong>Cultura hispánica de Spinoza:</strong> Su biblioteca personal revela al castellano como lengua de cultura y clave de lectura (con el <em>Tesoro</em> de Covarrubias como único diccionario unilingüe), además de la influencia silenciosa de Uriel da Costa (<em>Esame das tradiçoes phariseas</em>).
+          </p>
+        </aside>
+      </div>
+
+      <!-- Tabla estructural de las 5 partes -->
+      <div class="table-wrap" role="region" aria-label="Estructura de las cinco partes de la Ética">
+        <table>
+          <thead>
+            <tr>
+              <th>Parte</th>
+              <th>Título latino y español</th>
+              <th>Eje filosófico</th>
+              <th>Tesis cardinal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tabular"><strong>I</strong></td>
+              <td><em>De Deo</em><br>De Dios</td>
+              <td>Ontología general y metafísica de la Sustancia</td>
+              <td>Existe una sola Sustancia infinita (Dios o Naturaleza); todo es en Dios y se sigue con necesidad absoluta.</td>
+            </tr>
+            <tr>
+              <td class="tabular"><strong>II</strong></td>
+              <td><em>De Natura, et Origine Mentis</em><br>De la naturaleza y origen de la mente</td>
+              <td>Teoría del conocimiento y paralelismo</td>
+              <td>Mente y cuerpo son un único individuo concebido bajo dos atributos; el orden de las ideas es idéntico al de las cosas.</td>
+            </tr>
+            <tr>
+              <td class="tabular"><strong>III</strong></td>
+              <td><em>De Origine, et Natura Affectuum</em><br>Del origen y naturaleza de los afectos</td>
+              <td>Física de las pasiones y <em>conatus</em></td>
+              <td>Todo ser se esfuerza por perseverar en su ser; todos los afectos nacen del deseo, la alegría y la tristeza.</td>
+            </tr>
+            <tr>
+              <td class="tabular"><strong>IV</strong></td>
+              <td><em>De Servitute Humana</em><br>De la servidumbre humana</td>
+              <td>Impotencia pasional y vida en la ciudad</td>
+              <td>El hombre pasional está sometido a la fortuna; el hombre guiado por la razón medita sobre la vida y es más libre en comunidad.</td>
+            </tr>
+            <tr>
+              <td class="tabular"><strong>V</strong></td>
+              <td><em>De Potentia Intellectus</em><br>De la potencia del intelecto o libertad humana</td>
+              <td>Emancipación intelectual y eternidad</td>
+              <td>Comprender adecuadamente la necesidad de las causas disuelve las pasiones tristes y une la mente al intelecto eterno de Dios.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Explicación expandible: Siglas y aparato crítico -->
+      <div class="accordion-group">
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span>Guía rápida de siglas académicas para citar la Ética (Ed. Pedro Lomba)</span>
+            <svg class="accordion-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="accordion-body" hidden>
+            <p>
+              Para orientarse en el laberinto de remisiones internas de la obra, la edición emplea las siglas estándar: <strong>E</strong> (parte de la <em>Ética</em> en arábigos, ej. E2p7e = Parte 2, proposición 7, escolio), <strong>def</strong> (definición), <strong>ax</strong> (axioma), <strong>p</strong> (proposición), <strong>d</strong> (demostración), <strong>c</strong> (corolario), <strong>e</strong> (escolio), <strong>Lem</strong> (lema), <strong>post</strong> (postulado), <strong>Ap</strong> (apéndice), <strong>Praef</strong> (prefacio), <strong>Ex</strong> (explicación), <strong>DA</strong> (definición de los afectos), <strong>DGA</strong> (definición general de los afectos), <strong>G</strong> (<em>Spinoza Opera</em> de Carl Gebhardt, 1925), <strong>AT</strong> (<em>Œuvres de Descartes</em> de Adam y Tannery) y <strong>NS</strong> (variantes de la primera edición neerlandesa, <em>Nagelate Schriften</em>, 1677).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. MÉTODO GEOMÉTRICO -->
+    <section id="metodo" class="content-section" data-track-section="metodo">
+      <div class="section-head">
+        <span class="section-kicker">02 · Arquitectura demostrativa</span>
+        <h2>El orden geométrico (<em>more geometrico</em>)</h2>
+        <p class="section-summary">
+          Inspirado en los <em>Elementos</em> de Euclides, el método deductivo elimina las apelaciones a la autoridad o al sentido común vulgar y encadena cada verdad desde definiciones unívocas.
+        </p>
+      </div>
+
+      <div class="split-balanced">
+        <div>
+          <h3>Por qué la geometría y no el tratado retórico</h3>
+          <p>
+            Spinoza no adopta la forma matemática por mero virtuosismo expositivo. En una época dominada por las categorías escolásticas y el dualismo cartesiano, comenzar por <strong>Definiciones</strong> y <strong>Axiomas</strong> explícitos obliga al lector a abandonar el lenguaje equívoco del uso cotidiano y a seguir una cadena rigurosa donde cada proposición queda demostrada (<em>Q. E. D.</em>) por las anteriores.
+          </p>
+          <p>
+            Cada bloque cumple una función precisa: las <em>definiciones</em> fijan la esencia real de los conceptos; los <em>axiomas</em> establecen relaciones lógicas evidentes; las <em>proposiciones</em> y sus <em>demostraciones</em> deducen consecuencias necesarias; los <em>corolarios</em> extraen implicaciones directas; y los <em>escolios</em> ofrecen aclaraciones polémicas, ejemplos concretos y respuestas a objeciones.
+          </p>
+        </div>
+
+        <div class="cream-band">
+          <span class="label-caps label-brass">Anatomía de una deducción spinozana</span>
+          <ol style="margin: var(--space-sm) 0 0; padding-left: 1.25rem; display: grid; gap: var(--space-xs); font-size: 0.94rem;">
+            <li><strong>Definición (def):</strong> Enuncia la naturaleza interna de la cosa, sin implicar un número concreto de individuos.</li>
+            <li><strong>Axioma (ax):</strong> Premisa inmediata (por ejemplo, todo lo que es, es en sí o en otro).</li>
+            <li><strong>Proposición y Demostración (p / d):</strong> Conexión deductiva cerrada que remite explícitamente a pasos previos.</li>
+            <li><strong>Corolario (c):</strong> Consecuencia inmediata derivada de la proposición probada.</li>
+            <li><strong>Escolio (e):</strong> Espacio abierto donde Spinoza dialoga, ironiza o desmonta prejuicios (como el antropomorfismo).</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Recurso interactivo 1: Explorador de la cadena deductiva E1 -->
+      <div>
+        <div style="margin-bottom: var(--space-md);">
+          <span class="label-caps label-brass">Recurso interactivo · Cadena deductiva de la Parte I</span>
+          <h3 style="margin-top: var(--space-xs);">Recorrido paso a paso: cómo se demuestra que solo existe una Sustancia</h3>
+        </div>
+
+        <div class="geo-explorer">
+          <div class="geo-steps-list" id="geo-steps-list" role="listbox" aria-label="Eslabones de la demostración geométrica">
+            <!-- Populated by JS -->
+          </div>
+          <div class="geo-detail-card" id="geo-detail-card" aria-live="polite">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Explicación expandible: El argumento de los 20 hombres -->
+      <div class="accordion-group">
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span>Explicación expandible: El ejemplo de los veinte hombres (E1p8e2)</span>
+            <svg class="accordion-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="accordion-body" hidden>
+            <p>
+              En el Escolio II de la Proposición 8, Spinoza demuestra por otra vía por qué no pueden existir varias sustancias de la misma naturaleza. Toda definición expresa únicamente la esencia de la cosa, nunca un número determinado: la definición de triángulo no implica cuántos triángulos hay. Si en la naturaleza existen exactamente veinte hombres simultáneamente, debe existir una causa externa que explique por qué hay veinte y no diecinueve o veintiuno, ya que la definición de «hombre» no contiene el número veinte. Todo aquello de lo que puede existir una pluralidad de individuos requiere una causa externa. Pero la Sustancia existe por su propia definición (es causa de sí) y no puede tener causa externa; luego su propia definición impide que exista una pluralidad de sustancias de la misma naturaleza.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. ONTOLOGÍA DE LA SUSTANCIA -->
+    <section id="sustancia" class="content-section" data-track-section="sustancia">
+      <div class="section-head">
+        <span class="section-kicker">03 · Parte Primera: De Deo</span>
+        <h2>Dios o la Sustancia: univocidad e inmanencia</h2>
+        <p class="section-summary">
+          Al identificar Sustancia, Dios y Naturaleza, Spinoza suprime toda trascendencia externa: Dios no crea el mundo desde fuera, sino que se produce a sí mismo produciendo sus infinitas modificaciones.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="figure-card">
+          <span class="stamp-tag">Sustancia</span>
+          <h3>Lo que es en sí y se concibe por sí</h3>
+          <p class="figure-note">No necesita del concepto de otra cosa para formarse (E1def3). Existe necesariamente y es indivisible e infinita.</p>
+        </article>
+        <article class="figure-card">
+          <span class="stamp-tag">Atributo</span>
+          <h3>Expresión constitutiva de la esencia</h3>
+          <p class="figure-note">Lo que el intelecto percibe de la sustancia como constitutivo de su esencia (E1def4). Conocemos dos infinitos: Pensamiento y Extensión.</p>
+        </article>
+        <article class="figure-card">
+          <span class="stamp-tag">Modo</span>
+          <h3>Afección de la sustancia</h3>
+          <p class="figure-note">Aquello que es en otra cosa, por cuyo medio es concebido (E1def5). Las cosas singulares —incluidos los seres humanos— son modos finitos.</p>
+        </article>
+      </div>
+
+      <!-- Comparador ontológico interactivo -->
+      <div class="card-wrapper">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md); margin-bottom: var(--space-md);">
+          <div>
+            <span class="label-caps label-brass">Recurso interactivo · Comparador conceptual</span>
+            <h3 style="margin-top: var(--space-xs);">Dos ejes clave para entender la ontología spinozana</h3>
+          </div>
+          <div class="btn-row" role="group" aria-label="Seleccionar comparación ontológica">
+            <button type="button" class="btn btn-secondary active" id="cmp-btn-natura" onclick="setOntologyComparison('natura')">Naturante vs. Naturada</button>
+            <button type="button" class="btn btn-secondary" id="cmp-btn-descartes" onclick="setOntologyComparison('descartes')">Descartes vs. Spinoza</button>
+          </div>
+        </div>
+
+        <div class="comparator-grid" id="ontology-comparator" aria-live="polite">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Explicaciones expandibles: Las 8 Definiciones de De Deo -->
+      <div class="accordion-group">
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span>Glosario expandible: Las ocho definiciones fundacionales de Dios (Parte I)</span>
+            <svg class="accordion-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="accordion-body" hidden>
+            <ul style="margin: 0; padding-left: 1.2rem; display: grid; gap: var(--space-xs);">
+              <li><strong>I. Causa de sí (<em>causa sui</em>):</strong> Aquello cuya esencia implica la existencia, es decir, cuya naturaleza no puede concebirse sino como existente.</li>
+              <li><strong>II. Finita en su género:</strong> Lo que puede ser limitado por otra cosa de su misma naturaleza (un cuerpo por otro cuerpo, un pensamiento por otro pensamiento; nunca un pensamiento por un cuerpo).</li>
+              <li><strong>III. Sustancia:</strong> Lo que es en sí y se concibe por sí, sin precisar del concepto de otra cosa.</li>
+              <li><strong>IV. Atributo:</strong> Lo que el intelecto percibe de una sustancia como constitutivo de su esencia.</li>
+              <li><strong>V. Modo:</strong> Las afecciones de una sustancia, lo que es en otra cosa por cuyo medio es concebido.</li>
+              <li><strong>VI. Dios:</strong> Ente absolutamente infinito, sustancia que consta de infinitos atributos, cada uno de los cuales expresa una esencia eterna e infinita (no meramente infinito en su género).</li>
+              <li><strong>VII. Cosa libre vs. coaccionada:</strong> Libre es la que existe por la sola necesidad de su naturaleza y se determina por sí sola a obrar; coaccionada (o necesaria), la determinada por otra a existir y operar según razón cierta.</li>
+              <li><strong>VIII. Eternidad:</strong> La existencia misma en tanto que se sigue necesariamente de la sola definición de una cosa eterna; no puede explicarse por la duración ni por el tiempo, aunque carezcan de principio y fin.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span>Crítica al finalismo y origen de las nociones morales (Apéndice de la Parte I)</span>
+            <svg class="accordion-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="accordion-body" hidden>
+            <p>
+              Como los hombres se creen libres porque ignoran las causas que determinan sus deseos, y persiguen siempre su propia utilidad, suponen que toda la naturaleza opera también con fines pensados para ellos. De esa proyección nacen nociones imaginarias que luego toman por propiedades reales de las cosas: <em>Bien, Mal, Orden, Confusión, Belleza, Deformidad</em>, y, al juzgarse libres, <em>Alabanza, Vituperio, Pecado y Mérito</em>. En rigor, la Naturaleza no persigue fin alguno ni opera por capricho regio; todo procede de su eterna necesidad.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. PARALELISMO MENTE-CUERPO -->
+    <section id="mente-cuerpo" class="content-section" data-track-section="mente-cuerpo">
+      <div class="section-head">
+        <span class="section-kicker">04 · Parte Segunda: De Natura, et Origine Mentis</span>
+        <h2>Paralelismo mente-cuerpo y disolución del libre albedrío</h2>
+        <p class="section-summary">
+          Mente y cuerpo no son dos sustancias distintas que deban conectarse milagrosamente: son un solo y mismo individuo expresado simultáneamente bajo dos atributos de la Sustancia.
+        </p>
+      </div>
+
+      <div class="split-asymmetric">
+        <div>
+          <h3>«Uno solo y el mismo individuo» (E2p7e y E2p13)</h3>
+          <p>
+            Spinoza resuelve de raíz el problema cartesiano de la interacción entre el alma pensante y el cuerpo extenso declarando que es un falso problema. El orden y la conexión de las ideas es idéntico al orden y la conexión de las cosas (E2p7). La mente humana no es una sustancia inmortal alojada en una máquina, sino <strong>la idea de un cuerpo existente en acto</strong> (E2p13), compuesta a su vez por muchísimas ideas correspondientes a las partes del cuerpo (E2p15).
+          </p>
+          <p>
+            Por ello, la mente no conoce el cuerpo humano ni los cuerpos externos de manera directa e inmediata, sino únicamente a través de las ideas de las afecciones que impactan en su cuerpo (E2p19 y E2p26). Y cuando alguien sabe algo, sabe al mismo tiempo que lo sabe (<em>idea de la idea</em>, E2p21e).
+          </p>
+        </div>
+
+        <aside class="leaf-panel">
+          <span class="label-caps label-brass">Contra las facultades ficticias (E2p49e)</span>
+          <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">Voluntad, entendimiento y el asno de Buridán</h3>
+          <p style="font-size: 0.94rem;">
+            En la mente no existe ninguna facultad absoluta de querer, entender o desear. El intelecto y la voluntad universales son ficciones abstractas respecto a las ideas o voliciones singulares, igual que la «petreidad» respecto a esta o aquella piedra.
+          </p>
+          <p style="font-size: 0.94rem;">
+            Ante la clásica objeción del <strong>asno de Buridán</strong> (¿morirá de hambre el hombre en equilibrio si carece de libre albedrío?), Spinoza replica que quien imagina tal estatua inmóvil no concibe a un hombre real, sino a un asno o una estatua, pues el cuerpo humano nunca está en equilibrio indiferente sino siempre determinado por afecciones concretas.
+          </p>
+        </aside>
+      </div>
+
+      <!-- Recurso interactivo 2: Simulador visual del paralelismo -->
+      <div class="parallel-lab">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md);">
+          <div>
+            <span class="label-caps label-brass">Recurso interactivo · Esquema de simultaneidad ontológica</span>
+            <h3 style="margin-top: var(--space-xs);">Explora cómo un mismo acontecimiento se expresa en Extensión y Pensamiento</h3>
+          </div>
+          <div class="btn-row" role="group" aria-label="Casos del paralelismo mente-cuerpo">
+            <button type="button" class="btn btn-secondary active" data-par="circulo" onclick="setParallelCase('circulo')">Círculo (E2p7e)</button>
+            <button type="button" class="btn btn-secondary" data-par="afeccion" onclick="setParallelCase('afeccion')">Afección corporal (E2p14–19)</button>
+            <button type="button" class="btn btn-secondary" data-par="caballo" onclick="setParallelCase('caballo')">Soldado y campesino (E2p18e)</button>
+            <button type="button" class="btn btn-secondary" data-par="pineal" onclick="setParallelCase('pineal')">Crítica a la glándula pineal (E5Praef)</button>
+          </div>
+        </div>
+
+        <div class="svg-frame" id="parallel-svg-wrap">
+          <!-- Inline SVG updated dynamically -->
+        </div>
+
+        <div id="parallel-caption" class="cream-band" aria-live="polite">
+          <!-- Dynamic explanation -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. TEORÍA DE LOS AFECTOS -->
+    <section id="afectos" class="content-section" data-track-section="afectos">
+      <div class="section-head">
+        <span class="section-kicker">05 · Parte Tercera: De Origine, et Natura Affectuum</span>
+        <h2>Física de los afectos: Deseo, Alegría y Tristeza</h2>
+        <p class="section-summary">
+          Spinoza trata las pasiones humanas con la misma objetividad geométrica que líneas, superficies o cuerpos, midiendo cómo cada afecto aumenta o disminuye nuestra potencia de obrar.
+        </p>
+      </div>
+
+      <div class="split-balanced">
+        <div>
+          <h3>El <em>conatus</em> y la distinción entre acción y pasión</h3>
+          <p>
+            Todo ente singular se esfuerza por perseverar en su ser por una duración indefinida (<em>conatus</em> o <em>vis</em>, E3p7 y E3p9). Cuando ese esfuerzo se refiere a la mente y al cuerpo a la vez, se llama <strong>apetito</strong>; y cuando la mente es consciente de él, se llama <strong>deseo</strong> (<em>Cupiditas</em>).
+          </p>
+          <p>
+            Somos <strong>activos</strong> cuando somos causa adecuada de lo que ocurre en nosotros (ideas adecuadas, E3p3); somos <strong>pasivos</strong> (padecemos pasiones) cuando algo sucede en nosotros de lo que solo somos causa parcial (ideas inadecuadas o confusas). Así, la tristeza no es una mera falta o privación, sino un <em>acto real de transición</em> hacia una perfección menor que coarta nuestra potencia.
+          </p>
+        </div>
+
+        <div class="leaf-panel">
+          <span class="label-caps label-brass">Diálogo léxico con Descartes y Desmarets</span>
+          <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">Un vocabulario arrancado de su uso vulgar</h3>
+          <p style="font-size: 0.94rem;">
+            Spinoza utilizó la traducción latina de <em>Las pasiones del alma</em> realizada por Henri Desmarets (Ámsterdam, 1650). Aunque retoma los nombres latinos (<em>Cupiditas</em>, <em>Laetitia</em>, <em>Tristitia</em>, <em>Hilaritas</em>, <em>Titillatio</em>, <em>Dolor</em>), advierte explícitamente (E3p52e y E3DA20Ex) que su intención no es explicar el significado vulgar de las palabras, sino la naturaleza efectiva de las cosas.
+          </p>
+        </div>
+      </div>
+
+      <!-- Recurso interactivo 3: Explorador de afectos -->
+      <div>
+        <div style="margin-bottom: var(--space-md);">
+          <span class="label-caps label-brass">Recurso interactivo · Diccionario analítico de los afectos (Parte III y Anexo 2)</span>
+          <h3 style="margin-top: var(--space-xs);">Filtra por afecto primario o busca un afecto derivado</h3>
+        </div>
+
+        <div class="affects-controls">
+          <div class="field-group">
+            <label class="field-label" for="affect-primary-filter">Afecto primario de origen</label>
+            <select id="affect-primary-filter" onchange="filterAffects()">
+              <option value="todos">Todos los afectos (primarios y derivados)</option>
+              <option value="primarios">Solo los 3 afectos primitivos</option>
+              <option value="alegria">Derivados de la Alegría (Laetitia)</option>
+              <option value="tristeza">Derivados de la Tristeza (Tristitia)</option>
+              <option value="deseo">Ligados al Deseo (Cupiditas)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="affect-search">Buscar por nombre en español o latín</label>
+            <input type="text" id="affect-search" placeholder="Ej. amor, esperanza, envidia, conmiseración…" oninput="filterAffects()">
+          </div>
+
+          <div class="field-group">
+            <button type="button" class="btn btn-secondary" onclick="resetAffectsFilter()">Restablecer filtro</button>
+          </div>
+        </div>
+
+        <!-- Ficha destacada del afecto seleccionado -->
+        <div class="affect-spotlight" id="affect-spotlight" style="margin-top: var(--space-md);" aria-live="polite">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Tabla de afectos filtrados -->
+        <div class="table-wrap" style="margin-top: var(--space-md);" role="region" aria-label="Tabla de afectos de la Ética">
+          <table>
+            <thead>
+              <tr>
+                <th>Afecto (ES / Latín)</th>
+                <th>Raíz primaria</th>
+                <th>Definición geométrica (E3)</th>
+                <th>Descartes / Desmarets</th>
+                <th class="num-col">Detalle</th>
+              </tr>
+            </thead>
+            <tbody id="affects-table-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. SERVIDUMBRE Y LIBERTAD HUMANA -->
+    <section id="libertad" class="content-section" data-track-section="libertad">
+      <div class="section-head">
+        <span class="section-kicker">06 · Partes Cuarta y Quinta: De Servitute y De Libertate</span>
+        <h2>De la servidumbre pasional a la potencia del intelecto</h2>
+        <p class="section-summary">
+          La libertad no consiste en un imposible libre albedrío al margen de la causalidad, sino en comprender adecuadamente nuestras afecciones para pasar de padecer la fortuna a obrar según la razón.
+        </p>
+      </div>
+
+      <div class="card-wrapper">
+        <div class="freedom-grid">
+          <article class="freedom-stage">
+            <span class="stamp-tag">Estadio 1 · Servidumbre (E4Praef)</span>
+            <h3>El dominio de la fortuna</h3>
+            <p class="figure-note">
+              El hombre sometido a afectos pasivos no es dueño de sí: «veo lo mejor y lo apruebo, pero sigo lo peor» (Ovidio). Queda atado a afectos inconstantes como la esperanza y el miedo, signos de defecto de conocimiento e impotencia de la mente (E4p47e).
+            </p>
+          </article>
+
+          <article class="freedom-stage stage-active">
+            <span class="stamp-tag">Estadio 2 · Guía de la razón (E4p18–p73)</span>
+            <h3>Fuerza de la alegría activa</h3>
+            <p class="figure-note">
+              El deseo que nace de la alegría es más fuerte que el de la tristeza (E4p18). Guiado por la razón, el hombre busca directamente el bien (E4p63d), fortalece su firmeza tanto para luchar como para huir a tiempo (E4p69c) y descubre que es más libre en la ciudad bajo común decreto que en la soledad (E4p73).
+            </p>
+          </article>
+
+          <article class="freedom-stage stage-liberated">
+            <span class="stamp-tag stamp-tag-green">Estadio 3 · Libertad intelectual (E5)</span>
+            <h3>Conciencia de la necesidad</h3>
+            <p class="figure-note">
+              Cuando entendemos las causas necesarias de una tristeza, esta deja de ser pasión y, por tanto, deja de ser tristeza (E5p6 y E5p18e). Comprendiendo que somos parte de la naturaleza total (E4Cap32), nuestra mente participa como modo eterno del intelecto infinito de Dios (E5p40e).
+            </p>
+          </article>
+        </div>
+      </div>
+
+      <!-- Tabla comparativa de tesis prácticas de E4 y E5 -->
+      <div class="split-asymmetric">
+        <div class="table-wrap" role="region" aria-label="Proposiciones clave sobre el hombre libre">
+          <table>
+            <thead>
+              <tr>
+                <th>Referencia</th>
+                <th>Enunciado clave</th>
+                <th>Implicación práctica</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tabular"><strong>E4p47e</strong></td>
+                <td>Esperanza y miedo no son buenos de por sí</td>
+                <td>Cuanto más vivimos según la razón, menos dependemos de la esperanza y más nos liberamos del miedo.</td>
+              </tr>
+              <tr>
+                <td class="tabular"><strong>E4p67</strong></td>
+                <td>Meditación de la vida, no de la muerte</td>
+                <td>El hombre libre en nada piensa menos que en la muerte; desea directamente obrar, vivir y conservar su ser.</td>
+              </tr>
+              <tr>
+                <td class="tabular"><strong>E4p73</strong></td>
+                <td>Libertad en la ciudad (<em>civitas</em>)</td>
+                <td>Quien sigue la razón es más libre en la comunidad regida por normas comunes que obedeciéndose solo en la soledad.</td>
+              </tr>
+              <tr>
+                <td class="tabular"><strong>E5p6 / p18e</strong></td>
+                <td>Remedio por la conciencia de la necesidad</td>
+                <td>Conocer a Dios como causa necesaria disuelve la tristeza en cuanto pasión y la convierte en alegría.</td>
+              </tr>
+              <tr>
+                <td class="tabular"><strong>E5p21 / p40e</strong></td>
+                <td>Imaginación finita e intelecto eterno</td>
+                <td>La memoria y la imaginación cesan con el cuerpo, pero la mente en cuanto entiende es un modo eterno del pensar.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <aside class="accordion-group" aria-label="Explicaciones expandibles de libertad">
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span>¿Por qué el hombre libre no forma concepto del bien ni del mal (E4p68)?</span>
+              <svg class="accordion-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="accordion-body" hidden>
+              <p>
+                Quien nace y permanece libre solo tiene ideas adecuadas; al carecer de ideas confusas o de tristeza, no forma concepto alguno del mal ni, por correlación, del bien. Spinoza lee bajo esta luz el relato bíblico del primer hombre: al comer del árbol del conocimiento del bien y del mal, el hombre perdió su libertad original y empezó a temer la muerte en lugar de desear vivir. No obstante, advierte que la hipótesis es falsa de hecho, pues el ser humano es parte limitada de la naturaleza (E4p4).
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span>¿Qué significa que «la ciudad» (civitas) hace más libre al sabio (E4p73)?</span>
+              <svg class="accordion-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="accordion-body" hidden>
+              <p>
+                En E4p73, Spinoza emplea <em>civitas</em> (ciudad o vida en comunidad, distinguiéndola de <em>status</em>) para mostrar que la razón no conduce al aislamiento egoísta. El hombre racional busca la utilidad común porque nada es más útil para el hombre que otro hombre guiado por la razón. Ya en E2p49e señalaba que esta doctrina enseña a gobernar a los ciudadanos «no para ser siervos, sino para que hagan libremente lo que es lo mejor».
+              </p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 7. PREGUNTAS FRECUENTES (FAQ) -->
+    <section id="faq" class="content-section" data-track-section="faq">
+      <div class="section-head">
+        <span class="section-kicker">07 · Preguntas frecuentes (FAQ)</span>
+        <h2>Dudas habituales sobre la lectura de la <em>Ética</em></h2>
+        <p class="section-summary">
+          Respuestas claras basadas exclusivamente en el texto spinozano y el estudio introductorio de Pedro Lomba.
+        </p>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-secondary" onclick="toggleAllFaq(true)">Expandir todas las preguntas</button>
+        <button type="button" class="btn btn-secondary" onclick="toggleAllFaq(false)">Contraer todas</button>
+      </div>
+
+      <div class="accordion-group" id="faq-list">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- 8. CUESTIONARIO DE AUTOEVALUACIÓN -->
+    <section id="cuestionario" class="content-section" data-track-section="cuestionario">
+      <div class="section-head">
+        <span class="section-kicker">08 · Recurso interactivo de aprendizaje</span>
+        <h2>Cuestionario de autoevaluación</h2>
+        <p class="section-summary">
+          Pon a prueba tu comprensión de los cinco libros de la <em>Ética</em>. Tu progreso y tus respuestas quedan guardados automáticamente en tu sesión.
+        </p>
+      </div>
+
+      <div class="quiz-shell" id="quiz-shell">
+        <div class="quiz-header-bar">
+          <div>
+            <span class="label-caps label-brass" id="quiz-progress-label">Pregunta 1 de 8</span>
+            <h3 id="quiz-score-heading" style="margin-top: var(--space-xs);">Puntuación actual: 0 / 8</h3>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-secondary" onclick="exportStudyNotes()">Exportar resumen (.txt)</button>
+            <button type="button" class="btn btn-secondary" id="reset-quiz-btn" onclick="handleResetQuiz(this)">Reiniciar cuestionario</button>
+          </div>
+        </div>
+
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="quiz-progress-bar" style="width: 0%;"></div>
+        </div>
+
+        <div id="quiz-question-area">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="btn-row" style="justify-content: space-between; padding-top: var(--space-sm); border-top: var(--hairline);">
+          <button type="button" class="btn btn-secondary" id="quiz-prev-btn" onclick="stepQuiz(-1)">Pregunta anterior</button>
+          <div class="btn-row" id="quiz-dots-row" aria-label="Navegación rápida de preguntas">
+            <!-- Populated by JS -->
+          </div>
+          <button type="button" class="btn btn-primary" id="quiz-next-btn" onclick="stepQuiz(1)">Siguiente pregunta</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <span class="label-caps">Fuentes y rigor editorial</span>
+      <p>
+        Contenido elaborado íntegramente a partir de: Baruch Spinoza, <em>Ética demostrada según el orden geométrico</em> (edición, prólogo y traducción de Pedro Lomba Falcón, realizada sobre el texto latino de Carl Gebhardt, <em>Spinoza Opera</em>, vol. II, pp. 43–308, con cotejo de las <em>Nagelate Schriften</em> de 1677, la denuncia de Niels Stensen al Santo Oficio y el vocabulario comparado con <em>Las pasiones del alma</em> de Descartes en la versión latina de Henri Desmarets).
+      </p>
+    </div>
+  </footer>
+
+  <api-shim></api-shim>
+
+  <script>
+    /* ================================================================
+       DATA GROUNDED IN SOURCE TEXTS (template literals for safety)
+       ================================================================ */
+
+    const geoSteps = [
+      {
+        id: `def`,
+        code: `E1def1 – def6`,
+        title: `Definiciones de Causa de sí, Sustancia, Atributo, Modo y Dios`,
+        statement: `La Sustancia es aquello que es en sí y se concibe por sí; el Atributo es lo que el intelecto percibe como constitutivo de su esencia; el Modo es afección en otra cosa; y Dios es el ente absolutamente infinito que consta de infinitos atributos.`,
+        proof: `No se demuestran: fijan de manera unívoca el significado real de los conceptos para impedir la analogía o equivocidad escolástica que Spinoza reprocha a Descartes.`,
+        deps: [`Punto de partida del sistema`],
+        antiCartesian: `Descartes definía la sustancia de forma equívoca entre Dios y las criaturas; Spinoza exige un único sentido estricto de sustancia.`
+      },
+      {
+        id: `p1_p5`,
+        code: `E1p1 – E1p5`,
+        title: `Anterioridad de la sustancia y unicidad por atributo`,
+        statement: `Una sustancia es anterior por naturaleza a sus afecciones (E1p1). Dos sustancias con atributos diversos nada tienen en común (E1p2) y en la naturaleza no pueden darse dos o más sustancias de la misma naturaleza o atributo (E1p5).`,
+        proof: `Si dos sustancias compartieran atributo, solo podrían distinguirse por sus modos/afecciones; pero, dejadas aparte esas afecciones y considerada la sustancia en sí misma (por def. 3 y ax. 6), no puede concebirse como distinta de otra.`,
+        deps: [`E1def3`, `E1def4`, `E1def5`, `E1ax1`, `E1ax6`],
+        antiCartesian: `Impugna la posibilidad cartesiana de una pluralidad de sustancias pensantes (almas) o extensas (cuerpos) individuales.`
+      },
+      {
+        id: `p6_p8`,
+        code: `E1p6 – E1p8`,
+        title: `Inproducibilidad, existencia necesaria e infinitud de la sustancia`,
+        statement: `Una sustancia no puede ser producida por otra sustancia ni por ninguna otra cosa (E1p6 y Cor.). Por tanto, a la naturaleza de una sustancia pertenece el existir (E1p7) y toda sustancia es necesariamente infinita (E1p8).`,
+        proof: `Si fuera finita, tendría que ser limitada por otra sustancia de la misma naturaleza, la cual también existiría; pero E1p5 ya probó que no pueden darse dos sustancias del mismo atributo. Luego existe como infinita. Q. E. D.`,
+        deps: [`E1p2`, `E1p3`, `E1p5`, `E1def1`, `E1def2`, `E1ax4`],
+        antiCartesian: `Elimina de raíz la idea de «creación de sustancias» desde la nada: una sustancia creada es una contradicción lógica (hacer verdadera una idea falsa, E1p8e2).`
+      },
+      {
+        id: `p11`,
+        code: `E1p11`,
+        title: `Existencia necesaria de Dios`,
+        statement: `Dios, o sea, la sustancia que consta de infinitos atributos cada uno de los cuales expresa una esencia eterna e infinita, existe necesariamente.`,
+        proof: `Primera vía: negar su existencia haría que su esencia no implicase existencia (E1ax7), lo que contradice E1p7. Segunda vía: nada externo ni interno puede suprimir su existencia sin contradicción en el Ente sumamente perfecto.`,
+        deps: [`E1def6`, `E1p7`, `E1ax7`, `E1p2`],
+        antiCartesian: `Frente al Dios incomprensible y de voluntad arbitraria de Descartes, la existencia divina se sigue racionalmente de su misma definición e inteligibilidad.`
+      },
+      {
+        id: `p14_p15`,
+        code: `E1p14 – E1p15`,
+        title: `Monismo absoluto e inmanencia: Dios es todo cuanto es`,
+        statement: `Aparte de Dios, ninguna sustancia puede darse ni ser concebida (E1p14). Todo cuanto es, es en Dios, y nada puede ser ni ser concebido sin Dios (E1p15).`,
+        proof: `Si hubiera otra sustancia aparte de Dios, tendría que explicarse por algún atributo de Dios, dando lugar a dos sustancias con el mismo atributo, lo que es absurdo (E1p5). De aquí se sigue (Cor. 2) que la cosa extensa y la cosa pensante son atributos de Dios o afecciones suyas.`,
+        deps: [`E1def6`, `E1p5`, `E1p11`, `E1ax1`],
+        antiCartesian: `La Extensión y el Pensamiento dejan de ser dos sustancias creadas separadas para convertirse en atributos de la única Sustancia: Dios o la Naturaleza.`
+      }
+    ];
+
+    const ontologyComparisons = {
+      natura: {
+        leftTitle: `Naturaleza naturante (Natura naturans)`,
+        leftTag: `E1p29e · Causa libre e inmanente`,
+        leftItems: [
+          `<strong>Definición:</strong> Aquello que es en sí y se concibe por sí.`,
+          `<strong>Constitución:</strong> Los atributos de la Sustancia que expresan una esencia eterna e infinita (como el Pensamiento infinito y la Extensión infinita).`,
+          `<strong>Estatuto causal:</strong> Dios en tanto que considerado como causa libre: existe y obra por la sola necesidad de su propia naturaleza (E1def7, E1p17c2).`,
+          `<strong>Identidad:</strong> En Dios, esencia, existencia y potencia productiva son estrictamente idénticas.`
+        ],
+        rightTitle: `Naturaleza naturada (Natura naturata)`,
+        rightTag: `E1p29e · Efectos necesarios`,
+        rightItems: [
+          `<strong>Definición:</strong> Todo aquello que se sigue de la necesidad de la naturaleza de Dios, o de cada uno de sus atributos.`,
+          `<strong>Constitución:</strong> Todos los modos de los atributos de Dios (tanto modos infinitos como cosas singulares finitas: cuerpos, mentes, pensamientos).`,
+          `<strong>Estatuto ontológico:</strong> Cosas que son en Dios y que sin Dios no pueden ni ser ni ser concebidas (E1p15).`,
+          `<strong>Nota NS:</strong> El hombre es una modificación finita dentro de esta red infinita de determinaciones causales.`
+        ]
+      },
+      descartes: {
+        leftTitle: `Metafísica de Descartes`,
+        leftTag: `Voluntarismo y dualismo`,
+        leftItems: [
+          `<strong>Punto de partida:</strong> Invierte el orden tradicional y convierte la existencia del pensamiento (<em>cogito</em>) en primer principio absoluto.`,
+          `<strong>Noción de sustancia:</strong> Aplica una lógica de analogía y equivocidad entre Dios (sustancia infinita) y las cosas creadas (mente y cuerpo como sustancias finitas).`,
+          `<strong>Potencia divina:</strong> Voluntad absoluta, trascendente e indeterminada que crea incluso las verdades eternas (vía de arracionalidad).`,
+          `<strong>Antropología:</strong> Dualismo entre alma y cuerpo unidos por la glándula pineal; voluntad humana con libre albedrío («imperio dentro de otro imperio»).`
+        ],
+        rightTitle: `Ética de Spinoza`,
+        rightTag: `Racionalismo absoluto y univocidad`,
+        rightItems: [
+          `<strong>Punto de partida:</strong> Restaura la primacía de la causa primera (De Deo) antes de deducir la naturaleza de la mente (Parte II).`,
+          `<strong>Noción de sustancia:</strong> Univocidad estricta: solo existe una única Sustancia absolutamente infinita; todo lo finito es modo suyo.`,
+          `<strong>Potencia divina:</strong> Dios carece de voluntad arbitraria; su potencia es la necesidad racional y natural misma (causa inmanente).`,
+          `<strong>Antropología:</strong> Mente y cuerpo son un único individuo bajo dos atributos; el libre albedrío es una ficción nacida de la ignorancia de las causas.`
+        ]
+      }
+    };
+
+    const parallelCases = {
+      circulo: {
+        label: `Caso I · Identidad ontológica (E2p7e)`,
+        extTitle: `Círculo existente en acto`,
+        extDesc: `Objeto singular bajo el atributo de la Extensión, determinado por la cadena de movimientos corpóreos.`,
+        thoTitle: `Idea del círculo existente`,
+        thoDesc: `Modo del pensar en Dios, determinado por otra idea y otro modo de pensar hasta el infinito.`,
+        explanation: `Un círculo existente en la naturaleza y la idea de ese círculo existente son una sola y la misma cosa explicada por diversos atributos. No hay un puente causal entre ambos: comparten un único y mismo orden y conexión de causas.`
+      },
+      afeccion: {
+        label: `Caso II · Percepción corporal (E2p14–p19)`,
+        extTitle: `Cuerpo humano afectado por cuerpos externos`,
+        extDesc: `El cuerpo está compuesto de muchos individuos que intercambian movimiento y reciben impresiones externas (Post. 1–6).`,
+        thoTitle: `Mente como idea de las afecciones del cuerpo`,
+        thoDesc: `Cuanto de más modos puede disponerse el cuerpo, tanto más apta es la mente para percibir muchísimas cosas (E2p14).`,
+        explanation: `La mente no conoce el cuerpo humano en sí ni los cuerpos externos de forma abstracta, sino únicamente por medio de las ideas de las afecciones corporales (E2p19 y E2p26).`
+      },
+      caballo: {
+        label: `Caso III · Memoria y vestigios (E2p18e)`,
+        extTitle: `Huella de dos cuerpos simultáneos`,
+        extDesc: `Cuando el cuerpo es afectado simultáneamente por dos objetos (ej. un caballo y un campo, o un caballo y un jinete), conserva vestigios asociados.`,
+        thoTitle: `Encadenamiento de pensamientos`,
+        thoDesc: `Un soldado pasa de la idea del caballo al jinete y a la guerra; un campesino pasa del caballo al arado y al campo.`,
+        explanation: `La memoria no es una facultad espiritual autónoma: sigue exactamente el hábito corporal de concatenar imágenes según las afecciones previas de cada individuo (E2p18).`
+      },
+      pineal: {
+        label: `Caso IV · Crítica a Descartes (E5Praef)`,
+        extTitle: `Hipótesis cartesiana de la glándula pineal`,
+        extDesc: `Descartes suponía una glándula en medio del cerebro empujada por espíritus animales y movida por el alma (Pasiones, art. 50).`,
+        thoTitle: `Refutación spinozana: sin interacción cruzada`,
+        thoDesc: `No existe proporción común ni medida entre la fuerza de la voluntad y el movimiento de un cuerpo; es «una hipótesis más oculta que toda cualidad oculta».`,
+        explanation: `Como Pensamiento y Extensión no se limitan ni causan mutuamente (E1def2, E1p3), el orden de las acciones del cuerpo es siempre simultáneo —no subordinado— al orden de las acciones de la mente (E3p2e).`
+      }
+    };
+
+    const affectsData = [
+      {
+        id: `cupiditas`,
+        name: `Deseo`,
+        latin: `Cupiditas`,
+        root: `deseo`,
+        isPrimary: true,
+        descartes: `Desir (II.57; II.69)`,
+        desmarets: `Cupiditas`,
+        def: `La esencia misma del hombre en tanto es concebida como determinada a obrar algo a partir de una afección cualquiera dada en ella (E3DA1).`,
+        power: `Impulso del conatus hecho consciente; raíz de toda acción o pasión.`,
+        ethics: `Bueno o malo según nazca de ideas adecuadas (razón) o inadecuadas (pasiones ciegas, E4p59).`
+      },
+      {
+        id: `laetitia`,
+        name: `Alegría`,
+        latin: `Laetitia`,
+        root: `alegria`,
+        isPrimary: true,
+        descartes: `Joye (I.25; II.61; II.69; II.91)`,
+        desmarets: `Laetitia`,
+        def: `La transición del hombre de una menor a una mayor perfección (E3DA2).`,
+        power: `Aumenta y favorece la potencia de obrar del cuerpo y de pensar de la mente.`,
+        ethics: `El deseo surgido de la alegría es más fuerte que el de la tristeza (E4p18); la alegría activa funda la vida racional.`
+      },
+      {
+        id: `tristitia`,
+        name: `Tristeza`,
+        latin: `Tristitia`,
+        root: `tristeza`,
+        isPrimary: true,
+        descartes: `Tristesse (II.61; II.69; II.92)`,
+        desmarets: `Tristitia`,
+        def: `La transición del hombre de una mayor a una menor perfección (E3DA3). No es privación, sino acto de coerción de la potencia.`,
+        power: `Disminuye o coarta la potencia de obrar del hombre.`,
+        ethics: `Nunca es buena de por sí; se disuelve en cuanto entendemos su causa adecuada (E5p18e).`
+      },
+      {
+        id: `amor`,
+        name: `Amor`,
+        latin: `Amor`,
+        root: `alegria`,
+        isPrimary: false,
+        descartes: `Amour`,
+        desmarets: `Amor`,
+        def: `Una alegría acompañada de la idea de una causa externa (E3p13e, E3DA6). Quien ama se esfuerza por tener presente y conservar la cosa amada.`,
+        power: `Aumenta la potencia, aunque sujeto a inestabilidad si depende de cosas perecederas.`,
+        ethics: `Puede tener exceso como pasión, o elevarse a amor intelectual cuando se funda en el conocimiento adecuado.`
+      },
+      {
+        id: `odium`,
+        name: `Odio`,
+        latin: `Odium`,
+        root: `tristeza`,
+        isPrimary: false,
+        descartes: `Haine`,
+        desmarets: `Odium`,
+        def: `Una tristeza acompañada de la idea de una causa externa (E3p13e, E3DA7). Quien odia se esfuerza por apartar y destruir la cosa odiada.`,
+        power: `Disminuye la potencia y genera discordia.`,
+        ethics: `El odio nunca puede ser bueno (E4p45); el hombre libre procura vencerlo con generosidad.`
+      },
+      {
+        id: `spes`,
+        name: `Esperanza`,
+        latin: `Spes`,
+        root: `alegria`,
+        isPrimary: false,
+        descartes: `Esperance`,
+        desmarets: `Spes`,
+        def: `Una alegría inconstante surgida de la idea de una cosa futura o pretérita de cuyo resultado dudamos en alguna medida (E3p18e2, E3DA12).`,
+        power: `Mezcla de alegría e incertidumbre: no se da nunca sin miedo.`,
+        ethics: `No puede ser buena de por sí: indica defecto de conocimiento e impotencia de la mente (E4p47 y escolio).`
+      },
+      {
+        id: `metus`,
+        name: `Miedo`,
+        latin: `Metus`,
+        root: `tristeza`,
+        isPrimary: false,
+        descartes: `Crainte / Peur`,
+        desmarets: `Metus`,
+        def: `Una tristeza inconstante surgida de la imagen de una cosa futura o pretérita dudosa (E3p18e2, E3DA13).`,
+        power: `Coarta la potencia de obrar mediante la duda.`,
+        ethics: `Signo de servidumbre; quien vive según la razón se esfuerza por liberarse del miedo (E4p47e).`
+      },
+      {
+        id: `gaudium`,
+        name: `Gozo y Remordimiento`,
+        latin: `Gaudium / Conscientiae morsus`,
+        root: `alegria`,
+        isPrimary: false,
+        descartes: `Joie / Remords`,
+        desmarets: `Gaudium / Conscientiae morsus`,
+        def: `El gozo es una alegría (y el remordimiento una tristeza) acompañada de la idea de una cosa pretérita que ha sucedido al margen de lo esperado (E3DA16–17).`,
+        power: `Presupone haber pasado previamente por la duda del miedo o la esperanza.`,
+        ethics: `Aunque el gozo sea alegría, sigue siendo signo de un ánimo impotente (E4p47e).`
+      },
+      {
+        id: `commiseratio`,
+        name: `Conmiseración`,
+        latin: `Commiseratio`,
+        root: `tristeza`,
+        isPrimary: false,
+        descartes: `Pitié`,
+        desmarets: `Commiseratio`,
+        def: `Tristeza acompañada de la idea de un mal que le ha sucedido a otro que imaginamos ser similar a nosotros (E3p22e, E3DA18).`,
+        power: `Nace por imitación de los afectos (E3p27e), contagiándonos la tristeza ajena.`,
+        ethics: `En quien vive según la razón es inútil o mala por sí, pues la razón mueve a ayudar sin necesitar entristecerse.`
+      },
+      {
+        id: `invidia`,
+        name: `Envidia y Misericordia`,
+        latin: `Invidia / Misericordia`,
+        root: `tristeza`,
+        isPrimary: false,
+        descartes: `Envie / Miséricorde`,
+        desmarets: `Invidia / Misericordia`,
+        def: `La envidia es el odio en tanto dispone a alegrarse del mal ajeno y entristecerse por su bien (E3p24e, E3DA23); se le opone la misericordia (amor que goza con el bien ajeno, DA24).`,
+        power: `La envidia bloquea la concordia social y aumenta la tristeza.`,
+        ethics: `El sabio busca bienes comunes de los que todos puedan gozar sin envidia.`
+      },
+      {
+        id: `acquiescentia`,
+        name: `Satisfacción de sí mismo`,
+        latin: `Acquiescentia in se ipso`,
+        root: `alegria`,
+        isPrimary: false,
+        descartes: `Satisfaction de soi-même`,
+        desmarets: `Acquiescentia in se ipso`,
+        def: `Alegría surgida de que el hombre se contempla a sí mismo y su propia potencia de obrar (E3DA25). Se opone a la humildad (tristeza al contemplar su debilidad, DA26).`,
+        power: `Refuerza la afirmación del ser cuando nace de la razón.`,
+        ethics: `Es el mayor bien que podemos esperar cuando procede de conocer adecuadamente nuestra potencia.`
+      },
+      {
+        id: `frustratio`,
+        name: `Frustración`,
+        latin: `Desiderium / Frustratio`,
+        root: `deseo`,
+        isPrimary: false,
+        descartes: `Regret`,
+        desmarets: `Desiderium`,
+        def: `Deseo o apetito de poseer una cosa, favorecido por su recuerdo y simultáneamente coercido por la memoria de cosas que excluyen su existencia (E3p36e, E3DA32).`,
+        power: `Deseo bloqueado que se experimenta como tristeza.`,
+        ethics: `Pedro Lomba traduce aquí como «frustración» para captar la torsión afectiva descrita por Spinoza.`
+      },
+      {
+        id: `hilaritas`,
+        name: `Regocijo, Placer y Dolor`,
+        latin: `Hilaritas / Titillatio / Dolor`,
+        root: `alegria`,
+        isPrimary: false,
+        descartes: `Allegresse / Chatoüillement / Douleur`,
+        desmarets: `Hilaritas / Titillatio / Dolor`,
+        def: `Especies corporales de la alegría y la tristeza (E3p11e). El regocijo afecta por igual a todas las partes del cuerpo; el placer (titillatio) y el dolor afectan sobre todo a una parte.`,
+        power: `El regocijo nunca tiene exceso; el placer parcial sí puede impedir otras funciones.`,
+        ethics: `La verdadera sabiduría busca alegrías que armonicen todo el cuerpo y la mente.`
+      }
+    ];
+
+    const faqItems = [
+      {
+        q: `¿Es Spinoza un filósofo ateo, como denunciaron sus contemporáneos?`,
+        a: `No en el sentido de negar la existencia de Dios, pero sí rechaza radicalmente al Dios personal, trascendente y creador voluntario de la teología tradicional y de Descartes. En la Parte I (De Deo) ofrece cuatro demostraciones de la existencia necesaria de Dios (E1p11), pero identificándolo con la única Sustancia absolutamente infinita o Naturaleza. Por ello sus detractores —y la denuncia de Niels Stensen al Santo Oficio en 1677— lo acusaron de ateísmo e impiedad.`
+      },
+      {
+        q: `¿Por qué escribió la Ética con definiciones, axiomas y demostraciones geométricas?`,
+        a: `Siguiendo el modelo de los Elementos de Euclides, el orden geométrico permite encadenar cada proposición de modo necesario desde definiciones unívocas, evitando los equívocos del lenguaje vulgar y las ficciones teleológicas. Para Spinoza, la realidad y la racionalidad siguen una misma lógica deductiva.`
+      },
+      {
+        q: `¿Qué diferencia hay entre «Naturaleza naturante» y «Naturaleza naturada»?`,
+        a: `En E1p29e, Spinoza denomina «Naturaleza naturante» a Dios considerado como causa libre, es decir, a los atributos que expresan su esencia eterna e infinita. Denomina «Naturaleza naturada» a todo lo que se sigue necesariamente de esos atributos, esto es, el conjunto infinito de los modos y cosas singulares que existen en Dios.`
+      },
+      {
+        q: `¿Cómo se relacionan el alma (mente) y el cuerpo si no interactúan entre sí?`,
+        a: `Según E2p7e y E2p13, la mente y el cuerpo son una sola y misma cosa (un único individuo) concebida bajo dos atributos distintos: el Pensamiento y la Extensión. Por eso no hace falta ninguna «glándula pineal» que los conecte: el orden y la conexión de las ideas es exactamente el mismo que el orden y la conexión de las afecciones corporales.`
+      },
+      {
+        q: `¿Si todo ocurre por necesidad absoluta, queda algún sentido para la libertad humana?`,
+        a: `Sí, pero no como «libre albedrío» indeterminado (que Spinoza juzga una ilusión nacida de ignorar las causas de nuestros deseos). La libertad humana consiste en la potencia del intelecto para formar ideas adecuadas, comprender la necesidad de las cosas (E5p6) y pasar de ser juguetes pasivos de las pasiones a obrar desde la razón.`
+      },
+      {
+        q: `¿Por qué afirma Spinoza que la esperanza y el miedo no pueden ser buenos de por sí?`,
+        a: `Porque ambos envuelven tristeza e incertidumbre: no hay esperanza sin miedo ni miedo sin esperanza (E4p47). Denotan defecto de conocimiento e impotencia de la mente. Quien se guía por la razón procura liberarse del miedo y depender cada vez menos de la esperanza.`
+      },
+      {
+        q: `¿Por qué se prohibió la obra tras la muerte de Spinoza en 1677?`,
+        a: `En septiembre de 1677, poco después de fallecer Spinoza, el converso católico Niels Stensen entregó al Santo Oficio en Roma un manuscrito de la Ética (titulado engañosamente Tractatus theologiae) acusándolo de negar un Dios personal, reducir todo a necesidad natural y promover un amoralismo peligroso. La obra fue incluida en el Índice de libros prohibidos en 1678.`
+      },
+      {
+        q: `¿Qué vínculo tuvo Spinoza con la lengua castellana y la cultura hispánica?`,
+        a: `Según muestra Pedro Lomba a partir del inventario de su biblioteca personal, el castellano fue su lengua de cultura y la clave de la que se sirvió para leer libros de idiomas que no dominaba (su único diccionario unilingüe era el Tesoro de la lengua castellana de Covarrubias). Además, su pensamiento dialoga silenciosamente con autores como Uriel da Costa y la literatura barroca española.`
+      }
+    ];
+
+    const quizQuestions = [
+      {
+        topic: `Método y génesis`,
+        q: `¿Qué modelo formal inspira la estructura deductiva de la Ética (definiciones, axiomas, proposiciones, demostraciones)?`,
+        options: [
+          `Los diálogos socráticos de Platón`,
+          `Los Elementos de Euclides`,
+          `Las Meditaciones metafísicas de Descartes`,
+          `La Retórica de Aristóteles`
+        ],
+        correct: 1,
+        explanation: `Spinoza adopta el método matemático de los Elementos de Euclides para desplegar su filosofía de forma unívoca y necesaria, evitando las ambigüedades del discurso persuasivo o escolástico.`
+      },
+      {
+        topic: `Parte I · Sustancia`,
+        q: `Según E1p14, ¿cuántas sustancias pueden darse o concebirse en la naturaleza?`,
+        options: [
+          `Dos sustancias finitas: mente pensante y cuerpo extenso`,
+          `Tres sustancias: Dios, el mundo y el alma humana`,
+          `Una única Sustancia absolutamente infinita (Dios), y todo lo demás son atributos o modos suyos`,
+          `Infinitas sustancias individuales equivalentes a cada ser humano`
+        ],
+        correct: 2,
+        explanation: `En E1p14 Spinoza demuestra que aparte de Dios ninguna sustancia puede darse ni ser concebida. La cosa extensa y la cosa pensante son atributos de esa única Sustancia o afecciones suyas (E1p14c2).`
+      },
+      {
+        topic: `Crítica a Descartes`,
+        q: `¿Cuál es la postura de Spinoza frente a la metafísica de René Descartes según Pedro Lomba?`,
+        options: [
+          `Un antagonismo teórico total: recusa su voluntarismo creacionista, su dualismo y la equivocidad de la sustancia`,
+          `Una continuación fiel que solo corrige detalles físicos menores`,
+          `Una defensa del libre albedrío humano como «imperio dentro de otro imperio»`,
+          `La aceptación de la glándula pineal como sede de la interacción alma-cuerpo`
+        ],
+        correct: 0,
+        explanation: `Frente a la lectura de Hegel, la introducción de Pedro Lomba muestra que Spinoza refuta los primeros principios cartesianos ya desde su carta de 1661 a Oldenburg, oponiendo un racionalismo absoluto al voluntarismo de Descartes.`
+      },
+      {
+        topic: `Parte II · Paralelismo`,
+        q: `¿Qué establece la proposición E2p7 («el orden y la conexión de las ideas es el mismo que el orden y la conexión de las cosas»)?`,
+        options: [
+          `Que las ideas causan físicamente los movimientos del cuerpo`,
+          `Que mente y cuerpo son el mismo individuo concebido bajo el atributo del Pensamiento y bajo el de la Extensión`,
+          `Que el cuerpo es una ilusión producida por la mente`,
+          `Que la voluntad domina al cuerpo mediante el hábito`
+        ],
+        correct: 1,
+        explanation: `En E2p7e y E2p13 queda establecido que la mente es la idea del cuerpo existente en acto y que ambos son una sola y misma cosa expresada por dos atributos distintos, sin causalidad cruzada entre ellos.`
+      },
+      {
+        topic: `Parte III · Afectos`,
+        q: `¿Cuáles son los tres únicos afectos primitivos o primarios que reconoce Spinoza en la Parte III?`,
+        options: [
+          `Amor, odio y admiración`,
+          `Esperanza, miedo y remordimiento`,
+          `Deseo (Cupiditas), alegría (Laetitia) y tristeza (Tristitia)`,
+          `Razón, voluntad y apetito`
+        ],
+        correct: 2,
+        explanation: `En E3p11e y en las Definiciones de los afectos, Spinoza reduce toda la vida afectiva a tres afectos primarios: deseo, alegría y tristeza. Todos los demás (amor, odio, envidia, conmiseración, etc.) se derivan de ellos.`
+      },
+      {
+        topic: `Parte III · Conatus`,
+        q: `¿Qué distingue a una «acción» de una «pasión» de la mente en E3p3?`,
+        options: [
+          `Las acciones nacen de ideas adecuadas; las pasiones dependen solo de ideas inadecuadas`,
+          `Las acciones provienen de la voluntad libre y las pasiones de la glándula pineal`,
+          `Las acciones corresponden solo a la alegría y las pasiones solo a la tristeza`,
+          `No hay diferencia alguna entre acción y pasión`
+        ],
+        correct: 0,
+        explanation: `Según E3p3, somos activos cuando somos causa adecuada de lo que acontece en nosotros (ideas claras y adecuadas); padecemos pasiones cuando actuamos movidos por causas externas que solo conocemos de forma confusa o inadecuada.`
+      },
+      {
+        topic: `Parte IV · Servidumbre y ciudad`,
+        q: `En E4p67 y E4p73, ¿cómo caracteriza Spinoza al hombre libre que vive según el dictamen de la razón?`,
+        options: [
+          `Medita constantemente sobre la muerte y se retira en soledad absoluta`,
+          `Su sabiduría es una meditación de la vida, y es más libre en la ciudad (bajo común decreto) que en la soledad`,
+          `Depende de la esperanza y el temor de Dios para refrenar sus pasiones`,
+          `Rechaza toda ley común porque obedece solo a su capricho`
+        ],
+        correct: 1,
+        explanation: `E4p67 declara que el hombre libre en nada piensa menos que en la muerte, sino que medita sobre la vida; y E4p73 prueba que vive con mayor libertad en la comunidad política (civitas) que aislado.`
+      },
+      {
+        topic: `Parte V · Libertad intelectual`,
+        q: `¿Cómo logra la potencia del intelecto disolver una tristeza según E5p6 y E5p18e?`,
+        options: [
+          `Ocultando el recuerdo mediante la glándula pineal`,
+          `Comprendiendo adecuadamente sus causas necesarias y a Dios como causa de todo, con lo que deja de ser pasión`,
+          `Reprimiendo todo deseo hasta alcanzar la indiferencia de una estatua`,
+          `Esperando un premio futuro tras la disolución del cuerpo`
+        ],
+        correct: 1,
+        explanation: `Al entender de modo claro y distinto la necesidad de la causa que produce una tristeza (E5p6 y E5p18e), la mente pasa de la pasividad a la actividad racional: la tristeza deja de ser pasión y se transforma en alegría de conocer.`
+      }
+    ];
+
+    /* ================================================================
+       APP STATE (Persisted via window.notebookAppApi)
+       ================================================================ */
+
+    const appState = {
+      activeGeoStep: `def`,
+      activeOntologyMode: `natura`,
+      activeParallelCase: `circulo`,
+      selectedAffectId: `cupiditas`,
+      visitedSections: [`inicio`],
+      quizCurrentIndex: 0,
+      quizAnswers: {} // { [questionIdx]: optionIdx }
+    };
+
+    async function saveState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (err) {
+        // Ignore safely outside host
+      }
+    }
+
+    function restoreState(saved) {
+      if (saved.activeGeoStep && geoSteps.some(s => s.id === saved.activeGeoStep)) {
+        appState.activeGeoStep = saved.activeGeoStep;
+      }
+      if (saved.activeOntologyMode === `natura` || saved.activeOntologyMode === `descartes`) {
+        appState.activeOntologyMode = saved.activeOntologyMode;
+      }
+      if (saved.activeParallelCase && parallelCases[saved.activeParallelCase]) {
+        appState.activeParallelCase = saved.activeParallelCase;
+      }
+      if (saved.selectedAffectId && affectsData.some(a => a.id === saved.selectedAffectId)) {
+        appState.selectedAffectId = saved.selectedAffectId;
+      }
+      if (Array.isArray(saved.visitedSections)) {
+        appState.visitedSections = saved.visitedSections;
+      }
+      if (typeof saved.quizCurrentIndex === `number` && saved.quizCurrentIndex >= 0 && saved.quizCurrentIndex < quizQuestions.length) {
+        appState.quizCurrentIndex = saved.quizCurrentIndex;
+      }
+      if (saved.quizAnswers && typeof saved.quizAnswers === `object`) {
+        appState.quizAnswers = saved.quizAnswers;
+      }
+    }
+
+    /* ================================================================
+       INTERACTIVE HANDLERS (hoisted function declarations)
+       ================================================================ */
+
+    function updateStatusPill() {
+      const pill = document.getElementById(`study-status-pill`);
+      if (!pill) return;
+      const coreSections = [`inicio`, `metodo`, `sustancia`, `mente-cuerpo`, `afectos`, `libertad`];
+      const visitedCount = coreSections.filter(id => appState.visitedSections.includes(id)).length;
+      const answeredKeys = Object.keys(appState.quizAnswers);
+      let scoreText = `Test: pendiente`;
+      if (answeredKeys.length > 0) {
+        const correctCount = answeredKeys.reduce((acc, idx) => {
+          const q = quizQuestions[Number(idx)];
+          return acc + (q && appState.quizAnswers[idx] === q.correct ? 1 : 0);
+        }, 0);
+        scoreText = `Test: ${correctCount}/${quizQuestions.length} (${answeredKeys.length} resp.)`;
+      }
+      pill.textContent = `Progreso: ${visitedCount}/6 ejes · ${scoreText}`;
+    }
+
+    function toggleAccordion(btn) {
+      if (!btn) return;
+      const expanded = btn.getAttribute(`aria-expanded`) === `true`;
+      btn.setAttribute(`aria-expanded`, expanded ? `false` : `true`);
+      const panel = btn.nextElementSibling;
+      if (panel) {
+        panel.hidden = expanded;
+      }
+    }
+
+    function toggleAllFaq(openAll) {
+      const list = document.getElementById(`faq-list`);
+      if (!list) return;
+      const triggers = list.querySelectorAll(`.accordion-trigger`);
+      triggers.forEach(btn => {
+        btn.setAttribute(`aria-expanded`, openAll ? `true` : `false`);
+        const panel = btn.nextElementSibling;
+        if (panel) panel.hidden = !openAll;
+      });
+    }
+
+    /* --- 1. Geometric Chain Explorer --- */
+    function renderGeoExplorer() {
+      const listEl = document.getElementById(`geo-steps-list`);
+      const detailEl = document.getElementById(`geo-detail-card`);
+      if (!listEl || !detailEl) return;
+
+      listEl.innerHTML = geoSteps.map(step => `
+        <button type="button"
+          class="geo-step-btn ${step.id === appState.activeGeoStep ? `active` : ``}"
+          role="option"
+          aria-selected="${step.id === appState.activeGeoStep ? `true` : `false`}"
+          onclick="selectGeoStep('${step.id}')">
+          <span class="geo-step-code">${step.code}</span>
+          <span class="geo-step-title">${step.title}</span>
+        </button>
+      `).join(``);
+
+      const current = geoSteps.find(s => s.id === appState.activeGeoStep) || geoSteps[0];
+      detailEl.innerHTML = `
+        <div>
+          <span class="stamp-tag">${current.code}</span>
+          <h3 style="margin-top: var(--space-sm);">${current.title}</h3>
+        </div>
+        <div>
+          <span class="label-caps label-brass" style="margin-bottom: var(--space-xs);">Enunciado geométrico</span>
+          <p>${current.statement}</p>
+        </div>
+        <div>
+          <span class="label-caps label-brass" style="margin-bottom: var(--space-xs);">Mecanismo de la demostración</span>
+          <p>${current.proof}</p>
+        </div>
+        <div class="cream-band" style="padding: var(--space-md);">
+          <span class="label-caps" style="color: var(--primary); margin-bottom: var(--space-xs);">Alcance anticartesiano</span>
+          <p style="font-size: 0.93rem;">${current.antiCartesian}</p>
+        </div>
+        <div class="geo-dependency-bar">
+          <span class="label-caps" style="margin-right: var(--space-xs);">Apoyos previos:</span>
+          ${current.deps.map(d => `<span class="dep-chip">${d}</span>`).join(``)}
+        </div>
+      `;
+    }
+
+    function selectGeoStep(stepId) {
+      appState.activeGeoStep = stepId;
+      renderGeoExplorer();
+      saveState();
+    }
+
+    /* --- 2. Ontology Comparison --- */
+    function renderOntologyComparator() {
+      const grid = document.getElementById(`ontology-comparator`);
+      const btnNatura = document.getElementById(`cmp-btn-natura`);
+      const btnDesc = document.getElementById(`cmp-btn-descartes`);
+      if (!grid) return;
+
+      if (btnNatura) btnNatura.classList.toggle(`active`, appState.activeOntologyMode === `natura`);
+      if (btnDesc) btnDesc.classList.toggle(`active`, appState.activeOntologyMode === `descartes`);
+
+      const data = ontologyComparisons[appState.activeOntologyMode] || ontologyComparisons.natura;
+      grid.innerHTML = `
+        <article class="compare-col">
+          <span class="stamp-tag">${data.leftTag}</span>
+          <h3>${data.leftTitle}</h3>
+          <ul class="compare-list">
+            ${data.leftItems.map(item => `<li>${item}</li>`).join(``)}
+          </ul>
+        </article>
+        <article class="compare-col spinoza-col">
+          <span class="stamp-tag stamp-tag-green">${data.rightTag}</span>
+          <h3>${data.rightTitle}</h3>
+          <ul class="compare-list">
+            ${data.rightItems.map(item => `<li>${item}</li>`).join(``)}
+          </ul>
+        </article>
+      `;
+    }
+
+    function setOntologyComparison(mode) {
+      appState.activeOntologyMode = mode;
+      renderOntologyComparator();
+      saveState();
+    }
+
+    /* --- 3. Parallelism SVG Lab --- */
+    function renderParallelLab() {
+      const svgWrap = document.getElementById(`parallel-svg-wrap`);
+      const captionEl = document.getElementById(`parallel-caption`);
+      if (!svgWrap || !captionEl) return;
+
+      const btns = document.querySelectorAll(`[data-par]`);
+      btns.forEach(b => {
+        b.classList.toggle(`active`, b.getAttribute(`data-par`) === appState.activeParallelCase);
+      });
+
+      const c = parallelCases[appState.activeParallelCase] || parallelCases.circulo;
+      svgWrap.innerHTML = `
+        <svg viewBox="0 0 760 225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama del paralelismo entre Extensión y Pensamiento">
+          <!-- Sustancia Única -->
+          <rect x="16" y="14" width="728" height="36" fill="var(--primary)" rx="2" />
+          <text x="380" y="36" text-anchor="middle" fill="var(--on-primary)" font-family="var(--font-label)" font-size="11" font-weight="600" letter-spacing="1.2">
+            SUSTANCIA ÚNICA (DIOS O NATURALEZA) · UN MISMO ORDEN CAUSAL
+          </text>
+
+          <!-- Rama Extensión -->
+          <line x1="210" y1="50" x2="210" y2="74" stroke="var(--outline)" stroke-width="2" />
+          <rect x="24" y="74" width="320" height="132" fill="var(--surface-container-low)" stroke="var(--outline-variant)" stroke-width="1" />
+          <line x1="24" y1="74" x2="344" y2="74" stroke="var(--outline)" stroke-width="2.5" />
+          <text x="40" y="96" class="svg-text-brass">ATRIBUTO DE LA EXTENSIÓN</text>
+          <text x="40" y="122" class="svg-text-body" font-weight="700">${c.extTitle}</text>
+          <foreignObject x="40" y="132" width="288" height="68">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="font-family: var(--font-body); font-size: 12.5px; line-height: 1.45; color: var(--on-surface-variant);">
+              ${c.extDesc}
+            </div>
+          </foreignObject>
+
+          <!-- Conector de Simultaneidad (sin causalidad cruzada) -->
+          <line x1="344" y1="140" x2="416" y2="140" stroke="var(--primary)" stroke-width="1.5" stroke-dasharray="4 3" />
+          <rect x="352" y="124" width="56" height="32" fill="var(--surface-container)" stroke="var(--primary)" stroke-width="1" rx="2" />
+          <text x="380" y="144" text-anchor="middle" class="svg-text-primary">= IDEM</text>
+
+          <!-- Rama Pensamiento -->
+          <line x1="550" y1="50" x2="550" y2="74" stroke="var(--outline)" stroke-width="2" />
+          <rect x="416" y="74" width="320" height="132" fill="var(--surface-container-low)" stroke="var(--outline-variant)" stroke-width="1" />
+          <line x1="416" y1="74" x2="736" y2="74" stroke="var(--primary)" stroke-width="2.5" />
+          <text x="432" y="96" class="svg-text-primary">ATRIBUTO DEL PENSAMIENTO</text>
+          <text x="432" y="122" class="svg-text-body" font-weight="700">${c.thoTitle}</text>
+          <foreignObject x="432" y="132" width="288" height="68">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="font-family: var(--font-body); font-size: 12.5px; line-height: 1.45; color: var(--on-surface-variant);">
+              ${c.thoDesc}
+            </div>
+          </foreignObject>
+        </svg>
+      `;
+
+      captionEl.innerHTML = `
+        <span class="label-caps label-brass" style="margin-bottom: var(--space-xs);">${c.label}</span>
+        <p>${c.explanation}</p>
+      `;
+    }
+
+    function setParallelCase(caseId) {
+      appState.activeParallelCase = caseId;
+      renderParallelLab();
+      saveState();
+    }
+
+    /* --- 4. Affects Explorer --- */
+    function getFilteredAffects() {
+      const filterEl = document.getElementById(`affect-primary-filter`);
+      const searchEl = document.getElementById(`affect-search`);
+      const filterVal = filterEl ? filterEl.value : `todos`;
+      const query = searchEl ? searchEl.value.trim().toLowerCase() : ``;
+
+      return affectsData.filter(a => {
+        let matchFilter = true;
+        if (filterVal === `primarios`) matchFilter = a.isPrimary;
+        else if (filterVal !== `todos`) matchFilter = a.root === filterVal;
+
+        const matchSearch = !query ||
+          a.name.toLowerCase().includes(query) ||
+          a.latin.toLowerCase().includes(query) ||
+          a.def.toLowerCase().includes(query);
+
+        return matchFilter && matchSearch;
+      });
+    }
+
+    function renderAffectsSpotlight() {
+      const spot = document.getElementById(`affect-spotlight`);
+      if (!spot) return;
+      const a = affectsData.find(item => item.id === appState.selectedAffectId) || affectsData[0];
+
+      const rootLabel = a.isPrimary ? `Afecto primitivo` : `Afecto derivado (${a.root})`;
+      spot.innerHTML = `
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--space-sm);">
+          <div>
+            <span class="stamp-tag ${a.root === `alegria` ? `stamp-tag-green` : ``}">${rootLabel}</span>
+            <h3 style="margin-top: var(--space-xs);">${a.name} <span style="font-weight: 400; font-style: italic; color: var(--on-surface-variant);">(${a.latin})</span></h3>
+          </div>
+          <span class="label-caps label-brass">Ficha analítica seleccionada</span>
+        </div>
+        <p>${a.def}</p>
+        <div class="affect-meta-grid">
+          <div>
+            <span class="label-caps">Efecto sobre la potencia</span>
+            <p style="font-size: 0.92rem; margin-top: var(--space-xs);">${a.power}</p>
+          </div>
+          <div>
+            <span class="label-caps">Descartes / Desmarets (Anexo 2)</span>
+            <p style="font-size: 0.92rem; margin-top: var(--space-xs);">FR: ${a.descartes}<br>LAT: ${a.desmarets}</p>
+          </div>
+          <div>
+            <span class="label-caps">Valor ético (Partes IV–V)</span>
+            <p style="font-size: 0.92rem; margin-top: var(--space-xs);">${a.ethics}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function filterAffects() {
+      const tbody = document.getElementById(`affects-table-body`);
+      if (!tbody) return;
+      const items = getFilteredAffects();
+
+      if (items.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" style="text-align: center; padding: var(--space-lg); color: var(--on-surface-variant);">
+              Ningún afecto coincide con tu búsqueda. Pulsa «Restablecer filtro» para ver el repertorio completo.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = items.map(a => `
+        <tr>
+          <td><strong>${a.name}</strong><br><span style="color: var(--on-surface-variant); font-size: 0.85rem;"><em>${a.latin}</em></span></td>
+          <td>${a.isPrimary ? `Primitivo` : a.root.charAt(0).toUpperCase() + a.root.slice(1)}</td>
+          <td>${a.def}</td>
+          <td style="font-size: 0.86rem;">${a.descartes}<br><span style="color: var(--on-surface-variant);">${a.desmarets}</span></td>
+          <td class="num-col">
+            <button type="button" class="btn btn-secondary ${a.id === appState.selectedAffectId ? `active` : ``}" onclick="selectAffect('${a.id}')">
+              ${a.id === appState.selectedAffectId ? `Activa` : `Ver ficha`}
+            </button>
+          </td>
+        </tr>
+      `).join(``);
+    }
+
+    function selectAffect(affectId) {
+      appState.selectedAffectId = affectId;
+      renderAffectsSpotlight();
+      filterAffects();
+      saveState();
+    }
+
+    function resetAffectsFilter() {
+      const filterEl = document.getElementById(`affect-primary-filter`);
+      const searchEl = document.getElementById(`affect-search`);
+      if (filterEl) filterEl.value = `todos`;
+      if (searchEl) searchEl.value = ``;
+      filterAffects();
+    }
+
+    /* --- 5. FAQ --- */
+    function renderFaq() {
+      const container = document.getElementById(`faq-list`);
+      if (!container) return;
+      container.innerHTML = faqItems.map((item, i) => `
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="${i === 0 ? `true` : `false`}" onclick="toggleAccordion(this)">
+            <span>${item.q}</span>
+            <svg class="accordion-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="accordion-body" ${i === 0 ? `` : `hidden`}>
+            <p>${item.a}</p>
+          </div>
+        </div>
+      `).join(``);
+    }
+
+    /* --- 6. Quiz --- */
+    function renderQuiz() {
+      const progressLabel = document.getElementById(`quiz-progress-label`);
+      const scoreHeading = document.getElementById(`quiz-score-heading`);
+      const progressBar = document.getElementById(`quiz-progress-bar`);
+      const area = document.getElementById(`quiz-question-area`);
+      const dotsRow = document.getElementById(`quiz-dots-row`);
+      const prevBtn = document.getElementById(`quiz-prev-btn`);
+      const nextBtn = document.getElementById(`quiz-next-btn`);
+
+      if (!area) return;
+
+      const idx = appState.quizCurrentIndex;
+      const q = quizQuestions[idx];
+      const userAnswer = appState.quizAnswers[String(idx)];
+      const hasAnswered = typeof userAnswer === `number`;
+
+      const answeredCount = Object.keys(appState.quizAnswers).length;
+      const correctCount = Object.keys(appState.quizAnswers).reduce((acc, k) => {
+        const item = quizQuestions[Number(k)];
+        return acc + (item && appState.quizAnswers[k] === item.correct ? 1 : 0);
+      }, 0);
+
+      if (progressLabel) progressLabel.textContent = `Pregunta ${idx + 1} de ${quizQuestions.length} · ${q.topic}`;
+      if (scoreHeading) scoreHeading.textContent = `Puntuación actual: ${correctCount} / ${quizQuestions.length} (${answeredCount} respondidas)`;
+      if (progressBar) progressBar.style.width = `${Math.round((answeredCount / quizQuestions.length) * 100)}%`;
+
+      const letters = [`A`, `B`, `C`, `D`];
+      area.innerHTML = `
+        <h3 style="margin-bottom: var(--space-md);">${q.q}</h3>
+        <div class="quiz-options">
+          ${q.options.map((opt, optIdx) => {
+            let cls = `quiz-option-btn`;
+            if (hasAnswered) {
+              if (optIdx === q.correct) cls += ` opt-correct`;
+              else if (optIdx === userAnswer) cls += ` opt-wrong`;
+            }
+            return `
+              <button type="button" class="${cls}" ${hasAnswered ? `disabled` : ``} onclick="answerQuiz(${idx}, ${optIdx})">
+                <strong class="tabular" style="min-width: 1.5rem;">${letters[optIdx]}.</strong>
+                <span>${opt}</span>
+              </button>
+            `;
+          }).join(``)}
+        </div>
+        ${hasAnswered ? `
+          <div class="quiz-feedback ${userAnswer === q.correct ? `fb-correct` : `fb-wrong`}" style="margin-top: var(--space-md);">
+            <strong>${userAnswer === q.correct ? `Respuesta correcta.` : `Respuesta incorrecta.`}</strong> ${q.explanation}
+          </div>
+        ` : ``}
+      `;
+
+      if (dotsRow) {
+        dotsRow.innerHTML = quizQuestions.map((_, i) => `
+          <button type="button"
+            class="btn btn-secondary ${i === idx ? `active` : ``}"
+            style="min-width: 44px; padding: 0.4rem 0.6rem;"
+            aria-label="Ir a la pregunta ${i + 1}"
+            onclick="jumpQuiz(${i})">${i + 1}</button>
+        `).join(``);
+      }
+
+      if (prevBtn) prevBtn.disabled = idx === 0;
+      if (nextBtn) nextBtn.disabled = idx === quizQuestions.length - 1;
+      updateStatusPill();
+    }
+
+    function answerQuiz(qIdx, optIdx) {
+      appState.quizAnswers[String(qIdx)] = optIdx;
+      renderQuiz();
+      saveState();
+    }
+
+    function stepQuiz(delta) {
+      const next = appState.quizCurrentIndex + delta;
+      if (next >= 0 && next < quizQuestions.length) {
+        appState.quizCurrentIndex = next;
+        renderQuiz();
+        saveState();
+      }
+    }
+
+    function jumpQuiz(idx) {
+      if (idx >= 0 && idx < quizQuestions.length) {
+        appState.quizCurrentIndex = idx;
+        renderQuiz();
+        saveState();
+      }
+    }
+
+    function handleResetQuiz(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirmar reinicio`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reiniciar cuestionario`;
+      appState.quizAnswers = {};
+      appState.quizCurrentIndex = 0;
+      renderQuiz();
+      saveState();
+    }
+
+    function exportStudyNotes() {
+      const answeredCount = Object.keys(appState.quizAnswers).length;
+      const correctCount = Object.keys(appState.quizAnswers).reduce((acc, k) => {
+        const item = quizQuestions[Number(k)];
+        return acc + (item && appState.quizAnswers[k] === item.correct ? 1 : 0);
+      }, 0);
+
+      const lines = [
+        `RESUMEN DE ESTUDIO — ÉTICA DE BARUCH SPINOZA`,
+        `============================================`,
+        `Ejes visitados: ${appState.visitedSections.join(`, `)}`,
+        `Autoevaluación: ${correctCount} aciertos sobre ${quizQuestions.length} (${answeredCount} respondidas)`,
+        ``,
+        `Detalle de respuestas:`
+      ];
+
+      quizQuestions.forEach((q, i) => {
+        const ans = appState.quizAnswers[String(i)];
+        const status = typeof ans === `number` ? (ans === q.correct ? `CORRECTA` : `INCORRECTA`) : `SIN RESPONDER`;
+        lines.push(`${i + 1}. [${q.topic}] ${q.q} -> ${status}`);
+      });
+
+      const content = lines.join(`\n`);
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `resumen_etica_spinoza.txt`
+        });
+      }
+    }
+
+    /* --- Scroll Spy & Section Tracking --- */
+    function initScrollObserver() {
+      const sections = document.querySelectorAll(`section[data-track-section]`);
+      const navAnchors = document.querySelectorAll(`#nav-links a`);
+      if (!(`IntersectionObserver` in window) || sections.length === 0) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute(`id`);
+            if (id) {
+              navAnchors.forEach(a => {
+                a.classList.toggle(`active`, a.getAttribute(`href`) === `#` + id);
+              });
+              if (!appState.visitedSections.includes(id)) {
+                appState.visitedSections.push(id);
+                updateStatusPill();
+                saveState();
+              }
+            }
+          }
+        });
+      }, { threshold: 0.25 });
+
+      sections.forEach(sec => observer.observe(sec));
+    }
+
+    function renderAll() {
+      renderGeoExplorer();
+      renderOntologyComparator();
+      renderParallelLab();
+      renderAffectsSpotlight();
+      filterAffects();
+      renderFaq();
+      renderQuiz();
+      updateStatusPill();
+    }
+
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            restoreState(saved);
+          }
+        }
+      } catch (err) {
+        // Safe fallback if host API is unavailable
+      }
+      renderAll();
+      initScrollObserver();
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>

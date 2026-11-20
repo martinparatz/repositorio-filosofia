@@ -1,0 +1,2456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>Antifrágil: Las cosas que se benefician del desorden — Dossier Interactivo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces: warm stone-white paper */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      /* Ink */
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      /* Rules */
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+      --input-border: #c8c4b8;
+
+      /* Accents */
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --on-secondary: #ffffff;
+      --tertiary: #785008;
+      --tertiary-bg: #f5e6c4;
+      --error: #b42318;
+      --on-error: #ffffff;
+      --error-bg: #fbeae8;
+
+      /* Semantic */
+      --positive: #2b6e52;
+      --positive-bg: #e7f2ec;
+      --warning: #785008;
+      --warning-bg: #f5e6c4;
+      --focus: #1f4e5f;
+
+      /* Data series */
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      /* Fonts */
+      --font-headline: 'Source Serif 4', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.35rem, 1.4rem + 3.6vw, 4.1rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.8vw, 2.35rem);
+      --subhead-size: clamp(1.15rem, 1.04rem + 0.45vw, 1.4rem);
+      --body-size: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      /* Style effects */
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+      --focus-ring: 0 0 0 3px var(--focus);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-size: var(--display-size);
+      line-height: 1.07;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      line-height: 1.12;
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      line-height: 1.22;
+    }
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 68ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      line-height: 1.45;
+      color: var(--secondary);
+      max-width: 62ch;
+      margin-top: var(--space-sm);
+    }
+
+    .quote-band {
+      border-left: 3px solid var(--primary-container);
+      padding: var(--space-sm) 0 var(--space-sm) var(--space-md);
+      margin: var(--space-md) 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: var(--subhead-size);
+      color: var(--on-surface);
+      max-width: 60ch;
+    }
+
+    /* Dossier Header & Treatments */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      background: var(--surface-container);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      display: inline-block;
+    }
+
+    /* Navigation strip */
+    .nav-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      border-bottom: var(--card-border);
+    }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      color: var(--on-surface);
+      text-decoration: none;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-radius: var(--rounded);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:hover {
+      background: var(--surface-container-high);
+      color: var(--secondary);
+    }
+    .nav-link .nav-idx {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+    .nav-progress {
+      margin-left: auto;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    /* Cards & Figures */
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .figure-card .value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      line-height: 1.15;
+    }
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-lg);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+    }
+
+    /* Grids */
+    .hero-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .two-col-asymmetric {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .two-col-equal {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .three-col-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .card-wrapper { container-type: inline-size; }
+    .card-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-md);
+    }
+    @container (min-width: 480px) {
+      .card-inner { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); }
+    }
+
+    /* Buttons & Controls */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background: var(--secondary);
+      border-color: var(--secondary);
+    }
+    .btn-secondary {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--input-border);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .btn-secondary[aria-pressed="true"],
+    .btn-tab[aria-selected="true"] {
+      background: var(--secondary);
+      color: var(--on-secondary);
+      border-color: var(--secondary);
+    }
+    .btn-danger-outline {
+      background: var(--surface-container-low);
+      color: var(--error);
+      border-color: var(--error);
+    }
+    .btn-danger-outline:hover {
+      background: var(--error-bg);
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    /* Tags & Status badges */
+    .tag {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .tag-amber {
+      background: var(--tertiary-bg);
+      color: var(--tertiary);
+    }
+    .tag-positive {
+      background: var(--positive-bg);
+      color: var(--positive);
+    }
+    .tag-error {
+      background: var(--error-bg);
+      color: var(--error);
+    }
+    .tag-neutral {
+      background: var(--surface-container);
+      color: var(--on-surface-variant);
+    }
+
+    /* Section spacing & reveals */
+    .dossier-section {
+      padding-top: var(--space-md);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .section-header-block {
+      margin-bottom: var(--space-lg);
+    }
+
+    /* Triad Explorer */
+    .triad-selector-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .triad-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      transition: box-shadow var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+    }
+    .triad-card.is-active {
+      box-shadow: inset 0 4px 0 0 var(--primary-container);
+      background: var(--surface-container-low);
+    }
+    .triad-card-fragil.is-active {
+      box-shadow: inset 0 4px 0 0 var(--data-4);
+    }
+    .triad-card-robusto.is-active {
+      box-shadow: inset 0 4px 0 0 var(--data-2);
+    }
+    .triad-card-antifragil.is-active {
+      box-shadow: inset 0 4px 0 0 var(--data-3);
+    }
+
+    /* Data Table */
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+    }
+    table.dossier-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+    table.dossier-table thead th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      background: var(--surface-container);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--section-rule);
+    }
+    table.dossier-table tbody td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--card-border);
+      vertical-align: top;
+    }
+    table.dossier-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Expandable Pillars */
+    .pillar-list {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-md);
+    }
+    .pillar-item {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+    }
+    .pillar-trigger {
+      width: 100%;
+      min-height: 44px;
+      text-align: left;
+      background: transparent;
+      border: none;
+      padding: var(--space-md) var(--space-lg);
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: center;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .pillar-trigger:hover {
+      background: var(--surface-container);
+    }
+    .pillar-trigger[aria-expanded="true"] {
+      background: var(--surface-container);
+      border-bottom: var(--card-border);
+    }
+    .pillar-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .pillar-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      line-height: 1.2;
+    }
+    .pillar-summary {
+      font-size: 0.95rem;
+      color: var(--on-surface-variant);
+      line-height: 1.45;
+    }
+    .pillar-chevron {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      color: var(--secondary);
+      transition: transform var(--dur-short) var(--ease-in-out);
+    }
+    .pillar-trigger[aria-expanded="true"] .pillar-chevron {
+      transform: rotate(180deg);
+    }
+    .pillar-body {
+      padding: var(--space-lg);
+      display: none;
+    }
+    .pillar-body.is-open {
+      display: block;
+    }
+    .pillar-detail-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    /* Controls & Form Inputs */
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      gap: var(--space-md);
+    }
+    label.field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface);
+      display: block;
+    }
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: 1px solid var(--input-border);
+      border-radius: var(--rounded);
+      transition: border-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    select {
+      padding-right: var(--space-xl);
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--secondary);
+      box-shadow: var(--focus-ring);
+    }
+    input[type="range"] {
+      width: 100%;
+      min-height: 44px;
+      accent-color: var(--secondary);
+      cursor: pointer;
+    }
+
+    /* Chart Containers */
+    .chart-box {
+      position: relative;
+      width: 100%;
+      min-height: 320px;
+      height: 320px;
+      margin-top: var(--space-md);
+    }
+
+    /* Quiz / Assessment */
+    .quiz-question-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+    }
+    .quiz-options {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .quiz-option-btn {
+      width: 100%;
+      min-height: 44px;
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      line-height: 1.45;
+      transition: background-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option-btn:hover {
+      background: var(--surface-container-high);
+    }
+    .quiz-option-btn[aria-pressed="true"] {
+      background: var(--surface-container-low);
+      box-shadow: inset 4px 0 0 0 var(--secondary), 0 0 0 1.5px var(--secondary);
+      font-weight: 600;
+    }
+
+    /* Checklist items */
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-sm);
+    }
+    .check-row {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      min-height: 44px;
+    }
+    .check-row input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 0.2rem;
+      accent-color: var(--positive);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .check-row.is-checked {
+      background: var(--positive-bg);
+    }
+    .check-row.is-checked .check-title {
+      text-decoration: line-through;
+      color: var(--positive);
+    }
+
+    .status-banner {
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-size: var(--label-size);
+      font-family: var(--font-label);
+      display: none;
+      margin-top: var(--space-sm);
+    }
+    .status-banner.is-visible {
+      display: block;
+    }
+    .status-banner.is-success {
+      background: var(--positive-bg);
+      color: var(--positive);
+    }
+    .status-banner.is-error {
+      background: var(--error-bg);
+      color: var(--error);
+    }
+
+    .tabular-nums {
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    /* Footer */
+    .dossier-footer {
+      border-top: var(--section-rule);
+      padding-top: var(--space-lg);
+      color: var(--on-surface-variant);
+      font-size: 0.92rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 900px) {
+      .hero-kpi-grid,
+      .two-col-asymmetric,
+      .two-col-equal,
+      .three-col-grid,
+      .pillar-detail-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-sm) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .figure-card, .aside-box, .pillar-body, .quiz-question-card {
+        padding: var(--space-md);
+      }
+      .pillar-trigger {
+        padding: var(--space-md);
+        gap: var(--space-sm);
+      }
+      .nav-progress {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- HEADER / DOSSIER MASTHEAD -->
+    <header>
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Tratado interactivo</span>
+          <span class="dossier-meta">Nassim Nicholas Taleb · Obra publicada en 2012 · 7 Pilares y Laboratorio</span>
+        </div>
+        <span class="dossier-meta" id="save-status-indicator">Estado listo</span>
+      </div>
+
+      <h1>Antifrágil: Las cosas que se benefician del desorden</h1>
+      <p class="standfirst">
+        Cómo prosperar en un mundo opaco gobernado por Cisnes Negros, sustituyendo la ilusión de la predicción por la asimetría favorable, la opcionalidad y la vía negativa.
+      </p>
+
+      <div class="quote-band">
+        «El viento apaga una vela y aviva el fuego. Lo mismo sucede con el azar, la incertidumbre, el caos: queremos usarlos, no ocultarnos de ellos. Queremos ser el fuego y desear el viento.»
+      </div>
+
+      <nav class="nav-strip" aria-label="Navegación de secciones del dossier">
+        <a class="nav-link" href="#sec-triada"><span class="nav-idx">01</span> La Tríada</a>
+        <a class="nav-link" href="#sec-pilares"><span class="nav-idx">02</span> 7 Pilares</a>
+        <a class="nav-link" href="#sec-laboratorio"><span class="nav-idx">03</span> Convexidad y Haltera</a>
+        <a class="nav-link" href="#sec-dominios"><span class="nav-idx">04</span> 4 Dominios</a>
+        <a class="nav-link" href="#sec-autoevaluacion"><span class="nav-idx">05</span> Autoevaluación</a>
+        <a class="nav-link" href="#sec-taller"><span class="nav-idx">06</span> Taller Práctico</a>
+        <div class="nav-progress">
+          <span>Progreso:</span>
+          <strong class="tabular-nums" id="global-progress-text">0/7 pilares · 0/7 test</strong>
+        </div>
+      </nav>
+
+      <div class="hero-kpi-grid">
+        <div class="figure-card">
+          <span class="dossier-meta">Concepto nuclear</span>
+          <div class="value" style="margin-top: var(--space-xs);">Más allá de lo robusto</div>
+          <p style="margin-top: var(--space-sm); color: var(--on-surface-variant); font-size: 0.94rem;">
+            Lo frágil se quiebra ante el choque; lo robusto aguanta igual; lo antifrágil mejora y crece con la volatilidad y el estrés.
+          </p>
+        </div>
+        <div class="figure-card">
+          <span class="dossier-meta">Regla no predictiva</span>
+          <div class="value" style="margin-top: var(--space-xs);">Fragilidad ≠ Riesgo</div>
+          <p style="margin-top: var(--space-sm); color: var(--on-surface-variant); font-size: 0.94rem;">
+            Es imposible calcular la probabilidad de un Cisne Negro raro, pero siempre podemos detectar y medir si un sistema es frágil ante él.
+          </p>
+        </div>
+        <div class="figure-card">
+          <span class="dossier-meta">Imperativo ético</span>
+          <div class="value" style="margin-top: var(--space-xs);">Jugarse la piel</div>
+          <p style="margin-top: var(--space-sm); color: var(--on-surface-variant); font-size: 0.94rem;">
+            Regla fundamental de equidad sistémica: nunca gozar de antifragilidad transfiriendo la fragilidad o el coste del error a los demás.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECCIÓN 01: LA TRÍADA Y EL PUNTO CIEGO -->
+    <section id="sec-triada" class="dossier-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="index-num">01</span>
+          <span class="dossier-meta">Introducción · Prólogo y Libro I</span>
+        </div>
+        <span class="dossier-meta">Damocles · Fénix · Hidra</span>
+      </div>
+
+      <div class="section-header-block">
+        <h2>La mitad de la vida no tenía nombre: la Tríada frente a la familia del desorden</h2>
+        <p class="standfirst">
+          Si enviamos copas de cristal por correo escribimos «frágil». Su opuesto exacto no es «robusto», sino un paquete que pida «se ruega maltratar» porque mejora con cada sacudida.
+        </p>
+      </div>
+
+      <div class="two-col-asymmetric">
+        <div>
+          <p>
+            En las lenguas antiguas y modernas existía un punto ciego universal: confundíamos lo opuesto de positivo (negativo) con lo neutro. Lo resiliente o robusto resiste los golpes sin alterarse, pero a largo plazo todo sistema meramente robusto con la más mínima fisura acaba deteriorándose. La naturaleza ha sobrevivido cuatro mil millones de años porque es <strong>antifrágil</strong>: necesita la «familia extensa del desorden» —incertidumbre, variabilidad, azar, caos, volatilidad, tiempo, error y estresores— para regenerarse y evolucionar.
+          </p>
+          <p>
+            Para mapear cualquier sistema, institución, organismo o decisión sin caer en la trampa de predecir el futuro, Taleb propone clasificar todo en tres columnas: <strong>Frágil</strong>, <strong>Robusto</strong> y <strong>Antifrágil</strong>. Una regla sencilla permite diagnosticarlos: todo aquello que obtiene más beneficios que perjuicios de los sucesos aleatorios y la dispersión pertenece al extremo antifrágil.
+          </p>
+
+          <div class="aside-box" style="margin-top: var(--space-md);">
+            <span class="dossier-meta">Esquema mitológico e ilustrativo</span>
+            <h3 style="margin-top: var(--space-xs);" id="triad-focus-title">Hidra de Lerna — Antifrágil</h3>
+            <p id="triad-focus-desc" style="margin-top: var(--space-sm);">
+              Cada vez que le cortaban una cabeza a la Hidra, brotaban dos nuevas en su lugar. El daño actúa como combustible y señal de sobrecompensación. Representa los sistemas biológicos vivos, el espíritu emprendedor descentralizado, el amor obsesivo o la información censurada que se propaga aún más al intentar reprimirla.
+            </p>
+            <div class="btn-row" style="margin-top: var(--space-md);">
+              <button type="button" class="btn btn-secondary" onclick="selectTriadFocus('fragil')" id="btn-triad-fragil" aria-pressed="false">Damocles (Frágil)</button>
+              <button type="button" class="btn btn-secondary" onclick="selectTriadFocus('robusto')" id="btn-triad-robusto" aria-pressed="false">Fénix (Robusto)</button>
+              <button type="button" class="btn btn-secondary" onclick="selectTriadFocus('antifragil')" id="btn-triad-antifragil" aria-pressed="true">Hidra (Antifrágil)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="figure-card">
+          <span class="dossier-meta">Anatomía de la exposición</span>
+          <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-md);">Respuesta ante los choques y el tiempo</h3>
+          <!-- Clean vector diagram of the Triad -->
+          <svg viewBox="0 0 420 265" width="100%" role="img" aria-label="Diagrama comparativo de la Tríada: curva descendente cóncava para Frágil, línea plana para Robusto y curva ascendente convexa para Antifrágil" style="display: block; max-width: 100%; height: auto;">
+            <rect x="0" y="0" width="420" height="265" fill="var(--background)" rx="4"/>
+            <!-- Gridlines -->
+            <line x1="48" y1="45" x2="395" y2="45" stroke="var(--outline-variant)" stroke-dasharray="3 3"/>
+            <line x1="48" y1="130" x2="395" y2="130" stroke="var(--outline)" stroke-width="1.2"/>
+            <line x1="48" y1="215" x2="395" y2="215" stroke="var(--outline-variant)" stroke-dasharray="3 3"/>
+            <!-- Y axis -->
+            <line x1="48" y1="25" x2="48" y2="235" stroke="var(--outline)" stroke-width="1.2"/>
+            <text x="12" y="49" fill="var(--positive)" font-family="Geist Mono, monospace" font-size="11" font-weight="600">+GANA</text>
+            <text x="16" y="134" fill="var(--on-surface-variant)" font-family="Geist Mono, monospace" font-size="11">0</text>
+            <text x="10" y="219" fill="var(--data-4)" font-family="Geist Mono, monospace" font-size="11">−DAÑO</text>
+            <text x="210" y="254" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Geist Mono, monospace" font-size="11">MAGNITUD DEL DESORDEN / VOLATILIDAD →</text>
+
+            <!-- Robusto (flat) -->
+            <path d="M 48 130 L 385 130" fill="none" stroke="var(--data-2)" stroke-width="2.5"/>
+            <text x="382" y="121" text-anchor="end" fill="var(--tertiary)" font-family="Geist Mono, monospace" font-size="11" font-weight="600">ROBUSTO (FÉNIX)</text>
+
+            <!-- Frágil (concave down) -->
+            <path d="M 48 130 Q 220 132 385 224" fill="none" stroke="var(--data-4)" stroke-width="3"/>
+            <text x="382" y="206" text-anchor="end" fill="var(--data-4)" font-family="Geist Mono, monospace" font-size="11" font-weight="600">FRÁGIL (DAMOCLES · CÓNCAVO)</text>
+
+            <!-- Antifrágil (convex up) -->
+            <path d="M 48 130 Q 220 128 385 34" fill="none" stroke="var(--data-3)" stroke-width="3"/>
+            <text x="382" y="27" text-anchor="end" fill="var(--data-3)" font-family="Geist Mono, monospace" font-size="11" font-weight="600">ANTIFRÁGIL (HIDRA · CONVEXO)</text>
+          </svg>
+          <p style="margin-top: var(--space-sm); font-size: 0.875rem; color: var(--on-surface-variant);">
+            Nota: la antifragilidad es relativa al nivel de estrés. Un hueso se fortalece con cargas intensas, pero se quiebra si caemos desde un rascacielos.
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Triad Table from Book Appendix -->
+      <div style="margin-top: var(--space-xl);">
+        <div class="control-row" style="justify-content: space-between; margin-bottom: var(--space-md);">
+          <div>
+            <span class="dossier-meta">Mapa completo del libro</span>
+            <h3>Explorador de la Tríada por ámbitos</h3>
+          </div>
+          <div class="control-group" style="min-width: 240px;">
+            <label class="field-label" for="triad-filter">Filtrar categoría</label>
+            <select id="triad-filter" onchange="renderTriadTable(this.value)">
+              <option value="all">Todas las categorías (10)</option>
+              <option value="Mitología y Símbolos">Mitología y Símbolos</option>
+              <option value="Sistemas y Errores">Sistemas y Errores</option>
+              <option value="Cuerpo y Medicina">Cuerpo y Medicina</option>
+              <option value="Finanzas y Empresa">Finanzas y Empresa</option>
+              <option value="Política y Urbanismo">Política y Urbanismo</option>
+              <option value="Conocimiento y Ética">Conocimiento y Ética</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="dossier-table">
+            <thead>
+              <tr>
+                <th scope="col">Dimensión</th>
+                <th scope="col">Frágil (Aborrece el caos)</th>
+                <th scope="col">Robusto (Indiferente)</th>
+                <th scope="col">Antifrágil (Ama el desorden)</th>
+              </tr>
+            </thead>
+            <tbody id="triad-table-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 02: LOS 7 PILARES EXPANDIBLES -->
+    <section id="sec-pilares" class="dossier-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="index-num">02</span>
+          <span class="dossier-meta">Arquitectura conceptual · Libros I al VII</span>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-secondary" onclick="toggleAllPillars(true)">Expandir los 7 pilares</button>
+          <button type="button" class="btn btn-secondary" onclick="toggleAllPillars(false)">Contraer todos</button>
+        </div>
+      </div>
+
+      <div class="section-header-block">
+        <h2>Los siete pilares del pensamiento de Taleb</h2>
+        <p class="standfirst">
+          Despliega cada pilar para examinar su mecanismo interno, la parábola o caso histórico del libro y la regla heurística de aplicación inmediata.
+        </p>
+      </div>
+
+      <div class="pillar-list" id="pillars-container">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN 03: LABORATORIO INTERACTIVO DE CONVEXIDAD Y HALTERA -->
+    <section id="sec-laboratorio" class="dossier-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="index-num">03</span>
+          <span class="dossier-meta">Laboratorio matemático · Libros III y V</span>
+        </div>
+        <span class="dossier-meta">Desigualdad de Jensen · Estrategia Bimodal</span>
+      </div>
+
+      <div class="section-header-block">
+        <h2>La Piedra Filosofal: por qué la no linealidad decide quién sobrevive al desorden</h2>
+        <p class="standfirst">
+          Si la salud de tu abuela depende de la temperatura, mantenerla a una media de 22 °C alternando una hora a −18 °C y otra a +60 °C acaba con ella. Cuando la respuesta es curva, el promedio engaña.
+        </p>
+      </div>
+
+      <div class="two-col-equal">
+        <!-- Instrument A: Convexity & Volatility Simulator -->
+        <div class="figure-card">
+          <span class="dossier-meta">Simulador A · Desigualdad de Jensen</span>
+          <h3 style="margin-top: var(--space-xs);">Efecto de la volatilidad en sistemas cóncavos vs. convexos</h3>
+          <p style="margin-top: var(--space-xs); font-size: 0.93rem; color: var(--on-surface-variant);">
+            Observa cómo, al aumentar la dispersión o intensidad de los choques (<span class="tabular-nums">σ</span>), el sistema frágil (cóncavo) sufre pérdidas aceleradas mientras el antifrágil (convexo) multiplica su valor esperado.
+          </p>
+
+          <div class="control-row" style="margin-top: var(--space-md);">
+            <div class="control-group" style="flex: 1 1 200px;">
+              <label class="field-label" for="convexity-domain">Escenario del libro</label>
+              <select id="convexity-domain" onchange="updateConvexitySim()">
+                <option value="traffic">Tráfico en Nueva York (concavidad extrema)</option>
+                <option value="weights">Halterofilia (50 kg x1 vs 1 kg x50)</option>
+                <option value="options">Opciones de Tales (pérdida fija, techo libre)</option>
+                <option value="medicine">Intervención médica (sano vs. muy grave)</option>
+              </select>
+            </div>
+            <div class="control-group" style="flex: 1 1 200px;">
+              <label class="field-label" for="volatility-slider">Volatilidad / Dispersión (<span id="volatility-readout" class="tabular-nums">25%</span>)</label>
+              <input type="range" id="volatility-slider" min="5" max="60" step="5" value="25" oninput="updateConvexitySim()">
+            </div>
+          </div>
+
+          <div class="chart-box">
+            <canvas id="convexity-chart" aria-label="Gráfica comparativa de respuesta cóncava, lineal y convexa frente a choques"></canvas>
+          </div>
+
+          <div class="three-col-grid" style="margin-top: var(--space-md);">
+            <div class="aside-box" style="padding: var(--space-sm) var(--space-md); border-top-color: var(--data-4);">
+              <span class="dossier-meta">Saldo Frágil (Cóncavo)</span>
+              <div class="value tabular-nums" style="font-size: 1.25rem; color: var(--data-4);" id="jensen-fragile-val">−18.8</div>
+            </div>
+            <div class="aside-box" style="padding: var(--space-sm) var(--space-md); border-top-color: var(--data-2);">
+              <span class="dossier-meta">Saldo Robusto (Lineal)</span>
+              <div class="value tabular-nums" style="font-size: 1.25rem; color: var(--tertiary);" id="jensen-robust-val">0.0</div>
+            </div>
+            <div class="aside-box" style="padding: var(--space-sm) var(--space-md); border-top-color: var(--data-3);">
+              <span class="dossier-meta">Saldo Antifrágil (Convexo)</span>
+              <div class="value tabular-nums" style="font-size: 1.25rem; color: var(--data-3);" id="jensen-antifragile-val">+24.2</div>
+            </div>
+          </div>
+          <p id="convexity-caption" style="margin-top: var(--space-sm); font-size: 0.9rem; color: var(--on-surface-variant);">
+            Añadir 10.000 vehículos eleva el retraso 10 minutos; otros 10.000 lo disparan 30 minutos más. La optimización sin margen colapsa ante cualquier pico.
+          </p>
+        </div>
+
+        <!-- Instrument B: Barbell Strategy Simulator -->
+        <div class="figure-card">
+          <span class="dossier-meta">Simulador B · Estrategia de Haltera</span>
+          <h3 style="margin-top: var(--space-xs);">Bimodalidad (90/10) frente al falso riesgo «moderado»</h3>
+          <p style="margin-top: var(--space-xs); font-size: 0.93rem; color: var(--on-surface-variant);">
+            Una cartera o estrategia vital 100% de «riesgo medio» es vulnerable a errores de estimación y ruina total. Ajusta tu haltera para blindar el suelo y liberar el techo.
+          </p>
+
+          <div class="control-row" style="margin-top: var(--space-md);">
+            <div class="control-group" style="flex: 2 1 200px;">
+              <label class="field-label" for="barbell-safe-slider">Extremo Ultra-Seguro (%)</label>
+              <input type="range" id="barbell-safe-slider" min="50" max="98" step="1" value="90" oninput="syncBarbellFromSlider(this.value)">
+            </div>
+            <div class="control-group" style="flex: 1 1 110px;">
+              <label class="field-label" for="barbell-safe-num">% Seguro</label>
+              <input type="number" id="barbell-safe-num" min="50" max="98" step="1" value="90" oninput="syncBarbellFromNumber(this.value)">
+            </div>
+          </div>
+
+          <div class="btn-row" style="margin-top: var(--space-sm);">
+            <button type="button" class="btn btn-secondary" onclick="setBarbellShockMode('normal')" id="btn-shock-normal" aria-pressed="true">Entorno ordinario</button>
+            <button type="button" class="btn btn-secondary" onclick="setBarbellShockMode('crash')" id="btn-shock-crash" aria-pressed="false">Cisne Negro Negativo (−85%)</button>
+            <button type="button" class="btn btn-secondary" onclick="setBarbellShockMode('boom')" id="btn-shock-boom" aria-pressed="false">Cisne Negro Positivo (+400%)</button>
+          </div>
+
+          <div class="chart-box">
+            <canvas id="barbell-chart" aria-label="Gráfica comparativa de resultados entre Estrategia de Haltera y Estrategia Moderada"></canvas>
+          </div>
+
+          <div class="two-col-equal" style="margin-top: var(--space-md); gap: var(--space-sm);">
+            <div class="aside-box" style="padding: var(--space-sm) var(--space-md);">
+              <span class="dossier-meta">Tu Haltera (<span id="barbell-split-label" class="tabular-nums">90% / 10%</span>)</span>
+              <div class="value tabular-nums" style="font-size: 1.25rem;" id="barbell-outcome-val">102.0</div>
+              <span class="tag tag-positive" id="barbell-floor-badge" style="margin-top: var(--space-xs);">Suelo blindado · Sin ruina</span>
+            </div>
+            <div class="aside-box" style="padding: var(--space-sm) var(--space-md);">
+              <span class="dossier-meta">Cartera «Moderada» (100% Centro)</span>
+              <div class="value tabular-nums" style="font-size: 1.25rem;" id="moderate-outcome-val">105.0</div>
+              <span class="tag tag-amber" id="moderate-risk-badge" style="margin-top: var(--space-xs);">Expuesta a error de modelo</span>
+            </div>
+          </div>
+          <p id="barbell-caption" style="margin-top: var(--space-sm); font-size: 0.9rem; color: var(--on-surface-variant);">
+            En condiciones normales el centro parece estable; en un Cisne Negro negativo, la supuesta seguridad «moderada» se desploma mientras tu haltera conserva su núcleo intacto.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 04: EJEMPLOS INTERACTIVOS POR DOMINIOS -->
+    <section id="sec-dominios" class="dossier-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="index-num">04</span>
+          <span class="dossier-meta">Aplicaciones prácticas · 4 Dominios</span>
+        </div>
+        <span class="dossier-meta">Salud · Finanzas · Educación · Política</span>
+      </div>
+
+      <div class="section-header-block">
+        <h2>Cómo actúa la antifragilidad en Salud, Finanzas, Educación y Política</h2>
+        <p class="standfirst">
+          Selecciona un dominio para contrastar el intervencionismo fragilista con la arquitectura antifrágil y poner a prueba tu criterio en un dilema real del libro.
+        </p>
+      </div>
+
+      <div class="btn-row" role="tablist" aria-label="Dominios de aplicación" style="margin-bottom: var(--space-lg);">
+        <button type="button" role="tab" class="btn btn-secondary btn-tab" id="tab-salud" aria-selected="true" onclick="selectDomain('salud')">Salud y Biología</button>
+        <button type="button" role="tab" class="btn btn-secondary btn-tab" id="tab-finanzas" aria-selected="false" onclick="selectDomain('finanzas')">Finanzas y Empresa</button>
+        <button type="button" role="tab" class="btn btn-secondary btn-tab" id="tab-educacion" aria-selected="false" onclick="selectDomain('educacion')">Educación y Saber</button>
+        <button type="button" role="tab" class="btn btn-secondary btn-tab" id="tab-politica" aria-selected="false" onclick="selectDomain('politica')">Política y Urbanismo</button>
+      </div>
+
+      <div class="figure-card card-wrapper">
+        <div id="domain-panel">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 05: AUTOEVALUACIÓN DE ANTIFRAGILIDAD -->
+    <section id="sec-autoevaluacion" class="dossier-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="index-num">05</span>
+          <span class="dossier-meta">Módulo de diagnóstico personal</span>
+        </div>
+        <span class="dossier-meta" id="quiz-progress-badge">0 de 7 respondidas</span>
+      </div>
+
+      <div class="section-header-block">
+        <h2>Autoevaluación: ¿estás blindado ante un Cisne Negro o expuesto por tu fragilidad?</h2>
+        <p class="standfirst">
+          Responde a siete situaciones cotidianas inspiradas en los criterios de Taleb para obtener tu mapa de exposición y recomendaciones concretas.
+        </p>
+      </div>
+
+      <div class="two-col-asymmetric">
+        <div id="quiz-container">
+          <!-- Populated by JS -->
+        </div>
+
+        <aside class="figure-card" style="position: static;">
+          <span class="dossier-meta">Resultado del diagnóstico</span>
+          <div class="value tabular-nums" id="quiz-score-display" style="margin-top: var(--space-xs);">— / 100</div>
+          <div id="quiz-profile-tag" style="margin-top: var(--space-sm);">
+            <span class="tag tag-neutral">Completa las 7 preguntas</span>
+          </div>
+          <p id="quiz-profile-desc" style="margin-top: var(--space-md); font-size: 0.95rem; color: var(--on-surface-variant);">
+            A medida que selecciones tus respuestas, calcularemos tu nivel de exposición a la volatilidad, tu uso de la Vía Negativa y tu simetría de riesgo.
+          </p>
+          <div id="quiz-recommendations" style="margin-top: var(--space-md); border-top: var(--card-border); padding-top: var(--space-md); display: none;">
+            <span class="dossier-meta">Palancas de mejora prioritarias</span>
+            <ul id="quiz-rec-list" style="padding-left: var(--space-lg); margin: var(--space-sm) 0 0; font-size: 0.93rem;"></ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 06: TALLER PRÁCTICO DE VÍA NEGATIVA Y HALTERA PERSONAL -->
+    <section id="sec-taller" class="dossier-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="index-num">06</span>
+          <span class="dossier-meta">Cuaderno de acción · Vía Negativa y Skin in the Game</span>
+        </div>
+        <span class="dossier-meta" id="workshop-count-badge">0 sustracciones activas</span>
+      </div>
+
+      <div class="section-header-block">
+        <h2>Taller de práctica: sustrae lo frágil y diseña tu haltera personal</h2>
+        <p class="standfirst">
+          La antifragilidad empieza restando. Marca qué fragilidades eliminarás por Vía Negativa y redacta tus dos extremos bimodales. Tu progreso queda guardado automáticamente.
+        </p>
+      </div>
+
+      <div class="two-col-equal">
+        <!-- Left: Via Negativa Checklist + custom subtraction -->
+        <div class="figure-card">
+          <span class="dossier-meta">Práctica 1 · Conocimiento sustractivo</span>
+          <h3 style="margin-top: var(--space-xs);">Lista de Vía Negativa: qué dejar de hacer</h3>
+          <p style="margin-top: var(--space-xs); font-size: 0.93rem; color: var(--on-surface-variant);">
+            Marca las sustracciones que ya aplicas o te comprometes a aplicar desde hoy:
+          </p>
+
+          <div class="checklist-grid" id="vianegativa-checklist" style="margin-top: var(--space-md);">
+            <!-- Populated by JS -->
+          </div>
+
+          <div class="control-row" style="margin-top: var(--space-md);">
+            <div class="control-group" style="flex: 1 1 220px;">
+              <label class="field-label" for="custom-subtraction-input">Añadir sustracción personal</label>
+              <input type="text" id="custom-subtraction-input" placeholder="Ej. Eliminar reuniones sin agenda ni decisión">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="addCustomSubtraction()">Añadir</button>
+          </div>
+          <div id="subtraction-feedback" class="status-banner" role="status"></div>
+        </div>
+
+        <!-- Right: Personal Barbell & Skin in the Game Reflection -->
+        <div class="figure-card">
+          <span class="dossier-meta">Práctica 2 · Diseño Bimodal y Ética</span>
+          <h3 style="margin-top: var(--space-xs);">Tu Haltera Personal y Compromiso Doxástico</h3>
+          <p style="margin-top: var(--space-xs); font-size: 0.93rem; color: var(--on-surface-variant);">
+            Define tus dos extremos separados sin término medio frágil y explicita qué arriesgas personalmente.
+          </p>
+
+          <div style="display: grid; gap: var(--space-md); margin-top: var(--space-md);">
+            <div class="control-group">
+              <label class="field-label" for="barbell-safe-note">Extremo 1 · Base ultra-segura (85–90%: liquidez, empleo tranquilo, salud básica)</label>
+              <textarea id="barbell-safe-note" rows="2" placeholder="Ej. Fondo de emergencia para 18 meses sin deuda; rutina de caminata diaria y sueño fijo." oninput="saveBarbellNotes()"></textarea>
+            </div>
+            <div class="control-group">
+              <label class="field-label" for="barbell-risk-note">Extremo 2 · Opcionalidad agresiva (10–15%: experimentos con pérdida acotada y techo libre)</label>
+              <textarea id="barbell-risk-note" rows="2" placeholder="Ej. Dedicar sábados a prototipar un producto propio de bajo coste o escribir ensayos sin censura." oninput="saveBarbellNotes()"></textarea>
+            </div>
+            <div class="control-group">
+              <label class="field-label" for="skin-in-game-note">Principio de «Jugarse la piel»: ¿qué consecuencia asumes tú en primera persona?</label>
+              <textarea id="skin-in-game-note" rows="2" placeholder="Ej. No recomendaré estrategias ni inversiones que yo mismo no esté ejecutando con mi propio capital." oninput="saveBarbellNotes()"></textarea>
+            </div>
+          </div>
+
+          <div class="btn-row" style="margin-top: var(--space-lg); justify-content: space-between;">
+            <button type="button" class="btn btn-primary" onclick="exportActionPlan()">Exportar plan Antifrágil (.txt)</button>
+            <button type="button" class="btn btn-danger-outline" id="btn-reset-all" onclick="handleResetClick(this)">Reiniciar taller y test</button>
+          </div>
+          <div id="workshop-feedback" class="status-banner" role="status"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER / SOURCES -->
+    <footer class="dossier-footer">
+      <div>
+        <strong>Fuente principal:</strong> Nassim Nicholas Taleb, <em>Antifrágil: Las cosas que se benefician del desorden</em> (2012). Conceptos complementarios citados dentro de la obra: Séneca, Tales de Mileto, Hipócrates, Ignaz Semmelweis, Antoine Danchin, Johan Jensen y Benoît Mandelbrot.
+      </div>
+      <div class="dossier-meta">
+        Enfoque no predictivo · Asimetría · Opcionalidad
+      </div>
+    </footer>
+
+  </div>
+
+  <api-shim></api-shim>
+
+  <script>
+    // =========================================================================
+    // DATA DEFINITIONS (All strings in backticks for syntax safety)
+    // =========================================================================
+
+    const TRIAD_FOCUS_DATA = {
+      fragil: {
+        title: `Espada de Damocles — Frágil`,
+        desc: `Dionisio II ofrece a Damocles un banquete bajo una espada colgada de un solo pelo de crin de caballo. El sistema parece próspero y estable hasta que la tensión acumulada rompe el pelo. Todo lo frágil aborrece el tiempo y la volatilidad: cuanto más tarda en fallar, más devastador y repentino es el golpe.`
+      },
+      robusto: {
+        title: `Ave Fénix — Robusto`,
+        desc: `El Fénix muere entre llamas y renace idéntico de sus propias cenizas, regresando al punto de partida. Aguanta los choques sin romperse, pero tampoco aprende ni mejora con ellos. A escala histórica, lo meramente robusto exige una perfección inalcanzable porque la entropía acaba erosionando cualquier estructura rígida.`
+      },
+      antifragil: {
+        title: `Hidra de Lerna — Antifrágil`,
+        desc: `Cada vez que le cortaban una cabeza a la Hidra, brotaban dos nuevas en su lugar. El daño actúa como combustible y señal de sobrecompensación. Representa los sistemas biológicos vivos, el espíritu emprendedor descentralizado, el amor obsesivo o la información censurada que se propaga aún más al intentar reprimirla.`
+      }
+    };
+
+    const TRIAD_TABLE_ROWS = [
+      { cat: `Mitología y Símbolos`, dim: `Arquetipo clásico`, f: `Espada de Damocles, Roca de Tántalo`, r: `Ave Fénix`, a: `Hidra de Lerna` },
+      { cat: `Sistemas y Errores`, dim: `Relación con los errores`, f: `Aborrece los errores: son raros, enormes e irreversibles`, r: `Los errores son pura información neutra`, a: `Adora los errores pequeños, frecuentes y reversibles` },
+      { cat: `Sistemas y Errores`, dim: `Estructura organizativa`, f: `Eficiencia y optimización extrema sin margen`, r: `Redundancia simple`, a: `Degeneración (redundancia funcional flexible)` },
+      { cat: `Cuerpo y Medicina`, dim: `Respuesta biológica`, f: `Atrofia, sarcopenia, envejecimiento por confort`, r: `Mitridatismo, recuperación`, a: `Hormesis, hipertrofia, sobrecompensación` },
+      { cat: `Cuerpo y Medicina`, dim: `Criterio terapéutico`, f: `Vía positiva (añadir fármacos para casos leves)`, r: `Observación expectante`, a: `Vía negativa (sustraer hábitos nocivos y estresores artificiales)` },
+      { cat: `Finanzas y Empresa`, dim: `Estructura financiera`, f: `Deuda alta, bancos centrales y «demasiado grandes para caer»`, r: `Capital propio, empresa nicho`, a: `Opcionalidad, capital riesgo, autónomos y artesanos` },
+      { cat: `Finanzas y Empresa`, dim: `Exposición en carrera`, f: `Directivo corporativo con hipoteca y traje`, r: `Dentista, trabajador con salario mínimo`, a: `Taxista, escritor, artista, emprendedor audaz` },
+      { cat: `Política y Urbanismo`, dim: `Organización territorial`, f: `Estado-nación centralizado y planes desde arriba`, r: `Federación flexible`, a: `Ciudades-Estado descentralizadas (modelo cantonal suizo)` },
+      { cat: `Conocimiento y Ética`, dim: `Ciencia y tecnología`, f: `Investigación teleológica dirigida por comités`, r: `Investigación oportunista`, a: `Manipulación estocástica y bricolaje (ensayo y error)` },
+      { cat: `Conocimiento y Ética`, dim: `Responsabilidad moral`, f: `No jugarse nada propio (transferir daño ajeno)`, r: `Jugarse algo propio`, a: `Poner el alma y asumir el coste real del propio error` }
+    ];
+
+    const PILLARS_DATA = [
+      {
+        id: `pilar-1`,
+        num: `01`,
+        title: `La Tríada: Frágil, Robusto, Antifrágil`,
+        summary: `Lo opuesto a frágil no es irrompible, sino aquello que se alimenta del desorden, el azar y el paso del tiempo.`,
+        body: `Taleb descubre que ninguna lengua conocida tenía una palabra para la mitad luminosa de la vida: aquello que mejora al ser agitado. La clave para distinguir lo vivo (un gato) de lo inerte (una lavadora) reside en su respuesta al estrés. Las máquinas sufren fatiga material con estresores bajos; los organismos complejos sufren atrofia si se les priva de ellos.`,
+        extra: `Además, la antifragilidad depende del ámbito: un boxeador puede ser físicamente antifrágil en el ring y emocionalmente frágil ante una ruptura; una anciana frágil de huesos puede intimidar con su carácter inquebrantable a milicianos armados.`,
+        exampleTitle: `El paquete postal y las copas`,
+        exampleText: `Un paquete con copas de cristal lleva la etiqueta «Frágil». Su contrario exacto no lleva «Robusto» en verde, sino «Se ruega maltratar sin cuidado»: su contenido mejora con cada golpe.`,
+        heuristic: `Prueba de asimetría: todo aquello que gana más de lo que pierde ante la variabilidad y los choques pertenece al lado derecho de la Tríada.`
+      },
+      {
+        id: `pilar-2`,
+        num: `02`,
+        title: `La Estrategia de la Haltera (Bimodal)`,
+        summary: `Combina una aversión extrema al riesgo en un extremo con una audacia agresiva en el otro, eliminando el centro falaz.`,
+        body: `El término proviene de la barra con pesas en ambos extremos y nada en medio. En un mundo donde es imposible calcular la probabilidad de los sucesos raros, las estrategias «moderadas» de riesgo medio son una trampa mortal: ocultan riesgos de ruina imposibles de medir. La haltera blinda la supervivencia primero y libera la captura de Cisnes Negros positivos después.`,
+        extra: `Taleb vincula este principio con Séneca: la riqueza no libera si tememos perderla; el estoico practica mentalmente y físicamente la pérdida para cortar el lado negativo y volverse invulnerable.`,
+        exampleTitle: `90% en efectivo seguro + 10% hiper-especulativo`,
+        exampleText: `Con un 90% a salvo de la ruina y un 10% en apuestas altamente asimétricas, la pérdida máxima está estrictamente acotada al 10%, mientras el potencial de ganancia carece de techo. En la vida profesional: ser funcionario tranquilo de día (como el escritor con sinecura) y experimentar con ideas arriesgadas por la tarde.`,
+        heuristic: `Reduce primero lo catastrófico hasta anular la probabilidad de ruina; después asume muchos riesgos pequeños con techo ilimitado.`
+      },
+      {
+        id: `pilar-3`,
+        num: `03`,
+        title: `Opcionalidad, Convexidad y Desigualdad de Jensen`,
+        summary: `La opción sustituye al conocimiento: no necesitas tener razón sobre el futuro si tus errores son baratos y tus aciertos enormes.`,
+        body: `La historia de la tecnología no nace de la «ilusión soviético-harvardiana» de creer que la teoría académica dirige la invención («dar lecciones de vuelo a las aves»). Surge de la manipulación empírica y el bricolaje oportunista. Matemáticamente, cuando la respuesta de un sistema es convexa, la media de los resultados supera el resultado de la media (desigualdad de Jensen): cuanta mayor dispersión exista, mejor le irá.`,
+        extra: `Aristóteles creía que Tales de Mileto se enriqueció gracias a su ciencia astronómica para predecir la cosecha de aceitunas; en realidad, Tales compró un derecho (una opción) pagando una fianza minúscula para alquilar todas las prensas de Quíos y Mileto. Si fallaba perdía casi nada; si acertaba obtenía una fortuna.`,
+        exampleTitle: `El National Cancer Institute frente al azar`,
+        exampleText: `Tras 20 años cribando de forma teleológica más de 144.000 extractos vegetales de 15.000 especies, no se aprobó ni un solo fármaco; en contraste, los alcaloides de la vinca contra el cáncer surgieron por serendipia y ensayo oportunista.`,
+        heuristic: `Adopta una postura talesiana: busca situaciones donde puedas equivocarte más de la mitad de las veces y aun así salir ganando a largo plazo.`
+      },
+      {
+        id: `pilar-4`,
+        num: `04`,
+        title: `La Vía Negativa y el Efecto Lindy`,
+        summary: `Sabemos con mucha más certeza qué es erróneo y qué debemos quitar que qué debemos añadir para mejorar.`,
+        body: `La modernidad padece neomanía: obsesión por sumar artefactos, normas, fármacos y predicciones. La Vía Negativa —presente en la teología apofática, en Alí Ibn Abi-Taleb y en Steve Jobs («innovación es decir que no a mil cosas»)— sostiene que sustraer lo antinatural es más potente, riguroso y seguro que añadir soluciones complejas.`,
+        extra: `De aquí nace la «profecía sustractiva» y el Efecto Lindy: para las cosas no perecederas (libros, ideas, tecnologías artesanales), lo antiguo sobrevive a lo nuevo por un margen proporcional a la edad que ya tiene acumulada; el tiempo no las envejece, sino que filtra lo frágil.`,
+        exampleTitle: `Dejar de fumar frente a tomar suplementos`,
+        exampleText: `Suprimir el tabaco, los azúcares refinados, las grasas trans o el estrés crónico suma años de vida con certeza empírica; añadir píldoras complejas para «optimizar» un cuerpo sano introduce riesgos desconocidos.`,
+        heuristic: `Antes de preguntar qué herramienta, norma o hábito incorporar, pregúntate qué elemento frágil o artificial puedes suprimir hoy.`
+      },
+      {
+        id: `pilar-5`,
+        num: `05`,
+        title: `Intervención Ingenua e Iatrogenia`,
+        summary: `Cuando alguien intenta «ayudar» interviniendo en sistemas complejos que no comprende, produce más daño oculto que beneficio visible.`,
+        body: `Del griego iatros («sanador»), la iatrogenia designa el daño causado por el propio tratamiento. Se rige por dos principios: 1) no necesitamos prueba de daño previo para sospechar de una sustancia o intervención artificial sin historia evolutiva; 2) la iatrogenia no es lineal: tratar casos graves ofrece beneficios enormes frente al riesgo del fármaco, pero medicar a personas casi sanas produce pérdidas netas invisibles y retardadas.`,
+        extra: `El intervencionismo ingenuo confunde ruido con señal. Igual que el médico personal sobremedica para justificar su salario, los bancos centrales y planificadores intentan suprimir las pequeñas recesiones naturales («el ciclo boom-quiebra»), acumulando desequilibrios bajo la alfombra hasta provocar colapsos sistémicos como el de 2008.`,
+        exampleTitle: `Amigdalectomías, estatinas, grasas trans y Alan Greenspan`,
+        exampleText: `En las amigdalectomías innecesarias, el acceso a más datos aumentaba la intervención neurótica; con las estatinas hace falta tratar a cincuenta personas de alto riesgo durante cinco años para evitar un único incidente cardiovascular, mientras las grasas «trans» o la talidomida mostraron beneficios inmediatos pequeños y daños graves retardados.`,
+        heuristic: `Primum non nocere: sube el listón de la intervención. Reserva las medidas agresivas para emergencias graves y deja actuar la autocuración espontánea en lo leve.`
+      },
+      {
+        id: `pilar-6`,
+        num: `06`,
+        title: `Hormesis y Antifragilidad por Niveles`,
+        summary: `Los estresores agudos seguidos de recuperación actúan como información vital; a menudo, la antifragilidad del todo exige el sacrificio de las partes.`,
+        body: `La hormesis describe cómo una dosis pequeña e intensa de un estresor despierta una reacción de sobrecompensación que deja al organismo más fuerte que antes. Sin embargo, el estrés crónico y constante sin descanso destruye. Además, en sistemas jerárquicos complejos (especies, economías), la antifragilidad ocurre en el nivel superior: para que el sector de la restauración o la tecnología mejore, cada restaurante individual o emprendedor debe ser frágil y poder quebrar.`,
+        extra: `Taleb corrige la lectura simplista del «lo que no me mata me hace más fuerte» de Nietzsche: muchas veces la prueba solo elimina a los más débiles, fortaleciendo la media de la población superviviente a costa de quienes perecieron.`,
+        exampleTitle: `El levantador de pesas y el emprendedor`,
+        exampleText: `Levantar 50 kg una sola vez es mucho más beneficioso para estimular la respuesta muscular que levantar 25 kg dos veces o 1 kg cien veces. Del mismo modo, cada vez que preparamos el café en una cafetera nos beneficiamos del fracaso de cientos de emprendedores que lo intentaron antes.`,
+        heuristic: `Busca estresores agudos seguidos de recuperación completa; desconfía del estrés crónico de baja intensidad y protege a quien asume riesgos fallidos.`
+      },
+      {
+        id: `pilar-7`,
+        num: `07`,
+        title: `Jugarse la Piel (Skin in the Game) y Ética`,
+        summary: `Quien toma decisiones o emite predicciones sin asumir el coste de equivocarse roba antifragilidad a costa de la fragilidad ajena.`,
+        body: `En el Código de Hammurabi, si un arquitecto construía una casa que se derrumbaba y mataba al propietario, el propio arquitecto pagaba con su vida. La modernidad ha sustituido este sentido del honor y la responsabilidad simétrica por el problema del agente: banqueros, burócratas y comentaristas disfrutan de las primas cuando hay éxito (opción gratuita al alza) y socializan las pérdidas cuando ocurre una crisis.`,
+        extra: `Frente a ellos, Taleb reivindica el «compromiso doxástico»: solo es legítimo opinar o aconsejar si ponemos el alma y nuestro propio pellejo en juego. Como resume Tony el Gordo frente a Sócrates: los teóricos buscan «tener razón» con definiciones abstractas; los prácticos talesianos miran el saldo real de consecuencias.`,
+        exampleTitle: `El piloto a bordo del avión`,
+        exampleText: `Primera regla heurística de Tony el Gordo: nunca subas a un avión si el piloto no está ya a bordo. Y primera regla ética del libro: quien ve una transferencia fraudulenta de fragilidad y calla, se convierte en cómplice.`,
+        heuristic: `Antes de aceptar un consejo médico, financiero o político, pregunta qué pierde el consejero si se equivoca. Si no pierde nada, no le escuches.`
+      }
+    ];
+
+    const CONVEXITY_SCENARIOS = {
+      traffic: {
+        caption: `Añadir 10.000 vehículos eleva el retraso 10 minutos; otros 10.000 lo disparan 30 minutos más. La optimización sin margen colapsa ante cualquier pico.`,
+        concaveFactor: -1.15,
+        convexFactor: 0.75
+      },
+      weights: {
+        caption: `Las fibras musculares responden de forma convexa a la intensidad máxima: levantar 50 kg de golpe estimula mucha más hipertrofia que 1 kg cien veces.`,
+        concaveFactor: -0.95,
+        convexFactor: 1.05
+      },
+      options: {
+        caption: `Como Tales de Mileto con las prensas de aceite: pérdida estrictamente limitada en la cola negativa y beneficio multiplicado en la cola positiva.`,
+        concaveFactor: -1.05,
+        convexFactor: 1.25
+      },
+      medicine: {
+        caption: `En trastornos graves el beneficio terapéutico crece de forma convexa (72% de mejora vs. 5,6% en hipertensión leve), mientras el daño iatrogénico permanece fijo.`,
+        concaveFactor: -1.0,
+        convexFactor: 1.1
+      }
+    };
+
+    const DOMAINS_DATA = {
+      salud: {
+        badge: `Salud y Biología`,
+        title: `Medicina por sustracción, hormesis y no linealidad clínica`,
+        fragileTitle: `Enfoque Fragilista (Iatrogénico)`,
+        fragilePoints: [
+          `Medicar desviaciones leves de la norma (prehipertensión, colesterol límite, estatinas preventivas masivas) asumiendo riesgo iatrogénico oculto.`,
+          `Alimentación rígida y monótona tres veces al día sin interrupciones, eliminando el estresor evolutivo del ayuno ocasional.`,
+          `Confort térmico permanente, calzado amortiguado artificial y evitación de toda molestia menor, atrofiando la respuesta hormética.`
+        ],
+        antifragileTitle: `Arquitectura Antifrágil (Vía Negativa)`,
+        antifragilePoints: [
+          `Subir el listón de intervención: tratamientos agresivos solo cuando la gravedad es indiscutible y el beneficio supera con creces al daño.`,
+          `Sustraer estresores modernos antes de añadir píldoras: fuera tabaco, grasas trans, refrescos, azúcar líquido y sedentarismo.`,
+          `Alternar estresores agudos (ayuno intermitente, entrenamiento de fuerza máxima, caminata diaria o descalzo) con recuperación real.`
+        ],
+        dilemmaQuestion: `Tu tensión arterial sale marginalmente por encima de lo normal (sin síntomas). ¿Qué estrategia maximiza la asimetría positiva?`,
+        dilemmaOptions: [
+          {
+            label: `Iniciar medicación preventiva diaria de inmediato para «optimizar» la métrica en el análisis.`,
+            isAntifragile: false,
+            feedback: `Riesgo cóncavo (iatrogenia): en hipertensión leve solo ~5,6% se beneficia del fármaco mientras quedas expuesto al 100% de los efectos secundarios retardados.`
+          },
+          {
+            label: `Aplicar Vía Negativa primero (suprimir carbohidratos refinados, caminar a diario, introducir variabilidad) y reservar fármacos para grados altos.`,
+            isAntifragile: true,
+            feedback: `Decisión talesiana correcta: cuando la tensión es grave el beneficio sube al 26%–72% (convexo); en el margen leve, la sustracción y la hormesis evitan el daño del sanador.`
+          }
+        ]
+      },
+      finanzas: {
+        badge: `Finanzas y Empresa`,
+        title: `Haltera bimodal, Extremistán y rechazo a la deuda fragilizante`,
+        fragileTitle: `Enfoque Fragilista (Falso Control)`,
+        fragilePoints: [
+          `Confiar en modelos gaussianos de «riesgo medio» (carteras optimizadas media-varianza) que subestiman los Cisnes Negros de Extremistán.`,
+          `Apalancamiento y deuda elevada para maximizar la «eficiencia» en años tranquilos, volviendo el sistema vulnerable al menor choque.`,
+          `Bancos gigantes «demasiado grandes para quebrar» y directivos con bonos asimétricos sin asumir pérdidas propias.`
+        ],
+        antifragileTitle: `Arquitectura Antifrágil (Opcionalidad)`,
+        antifragilePoints: [
+          `Estrategia de haltera: 85–90% en reservas ultra-seguras sin riesgo de ruina y 10–15% en opciones altamente especulativas o proyectos propios.`,
+          `Redundancia deliberada y diversificación igualitaria (1/N) frente a correlaciones inestables de libro de texto.`,
+          `Preferir oficios autónomos o artesanales con ingresos variables diarios (pequeños errores frecuentes) antes que una carrera corporativa frágil a un solo despido.`
+        ],
+        dilemmaQuestion: `Tienes ahorros para invertir en un entorno macroeconómico incierto. ¿Qué asignación te inmuniza contra errores de predicción?`,
+        dilemmaOptions: [
+          {
+            label: `Colocar el 100% en fondos equilibrados de «riesgo moderado» con baja volatilidad histórica aparente.`,
+            isAntifragile: false,
+            feedback: `Trampa de Extremistán: el riesgo moderado suele esconder colas gruesas invisibles. Un error de correlación en una crisis puede borrar todo el capital.`
+          },
+          {
+            label: `Mantener el 90% en liquidez/instrumentos libres de ruina y asignar un 10% a iniciativas o activos con pérdida máxima conocida y potencial convexo.`,
+            isAntifragile: true,
+            feedback: `Haltera perfecta: acotas tu pérdida máxima al 10% pase lo que pase, eliminas la ruina y conservas exposición total a Cisnes Negros positivos.`
+          }
+        ]
+      },
+      educacion: {
+        badge: `Educación y Saber`,
+        title: `El Flâneur racional frente a la sobreprotección de la «supermamá»`,
+        fragileTitle: `Enfoque Fragilista (Aula Teleológica)`,
+        fragilePoints: [
+          `«Turistizar» la infancia y el aprendizaje: agendas cerradas, cero exposición al aburrimiento, al riesgo físico o al error no supervisado.`,
+          `Confundir títulos académicos y memorización de teorías limpias («episteme») con competencia práctica real en el caos.`,
+          `Leer únicamente libros de texto resumidos para aprobar exámenes en lugar de explorar por pura curiosidad.`
+        ],
+        antifragileTitle: `Arquitectura Antifrágil (Haltera Educativa)`,
+        antifragilePoints: [
+          `Haltera de formación: biblioteca privada abundante y libre en casa combinada con vida callejera, juego autónomo y fricción real.`,
+          `Actuar como «flâneur racional»: revisar el rumbo a cada paso aprovechando hallazgos inesperados en lugar de seguir un plan turístico rígido.`,
+          `Valorar los errores pequeños y tempranos como inversión en información y experiencia real no simulable.`
+        ],
+        dilemmaQuestion: `Quieres adquirir una habilidad compleja en un sector cambiante. ¿Qué método genera mayor antifragilidad?`,
+        dilemmaOptions: [
+          {
+            label: `Seguir un plan cerrado de tres años de teoría académica antes de intentar el primer experimento real en el mercado.`,
+            isAntifragile: false,
+            feedback: `Falacia teleológica: crees que el diseño teórico precede a la práctica («enseñar a volar a las aves»). Te expones a descubrir tarde que el mundo real cambió.`
+          },
+          {
+            label: `Combinar lectura profunda de clásicos (Efecto Lindy) con pequeños prototipos reales y ajustes continuos por ensayo y error.`,
+            isAntifragile: true,
+            feedback: `Bricolaje antifrágil: cada pequeño fallo real cuesta poco y entrega información insustituible, acumulando opcionalidad.`
+          }
+        ]
+      },
+      politica: {
+        badge: `Política y Urbanismo`,
+        title: `Cantones suizos y ruido municipal frente al Estado-nación centralizado`,
+        fragileTitle: `Enfoque Fragilista (Pseudoestabilización)`,
+        fragilePoints: [
+          `Centralizar decisiones bajo grandes burocracias nacionales que eliminan las pequeñas crisis locales, incubando estallidos masivos.`,
+          `Urbanismo racionalista a lo Robert Moses o Le Corbusier: bloques homogéneos sin vida orgánica ni azar callejero.`,
+          `Políticos y tecnócratas que diseñan rescates e intervenciones desde despachos sin jugarse patrimonio ni reputación personal.`
+        ],
+        antifragileTitle: `Arquitectura Antifrágil (Descentralización)`,
+        antifragilePoints: [
+          `Sistemas ascendentes de pequeñas ciudades-Estado o cantones independientes (como Suiza), donde el ruido municipal constante estabiliza el conjunto.`,
+          `Si una ciudad comete un error fiscal o regulatorio, el daño queda contenido localmente y las demás aprenden de él.`,
+          `Urbanismo orgánico a lo Jane Jacobs: mezcla viva, comercio a pequeña escala (zocos) y calles que fomentan el encuentro imprevisible.`
+        ],
+        dilemmaQuestion: `Una región sufre pequeños conflictos laborales y desacuerdos locales frecuentes entre municipios. ¿Qué señala esto según Taleb?`,
+        dilemmaOptions: [
+          {
+            label: `Es ineficiente: conviene unificar y centralizar todas las competencias en un ministerio nacional para garantizar la calma.`,
+            isAntifragile: false,
+            feedback: `Bomba de relojería de estabilidad artificial: suprimir el ruido político local oculta tensiones acumuladas que terminan en crisis nacionales ingobernables.`
+          },
+          {
+            label: `Es señal de vitalidad antifrágil: el «ruido municipal» constante actúa como válvula de escape distribuida y evita catástrofes agregadas.`,
+            isAntifragile: true,
+            feedback: `Sabiduría descentralizada: las pequeñas turbulencias distribuidas mantienen alerta al sistema y acotan el daño de cada error a escala local.`
+          }
+        ]
+      }
+    };
+
+    const QUIZ_QUESTIONS = [
+      {
+        id: `q1`,
+        pillar: `La Tríada`,
+        question: `1. Cuando cambia bruscamente el entorno de tu trabajo o proyecto, ¿cómo reacciona tu posición actual?`,
+        options: [
+          { label: `Dependo de que el guion previsto se cumpla sin sorpresas; cualquier desviación me perjudica.`, score: 0, rec: `Reduce tu dependencia de previsiones exactas identificando qué parte de tus ingresos o rutinas requiere calma absoluta.` },
+          { label: `Puedo aguantar un golpe moderado sin grandes pérdidas ni grandes ganancias.`, score: 1, rec: `Tienes una base robusta; añade pequeñas apuestas de opcionalidad para empezar a beneficiarte del cambio.` },
+          { label: `Mis pérdidas ante el caos están acotadas y las crisis abren oportunidades que capturo rápido.`, score: 2, rec: `` }
+        ]
+      },
+      {
+        id: `q2`,
+        pillar: `Haltera`,
+        question: `2. ¿Cómo organizas tu equilibrio entre seguridad y riesgo (finanzas, tiempo o carrera)?`,
+        options: [
+          { label: `Todo en una vía «moderada» con deuda o compromisos fijos ajustados al presupuesto mensual.`, score: 0, rec: `Elimina deuda y gastos fijos rígidos para construir un extremo verdaderamente seguro (haltera) sin riesgo de ruina.` },
+          { label: `Tengo ahorros conservadores, pero no destino tiempo ni margen a experimentos asimétricos.`, score: 1, rec: `Reserva un 10% de tu tiempo o capital para proyectos exploratorios con coste mínimo y techo abierto.` },
+          { label: `Blindo un núcleo ultra-seguro (85–90%) y dedico un margen limitado (10–15%) a apuestas de alto potencial.`, score: 2, rec: `` }
+        ]
+      },
+      {
+        id: `q3`,
+        pillar: `Opcionalidad`,
+        question: `3. Al iniciar una idea nueva o aprender algo complejo, ¿cómo gestionas el error?`,
+        options: [
+          { label: `Planifico durante meses para asegurarme de tener razón antes de dar el primer paso público.`, score: 0, rec: `Sustituye los planes rígidos por pruebas pequeñas y baratas donde equivocarte temprano te dé información real.` },
+          { label: `Hago pruebas puntuales, pero me frustra si los primeros intentos no salen como esperaba.`, score: 1, rec: `Reencuadra los fallos pequeños como «primas baratas» de una opción talesiana.` },
+          { label: `Ejecuto experimentos reversibles y baratos, descartando rápido lo que falla y escalando lo que sorprende al alza.`, score: 2, rec: `` }
+        ]
+      },
+      {
+        id: `q4`,
+        pillar: `Vía Negativa`,
+        question: `4. Cuando buscas mejorar tu salud, productividad o foco mental, ¿cuál es tu primer instinto?`,
+        options: [
+          { label: `Añadir una nueva herramienta, suplemento, aplicación o regla compleja cada semana.`, score: 0, rec: `Aplica la Vía Negativa: antes de añadir algo nuevo, elimina al menos dos fuentes de ruido o hábitos artificiales.` },
+          { label: `Mantengo lo que ya me funciona y pruebo novedades solo de vez en cuando.`, score: 1, rec: `Audita tus rutinas con el Efecto Lindy: quédate con prácticas probadas durante décadas y recorta lo reciente innecesario.` },
+          { label: `Primero pregunto qué estresor artificial o hábito tóxico puedo sustraer para que el sistema mejore solo.`, score: 2, rec: `` }
+        ]
+      },
+      {
+        id: `q5`,
+        pillar: `Iatrogenia`,
+        question: `5. Ante fluctuaciones normales de cada día (ligero malestar físico, vaivén bursátil, crítica puntual), ¿qué haces?`,
+        options: [
+          { label: `Consulto indicadores a diario e intervengo de inmediato para «corregir» cualquier desviación.`, score: 0, rec: `Distingue ruido de señal: observar datos con demasiada frecuencia dispara el intervencionismo ingenuo y la iatrogenia.` },
+          { label: `Observo un poco antes de actuar, aunque a veces intervengo por precaución excesiva.`, score: 1, rec: `Practica la procrastinación fabiana ante variaciones menores: deja que el tiempo y la autorregulación filtren el ruido.` },
+          { label: `Ignoro el ruido cotidiano y reservo las intervenciones contundentes solo para problemas graves o estructurales.`, score: 2, rec: `` }
+        ]
+      },
+      {
+        id: `q6`,
+        pillar: `Hormesis`,
+        question: `6. ¿Cómo se distribuye el esfuerzo físico y mental en tu semana habitual?`,
+        options: [
+          { label: `Comodidad constante sin picos intensos, o estrés crónico de oficina sin descanso real.`, score: 0, rec: `Introduce estresores agudos breves (fuerza física, ayuno ocasional, retos intensos) seguidos de recuperación completa.` },
+          { label: `Hago ejercicio moderado uniforme casi todos los días al mismo ritmo.`, score: 1, rec: `Cambia parte del esfuerzo uniforme por picos intensos breves combinados con días de descanso total.` },
+          { label: `Alterno picos intensos y breves de esfuerzo o desafío con periodos claros de reposo y recuperación.`, score: 2, rec: `` }
+        ]
+      },
+      {
+        id: `q7`,
+        pillar: `Jugarse la piel`,
+        question: `7. ¿Qué filtro aplicas al seguir consejos de expertos, comentaristas o asesores?`,
+        options: [
+          { label: `Me guío por sus títulos, prestigio institucional y la seguridad con la que predicen el futuro.`, score: 0, rec: `Desconfía de quienes no se juegan nada al opinar; exige siempre simetría entre quien aconseja y quien asume el daño.` },
+          { label: `Contrasto varias opiniones conocidas antes de decidir, aunque no sepa qué arriesgan.`, score: 1, rec: `Incorpora la pregunta filtro de Tony el Gordo: ¿qué pierde este experto si su predicción resulta falsa?` },
+          { label: `Solo confío en quienes sufren consecuencias reales si se equivocan y exijo lo mismo de mis propias opiniones.`, score: 2, rec: `` }
+        ]
+      }
+    ];
+
+    const DEFAULT_SUBTRACTIONS = [
+      { id: `sub-1`, text: `Dejar de consumir predicciones diarias de analistas financieros o tertulianos sin historial verificable.`, checked: false },
+      { id: `sub-2`, text: `Eliminar alimentos ultraprocesados, grasas trans y refrescos azucarados antes de buscar suplementos.`, checked: false },
+      { id: `sub-3`, text: `Recortar deuda de consumo o compromisos fijos que me vuelvan dependiente de un único pagador.`, checked: false },
+      { id: `sub-4`, text: `Evitar reuniones y procedimientos burocráticos donde nadie se juega nada propio si el plan falla.`, checked: false },
+      { id: `sub-5`, text: `Suspender notificaciones en tiempo real que confunden ruido diario con señales estructurales.`, checked: false }
+    ];
+
+    // =========================================================================
+    // APPLICATION STATE
+    // =========================================================================
+
+    let appState = {
+      triadFocus: `antifragil`,
+      triadFilter: `all`,
+      openPillars: [`pilar-1`],
+      exploredPillars: [`pilar-1`],
+      convexityDomain: `traffic`,
+      volatilityPct: 25,
+      barbellSafePct: 90,
+      barbellShockMode: `normal`,
+      activeDomain: `salud`,
+      domainDilemmas: {},
+      quizAnswers: {},
+      subtractions: JSON.parse(JSON.stringify(DEFAULT_SUBTRACTIONS)),
+      barbellSafeNote: ``,
+      barbellRiskNote: ``,
+      skinInGameNote: ``
+    };
+
+    let convexityChartInstance = null;
+    let barbellChartInstance = null;
+    let saveTimer = null;
+
+    // =========================================================================
+    // HELPERS
+    // =========================================================================
+
+    function getCssToken(name) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function showBanner(id, message, isError) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = message;
+      el.className = `status-banner is-visible ` + (isError ? `is-error` : `is-success`);
+      setTimeout(function () {
+        el.classList.remove(`is-visible`);
+      }, 3600);
+    }
+
+    function scheduleStateSave() {
+      const ind = document.getElementById('save-status-indicator');
+      if (ind) ind.textContent = `Guardando…`;
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(async function () {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+          try {
+            await window.notebookAppApi.setAppState(appState);
+            if (ind) ind.textContent = `Progreso guardado`;
+          } catch (e) {
+            if (ind) ind.textContent = `Sesión local activa`;
+          }
+        } else {
+          if (ind) ind.textContent = `Sesión local activa`;
+        }
+      }, 250);
+    }
+
+    function updateGlobalProgress() {
+      const el = document.getElementById('global-progress-text');
+      if (!el) return;
+      const pCount = appState.exploredPillars.length;
+      const qCount = Object.keys(appState.quizAnswers).length;
+      el.textContent = `${pCount}/7 pilares · ${qCount}/7 test`;
+    }
+
+    // =========================================================================
+    // SECTION 01: TRIAD INTERACTIVE HANDLERS
+    // =========================================================================
+
+    function selectTriadFocus(key) {
+      const data = TRIAD_FOCUS_DATA[key];
+      if (!data) return;
+      appState.triadFocus = key;
+
+      const titleEl = document.getElementById('triad-focus-title');
+      const descEl = document.getElementById('triad-focus-desc');
+      if (titleEl) titleEl.textContent = data.title;
+      if (descEl) descEl.textContent = data.desc;
+
+      ['fragil', 'robusto', 'antifragil'].forEach(function (k) {
+        const btn = document.getElementById(`btn-triad-${k}`);
+        if (btn) btn.setAttribute('aria-pressed', k === key ? 'true' : 'false');
+      });
+      scheduleStateSave();
+    }
+
+    function renderTriadTable(filterCat) {
+      appState.triadFilter = filterCat || 'all';
+      const tbody = document.getElementById('triad-table-body');
+      if (!tbody) return;
+
+      const filtered = appState.triadFilter === 'all'
+        ? TRIAD_TABLE_ROWS
+        : TRIAD_TABLE_ROWS.filter(function (row) { return row.cat === appState.triadFilter; });
+
+      tbody.innerHTML = filtered.map(function (row) {
+        return `
+          <tr>
+            <td><strong>${escapeHtml(row.dim)}</strong><br><span class="dossier-meta">${escapeHtml(row.cat)}</span></td>
+            <td>${escapeHtml(row.f)}</td>
+            <td>${escapeHtml(row.r)}</td>
+            <td><strong>${escapeHtml(row.a)}</strong></td>
+          </tr>
+        `;
+      }).join('');
+      scheduleStateSave();
+    }
+
+    // =========================================================================
+    // SECTION 02: 7 PILLARS EXPANDABLES
+    // =========================================================================
+
+    function renderPillars() {
+      const container = document.getElementById('pillars-container');
+      if (!container) return;
+
+      container.innerHTML = PILLARS_DATA.map(function (p) {
+        const isOpen = appState.openPillars.indexOf(p.id) !== -1;
+        return `
+          <article class="pillar-item">
+            <button type="button"
+              class="pillar-trigger"
+              id="trigger-${p.id}"
+              aria-expanded="${isOpen ? 'true' : 'false'}"
+              aria-controls="body-${p.id}"
+              onclick="togglePillar('${p.id}')">
+              <span class="index-num">${p.num}</span>
+              <span class="pillar-title-group">
+                <span class="pillar-title">${escapeHtml(p.title)}</span>
+                <span class="pillar-summary">${escapeHtml(p.summary)}</span>
+              </span>
+              <span class="pillar-chevron" aria-hidden="true">
+                <i data-lucide="chevron-down"></i>
+              </span>
+            </button>
+            <div class="pillar-body ${isOpen ? 'is-open' : ''}" id="body-${p.id}">
+              <div class="pillar-detail-grid">
+                <div>
+                  <p>${escapeHtml(p.body)}</p>
+                  <p>${escapeHtml(p.extra)}</p>
+                  <div style="margin-top: var(--space-md); padding-top: var(--space-sm); border-top: var(--card-border);">
+                    <span class="tag tag-amber">Regla heurística</span>
+                    <p style="margin-top: var(--space-xs); font-weight: 600;">${escapeHtml(p.heuristic)}</p>
+                  </div>
+                </div>
+                <div class="aside-box">
+                  <span class="dossier-meta">Caso de la obra</span>
+                  <h4 style="margin-top: var(--space-xs); font-size: 1.05rem;">${escapeHtml(p.exampleTitle)}</h4>
+                  <p style="margin-top: var(--space-xs); font-size: 0.93rem; color: var(--on-surface-variant);">${escapeHtml(p.exampleText)}</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+      updateGlobalProgress();
+    }
+
+    function togglePillar(id) {
+      const idx = appState.openPillars.indexOf(id);
+      if (idx === -1) {
+        appState.openPillars.push(id);
+      } else {
+        appState.openPillars.splice(idx, 1);
+      }
+      if (appState.exploredPillars.indexOf(id) === -1) {
+        appState.exploredPillars.push(id);
+      }
+      renderPillars();
+      scheduleStateSave();
+    }
+
+    function toggleAllPillars(openAll) {
+      if (openAll) {
+        appState.openPillars = PILLARS_DATA.map(function (p) { return p.id; });
+        appState.exploredPillars = PILLARS_DATA.map(function (p) { return p.id; });
+      } else {
+        appState.openPillars = [];
+      }
+      renderPillars();
+      scheduleStateSave();
+    }
+
+    // =========================================================================
+    // SECTION 03: CONVEXITY & BARBELL SIMULATORS (CHART.JS)
+    // =========================================================================
+
+    function updateConvexitySim() {
+      const domEl = document.getElementById('convexity-domain');
+      const volEl = document.getElementById('volatility-slider');
+      const volReadout = document.getElementById('volatility-readout');
+      const capEl = document.getElementById('convexity-caption');
+      if (!domEl || !volEl) return;
+
+      const domainKey = domEl.value;
+      const sigma = Number(volEl.value);
+      appState.convexityDomain = domainKey;
+      appState.volatilityPct = sigma;
+      if (volReadout) volReadout.textContent = `${sigma}%`;
+
+      const cfg = CONVEXITY_SCENARIOS[domainKey] || CONVEXITY_SCENARIOS.traffic;
+      if (capEl) capEl.textContent = cfg.caption;
+
+      // Build response curves from shock x in [-3, +3] scaled by sigma
+      const xLabels = [`−3σ`, `−2σ`, `−1σ`, `Media (0)`, `+1σ`, `+2σ`, `+3σ`];
+      const shockSteps = [-3, -2, -1, 0, 1, 2, 3];
+      const s = sigma / 25;
+
+      const fragileSeries = shockSteps.map(function (k) {
+        const x = k * s;
+        // Concave asymmetric: small upside, accelerating downside
+        return Number(((x > 0 ? x * 4.5 : x * 9) + cfg.concaveFactor * 6.5 * x * x).toFixed(1));
+      });
+      const robustSeries = shockSteps.map(function (k) {
+        return Number((k * s * 0.8).toFixed(1));
+      });
+      const antifragileSeries = shockSteps.map(function (k) {
+        const x = k * s;
+        // Convex asymmetric: limited floor, accelerating upside
+        const base = x < 0 ? Math.max(-12, x * 4.5) : x * 8.5;
+        return Number((base + cfg.convexFactor * 6.5 * x * x).toFixed(1));
+      });
+
+      // Jensen expectation across symmetric distribution (weights for -3..+3)
+      const weights = [0.05, 0.12, 0.22, 0.22, 0.22, 0.12, 0.05];
+      function expectedVal(arr) {
+        let sum = 0;
+        for (let i = 0; i < arr.length; i++) sum += arr[i] * weights[i];
+        return sum.toFixed(1);
+      }
+
+      const fVal = expectedVal(fragileSeries);
+      const rVal = expectedVal(robustSeries);
+      const aVal = expectedVal(antifragileSeries);
+
+      const fEl = document.getElementById('jensen-fragile-val');
+      const rEl = document.getElementById('jensen-robust-val');
+      const aEl = document.getElementById('jensen-antifragile-val');
+      if (fEl) fEl.textContent = `${Number(fVal) > 0 ? '+' : ''}${fVal}`;
+      if (rEl) rEl.textContent = `${Number(rVal) > 0 ? '+' : ''}${rVal}`;
+      if (aEl) aEl.textContent = `${Number(aVal) > 0 ? '+' : ''}${aVal}`;
+
+      const canvas = document.getElementById('convexity-chart');
+      if (canvas && typeof Chart !== 'undefined') {
+        const c1 = getCssToken('--data-4');
+        const c2 = getCssToken('--data-2');
+        const c3 = getCssToken('--data-3');
+        const gridColor = getCssToken('--outline-variant');
+        const inkColor = getCssToken('--on-surface-variant');
+        const labelFont = getCssToken('--font-label');
+
+        if (convexityChartInstance) convexityChartInstance.destroy();
+        convexityChartInstance = new Chart(canvas.getContext('2d'), {
+          type: 'line',
+          data: {
+            labels: xLabels,
+            datasets: [
+              {
+                label: `Antifrágil (Convexo)`,
+                data: antifragileSeries,
+                borderColor: c3,
+                backgroundColor: c3,
+                borderWidth: 3,
+                tension: 0.3,
+                pointRadius: 3
+              },
+              {
+                label: `Robusto (Lineal)`,
+                data: robustSeries,
+                borderColor: c2,
+                backgroundColor: c2,
+                borderWidth: 2,
+                borderDash: [5, 4],
+                tension: 0.1,
+                pointRadius: 2
+              },
+              {
+                label: `Frágil (Cóncavo)`,
+                data: fragileSeries,
+                borderColor: c1,
+                backgroundColor: c1,
+                borderWidth: 3,
+                tension: 0.3,
+                pointRadius: 3
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'top',
+                labels: { color: inkColor, font: { family: labelFont, size: 11 } }
+              }
+            },
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: { color: inkColor, font: { family: labelFont, size: 11 } }
+              },
+              y: {
+                grid: { color: gridColor },
+                ticks: { color: inkColor, font: { family: labelFont, size: 11 } }
+              }
+            }
+          }
+        });
+      }
+      scheduleStateSave();
+    }
+
+    function syncBarbellFromSlider(val) {
+      const clamped = Math.min(98, Math.max(50, Number(val) || 90));
+      const numInput = document.getElementById('barbell-safe-num');
+      if (numInput) numInput.value = clamped;
+      appState.barbellSafePct = clamped;
+      updateBarbellSim();
+    }
+
+    function syncBarbellFromNumber(val) {
+      const parsed = Number(val);
+      if (Number.isNaN(parsed)) return;
+      const clamped = Math.min(98, Math.max(50, parsed));
+      const sliderInput = document.getElementById('barbell-safe-slider');
+      if (sliderInput) sliderInput.value = clamped;
+      appState.barbellSafePct = clamped;
+      updateBarbellSim();
+    }
+
+    function setBarbellShockMode(mode) {
+      appState.barbellShockMode = mode;
+      ['normal', 'crash', 'boom'].forEach(function (m) {
+        const btn = document.getElementById(`btn-shock-${m}`);
+        if (btn) btn.setAttribute('aria-pressed', m === mode ? 'true' : 'false');
+      });
+      updateBarbellSim();
+    }
+
+    function updateBarbellSim() {
+      const safePct = appState.barbellSafePct;
+      const riskPct = 100 - safePct;
+      const mode = appState.barbellShockMode;
+
+      const splitEl = document.getElementById('barbell-split-label');
+      if (splitEl) splitEl.textContent = `${safePct}% / ${riskPct}%`;
+
+      let safeReturn = 1.02;
+      let riskReturn = 1.02;
+      let moderateReturn = 1.05;
+      let floorText = `Suelo blindado · Pérdida máx. ${riskPct}%`;
+      let modText = `Expuesta a error de modelo`;
+      let modClass = `tag tag-amber`;
+      let capText = `En condiciones normales el centro parece estable; en un Cisne Negro negativo, la supuesta seguridad «moderada» se desploma mientras tu haltera conserva su núcleo intacto.`;
+
+      if (mode === 'crash') {
+        safeReturn = 1.01;
+        riskReturn = 0.15; // -85% on speculative tail
+        moderateReturn = 0.32; // -68% hidden tail loss on "moderate" portfolio
+        floorText = `Supervivencia intacta (−${(riskPct * 0.85).toFixed(1)}% máx.)`;
+        modText = `Daño severo / Riesgo de ruina`;
+        modClass = `tag tag-error`;
+        capText = `Cisne Negro negativo (−85%): la cartera «moderada» que ignoraba las colas gruesas sufre un colapso catastrófico; la haltera resiste ilesa con su núcleo seguro.`;
+      } else if (mode === 'boom') {
+        safeReturn = 1.02;
+        riskReturn = 5.0; // +400%
+        moderateReturn = 1.24;
+        floorText = `Captura asimétrica al alza`;
+        modText = `Techo limitado en el centro`;
+        modClass = `tag tag-neutral`;
+        capText = `Cisne Negro positivo (+400%): la fracción de opcionalidad multiplica su valor sin haber comprometido jamás el núcleo de supervivencia.`;
+      }
+
+      const barbellTotal = (safePct * safeReturn + riskPct * riskReturn).toFixed(1);
+      const moderateTotal = (100 * moderateReturn).toFixed(1);
+
+      const bValEl = document.getElementById('barbell-outcome-val');
+      const mValEl = document.getElementById('moderate-outcome-val');
+      const bBadgeEl = document.getElementById('barbell-floor-badge');
+      const mBadgeEl = document.getElementById('moderate-risk-badge');
+      const capEl = document.getElementById('barbell-caption');
+
+      if (bValEl) bValEl.textContent = barbellTotal;
+      if (mValEl) mValEl.textContent = moderateTotal;
+      if (bBadgeEl) bBadgeEl.textContent = floorText;
+      if (mBadgeEl) {
+        mBadgeEl.textContent = modText;
+        mBadgeEl.className = modClass;
+      }
+      if (capEl) capEl.textContent = capText;
+
+      const canvas = document.getElementById('barbell-chart');
+      if (canvas && typeof Chart !== 'undefined') {
+        const c1 = getCssToken('--data-1');
+        const c2 = getCssToken('--data-2');
+        const c4 = getCssToken('--data-4');
+        const gridColor = getCssToken('--outline-variant');
+        const inkColor = getCssToken('--on-surface-variant');
+        const labelFont = getCssToken('--font-label');
+
+        const safePart = Number((safePct * safeReturn).toFixed(1));
+        const riskPart = Number((riskPct * riskReturn).toFixed(1));
+        const modVal = Number(moderateTotal);
+
+        if (barbellChartInstance) barbellChartInstance.destroy();
+        barbellChartInstance = new Chart(canvas.getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: [`Tu Haltera (${safePct}/${riskPct})`, `Estrategia «Moderada» (100%)`],
+            datasets: [
+              {
+                label: `Núcleo Seguro`,
+                data: [safePart, 0],
+                backgroundColor: c1
+              },
+              {
+                label: `Cola de Opcionalidad`,
+                data: [riskPart, 0],
+                backgroundColor: c2
+              },
+              {
+                label: `Exposición «Centro Moderado»`,
+                data: [0, modVal],
+                backgroundColor: mode === 'crash' ? c4 : c2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'top',
+                labels: { color: inkColor, font: { family: labelFont, size: 11 } }
+              }
+            },
+            scales: {
+              x: {
+                stacked: true,
+                grid: { display: false },
+                ticks: { color: inkColor, font: { family: labelFont, size: 11 } }
+              },
+              y: {
+                stacked: true,
+                beginAtZero: true,
+                suggestedMax: 160,
+                grid: { color: gridColor },
+                ticks: { color: inkColor, font: { family: labelFont, size: 11 } }
+              }
+            }
+          }
+        });
+      }
+      scheduleStateSave();
+    }
+
+    // =========================================================================
+    // SECTION 04: DOMAIN EXPLORER
+    // =========================================================================
+
+    function selectDomain(domainKey) {
+      if (!DOMAINS_DATA[domainKey]) return;
+      appState.activeDomain = domainKey;
+
+      ['salud', 'finanzas', 'educacion', 'politica'].forEach(function (k) {
+        const tab = document.getElementById(`tab-${k}`);
+        if (tab) tab.setAttribute('aria-selected', k === domainKey ? 'true' : 'false');
+      });
+
+      renderDomainPanel();
+      scheduleStateSave();
+    }
+
+    function answerDomainDilemma(domainKey, optionIndex) {
+      appState.domainDilemmas[domainKey] = optionIndex;
+      renderDomainPanel();
+      scheduleStateSave();
+    }
+
+    function renderDomainPanel() {
+      const panel = document.getElementById('domain-panel');
+      if (!panel) return;
+      const d = DOMAINS_DATA[appState.activeDomain];
+      const chosenIdx = appState.domainDilemmas[appState.activeDomain];
+
+      const fragileListHtml = d.fragilePoints.map(function (pt) {
+        return `<li style="margin-bottom: var(--space-xs);">${escapeHtml(pt)}</li>`;
+      }).join('');
+
+      const antifragileListHtml = d.antifragilePoints.map(function (pt) {
+        return `<li style="margin-bottom: var(--space-xs);">${escapeHtml(pt)}</li>`;
+      }).join('');
+
+      const dilemmaOptionsHtml = d.dilemmaOptions.map(function (opt, idx) {
+        const isSelected = chosenIdx === idx;
+        return `
+          <button type="button"
+            class="quiz-option-btn"
+            aria-pressed="${isSelected ? 'true' : 'false'}"
+            onclick="answerDomainDilemma('${appState.activeDomain}', ${idx})">
+            <span class="index-num">${idx === 0 ? 'A' : 'B'}</span>
+            <span>${escapeHtml(opt.label)}</span>
+          </button>
+        `;
+      }).join('');
+
+      let feedbackHtml = ``;
+      if (typeof chosenIdx === 'number' && d.dilemmaOptions[chosenIdx]) {
+        const chosen = d.dilemmaOptions[chosenIdx];
+        feedbackHtml = `
+          <div style="margin-top: var(--space-md); padding: var(--space-md); border-radius: var(--rounded); background: ${chosen.isAntifragile ? 'var(--positive-bg)' : 'var(--error-bg)'}; color: ${chosen.isAntifragile ? 'var(--positive)' : 'var(--error)'};">
+            <strong>${chosen.isAntifragile ? 'Criterio Antifrágil validado:' : 'Alerta de Fragilidad:'}</strong>
+            ${escapeHtml(chosen.feedback)}
+          </div>
+        `;
+      }
+
+      panel.innerHTML = `
+        <div class="card-inner">
+          <div>
+            <span class="tag tag-amber">${escapeHtml(d.badge)}</span>
+            <h3 style="margin-top: var(--space-sm); font-size: 1.45rem;">${escapeHtml(d.title)}</h3>
+            <div class="two-col-equal" style="margin-top: var(--space-md);">
+              <div class="aside-box" style="border-top-color: var(--data-4);">
+                <span class="dossier-meta" style="color: var(--data-4);">${escapeHtml(d.fragileTitle)}</span>
+                <ul style="padding-left: var(--space-md); margin: var(--space-sm) 0 0; font-size: 0.93rem;">
+                  ${fragileListHtml}
+                </ul>
+              </div>
+              <div class="aside-box" style="border-top-color: var(--data-3);">
+                <span class="dossier-meta" style="color: var(--data-3);">${escapeHtml(d.antifragileTitle)}</span>
+                <ul style="padding-left: var(--space-md); margin: var(--space-sm) 0 0; font-size: 0.93rem;">
+                  ${antifragileListHtml}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="aside-box">
+            <span class="dossier-meta">Caso de decisión interactivo</span>
+            <p style="margin-top: var(--space-sm); font-weight: 600;">${escapeHtml(d.dilemmaQuestion)}</p>
+            <div class="quiz-options">
+              ${dilemmaOptionsHtml}
+            </div>
+            ${feedbackHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // SECTION 05: SELF-ASSESSMENT QUIZ
+    // =========================================================================
+
+    function selectQuizAnswer(qId, optIdx) {
+      appState.quizAnswers[qId] = optIdx;
+      renderQuiz();
+      scheduleStateSave();
+    }
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      if (!container) return;
+
+      container.innerHTML = QUIZ_QUESTIONS.map(function (q) {
+        const chosen = appState.quizAnswers[q.id];
+        const optsHtml = q.options.map(function (opt, idx) {
+          const isSelected = chosen === idx;
+          return `
+            <button type="button"
+              class="quiz-option-btn"
+              aria-pressed="${isSelected ? 'true' : 'false'}"
+              onclick="selectQuizAnswer('${q.id}', ${idx})">
+              <span class="index-num">${idx + 1}</span>
+              <span>${escapeHtml(opt.label)}</span>
+            </button>
+          `;
+        }).join('');
+
+        return `
+          <div class="quiz-question-card">
+            <span class="dossier-meta">${escapeHtml(q.pillar)}</span>
+            <p style="margin-top: var(--space-xs); font-weight: 600;">${escapeHtml(q.question)}</p>
+            <div class="quiz-options">${optsHtml}</div>
+          </div>
+        `;
+      }).join('');
+
+      updateQuizScore();
+      updateGlobalProgress();
+    }
+
+    function updateQuizScore() {
+      const keys = Object.keys(appState.quizAnswers);
+      const count = keys.length;
+      const badgeEl = document.getElementById('quiz-progress-badge');
+      const scoreEl = document.getElementById('quiz-score-display');
+      const tagEl = document.getElementById('quiz-profile-tag');
+      const descEl = document.getElementById('quiz-profile-desc');
+      const recBox = document.getElementById('quiz-recommendations');
+      const recList = document.getElementById('quiz-rec-list');
+
+      if (badgeEl) badgeEl.textContent = `${count} de 7 respondidas`;
+
+      if (count === 0) {
+        if (scoreEl) scoreEl.textContent = `— / 100`;
+        if (tagEl) tagEl.innerHTML = `<span class="tag tag-neutral">Completa las 7 preguntas</span>`;
+        if (descEl) descEl.textContent = `A medida que selecciones tus respuestas, calcularemos tu nivel de exposición a la volatilidad, tu uso de la Vía Negativa y tu simetría de riesgo.`;
+        if (recBox) recBox.style.display = 'none';
+        return;
+      }
+
+      let rawPoints = 0;
+      const recs = [];
+      QUIZ_QUESTIONS.forEach(function (q) {
+        const idx = appState.quizAnswers[q.id];
+        if (typeof idx === 'number' && q.options[idx]) {
+          rawPoints += q.options[idx].score;
+          if (q.options[idx].rec) recs.push(q.options[idx].rec);
+        }
+      });
+
+      const maxPoints = count * 2;
+      const normalized = Math.round((rawPoints / maxPoints) * 100);
+
+      if (scoreEl) scoreEl.textContent = `${normalized} / 100`;
+
+      let profileLabel = ``;
+      let tagClass = ``;
+      let profileText = ``;
+
+      if (normalized < 40) {
+        profileLabel = `Exposición Frágil (Damocles)`;
+        tagClass = `tag tag-error`;
+        profileText = `Tu arquitectura actual depende en exceso de la previsibilidad, el control desde arriba o compromisos rígidos. Un Cisne Negro imprevisto tendría impacto asimétrico en contra.`;
+      } else if (normalized < 75) {
+        profileLabel = `Robusto en Transición (Fénix)`;
+        tagClass = `tag tag-amber`;
+        profileText = `Cuentas con amortiguadores razonables frente a choques moderados, pero aún dejas margen para sustituir riesgos «medios» por opcionalidad convexa y Vía Negativa.`;
+      } else {
+        profileLabel = `Perfil Antifrágil Talesiano (Hidra)`;
+        tagClass = `tag tag-positive`;
+        profileText = `Combinas blindaje de ruina, sustracción inteligente, errores pequeños frecuentes y simetría ética. La incertidumbre trabaja mayormente a tu favor.`;
+      }
+
+      if (tagEl) tagEl.innerHTML = `<span class="${tagClass}">${profileLabel}</span>`;
+      if (descEl) descEl.textContent = profileText;
+
+      if (recBox && recList) {
+        if (recs.length > 0) {
+          recBox.style.display = 'block';
+          recList.innerHTML = recs.slice(0, 3).map(function (r) {
+            return `<li style="margin-bottom: var(--space-xs);">${escapeHtml(r)}</li>`;
+          }).join('');
+        } else {
+          recBox.style.display = 'none';
+        }
+      }
+    }
+
+    // =========================================================================
+    // SECTION 06: VIA NEGATIVA WORKSHOP & BARBELL PLANNER
+    // =========================================================================
+
+    function renderSubtractions() {
+      const container = document.getElementById('vianegativa-checklist');
+      const badgeEl = document.getElementById('workshop-count-badge');
+      if (!container) return;
+
+      let activeCount = 0;
+      container.innerHTML = appState.subtractions.map(function (item, idx) {
+        if (item.checked) activeCount++;
+        return `
+          <label class="check-row ${item.checked ? 'is-checked' : ''}" for="chk-${item.id}">
+            <input type="checkbox" id="chk-${item.id}" ${item.checked ? 'checked' : ''} onchange="toggleSubtraction(${idx})">
+            <span class="check-title">${escapeHtml(item.text)}</span>
+          </label>
+        `;
+      }).join('');
+
+      if (badgeEl) badgeEl.textContent = `${activeCount} de ${appState.subtractions.length} sustracciones activas`;
+    }
+
+    function toggleSubtraction(index) {
+      if (!appState.subtractions[index]) return;
+      appState.subtractions[index].checked = !appState.subtractions[index].checked;
+      renderSubtractions();
+      scheduleStateSave();
+    }
+
+    function addCustomSubtraction() {
+      const input = document.getElementById('custom-subtraction-input');
+      if (!input) return;
+      const val = input.value.trim();
+      if (val.length < 4) {
+        showBanner('subtraction-feedback', `Escribe al menos 4 caracteres para describir qué vas a sustraer.`, true);
+        return;
+      }
+      appState.subtractions.push({
+        id: `sub-custom-${Date.now()}`,
+        text: val,
+        checked: true
+      });
+      input.value = ``;
+      renderSubtractions();
+      showBanner('subtraction-feedback', `Sustracción añadida a tu lista de Vía Negativa.`, false);
+      scheduleStateSave();
+    }
+
+    function saveBarbellNotes() {
+      const sEl = document.getElementById('barbell-safe-note');
+      const rEl = document.getElementById('barbell-risk-note');
+      const kEl = document.getElementById('skin-in-game-note');
+      if (sEl) appState.barbellSafeNote = sEl.value;
+      if (rEl) appState.barbellRiskNote = rEl.value;
+      if (kEl) appState.skinInGameNote = kEl.value;
+      scheduleStateSave();
+    }
+
+    function restoreBarbellNotesToInputs() {
+      const sEl = document.getElementById('barbell-safe-note');
+      const rEl = document.getElementById('barbell-risk-note');
+      const kEl = document.getElementById('skin-in-game-note');
+      if (sEl) sEl.value = appState.barbellSafeNote || ``;
+      if (rEl) rEl.value = appState.barbellRiskNote || ``;
+      if (kEl) kEl.value = appState.skinInGameNote || ``;
+    }
+
+    function exportActionPlan() {
+      const checkedSubs = appState.subtractions
+        .filter(function (s) { return s.checked; })
+        .map(function (s) { return `- [X] ${s.text}`; })
+        .join('\n');
+
+      const scoreText = (document.getElementById('quiz-score-display') || {}).textContent || `Sin completar`;
+
+      const content = [
+        `PLAN PERSONAL DE ANTIFRAGILIDAD (Basado en Nassim N. Taleb)`,
+        `===========================================================`,
+        `Diagnóstico de autoevaluación: ${scoreText}`,
+        `Configuración de Haltera simulada: ${appState.barbellSafePct}% Seguro / ${100 - appState.barbellSafePct}% Opcionalidad`,
+        ``,
+        `1. VÍA NEGATIVA (Lo que sustraigo de mi vida):`,
+        checkedSubs || `- (Aún sin sustracciones marcadas)`,
+        ``,
+        `2. EXTREMO ULTRA-SEGURO DE MI HALTERA:`,
+        appState.barbellSafeNote || `(Pendiente de definir)`,
+        ``,
+        `3. EXTREMO DE OPCIONALIDAD AGRESIVA:`,
+        appState.barbellRiskNote || `(Pendiente de definir)`,
+        ``,
+        `4. COMPROMISO DE JUGARSE LA PIEL (SKIN IN THE GAME):`,
+        appState.skinInGameNote || `(Pendiente de definir)`
+      ].join('\n');
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: 'text/plain',
+          encoding: 'UTF-8',
+          filename: 'plan-antifragil.txt'
+        });
+        showBanner('workshop-feedback', `Plan exportado como plan-antifragil.txt.`, false);
+      } else {
+        showBanner('workshop-feedback', `Resumen listo. Usa el entorno Notebook para descargar el archivo.`, false);
+      }
+    }
+
+    function handleResetClick(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = `Pulsa otra vez para confirmar reinicio`;
+        setTimeout(function () {
+          if (btn.dataset.armed === 'true') {
+            btn.dataset.armed = 'false';
+            btn.textContent = `Reiniciar taller y test`;
+          }
+        }, 4000);
+        return;
+      }
+
+      btn.dataset.armed = 'false';
+      btn.textContent = `Reiniciar taller y test`;
+
+      appState.quizAnswers = {};
+      appState.domainDilemmas = {};
+      appState.subtractions = JSON.parse(JSON.stringify(DEFAULT_SUBTRACTIONS));
+      appState.barbellSafeNote = ``;
+      appState.barbellRiskNote = ``;
+      appState.skinInGameNote = ``;
+      appState.exploredPillars = [`pilar-1`];
+      appState.openPillars = [`pilar-1`];
+
+      restoreBarbellNotesToInputs();
+      renderPillars();
+      renderDomainPanel();
+      renderQuiz();
+      renderSubtractions();
+      scheduleStateSave();
+      showBanner('workshop-feedback', `Autoevaluación y taller reiniciados correctamente.`, false);
+    }
+
+    // =========================================================================
+    // INITIALIZATION
+    // =========================================================================
+
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            appState = Object.assign({}, appState, saved);
+          }
+        } catch (e) {
+          // Proceed with default state
+        }
+      }
+
+      // Sync UI controls from restored state
+      selectTriadFocus(appState.triadFocus || 'antifragil');
+
+      const triadFilterEl = document.getElementById('triad-filter');
+      if (triadFilterEl) triadFilterEl.value = appState.triadFilter || 'all';
+      renderTriadTable(appState.triadFilter || 'all');
+
+      renderPillars();
+
+      const domEl = document.getElementById('convexity-domain');
+      if (domEl) domEl.value = appState.convexityDomain || 'traffic';
+      const volEl = document.getElementById('volatility-slider');
+      if (volEl) volEl.value = appState.volatilityPct || 25;
+      updateConvexitySim();
+
+      const bsEl = document.getElementById('barbell-safe-slider');
+      const bnEl = document.getElementById('barbell-safe-num');
+      const safeVal = appState.barbellSafePct || 90;
+      if (bsEl) bsEl.value = safeVal;
+      if (bnEl) bnEl.value = safeVal;
+      setBarbellShockMode(appState.barbellShockMode || 'normal');
+
+      selectDomain(appState.activeDomain || 'salud');
+      renderQuiz();
+      renderSubtractions();
+      restoreBarbellNotesToInputs();
+
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>

@@ -1,0 +1,2205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>El Cisne Negro — Base de Conocimiento sobre Epistemología de la Incertidumbre</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Briefing Style Tokens */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --tertiary: #785008;
+      --error: #b42318;
+      --on-error: #ffffff;
+
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      --font-headline: 'Source Serif 4', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* 2. Shared Tokens */
+      --positive: #2b6e52;
+      --positive-bg: #e7f2ec;
+      --warning: #785008;
+      --warning-bg: #f5e6c4;
+      --error-bg: #fceae8;
+      --focus: #1f4e5f;
+
+      /* Narrative Type Scale */
+      --display-size: clamp(2.25rem, 1.4rem + 3.2vw, 3.75rem);
+      --headline-size: clamp(1.625rem, 1.2rem + 1.6vw, 2.35rem);
+      --subhead-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+      --label-size: 0.75rem;
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: clip; margin: 0; padding: 0; }
+    body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Briefing Dossier Bar */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.6875rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-size: var(--display-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.07;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.12;
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      line-height: 1.24;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 66ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+      color: var(--secondary);
+      line-height: 1.48;
+      max-width: 62ch;
+      margin-top: var(--space-sm);
+    }
+
+    .prose-lead {
+      font-size: 1.0625rem;
+      color: var(--on-surface);
+      max-width: 65ch;
+    }
+
+    /* Navigation Strip */
+    .toc-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+      padding: var(--space-md) 0;
+      border-top: var(--card-border);
+      border-bottom: var(--card-border);
+    }
+    .toc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      text-decoration: none;
+      color: var(--on-surface);
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .toc-link:hover {
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .toc-link .index-num {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    /* Cards & Figures */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .two-col-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .figure-card-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-sm);
+    }
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      letter-spacing: 0.04em;
+    }
+    .figure-value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.35rem);
+      line-height: 1.1;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      margin: var(--space-xs) 0;
+    }
+    .tag-chip {
+      display: inline-block;
+      background: var(--warning-bg);
+      color: var(--tertiary);
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.1875rem 0.5rem;
+      border-radius: var(--rounded);
+    }
+    .tag-chip.positive {
+      background: var(--positive-bg);
+      color: var(--positive);
+    }
+    .tag-chip.error {
+      background: var(--error-bg);
+      color: var(--error);
+    }
+
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-lg);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+    }
+    .aside-box h3 {
+      margin-bottom: var(--space-sm);
+    }
+
+    .quote-block {
+      border-left: 3px solid var(--secondary);
+      padding: var(--space-sm) var(--space-lg);
+      margin: var(--space-lg) 0;
+      background: var(--surface-container-low);
+    }
+    .quote-text {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.125rem;
+      line-height: 1.5;
+      color: var(--on-surface);
+    }
+    .quote-attrib {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      margin-top: var(--space-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Buttons & Interactive Controls */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border: 1px solid var(--outline-variant);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover:not(:disabled) {
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .btn.primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn.primary:hover:not(:disabled) {
+      background: var(--secondary);
+      border-color: var(--secondary);
+    }
+    .btn.active {
+      background: var(--secondary);
+      color: var(--on-primary);
+      border-color: var(--secondary);
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Inputs */
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .control-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--secondary);
+      min-height: 44px;
+      cursor: pointer;
+    }
+    .text-input {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      width: 100%;
+    }
+    .text-input:focus {
+      border-color: var(--secondary);
+    }
+
+    /* Expandable Accordions */
+    .accordion-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .accordion-item {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+    }
+    .accordion-trigger {
+      width: 100%;
+      min-height: 48px;
+      padding: var(--space-md) var(--space-lg);
+      background: transparent;
+      border: none;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .accordion-trigger:hover {
+      background: var(--surface-container);
+    }
+    .accordion-trigger-left {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+    .accordion-icon {
+      flex-shrink: 0;
+      color: var(--secondary);
+      transition: transform var(--dur-short) var(--ease-in-out);
+    }
+    .accordion-trigger[aria-expanded="true"] .accordion-icon {
+      transform: rotate(180deg);
+    }
+    .accordion-panel {
+      display: none;
+      padding: 0 var(--space-lg) var(--space-lg);
+      border-top: var(--card-border);
+      background: var(--surface-container-low);
+    }
+    .accordion-panel.open {
+      display: block;
+      padding-top: var(--space-md);
+    }
+
+    /* Interactive Matrix Table */
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+    thead th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      background: var(--surface-container);
+      padding: var(--space-md);
+      border-bottom: var(--section-rule);
+    }
+    tbody td {
+      padding: var(--space-md);
+      border-bottom: var(--card-border);
+      vertical-align: top;
+    }
+    tbody tr {
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    tbody tr:hover {
+      background: var(--surface-container);
+    }
+    tbody tr.selected-row {
+      background: var(--warning-bg);
+    }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* Charts */
+    .chart-box {
+      position: relative;
+      min-height: 290px;
+      width: 100%;
+      margin-top: var(--space-md);
+    }
+
+    /* Timeline */
+    .timeline-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .timeline-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-left: 3px solid var(--secondary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .timeline-card.neg { border-left-color: var(--data-4); }
+    .timeline-card.pos { border-left-color: var(--data-3); }
+    .timeline-card.epi { border-left-color: var(--data-2); }
+    .timeline-date {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* Quiz */
+    .quiz-option {
+      width: 100%;
+      min-height: 46px;
+      padding: var(--space-md);
+      text-align: left;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .quiz-option.correct {
+      background: var(--positive-bg);
+      border-color: var(--positive);
+      color: var(--on-surface);
+    }
+    .quiz-option.incorrect {
+      background: var(--error-bg);
+      border-color: var(--error);
+      color: var(--on-surface);
+    }
+    .quiz-feedback {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border-left: 3px solid var(--secondary);
+      background: var(--surface-container);
+    }
+
+    .source-note {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      margin-top: var(--space-sm);
+    }
+
+    .reveal-section {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+
+    /* Container queries for component adaptation */
+    .card-wrapper { container-type: inline-size; }
+    @container (min-width: 520px) {
+      .stat-pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-md);
+      }
+    }
+    @container (max-width: 519px) {
+      .stat-pair {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+      }
+    }
+
+    @media (max-width: 820px) {
+      .two-col-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-sm) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .figure-card { padding: var(--space-md); }
+      .toc-nav { gap: var(--space-xs); }
+      .toc-link { width: 100%; justify-content: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- INICIO CONCEPTUAL -->
+    <header id="inicio">
+      <div class="dossier-bar">
+        <div class="dossier-left">
+          <span class="dossier-pill">Base de conocimiento</span>
+          <span class="dossier-meta">Epistemología de la incertidumbre · El Cisne Negro</span>
+        </div>
+        <span class="dossier-meta">Nassim Nicholas Taleb</span>
+      </div>
+
+      <h1>Lo que no sabemos gobierna nuestra historia</h1>
+      <p class="standfirst">
+        Una sola observación de un ave negra en Australia bastó para invalidar milenios de certeza empírica sobre la blancura de todos los cisnes. Esta base conceptual sistematiza por qué la mente humana es ciega ante las grandes desviaciones y cómo opera el conocimiento frente a lo altamente improbable.
+      </p>
+
+      <nav class="toc-nav" aria-label="Navegación por secciones temáticas">
+        <a class="toc-link" href="#anatomia"><span class="index-num">01</span> Anatomía del Cisne Negro</a>
+        <a class="toc-link" href="#mediocristan-extremistan"><span class="index-num">02</span> Mediocristán vs. Extremistán</a>
+        <a class="toc-link" href="#sesgos"><span class="index-num">03</span> Sesgos y Falacia Narrativa</a>
+        <a class="toc-link" href="#arrogancia"><span class="index-num">04</span> Arrogancia y Pruebas Silenciosas</a>
+        <a class="toc-link" href="#cronologia"><span class="index-num">05</span> Cronología Histórica</a>
+        <a class="toc-link" href="#faq"><span class="index-num">06</span> Preguntas Frecuentes</a>
+        <a class="toc-link" href="#cuestionario"><span class="index-num">07</span> Autoevaluación</a>
+      </nav>
+    </header>
+
+    <!-- RESUMEN CONCEPTUAL DE PORTADA -->
+    <section aria-label="Síntesis epistemológica">
+      <div class="two-col-split">
+        <div class="prose-lead">
+          <p>
+            Antes del descubrimiento de Australia, las personas del Viejo Mundo estaban convencidas de que todos los cisnes eran blancos, una creencia respaldada por millones de observaciones confirmatorias. El hallazgo de una sola ave negra reveló una limitación grave de nuestro aprendizaje basado en la experiencia: <strong>la fragilidad del conocimiento inductivo</strong>.
+          </p>
+          <p>
+            La tesis central de Taleb sostiene que el mundo moderno está dominado por lo extremo, lo desconocido y lo muy improbable, mientras los seres humanos —científicos sociales, expertos financieros y ciudadanos— nos empeñamos en observar la «calderilla» (los sucesos corrientes y repetidos) en lugar de los «billetes» (las grandes desviaciones que deciden la historia).
+          </p>
+          <div class="quote-block">
+            <div class="quote-text">
+              «La lógica del Cisne Negro hace que lo que no sabemos sea más importante que lo que sabemos.»
+            </div>
+            <div class="quote-attrib">Nassim Nicholas Taleb · Lo que no sabemos</div>
+          </div>
+        </div>
+
+        <aside class="aside-box">
+          <div class="figure-card-header">
+            <span class="index-num">CONCEPTO ANCLA</span>
+            <span class="tag-chip">Antibiblioteca</span>
+          </div>
+          <h3>La biblioteca de Umberto Eco</h3>
+          <p>
+            El escritor Umberto Eco poseía una biblioteca personal con más de treinta mil volúmenes y dividía a sus visitantes entre quienes preguntaban admirados cuántos había leído y la minoría que comprendía que una biblioteca privada no es un adorno para el ego, sino una herramienta de investigación.
+          </p>
+          <p>
+            Los libros leídos tienen mucho menos valor que los no leídos: a esa fila creciente de lo que desconocemos Taleb la denomina <strong>antibiblioteca</strong>. Cuanto más sabemos, más largas son las hileras de libros no leídos que nos miran desde los estantes.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 01: ANATOMÍA DEL CISNE NEGRO -->
+    <section id="anatomia" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-left">
+          <span class="dossier-pill">Sección 01</span>
+          <span class="dossier-meta">Definición formal, asimetría e inducción</span>
+        </div>
+        <span class="dossier-meta">El terceto del suceso</span>
+      </div>
+
+      <h2>Anatomía del Cisne Negro y la paradoja del pavo</h2>
+      <p class="standfirst">
+        Un Cisne Negro (escrito con mayúsculas) no es simplemente una sorpresa menor, sino un suceso empírico definido por tres atributos simultáneos y profundamente dependiente de nuestras expectativas previas.
+      </p>
+
+      <div class="card-grid" style="margin-top: var(--space-lg);">
+        <article class="figure-card">
+          <div class="figure-card-header">
+            <span class="index-num">ATRIBUTO 01</span>
+            <span class="tag-chip">Imprevisibilidad</span>
+          </div>
+          <h3>Rareza extrema</h3>
+          <p>
+            Habita fuera del reino de las expectativas normales, porque nada del pasado puede apuntar de forma convincente a su posibilidad antes de que ocurra.
+          </p>
+        </article>
+
+        <article class="figure-card">
+          <div class="figure-card-header">
+            <span class="index-num">ATRIBUTO 02</span>
+            <span class="tag-chip error">Magnitud</span>
+          </div>
+          <h3>Impacto tremendo</h3>
+          <p>
+            Produce consecuencias desproporcionadas y duraderas: desde el auge de religiones, guerras y crisis bursátiles hasta giros súbitos de nuestra vida personal.
+          </p>
+        </article>
+
+        <article class="figure-card">
+          <div class="figure-card-header">
+            <span class="index-num">ATRIBUTO 03</span>
+            <span class="tag-chip positive">Ilusión ex post</span>
+          </div>
+          <h3>Predictibilidad retrospectiva</h3>
+          <p>
+            Pese a su rareza, la naturaleza humana inventa explicaciones después del hecho para volverlo comprensible y aparentemente predecible en retrospectiva.
+          </p>
+        </article>
+      </div>
+
+      <!-- SIMULADOR DEL PAVO (DÍA 1 A 1001) -->
+      <div class="figure-card" style="margin-top: var(--space-xl);">
+        <div class="figure-card-header">
+          <div>
+            <span class="index-num">LABORATORIO INTERACTIVO · PROBLEMA DE LA INDUCCIÓN</span>
+            <h3>Los mil y un días del pavo: el peligro del «retroaprendizaje»</h3>
+          </div>
+          <div class="btn-row" role="group" aria-label="Selector de perspectiva del experimento del pavo">
+            <button type="button" class="btn active" id="btn-pavo" onclick="setTurkeyPerspective('pavo')">Perspectiva del pavo</button>
+            <button type="button" class="btn" id="btn-carnicero" onclick="setTurkeyPerspective('carnicero')">Perspectiva del carnicero</button>
+          </div>
+        </div>
+
+        <p id="turkey-intro">
+          Siguiendo la ilustración de Bertrand Russell sobre el problema de la inducción, cada día que un humano amable alimenta al pavo confirma su creencia de que la regla de la vida es el cuidado diario. Observe cómo su sensación de seguridad alcanza el máximo justo cuando el riesgo es mayor.
+        </p>
+
+        <div class="two-col-split" style="margin-top: var(--space-md);">
+          <div>
+            <div class="control-group">
+              <label class="control-label" for="slider-turkey-day">
+                Día de observación histórica: <span id="turkey-day-label">Día 1</span> / 1001
+              </label>
+              <input type="range" id="slider-turkey-day" min="1" max="1001" value="500" oninput="updateTurkeyDay(this.value)">
+            </div>
+            <div class="btn-row" style="margin-top: var(--space-sm);">
+              <button type="button" class="btn" onclick="jumpTurkeyDay(300)">Día 300</button>
+              <button type="button" class="btn" onclick="jumpTurkeyDay(1000)">Día 1.000 (Máxima confianza)</button>
+              <button type="button" class="btn primary" onclick="jumpTurkeyDay(1001)">Día 1.001 (Acción de Gracias)</button>
+            </div>
+
+            <div class="card-wrapper" style="margin-top: var(--space-md);">
+              <div class="stat-pair">
+                <div class="aside-box" style="border-radius: var(--rounded);">
+                  <span class="control-label">Confianza acumulada</span>
+                  <div class="figure-value" id="turkey-confidence">95,4%</div>
+                  <span class="dossier-meta" id="turkey-conf-note">Reforzada por alimentación constante</span>
+                </div>
+                <div class="aside-box" style="border-radius: var(--rounded);">
+                  <span class="control-label">Estado del sistema</span>
+                  <div class="figure-value" id="turkey-status">Estable</div>
+                  <span class="dossier-meta" id="turkey-status-note">Sin anomalías registradas</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-box" style="min-height: 280px;">
+            <canvas id="turkeyChart" aria-label="Gráfico de los mil y un días del pavo"></canvas>
+          </div>
+        </div>
+        <p class="source-note">Fuente: Figura 1 («Mil y un días de historia») y capítulo «Cómo aprender del pavo» en El Cisne Negro.</p>
+      </div>
+
+      <!-- EXPLICACIONES EXPANDIBLES DE LA SECCIÓN 01 -->
+      <div class="accordion-stack" style="margin-top: var(--space-xl);">
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span class="accordion-trigger-left">
+              <span class="index-num">01.A</span>
+              <span>Asimetría de escala temporal: Cisnes Negros positivos vs. negativos</span>
+            </span>
+            <i data-lucide="chevron-down" class="accordion-icon" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-panel">
+            <p>
+              Los Cisnes Negros no tienen por qué ser sorpresas instantáneas; operan en una escala de tiempo relativa. En general, <strong>los Cisnes Negros negativos ocurren muy deprisa</strong> (los terremotos duran minutos; el 11-S duró horas), porque destruir es mucho más fácil y rápido que construir. Taleb recuerda que durante la guerra del Líbano la casa de sus padres en Amioun y la de su abuelo fueron dinamitadas en pocas horas, pero reconstruirlas tomó dos años —siete mil veces más tiempo—.
+            </p>
+            <p>
+              Por el contrario, <strong>los Cisnes Negros positivos exigen tiempo</strong> para manifestar su efecto: el ordenador personal, la expansión de Internet o el ascenso editorial de un libro sin mercado aparente. Esta asimetría explica la dificultad práctica de ser paciente ante el descubrimiento positivo.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span class="accordion-trigger-left">
+              <span class="index-num">01.B</span>
+              <span>El caso de Yevguenia Krasnova: del rechazo editorial al fenómeno global</span>
+            </span>
+            <i data-lucide="chevron-down" class="accordion-icon" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-panel">
+            <p>
+              Yevguenia Nikoláyevna Krasnova, neurocientífica con vocación literaria, escribió <em>Historia de la recurrencia</em> mezclando investigación, filosofía y comentarios autobiográficos sin ajustarse a las categorías de los formularios editoriales («¿Es ficción o no ficción?», «¿Quién es su público?»). Los editores y profesores de talleres de escritura —que enseñaban a imitar cuentos pasados del <em>New Yorker</em>— rechazaron su obra vaticinando que no vendería más de diez ejemplares.
+            </p>
+            <p>
+              Al colgar el original en la Red, un pequeño editor con poco que perder lo publicó sin tocar una coma. En cinco años, el libro vendió millones de ejemplares, se tradujo a cuarenta idiomas y dio origen a la supuesta «escuela consiliente». A posteriori, los mismos críticos que la rechazaron afirmaron que su talento y la influencia de Kundera o Bateson (autores que ella jamás había leído) eran completamente obvios.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span class="accordion-trigger-left">
+              <span class="index-num">01.C</span>
+              <span>Un nuevo tipo de ingratitud: la tragedia del héroe silencioso</span>
+            </span>
+            <i data-lucide="chevron-down" class="accordion-icon" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-panel">
+            <p>
+              La sociedad glorifica a quienes aparecen en televisión gestionando una catástrofe ya ocurrida —como el director de la Bolsa de Nueva York, Richard Grasso, que recibió una enorme prima tras sonar la campana de apertura después del 11-S—, pero ignora e incluso castiga a quien logra evitarla.
+            </p>
+            <p>
+              Taleb propone un experimento mental: si un legislador con coraje y visión hubiese impuesto el 10 de septiembre de 2001 la obligación de instalar puertas antibalas permanentemente cerradas en todas las cabinas de avión, el atentado del 11-S no habría ocurrido. Sin embargo, los pilotos y el público habrían detestado esa medida costosa y «superflua», lo habrían apartado del poder y habría muerto con la sensación de fracaso sin una estatua en ninguna plaza.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span class="accordion-trigger-left">
+              <span class="index-num">01.D</span>
+              <span>El testimonio del capitán del RMS Titanic (1907) y la serendipidad</span>
+            </span>
+            <i data-lucide="chevron-down" class="accordion-icon" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-panel">
+            <p>
+              En 1907, el capitán E. J. Smith declaró que en toda su experiencia en el mar nunca se había encontrado en un accidente digno de mención, ni había visto un naufragio ni una situación que amenazara con acabar en desastre. Cinco años después, en 1912, su barco protagonizó el naufragio más famoso de la historia.
+            </p>
+            <p>
+              Frente a esta trampa inductiva, Taleb propone enfocarse en el <strong>anticonocimiento</strong>: dejar de confiar en la planificación de arriba abajo y maximizar nuestra exposición a Cisnes Negros positivos mediante la serendipidad y el ensayo y error agresivo («juguetear»), donde hay poco que perder y mucho que ganar.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 02: MEDIOCRISTÁN VS. EXTREMISTÁN -->
+    <section id="mediocristan-extremistan" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-left">
+          <span class="dossier-pill">Sección 02</span>
+          <span class="dossier-meta">Dos variedades de incertidumbre y escalabilidad</span>
+        </div>
+        <span class="dossier-meta">Física vs. Sociedad</span>
+      </div>
+
+      <h2>Mediocristán vs. Extremistán: lo escalable y la tiranía de lo singular</h2>
+      <p class="standfirst">
+        Confundir las reglas de la provincia física de lo mediocre con la provincia informativa de los extremos conduce a errores fatales. Casi todos los asuntos humanos relevantes habitan hoy en Extremistán.
+      </p>
+
+      <div class="two-col-split" style="margin-top: var(--space-lg);">
+        <div>
+          <h3>De la persona «trabajo» a la persona «idea»</h3>
+          <p>
+            Un consejo recibido por Taleb a los veintidós años en Filadelfia —elegir una profesión «escalable»— le permitió distinguir entre dos clases de incertidumbre. En las profesiones <strong>no escalables</strong> (dentista, panadero, pequeño restaurante, consultor, masajista o prostituta), los ingresos están sometidos a la gravedad: dependen del tiempo limitado y de la presencia física continua. Ningún día puede superar el valor de toda una vida laboral.
+          </p>
+          <p>
+            En las profesiones <strong>escalables</strong> (escritor, actor de cine, cantante grabado u operador <em>quant</em>), se realiza exactamente el mismo esfuerzo para producir cien unidades que para llegar a cientos de millones. La invención del alfabeto, la imprenta, el gramófono (donde un Vladimir Horowitz ya fallecido desplaza al pianista ruso vivo de barrio) y la globalización consolidaron una ecología de «el ganador se lo lleva todo», con unos pocos gigantes y un inmenso número de enanos.
+          </p>
+        </div>
+
+        <!-- SIMULADOR DEL ESTADIO -->
+        <div class="figure-card">
+          <div class="figure-card-header">
+            <div>
+              <span class="index-num">EXPERIMENTO DEL ESTADIO (1.000 PERSONAS)</span>
+              <h3>Peso corporal frente a patrimonio neto</h3>
+            </div>
+          </div>
+
+          <div class="btn-row" role="group" aria-label="Elegir provincia para el experimento del estadio">
+            <button type="button" class="btn active" id="btn-sim-med" onclick="setStadiumDomain('mediocristan')">Mediocristán (Peso)</button>
+            <button type="button" class="btn" id="btn-sim-ext" onclick="setStadiumDomain('extremistan')">Extremistán (Riqueza)</button>
+            <button type="button" class="btn primary" id="btn-sim-outlier" onclick="toggleStadiumOutlier()">Añadir extremo al estadio</button>
+          </div>
+
+          <div class="card-wrapper" style="margin-top: var(--space-md);">
+            <div class="stat-pair">
+              <div>
+                <span class="control-label">Peso del caso extremo en el total</span>
+                <div class="figure-value" id="stadium-share">0,10%</div>
+              </div>
+              <div>
+                <span class="control-label">Muestra base (1.000 personas)</span>
+                <div class="figure-value" id="stadium-base">99,90%</div>
+              </div>
+            </div>
+          </div>
+
+          <p id="stadium-caption" style="margin-top: var(--space-sm); font-size: 0.9375rem; color: var(--on-surface-variant);">
+            Muestra inicial de 1.000 personas elegidas al azar con un peso medio de ~75 kg. Pulse «Añadir extremo al estadio» para incorporar al ser humano más pesado posible.
+          </p>
+
+          <div class="chart-box" style="min-height: 220px;">
+            <canvas id="stadiumChart" aria-label="Gráfico comparativo del experimento del estadio"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- MATRIZ COMPARATIVA INTERACTIVA (TABLA 1) -->
+      <div class="figure-card" style="margin-top: var(--space-xl);">
+        <div class="figure-card-header">
+          <div>
+            <span class="index-num">MATRIZ COMPARATIVA INTERACTIVA · TABLA 1 DEL LIBRO</span>
+            <h3>Anatomía comparada de Mediocristán y Extremistán</h3>
+          </div>
+        </div>
+
+        <div class="two-col-split" style="margin-bottom: var(--space-md); gap: var(--space-md);">
+          <div class="btn-row" role="group" aria-label="Filtrar filas de la matriz comparativa">
+            <button type="button" class="btn active" onclick="filterMatrix('all', this)">Todos los criterios (12)</button>
+            <button type="button" class="btn" onclick="filterMatrix('estructura', this)">Estructura y escala</button>
+            <button type="button" class="btn" onclick="filterMatrix('sociedad', this)">Economía y desigualdad</button>
+            <button type="button" class="btn" onclick="filterMatrix('epistemologia', this)">Epistemología y predicción</button>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="matrix-search">Buscar concepto o ejemplo</label>
+            <input type="search" id="matrix-search" class="text-input" placeholder="Ej.: campana, altura, riqueza, saltos…" oninput="searchMatrix(this.value)">
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Dimensión</th>
+                <th scope="col">Mediocristán (Tipo 1)</th>
+                <th scope="col">Extremistán (Tipo 2)</th>
+              </tr>
+            </thead>
+            <tbody id="matrix-tbody"></tbody>
+          </table>
+        </div>
+
+        <div class="aside-box" id="matrix-detail" style="margin-top: var(--space-md);">
+          <span class="index-num">DETALLE Y EJEMPLOS DE LA FUENTE</span>
+          <h3 id="matrix-detail-title">Seleccione cualquier fila de la matriz para inspeccionar su aplicación empírica</h3>
+          <p id="matrix-detail-body">
+            Haga clic en cualquiera de las doce dimensiones de la Tabla 1 de Taleb para ver los ejemplos concretos de la fuente (consumo de calorías, ventas de J. K. Rowling, guerras antiguas vs. armas de destrucción masiva, o cisnes grises mandelbrotianos).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 03: SESGOS COGNITIVOS Y FALACIA NARRATIVA -->
+    <section id="sesgos" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-left">
+          <span class="dossier-pill">Sección 03</span>
+          <span class="dossier-meta">Psicología del conocimiento y platonicidad</span>
+        </div>
+        <span class="dossier-meta">Ceguera ante lo aleatorio</span>
+      </div>
+
+      <h2>Sesgos cognitivos, el terceto de la opacidad y la falacia narrativa</h2>
+      <p class="standfirst">
+        El problema no reside en la naturaleza de los sucesos, sino en cómo nuestra mente —diseñada para reaccionar ante peligros inmediatos y no para la introspección abstracta— percibe, filtra y narra la realidad.
+      </p>
+
+      <!-- EL TERCETO DE LA OPACIDAD -->
+      <div style="margin-top: var(--space-lg);">
+        <h3>El Terceto de la Opacidad histórica</h3>
+        <p>
+          La historia es opaca: observamos lo que aparece en la superficie —como la comida sobre la mesa de un restaurante— sin ver el mecanismo generador que opera en la cocina. Al enfrentarse a la historia, la mente humana padece tres trastornos simultáneos:
+        </p>
+
+        <div class="card-grid" style="margin-top: var(--space-md);">
+          <div class="figure-card">
+            <span class="index-num">TRASTORNO 01</span>
+            <h3>La ilusión de comprender</h3>
+            <p>
+              Pensar que el mundo es más comprensible y predecible de lo que es. Durante los casi diecisiete años de guerra en el Líbano, los adultos aseguraban que acabaría «en cuestión de días», al igual que exiliados cubanos en Miami (1960), iraníes (1978) o rusos en Berlín (1917, como Nabokov).
+            </p>
+          </div>
+          <div class="figure-card">
+            <span class="index-num">TRASTORNO 02</span>
+            <h3>La distorsión retrospectiva</h3>
+            <p>
+              Evaluar los sucesos solo a través de un retrovisor. Al recordar únicamente los datos que encajan con el resultado final, la historia en los libros parece ordenada y necesaria, ocultando la confusión real de quienes la vivieron hacia delante.
+            </p>
+          </div>
+          <div class="figure-card">
+            <span class="index-num">TRASTORNO 03</span>
+            <h3>La platonicidad erudita</h3>
+            <p>
+              Sobrevalorar los datos factuales y «platonificar»: confundir el mapa con el territorio, priorizar categorías nítidas (utopías, nacionalidades, «periodismo de hotel») frente a una realidad confusa e indomable.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- LABORATORIO DE LA FALACIA DEL VIAJE DE IDA Y VUELTA -->
+      <div class="figure-card" style="margin-top: var(--space-xl);">
+        <div class="figure-card-header">
+          <div>
+            <span class="index-num">ERROR DE CONFIRMACIÓN · SIMULADOR LÓGICO</span>
+            <h3>La falacia del viaje de ida y vuelta y el empirismo ingenuo</h3>
+          </div>
+        </div>
+        <p>
+          Tendemos a buscar casos que confirmen nuestras creencias en lugar de explorar la parte no leída de la biblioteca. Ese hábito genera la <strong>falacia del viaje de ida y vuelta</strong>: confundir dos afirmaciones lógicamente asimétricas cuya distancia parece corta, pero conlleva errores catastróficos.
+        </p>
+
+        <div class="btn-row" role="group" aria-label="Casos de falacia lógica de Taleb" style="margin-top: var(--space-md);">
+          <button type="button" class="btn active" onclick="selectFallacyCase('pavo', this)">Caso 1: Ausencia de pruebas</button>
+          <button type="button" class="btn" onclick="selectFallacyCase('bayes', this)">Caso 2: Inversión condicional</button>
+          <button type="button" class="btn" onclick="selectFallacyCase('simpson', this)">Caso 3: Empirismo ingenuo (vías / Simpson)</button>
+        </div>
+
+        <div class="two-col-split" style="margin-top: var(--space-lg);" id="fallacy-display">
+          <div class="aside-box" style="border-radius: var(--rounded); border-top-color: var(--positive);">
+            <span class="tag-chip positive">Afirmación válida (Observación)</span>
+            <h3 id="fallacy-valid-title" style="margin-top: var(--space-sm);">«No hay pruebas de la posibilidad de Cisnes Negros»</h3>
+            <p id="fallacy-valid-desc">
+              Quien observa los primeros mil días del pavo puede afirmar con razón que, hasta ese instante, sus datos no registran ningún evento catastrófico.
+            </p>
+          </div>
+          <div class="aside-box" style="border-radius: var(--rounded); border-top-color: var(--error);">
+            <span class="tag-chip error">Confusión falaz (Salto ilegítimo)</span>
+            <h3 id="fallacy-invalid-title" style="margin-top: var(--space-sm);">«Hay pruebas de que no existen Cisnes Negros»</h3>
+            <p id="fallacy-invalid-desc">
+              La mente simplifica la primera frase y retiene la segunda. La ausencia de evidencia de un desastre no equivale en absoluto a la evidencia de su imposibilidad.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CINCO MANIFESTACIONES DE LA CEGUERA ANTE EL CISNE NEGRO -->
+      <div class="accordion-stack" style="margin-top: var(--space-xl);">
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span class="accordion-trigger-left">
+              <span class="index-num">SESGO 01</span>
+              <span>El Redil Platónico y la arbitrariedad de las categorías</span>
+            </span>
+            <i data-lucide="chevron-down" class="accordion-icon" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-panel">
+            <p>
+              La <strong>platonicidad</strong> es la tendencia a centrarnos en formas puras y bien definidas (triángulos, modelos económicos, bandos políticos). Cuando las personas observan una realidad confusa a través de un mapa rígido, surge el <strong>redil platónico</strong>: la explosiva línea divisoria donde el mapa deja de aplicarse y se ensancha la brecha entre lo que sabemos y lo que creemos saber. Allí es donde aparece el Cisne Negro.
+            </p>
+            <p>
+              Taleb ilustra esta arbitrariedad con el «periodismo de hotel» durante la guerra del Líbano: de un día para otro, Líbano pasó de ser clasificado como Levante mediterráneo a «Oriente Próximo», mientras la vecina isla de Chipre —a noventa kilómetros, con costumbres similares— pasó a ser «Europa». En la misma línea, las alianzas ideológicas cambian de polo con el tiempo (cristianos libaneses pro-capitalistas frente a islamistas apoyados por el régimen soviético, o la alianza posterior de EE. UU. en Afganistán).
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span class="accordion-trigger-left">
+              <span class="index-num">SESGO 02</span>
+              <span>La Falacia Narrativa y el contraste con «Mi diario en Berlín»</span>
+            </span>
+            <i data-lucide="chevron-down" class="accordion-icon" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-panel">
+            <p>
+              Nuestra mente es una magnífica máquina de explicación retrospectiva: incapaz de aceptar la impredecibilidad pura, enlaza hechos pasados en narraciones coherentes y causalmente ordenadas. Como señala Taleb, cuanto más inteligente es la persona, más sólida y convincente parece la historia que fabrica <em>a posteriori</em>.
+            </p>
+            <p>
+              De adolescente en un sótano de Beirut durante los bombardeos, Taleb comprendió la diferencia entre el antes y el después gracias a <em>Mi diario en Berlín (1934–1941)</em> de William Shirer: un registro escrito a medida que los hechos ocurrían, sin conocer el desenlace —donde los franceses aún veían a Hitler como un fenómeno transitorio—. En contraste, recordar todo sin filtro como <em>Funes el memorioso</em> de Borges resultaría biológicamente insoportable, por lo que nuestra memoria filtra y reescribe el pasado.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span class="accordion-trigger-left">
+              <span class="index-num">SESGO 03</span>
+              <span>Aprender lo específico, no lo general: el síndrome de la Línea Maginot</span>
+            </span>
+            <i data-lucide="chevron-down" class="accordion-icon" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-panel">
+            <p>
+              No aprendemos reglas abstractas ni metarreglas (como la regla de que tendemos a no aprender reglas), sino hechos concretos. Tras la Gran Guerra, los franceses estudiaron con rigor la ruta de la invasión alemana previa y construyeron la Línea Maginot para bloquear exactamente ese camino; Hitler simplemente la rodeó casi sin esfuerzo.
+            </p>
+            <p>
+              Del mismo modo, tras el 11-S aprendimos reglas precisas para vigilar edificios altos o perfiles concretos, en vez de asumir que lo decisivo reside fuera del ámbito predecible. Taleb explica esta limitación desde la biología evolutiva: durante cien millones de años nuestros ancestros no necesitaron una introspección lenta y costosa; un antepasado excesivamente reflexivo habría sido devorado por el león mientras su primo impulsivo y rápido escapaba.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span class="accordion-trigger-left">
+              <span class="index-num">SESGO 04</span>
+              <span>El «tunelamiento» de la incertidumbre</span>
+            </span>
+            <i data-lucide="chevron-down" class="accordion-icon" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-panel">
+            <p>
+              «Tunelamos» cuando enfocamos toda nuestra atención en unas pocas fuentes bien definidas de incertidumbre —una lista demasiado específica de Cisnes Negros conocidos— a expensas de los sucesos que no nos vienen fácilmente a la mente. Tras la crisis bursátil de octubre de 1987, la mitad de los operadores estadounidenses se preparaban obsesivamente para otro cataclismo cada mes de octubre, olvidando que el primero no había tenido precedente.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 04: ARROGANCIA EPISTÉMICA Y PRUEBAS SILENCIOSAS -->
+    <section id="arrogancia" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-left">
+          <span class="dossier-pill">Sección 04</span>
+          <span class="dossier-meta">El Gran Fraude Intelectual y la tradición escéptica</span>
+        </div>
+        <span class="dossier-meta">Práctica de lo incierto</span>
+      </div>
+
+      <h2>Arrogancia epistémica, pruebas silenciosas y «trajes vacíos»</h2>
+      <p class="standfirst">
+        La ignorancia combinada con el exceso de confianza produce los peores desastres modernos: quienes visten traje oscuro y corbata disfrazan de ciencia matemática su ceguera ante Extremistán.
+      </p>
+
+      <div class="two-col-split" style="margin-top: var(--space-lg);">
+        <div class="figure-card">
+          <span class="index-num">ASIMETRÍA DE LA ÉLITE · LÍBANO Y WHARTON</span>
+          <h3>El chófer Mijaíl frente a los expertos con corbata</h3>
+          <p>
+            Observando a su abuelo —ministro de Defensa, ministro del Interior y viceprimer ministro del Líbano— y a su chófer Mijaíl, Taleb notó que ninguno de los dos sabía qué ocurriría después en la guerra. Sin embargo, existía una diferencia crucial: Mijaíl repetía humildemente <em>«¡Dios sabrá!»</em>, sabiendo que no era un especialista. Los pensadores de élite, en cambio, estaban convencidos de saber más por su rango.
+          </p>
+          <p>
+            Años después, en la Wharton School, comprobó que los ejecutivos de grandes corporaciones y los economistas padecían la misma <strong>arrogancia epistémica</strong>: creían medir el riesgo mientras su definición excluía precisamente los Cisnes Negros. Y respecto a la prensa diaria, Taleb señala que el solapamiento entre periódicos hace que, cuanto más se lee la prensa, menos se comprende el mundo.
+          </p>
+        </div>
+
+        <div class="figure-card">
+          <span class="index-num">EL GRAN FRAUDE INTELECTUAL (GFI)</span>
+          <h3>«Recoger calderilla delante de una apisonadora»</h3>
+          <p>
+            La curva de campana de Gauss no puede manejar las grandes desviaciones, pero crea la falsa ilusión de haber domesticado lo incierto. Los banqueros de crédito —entrenados para parecer aburridos y conservadores con traje oscuro y camisa blanca— obtienen ganancias pequeñas y regulares durante años, ocultando bajo la alfombra la posibilidad de una quiebra devastadora.
+          </p>
+          <p>
+            Taleb optó por ser un <em>quant</em> a la inversa: usar las matemáticas aplicadas y las series temporales no para predecir precios, sino para localizar los fallos de esos modelos y apostar a lo que los expertos platónicos consideran «inconcebible». Su regla personal tras el crac de 1987 fue preservar su independencia intelectual —el «dinero de libertad»— para evitar prostituir su pensamiento y dedicarse a estudiar la incertidumbre.
+          </p>
+        </div>
+      </div>
+
+      <!-- CASOS EMPÍRICOS Y TRADICIÓN ESCÉPTICA -->
+      <div class="accordion-stack" style="margin-top: var(--space-xl);">
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span class="accordion-trigger-left">
+              <span class="index-num">CASO 01</span>
+              <span>Pruebas silenciosas: lo que la historia nos oculta</span>
+            </span>
+            <i data-lucide="chevron-down" class="accordion-icon" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-panel">
+            <p>
+              Lo que vemos no es todo lo que existe. La historia oculta los Cisnes Negros mediante <strong>pruebas silenciosas</strong>: solo observamos los hechos supervivientes y visibles, no la multitud de fracasos o el mecanismo interno de la realidad (como ver el plato servido sin entrar en la cocina donde corre una rata, en Canal Street). Esta selección invisible distorsiona gravemente nuestra estimación de probabilidades.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span class="accordion-trigger-left">
+              <span class="index-num">CASO 02</span>
+              <span>Quiebras bancarias (1982, 1990) y el colapso de LTCM (1998)</span>
+            </span>
+            <i data-lucide="chevron-down" class="accordion-icon" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-panel">
+            <p>
+              En el verano de 1982, los grandes bancos estadounidenses perdieron prácticamente todas sus ganancias históricas acumuladas tras el impago simultáneo de préstamos en América Central y del Sur («un suceso excepcional»). Diez años después, el desplome inmobiliario de los noventa exigió un rescate de la industria de ahorro y préstamo de más de medio billón de dólares a cargo del contribuyente: cuando ganan, los banqueros «conservadores» se quedan con las primas; cuando quiebran, los costes son públicos.
+            </p>
+            <p>
+              En 1998, el fondo de cobertura <strong>Long-Term Capital Management (LTCM)</strong> —que aplicaba modelos basados en la curva de campana diseñados por dos premios Nobel de Economía— sufrió una de las mayores pérdidas bursátiles de la historia en un abrir y cerrar de ojos, demostrando cómo la pseudociencia convierte a sus seguidores en víctimas de su propia arrogancia.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span class="index-num" style="display:none;"></span>
+            <span class="accordion-trigger-left">
+              <span class="index-num">CASO 03</span>
+              <span>La genealogía escéptica: de Sexto Empírico y Algazel a Hume</span>
+            </span>
+            <i data-lucide="chevron-down" class="accordion-icon" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-panel">
+            <p>
+              Aunque en filosofía suele llamarse «problema de Hume», el problema de la inducción fue formulado con precisión mil quinientos años antes por <strong>Sexto Empírico</strong> (Alejandría, siglo II), médico pirroniano que rechazaba las teorías dogmáticas (<em>Adversus mathematicos</em>) en favor del ensayo y error empírico (razón por la cual Taleb bautizó su laboratorio en 1998 como <em>Empírica</em>).
+            </p>
+            <p>
+              En el siglo XI, <strong>Al-Ghazali (Algazel)</strong> atacó el racionalismo dogmático en <em>Tahafut al-falasifa</em> («La incompetencia de la filosofía»), abriendo un célebre debate con Averroes. Más tarde, pensadores como el obispo católico <strong>Pierre-Daniel Huet</strong> (<em>Tratado filosófico sobre la debilidad de la mente humana</em>, 1690) y <strong>Pierre Bayle</strong> (<em>Dictionnaire historique et critique</em>) transmitieron este escepticismo a David Hume. Taleb se distancia, sin embargo, del «escepticismo estéril» de aula: su empirismo escéptico busca tomar decisiones reales sin ser un pavo y evitar «cruzar la calle con los ojos vendados».
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 05: LÍNEA DE TIEMPO / EJEMPLOS HISTÓRICOS -->
+    <section id="cronologia" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-left">
+          <span class="dossier-pill">Sección 05</span>
+          <span class="dossier-meta">Archivo empírico y discontinuidades</span>
+        </div>
+        <span class="dossier-meta">«La historia no gatea: da saltos»</span>
+      </div>
+
+      <h2>Línea de tiempo y casos históricos documentados</h2>
+      <p class="standfirst">
+        Las sociedades avanzan de fisura en fisura con escasas vibraciones intermedias. Explore los acontecimientos históricos, crisis financieras e hitos filosóficos citados en la obra.
+      </p>
+
+      <div class="btn-row" role="group" aria-label="Filtrar hitos históricos" style="margin: var(--space-lg) 0;">
+        <button type="button" class="btn active" onclick="filterTimeline('all', this)">Todos (12)</button>
+        <button type="button" class="btn" onclick="filterTimeline('neg', this)">Cisnes Negros negativos</button>
+        <button type="button" class="btn" onclick="filterTimeline('pos', this)">Cisnes Negros positivos</button>
+        <button type="button" class="btn" onclick="filterTimeline('epi', this)">Hitos epistemológicos</button>
+      </div>
+
+      <div class="timeline-list" id="timeline-grid"></div>
+    </section>
+
+    <!-- SECCIÓN 06: PREGUNTAS FRECUENTES (FAQ) -->
+    <section id="faq" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-left">
+          <span class="dossier-pill">Sección 06</span>
+          <span class="dossier-meta">Aclaraciones conceptuales</span>
+        </div>
+        <span class="dossier-meta">FAQ epistemológico</span>
+      </div>
+
+      <h2>Preguntas frecuentes sobre la incertidumbre y el Cisne Negro</h2>
+
+      <div class="accordion-stack" style="margin-top: var(--space-lg);" id="faq-container"></div>
+    </section>
+
+    <!-- SECCIÓN 07: CUESTIONARIO DE AUTOEVALUACIÓN -->
+    <section id="cuestionario" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-left">
+          <span class="dossier-pill">Sección 07</span>
+          <span class="dossier-meta">Comprobación de rigor conceptual</span>
+        </div>
+        <span class="dossier-meta">8 preguntas de la fuente</span>
+      </div>
+
+      <h2>Cuestionario de autoevaluación epistemológica</h2>
+      <p class="standfirst">
+        Ponga a prueba su comprensión sobre Mediocristán y Extremistán, la inducción del pavo, la falacia narrativa y el Gran Fraude Intelectual. Cada respuesta ofrece retroalimentación fundamentada exclusivamente en el texto.
+      </p>
+
+      <div class="figure-card" style="margin-top: var(--space-lg);">
+        <div class="figure-card-header">
+          <div>
+            <span class="index-num" id="quiz-progress-label">PREGUNTA 01 DE 08</span>
+            <h3 id="quiz-question-text" style="margin-top: var(--space-xs);">Cargando pregunta…</h3>
+          </div>
+          <span class="tag-chip" id="quiz-score-badge">Aciertos: 0 / 0</span>
+        </div>
+
+        <div id="quiz-options-list" style="display: flex; flex-direction: column; gap: var(--space-sm); margin-top: var(--space-md);"></div>
+
+        <div id="quiz-feedback-box" class="quiz-feedback" style="display: none;">
+          <strong id="quiz-feedback-status"></strong>
+          <p id="quiz-feedback-text" style="margin-top: var(--space-xs);"></p>
+        </div>
+
+        <div class="btn-row" style="margin-top: var(--space-lg); justify-content: space-between;">
+          <div class="btn-row">
+            <button type="button" class="btn" id="btn-quiz-prev" onclick="prevQuizQuestion()" disabled>Anterior</button>
+            <button type="button" class="btn primary" id="btn-quiz-next" onclick="nextQuizQuestion()" disabled>Siguiente pregunta</button>
+          </div>
+          <button type="button" class="btn" id="btn-quiz-reset" onclick="resetQuiz(this)">Reiniciar cuestionario</button>
+        </div>
+
+        <div id="quiz-summary-box" class="aside-box" style="display: none; margin-top: var(--space-lg);">
+          <span class="index-num">DIAGNÓSTICO EPISTEMOLÓGICO FINAL</span>
+          <h3 id="quiz-summary-title" style="margin-top: var(--space-xs);"></h3>
+          <p id="quiz-summary-body" style="margin-top: var(--space-xs);"></p>
+        </div>
+      </div>
+    </section>
+
+    <footer style="border-top: var(--section-rule); padding-top: var(--space-lg); color: var(--on-surface-variant); font-size: 0.875rem;">
+      <p>
+        <strong>Fuente exclusiva:</strong> Nassim Nicholas Taleb, <em>El Cisne Negro: El impacto de lo altamente improbable</em> (<em>The Black Swan</em>, 2007; traducción de Roc Filella Montfort y Albino Santos Mosquera). Todos los conceptos, ejemplos históricos, estadísticas comparativas y términos epistemológicos proceden directamente de los pasajes analizados de la obra.
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // Helper: read CSS custom properties so Chart.js strictly uses style tokens
+    function cssToken(name) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    // =========================================================================
+    // 1. TURKEY INDUCTION LAB (CHART.JS)
+    // =========================================================================
+    let turkeyChart = null;
+    let currentTurkeyDay = 500;
+    let turkeyPerspective = 'pavo';
+
+    function buildTurkeySeries(maxDay, perspective) {
+      const labels = [];
+      const confidence = [];
+      const hiddenRisk = [];
+      for (let d = 1; d <= 1001; d += 25) {
+        if (d > maxDay) break;
+        labels.push(`Día ${d}`);
+        if (d < 1001) {
+          const conf = 45 + 54.9 * (1 - Math.exp(-d / 220));
+          confidence.push(Number(conf.toFixed(1)));
+          hiddenRisk.push(perspective === 'carnicero' ? Number((15 + (d / 1000) * 84).toFixed(1)) : null);
+        } else {
+          confidence.push(0);
+          hiddenRisk.push(perspective === 'carnicero' ? 100 : null);
+        }
+      }
+      if (maxDay === 1001 && labels[labels.length - 1] !== `Día 1001`) {
+        labels.push(`Día 1001`);
+        confidence.push(0);
+        hiddenRisk.push(perspective === 'carnicero' ? 100 : null);
+      } else if (maxDay < 1001 && labels[labels.length - 1] !== `Día ${maxDay}`) {
+        labels.push(`Día ${maxDay}`);
+        const conf = 45 + 54.9 * (1 - Math.exp(-maxDay / 220));
+        confidence.push(Number(conf.toFixed(1)));
+        hiddenRisk.push(perspective === 'carnicero' ? Number((15 + (maxDay / 1000) * 84).toFixed(1)) : null);
+      }
+      return { labels, confidence, hiddenRisk };
+    }
+
+    function initTurkeyChart() {
+      const canvas = document.getElementById('turkeyChart');
+      if (!canvas || typeof Chart === 'undefined') return;
+      const ctx = canvas.getContext('2d');
+      const data = buildTurkeySeries(currentTurkeyDay, turkeyPerspective);
+
+      turkeyChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: data.labels,
+          datasets: [
+            {
+              label: `Seguridad percibida / bienestar del pavo (%)`,
+              data: data.confidence,
+              borderColor: cssToken('--data-1'),
+              backgroundColor: cssToken('--data-1'),
+              borderWidth: 2.5,
+              tension: 0.15,
+              pointRadius: 2
+            },
+            {
+              label: `Riesgo real conocido por el carnicero (%)`,
+              data: data.hiddenRisk,
+              borderColor: cssToken('--data-4'),
+              backgroundColor: cssToken('--data-4'),
+              borderDash: [5, 5],
+              borderWidth: 2,
+              tension: 0.1,
+              pointRadius: 0
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: { duration: 180 },
+          scales: {
+            y: {
+              min: 0,
+              max: 105,
+              grid: { color: cssToken('--outline-variant') },
+              ticks: { color: cssToken('--on-surface-variant') }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: cssToken('--on-surface-variant'), maxTicksLimit: 6 }
+            }
+          },
+          plugins: {
+            legend: {
+              labels: { color: cssToken('--on-surface'), boxWidth: 14 }
+            }
+          }
+        }
+      });
+    }
+
+    function renderTurkeyState() {
+      const dayLabel = document.getElementById('turkey-day-label');
+      const confEl = document.getElementById('turkey-confidence');
+      const confNote = document.getElementById('turkey-conf-note');
+      const statusEl = document.getElementById('turkey-status');
+      const statusNote = document.getElementById('turkey-status-note');
+      const slider = document.getElementById('slider-turkey-day');
+
+      if (slider) slider.value = currentTurkeyDay;
+      if (dayLabel) dayLabel.textContent = `Día ${currentTurkeyDay}`;
+
+      if (currentTurkeyDay < 1001) {
+        const conf = (45 + 54.9 * (1 - Math.exp(-currentTurkeyDay / 220))).toFixed(1);
+        if (confEl) confEl.textContent = `${conf.replace('.', ',')}%`;
+        if (confNote) {
+          confNote.textContent = turkeyPerspective === 'pavo'
+            ? `Reforzada por ${currentTurkeyDay} días seguidos de alimento`
+            : `El pavo confía más justo cuando se acerca el sacrificio`;
+        }
+        if (statusEl) statusEl.textContent = turkeyPerspective === 'pavo' ? `Estable` : `En engorde`;
+        if (statusNote) {
+          statusNote.textContent = turkeyPerspective === 'pavo'
+            ? `«Los humanos miran por mis intereses»`
+            : `El carnicero conoce la fecha del miércoles previo`;
+        }
+      } else {
+        if (confEl) confEl.textContent = `0,0%`;
+        if (confNote) confNote.textContent = `Revisión brutal de la creencia inductiva`;
+        if (statusEl) statusEl.textContent = turkeyPerspective === 'pavo' ? `¡Cisne Negro!` : `Previsible`;
+        if (statusNote) {
+          statusNote.textContent = turkeyPerspective === 'pavo'
+            ? `Lo aprendido del pasado resultó engañoso`
+            : `Para el carnicero nunca fue un suceso inesperado`;
+        }
+      }
+
+      if (turkeyChart) {
+        const series = buildTurkeySeries(currentTurkeyDay, turkeyPerspective);
+        turkeyChart.data.labels = series.labels;
+        turkeyChart.data.datasets[0].data = series.confidence;
+        turkeyChart.data.datasets[1].data = series.hiddenRisk;
+        turkeyChart.update();
+      }
+    }
+
+    function updateTurkeyDay(val) {
+      currentTurkeyDay = Math.max(1, Math.min(1001, Number(val)));
+      renderTurkeyState();
+    }
+
+    function jumpTurkeyDay(day) {
+      currentTurkeyDay = day;
+      renderTurkeyState();
+    }
+
+    function setTurkeyPerspective(mode) {
+      turkeyPerspective = mode;
+      const btnPavo = document.getElementById('btn-pavo');
+      const btnCarn = document.getElementById('btn-carnicero');
+      if (btnPavo) btnPavo.classList.toggle('active', mode === 'pavo');
+      if (btnCarn) btnCarn.classList.toggle('active', mode === 'carnicero');
+      renderTurkeyState();
+    }
+
+    // =========================================================================
+    // 2. STADIUM EXPERIMENT SIMULATOR (MEDIOCRISTÁN VS EXTREMISTÁN)
+    // =========================================================================
+    let stadiumDomain = 'mediocristan';
+    let stadiumHasOutlier = false;
+    let stadiumChart = null;
+
+    function initStadiumChart() {
+      const canvas = document.getElementById('stadiumChart');
+      if (!canvas || typeof Chart === 'undefined') return;
+      const ctx = canvas.getContext('2d');
+      stadiumChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: [`1.000 personas base`, `1 caso extremo`],
+          datasets: [{
+            label: `Porcentaje del total en el estadio (%)`,
+            data: [99.9, 0.1],
+            backgroundColor: [cssToken('--data-1'), cssToken('--data-2')],
+            borderRadius: 0
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              min: 0,
+              max: 100,
+              grid: { color: cssToken('--outline-variant') },
+              ticks: { color: cssToken('--on-surface-variant') }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { color: cssToken('--on-surface') }
+            }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    function renderStadium() {
+      const btnMed = document.getElementById('btn-sim-med');
+      const btnExt = document.getElementById('btn-sim-ext');
+      const btnOut = document.getElementById('btn-sim-outlier');
+      const shareEl = document.getElementById('stadium-share');
+      const baseEl = document.getElementById('stadium-base');
+      const capEl = document.getElementById('stadium-caption');
+
+      if (btnMed) btnMed.classList.toggle('active', stadiumDomain === 'mediocristan');
+      if (btnExt) btnExt.classList.toggle('active', stadiumDomain === 'extremistan');
+      if (btnOut) {
+        btnOut.textContent = stadiumHasOutlier ? `Quitar caso extremo` : `Añadir extremo al estadio`;
+      }
+
+      let outlierPct = 0.1;
+      let basePct = 99.9;
+      let caption = ``;
+
+      if (stadiumDomain === 'mediocristan') {
+        if (!stadiumHasOutlier) {
+          outlierPct = 0.1;
+          basePct = 99.9;
+          caption = `En Mediocristán (peso corporal de 1.000 personas al azar), cada individuo aporta en promedio un 0,10% del peso colectivo.`;
+        } else {
+          outlierPct = 0.6;
+          basePct = 99.4;
+          caption = `Al añadir al ser humano biológicamente más pesado posible (~225–250 kg o hasta ~0,6% del total), su impacto en la suma sigue siendo insignificante.`;
+        }
+      } else {
+        if (!stadiumHasOutlier) {
+          outlierPct = 0.1;
+          basePct = 99.9;
+          caption = `Muestra inicial de patrimonio neto entre 1.000 personas comunes (~unos cuantos millones en total). Pulse «Añadir extremo» para introducir a Bill Gates.`;
+        } else {
+          outlierPct = 99.9;
+          basePct = 0.1;
+          caption = `Al incorporar a Bill Gates (~80.000 millones USD), representa el 99,9% del total. Las otras 1.000 personas son apenas un error de redondeo.`;
+        }
+      }
+
+      if (shareEl) shareEl.textContent = `${outlierPct.toFixed(1).replace('.', ',')}%`;
+      if (baseEl) baseEl.textContent = `${basePct.toFixed(1).replace('.', ',')}%`;
+      if (capEl) capEl.textContent = caption;
+
+      if (stadiumChart) {
+        stadiumChart.data.datasets[0].data = [basePct, outlierPct];
+        stadiumChart.data.datasets[0].backgroundColor = [
+          cssToken('--data-1'),
+          stadiumDomain === 'extremistan' && stadiumHasOutlier ? cssToken('--data-4') : cssToken('--data-2')
+        ];
+        stadiumChart.update();
+      }
+    }
+
+    function setStadiumDomain(domain) {
+      stadiumDomain = domain;
+      renderStadium();
+    }
+
+    function toggleStadiumOutlier() {
+      stadiumHasOutlier = !stadiumHasOutlier;
+      renderStadium();
+    }
+
+    // =========================================================================
+    // 3. INTERACTIVE COMPARISON MATRIX (TABLA 1 OF SOURCE)
+    // =========================================================================
+    const matrixRows = [
+      {
+        dim: `Escalabilidad`,
+        med: `No escalable.`,
+        ext: `Escalable.`,
+        cat: `estructura`,
+        detail: `Las profesiones no escalables (dentista, panadero, peluquero) requieren presencia y horas de trabajo; las escalables (escritor, actor grabado, operador bursátil) multiplican resultados sin esfuerzo adicional proporcional.`
+      },
+      {
+        dim: `Tipo de aleatoriedad`,
+        med: `Aleatoriedad moderada o de tipo 1.`,
+        ext: `Aleatoriedad salvaje (incluso más que salvaje) o de tipo 2.`,
+        cat: `epistemologia`,
+        detail: `En la aleatoriedad de tipo 1 ningún caso aislado cambia la suma global; en la de tipo 2 los saltos individuales dominan el comportamiento estadístico del conjunto.`
+      },
+      {
+        dim: `Miembro típico`,
+        med: `El miembro más típico es mediocre.`,
+        ext: `El más «típico» es un gigante o un enano; no hay un miembro típico.`,
+        cat: `estructura`,
+        detail: `Medir a cien humanos basta para conocer la estatura media humana. En cambio, en riqueza o ventas de libros, el promedio está distorsionado por casos extremos.`
+      },
+      {
+        dim: `Reparto del pastel`,
+        med: `Los ganadores reciben un pequeño segmento del total.`,
+        ext: `Efectos de «el ganador se lo lleva todo».`,
+        cat: `sociedad`,
+        detail: `Antes del gramófono, Giaccomo (un cantante local de ópera en Italia) tenía su público garantizado; tras la grabación musical, Horowitz (aun fallecido) acapara el mercado.`
+      },
+      {
+        dim: `Entorno característico`,
+        med: `Mayor probabilidad en nuestro entorno ancestral.`,
+        ext: `Mayor probabilidad en nuestro entorno actual.`,
+        cat: `sociedad`,
+        detail: `Desde el Neolítico y especialmente tras la Revolución Industrial, el alfabeto, la imprenta y la globalización trasladaron la vida económica hacia Extremistán.`
+      },
+      {
+        dim: `Relación con el Cisne Negro`,
+        med: `Impermeable al Cisne Negro.`,
+        ext: `Vulnerable al Cisne Negro.`,
+        cat: `epistemologia`,
+        detail: `Salvo que olvidemos que algo es aleatorio o suframos «tunelamiento», Mediocristán no genera sorpresas extremas; Extremistán es su hábitat natural.`
+      },
+      {
+        dim: `Límites físicos`,
+        med: `Sometido a la gravedad.`,
+        ext: `No existen limitaciones físicas en lo que pueda ser un número.`,
+        cat: `estructura`,
+        detail: `No existe una persona que pese 50 millones de kilos ni que mida cientos de kilómetros, pero una cuenta bancaria o el tiraje de un libro es información pura sin tope físico.`
+      },
+      {
+        dim: `Naturaleza de los datos`,
+        med: `Corresponde generalmente a cantidades físicas (ej. altura, peso, calorías).`,
+        ext: `Corresponde a números sociales e informativos (ej. riqueza, citas, ventas).`,
+        cat: `estructura`,
+        detail: `El consumo anual (~800.000 calorías) nunca se desequilibra por un banquete; en cambio, el dinero, el tamaño de las empresas o las menciones en Google no tienen límites corporales.`
+      },
+      {
+        dim: `Igualdad vs. desigualdad`,
+        med: `Tan cercano a la igualdad utópica como la realidad permite espontáneamente.`,
+        ext: `Dominado por una extrema desigualdad al estilo de «el ganador se lo lleva todo».`,
+        cat: `sociedad`,
+        detail: `Las desigualdades en el consumo de calorías son ligeras; en ventas editoriales, J. K. Rowling eclipsa por completo a mil autores comunes reunidos.`
+      },
+      {
+        dim: `Peso de una observación`,
+        med: `El total no está determinado por un solo caso u observación.`,
+        ext: `El total estará determinado por un pequeño número de sucesos extremos.`,
+        cat: `epistemologia`,
+        detail: `En Extremistán debemos desconfiar de las medias muestrales: un solo dato extremo recién aparecido puede reescribir todo el promedio histórico.`
+      },
+      {
+        dim: `Tiempo de aprendizaje`,
+        med: `Si se observa durante un rato, se puede llegar a saber qué pasa.`,
+        ext: `Lleva mucho tiempo saber qué pasa.`,
+        cat: `epistemologia`,
+        detail: `En Mediocristán el conocimiento crece rápido con la muestra (cien días o cien personas bastan); en Extremistán el conocimiento a partir de datos avanza lento y de forma errática.`
+      },
+      {
+        dim: `Dinámica y probabilidad`,
+        med: `Tiranía de lo colectivo; la historia gatea; curva de campana (GFI).`,
+        ext: `Tiranía de lo accidental; la historia da saltos; cisnes «grises» mandelbrotianos o Cisnes Negros intratables.`,
+        cat: `epistemologia`,
+        detail: `Confundir la columna izquierda con la derecha es el «Gran Fraude Intelectual» (GFI) de quienes aplican la curva de campana gaussiana a mercados financieros o guerras.`
+      }
+    ];
+
+    let activeMatrixFilter = 'all';
+    let activeMatrixSearch = '';
+    let selectedMatrixIndex = 0;
+
+    function renderMatrix() {
+      const tbody = document.getElementById('matrix-tbody');
+      if (!tbody) return;
+      const q = activeMatrixSearch.trim().toLowerCase();
+
+      const filtered = matrixRows
+        .map((row, idx) => ({ ...row, idx }))
+        .filter(row => {
+          const catMatch = activeMatrixFilter === 'all' || row.cat === activeMatrixFilter;
+          const textMatch = !q ||
+            row.dim.toLowerCase().includes(q) ||
+            row.med.toLowerCase().includes(q) ||
+            row.ext.toLowerCase().includes(q) ||
+            row.detail.toLowerCase().includes(q);
+          return catMatch && textMatch;
+        });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="3">No se encontraron dimensiones que coincidan con «${q}». Limpie el filtro para ver las 12 filas de la Tabla 1.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(row => `
+        <tr class="${row.idx === selectedMatrixIndex ? 'selected-row' : ''}" onclick="selectMatrixRow(${row.idx})">
+          <td><strong>${row.dim}</strong></td>
+          <td>${row.med}</td>
+          <td>${row.ext}</td>
+        </tr>
+      `).join('');
+
+      updateMatrixDetail();
+    }
+
+    function selectMatrixRow(idx) {
+      selectedMatrixIndex = idx;
+      renderMatrix();
+    }
+
+    function updateMatrixDetail() {
+      const row = matrixRows[selectedMatrixIndex];
+      const titleEl = document.getElementById('matrix-detail-title');
+      const bodyEl = document.getElementById('matrix-detail-body');
+      if (!row || !titleEl || !bodyEl) return;
+      titleEl.textContent = `${row.dim}: Mediocristán frente a Extremistán`;
+      bodyEl.textContent = row.detail;
+    }
+
+    function filterMatrix(cat, btn) {
+      activeMatrixFilter = cat;
+      const parent = btn ? btn.parentElement : null;
+      if (parent) {
+        parent.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+      }
+      if (btn) btn.classList.add('active');
+      renderMatrix();
+    }
+
+    function searchMatrix(val) {
+      activeMatrixSearch = val;
+      renderMatrix();
+    }
+
+    // =========================================================================
+    // 4. ROUND-TRIP FALLACY DEMONSTRATOR
+    // =========================================================================
+    const fallacyCases = {
+      pavo: {
+        vTitle: `«No hay pruebas de la posibilidad de Cisnes Negros»`,
+        vDesc: `Quien observa los primeros mil días del pavo puede afirmar con razón que, hasta ese instante, sus datos no registran ningún evento catastrófico.`,
+        iTitle: `«Hay pruebas de que no existen Cisnes Negros»`,
+        iDesc: `La mente simplifica la primera frase y retiene la segunda. La ausencia de evidencia de un desastre no equivale en absoluto a la evidencia de su imposibilidad.`
+      },
+      bayes: {
+        vTitle: `«Casi todos los terroristas son musulmanes»`,
+        vDesc: `Incluso suponiendo por argumento un 99% en esa dirección, entre más de mil millones de musulmanes existirían apenas unos diez mil terroristas: alrededor del 0,001%.`,
+        iTitle: `«Casi todos los musulmanes son terroristas»`,
+        iDesc: `Invertir la relación lógica lleva a nuestra mente a sobreestimar inconscientemente en cerca de cincuenta mil veces la probabilidad de que un individuo elegido al azar sea terrorista.`
+      },
+      simpson: {
+        vTitle: `Observación particular confirmatoria`,
+        vDesc: `Desayunar un día con O. J. Simpson sin verlo cometer un crimen, o echarse una siesta sobre las vías del tren en New Rochelle y salir ileso.`,
+        iTitle: `Generalización por empirismo ingenuo`,
+        iDesc: `Pretender que una colección de anécdotas favorables demuestra la inocencia absoluta o prueba que dormir en las vías ferroviarias carece de riesgo.`
+      }
+    };
+
+    function selectFallacyCase(key, btn) {
+      const c = fallacyCases[key];
+      if (!c) return;
+      const parent = btn ? btn.parentElement : null;
+      if (parent) {
+        parent.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+      }
+      if (btn) btn.classList.add('active');
+
+      const vT = document.getElementById('fallacy-valid-title');
+      const vD = document.getElementById('fallacy-valid-desc');
+      const iT = document.getElementById('fallacy-invalid-title');
+      const iD = document.getElementById('fallacy-invalid-desc');
+      if (vT) vT.textContent = c.vTitle;
+      if (vD) vD.textContent = c.vDesc;
+      if (iT) iT.textContent = c.iTitle;
+      if (iD) iD.textContent = c.iDesc;
+    }
+
+    // =========================================================================
+    // 5. TIMELINE DATA & RENDER
+    // =========================================================================
+    const timelineEvents = [
+      {
+        date: `Siglo II d. C.`,
+        title: `Sexto Empírico y la escuela médica empírica`,
+        desc: `En Alejandría, formula el problema de la inducción 1.500 años antes que Hume, combatiendo el dogma y proponiendo el ensayo y error como guía práctica.`,
+        type: `epi`,
+        tag: `Epistemología`
+      },
+      {
+        date: `Siglos I – VII`,
+        title: `Auge del cristianismo y expansión del islamismo`,
+        desc: `El Levante produce dos fenómenos impredecibles: el cristianismo pasa inadvertido a los cronistas romanos y el islam borra diez siglos de helenismo levantino en pocos años.`,
+        type: `pos`,
+        tag: `Salto histórico`
+      },
+      {
+        date: `Siglo XI`,
+        title: `Al-Ghazali (Algazel) frente a Averroes`,
+        desc: `Algazel escribe «Tahafut al-falasifa» criticando las pretensiones causales de la filosofía racionalista, un hito en la historia del escepticismo ante la ciencia dogmática.`,
+        type: `epi`,
+        tag: `Epistemología`
+      },
+      {
+        date: `1690 – Siglo XVIII`,
+        title: `Pierre-Daniel Huet, Pierre Bayle y David Hume`,
+        desc: `Huet cuestiona la causalidad («cualquier suceso puede tener infinidad de causas posibles») y Bayle transmite el escepticismo antiguo que consolida el llamado «problema de Hume».`,
+        type: `epi`,
+        tag: `Epistemología`
+      },
+      {
+        date: `1907 – 1912`,
+        title: `El capitán E. J. Smith y el RMS Titanic`,
+        desc: `En 1907 Smith declara no haber visto jamás un naufragio ni situación de peligro en toda su carrera; en 1912 se hunde en la catástrofe marítima más famosa.`,
+        type: `neg`,
+        tag: `Error inductivo`
+      },
+      {
+        date: `1914`,
+        title: `Estallido de la Gran Guerra`,
+        desc: `Tras un prolongado período de relativa paz posterior a las guerras napoleónicas, casi nadie pudo anticipar el conflicto más mortífero vivido hasta entonces.`,
+        type: `neg`,
+        tag: `Cisne Negro`
+      },
+      {
+        date: `1934 – 1941`,
+        title: `«Mi diario en Berlín» y la Línea Maginot`,
+        desc: `William Shirer registra la historia en tiempo real sin distorsión retrospectiva, mientras Francia construye un muro rígido contra la ruta exacta de la invasión previa que Hitler rodea sin esfuerzo.`,
+        type: `epi`,
+        tag: `Sesgo histórico`
+      },
+      {
+        date: `1975 – 1990`,
+        title: `Guerra civil del Líbano`,
+        desc: `Tras unos trece siglos de coexistencia comercial y «estabilidad singular» en el Monte Líbano, un conflicto súbito devasta el país durante más de quince años.`,
+        type: `neg`,
+        tag: `Cisne Negro`
+      },
+      {
+        date: `Verano de 1982`,
+        title: `Crisis de deuda en los bancos de EE. UU.`,
+        desc: `Los bancos «conservadores» pierden en un solo verano casi todas las ganancias acumuladas de su historia tras el impago simultáneo en América Central y del Sur.`,
+        type: `neg`,
+        tag: `Finanzas`
+      },
+      {
+        date: `19 de octubre de 1987`,
+        title: `El gran crac bursátil moderno`,
+        desc: `La mayor caída de la Bolsa en un día sin noticia discernible que la explique. Taleb, como «quant a la inversa» en First Boston, confirma su tesis frente al fraude de la curva de campana.`,
+        type: `neg`,
+        tag: `Extremistán`
+      },
+      {
+        date: `1998`,
+        title: `Quiebra de Long-Term Capital Management`,
+        desc: `Fondo gestionado por dos premios Nobel de Economía que colapsa de forma casi instantánea al confiar en la curva de campana para medir riesgos de Extremistán.`,
+        type: `neg`,
+        tag: `GFI / Finanzas`
+      },
+      {
+        date: `1990s – 2004`,
+        title: `Internet, Google, YouTube y el 11-S / Tsunami 2004`,
+        desc: `El auge imprevisto de Google y YouTube ilustra el Cisne Negro positivo escalable; el 11-S (2001) y el tsunami del Pacífico (2004) muestran cómo la ausencia de expectativas agrava la catástrofe.`,
+        type: `pos`,
+        tag: `Era moderna`
+      }
+    ];
+
+    function renderTimeline(filterType) {
+      const grid = document.getElementById('timeline-grid');
+      if (!grid) return;
+      const items = filterType === 'all'
+        ? timelineEvents
+        : timelineEvents.filter(e => e.type === filterType);
+
+      grid.innerHTML = items.map(e => `
+        <article class="timeline-card ${e.type}">
+          <div class="figure-card-header" style="margin-bottom: 0;">
+            <span class="timeline-date">${e.date}</span>
+            <span class="tag-chip">${e.tag}</span>
+          </div>
+          <h3>${e.title}</h3>
+          <p style="font-size: 0.9375rem;">${e.desc}</p>
+        </article>
+      `).join('');
+    }
+
+    function filterTimeline(type, btn) {
+      const parent = btn ? btn.parentElement : null;
+      if (parent) {
+        parent.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+      }
+      if (btn) btn.classList.add('active');
+      renderTimeline(type);
+    }
+
+    // =========================================================================
+    // 6. FAQ DATA & ACCORDION LOGIC
+    // =========================================================================
+    const faqItems = [
+      {
+        q: `¿Propone Taleb evitar todo tipo de riesgos en la vida cotidiana?`,
+        a: `No. Ante la pregunta de cómo se atreve a cruzar la calle dada su conciencia del riesgo, Taleb aclara que no defiende una fobia paralizante ni un escepticismo estéril. Al contrario, está a favor de asumir riesgos de manera agresiva cuando existe asimetría positiva —poco que perder y mucho que ganar—. Su objetivo es evitar «cruzar la calle con los ojos vendados» y no ser un pavo.`
+      },
+      {
+        q: `¿Qué diferencia existe entre un Cisne Negro y un «cisne gris» mandelbrotiano?`,
+        a: `Extremistán no siempre produce Cisnes Negros puros. Algunos sucesos raros y trascendentales obedecen a la aleatoriedad mandelbrotiana (leyes potenciales, leyes de Pareto-Zipf, leyes fractales o estables de Lévy). Estos «cisnes grises» pueden tratarse científicamente en cierta medida porque, aunque raros, su dinámica escalable es conocida; en cambio, el Cisne Negro puro es completamente intratable e imposible de anticipar desde el pasado.`
+      },
+      {
+        q: `¿Por qué afirma el autor que leer el periódico disminuye nuestro conocimiento del mundo?`,
+        a: `Por dos razones principales descritas en la obra: primero, el solapamiento informativo entre medios es tan alto que leer más noticias no aporta información nueva (y en los mercados eficientes los precios ya incorporan las noticias públicas); segundo, la prensa concentra nuestra atención en minucias repetitivas e historias retrospectivas que alimentan la ilusión de comprender y la ceguera frente a los grandes saltos.`
+      },
+      {
+        q: `¿Por qué considera Taleb que el consejo de elegir una profesión escalable fue «el mejor peor consejo»?`,
+        a: `Fue valioso en el plano epistemológico porque le permitió distinguir entre la aleatoriedad de Mediocristán y la de Extremistán. Pero en el plano práctico resulta un mal consejo general para elegir carrera: las profesiones escalables producen desigualdades monstruosas donde un pequeñísimo número de gigantes se lleva casi todo el pastel y la inmensa mayoría queda marginada sin culpa alguna.`
+      },
+      {
+        q: `¿Cómo se puede actuar estratégicamente si los Cisnes Negros son impredecibles?`,
+        a: `En lugar de intentar ingenuamente predecir lo impredecible, debemos amoldarnos a su existencia centrándonos en el anticonocimiento. En ámbitos como el descubrimiento científico o la iniciativa emprendedora, la estrategia consiste en desconfiar de la planificación rígida de arriba abajo, exponerse al máximo a la serendipidad y «juguetear» mediante ensayo y error para recolectar oportunidades de Cisne Negro positivo.`
+      }
+    ];
+
+    function renderFaq() {
+      const container = document.getElementById('faq-container');
+      if (!container) return;
+      container.innerHTML = faqItems.map((item, idx) => `
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            <span class="accordion-trigger-left">
+              <span class="index-num">FAQ 0${idx + 1}</span>
+              <span>${item.q}</span>
+            </span>
+            <i data-lucide="chevron-down" class="accordion-icon" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-panel">
+            <p>${item.a}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleAccordion(btn) {
+      if (!btn) return;
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      const panel = btn.nextElementSibling;
+      if (panel) panel.classList.toggle('open', !expanded);
+    }
+
+    // =========================================================================
+    // 7. INTERACTIVE QUIZ
+    // =========================================================================
+    const quizQuestions = [
+      {
+        q: `¿Cuáles son los tres atributos que definen a un Cisne Negro (con mayúsculas) según Taleb?`,
+        options: [
+          `Frecuencia alta, impacto moderado y predictibilidad estadística.`,
+          `Rareza fuera de las expectativas normales, impacto extremo y predictibilidad retrospectiva (no prospectiva).`,
+          `Origen exclusivamente financiero, daño negativo inmediato y previsibilidad mediante modelos matemáticos.`,
+          `Ausencia de explicación posible antes ni después de ocurrir.`
+        ],
+        correct: 1,
+        explanation: `En el prólogo «Del plumaje de las aves», Taleb resume el terceto del Cisne Negro como: rareza, impacto extremo y predictibilidad retrospectiva (inventamos explicaciones después del hecho para volverlo comprensible).`
+      },
+      {
+        q: `En la metáfora de la «antibiblioteca» de Umberto Eco, ¿qué parte de la biblioteca tiene mayor valor intelectual?`,
+        options: [
+          `Los libros ya leídos y subrayados que confirman nuestra erudición.`,
+          `Los manuales introductorios sobre cálculo de riesgos.`,
+          `Los libros no leídos, porque representan todo aquello que aún desconocemos.`,
+          `Los diarios y periódicos recientes acumulados año tras año.`
+        ],
+        correct: 2,
+        explanation: `Una biblioteca privada es una herramienta de investigación, no un adorno para el ego: los libros no leídos nos recuerdan los límites de nuestro saber.`
+      },
+      {
+        q: `¿Cuál de las siguientes cantidades pertenece a Mediocristán (aleatoriedad de tipo 1)?`,
+        options: [
+          `El patrimonio neto de mil personas tras añadir a Bill Gates.`,
+          `Las ventas editoriales por autor en una muestra que incluye a J. K. Rowling.`,
+          `El consumo anual de calorías o el peso corporal de una muestra de mil humanos.`,
+          `Las muertes en guerras modernas con armas de destrucción masiva.`
+        ],
+        correct: 2,
+        explanation: `Las cantidades físicas como la altura, el peso o el consumo de calorías están sometidas a la gravedad y ningún caso extremo altera de forma significativa la suma colectiva de una muestra grande.`
+      },
+      {
+        q: `¿Qué demuestra el experimento del pavo en el día 1.001 (víspera de Acción de Gracias)?`,
+        options: [
+          `Que la experiencia acumulada garantiza el conocimiento del futuro si la muestra supera los mil días.`,
+          `El «retroaprendizaje»: la confianza inductiva alcanza su punto máximo justo cuando el riesgo de catástrofe es mayor.`,
+          `Que el carnicero y el pavo comparten exactamente las mismas expectativas.`,
+          `Que los métodos gaussianos predicen sin error los cambios de régimen.`
+        ],
+        correct: 1,
+        explanation: `Cuantas más veces alimentan al pavo, más seguro se siente basándose en la observación pasada; sin embargo, lo aprendido puede tener valor negativo justo antes del sacrificio.`
+      },
+      {
+        q: `¿En qué consiste el «redil platónico»?`,
+        options: [
+          `En la escuela filosófica de Alejandría fundada por Sexto Empírico.`,
+          `En la línea divisoria explosiva donde los mapas o categorías mentales nítidas entran en contacto con la confusa realidad.`,
+          `En el método de ensayo y error usado por los emprendedores serendípicos.`,
+          `En la prohibición de publicar libros híbridos entre ficción y no ficción.`
+        ],
+        correct: 1,
+        explanation: `La platonicidad confunde el mapa con el territorio; el redil platónico es el punto de ruptura donde esos modelos dejan de aplicarse sin que lo sepamos de antemano.`
+      },
+      {
+        q: `¿Qué error histórico ilustra la construcción de la Línea Maginot francesa tras la Gran Guerra?`,
+        options: [
+          `El escepticismo pirroniano extremo.`,
+          `La tendencia humana a aprender hechos específicos del pasado en lugar de reglas generales sobre lo impredecible.`,
+          `La aplicación de leyes fractales de Pareto-Zipf en estrategia militar.`,
+          `La superioridad de las profesiones escalables sobre las no escalables.`
+        ],
+        correct: 1,
+        explanation: `Los franceses fueron excelentes estudiantes de historia que aprendieron con excesiva precisión bloqueando la ruta de la invasión anterior, por lo que Hitler simplemente rodeó el muro.`
+      },
+      {
+        q: `¿Qué es la «falacia del viaje de ida y vuelta» descrita en el capítulo sobre la confirmación?`,
+        options: [
+          `Creer que los exiliados regresarán a su país en cuestión de días.`,
+          `Confundir «no hay pruebas de Cisnes Negros» con «hay pruebas de que no hay Cisnes Negros» (o invertir probabilidades condicionales).`,
+          `Pensar que reconstruir una casa toma el mismo tiempo que dinamitarla.`,
+          `Alternar entre Mediocristán y Extremistán durante una sesión bursátil.`
+        ],
+        correct: 1,
+        explanation: `Taleb muestra que confundir ambas frases —o equiparar «casi todos los terroristas son musulmanes» con «casi todos los musulmanes son terroristas»— produce errores lógicos masivos.`
+      },
+      {
+        q: `¿Por qué el legislador hipotético del 10 de septiembre de 2001 representa la tragedia del «héroe silencioso»?`,
+        options: [
+          `Porque habría sido premiado en televisión como Richard Grasso.`,
+          `Porque al imponer puertas antibalas cerradas en las cabinas habría evitado el 11-S, pero el público habría considerado su medida costosa y superflua al no ver la catástrofe evitada.`,
+          `Porque habría escrito un diario en tiempo real como William Shirer.`,
+          `Porque su medida pertenecía a las leyes de la curva de campana.`
+        ],
+        correct: 1,
+        explanation: `La humanidad recompensa a quienes lucen heroicos tras una tragedia ya visible, pero ignora o castiga a los héroes preventivos cuyo éxito borra el rastro del desastre que evitaron.`
+      }
+    ];
+
+    let quizIdx = 0;
+    const quizAnswers = new Array(quizQuestions.length).fill(null);
+
+    function renderQuiz() {
+      const q = quizQuestions[quizIdx];
+      const progEl = document.getElementById('quiz-progress-label');
+      const textEl = document.getElementById('quiz-question-text');
+      const listEl = document.getElementById('quiz-options-list');
+      const fbBox = document.getElementById('quiz-feedback-box');
+      const fbStatus = document.getElementById('quiz-feedback-status');
+      const fbText = document.getElementById('quiz-feedback-text');
+      const prevBtn = document.getElementById('btn-quiz-prev');
+      const nextBtn = document.getElementById('btn-quiz-next');
+      const scoreBadge = document.getElementById('quiz-score-badge');
+      const summaryBox = document.getElementById('quiz-summary-box');
+      const summaryTitle = document.getElementById('quiz-summary-title');
+      const summaryBody = document.getElementById('quiz-summary-body');
+
+      if (!q || !listEl) return;
+
+      const answeredCount = quizAnswers.filter(a => a !== null).length;
+      const correctCount = quizAnswers.reduce((acc, a, i) => acc + (a === quizQuestions[i].correct ? 1 : 0), 0);
+
+      if (progEl) progEl.textContent = `PREGUNTA 0${quizIdx + 1} DE 0${quizQuestions.length}`;
+      if (textEl) textEl.textContent = q.q;
+      if (scoreBadge) scoreBadge.textContent = `Aciertos: ${correctCount} / ${answeredCount}`;
+
+      const chosen = quizAnswers[quizIdx];
+      const letters = [`A`, `B`, `C`, `D`];
+
+      listEl.innerHTML = q.options.map((opt, i) => {
+        let cls = `quiz-option`;
+        if (chosen !== null) {
+          if (i === q.correct) cls += ` correct`;
+          else if (i === chosen) cls += ` incorrect`;
+        }
+        return `
+          <button type="button" class="${cls}" onclick="answerQuiz(${i})" ${chosen !== null ? 'disabled' : ''}>
+            <span class="index-num">${letters[i]}.</span>
+            <span>${opt}</span>
+          </button>
+        `;
+      }).join('');
+
+      if (fbBox && fbStatus && fbText) {
+        if (chosen !== null) {
+          fbBox.style.display = 'block';
+          fbStatus.textContent = chosen === q.correct ? `Respuesta correcta` : `Respuesta incorrecta`;
+          fbText.textContent = q.explanation;
+        } else {
+          fbBox.style.display = 'none';
+        }
+      }
+
+      if (prevBtn) prevBtn.disabled = quizIdx === 0;
+      if (nextBtn) {
+        nextBtn.disabled = chosen === null || quizIdx === quizQuestions.length - 1;
+        nextBtn.textContent = quizIdx === quizQuestions.length - 1 ? `Última pregunta` : `Siguiente pregunta`;
+      }
+
+      if (summaryBox && summaryTitle && summaryBody) {
+        if (answeredCount === quizQuestions.length) {
+          summaryBox.style.display = 'block';
+          if (correctCount >= 7) {
+            summaryTitle.textContent = `Empírico escéptico (${correctCount} / ${quizQuestions.length})`;
+            summaryBody.textContent = `Distingue con precisión entre Mediocristán y Extremistán, reconoce el redil platónico de los modelos y evita el retroaprendizaje del pavo.`;
+          } else if (correctCount >= 4) {
+            summaryTitle.textContent = `Observador en tránsito (${correctCount} / ${quizQuestions.length})`;
+            summaryBody.textContent = `Identifica la arquitectura principal del Cisne Negro, aunque conviene repasar los sesgos de confirmación, la falacia narrativa y el terceto de la opacidad.`;
+          } else {
+            summaryTitle.textContent = `Visitante de Mediocristán (${correctCount} / ${quizQuestions.length})`;
+            summaryBody.textContent = `Cuidado con la ilusión inductiva y el Gran Fraude Intelectual de la curva de campana: revise las secciones 01 a 04 y vuelva a intentarlo.`;
+          }
+        } else {
+          summaryBox.style.display = 'none';
+        }
+      }
+    }
+
+    function answerQuiz(optionIndex) {
+      if (quizAnswers[quizIdx] !== null) return;
+      quizAnswers[quizIdx] = optionIndex;
+      renderQuiz();
+    }
+
+    function prevQuizQuestion() {
+      if (quizIdx > 0) {
+        quizIdx--;
+        renderQuiz();
+      }
+    }
+
+    function nextQuizQuestion() {
+      if (quizIdx < quizQuestions.length - 1) {
+        quizIdx++;
+        renderQuiz();
+      }
+    }
+
+    function resetQuiz(btn) {
+      if (btn && btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = `Confirmar reinicio`;
+        return;
+      }
+      if (btn) {
+        btn.dataset.armed = 'false';
+        btn.textContent = `Reiniciar cuestionario`;
+      }
+      for (let i = 0; i < quizAnswers.length; i++) quizAnswers[i] = null;
+      quizIdx = 0;
+      renderQuiz();
+    }
+
+    // =========================================================================
+    // INIT
+    // =========================================================================
+    document.addEventListener('DOMContentLoaded', function() {
+      initTurkeyChart();
+      renderTurkeyState();
+      initStadiumChart();
+      renderStadium();
+      renderMatrix();
+      renderTimeline('all');
+      renderFaq();
+      renderQuiz();
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>

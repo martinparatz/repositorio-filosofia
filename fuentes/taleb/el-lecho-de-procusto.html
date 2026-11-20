@@ -1,0 +1,2432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>El lecho de Procusto — Edición Analítica e Interactiva</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (Broadsheet) */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      /* Ink */
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      /* Rules */
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      /* Accents */
+      --primary: #990f3d;
+      --on-primary: #ffffff;
+      --primary-hover: #760b2e;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      /* Fonts */
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* Shared tokens */
+      --positive: #0a5c64;
+      --warning: #7d4e0d;
+      --focus: #990f3d;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.4rem, 1.4rem + 3.8vw, 4.35rem);
+      --headline-size: clamp(1.7rem, 1.2rem + 1.8vw, 2.4rem);
+      --subhead-size: clamp(1.18rem, 1.05rem + 0.5vw, 1.42rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.14vw, 0.8125rem);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 16px;
+    }
+    body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      font-optical-sizing: auto;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg) var(--space-lg) var(--space-3xl);
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+      text-align: left;
+    }
+    h1 {
+      font-size: var(--display-size);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      font-weight: 700;
+      line-height: 1.18;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 66ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .lede {
+      font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.35rem);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 60ch;
+      margin-top: var(--space-md);
+    }
+
+    .label-voice {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .tabular-nums {
+      font-family: var(--font-headline);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    /* Broadsheet Treatments */
+    .masthead-line {
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      color: var(--on-surface-variant);
+    }
+
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+
+    .masthead-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: center;
+      margin-top: var(--space-md);
+      color: var(--on-surface-variant);
+    }
+
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+    }
+
+    .tag-panel {
+      color: var(--primary);
+    }
+
+    /* Editorial Navigation */
+    .toc-nav {
+      border-bottom: var(--rule-column);
+      padding-block: var(--space-sm);
+    }
+    .toc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs) var(--space-md);
+      align-items: center;
+    }
+    .toc-link {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      text-decoration: none;
+      padding: var(--space-sm) 0;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .toc-link:hover {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .toc-link.is-active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* Hairline Columns */
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-lg);
+    }
+    .columns > * {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .columns > :last-child {
+      padding-right: 0;
+    }
+
+    .kpi-value {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: clamp(1.6rem, 1.3rem + 1vw, 2.2rem);
+      line-height: 1.1;
+      color: var(--on-surface);
+      margin-block: var(--space-xs);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .kpi-note {
+      font-size: 0.92rem;
+      line-height: 1.4;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    /* Section Structure */
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-md);
+      margin-top: var(--space-md);
+    }
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      margin-bottom: var(--space-xs);
+      display: block;
+    }
+    .section-header {
+      margin-bottom: var(--space-lg);
+    }
+    .section-header h2 {
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Asymmetric Editorial Grid */
+    .editorial-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .editorial-split-reverse {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Pull Quote */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+      margin-block: var(--space-lg);
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 600;
+      font-size: clamp(1.2rem, 1.05rem + 0.55vw, 1.5rem);
+      line-height: 1.38;
+      color: var(--on-surface);
+      max-width: 48ch;
+    }
+    .pull-quote cite {
+      display: block;
+      margin-top: var(--space-sm);
+      font-style: normal;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+
+    /* Interactive Panels */
+    .panel {
+      background-color: var(--surface-container-low);
+      border: 1px solid var(--outline-variant);
+      border-top: 2px solid var(--outline);
+      padding: var(--space-lg);
+    }
+    .panel-dense {
+      background-color: var(--surface-container);
+      border: 1px solid var(--outline);
+      padding: var(--space-lg);
+    }
+    .panel-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.2rem;
+      line-height: 1.2;
+      margin-bottom: var(--space-xs);
+    }
+    .panel-sub {
+      font-size: 0.95rem;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-md);
+      line-height: 1.45;
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      min-height: 44px;
+      padding: 0 var(--space-md);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      border: 1px solid var(--outline);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      border-color: var(--primary-hover);
+    }
+    .btn-secondary {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-secondary:hover {
+      background-color: var(--surface-container-high);
+    }
+    .btn-secondary.is-selected {
+      background-color: var(--on-surface);
+      color: var(--background);
+      border-color: var(--on-surface);
+    }
+    .btn-ghost {
+      background-color: transparent;
+      color: var(--primary);
+      border-color: var(--outline-variant);
+    }
+    .btn-ghost:hover {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--primary);
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    /* Form Controls */
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .text-input, .select-input {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      min-height: 44px;
+      padding: 0 var(--space-md);
+      background-color: var(--background);
+      color: var(--on-surface);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      width: 100%;
+    }
+    .select-input {
+      padding-right: var(--space-xl);
+    }
+    .text-input:focus, .select-input:focus {
+      border-color: var(--primary);
+    }
+
+    .range-input {
+      width: 100%;
+      accent-color: var(--primary);
+      min-height: 36px;
+      cursor: pointer;
+    }
+
+    .controls-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+      margin-bottom: var(--space-lg);
+    }
+
+    /* SVG Diagram Containers */
+    .viz-frame {
+      background-color: var(--background);
+      border: 1px solid var(--outline-variant);
+      padding: var(--space-md);
+      margin-block: var(--space-md);
+    }
+    .viz-svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      min-height: 220px;
+    }
+
+    .metric-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: var(--rule-column);
+      padding-top: var(--space-md);
+      margin-top: var(--space-md);
+    }
+    .metric-strip > * {
+      border-left: var(--rule-column);
+      padding-inline: var(--space-md);
+    }
+    .metric-strip > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .metric-strip > :last-child {
+      padding-right: 0;
+    }
+
+    /* Broadsheet Tables */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin-block: var(--space-md);
+    }
+    .broadsheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.98rem;
+    }
+    .broadsheet-table thead th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+    }
+    .broadsheet-table tbody td {
+      border-bottom: var(--rule-column);
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      vertical-align: top;
+    }
+    .broadsheet-table tbody tr:last-child td {
+      border-bottom: var(--rule-ink);
+    }
+    .broadsheet-table .col-domain {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      width: 18%;
+      color: var(--on-surface);
+    }
+    .broadsheet-table .col-negative {
+      color: var(--on-surface);
+    }
+    .broadsheet-table .col-additive {
+      color: var(--on-surface-variant);
+    }
+
+    /* Domain Dependence Grid */
+    .paradox-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+    }
+    .paradox-card {
+      padding: var(--space-lg);
+      border-bottom: var(--rule-column);
+      cursor: pointer;
+      background: transparent;
+      text-align: left;
+      border-left: 0;
+      border-right: 0;
+      border-top: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out);
+      font-family: inherit;
+      color: inherit;
+    }
+    .paradox-card:nth-child(even) {
+      border-left: var(--rule-column);
+    }
+    .paradox-card:nth-last-child(-n+2) {
+      border-bottom: 0;
+    }
+    .paradox-card:hover {
+      background-color: var(--surface-container-low);
+    }
+    .paradox-card.is-active {
+      background-color: var(--surface-container);
+    }
+    .paradox-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.15rem;
+      line-height: 1.2;
+      color: var(--on-surface);
+    }
+    .paradox-scene {
+      font-size: 0.96rem;
+      color: var(--on-surface-variant);
+      margin: 0;
+      line-height: 1.5;
+    }
+    .paradox-reveal {
+      margin-top: var(--space-xs);
+      padding-top: var(--space-sm);
+      border-top: var(--rule-column);
+      font-size: 0.95rem;
+      color: var(--on-surface);
+      display: none;
+    }
+    .paradox-card.is-active .paradox-reveal {
+      display: block;
+    }
+
+    /* Aphorism Cards & Dose of 4 */
+    .dose-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+      margin-block: var(--space-lg);
+    }
+    .aphorism-item {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .aphorism-quote {
+      font-family: var(--font-body);
+      font-size: 1.12rem;
+      line-height: 1.52;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .aphorism-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      padding-top: var(--space-xs);
+    }
+    .aphorism-explication {
+      background-color: var(--surface-container-low);
+      border-left: 3px solid var(--primary);
+      padding: var(--space-md);
+      font-size: 0.96rem;
+      line-height: 1.55;
+      color: var(--on-surface);
+      margin-top: var(--space-xs);
+    }
+    .aphorism-explication[hidden] {
+      display: none;
+    }
+
+    .anthology-list {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+      border-top: var(--rule-ink);
+    }
+    .anthology-row {
+      border-bottom: var(--rule-column);
+      padding-block: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    /* Quiz & FAQ */
+    .quiz-card {
+      border-top: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+    .quiz-options {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .quiz-opt {
+      text-align: left;
+      justify-content: flex-start;
+      padding: var(--space-sm) var(--space-md);
+      height: auto;
+      line-height: 1.4;
+      text-transform: none;
+      letter-spacing: 0;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 1rem;
+    }
+    .quiz-opt.is-correct {
+      background-color: var(--positive);
+      color: var(--on-primary);
+      border-color: var(--positive);
+    }
+    .quiz-opt.is-wrong {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--error);
+    }
+    .quiz-feedback {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      background-color: var(--surface-container-low);
+      border-left: 3px solid var(--outline);
+      font-size: 0.96rem;
+    }
+    .quiz-feedback.is-right {
+      border-left-color: var(--positive);
+    }
+    .quiz-feedback.is-wrong {
+      border-left-color: var(--error);
+    }
+
+    details.faq-item {
+      border-bottom: var(--rule-column);
+      padding-block: var(--space-md);
+    }
+    details.faq-item:first-of-type {
+      border-top: var(--rule-ink);
+    }
+    details.faq-item summary {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.12rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      min-height: 44px;
+    }
+    details.faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+    .faq-body {
+      padding-top: var(--space-sm);
+      color: var(--on-surface-variant);
+      max-width: 66ch;
+    }
+
+    /* Subtle reveal animation */
+    .reveal-section {
+      opacity: 1;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    /* Footer */
+    .colophon {
+      border-top: var(--rule-masthead);
+      padding-top: var(--space-lg);
+      margin-top: var(--space-xl);
+      color: var(--on-surface-variant);
+      font-size: 0.92rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    .inline-status {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    .saved-badge {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    /* Responsive Rules */
+    @media (max-width: 900px) {
+      .editorial-split,
+      .editorial-split-reverse,
+      .dose-grid,
+      .controls-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-md) 0;
+      }
+      .columns > :nth-child(3) {
+        border-left: 0;
+        padding-left: 0;
+      }
+      .paradox-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .paradox-card:nth-child(even) {
+        border-left: 0;
+      }
+      .paradox-card:nth-last-child(-n+2) {
+        border-bottom: var(--rule-column);
+      }
+      .paradox-card:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-md) var(--space-2xl);
+        gap: var(--space-lg);
+      }
+      .columns,
+      .metric-strip {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-md);
+      }
+      .columns > *,
+      .metric-strip > * {
+        border-left: 0;
+        padding-left: 0;
+        padding-right: 0;
+        border-top: var(--rule-column);
+        padding-top: var(--space-sm);
+      }
+      .columns > :first-child,
+      .metric-strip > :first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- MASTHEAD & NAVEGACIÓN -->
+    <header>
+      <div class="masthead-line label-voice">
+        <span>Nassim Nicholas Taleb · Ensayo Filosófico</span>
+        <span>Edición Interactiva de Análisis y Lectura</span>
+      </div>
+      <div class="masthead">
+        <h1>El lecho de Procusto</h1>
+        <p class="lede">
+          Frente a lo invisible y lo desconocido, los seres humanos resolvemos la tensión embutiendo la vida y el mundo en categorías reduccionistas y narraciones manidas, deformando la realidad para que encaje en nuestros modelos en lugar de aceptar lo que no sabemos.
+        </p>
+        <div class="masthead-meta label-voice">
+          <span class="tag">Aforismos filosóficos y prácticos</span>
+          <span>Traducción de referencia: Genís Sánchez Barberán</span>
+          <span id="saved-counter-top" class="saved-badge" aria-live="polite">0 guardados · 0/5 evaluados</span>
+        </div>
+      </div>
+
+      <nav class="toc-nav" aria-label="Navegación por módulos temáticos">
+        <ul class="toc-list">
+          <li><a class="toc-link" href="#procusto">01 · Mito y Reduccionismo</a></li>
+          <li><a class="toc-link" href="#via-negativa">02 · Vía Negativa</a></li>
+          <li><a class="toc-link" href="#falacia-ludica">03 · Falacia Lúdica</a></li>
+          <li><a class="toc-link" href="#cientifismo">04 · Ciencia vs. Cientifismo</a></li>
+          <li><a class="toc-link" href="#etica">05 · Jugarse la Piel</a></li>
+          <li><a class="toc-link" href="#antologia">06 · Regla de Cuatro</a></li>
+          <li><a class="toc-link" href="#reflexion">07 · Reflexión y FAQ</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- CIFRAS CLAVE DEL LIBRO -->
+    <section aria-label="Claves estructurales de la obra">
+      <div class="columns">
+        <div>
+          <span class="label-voice" style="color: var(--on-surface-variant);">Regla de lectura</span>
+          <div class="kpi-value">4 aforismos</div>
+          <p class="kpi-note">Dosis máxima recomendada por sentada según el «Aviso» del autor, elegidos preferiblemente al azar.</p>
+        </div>
+        <div>
+          <span class="label-voice" style="color: var(--on-surface-variant);">Mecanismo del error</span>
+          <div class="kpi-value">Retroencajamiento</div>
+          <p class="kpi-note">Alterar la variable real (la persona, el escolar, la economía) para ajustarla al lecho teórico.</p>
+        </div>
+        <div>
+          <span class="label-voice" style="color: var(--on-surface-variant);">Epistemología</span>
+          <div class="kpi-value">Sustractiva</div>
+          <p class="kpi-note">El conocimiento genuino no consiste en añadir reglas, sino en eliminar lo que no funciona y pautas falsas.</p>
+        </div>
+        <div>
+          <span class="label-voice" style="color: var(--on-surface-variant);">Prueba empírica</span>
+          <div class="kpi-value">n = 1</div>
+          <p class="kpi-note">Si un piloto estrella un avión, un solo suceso basta; la ausencia de catástrofes pasadas es mera anécdota.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 1: EL MITO DE PROCUSTO Y CRÍTICA AL REDUCCIONISMO -->
+    <section id="procusto" class="section-open reveal-section">
+      <div class="section-header">
+        <span class="section-label">Módulo 01 · El Mito y la Crítica al Reduccionismo Moderno</span>
+        <h2>Cambiar a la persona en lugar de la cama: la falacia del sastre quirúrgico</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            En la mitología griega, Procusto —también llamado Damastes o Polifemo, cuyo apodo significa «estirador»— regentaba una hospedería en Coridalo, Ática, a medio camino entre Atenas y Eleusis. Tras ofrecer una generosa cena a los viajeros, los obligaba a acostarse en una cama de hierro especial. A quienes eran demasiado altos les cortaba las piernas con un hacha afilada; a los bajos los estiraba hasta que encajaran con exactitud. (En la versión recogida por Pseudo-Apolodoro, poseía dos camas: acostaba a los pequeños en la grande y a los altos en la pequeña).
+          </p>
+          <p>
+            El intrépido Teseo —quien más tarde mataría al Minotauro— le devolvió la justicia poética al aplicar el método de Hércules: hizo yacer a Procusto en su propio lecho y lo decapitó para ajustarlo a la medida.
+          </p>
+          <p>
+            Para Nassim Nicholas Taleb, cada aspecto de la modernidad reproduce un lecho de Procusto. No se trata solo de meter un fenómeno en la caja equivocada, sino de la operación inversa de <strong>retroencajamiento</strong>: cambiar la variable errónea. Como un sastre que se enorgullece de entregar un traje perfecto tras haber amputado quirúrgicamente las extremidades de su cliente, la sociedad médica, académica y económica deforma la realidad humana para que obedezca a categorías simples y narraciones manidas.
+          </p>
+
+          <blockquote class="pull-quote">
+            «Pocos se dan cuenta de que estamos cambiando los cerebros de los escolares con ciertos fármacos para que se ajusten al currículo y no al revés.»
+            <cite>Nassim Nicholas Taleb · Prólogo «Procusto»</cite>
+          </blockquote>
+
+          <p>
+            Esta obsesión por el encaje exacto culmina en la vida encerrada en <em>cajas euclidianas</em>: nacemos en una caja, vivimos en cajas, estudiamos marcando casillas, viajamos en cajas hasta el cubículo de la oficina, vamos al gimnasio en una caja y, al morir, nos meten en una caja. Frente a la aleatoriedad natural del entorno paleolítico, el cautiverio moderno sustituye el movimiento orgánico por una lesión por estrés repetitivo.
+          </p>
+        </div>
+
+        <!-- Elemento Interactivo 1: Simulador del Lecho de Procusto -->
+        <aside class="panel" aria-label="Simulador interactivo del lecho de Procusto">
+          <span class="tag tag-panel">Laboratorio Epistémico</span>
+          <h3 class="panel-title">El Sastre Quirúrgico: Rigidez del Modelo</h3>
+          <p class="panel-sub">
+            Ajusta la rigidez de la categoría teórica o selecciona un caso documentado en el libro para observar qué porción de la realidad se amputa o se estira.
+          </p>
+
+          <div class="btn-row" style="margin-bottom: var(--space-md);">
+            <button type="button" class="btn btn-secondary is-selected" id="case-btn-0" onclick="selectProcrustesCase(0)">Escolar vs. Currículo</button>
+            <button type="button" class="btn btn-secondary" id="case-btn-1" onclick="selectProcrustesCase(1)">Cajas Euclidianas</button>
+            <button type="button" class="btn btn-secondary" id="case-btn-2" onclick="selectProcrustesCase(2)">Mapa vs. Territorio</button>
+            <button type="button" class="btn btn-secondary" id="case-btn-3" onclick="selectProcrustesCase(3)">Arrogancia Epistémica</button>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="procrustes-slider">
+              Nivel de reducción procrusteana (<span id="procrustes-pct">75</span> %)
+            </label>
+            <input class="range-input" type="range" id="procrustes-slider" min="15" max="95" value="75" oninput="updateProcrustesRigidity(this.value)">
+          </div>
+
+          <div class="viz-frame">
+            <svg class="viz-svg" viewBox="0 0 420 220" role="img" aria-label="Diagrama esquemático de la deformación de la realidad en el lecho de Procusto" aria-hidden="true">
+              <!-- Marco de referencia -->
+              <line x1="20" y1="180" x2="400" y2="180" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="4 3"></line>
+              <text x="20" y="200" fill="var(--on-surface-variant)" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700">REALIDAD COMPLEJA (LO VISIBLE + LO INOBSERVABLE)</text>
+
+              <!-- Realidad orgánica completa (fondo) -->
+              <rect x="40" y="68" width="340" height="58" fill="none" stroke="var(--secondary)" stroke-width="2" stroke-dasharray="5 3"></rect>
+              <text x="46" y="58" fill="var(--secondary)" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700">TERRITORIO REAL SIN RECORTES</text>
+
+              <!-- Zona amputada izquierda y derecha -->
+              <rect id="svg-amputated-left" x="40" y="68" width="60" height="58" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="1.5"></rect>
+              <rect id="svg-amputated-right" x="320" y="68" width="60" height="58" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="1.5"></rect>
+
+              <!-- Lecho fijo de hierro -->
+              <rect id="svg-bed-box" x="100" y="64" width="220" height="66" fill="var(--surface-container-low)" stroke="var(--on-surface)" stroke-width="2.5"></rect>
+              <line id="svg-bed-leg-l" x1="100" y1="130" x2="100" y2="164" stroke="var(--on-surface)" stroke-width="3"></line>
+              <line id="svg-bed-leg-r" x1="320" y1="130" x2="320" y2="164" stroke="var(--on-surface)" stroke-width="3"></line>
+
+              <!-- Etiqueta central -->
+              <text id="svg-bed-label" x="210" y="102" text-anchor="middle" fill="var(--on-surface)" font-family="Bitter, serif" font-size="13" font-weight="700">MODELO CATEGÓRICO</text>
+              <text id="svg-amp-label-r" x="350" y="100" text-anchor="middle" fill="var(--primary)" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700">AMPUTADO</text>
+              <text id="svg-amp-label-l" x="70" y="100" text-anchor="middle" fill="var(--primary)" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700">OCULTO</text>
+            </svg>
+          </div>
+
+          <div id="procrustes-diagnosis" style="font-size: 0.96rem; line-height: 1.5; color: var(--on-surface);"></div>
+
+          <div class="metric-strip">
+            <div>
+              <span class="label-voice" style="color: var(--on-surface-variant);">Exactitud aparente</span>
+              <div class="kpi-value" id="metric-apparent" style="font-size: 1.4rem;">95 %</div>
+            </div>
+            <div>
+              <span class="label-voice" style="color: var(--primary);">Pérdida de esencia</span>
+              <div class="kpi-value" id="metric-amputated" style="font-size: 1.4rem; color: var(--primary);">Alto</div>
+            </div>
+            <div>
+              <span class="label-voice" style="color: var(--on-surface-variant);">Riesgo explosivo</span>
+              <div class="kpi-value" id="metric-fragility" style="font-size: 1.4rem;">Frágil</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- MÓDULO 2: LA VÍA NEGATIVA Y EL CONOCIMIENTO SUSTRACTIVO -->
+    <section id="via-negativa" class="section-open reveal-section">
+      <div class="section-header">
+        <span class="section-label">Módulo 02 · Epistemología y Conocimiento Sustractivo</span>
+        <h2>La vía negativa: saber qué no hacer pesa más que acumular recetas</h2>
+      </div>
+
+      <p>
+        Desde Platón, el pensamiento occidental ha estado obsesionado con la dicotomía entre lo verdadero y lo falso. Taleb propone desplazar el eje hacia lo <strong>robusto frente a lo frágil</strong>, y en la epistemología social, hacia la distinción entre el <em>pringado</em> y el <em>no pringado</em>. En un entorno complejo, el conocimiento genuino es <strong>sustractivo, no aditivo</strong>: consiste en eliminar lo que no funciona, evitar pautas falsas y limpiar basura informativa acumulada por la modernidad.
+      </p>
+      <p>
+        Por ello, la medida de la «riqueza» debe sustituirse por la medida sustractiva de la <em>no riqueza</em>: la diferencia, en cualquier instante, entre lo que posees y lo que desearías tener. De modo análogo, no sabemos definir ni medir la felicidad, pero sabemos con enorme precisión cómo evitar la infelicidad. Y en el ámbito de las decisiones categóricas, es más fácil ayunar que seguir una dieta: no podemos ser «ligeramente» kosher o halal comiendo solo un poco de jamón.
+      </p>
+
+      <!-- Tabla comparativa Aditivo vs Sustractivo -->
+      <div class="table-wrap">
+        <table class="broadsheet-table">
+          <thead>
+            <tr>
+              <th>Ámbito</th>
+              <th>Enfoque Aditivo (Ilusión moderna)</th>
+              <th>Vía Negativa / Sustractiva (Taleb)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-domain">Conocimiento</td>
+              <td class="col-additive">Acumular información, citas y detectar pautas por doquier.</td>
+              <td class="col-negative">Ignorar lo irrelevante, evitar pautas falsas y eliminar basura mental.</td>
+            </tr>
+            <tr>
+              <td class="col-domain">Consejos y expertos</td>
+              <td class="col-additive">El asesor o corredor de bolsa te dice exactamente qué hacer.</td>
+              <td class="col-negative">Desconfiar de quien prescribe; la verdadera guía indica qué no hacer.</td>
+            </tr>
+            <tr>
+              <td class="col-domain">Riqueza y estatus</td>
+              <td class="col-additive">Perseguir cifras absolutas mientras crecen las necesidades y la envidia.</td>
+              <td class="col-negative">Medida de la «no riqueza»: reducir la brecha entre lo que tienes y lo que deseas.</td>
+            </tr>
+            <tr>
+              <td class="col-domain">Medicina y salud</td>
+              <td class="col-additive">Silenciar síntomas e inventar enfermedades que encajen con fármacos existentes.</td>
+              <td class="col-negative">Evitar intervenciones que generen fragilidad a largo plazo; ayunar antes que hacer dieta.</td>
+            </tr>
+            <tr>
+              <td class="col-domain">Información</td>
+              <td class="col-additive">Seguir noticias diarias, redes sociales y promiscuidad informativa.</td>
+              <td class="col-negative">Curarse leyendo periódicos de la semana pasada durante un año y releyendo clásicos.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Elemento Interactivo 2: Filtro de Dieta Informativa -->
+      <div class="panel" style="margin-top: var(--space-lg);">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md); margin-bottom: var(--space-md);">
+          <div>
+            <span class="tag tag-panel">Experimento de Higiene Mental</span>
+            <h3 class="panel-title">¿Qué ocurre cuando aplicas la vía negativa a tu dieta informativa?</h3>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-secondary is-selected" id="diet-btn-noise" onclick="setInfoDiet('noise')">Consumo Aditivo (Noticias y Redes)</button>
+            <button type="button" class="btn btn-secondary" id="diet-btn-sub" onclick="setInfoDiet('subtractive')">Filtro Sustractivo (Clásicos y Silencio)</button>
+          </div>
+        </div>
+
+        <div class="columns" style="border-bottom: 0; padding-bottom: 0;">
+          <div>
+            <span class="label-voice" style="color: var(--on-surface-variant);">Toxicidad de datos</span>
+            <div class="kpi-value" id="diet-toxicity" style="font-size: 1.35rem; color: var(--primary);">Exponencial</div>
+            <p class="kpi-note" id="diet-toxicity-note">En la era exponencial, la toxicidad de los datos crece mucho más deprisa que sus beneficios.</p>
+          </div>
+          <div>
+            <span class="label-voice" style="color: var(--on-surface-variant);">Capacidad predictiva</span>
+            <div class="kpi-value" id="diet-predict" style="font-size: 1.35rem;">Anecdótica</div>
+            <p class="kpi-note" id="diet-predict-note">Si las noticias tuvieran valor predictivo, los periodistas serían escandalosamente ricos.</p>
+          </div>
+          <div>
+            <span class="label-voice" style="color: var(--on-surface-variant);">Pautas falsas</span>
+            <div class="kpi-value" id="diet-patterns" style="font-size: 1.35rem;">Muy alta</div>
+            <p class="kpi-note" id="diet-patterns-note">Más información sin filtro provoca más errores y detección ilusoria de causalidad.</p>
+          </div>
+          <div>
+            <span class="label-voice" style="color: var(--on-surface-variant);">Durabilidad del texto</span>
+            <div class="kpi-value" id="diet-books" style="font-size: 1.35rem;">Efímera</div>
+            <p class="kpi-note" id="diet-books-note">En 2010 se publicaron 600.000 libros en inglés con pocas citas; en el año cero, un puñado inmortal.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 3: LA FALACIA LÚDICA Y LA DEPENDENCIA DEL ÁMBITO -->
+    <section id="falacia-ludica" class="section-open reveal-section">
+      <div class="section-header">
+        <span class="section-label">Módulo 03 · La Falacia Lúdica y la Dependencia del Ámbito</span>
+        <h2>Confundir la vida con un tablero de juego y nuestra ceguera contextual</h2>
+      </div>
+
+      <p>
+        El término <em>lúdico</em> procede del latín y significa «relacionado con jugar». La <strong>falacia lúdica</strong> consiste en pretender que la vida —impredecible, desordenada y abierta— se parezca a un juego o sistema formal de reglas claras, en lugar de aceptar su naturaleza irreductible. Los juegos se inventaron para dar a los no héroes la ilusión de ganar; en la vida real nunca sabes quién ha ganado hasta que es demasiado tarde, pero sí puedes distinguir quién es heroico y quién no.
+      </p>
+      <p>
+        A esta ilusión se suma la <strong>dependencia del ámbito</strong>: la tendencia de la mente humana a actuar bajo una lógica en un escenario concreto y bajo la lógica opuesta en otro escenario, sin advertir la incoherencia. De igual modo que estudiar ajedrez solo mejora la aptitud para el ajedrez, estudiar en las aulas casi solo mejora la aptitud para el aula; y los test de CI y las reválidas han sido diseñados por frikis para otorgarse puntuaciones altas unos a otros.
+      </p>
+
+      <!-- Elemento Interactivo 3: 4 Paradojas de la Dependencia del Ámbito -->
+      <div style="margin-top: var(--space-lg);">
+        <span class="tag" style="margin-bottom: var(--space-sm);">Casos documentados en la obra · Haz clic en cada escena para revelar la trampa contextual</span>
+        <div class="paradox-grid" role="region" aria-label="Ejemplos de dependencia del ámbito en la obra">
+          <button type="button" class="paradox-card is-active" id="paradox-0" aria-expanded="true" onclick="toggleParadox(0)">
+            <span class="tag tag-panel">Escena 01 · Dubái</span>
+            <span class="paradox-title">El empresario, el mozo y las pesas del gimnasio</span>
+            <p class="paradox-scene">
+              Al llegar al hotel de Dubái, un empresario paga a un mozo para que le suba el equipaje. Horas después, Taleb lo encuentra levantando pesas en el gimnasio del mismo hotel.
+            </p>
+            <div class="paradox-reveal">
+              <strong>Diagnóstico:</strong> En el ámbito del «trabajo/viaje», cargar peso se percibe como una molestia indigna; en el ámbito del «ocio/gimnasio», exactamente el mismo esfuerzo físico se convierte en virtud saludable. Es cautiverio disfrazado de deporte.
+            </div>
+          </button>
+
+          <button type="button" class="paradox-card" id="paradox-1" aria-expanded="false" onclick="toggleParadox(1)">
+            <span class="tag tag-panel">Escena 02 · París</span>
+            <span class="paradox-title">El salmón y la piel entre dos restaurantes</span>
+            <p class="paradox-scene">
+              Al almorzar en un restaurante francés, los amigos de Taleb se comen el salmón y apartan la piel. Esa misma noche, en un local de sushi, se comen la piel y apartan el salmón.
+            </p>
+            <div class="paradox-reveal">
+              <strong>Diagnóstico:</strong> La preferencia gustativa no reside en el alimento aislado, sino en el guion cultural del ámbito. Quien no entiende el contexto no comprende por qué alguien ama el saber riguroso pero desprecia al mundo académico (como amar la comida y aborrecer el atún en lata).
+            </div>
+          </button>
+
+          <button type="button" class="paradox-card" id="paradox-2" aria-expanded="false" onclick="toggleParadox(2)">
+            <span class="tag tag-panel">Escena 03 · Estética y Soporte</span>
+            <span class="paradox-title">Gibbon en electrónico, vino en vaso de plástico</span>
+            <p class="paradox-scene">
+              Algunas personas leen sin problema <em>Decadencia y caída del Imperio romano</em> de Gibbon en una pantalla electrónica, pero se niegan en redondo a beber un Château Lynch-Bages en un vaso de plástico.
+            </p>
+            <div class="paradox-reveal">
+              <strong>Diagnóstico:</strong> El soporte físico es inseparable del ritual estético en la gastronomía, pero se vuelve invisible para el lector moderno en la literatura. El libro físico, como único medio no corrompido por anuncios, resguarda lo sagrado frente a lo profano.
+            </div>
+          </button>
+
+          <button type="button" class="paradox-card" id="paradox-3" aria-expanded="false" onclick="toggleParadox(3)">
+            <span class="tag tag-panel">Escena 04 · Gastronomía y Valor</span>
+            <span class="paradox-title">La pizza de 7,95 dólares frente al plato de 125</span>
+            <p class="paradox-scene">
+              Tras cenar en un restaurante de campanillas platos complicados de nombres rebuscados a 125 dólares por cabeza, Taleb disfruta mucho más de una pizza recién salida del horno por 7,95 dólares.
+            </p>
+            <div class="paradox-reveal">
+              <strong>Diagnóstico:</strong> La pompa y la complejidad superficial del «éxito» formal sirven de premio de consolación cuando falta sustancia. La verdadera calidad es inversa a la sofisticación rebuscada con la que se disfraza la ausencia de sabor.
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 4: CIENCIA VS. CIENTIFISMO Y EL ESCÁNDALO DE LA PREDICCIÓN -->
+    <section id="cientifismo" class="section-open reveal-section">
+      <div class="section-header">
+        <span class="section-label">Módulo 04 · Ciencia vs. Cientifismo y Desigualdad de Jensen</span>
+        <h2>El engaño del promedio y las trampas del pensamiento cartesiano</h2>
+      </div>
+
+      <div class="editorial-split-reverse">
+        <!-- Elemento Interactivo 4: Visualizador de la Desigualdad de Jensen -->
+        <aside class="panel" aria-label="Explorador interactivo de la desigualdad de Jensen">
+          <span class="tag tag-panel">Nota 21 · Ámbito No Lineal</span>
+          <h3 class="panel-title">No cruces un río porque su profundidad media sea de cinco palmos</h3>
+          <p class="panel-sub">
+            En un sistema no lineal, el promedio de las expectativas difiere de la expectativa de los promedios (desigualdad de Jensen). Modifica la irregularidad del lecho para comprobar por qué la «media» oculta el ahogamiento.
+          </p>
+
+          <div class="controls-row" style="grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); margin-bottom: var(--space-sm);">
+            <div class="field-group">
+              <label class="field-label" for="river-mean">Profundidad media (<span id="river-mean-val">5.0</span> palmos)</label>
+              <input class="range-input" type="range" id="river-mean" min="3" max="8" step="0.5" value="5" oninput="updateRiverViz()">
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="river-vol">Irregularidad / Varianza (<span id="river-vol-val">70</span> %)</label>
+              <input class="range-input" type="range" id="river-vol" min="0" max="100" step="5" value="70" oninput="updateRiverViz()">
+            </div>
+          </div>
+
+          <div class="viz-frame">
+            <svg class="viz-svg" id="river-svg" viewBox="0 0 420 220" role="img" aria-label="Perfil de profundidad del río frente a la línea engañosa del promedio" aria-hidden="true">
+              <!-- Superficie del agua -->
+              <rect x="20" y="36" width="380" height="154" fill="var(--surface-container-low)"></rect>
+              <line x1="20" y1="36" x2="400" y2="36" stroke="var(--data-3)" stroke-width="2"></line>
+              <text x="26" y="28" fill="var(--tertiary)" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700">SUPERFICIE DEL RÍO (0 PALMOS)</text>
+
+              <!-- Línea de altura de la persona (7 palmos límite seguro) -->
+              <line x1="20" y1="127" x2="400" y2="127" stroke="var(--warning)" stroke-width="1" stroke-dasharray="3 3"></line>
+              <text x="396" y="122" text-anchor="end" fill="var(--warning)" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="700">LÍMITE DE AHOGAMIENTO (7 PALMOS)</text>
+
+              <!-- Línea engañosa de profundidad media -->
+              <line id="river-mean-line" x1="20" y1="101" x2="400" y2="101" stroke="var(--secondary)" stroke-width="2" stroke-dasharray="6 4"></line>
+              <text id="river-mean-text" x="26" y="95" fill="var(--secondary)" font-family="Source Sans 3, sans-serif" font-size="11" font-weight="700">MEDIA REPORTADA: 5.0 PALMOS</text>
+
+              <!-- Perfil del lecho del río -->
+              <path id="river-bed-path" d="" fill="var(--surface-container-high)" stroke="var(--primary)" stroke-width="2.5"></path>
+
+              <!-- Marcador de fosa máxima -->
+              <circle id="river-max-dot" cx="240" cy="175" r="5" fill="var(--primary)"></circle>
+              <text id="river-max-label" x="248" y="172" fill="var(--primary)" font-family="Bitter, serif" font-size="11" font-weight="700">Fosa: 10.6 palmos</text>
+            </svg>
+          </div>
+
+          <div class="metric-strip">
+            <div>
+              <span class="label-voice" style="color: var(--on-surface-variant);">Profundidad máx.</span>
+              <div class="kpi-value" id="river-max-val" style="font-size: 1.4rem; color: var(--primary);">10.6 p</div>
+            </div>
+            <div>
+              <span class="label-voice" style="color: var(--on-surface-variant);">Veredicto cartesiano</span>
+              <div class="kpi-value" id="river-cartesian" style="font-size: 1.15rem;">«Cruza seguro»</div>
+            </div>
+            <div>
+              <span class="label-voice" style="color: var(--on-surface-variant);">Realidad empírica</span>
+              <div class="kpi-value" id="river-reality" style="font-size: 1.15rem; color: var(--primary);">Ahogamiento</div>
+            </div>
+          </div>
+        </aside>
+
+        <div>
+          <p>
+            Desde la Ilustración, el mundo moderno vive desgarrado por la tensión entre el <strong>racionalismo</strong> (cómo nos gustaría que fueran las cosas para que tengan sentido lógico) y el <strong>empirismo</strong> (cómo son las cosas en realidad). A menudo culpamos al mundo por no encajar en los lechos de modelos pretendidamente «racionales».
+          </p>
+          <p>
+            Taleb traza una frontera nítida entre la <strong>ciencia genuina</strong> y el <strong>cientifismo</strong> —al que llama «autismo científico»—. La ciencia logró éxitos espectaculares en el ámbito lineal (la física y la ingeniería), pero ese prestigio nos ha puesto en peligro cuando pretendemos aplicar sus métodos mecanicistas a sistemas no lineales y complejos plagados de interdependencias: el clima, la vida económica o el cuerpo humano.
+          </p>
+          <p>
+            Decir <em>«la matemática de la incertidumbre»</em> es como decir <em>«la castidad del sexo»</em>: en el instante en que matematizas un fenómeno, deja de ser incierto, y viceversa. Las mentes platónicas esperan que la vida tenga desenlaces cerrados como una película; las mentes no platónicas saben que, salvo la muerte, todos los finales humanos declarados son ilusorios.
+          </p>
+
+          <blockquote class="pull-quote">
+            «El filósofo usa lógica sin estadística, el economista usa estadística sin lógica, el físico usa las dos.»
+            <cite>Nassim Nicholas Taleb · Ser un filósofo y lograr seguir siéndolo</cite>
+          </blockquote>
+
+          <p>
+            Por la misma razón, la predicción es un escándalo intelectual. En las lenguas semitas, la palabra para «predicción» y «profecía» es idéntica. Para los antiguos, predecir acontecimientos históricos era un insulto a los dioses; para Taleb, es un insulto al hombre y a la ciencia, porque la única forma de comprender ciertos acontecimientos es provocarlos o exponerse a ellos. Ser un verdadero filósofo consiste en comprender <em>a priori</em>, tras largas caminatas lentas y razonando, lo que los incautos solo aprenden <em>a posteriori</em> a base de accidentes, crisis y quiebras.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 5: ÉTICA, ROBUSTEZ Y JUGARSE LA PIEL -->
+    <section id="etica" class="section-open reveal-section">
+      <div class="section-header">
+        <span class="section-label">Módulo 05 · Ética, Robustez y Jugarse la Piel</span>
+        <h2>Nada sin jugarse algo: el abismo entre lo legal y lo ético</h2>
+      </div>
+
+      <p>
+        El último imperativo de los <em>Preludios</em> resume la columna vertebral moral de Taleb: erudición sin sandeces, coraje sin imprudencia, saber sin academia y, sobre todo, <strong>«nada sin jugarse algo»</strong>. La burocracia moderna es una construcción diseñada precisamente para maximizar la distancia entre quien toma una decisión y quien sufre sus riesgos. Cualquiera que emita una previsión o un consejo sin poner su propia piel en riesgo encierra un elemento de falsedad: es como ver una película de aventuras sin arriesgarse a hundirse con el barco.
+      </p>
+      <p>
+        De ahí la desigualdad escandalosa de nuestro tiempo: un académico no puede perder su cátedra vitalicia haga lo que haga, mientras un hombre de negocios que asume riesgos reales puede caer en la bancarrota. De ahí también la quiebra moral de la modernidad: la creciente separación entre <strong>lo ético y lo legal</strong>. Como recuerda Taleb en la nota sobre Robert Rubin, un banquero-gánster (<em>bankster</em>) puede causar daños históricos sin quebrantar una sola ley escrita; en un sistema complejo, esa brecha crece hasta hacerlo estallar.
+      </p>
+      <p>
+        Frente a la ética utilitaria del «bienestar» o los premios —donde todo acto premiado se corrompe hasta la médula—, Taleb reivindica la ética <strong>deóntica</strong> (incondicional): la generosidad pura consiste en ayudar al ingrato. Y frente al hombre débil que oculta sus flaquezas y se somete a las jerarquías, recupera al <em>megalopsychos</em> aristotélico —el Magnífico—, aquel hombre de alma grande que camina con lentitud, muestra sus debilidades como adornos, solo trata con incondicionales y entiende que el verdadero éxito no es estar en la cima de una jerarquía, sino <strong>fuera de todas las jerarquías</strong>.
+      </p>
+
+      <!-- Elemento Interactivo 5: Auditoría de Asimetría y Jugarse la Piel -->
+      <div class="panel" style="margin-top: var(--space-lg);">
+        <span class="tag tag-panel">Auditoría de Asimetría · ¿Quién paga el error?</span>
+        <h3 class="panel-title">Inspección de perfiles frente al riesgo y los Cisnes Negros</h3>
+        <p class="panel-sub">
+          Selecciona un actor social retratado en <em>El lecho de Procusto</em> para analizar su exposición al riesgo propio, su capacidad para trasladar el daño a terceros y su naturaleza robusta o frágil ante el error.
+        </p>
+
+        <div class="btn-row" style="margin-bottom: var(--space-md);">
+          <button type="button" class="btn btn-secondary is-selected" id="role-btn-0" onclick="selectRole(0)">El Académico / Catedrático</button>
+          <button type="button" class="btn btn-secondary" id="role-btn-1" onclick="selectRole(1)">El Banquero / Bankster</button>
+          <button type="button" class="btn btn-secondary" id="role-btn-2" onclick="selectRole(2)">El Burócrata / Asesor</button>
+          <button type="button" class="btn btn-secondary" id="role-btn-3" onclick="selectRole(3)">El Emprendedor / Creador</button>
+          <button type="button" class="btn btn-secondary" id="role-btn-4" onclick="selectRole(4)">El Magnífico (Megalopsychos)</button>
+        </div>
+
+        <div style="border-top: var(--rule-ink); padding-top: var(--space-md);">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+            <h4 id="role-title" style="font-size: 1.25rem;">El Académico / Catedrático</h4>
+            <span id="role-tag" class="tag tag-panel">Cero piel en juego</span>
+          </div>
+          <p id="role-desc" style="max-width: 72ch;"></p>
+
+          <div class="columns" style="border-bottom: 0; padding-bottom: 0; margin-top: var(--space-md);">
+            <div>
+              <span class="label-voice" style="color: var(--on-surface-variant);">Exposición al daño</span>
+              <div class="kpi-value" id="role-skin" style="font-size: 1.25rem; color: var(--primary);">Nula (cátedra fija)</div>
+            </div>
+            <div>
+              <span class="label-voice" style="color: var(--on-surface-variant);">Efecto del error</span>
+              <div class="kpi-value" id="role-error" style="font-size: 1.25rem;">Impune o premiado</div>
+            </div>
+            <div>
+              <span class="label-voice" style="color: var(--on-surface-variant);">Lealtad dominante</span>
+              <div class="kpi-value" id="role-loyalty" style="font-size: 1.25rem;">A sus colegas</div>
+            </div>
+            <div>
+              <span class="label-voice" style="color: var(--on-surface-variant);">Juicio de Taleb</span>
+              <div class="kpi-value" id="role-verdict" style="font-size: 1.25rem;">Peligroso si busca ser útil</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 6: ANTOLOGÍA INTERACTIVA Y LA REGLA DE LOS CUATRO -->
+    <section id="antologia" class="section-open reveal-section">
+      <div class="section-header">
+        <span class="section-label">Módulo 06 · Antología con Explicaciones Expandibles</span>
+        <h2>La regla de los cuatro al azar y archivo completo de aforismos</h2>
+      </div>
+
+      <p>
+        En el <em>Aviso</em> inicial del libro, Taleb advierte que los aforismos exigen cambiar los hábitos de lectura y asimilarse en dosis pequeñas, ya que cada uno constituye una unidad completa. Por eso recomienda <strong>no leer más de cuatro de una sentada y elegirlos al azar</strong>. Y en el epílogo añade con sorna: <em>«Mi mejor definición de un friki: alguien que te pide que expliques un aforismo»</em>. Aun así, siguiendo tu petición analítica, puedes desplegar el análisis epistemológico de cada máxima solo cuando desees contrastarla con el resto de la obra.
+      </p>
+
+      <!-- Dosis aleatoria de 4 aforismos -->
+      <div class="panel-dense" style="margin-top: var(--space-lg);">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md);">
+          <div>
+            <span class="tag tag-panel">Lectura Dosificada (Aviso del Autor)</span>
+            <h3 class="panel-title">Tu dosis actual de 4 aforismos al azar</h3>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="drawRandomFour()">
+            <i data-lucide="shuffle" style="width: 16px; height: 16px;" aria-hidden="true"></i>
+            <span>Extraer nueva dosis de 4</span>
+          </button>
+        </div>
+
+        <div id="dose-container" class="dose-grid" aria-live="polite"></div>
+      </div>
+
+      <!-- Explorador y Buscador de todos los aforismos -->
+      <div style="margin-top: var(--space-2xl);">
+        <h3 style="margin-bottom: var(--space-xs);">Archivo temático buscable</h3>
+        <p style="color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+          Filtra por módulo filosófico, busca por palabra clave o revisa tus aforismos guardados para reflexionar.
+        </p>
+
+        <div class="controls-row">
+          <div class="field-group">
+            <label class="field-label" for="aphorism-search">Buscar en los aforismos (palabra o concepto)</label>
+            <input type="search" id="aphorism-search" class="text-input" placeholder="Ej.: Platón, dinero, silencio, riesgo, caja..." oninput="filterAphorisms()">
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="aphorism-topic">Filtrar por módulo temático</label>
+            <select id="aphorism-topic" class="select-input" onchange="filterAphorisms()">
+              <option value="all">Todos los módulos</option>
+              <option value="procusto">Reduccionismo y Procusto</option>
+              <option value="via-negativa">Vía Negativa y Sustractivo</option>
+              <option value="falacia-ludica">Falacia Lúdica y Ámbito</option>
+              <option value="cientifismo">Ciencia, Cientifismo y Predicción</option>
+              <option value="etica">Ética, Robustez y Jugarse la Piel</option>
+              <option value="saved">Solo mis guardados</option>
+            </select>
+          </div>
+
+          <button type="button" class="btn btn-secondary" onclick="clearAphorismFilters()">Limpiar filtros</button>
+        </div>
+
+        <div id="anthology-count" class="label-voice" style="color: var(--on-surface-variant); margin-bottom: var(--space-sm);"></div>
+        <div id="anthology-container" class="anthology-list"></div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 7: CUESTIONARIO DE REFLEXIÓN Y PREGUNTAS FRECUENTES -->
+    <section id="reflexion" class="section-open reveal-section">
+      <div class="section-header">
+        <span class="section-label">Módulo 07 · Reflexión Crítica y Preguntas Frecuentes</span>
+        <h2>Pon a prueba tu detector de trampas cartesianas</h2>
+      </div>
+
+      <div class="editorial-split">
+        <!-- Cuestionario Interactivo -->
+        <div>
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md); margin-bottom: var(--space-md);">
+            <div>
+              <h3 style="margin-bottom: var(--space-xs);">Cuestionario de diagnóstico</h3>
+              <p class="inline-status" id="quiz-score-line" style="margin: 0;">Puntuación actual: 0 de 5 aciertos</p>
+            </div>
+            <button type="button" class="btn btn-ghost" id="reset-quiz-btn" onclick="resetQuizProgress(this)">Reiniciar respuestas</button>
+          </div>
+
+          <div id="quiz-container"></div>
+        </div>
+
+        <!-- Preguntas Frecuentes (FAQ) -->
+        <div>
+          <h3 style="margin-bottom: var(--space-md);">Preguntas frecuentes sobre la obra</h3>
+
+          <details class="faq-item" open>
+            <summary>
+              <span>¿Qué significa exactamente «retroencajamiento» en el lecho de Procusto?</span>
+              <i data-lucide="chevron-down" style="width: 18px; height: 18px; flex-shrink: 0;" aria-hidden="true"></i>
+            </summary>
+            <div class="faq-body">
+              <p>
+                En la Nota 1 y el prólogo, Taleb aclara que la metáfora no se limita a meter algo en la caja equivocada, sino a la operación inversa de alterar la variable que no corresponde: cambiar a la persona en lugar de la cama, como medicar el cerebro de los escolares para adaptarlos al currículo o forzar la vida económica para que obedezca a los modelos teóricos de los economistas. Todo fracaso de la sabiduría práctica se reduce a un lecho de Procusto.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>¿Por qué Taleb critica a Platón y al pensamiento cartesiano-racionalista?</span>
+              <i data-lucide="chevron-down" style="width: 18px; height: 18px; flex-shrink: 0;" aria-hidden="true"></i>
+            </summary>
+            <div class="faq-body">
+              <p>
+                Porque las mentes platónicas exigen que el mundo complejo se ajuste a categorías geométricas lisas y a desenlaces definidos, confundiendo lo que desean ver (racionalismo) con lo que existe en realidad (empirismo). Además, desde Sócrates y Platón el pensamiento occidental se centró en verdadero-falso descuidando la distinción vital entre robusto-frágil y el riesgo asimétrico.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>¿En qué se diferencia un aforismo filosófico de un eslogan o una ocurrencia?</span>
+              <i data-lucide="chevron-down" style="width: 18px; height: 18px; flex-shrink: 0;" aria-hidden="true"></i>
+            </summary>
+            <div class="faq-body">
+              <p>
+                En el epílogo (y la Nota 30 y 33), Taleb distingue tajantemente ambos géneros: el eslogan de la televisión pierde información al simplificar, mientras que el aforismo gana información gracias a su compacidad cognitiva (efecto «menos es más»). Tampoco es mera comedia u ocurrencia ingeniosa: pertenece a la tradición poética y profética del Mediterráneo oriental (Heráclito, Publio Sirio, Al Mutanabbi, los moralistas franceses, Schopenhauer o Nietzsche).
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>¿Qué es un Cisne Negro y cómo se relaciona con la fragilidad?</span>
+              <i data-lucide="chevron-down" style="width: 18px; height: 18px; flex-shrink: 0;" aria-hidden="true"></i>
+            </summary>
+            <div class="faq-body">
+              <p>
+                Un Cisne Negro es un suceso histórico, económico, tecnológico o personal imprevisto por cualquier observador que acarrea consecuencias enormes. Somos frágiles cuando los errores al representar lo desconocido provocan resultados catastróficos, y robustos cuando no es así. Los Cisnes Negros favorecen a lo robusto y golpean severamente a las instituciones y modelos frágiles.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>¿Taleb se opone a toda tecnología o conocimiento académico?</span>
+              <i data-lucide="chevron-down" style="width: 18px; height: 18px; flex-shrink: 0;" aria-hidden="true"></i>
+            </summary>
+            <div class="faq-body">
+              <p>
+                En la Nota 29 responde explícitamente: no se opone a la tecnología en sí, sino a la ceguera ingenua ante sus efectos secundarios (el criterio de la fragilidad). Prefiere ser incondicional respecto a la ética y condicional respecto a la tecnología que al revés. Respecto a los académicos, señala que solo son útiles cuando intentan ser inútiles (como en las matemáticas puras o la filosofía), pero resultan peligrosos cuando pretenden dirigir el mundo real sin jugarse la piel.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOFÓN Y FUENTES -->
+    <footer class="colophon">
+      <div>
+        <strong>Base documental:</strong> <em>El lecho de Procusto: Aforismos filosóficos y prácticos</em>, Nassim Nicholas Taleb (2018; traducción de Genís Sánchez Barberán). Todos los ejemplos, notas conceptuales y máximas proceden exclusivamente de los fragmentos de la obra.
+      </div>
+      <div>
+        <span>Edición analítica · Sin almacenamiento externo</span>
+      </div>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    /* =========================================================================
+       DATOS DE REFERENCIA (100% trazables al texto de El lecho de Procusto)
+       ========================================================================= */
+    const PROCRUSTES_CASES = [
+      {
+        title: `Escolar vs. Currículo`,
+        rigidity: 82,
+        apparent: `96 %`,
+        amputated: `Espontaneidad`,
+        fragility: `Frágil`,
+        bedLabel: `CURRÍCULO ESTÁNDAR`,
+        diagnosis: `«Pocos se dan cuenta de que estamos cambiando los cerebros de los escolares con ciertos fármacos para que se ajusten al currículo y no al revés.» En lugar de adaptar la enseñanza a la naturaleza humana, se recorta químicamente al alumno para que encaje en la cama escolar.`
+      },
+      {
+        title: `Cajas Euclidianas`,
+        rigidity: 88,
+        apparent: `98 %`,
+        amputated: `Improvisación`,
+        fragility: `Muerto en vida`,
+        bedLabel: `CAJA DE OFICINA`,
+        diagnosis: `«Nacen y los colocan en una caja; van a casa para vivir en una caja; estudian marcando casillas; van al "trabajo" en una caja... Todo son cajas euclidianas, geométricamente lisas.» En cautiverio se suprime la aleatoriedad natural del cazador-recolector.`
+      },
+      {
+        title: `Mapa vs. Territorio`,
+        rigidity: 74,
+        apparent: `95 %`,
+        amputated: `Lo inobservable`,
+        fragility: `Explosivo`,
+        bedLabel: `MODELO LINEAL`,
+        diagnosis: `Cuando el mapa no concuerda con el territorio, el pringado muy educado entra en negación e imagina que el territorio encaja en su mapa, cortando parte de la cabeza del visitante mientras insiste en que ha conservado su persona con un 95 % de exactitud.`
+      },
+      {
+        title: `Arrogancia Epistémica`,
+        rigidity: 65,
+        apparent: `92 %`,
+        amputated: `Cisnes Negros`,
+        fragility: `Muy frágil`,
+        bedLabel: `CERTEZA ARTIFICIAL`,
+        diagnosis: `Confundir lo inadvertido con lo inexistente —o peor, con lo inobservable— genera una confianza ciega que acumula riesgos ocultos hasta hacer estallar el sistema cuando aparece un suceso extremo imprevisto.`
+      }
+    ];
+
+    const ROLES_DATA = [
+      {
+        title: `El Académico / Catedrático`,
+        tag: `Cero piel en juego`,
+        desc: `En el mundo académico contemporáneo, la lealtad se dirige antes a los colegas que a la verdad, igual que en la sofística criticada en el Protágoras de Platón. Los académicos solo resultan útiles cuando buscan ser inútiles (matemáticas puras o filosofía), pero se vuelven peligrosos cuando pretenden dictar reglas prácticas sin asumir pérdidas personales.`,
+        skin: `Nula (cátedra fija)`,
+        error: `Impune o premiado`,
+        loyalty: `A sus colegas`,
+        verdict: `Peligroso si busca ser útil`
+      },
+      {
+        title: `El Banquero / Bankster`,
+        tag: `Asimetría legal-ética`,
+        desc: `Tener éxito en la banca exige ausencia de vergüenza por ocultar riesgos de cola. Como señala Taleb al citar el caso de Robert Rubin, un «bankster» puede causar saqueos históricos sin infringir la ley escrita. Acumula ganancias privadas mientras transfiere el riesgo oculto al contribuyente y a la sociedad (rescates públicos).`,
+        skin: `Asimétrica (rescates)`,
+        error: `Socializado al público`,
+        loyalty: `Al salario y bono`,
+        verdict: `Enano con ropa de gigante`
+      },
+      {
+        title: `El Burócrata / Asesor`,
+        tag: `Distancia máxima al riesgo`,
+        desc: `La burocracia está diseñada para maximizar la distancia entre quien toma la decisión y quien soporta sus consecuencias. El asesor comienza ofreciendo una «solución» y crea un problema, diciendo qué hacer en lugar de advertir qué no hacer. «Líbranos de quienes mejoran cosas por un salario.»`,
+        skin: `Nula (asalariado)`,
+        error: `Invisible para el autor`,
+        loyalty: `Al protocolo y puesto`,
+        verdict: `Falsedad estructural`
+      },
+      {
+        title: `El Emprendedor / Creador`,
+        tag: `Piel en juego auténtica`,
+        desc: `Ser emprendedor es algo existencial, no meramente financiero. Quien arriesga su propio patrimonio o reputación puede quebrar; esa exposición real obliga a respetar la experiencia y a aprender de los errores: para el robusto, cada error es información valiosa, no una catástrofe moral ni una excusa.`,
+        skin: `Total (riesgo de quiebra)`,
+        error: `Información de ajuste`,
+        loyalty: `A la realidad empírica`,
+        verdict: `Robusto ante la prueba`
+      },
+      {
+        title: `El Magnífico (Megalopsychos)`,
+        tag: `Ética incondicional`,
+        desc: `Basado en el Libro IV de la Ética a Nicómaco de Aristóteles, es el hombre de «alma grande» que camina despacio, no se arrepiente, muestra sus debilidades como adornos, desea sinceramente buena suerte a sus colegas y solo trata con principios incondicionales. Está fuera de todas las jerarquías.`,
+        skin: `Honor y sacrificio propio`,
+        error: `Asumido con entereza`,
+        loyalty: `A lo incondicional`,
+        verdict: `Soberano fuera de jerarquías`
+      }
+    ];
+
+    const APHORISMS = [
+      {
+        id: `ap-01`,
+        topic: `procusto`,
+        topicLabel: `Reduccionismo y Procusto`,
+        quote: `Nacen y los colocan en una caja; van a casa para vivir en una caja; estudian marcando casillas; van a lo que llaman «trabajo» en una caja, donde se sientan en la caja de un cubículo; conducen hasta el súper en una caja para comprar comida en una caja; van al gimnasio en una caja para sentarse en una caja; hablan de pensar sin «encajonamientos»; y cuando mueren los meten en una caja. Todo son cajas, cajas euclidianas, geométricamente lisas.`,
+        explication: `Retrato de la modernidad como encierro geométrico. Critica la paradoja de hablar de «pensar fuera de la caja» dentro de una vida enteramente regimentada que suprime la aleatoriedad orgánica.`
+      },
+      {
+        id: `ap-02`,
+        topic: `procusto`,
+        topicLabel: `Reduccionismo y Procusto`,
+        quote: `Las empresas farmacéuticas son mejores inventando enfermedades que encajen con fármacos existentes que inventando fármacos que encajen con enfermedades existentes.`,
+        explication: `Ejemplo directo de retroencajamiento procrusteano: en lugar de adaptar la herramienta médica a la realidad biológica del paciente, se redefine la realidad patológica para que encaje en el producto disponible.`
+      },
+      {
+        id: `ap-03`,
+        topic: `procusto`,
+        topicLabel: `Reduccionismo y Procusto`,
+        quote: `Confundir lo inadvertido con lo inexistente es una enfermedad muy reciente; pero algunos están afectados por una enfermedad peor: confundir lo inadvertido con lo inobservable.`,
+        explication: `La ceguera ante los límites de nuestra observación alimenta la «arrogancia epistémica»: desechar lo que no aparece en nuestros registros como si careciera de existencia o impacto causal.`
+      },
+      {
+        id: `ap-04`,
+        topic: `procusto`,
+        topicLabel: `Reduccionismo y Procusto`,
+        quote: `El pringado es alguien que hace la reducción errónea porque sí, o quita algo esencial cortando las piernas o, mejor aún, parte de la cabeza de un visitante insistiendo en que ha conservado su persona con un 95 % de exactitud.`,
+        explication: `Formulación explícita del epílogo sobre el sastre quirúrgico: las métricas porcentuales de «exactitud» encubren la amputación de las variables vitales que determinan la supervivencia.`
+      },
+      {
+        id: `ap-05`,
+        topic: `procusto`,
+        topicLabel: `Reduccionismo y Procusto`,
+        quote: `Existes si y solo si eres libre de hacer cosas sin un objetivo visible, sin justificación y, sobre todo, fuera de la dictadura de una narración ajena.`,
+        explication: `Contra la compulsión narrativa que exige explicar cada acto humano con un propósito utilitario o una historia simplificada que tranquilice a los demás.`
+      },
+      {
+        id: `ap-06`,
+        topic: `via-negativa`,
+        topicLabel: `Vía Negativa y Sustractivo`,
+        quote: `El conocimiento es sustractivo, no aditivo: es lo que sustraemos (reducción por lo que no funciona, lo que no has de hacer), no lo que añadimos (qué hacer).`,
+        explication: `Núcleo de la vía negativa talebiana: la sabiduría práctica consiste en descartar errores y prácticas dañinas. Quien te dice qué debes hacer suele ser un charlatán; quien te indica qué evitar aporta valor real.`
+      },
+      {
+        id: `ap-07`,
+        topic: `via-negativa`,
+        topicLabel: `Vía Negativa y Sustractivo`,
+        quote: `El término «rico» carece de sentido y no tiene una medida absoluta robusta; usa en su lugar la medida sustractiva de la «no riqueza», es decir, la diferencia, en cualquier momento dado, entre lo que tienes y lo que te gustaría tener.`,
+        explication: `Reemplaza una magnitud aditiva frágil (el saldo bruto, sujeto a envidia de estatus) por una resta psicológica y práctica que mide la verdadera independencia.`
+      },
+      {
+        id: `ap-08`,
+        topic: `via-negativa`,
+        topicLabel: `Vía Negativa y Sustractivo`,
+        quote: `Creen que la inteligencia consiste en advertir cosas que tienen importancia (detectar pautas); en un mundo complejo, la inteligencia consiste en ignorar cosas irrelevantes (evitar pautas falsas).`,
+        explication: `Frente al exceso informativo, nuestro cerebro hiperactivo fabrica causalidades ilusorias. Filtrar el ruido protege mejor que acumular datos.`
+      },
+      {
+        id: `ap-09`,
+        topic: `via-negativa`,
+        topicLabel: `Vía Negativa y Sustractivo`,
+        quote: `Felicidad: no sabemos qué significa, cómo medirla o cómo alcanzarla, pero sabemos muy bien cómo evitar la infelicidad.`,
+        explication: `Aplicación directa de la epistemología sustractiva a la vida cotidiana: es imposible optimizar una noción vaga como «felicidad», pero sí es factible sustraer las fuentes claras de desdicha.`
+      },
+      {
+        id: `ap-10`,
+        topic: `via-negativa`,
+        topicLabel: `Vía Negativa y Sustractivo`,
+        quote: `Para curarte por completo de los periódicos, pásate un año leyendo periódicos de la semana pasada.`,
+        explication: `Demostración empírica de la irrelevancia del ruido informativo diario: con apenas siete días de distancia, casi todo lo presentado como «urgente» se revela carente de importancia.`
+      },
+      {
+        id: `ap-11`,
+        topic: `via-negativa`,
+        topicLabel: `Vía Negativa y Sustractivo`,
+        quote: `Un ejemplo categórico: es más fácil ayunar que seguir una dieta. No podemos ser «ligeramente» kosher o halal comiendo solo un poco de jamón.`,
+        explication: `Las reglas absolutas (heurísticas categóricas) eliminan la ambigüedad y el regateo mental, reduciendo la carga cognitiva mucho mejor que las concesiones graduales.`
+      },
+      {
+        id: `ap-12`,
+        topic: `falacia-ludica`,
+        topicLabel: `Falacia Lúdica y Ámbito`,
+        quote: `Los juegos se crearon para dar a los no héroes la ilusión de ganar. En la vida real realmente no sabes quién ha ganado o ha perdido (salvo cuando es demasiado tarde), pero puedes distinguir quién es heroico y quién no.`,
+        explication: `Definición central de la falacia lúdica: en el mundo real no existen tableros con marcadores definitivos ni reglas cerradas como en los juegos.`
+      },
+      {
+        id: `ap-13`,
+        topic: `falacia-ludica`,
+        topicLabel: `Falacia Lúdica y Ámbito`,
+        quote: `Estamos de acuerdo en que estudiar ajedrez solo mejora la aptitud para el ajedrez, pero discrepamos en que estudiar en las aulas (casi) solo mejora las aptitudes para el aula.`,
+        explication: `Crítica a la transferencia ilusoria de competencias escolares: las credenciales miden el rendimiento dentro de un entorno artificial estandarizado, no la pericia en el mundo real.`
+      },
+      {
+        id: `ap-14`,
+        topic: `falacia-ludica`,
+        topicLabel: `Falacia Lúdica y Ámbito`,
+        quote: `Sospecho que los test de CI, las reválidas y las notas han sido diseñados por frikis para recibir puntuaciones elevadas y llamarse inteligentes unos a otros.`,
+        explication: `Como añade la Nota 18, cuando una persona sabia puntúa bajo o una persona deficiente puntúa alto en un test de CI, es la persona la que está poniendo a prueba al test, y no al revés.`
+      },
+      {
+        id: `ap-15`,
+        topic: `falacia-ludica`,
+        topicLabel: `Falacia Lúdica y Ámbito`,
+        quote: `Al llegar al hotel de Dubái, el empresario hizo que un mozo le llevara el equipaje; más tarde lo vi levantando pesas en el gimnasio.`,
+        explication: `Ilustración viva de la dependencia del ámbito: la misma acción física de levantar peso se rechaza como indigna en el vestíbulo y se paga por realizarla en la sala de máquinas.`
+      },
+      {
+        id: `ap-16`,
+        topic: `falacia-ludica`,
+        topicLabel: `Falacia Lúdica y Ámbito`,
+        quote: `En los exámenes de la vida real, alguien te da una respuesta y tú debes encontrar las preguntas que encajen mejor.`,
+        explication: `Inversión exacta de la lógica académica escolar: la realidad presenta hechos consumados cuya explicación y sentido debemos rastrear a contracorriente.`
+      },
+      {
+        id: `ap-17`,
+        topic: `cientifismo`,
+        topicLabel: `Ciencia, Cientifismo y Predicción`,
+        quote: `Decir «la matemática de la incertidumbre» es como decir «la castidad del sexo»: lo que se «matematiza» deja de ser incierto, y viceversa.`,
+        explication: `Ataque al cientifismo probabilístico que domestica la incertidumbre radical encerrándola en ecuaciones suaves y distribuciones previsibles.`
+      },
+      {
+        id: `ap-18`,
+        topic: `cientifismo`,
+        topicLabel: `Ciencia, Cientifismo y Predicción`,
+        quote: `El filósofo usa lógica sin estadística, el economista usa estadística sin lógica, el físico usa las dos.`,
+        explication: `Frontera disciplinar tajante: el éxito matemático de la física no es extrapolable a economistas que manipulan cifras sin comprender riesgos de cola ni causalidad real.`
+      },
+      {
+        id: `ap-19`,
+        topic: `cientifismo`,
+        topicLabel: `Ciencia, Cientifismo y Predicción`,
+        quote: `Uno de los fallos de la «aproximación científica» en el ámbito no lineal surge del hecho inoportuno de que el promedio de expectativas es diferente de la expectativa de promedios.`,
+        explication: `Base matemática de la Desigualdad de Jensen (Nota 21): «No cruces un río porque su profundidad media sea de cinco palmos», pues la variabilidad oculta fosas mortales.`
+      },
+      {
+        id: `ap-20`,
+        topic: `cientifismo`,
+        topicLabel: `Ciencia, Cientifismo y Predicción`,
+        quote: `Si un piloto estrella un avión, n = 1 no es anécdota; si no lo estrella, n = 100 lo es.`,
+        explication: `Asimetría estadística fundamental frente al empirismo ingenuo: cientos de éxitos cotidianos no prueban seguridad si un solo fallo basta para producir la ruina irreversible.`
+      },
+      {
+        id: `ap-21`,
+        topic: `cientifismo`,
+        topicLabel: `Ciencia, Cientifismo y Predicción`,
+        quote: `Para los antiguos, predecir acontecimientos históricos era un insulto a los dioses; para mí, es un insulto al hombre, es decir, para algunos, a la ciencia.`,
+        explication: `Recuerda además que en lenguas semitas «predicción» y «profecía» son la misma palabra; el único modo honesto de entender un suceso no trivial es exponerse a él o causarlo.`
+      },
+      {
+        id: `ap-22`,
+        topic: `cientifismo`,
+        topicLabel: `Ciencia, Cientifismo y Predicción`,
+        quote: `Estudiar neurobiología para entender al ser humano es como estudiar la tinta para entender la literatura.`,
+        explication: `Crítica al reduccionismo cientifista que confunde el sustrato material o biológico de un fenómeno con su significado cultural, poético o existencial.`
+      },
+      {
+        id: `ap-23`,
+        topic: `etica`,
+        topicLabel: `Ética, Robustez y Jugarse la Piel`,
+        quote: `Cualquiera que exprese una previsión o una opinión sin poner algo en riesgo tiene algún elemento de falsedad. A menos que se arriesgue a hundirse con el barco sería como ver una película de aventuras.`,
+        explication: `Principio de «jugarse la piel» (skin in the game): sin exposición real a las consecuencias de un consejo o predicción, la palabra carece de peso moral y epistémico.`
+      },
+      {
+        id: `ap-24`,
+        topic: `etica`,
+        topicLabel: `Ética, Robustez y Jugarse la Piel`,
+        quote: `Mi mayor problema con la modernidad quizá resida en la creciente separación entre lo ético y lo legal.`,
+        explication: `En sistemas complejos, los actores inmorales cumplen escrupulosamente la letra de la ley mientras transfieren riesgos destructivos al resto, provocando colapsos sistémicos.`
+      },
+      {
+        id: `ap-25`,
+        topic: `etica`,
+        topicLabel: `Ética, Robustez y Jugarse la Piel`,
+        quote: `La generosidad pura es cuando ayudas al ingrato. Cualquier otra forma de generosidad es interesada.`,
+        explication: `Ética deóntica (kantiana e incondicional) frente a la caridad utilitaria: un acto generoso que busca reconocimiento, bienestar emocional o recompensa es en realidad una inversión.`
+      },
+      {
+        id: `ap-26`,
+        topic: `etica`,
+        topicLabel: `Ética, Robustez y Jugarse la Piel`,
+        quote: `Para el robusto, un error es información; para el frágil, un error es un error.`,
+        explication: `Diferencia clave entre robustez y fragilidad: el sistema robusto absorbe fallos pequeños y aprende de ellos sin colapsar; el frágil oculta los fallos hasta que explota.`
+      },
+      {
+        id: `ap-27`,
+        topic: `etica`,
+        topicLabel: `Ética, Robustez y Jugarse la Piel`,
+        quote: `Contra la creencia imperante, «éxito» no significa estar en la cima de una jerarquía: es estar fuera de todas las jerarquías.`,
+        explication: `Independencia del Magnífico: el asalariado que adula al jefe o compite por estatus permanece esclavo; el verdadero éxito reside en la autonomía fuera del escalafón.`
+      },
+      {
+        id: `ap-28`,
+        topic: `etica`,
+        topicLabel: `Ética, Robustez y Jugarse la Piel`,
+        quote: `Una prostituta que vende su cuerpo (temporalmente) es muchísimo más honorable que alguien que vende su opinión para ascender o mantener su trabajo.`,
+        explication: `Aforismo provocador sobre la integridad intelectual: alquilar la conciencia a cambio de un sueldo destruye el alma y corrompe el discurso público.`
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        question: `1. Según el prólogo y la Nota 1, ¿en qué consiste exactamente el «retroencajamiento» del lecho de Procusto?`,
+        options: [
+          `En meter datos complejos en una caja estadística demasiado grande para que sobre espacio.`,
+          `En alterar la variable equivocada —la realidad o la persona— para que encaje en el modelo, en lugar de ajustar el modelo.`,
+          `En evitar toda clasificación teórica para vivir sin lenguaje ni categorías.`
+        ],
+        correct: 1,
+        explanation: `Correcto según el texto: como los sastres que amputan las extremidades del cliente para que el traje quede perfecto, modificamos la variable equivocada (por ejemplo, medicando a escolares para ajustarlos al currículo).`
+      },
+      {
+        question: `2. ¿Qué demuestra la anécdota de los amigos de Taleb en París (comer salmón sin piel al mediodía y solo piel por la noche)?`,
+        options: [
+          `La dependencia del ámbito: nuestra conducta y preferencias cambian drásticamente según el contexto sin que lo advirtamos.`,
+          `La superioridad nutricional de la gastronomía japonesa frente a la francesa.`,
+          `La falsedad estadística de las encuestas sobre hábitos alimentarios.`
+        ],
+        correct: 0,
+        explanation: `Es el ejemplo predilecto de Taleb sobre la dependencia del ámbito: la mente reacciona al marco contextual (bistrot vs. restaurante de sushi) y no al objeto aislado.`
+      },
+      {
+        question: `3. ¿Por qué afirma Taleb en la Nota 21 que «no cruces un río porque su profundidad media sea de cinco palmos»?`,
+        options: [
+          `Porque la estadística clásica sobreestima siempre la altura de los cauces fluviales.`,
+          `Por la desigualdad de Jensen en sistemas no lineales: el promedio oculta la varianza y los extremos mortales.`,
+          `Porque los meteorólogos y biólogos entienden mejor la ecología que los probabilistas.`
+        ],
+        correct: 1,
+        explanation: `En ámbitos no lineales, el promedio de expectativas difiere de la expectativa de promedios. Si una fosa tiene diez palmos, te ahogas aunque la media aritmética sea segura.`
+      },
+      {
+        question: `4. Desde la perspectiva de la «vía negativa» y el conocimiento sustractivo, ¿cómo se reconoce a un charlatán (asesor o corredor)?`,
+        options: [
+          `Porque cita únicamente a autores antiguos como Platón o Séneca.`,
+          `Porque te dice qué debes hacer (enfoque aditivo), en lugar de advertirte qué no debes hacer.`,
+          `Porque desconfía de las noticias diarias y lee clásicos.`
+        ],
+        correct: 1,
+        explanation: `En la Nota 19, Taleb define la mejor manera de descubrir a un charlatán: alguien que te prescribe qué hacer (añadir) en lugar de ayudarte a sustraer lo que no funciona.`
+      },
+      {
+        question: `5. Según la sección de Ética y la Nota 3, ¿qué caracteriza a un acto de generosidad auténtica frente a una mera inversión emocional?`,
+        options: [
+          `Que genera una sensación agradable de bienestar y prestigio ante la comunidad.`,
+          `Que es deóntico e incondicional: ayudas incluso al ingrato sin esperar recompensa económica, social ni emocional.`,
+          `Que cumple escrupulosamente con todas las leyes fiscales y mercantiles vigentes.`
+        ],
+        correct: 1,
+        explanation: `Taleb distingue la ética deóntica (deber incondicional) de la utilitaria: cualquier acto emprendido para recibir un premio, alabanza o salvación corrompe la generosidad pura.`
+      }
+    ];
+
+    /* =========================================================================
+       ESTADO GLOBAL PERSISTIDO CON notebookAppApi
+       ========================================================================= */
+    let appState = {
+      procrustesCaseIdx: 0,
+      procrustesRigidity: 82,
+      infoDiet: `noise`,
+      activeParadox: 0,
+      riverMean: 5,
+      riverVol: 70,
+      activeRole: 0,
+      doseIndices: [0, 5, 11, 22],
+      savedIds: [],
+      quizAnswers: {}
+    };
+
+    async function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+        } catch (e) {
+          /* Silencioso en entorno sin host */
+        }
+      }
+      updateTopCounter();
+    }
+
+    function updateTopCounter() {
+      const counter = document.getElementById('saved-counter-top');
+      if (!counter) return;
+      const answeredCount = Object.keys(appState.quizAnswers || {}).length;
+      const savedCount = (appState.savedIds || []).length;
+      counter.textContent = `${savedCount} guardados · ${answeredCount}/5 evaluados`;
+    }
+
+    /* =========================================================================
+       MÓDULO 1: SIMULADOR DEL LECHO DE PROCUSTO
+       ========================================================================= */
+    function renderProcrustesViz() {
+      const c = PROCRUSTES_CASES[appState.procrustesCaseIdx] || PROCRUSTES_CASES[0];
+      const rig = Number(appState.procrustesRigidity);
+
+      const pctEl = document.getElementById('procrustes-pct');
+      if (pctEl) pctEl.textContent = String(rig);
+
+      const slider = document.getElementById('procrustes-slider');
+      if (slider) slider.value = String(rig);
+
+      for (let i = 0; i < PROCRUSTES_CASES.length; i++) {
+        const btn = document.getElementById(`case-btn-${i}`);
+        if (btn) {
+          if (i === appState.procrustesCaseIdx) btn.classList.add('is-selected');
+          else btn.classList.remove('is-selected');
+        }
+      }
+
+      /* Geometría SVG: la realidad mide 340px (de x=40 a x=380). Cuanta más rigidez, más estrecha la cama. */
+      const totalWidth = 340;
+      const bedWidth = Math.max(96, Math.round(totalWidth * (1 - (rig * 0.68) / 100)));
+      const bedX = Math.round(40 + (totalWidth - bedWidth) / 2);
+      const cutEachSide = Math.max(0, bedX - 40);
+
+      const bedBox = document.getElementById('svg-bed-box');
+      const legL = document.getElementById('svg-bed-leg-l');
+      const legR = document.getElementById('svg-bed-leg-r');
+      const ampL = document.getElementById('svg-amputated-left');
+      const ampR = document.getElementById('svg-amputated-right');
+      const bedLabel = document.getElementById('svg-bed-label');
+      const ampLabelL = document.getElementById('svg-amp-label-l');
+      const ampLabelR = document.getElementById('svg-amp-label-r');
+
+      if (bedBox) {
+        bedBox.setAttribute('x', String(bedX));
+        bedBox.setAttribute('width', String(bedWidth));
+      }
+      if (legL) {
+        legL.setAttribute('x1', String(bedX));
+        legL.setAttribute('x2', String(bedX));
+      }
+      if (legR) {
+        legR.setAttribute('x1', String(bedX + bedWidth));
+        legR.setAttribute('x2', String(bedX + bedWidth));
+      }
+      if (ampL) {
+        ampL.setAttribute('x', '40');
+        ampL.setAttribute('width', String(cutEachSide));
+      }
+      if (ampR) {
+        ampR.setAttribute('x', String(bedX + bedWidth));
+        ampR.setAttribute('width', String(cutEachSide));
+      }
+      if (bedLabel) {
+        bedLabel.textContent = c.bedLabel;
+      }
+      if (ampLabelL) {
+        ampLabelL.setAttribute('x', String(40 + cutEachSide / 2));
+        ampLabelL.style.display = cutEachSide >= 38 ? 'block' : 'none';
+      }
+      if (ampLabelR) {
+        ampLabelR.setAttribute('x', String(bedX + bedWidth + cutEachSide / 2));
+        ampLabelR.style.display = cutEachSide >= 38 ? 'block' : 'none';
+      }
+
+      const diagEl = document.getElementById('procrustes-diagnosis');
+      if (diagEl) {
+        diagEl.innerHTML = `<strong>${c.title}:</strong> ${c.diagnosis}`;
+      }
+
+      const apparentEl = document.getElementById('metric-apparent');
+      const amputatedEl = document.getElementById('metric-amputated');
+      const fragilityEl = document.getElementById('metric-fragility');
+      if (apparentEl) apparentEl.textContent = rig > 70 ? c.apparent : `${Math.min(99, 65 + Math.round(rig * 0.35))} %`;
+      if (amputatedEl) amputatedEl.textContent = rig < 35 ? `Mínima` : c.amputated;
+      if (fragilityEl) fragilityEl.textContent = rig < 35 ? `Robusto` : (rig < 65 ? `Vulnerable` : c.fragility);
+    }
+
+    function selectProcrustesCase(idx) {
+      appState.procrustesCaseIdx = idx;
+      appState.procrustesRigidity = PROCRUSTES_CASES[idx].rigidity;
+      renderProcrustesViz();
+      persistState();
+    }
+
+    function updateProcrustesRigidity(val) {
+      appState.procrustesRigidity = Number(val);
+      renderProcrustesViz();
+      persistState();
+    }
+
+    /* =========================================================================
+       MÓDULO 2: DIETA INFORMATIVA
+       ========================================================================= */
+    function renderInfoDiet() {
+      const isNoise = appState.infoDiet === 'noise';
+      const btnNoise = document.getElementById('diet-btn-noise');
+      const btnSub = document.getElementById('diet-btn-sub');
+      if (btnNoise) btnNoise.classList.toggle('is-selected', isNoise);
+      if (btnSub) btnSub.classList.toggle('is-selected', !isNoise);
+
+      const tox = document.getElementById('diet-toxicity');
+      const toxNote = document.getElementById('diet-toxicity-note');
+      const pred = document.getElementById('diet-predict');
+      const predNote = document.getElementById('diet-predict-note');
+      const pat = document.getElementById('diet-patterns');
+      const patNote = document.getElementById('diet-patterns-note');
+      const books = document.getElementById('diet-books');
+      const booksNote = document.getElementById('diet-books-note');
+
+      if (isNoise) {
+        if (tox) { tox.textContent = `Exponencial`; tox.style.color = `var(--primary)`; }
+        if (toxNote) toxNote.textContent = `En la era exponencial, la toxicidad de los datos crece mucho más deprisa que sus beneficios.`;
+        if (pred) pred.textContent = `Anecdótica`;
+        if (predNote) predNote.textContent = `Si las noticias tuvieran valor predictivo, los periodistas serían escandalosamente ricos.`;
+        if (pat) pat.textContent = `Muy alta`;
+        if (patNote) patNote.textContent = `Más información sin filtro provoca más errores y detección ilusoria de causalidad.`;
+        if (books) books.textContent = `Efímera`;
+        if (booksNote) booksNote.textContent = `En 2010 se publicaron 600.000 libros en inglés con pocas citas; en el año cero, un puñado inmortal.`;
+      } else {
+        if (tox) { tox.textContent = `Depurada`; tox.style.color = `var(--positive)`; }
+        if (toxNote) toxNote.textContent = `Un racionamiento de la red devuelve la limpieza mental frente a la promiscuidad informativa.`;
+        if (pred) pred.textContent = `Histórica`;
+        if (predNote) predNote.textContent = `Al leer periódicos de la semana pasada durante un año descubres qué fue puro ruido.`;
+        if (pat) pat.textContent = `Contenida`;
+        if (patNote) patNote.textContent = `La mente sin ruido externo distingue lo irrelevante y deja de inventar narraciones manidas.`;
+        if (books) books.textContent = `Relectura ×3`;
+        if (booksNote) booksNote.textContent = `Un buen libro mejora a la segunda lectura; un gran libro a la tercera. El resto es periodismo encuadernado.`;
+      }
+    }
+
+    function setInfoDiet(mode) {
+      appState.infoDiet = mode;
+      renderInfoDiet();
+      persistState();
+    }
+
+    /* =========================================================================
+       MÓDULO 3: PARADOJAS DE DEPENDENCIA DEL ÁMBITO
+       ========================================================================= */
+    function renderParadoxes() {
+      for (let i = 0; i < 4; i++) {
+        const card = document.getElementById(`paradox-${i}`);
+        if (!card) continue;
+        const active = i === appState.activeParadox;
+        card.classList.toggle('is-active', active);
+        card.setAttribute('aria-expanded', active ? 'true' : 'false');
+      }
+    }
+
+    function toggleParadox(idx) {
+      appState.activeParadox = appState.activeParadox === idx ? -1 : idx;
+      renderParadoxes();
+      persistState();
+    }
+
+    /* =========================================================================
+       MÓDULO 4: DESIGUALDAD DE JENSEN (EL RÍO DE 5 PALMOS)
+       ========================================================================= */
+    function renderRiverViz() {
+      const mean = Number(appState.riverMean);
+      const vol = Number(appState.riverVol);
+
+      const meanValEl = document.getElementById('river-mean-val');
+      const volValEl = document.getElementById('river-vol-val');
+      const meanSlider = document.getElementById('river-mean');
+      const volSlider = document.getElementById('river-vol');
+      if (meanValEl) meanValEl.textContent = mean.toFixed(1);
+      if (volValEl) volValEl.textContent = String(vol);
+      if (meanSlider) meanSlider.value = String(mean);
+      if (volSlider) volSlider.value = String(vol);
+
+      /* Escala vertical: y=36 es 0 palmos; 13px por palmo. 11.8 palmos ~ y=190 */
+      const pxPerPalmo = 13;
+      const surfaceY = 36;
+      const clampY = function(p) { return Math.min(189, Math.max(42, surfaceY + p * pxPerPalmo)); };
+
+      const meanY = clampY(mean);
+      const meanLine = document.getElementById('river-mean-line');
+      const meanText = document.getElementById('river-mean-text');
+      if (meanLine) {
+        meanLine.setAttribute('y1', String(meanY));
+        meanLine.setAttribute('y2', String(meanY));
+      }
+      if (meanText) {
+        meanText.setAttribute('y', String(meanY - 6));
+        meanText.textContent = `MEDIA REPORTADA: ${mean.toFixed(1)} PALMOS`;
+      }
+
+      /* Construir perfil sinusoide + fosa asimétrica conservando aprox la media */
+      const amp = (vol / 100) * mean * 1.15;
+      const points = [];
+      let maxDepth = mean;
+      let maxX = 240;
+      let maxY = meanY;
+
+      for (let i = 0; i <= 38; i++) {
+        const x = 20 + i * 10;
+        const t = i / 38;
+        /* Suma de armónicos con media cercana a 0 para conservar el promedio visual */
+        const wave = -Math.sin(t * Math.PI * 2) * 0.45 + Math.sin(t * Math.PI * 4 - 0.8) * 0.55 - Math.cos(t * Math.PI * 3) * 0.35;
+        const depth = Math.max(0.5, mean + amp * wave);
+        const y = clampY(depth);
+        points.push(`${x},${y.toFixed(1)}`);
+        if (depth > maxDepth) {
+          maxDepth = depth;
+          maxX = x;
+          maxY = y;
+        }
+      }
+
+      const pathStr = `M 20,190 L ${points.join(' L ')} L 400,190 Z`;
+      const bedPath = document.getElementById('river-bed-path');
+      const maxDot = document.getElementById('river-max-dot');
+      const maxLabel = document.getElementById('river-max-label');
+
+      if (bedPath) bedPath.setAttribute('d', pathStr);
+      if (maxDot) {
+        maxDot.setAttribute('cx', String(maxX));
+        maxDot.setAttribute('cy', String(maxY));
+      }
+      if (maxLabel) {
+        const labelX = maxX > 290 ? maxX - 110 : maxX + 8;
+        maxLabel.setAttribute('x', String(labelX));
+        maxLabel.setAttribute('y', String(Math.min(184, maxY - 6)));
+        maxLabel.textContent = `Fosa: ${maxDepth.toFixed(1)} p`;
+      }
+
+      const maxValEl = document.getElementById('river-max-val');
+      const cartEl = document.getElementById('river-cartesian');
+      const realEl = document.getElementById('river-reality');
+
+      if (maxValEl) maxValEl.textContent = `${maxDepth.toFixed(1)} p`;
+      if (cartEl) {
+        cartEl.textContent = mean <= 6.5 ? `«Cruza seguro»` : `«No cruces»`;
+      }
+      if (realEl) {
+        if (maxDepth > 7.0) {
+          realEl.textContent = `Ahogamiento`;
+          realEl.style.color = `var(--primary)`;
+        } else {
+          realEl.textContent = `Paso seguro`;
+          realEl.style.color = `var(--positive)`;
+        }
+      }
+    }
+
+    function updateRiverViz() {
+      const m = document.getElementById('river-mean');
+      const v = document.getElementById('river-vol');
+      if (m) appState.riverMean = Number(m.value);
+      if (v) appState.riverVol = Number(v.value);
+      renderRiverViz();
+      persistState();
+    }
+
+    /* =========================================================================
+       MÓDULO 5: AUDITORÍA DE ROLES Y JUGARSE LA PIEL
+       ========================================================================= */
+    function renderRole() {
+      const r = ROLES_DATA[appState.activeRole] || ROLES_DATA[0];
+      for (let i = 0; i < ROLES_DATA.length; i++) {
+        const btn = document.getElementById(`role-btn-${i}`);
+        if (btn) btn.classList.toggle('is-selected', i === appState.activeRole);
+      }
+      const t = document.getElementById('role-title');
+      const tag = document.getElementById('role-tag');
+      const d = document.getElementById('role-desc');
+      const s = document.getElementById('role-skin');
+      const e = document.getElementById('role-error');
+      const l = document.getElementById('role-loyalty');
+      const v = document.getElementById('role-verdict');
+
+      if (t) t.textContent = r.title;
+      if (tag) tag.textContent = r.tag;
+      if (d) d.textContent = r.desc;
+      if (s) s.textContent = r.skin;
+      if (e) e.textContent = r.error;
+      if (l) l.textContent = r.loyalty;
+      if (v) v.textContent = r.verdict;
+    }
+
+    function selectRole(idx) {
+      appState.activeRole = idx;
+      renderRole();
+      persistState();
+    }
+
+    /* =========================================================================
+       MÓDULO 6: ANTOLOGÍA, DOSIS DE 4 Y EXPLICACIONES EXPANDIBLES
+       ========================================================================= */
+    function isSaved(id) {
+      return (appState.savedIds || []).indexOf(id) !== -1;
+    }
+
+    function buildAphorismHTML(ap, prefix) {
+      const saved = isSaved(ap.id);
+      const expId = `${prefix}-exp-${ap.id}`;
+      return `
+        <article class="aphorism-item">
+          <div>
+            <span class="tag ${prefix === 'dose' ? 'tag-panel' : ''}" style="margin-bottom: var(--space-xs);">${ap.topicLabel}</span>
+            <p class="aphorism-quote">«${ap.quote}»</p>
+          </div>
+          <div>
+            <div class="aphorism-actions">
+              <button type="button" class="btn btn-ghost" aria-expanded="false" aria-controls="${expId}" onclick="toggleExplication('${expId}', this)">
+                Explicación analítica
+              </button>
+              <button type="button" class="btn ${saved ? 'btn-primary' : 'btn-secondary'}" onclick="toggleSaveAphorism('${ap.id}')">
+                ${saved ? 'Guardado' : 'Guardar'}
+              </button>
+            </div>
+            <div id="${expId}" class="aphorism-explication" hidden>
+              <strong>Lectura contextual:</strong> ${ap.explication}
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderDoseOfFour() {
+      const container = document.getElementById('dose-container');
+      if (!container) return;
+      const items = (appState.doseIndices || [0, 5, 11, 22])
+        .map(function(i) { return APHORISMS[i]; })
+        .filter(Boolean);
+      container.innerHTML = items.map(function(ap) {
+        return buildAphorismHTML(ap, 'dose');
+      }).join('');
+    }
+
+    function drawRandomFour() {
+      const pool = [];
+      for (let i = 0; i < APHORISMS.length; i++) pool.push(i);
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const tmp = pool[i];
+        pool[i] = pool[j];
+        pool[j] = tmp;
+      }
+      appState.doseIndices = pool.slice(0, 4);
+      renderDoseOfFour();
+      persistState();
+    }
+
+    function renderAnthology() {
+      const container = document.getElementById('anthology-container');
+      const countEl = document.getElementById('anthology-count');
+      const searchEl = document.getElementById('aphorism-search');
+      const topicEl = document.getElementById('aphorism-topic');
+      if (!container) return;
+
+      const q = searchEl ? searchEl.value.trim().toLowerCase() : '';
+      const topic = topicEl ? topicEl.value : 'all';
+
+      const filtered = APHORISMS.filter(function(ap) {
+        if (topic === 'saved' && !isSaved(ap.id)) return false;
+        if (topic !== 'all' && topic !== 'saved' && ap.topic !== topic) return false;
+        if (q) {
+          const hay = `${ap.quote} ${ap.explication} ${ap.topicLabel}`.toLowerCase();
+          if (hay.indexOf(q) === -1) return false;
+        }
+        return true;
+      });
+
+      if (countEl) {
+        countEl.textContent = `Mostrando ${filtered.length} de ${APHORISMS.length} aforismos seleccionados`;
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="padding-block: var(--space-lg); border-bottom: var(--rule-column);">
+            <p style="margin-bottom: var(--space-sm);">Ningún aforismo coincide con tu búsqueda o filtro actual.</p>
+            <button type="button" class="btn btn-secondary" onclick="clearAphorismFilters()">Restablecer archivo completo</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(function(ap) {
+        const saved = isSaved(ap.id);
+        const expId = `list-exp-${ap.id}`;
+        return `
+          <article class="anthology-row">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-sm);">
+              <span class="tag">${ap.topicLabel}</span>
+              <div class="btn-row">
+                <button type="button" class="btn btn-ghost" aria-expanded="false" aria-controls="${expId}" onclick="toggleExplication('${expId}', this)">
+                  Explicación
+                </button>
+                <button type="button" class="btn ${saved ? 'btn-primary' : 'btn-secondary'}" onclick="toggleSaveAphorism('${ap.id}')">
+                  ${saved ? 'Guardado' : 'Guardar'}
+                </button>
+              </div>
+            </div>
+            <p class="aphorism-quote" style="max-width: 68ch;">«${ap.quote}»</p>
+            <div id="${expId}" class="aphorism-explication" hidden>
+              <strong>Lectura contextual:</strong> ${ap.explication}
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function toggleExplication(id, btn) {
+      const box = document.getElementById(id);
+      if (!box) return;
+      const isHidden = box.hasAttribute('hidden');
+      if (isHidden) {
+        box.removeAttribute('hidden');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+      } else {
+        box.setAttribute('hidden', '');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function toggleSaveAphorism(id) {
+      if (!Array.isArray(appState.savedIds)) appState.savedIds = [];
+      const idx = appState.savedIds.indexOf(id);
+      if (idx === -1) appState.savedIds.push(id);
+      else appState.savedIds.splice(idx, 1);
+
+      renderDoseOfFour();
+      renderAnthology();
+      persistState();
+    }
+
+    function filterAphorisms() {
+      renderAnthology();
+    }
+
+    function clearAphorismFilters() {
+      const searchEl = document.getElementById('aphorism-search');
+      const topicEl = document.getElementById('aphorism-topic');
+      if (searchEl) searchEl.value = '';
+      if (topicEl) topicEl.value = 'all';
+      renderAnthology();
+    }
+
+    /* =========================================================================
+       MÓDULO 7: CUESTIONARIO DE REFLEXIÓN
+       ========================================================================= */
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      const scoreEl = document.getElementById('quiz-score-line');
+      if (!container) return;
+
+      let rightCount = 0;
+      const html = QUIZ_QUESTIONS.map(function(q, qIdx) {
+        const chosen = appState.quizAnswers ? appState.quizAnswers[String(qIdx)] : undefined;
+        const answered = chosen !== undefined;
+        if (answered && chosen === q.correct) rightCount++;
+
+        const optsHtml = q.options.map(function(opt, oIdx) {
+          let cls = 'btn btn-secondary quiz-opt';
+          if (answered) {
+            if (oIdx === q.correct) cls += ' is-correct';
+            else if (oIdx === chosen) cls += ' is-wrong';
+          }
+          return `
+            <button type="button" class="${cls}" onclick="answerQuiz(${qIdx}, ${oIdx})">
+              ${opt}
+            </button>
+          `;
+        }).join('');
+
+        let feedbackHtml = '';
+        if (answered) {
+          const isRight = chosen === q.correct;
+          feedbackHtml = `
+            <div class="quiz-feedback ${isRight ? 'is-right' : 'is-wrong'}">
+              <strong>${isRight ? 'Acertado.' : 'Trampa detectada.'}</strong> ${q.explanation}
+            </div>
+          `;
+        }
+
+        return `
+          <div class="quiz-card">
+            <h4 style="font-size: 1.08rem; line-height: 1.35;">${q.question}</h4>
+            <div class="quiz-options">${optsHtml}</div>
+            ${feedbackHtml}
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = html;
+      if (scoreEl) {
+        scoreEl.textContent = `Puntuación actual: ${rightCount} de ${QUIZ_QUESTIONS.length} aciertos`;
+      }
+      updateTopCounter();
+    }
+
+    function answerQuiz(qIdx, oIdx) {
+      if (!appState.quizAnswers) appState.quizAnswers = {};
+      appState.quizAnswers[String(qIdx)] = oIdx;
+      renderQuiz();
+      persistState();
+    }
+
+    function resetQuizProgress(btn) {
+      if (btn && btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = 'Confirmar reinicio';
+        return;
+      }
+      if (btn) {
+        btn.dataset.armed = 'false';
+        btn.textContent = 'Reiniciar respuestas';
+      }
+      appState.quizAnswers = {};
+      renderQuiz();
+      persistState();
+    }
+
+    /* =========================================================================
+       INICIALIZACIÓN
+       ========================================================================= */
+    function renderAll() {
+      renderProcrustesViz();
+      renderInfoDiet();
+      renderParadoxes();
+      renderRiverViz();
+      renderRole();
+      renderDoseOfFour();
+      renderAnthology();
+      renderQuiz();
+      updateTopCounter();
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', async function() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            appState = Object.assign({}, appState, saved);
+          }
+        } catch (e) {
+          /* Estado inicial por defecto si falla la carga */
+        }
+      }
+
+      renderAll();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    });
+  </script>
+</body>
+</html>
