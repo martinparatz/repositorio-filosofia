@@ -1,0 +1,2447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>«Nietzsche» de Martin Heidegger — Guía conceptual e interactiva</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Briefing style tokens */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+      --input-border: #c8c4b8;
+      --tag-warm-bg: #f5e6c4;
+
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --secondary-soft: #e7eff2;
+      --tertiary: #785008;
+      --error: #b42318;
+      --on-error: #ffffff;
+      --error-container: #fdeceb;
+
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      --font-headline: 'Source Serif 4', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* 3. Shared foundation tokens */
+      --positive: #2b6e52;
+      --positive-container: #e6f2ec;
+      --warning: #785008;
+      --focus: #1f4e5f;
+
+      /* Type scale (Narrative) */
+      --display-size:  clamp(2.25rem, 1.35rem + 3vw, 3.45rem);
+      --headline-size: clamp(1.625rem, 1.2rem + 1.5vw, 2.2rem);
+      --subhead-size:  clamp(1.125rem, 1.04rem + 0.45vw, 1.35rem);
+      --body-size:     clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+      --label-size:    0.75rem;
+      --pill-size:     0.6875rem;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;  --space-sm: 0.5rem;
+      --space-md: 1rem;     --space-lg: 1.5rem;
+      --space-xl: 2.5rem;   --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;  --dur-short: 220ms;  --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+    button, input, select, textarea { font-family: inherit; }
+
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1120px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Typography & Briefing treatments */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: var(--pill-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      display: inline-block;
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--display-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.08;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .section-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--headline-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.14;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .subhead {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      line-height: 1.25;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-sm) 0;
+    }
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: clamp(1.05rem, 1rem + 0.35vw, 1.2rem);
+      line-height: 1.48;
+      color: var(--secondary);
+      margin: var(--space-sm) 0 0 0;
+      max-width: 68ch;
+    }
+    .prose {
+      max-width: 65ch;
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .prose + .prose {
+      margin-top: var(--space-md);
+    }
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      letter-spacing: 0.05em;
+    }
+    .tag-warm {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-size: var(--pill-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--tag-warm-bg);
+      color: var(--tertiary);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+    }
+    .tag-slate {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-size: var(--pill-size);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--secondary-soft);
+      color: var(--secondary);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+    }
+    .tag-done {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-family: var(--font-label);
+      font-size: var(--pill-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--positive-container);
+      color: var(--positive);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+    }
+
+    /* Buttons & Interactive controls */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+      border: 1px solid var(--input-border);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+    }
+    .btn:hover {
+      background: var(--surface-container-high);
+    }
+    .btn:active {
+      transform: translateY(1px);
+    }
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background: var(--secondary);
+      border-color: var(--secondary);
+    }
+    .btn-secondary-accent {
+      background: var(--secondary);
+      color: var(--on-primary);
+      border-color: var(--secondary);
+    }
+    .btn-secondary-accent:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+    .btn-active,
+    .btn[aria-pressed="true"] {
+      background: var(--secondary);
+      color: var(--on-primary);
+      border-color: var(--secondary);
+    }
+    .btn-done[aria-pressed="true"] {
+      background: var(--positive);
+      color: var(--on-primary);
+      border-color: var(--positive);
+    }
+    .btn-warning {
+      background: var(--tag-warm-bg);
+      color: var(--tertiary);
+      border-color: var(--tertiary);
+    }
+
+    /* Cards & Grids */
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .figure-card .value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.375rem, 1.15rem + 0.9vw, 1.85rem);
+      font-variant-numeric: lining-nums tabular-nums;
+      line-height: 1.15;
+      color: var(--on-surface);
+      margin: var(--space-xs) 0;
+    }
+    .figure-card .caption {
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    /* Conceptual navigation hub */
+    .nav-hub {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .progress-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      overflow: hidden;
+      margin-top: var(--space-xs);
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--secondary);
+      width: 0%;
+      transition: width var(--dur-short) var(--ease-out);
+    }
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+    .nav-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-md);
+      background: var(--background);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      text-decoration: none;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .nav-card:hover {
+      background: var(--surface-container);
+      box-shadow: inset 3px 0 0 var(--secondary);
+    }
+    .nav-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-xs);
+    }
+    .nav-card-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 1.28;
+    }
+    .nav-card-sub {
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
+      line-height: 1.4;
+    }
+    .nav-utility-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--outline-variant);
+    }
+
+    /* Section splits & container queries */
+    .nucleus-section {
+      display: grid;
+      gap: var(--space-lg);
+      padding-top: var(--space-md);
+    }
+    .split-wrapper {
+      container-type: inline-size;
+    }
+    .split-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    @container (min-width: 740px) {
+      .split-layout {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      }
+      .split-layout.split-wide-right {
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.15fr);
+      }
+    }
+
+    /* Key points list */
+    .key-points {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-md) 0 0 0;
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .key-points li {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-sm);
+      align-items: baseline;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+    }
+
+    .example-callout {
+      background: var(--surface-container);
+      border-left: 3px solid var(--secondary);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+      margin-top: var(--space-md);
+    }
+    .example-callout .label-line {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--secondary);
+      letter-spacing: 0.06em;
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Interactive panel */
+    .interactive-panel {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .panel-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: 1px solid var(--outline-variant);
+      padding-bottom: var(--space-sm);
+    }
+    .panel-output {
+      background: var(--background);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+      animation: fadeSlide var(--dur-short) var(--ease-out);
+    }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--outline-variant);
+    }
+
+    /* SVG Schematic containers */
+    .svg-box {
+      width: 100%;
+      min-height: 240px;
+      background: var(--background);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      padding: var(--space-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .svg-box svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .svg-node {
+      cursor: pointer;
+      transition: opacity var(--dur-micro) var(--ease-out);
+    }
+    .svg-node:hover {
+      opacity: 0.86;
+    }
+
+    /* Tables */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+    }
+    table.briefing-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+    table.briefing-table thead th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface);
+      background: var(--surface-container);
+      padding: var(--space-md);
+      border-bottom: var(--section-rule);
+      white-space: nowrap;
+    }
+    table.briefing-table tbody td {
+      padding: var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    table.briefing-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+    table.briefing-table tbody tr:hover {
+      background: var(--background);
+    }
+    table.briefing-table .col-key {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      color: var(--secondary);
+      min-width: 150px;
+    }
+
+    /* Forms / Glossary search */
+    .filter-toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .field-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface);
+    }
+    .text-input {
+      min-height: 44px;
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      border: 1px solid var(--input-border);
+      border-radius: var(--rounded);
+      background: var(--background);
+      color: var(--on-surface);
+      font-size: 1rem;
+    }
+    .text-input:focus {
+      border-color: var(--secondary);
+    }
+
+    .glossary-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .glossary-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-xs);
+    }
+    .glossary-term {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .glossary-orig {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+    }
+    .glossary-def {
+      margin: 0;
+      font-size: 0.9375rem;
+      color: var(--on-surface);
+    }
+    .glossary-ref {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
+      padding-top: var(--space-xs);
+      border-top: 1px solid var(--outline-variant);
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    details.faq-item {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: 0;
+    }
+    details.faq-item summary {
+      list-style: none;
+      min-height: 44px;
+      padding: var(--space-md) var(--space-lg);
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.075rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      color: var(--on-surface);
+    }
+    details.faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+    details.faq-item[open] summary {
+      border-bottom: 1px solid var(--outline-variant);
+      color: var(--secondary);
+    }
+    .faq-chevron {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      flex-shrink: 0;
+    }
+    .faq-body {
+      padding: var(--space-md) var(--space-lg);
+      color: var(--on-surface);
+      max-width: 68ch;
+    }
+
+    /* Quiz */
+    .quiz-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .quiz-opt {
+      text-align: left;
+      justify-content: flex-start;
+      padding: var(--space-sm) var(--space-md);
+      line-height: 1.45;
+      font-weight: 500;
+    }
+    .quiz-opt.opt-correct {
+      background: var(--positive-container);
+      border-color: var(--positive);
+      color: var(--positive);
+      font-weight: 600;
+    }
+    .quiz-opt.opt-wrong {
+      background: var(--error-container);
+      border-color: var(--error);
+      color: var(--error);
+    }
+    .quiz-feedback {
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+    .quiz-feedback.fb-ok {
+      background: var(--positive-container);
+      border-left: 3px solid var(--positive);
+      color: var(--on-surface);
+    }
+    .quiz-feedback.fb-err {
+      background: var(--error-container);
+      border-left: 3px solid var(--error);
+      color: var(--on-surface);
+    }
+
+    /* Source footer */
+    .source-footer {
+      border-top: var(--section-rule);
+      padding-top: var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-md);
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-sm) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .figure-card,
+      .interactive-panel,
+      .nav-hub,
+      .filter-toolbar,
+      .quiz-card {
+        padding: var(--space-md);
+      }
+      .btn {
+        width: 100%;
+      }
+      .btn-row.compact .btn {
+        width: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration:  0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior:     auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid">
+    <!-- HEADER / MASTHEAD -->
+    <header id="inicio">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Dossier Filosófico</span>
+          <span class="dossier-meta">Martin Heidegger · Nietzsche (1936–1946)</span>
+        </div>
+        <span class="dossier-meta">6 Núcleos · Comparativas · Glosario · Autoevaluación</span>
+      </div>
+
+      <h1 class="title">«Nietzsche» de Martin Heidegger: confrontación con la metafísica occidental</h1>
+      <p class="standfirst">
+        Guía interactiva a través de las lecciones de Friburgo (1936–1940) y los ensayos de 1940–1946: por qué el pensamiento de Nietzsche no supera la metafísica tradicional, sino que la lleva a su consumación última.
+      </p>
+
+      <div class="kpi-grid">
+        <div class="figure-card">
+          <span class="index-num">01 / CONTEXTO</span>
+          <div class="value">1936–1946</div>
+          <p class="caption">Lecciones en la Universidad de Friburgo en Brisgovia (GA 47, 48) y ensayos complementarios (GA 50).</p>
+        </div>
+        <div class="figure-card">
+          <span class="index-num">02 / ARQUITECTURA</span>
+          <div class="value">5 Títulos</div>
+          <p class="caption">Voluntad de poder, nihilismo, eterno retorno, transvaloración de valores y superhombre.</p>
+        </div>
+        <div class="figure-card">
+          <span class="index-num">03 / TESIS CENTRAL</span>
+          <div class="value">Auseinandersetzung</div>
+          <p class="caption">Una confrontación filosófica entre el poder del ente y la pregunta olvidada por la verdad del ser.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- HUB DE NAVEGACIÓN Y PROGRESO -->
+    <section class="nav-hub" aria-label="Navegación conceptual y seguimiento de estudio">
+      <div class="progress-header">
+        <div>
+          <span class="index-num">RUTA CONCEPTUAL INTERACTIVA</span>
+          <h2 class="subhead" style="margin-top: var(--space-xs);">Recorre los seis núcleos de la obra</h2>
+        </div>
+        <div class="btn-row">
+          <a href="#nucleo-1" class="btn btn-primary">Iniciar recorrido</a>
+          <button type="button" class="btn" onclick="exportStudyGuide()">Exportar resumen (.txt)</button>
+        </div>
+      </div>
+
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-sm); flex-wrap: wrap;">
+          <span class="dossier-meta" id="progress-label">Progreso de lectura: 0 de 6 núcleos revisados</span>
+          <span class="dossier-meta" id="quiz-progress-label">Autoevaluación: 0 de 8 respondidas</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+
+      <nav class="nav-grid" aria-label="Núcleos temáticos">
+        <a href="#nucleo-1" class="nav-card" id="nav-card-1">
+          <div class="nav-card-top">
+            <span class="index-num">NÚCLEO 01</span>
+            <span class="tag-slate" id="nav-status-1">Pendiente</span>
+          </div>
+          <div class="nav-card-title">La voluntad de poder como esencia del ente</div>
+          <div class="nav-card-sub">Sobrepotenciación, afectos, pasiones y crítica al concepto clásico de voluntad.</div>
+        </a>
+
+        <a href="#nucleo-2" class="nav-card" id="nav-card-2">
+          <div class="nav-card-top">
+            <span class="index-num">NÚCLEO 02</span>
+            <span class="tag-slate" id="nav-status-2">Pendiente</span>
+          </div>
+          <div class="nav-card-title">El nihilismo como historia del ser</div>
+          <div class="nav-card-sub">Desvalorización de los fines, abandono del ente por el ser y maquinación.</div>
+        </a>
+
+        <a href="#nucleo-3" class="nav-card" id="nav-card-3">
+          <div class="nav-card-top">
+            <span class="index-num">NÚCLEO 03</span>
+            <span class="tag-slate" id="nav-status-3">Pendiente</span>
+          </div>
+          <div class="nav-card-title">El eterno retorno de lo mismo</div>
+          <div class="nav-card-sub">El instante, el gran silencio, la crítica al cientificismo y el amor fati.</div>
+        </a>
+
+        <a href="#nucleo-4" class="nav-card" id="nav-card-4">
+          <div class="nav-card-top">
+            <span class="index-num">NÚCLEO 04</span>
+            <span class="tag-slate" id="nav-status-4">Pendiente</span>
+          </div>
+          <div class="nav-card-title">La metafísica del artista</div>
+          <div class="nav-card-sub">Embriaguez corporal, las seis tesis sobre el arte y la pugna con Platón.</div>
+        </a>
+
+        <a href="#nucleo-5" class="nav-card" id="nav-card-5">
+          <div class="nav-card-top">
+            <span class="index-num">NÚCLEO 05</span>
+            <span class="tag-slate" id="nav-status-5">Pendiente</span>
+          </div>
+          <div class="nav-card-title">Transvaloración de todos los valores</div>
+          <div class="nav-card-sub">Esquematización del caos, mundo aparente y justicia como pensar valorativo.</div>
+        </a>
+
+        <a href="#nucleo-6" class="nav-card" id="nav-card-6">
+          <div class="nav-card-top">
+            <span class="index-num">NÚCLEO 06</span>
+            <span class="tag-slate" id="nav-status-6">Pendiente</span>
+          </div>
+          <div class="nav-card-title">Consumación de la metafísica occidental</div>
+          <div class="nav-card-sub">De Platón y Descartes al superhombre: inversión sin superación del ser.</div>
+        </a>
+      </nav>
+
+      <div class="nav-utility-row">
+        <a href="#contexto" class="btn">Cronología y edición</a>
+        <a href="#comparativos" class="btn">Cuadros comparativos</a>
+        <a href="#glosario" class="btn">Glosario buscable</a>
+        <a href="#preguntas" class="btn">Preguntas frecuentes</a>
+        <a href="#autoevaluacion" class="btn btn-secondary-accent">Ir a la autoevaluación</a>
+      </div>
+    </section>
+
+    <!-- CONTEXTO HISTÓRICO Y EDITORIAL -->
+    <section id="contexto" class="nucleus-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Contexto y Fuentes</span>
+          <span class="dossier-meta">Biografía, manuscritos y cursos de Friburgo</span>
+        </div>
+      </div>
+      <h2 class="section-title">De la trayectoria de Nietzsche a la lectura de Heidegger</h2>
+      <p class="standfirst">Antes de entrar en los seis núcleos sistemáticos, conviene situar la génesis póstuma de «La voluntad de poder» y las lecciones universitarias en que Heidegger articula su confrontación.</p>
+
+      <div class="interactive-panel">
+        <div class="panel-header">
+          <span class="index-num">EXPLORADOR HISTÓRICO-EDITORIAL</span>
+          <div class="btn-row compact">
+            <button type="button" class="btn" id="btn-ctx-nietzsche" aria-pressed="true" onclick="setContextTab('nietzsche')">Vida y planes de Nietzsche</button>
+            <button type="button" class="btn" id="btn-ctx-heidegger" aria-pressed="false" onclick="setContextTab('heidegger')">Cursos y textos de Heidegger</button>
+          </div>
+        </div>
+        <div id="context-output" class="panel-output"></div>
+      </div>
+    </section>
+
+    <!-- NÚCLEO 1: LA VOLUNTAD DE PODER -->
+    <section id="nucleo-1" class="nucleus-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Núcleo 01</span>
+          <span class="dossier-meta">Esencia del ente · Essentia</span>
+        </div>
+        <span class="tag-slate" id="badge-sec-1">Sin revisar</span>
+      </div>
+
+      <h2 class="section-title">La voluntad de poder expresa qué es el ente: un querer más allá de sí</h2>
+      <p class="standfirst">Heidegger rechaza separar «voluntad» y «poder» como piezas aisladas o reducir la noción a psicología, biología empírica o consigna política.</p>
+
+      <div class="split-wrapper">
+        <div class="split-layout">
+          <div>
+            <p class="prose">
+              Para Heidegger, la expresión «voluntad de poder» responde a la pregunta metafísica por la esencia (<em>essentia</em>) del ente. «Voluntad» por sí sola es una abstracción fonética; lo originariamente unitario es la voluntad de poder, cuya entraña es la <strong>sobrepotenciación</strong>: querer es siempre querer más allá de sí.
+            </p>
+            <p class="prose">
+              El poder no persigue metas «en sí» donde detenerse y descansar, pues detenerse negaría su propia esencia. Las metas funcionan como obstáculos y resistencias ya integradas en el círculo del poder para impulsar su acrecentamiento.
+            </p>
+            <ul class="key-points">
+              <li>
+                <span class="index-num">01</span>
+                <span><strong>Forma originaria del afecto:</strong> La voluntad incorpora el rasgo del asalto que nos saca de nosotros mismos y nos mantiene más allá de nosotros.</span>
+              </li>
+              <li>
+                <span class="index-num">02</span>
+                <span><strong>«Vida» en sentido metafísico:</strong> No designa un mero fenómeno biológico animal o vegetal, sino el nombre nietzscheano del ser concebido como devenir.</span>
+              </li>
+              <li>
+                <span class="index-num">03</span>
+                <span><strong>Crítica a las falsificaciones políticas:</strong> Las interpretaciones políticas de la voluntad de poder aplanan o eliminan su esencia metafísica.</span>
+              </li>
+            </ul>
+            <div class="example-callout">
+              <div class="label-line">Ejemplo del texto · Ira, alegría y lenguaje popular</div>
+              <p class="prose">
+                Heidegger distingue el afecto de la pasión: la ira «nos asalta» repentinamente; quien obra preso de ella «no se contiene» y «está fuera de sí de alegría». El odio, en cambio, no es un afecto súbito sino una pasión duradera, aunque a ambos los llamemos sentimientos.
+              </p>
+            </div>
+          </div>
+
+          <div class="interactive-panel">
+            <div class="panel-header">
+              <span class="index-num">COMPARADOR · VOLUNTAD Y AFECTIVIDAD</span>
+            </div>
+            <p style="margin:0; font-size:0.9375rem; color:var(--on-surface-variant);">
+              Selecciona una categoría para examinar cómo Heidegger delimita la voluntad de poder frente a los sentimientos y a la tradición metafísica occidental:
+            </p>
+            <div class="btn-row">
+              <button type="button" class="btn" id="btn-feel-afecto" aria-pressed="true" onclick="setFeelingMode('afecto')">Afecto (ira)</button>
+              <button type="button" class="btn" id="btn-feel-pasion" aria-pressed="false" onclick="setFeelingMode('pasion')">Pasión (odio)</button>
+              <button type="button" class="btn" id="btn-feel-tradicion" aria-pressed="false" onclick="setFeelingMode('tradicion')">Tradición occidental</button>
+              <button type="button" class="btn" id="btn-feel-poder" aria-pressed="false" onclick="setFeelingMode('poder')">Voluntad de poder</button>
+            </div>
+            <div id="feeling-output" class="panel-output"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-footer">
+        <button type="button" class="btn btn-done" id="review-btn-1" aria-pressed="false" onclick="toggleNucleusReview(1)">Marcar Núcleo 01 como revisado</button>
+        <a href="#nucleo-2" class="btn btn-primary">Continuar al Núcleo 02: Nihilismo</a>
+      </div>
+    </section>
+
+    <!-- NÚCLEO 2: EL NIHILISMO COMO HISTORIA DEL SER -->
+    <section id="nucleo-2" class="nucleus-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Núcleo 02</span>
+          <span class="dossier-meta">Historia del ser · Abandono y maquinación</span>
+        </div>
+        <span class="tag-slate" id="badge-sec-2">Sin revisar</span>
+      </div>
+
+      <h2 class="section-title">El nihilismo es el no pensar la esencia de la nada y el abandono del ente por el ser</h2>
+      <p class="standfirst">Frente a su uso como consigna polémica, Heidegger investiga el nihilismo como el movimiento subterráneo de la metafísica occidental desde su origen.</p>
+
+      <div class="split-wrapper">
+        <div class="split-layout split-wide-right">
+          <div>
+            <p class="prose">
+              El término «nihilismo» aparece filosóficamente en la carta de <strong>F. H. Jacobi a Fichte</strong> (otoño de 1799), donde Jacobi tacha al idealismo de nihilismo. Para Nietzsche, nombra el proceso histórico por el cual los valores supremos y fines incondicionados se desvalorizan al comprobarse inalcanzables en el devenir.
+            </p>
+            <p class="prose">
+              Surge así un estadio intermedio insoportable: el mundo del devenir es reconocido como el único real, pero parece carecer de meta y valor. Sin embargo, Heidegger profundiza más allá de esta historia de los valores: si del ente en cuanto tal «no hay nada» en el fondo, el nihilismo esencial consiste en <strong>el no pensar en la esencia de la nada</strong>.
+            </p>
+            <ul class="key-points">
+              <li>
+                <span class="index-num">01</span>
+                <span><strong>Nihilismo clásico:</strong> Nietzsche experimenta el nihilismo porque piensa de modo nihilista; su respuesta mediante nuevos valores sigue encerrada en el nihilismo.</span>
+              </li>
+              <li>
+                <span class="index-num">02</span>
+                <span><strong>La época del ser (εποχή):</strong> El ser se sustrae y retiene su verdad, dejando al ente en situación de abandono por parte del ser.</span>
+              </li>
+              <li>
+                <span class="index-num">03</span>
+                <span><strong>Maquinación (Machenschaft):</strong> La falta de sentido se sustituye por movilización total, calculabilidad y fabricación de «cosmovisiones» al servicio del poder.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="interactive-panel">
+            <div class="panel-header">
+              <span class="index-num">ESQUEMA · DOS DIAGNÓSTICOS DEL NIHILISMO</span>
+              <div class="btn-row compact">
+                <button type="button" class="btn" id="btn-nih-nietzsche" aria-pressed="true" onclick="setNihilismView('nietzsche')">Perspectiva de Nietzsche</button>
+                <button type="button" class="btn" id="btn-nih-heidegger" aria-pressed="false" onclick="setNihilismView('heidegger')">Lectura de Heidegger</button>
+              </div>
+            </div>
+
+            <div class="svg-box" style="min-height: 215px;">
+              <svg viewBox="0 0 540 200" role="img" aria-label="Diagrama comparativo de la estructura del nihilismo según Nietzsche y Heidegger">
+                <rect x="12" y="16" width="150" height="64" rx="4" fill="var(--surface-container)" stroke="var(--outline-variant)" stroke-width="1.5" />
+                <text x="87" y="42" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--secondary)" font-weight="600">01. DESVALORIZACIÓN</text>
+                <text x="87" y="61" text-anchor="middle" font-family="var(--font-body)" font-size="12" fill="var(--on-surface)">Fines incondicionados</text>
+
+                <line x1="162" y1="48" x2="195" y2="48" stroke="var(--outline)" stroke-width="1.5" />
+                <polygon points="195,43 203,48 195,53" fill="var(--outline)" />
+
+                <rect x="203" y="16" width="144" height="64" rx="4" fill="var(--tag-warm-bg)" stroke="var(--tertiary)" stroke-width="1.5" />
+                <text x="275" y="42" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--tertiary)" font-weight="600">02. ESTADIO MEDIO</text>
+                <text x="275" y="61" text-anchor="middle" font-family="var(--font-body)" font-size="12" fill="var(--on-surface)">Devenir sin meta</text>
+
+                <line x1="347" y1="48" x2="380" y2="48" stroke="var(--outline)" stroke-width="1.5" />
+                <polygon points="380,43 388,48 380,53" fill="var(--outline)" />
+
+                <rect x="388" y="16" width="140" height="64" rx="4" fill="var(--secondary-soft)" stroke="var(--secondary)" stroke-width="1.5" />
+                <text x="458" y="42" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--secondary)" font-weight="600">03. RESPUESTA</text>
+                <text x="458" y="61" text-anchor="middle" font-family="var(--font-body)" font-size="12" fill="var(--on-surface)">Nuevos valores</text>
+
+                <line x1="275" y1="80" x2="275" y2="112" stroke="var(--data-4)" stroke-width="1.5" stroke-dasharray="4 3" />
+                <polygon points="270,110 275,118 280,110" fill="var(--data-4)" />
+
+                <rect x="28" y="118" width="484" height="68" rx="4" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+                <text x="270" y="142" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--data-4)" font-weight="600">FONDO HISTÓRICO-ONTOLÓGICO (HEIDEGGER)</text>
+                <text x="270" y="162" text-anchor="middle" font-family="var(--font-body)" font-size="12.5" fill="var(--on-surface)">Sustracción del ser (εποχή) · Maquinación · Paso atrás hacia la verdad del ser</text>
+              </svg>
+            </div>
+
+            <div id="nihilism-output" class="panel-output"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-footer">
+        <button type="button" class="btn btn-done" id="review-btn-2" aria-pressed="false" onclick="toggleNucleusReview(2)">Marcar Núcleo 02 como revisado</button>
+        <a href="#nucleo-3" class="btn btn-primary">Continuar al Núcleo 03: Eterno retorno</a>
+      </div>
+    </section>
+
+    <!-- NÚCLEO 3: EL ETERNO RETORNO DE LO MISMO -->
+    <section id="nucleo-3" class="nucleus-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Núcleo 03</span>
+          <span class="dossier-meta">Cómo es el ente en su totalidad · Mediodía y eternidad</span>
+        </div>
+        <span class="tag-slate" id="badge-sec-3">Sin revisar</span>
+      </div>
+
+      <h2 class="section-title">El eterno retorno es el pensamiento más grave, no una hipótesis de la física</h2>
+      <p class="standfirst">Mientras la voluntad de poder dice qué es el ente, el eterno retorno de lo mismo dice cómo tiene que ser ese ente en su totalidad, concentrado en la decisión del instante.</p>
+
+      <div class="split-wrapper">
+        <div class="split-layout">
+          <div>
+            <p class="prose">
+              Nietzsche comunica este «pensamiento de los pensamientos» en tres obras escalonadas: al final de <em>La gaya ciencia</em> (que enlaza con el comienzo de <em>Así habló Zaratustra</em>), en el propio <em>Zaratustra</em> —donde el ocaso del maestro y el gran silencio honrado por el águila y la serpiente preparan la doctrina— y dos años después en <em>Más allá del bien y del mal</em>.
+            </p>
+            <p class="prose">
+              Su palabra clave temporal es <strong>«Mediodía y eternidad»</strong>: la convergencia de pasado y futuro en el <strong>instante</strong>. Por ello, Nietzsche lo llama también «creencia», no en un sentido religioso vulgar, sino porque el pensar fija al ente en un proyecto de ser que transforma al pensador en quien conoce, crea y ama.
+            </p>
+            <div class="example-callout">
+              <div class="label-line">Ejemplo del texto · El lago de Urmi y la hendidura mínima</div>
+              <p class="prose">
+                Al pasar de <em>La gaya ciencia</em> a <em>Zaratustra</em>, el lago «Urmi» cede lugar al «lago de su país natal». Ante el portal del instante, Zaratustra afronta la hendidura más estrecha: bajo las mismas palabras «todo es lo mismo» se ocultan dos abismos opuestos: «todo es indiferente» (nada vale la pena) frente a «nada es indiferente» (cada instante importa eternamente).
+              </p>
+            </div>
+          </div>
+
+          <div class="interactive-panel">
+            <div class="panel-header">
+              <span class="index-num">DIAGRAMA INTERACTIVO · EL ANILLO DEL INSTANTE</span>
+              <span class="tag-warm">Pulsa un nodo</span>
+            </div>
+
+            <div class="svg-box" style="min-height: 240px;">
+              <svg viewBox="0 0 460 230" role="img" aria-label="Esquema interactivo del eterno retorno, el instante y sus cuatro claves">
+                <circle cx="230" cy="115" r="78" fill="none" stroke="var(--data-context)" stroke-width="3" />
+                <circle cx="230" cy="115" r="78" fill="none" stroke="var(--secondary)" stroke-width="2" stroke-dasharray="10 6" />
+                <line x1="70" y1="115" x2="390" y2="115" stroke="var(--outline-variant)" stroke-width="1.5" />
+                <text x="230" y="110" text-anchor="middle" font-family="var(--font-headline)" font-size="15" font-weight="600" fill="var(--on-surface)">EL INSTANTE</text>
+                <text x="230" y="128" text-anchor="middle" font-family="var(--font-label)" font-size="10" fill="var(--secondary)">MEDIODÍA Y ETERNIDAD</text>
+
+                <g class="svg-node" tabindex="0" role="button" aria-label="Clave 1: Crítica al cientificismo" onclick="setReturnNode('ciencia')" onkeydown="if(event.key==='Enter'||event.key===' ')setReturnNode('ciencia')">
+                  <rect x="16" y="18" width="150" height="44" rx="4" fill="var(--surface-container-low)" stroke="var(--secondary)" stroke-width="1.5" />
+                  <text x="91" y="38" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--secondary)">01. ANTI-CIENTIFICISMO</text>
+                  <text x="91" y="53" text-anchor="middle" font-family="var(--font-body)" font-size="11" fill="var(--on-surface)">Finitud e infinitud</text>
+                </g>
+
+                <g class="svg-node" tabindex="0" role="button" aria-label="Clave 2: La hendidura mínima" onclick="setReturnNode('hendidura')" onkeydown="if(event.key==='Enter'||event.key===' ')setReturnNode('hendidura')">
+                  <rect x="294" y="18" width="150" height="44" rx="4" fill="var(--surface-container-low)" stroke="var(--primary-container)" stroke-width="2" />
+                  <text x="369" y="38" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--tertiary)">02. LA HENDIDURA</text>
+                  <text x="369" y="53" text-anchor="middle" font-family="var(--font-body)" font-size="11" fill="var(--on-surface)">Indiferencia vs. peso</text>
+                </g>
+
+                <g class="svg-node" tabindex="0" role="button" aria-label="Clave 3: Amor fati y libertad" onclick="setReturnNode('amorfati')" onkeydown="if(event.key==='Enter'||event.key===' ')setReturnNode('amorfati')">
+                  <rect x="16" y="168" width="150" height="44" rx="4" fill="var(--surface-container-low)" stroke="var(--data-3)" stroke-width="1.5" />
+                  <text x="91" y="188" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--positive)">03. AMOR FATI</text>
+                  <text x="91" y="203" text-anchor="middle" font-family="var(--font-body)" font-size="11" fill="var(--on-surface)">Giro de la necesidad</text>
+                </g>
+
+                <g class="svg-node" tabindex="0" role="button" aria-label="Clave 4: Humanización y ángulo" onclick="setReturnNode('angulo')" onkeydown="if(event.key==='Enter'||event.key===' ')setReturnNode('angulo')">
+                  <rect x="294" y="168" width="150" height="44" rx="4" fill="var(--surface-container-low)" stroke="var(--data-4)" stroke-width="1.5" />
+                  <text x="369" y="188" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="600" fill="var(--data-4)">04. ESTAR EN EL ÁNGULO</text>
+                  <text x="369" y="203" text-anchor="middle" font-family="var(--font-body)" font-size="11" fill="var(--on-surface)">Naturaleza y hombre</text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="btn-row compact">
+              <button type="button" class="btn" id="btn-ret-ciencia" aria-pressed="true" onclick="setReturnNode('ciencia')">01. Cientificismo</button>
+              <button type="button" class="btn" id="btn-ret-hendidura" aria-pressed="false" onclick="setReturnNode('hendidura')">02. Hendidura</button>
+              <button type="button" class="btn" id="btn-ret-amorfati" aria-pressed="false" onclick="setReturnNode('amorfati')">03. Amor fati</button>
+              <button type="button" class="btn" id="btn-ret-angulo" aria-pressed="false" onclick="setReturnNode('angulo')">04. Ángulo</button>
+            </div>
+            <div id="return-output" class="panel-output"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-footer">
+        <button type="button" class="btn btn-done" id="review-btn-3" aria-pressed="false" onclick="toggleNucleusReview(3)">Marcar Núcleo 03 como revisado</button>
+        <a href="#nucleo-4" class="btn btn-primary">Continuar al Núcleo 04: Metafísica del artista</a>
+      </div>
+    </section>
+
+    <!-- NÚCLEO 4: LA METAFÍSICA DEL ARTISTA -->
+    <section id="nucleo-4" class="nucleus-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Núcleo 04</span>
+          <span class="dossier-meta">Arte, embriaguez y verdad · Platón vs. Nietzsche</span>
+        </div>
+        <span class="tag-slate" id="badge-sec-4">Sin revisar</span>
+      </div>
+
+      <h2 class="section-title">El arte como gran estimulante de la vida vale más que la verdad</h2>
+      <p class="standfirst">Heidegger unifica la estética fisiológica de Nietzsche —la embriaguez corporal— con su misión metafísica: ser el contramovimiento por excelencia frente al nihilismo.</p>
+
+      <div class="split-wrapper">
+        <div class="split-layout">
+          <div>
+            <p class="prose">
+              La doctrina nietzscheana del arte no puede reducirse al contraste escolar entre lo apolíneo y lo dionisíaco: ambos son <strong>tipos de embriaguez</strong>. Y no vivimos primero para tener luego un cuerpo como aparato, sino que vivimos en la medida en que <strong>vivimos corporalmente</strong> (<em>leiben</em>). Por eso la auténtica embriaguez estética —un temple corporal que nos eleva más allá de nosotros— es lo opuesto a una mera «borrachera» que embota y encierra.
+            </p>
+            <p class="prose">
+              Contra la mala lectura que Schopenhauer hizo del agrado «desinteresado» de Kant (donde «interés» significa querer poseer y usar algo, <em>mihi interest</em>), Nietzsche sostiene que juzgar «esto es bello» es una afirmación vital: el presentimiento de aquello que seríamos capaces de enfrentar como peligro y problema.
+            </p>
+            <div class="example-callout">
+              <div class="label-line">Ejemplo del texto · Las camas de Platón y la hendidura entre rocas</div>
+              <p class="prose">
+                En <em>República</em> (596 b), muchas camas y mesas (<em>τά σκεύη</em>) fabricadas por el obrero (<em>δημιουργός</em>, <em>Stellmacher</em>) para el pueblo (<em>δήμος</em>) remiten a una única <em>ιδέα</em> consistente. Aunque la imitación (<em>μίμησις</em>) queda subordinada a la idea, el amor (<em>έρως</em>) hacia la <em>ιδέα του καλού</em> —lo que más brilla, <em>εκφανέστατον</em>— muestra que entre arte y verdad no hay una mera separación inerte como una hendidura entre rocas (<em>Felsspalt</em>), sino una discrepancia (<em>Zwiespalt</em>) nacida de una concordancia previa.
+              </p>
+            </div>
+          </div>
+
+          <div class="interactive-panel">
+            <div class="panel-header">
+              <span class="index-num">PROPOSICIONES SOBRE EL ARTE (N. 808 Y COMPLEMENTARIAS)</span>
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn" id="btn-art-0" aria-pressed="true" onclick="setArtProp(0)">Tesis fundamental</button>
+              <button type="button" class="btn" id="btn-art-1" aria-pressed="false" onclick="setArtProp(1)">Prop. 1</button>
+              <button type="button" class="btn" id="btn-art-2" aria-pressed="false" onclick="setArtProp(2)">Prop. 2</button>
+              <button type="button" class="btn" id="btn-art-3" aria-pressed="false" onclick="setArtProp(3)">Prop. 3</button>
+              <button type="button" class="btn" id="btn-art-4" aria-pressed="false" onclick="setArtProp(4)">Prop. 4</button>
+              <button type="button" class="btn" id="btn-art-5" aria-pressed="false" onclick="setArtProp(5)">Prop. 5</button>
+            </div>
+            <div id="art-output" class="panel-output"></div>
+            <div class="aside-box" style="margin-top: var(--space-xs);">
+              <span class="index-num">ÓPTICA PERSPECTIVISTA</span>
+              <p style="margin: var(--space-xs) 0 0 0; font-size: 0.92rem;">
+                «Ver la ciencia desde la óptica del artista, y el arte, en cambio, desde la óptica de la vida»: aquí «ciencia» significa el saber como relación con la verdad, y «vida» designa el ser como devenir.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-footer">
+        <button type="button" class="btn btn-done" id="review-btn-4" aria-pressed="false" onclick="toggleNucleusReview(4)">Marcar Núcleo 04 como revisado</button>
+        <a href="#nucleo-5" class="btn btn-primary">Continuar al Núcleo 05: Transvaloración</a>
+      </div>
+    </section>
+
+    <!-- NÚCLEO 5: LA TRANSVALORACIÓN DE TODOS LOS VALORES -->
+    <section id="nucleo-5" class="nucleus-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Núcleo 05</span>
+          <span class="dossier-meta">Conocimiento, caos y valor · «Más allá del bien y del mal»</span>
+        </div>
+        <span class="tag-slate" id="badge-sec-5">Sin revisar</span>
+      </div>
+
+      <h2 class="section-title">Conocer es esquematizar un caos según necesidades prácticas de la vida</h2>
+      <p class="standfirst">En los planes finales de otoño de 1888, la «transvaloración de todos los valores» desplaza a «La voluntad de poder» como título principal y reconduce verdad y apariencia a relaciones de valor.</p>
+
+      <div class="split-wrapper">
+        <div class="split-layout">
+          <div>
+            <p class="prose">
+              Para la tradición occidental, verdad equivale a corrección (<em>Richtigkeit</em>): adecuación del representar al ente (<em>adaequatio</em>, <em>όμοίωσις</em>). Lejos de eliminar sin más este concepto, Nietzsche lo consolida pragmáticamente: tener-por-verdadero pertenece a la esencia de la «vida», que necesita fijar algo estable e idéntico para conservarse.
+            </p>
+            <p class="prose">
+              Así, en el fragmento n. 507, Nietzsche reconduce la oposición platónica entre «mundo verdadero» y «mundo aparente» a <strong>relaciones de valor</strong>: proyectamos nuestras condiciones de conservación como predicados del ser en general. Incluso la «finalidad» deja de ser causa (<em>causa finalis</em>) para revelarse como efecto, y «moral» designa tanto todo sistema de condiciones vitales como la moral platónico-cristiana de valores absolutos frente a la cual Nietzsche se llama «inmoralista».
+            </p>
+            <ul class="key-points">
+              <li>
+                <span class="index-num">01</span>
+                <span><strong>Verdad vs. Arte:</strong> La verdad fija el devenir en esquemas estables; la apariencia artística transfigura y abre posibilidades superiores de vida.</span>
+              </li>
+              <li>
+                <span class="index-num">02</span>
+                <span><strong>El «contar» esencial:</strong> Todo cálculo numérico descansa en un estimar previo (contar con algo y poner condiciones de valor).</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="interactive-panel">
+            <div class="panel-header">
+              <span class="index-num">SECUENCIA · DEL CAOS A LA POSICIÓN DE VALORES</span>
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn" id="btn-val-1" aria-pressed="true" onclick="setValueStep(1)">1. Esquematización</button>
+              <button type="button" class="btn" id="btn-val-2" aria-pressed="false" onclick="setValueStep(2)">2. No contradicción</button>
+              <button type="button" class="btn" id="btn-val-3" aria-pressed="false" onclick="setValueStep(3)">3. Justicia pensante</button>
+              <button type="button" class="btn" id="btn-val-4" aria-pressed="false" onclick="setValueStep(4)">4. Mundo aparente</button>
+            </div>
+            <div id="value-output" class="panel-output"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-footer">
+        <button type="button" class="btn btn-done" id="review-btn-5" aria-pressed="false" onclick="toggleNucleusReview(5)">Marcar Núcleo 05 como revisado</button>
+        <a href="#nucleo-6" class="btn btn-primary">Continuar al Núcleo 06: Consumación</a>
+      </div>
+    </section>
+
+    <!-- NÚCLEO 6: LA CONSUMACIÓN DE LA METAFÍSICA OCCIDENTAL -->
+    <section id="nucleo-6" class="nucleus-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Núcleo 06</span>
+          <span class="dossier-meta">Historia de la metafísica · Subjetividad acabada y superhombre</span>
+        </div>
+        <span class="tag-slate" id="badge-sec-6">Sin revisar</span>
+      </div>
+
+      <h2 class="section-title">Nietzsche consuma la metafísica occidental al absolutizar la subjetividad animal</h2>
+      <p class="standfirst">Invertir el platonismo no equivale a salir de la metafísica: Nietzsche sigue preso de la distinción ser/devenir y de la subjetividad inaugurada por Descartes.</p>
+
+      <div class="split-wrapper">
+        <div class="split-layout split-wide-right">
+          <div>
+            <p class="prose">
+              Toda metafísica piensa la verdad sobre el ente en cuanto tal en su totalidad y descansa en una distinción cuyo origen nunca interroga: el <strong>qué-es</strong> (<em>τό τι έστιν</em>, <em>essentia</em>) frente al <strong>que-es</strong> (<em>τό έστιν</em>, <em>existentia</em>), además de la diferencia entre ser y ente. El ser actúa como <em>a priori</em> (<em>πρότερον τη φύσει</em>), inicialmente pensado en Grecia como <em>φύσις</em> y <em>αλήθεια</em> (desocultamiento).
+            </p>
+            <p class="prose">
+              En la modernidad, la verdad se convierte en <strong>certeza</strong> (<em>Gewissheit</em>) y el ser en <strong>representatividad</strong> (<em>ego cogito, ergo sum</em>). Mientras Hegel lleva a validez incondicionada la <em>rationalitas</em>, Nietzsche absolutiza la <em>animalitas</em> (el vivir corporal). Así, el <strong>superhombre</strong> (<em>Übermensch</em>) no es un ideal suprasensible ni un individuo biológico futuro, sino el sujeto supremo de la subjetividad acabada: el puro ejercicio de poder de la voluntad de poder y el «sentido de la tierra».
+            </p>
+            <div class="example-callout">
+              <div class="label-line">Ejemplos del texto · Igualdad de colores y el «es» de Goethe</div>
+              <p class="prose">
+                Solo podemos examinar dos cosas coloreadas como iguales si previamente se nos manifiesta la «igualdad» (el ser igual). De modo análogo, en los versos de Goethe («Sobre todas las cimas / es la paz»), el «es» no señala una mera polisemia gramatical, sino la riqueza simple e impensada del ser, reducida en Nietzsche al «último humo de la realidad que se evapora».
+              </p>
+            </div>
+          </div>
+
+          <div class="interactive-panel">
+            <div class="panel-header">
+              <span class="index-num">INSPECTOR HISTÓRICO · POSICIONES METAFÍSICAS</span>
+              <span class="tag-warm">Selecciona una época</span>
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn" id="btn-th-grecia" aria-pressed="true" onclick="setThinker('grecia')">Grecia / Protágoras</button>
+              <button type="button" class="btn" id="btn-th-platon" aria-pressed="false" onclick="setThinker('platon')">Platón</button>
+              <button type="button" class="btn" id="btn-th-aristoteles" aria-pressed="false" onclick="setThinker('aristoteles')">Aristóteles</button>
+              <button type="button" class="btn" id="btn-th-descartes" aria-pressed="false" onclick="setThinker('descartes')">Descartes</button>
+              <button type="button" class="btn" id="btn-th-leibniz" aria-pressed="false" onclick="setThinker('leibniz')">Leibniz y Kant</button>
+              <button type="button" class="btn" id="btn-th-hegel" aria-pressed="false" onclick="setThinker('hegel')">Hegel</button>
+              <button type="button" class="btn" id="btn-th-nietzsche" aria-pressed="false" onclick="setThinker('nietzsche')">Nietzsche</button>
+            </div>
+            <div id="thinker-output" class="panel-output"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-footer">
+        <button type="button" class="btn btn-done" id="review-btn-6" aria-pressed="false" onclick="toggleNucleusReview(6)">Marcar Núcleo 06 como revisado</button>
+        <a href="#comparativos" class="btn btn-primary">Ver cuadros comparativos</a>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 07: CUADROS COMPARATIVOS -->
+    <section id="comparativos" class="nucleus-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Cuadros Comparativos</span>
+          <span class="dossier-meta">Síntesis histórica y conceptual</span>
+        </div>
+      </div>
+      <h2 class="section-title">Matrices comparativas de la confrontación metafísica</h2>
+      <p class="standfirst">Contrasta las épocas de la historia del ser y las inversiones conceptuales entre el platonismo, Nietzsche y la lectura ontológica de Heidegger.</p>
+
+      <div class="interactive-panel">
+        <div class="panel-header">
+          <span class="index-num">CUADRO 01 · POSICIONES METAFÍSICAS FUNDAMENTALES</span>
+          <div class="btn-row compact">
+            <button type="button" class="btn" id="btn-tbl-all" aria-pressed="true" onclick="filterEraTable('all')">Todas las épocas</button>
+            <button type="button" class="btn" id="btn-tbl-ant" aria-pressed="false" onclick="filterEraTable('antigua')">Antigüedad griega</button>
+            <button type="button" class="btn" id="btn-tbl-mod" aria-pressed="false" onclick="filterEraTable('moderna')">Subjetividad moderna</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="briefing-table">
+            <thead>
+              <tr>
+                <th>Pensador / Época</th>
+                <th>Determinación del Ser</th>
+                <th>Esencia de la Verdad</th>
+                <th>Qué-es / Que-es y Hombre</th>
+              </tr>
+            </thead>
+            <tbody id="era-table-body">
+              <tr data-era="antigua">
+                <td class="col-key">Grecia inicial y Protágoras</td>
+                <td><em>Φύσις</em>: surgir-abriendo-desde-sí y revelarse en lo abierto.</td>
+                <td><em>Αλήθεια</em>: desocultamiento y presencia de lo abierto próximo.</td>
+                <td>El hombre es medida dentro del desocultamiento; aún no es sujeto cartesiano juez de objetos.</td>
+              </tr>
+              <tr data-era="antigua">
+                <td class="col-key">Platón</td>
+                <td><em>Ιδέα</em> (<em>είδος</em>), el aspecto consistente: <em>όντως όν</em> frente al devenir (<em>μή όν</em>).</td>
+                <td>Captación de la pura presencia del aspecto; lo suprasensible como lo verdaderamente ente.</td>
+                <td>Preeminencia del qué-es (<em>essentia</em>); <em>έρως</em> hacia la <em>ιδέα του καλού</em>.</td>
+              </tr>
+              <tr data-era="antigua">
+                <td class="col-key">Aristóteles</td>
+                <td><em>Ουσία</em> como <em>ενέργεια</em> del ente singular (<em>τόδε τι</em>).</td>
+                <td><em>Κατηγορία</em> (interpelación del ente en el <em>λόγος</em>); principio de no contradicción como saber del ente en cuanto ente.</td>
+                <td>Preeminencia de la <em>existentia</em> (<em>ενέργεια</em>) respecto del <em>είδος</em>.</td>
+              </tr>
+              <tr data-era="moderna">
+                <td class="col-key">Descartes</td>
+                <td>Representatividad (<em>cogitare</em>); el hombre como <em>subiectum</em> (<em>ego cogito, ergo sum</em>).</td>
+                <td>Certeza (<em>Gewissheit</em>): saber consciente de sí que se autoasegura.</td>
+                <td>Nacimiento de la «cultura» como estructura de autoaseguramiento humano.</td>
+              </tr>
+              <tr data-era="moderna">
+                <td class="col-key">Leibniz y Kant</td>
+                <td><em>Vis primitiva activa</em> (mónada apetente-representante) y condición de posibilidad de la experiencia/objetos.</td>
+                <td>Representatividad y objetividad fundada en la subjetividad trascendental.</td>
+                <td>Fusión progresiva de objetividad y eficacia (<em>actualitas</em>).</td>
+              </tr>
+              <tr data-era="moderna">
+                <td class="col-key">Hegel</td>
+                <td>Realidad efectiva como voluntad que sabe («razón» y «espíritu»).</td>
+                <td>Certeza absoluta en el despliegue especulativo-dialéctico del sistema.</td>
+                <td>Absolutización de la <em>rationalitas</em> del <em>animal rationale</em>.</td>
+              </tr>
+              <tr data-era="moderna">
+                <td class="col-key">Nietzsche</td>
+                <td>Voluntad de poder (<em>essentia</em>) y eterno retorno de lo mismo (<em>existentia</em> en totalidad); ser como devenir / vida.</td>
+                <td>Fijación perspectivista necesaria para conservar la vida (superada en valor por el arte).</td>
+                <td>Absolutización de la <em>animalitas</em>; el superhombre como sujeto de la subjetividad acabada.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="interactive-panel">
+        <div class="panel-header">
+          <span class="index-num">CUADRO 02 · TENSIONES CONCEPTUALES EN LA CONFRONTACIÓN</span>
+        </div>
+        <div class="table-wrap">
+          <table class="briefing-table">
+            <thead>
+              <tr>
+                <th>Eje de análisis</th>
+                <th>Metafísica tradicional / Platonismo</th>
+                <th>Inversión de Nietzsche</th>
+                <th>Diagnóstico de Heidegger</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-key">Mundo verdadero y aparente</td>
+                <td>Lo suprasensible (<em>ιδέα</em>) es lo consistente y verdadero; lo sensible es no-ente.</td>
+                <td>Abolición de lo suprasensible; el devenir sensible es el único mundo y la oposición se reconduce a valor.</td>
+                <td>Al invertir el esquema platónico, Nietzsche sigue pensando «ser» como fijeza frente a «devenir».</td>
+              </tr>
+              <tr>
+                <td class="col-key">Arte y verdad</td>
+                <td>En Platón, el arte imita lo sensible (<em>μίμησις</em>), subordinado al saber verdadero (con mediación de la belleza).</td>
+                <td>El arte (embriaguez y transfiguración) es el gran estimulante de la vida y vale más que la verdad fijadora.</td>
+                <td>La estética sigue presa de la subjetividad y de la relación metafísica entre sensible y suprasensible.</td>
+              </tr>
+              <tr>
+                <td class="col-key">Sentido del nihilismo</td>
+                <td>Se proyectan fines incondicionados y «transmundos» por encima de la vida terrenal.</td>
+                <td>Los valores supremos se desvalorizan; se busca superarlo mediante la transvaloración y nuevos valores.</td>
+                <td>El nihilismo es el abandono del ente por el ser y el no pensar la nada; poner nuevos valores no lo supera.</td>
+              </tr>
+              <tr>
+                <td class="col-key">Esencia de la voluntad</td>
+                <td>Apetito guiado por la representación intelectual (<em>appetitus intellectualis</em> / conceptos).</td>
+                <td>Voluntad de poder como forma originaria del afecto y sobrepotenciación más allá de sí.</td>
+                <td>Pertenece al despliegue moderno de la <em>actualitas</em> como voluntad de voluntad dentro de la maquinación.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 08: GLOSARIO BUSCABLE -->
+    <section id="glosario" class="nucleus-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Glosario Conceptual</span>
+          <span class="dossier-meta">Términos clave en español, alemán, griego y latín</span>
+        </div>
+      </div>
+      <h2 class="section-title">Glosario buscable de la obra</h2>
+      <p class="standfirst">Filtra por núcleo temático o busca directamente cualquier concepto filosófico, vocablo alemán o término griego citado en las lecciones.</p>
+
+      <div class="filter-toolbar">
+        <div class="field-group">
+          <label for="glossary-search" class="field-label">Buscar término, vocablo original o definición</label>
+          <input type="search" id="glossary-search" class="text-input" placeholder="Ej. embriaguez, Machenschaft, αλήθεια, superhombre..." oninput="filterGlossary()">
+        </div>
+
+        <div class="field-group">
+          <span class="field-label">Filtrar por núcleo conceptual</span>
+          <div class="btn-row compact">
+            <button type="button" class="btn" id="btn-gl-all" aria-pressed="true" onclick="setGlossaryCat('all')">Todos</button>
+            <button type="button" class="btn" id="btn-gl-voluntad" aria-pressed="false" onclick="setGlossaryCat('voluntad')">Voluntad</button>
+            <button type="button" class="btn" id="btn-gl-nihilismo" aria-pressed="false" onclick="setGlossaryCat('nihilismo')">Nihilismo y Ser</button>
+            <button type="button" class="btn" id="btn-gl-retorno" aria-pressed="false" onclick="setGlossaryCat('retorno')">Eterno retorno</button>
+            <button type="button" class="btn" id="btn-gl-arte" aria-pressed="false" onclick="setGlossaryCat('arte')">Arte y Verdad</button>
+            <button type="button" class="btn" id="btn-gl-metafisica" aria-pressed="false" onclick="setGlossaryCat('metafisica')">Metafísica</button>
+          </div>
+        </div>
+
+        <div class="dossier-meta" id="glossary-count">Mostrando 18 de 18 conceptos</div>
+      </div>
+
+      <div id="glossary-grid" class="card-grid"></div>
+      <div id="glossary-empty" class="aside-box" style="display: none;">
+        <p class="prose"><strong>No se encontraron conceptos con ese criterio.</strong> Prueba con otra palabra clave o restablece los filtros para ver todo el vocabulario de la obra.</p>
+        <div style="margin-top: var(--space-sm);">
+          <button type="button" class="btn btn-primary" onclick="resetGlossaryFilters()">Restablecer filtros</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 09: PREGUNTAS FRECUENTES -->
+    <section id="preguntas" class="nucleus-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Preguntas Frecuentes</span>
+          <span class="dossier-meta">Aclaraciones críticas desde el texto</span>
+        </div>
+      </div>
+      <h2 class="section-title">Dudas habituales y malentendidos refutados por Heidegger</h2>
+      <p class="standfirst">Respuestas directas a las confusiones más extendidas al leer a Nietzsche y la interpretación heideggeriana.</p>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>
+            <span>¿Es «La voluntad de poder» un libro terminado y publicado por Nietzsche?</span>
+            <span class="faq-chevron">DESPLEGAR</span>
+          </summary>
+          <div class="faq-body">
+            No. Heidegger aclara expresamente que ese libro no es una «obra» de Nietzsche, aunque contiene únicamente textos suyos y sigue un plan general trazado por él. Es una recopilación póstuma de notas escritas entre 1882 y 1888, publicada primero en 1901 (tomo XV), ampliada en 1906 e integrada en 1911 en la Edición en Gran Octavo (tomos XV y XVI). Además, en los planes del otoño de 1888 «La voluntad de poder» volvió a ceder el título principal a «Transvaloración de todos los valores».
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>¿Son las pruebas del eterno retorno demostraciones científico-naturales o físicas?</span>
+            <span class="faq-chevron">DESPLEGAR</span>
+          </summary>
+          <div class="faq-body">
+            No. Tanto quienes las rechazan como fracasos lógicos cuanto quienes las aplauden por supuestamente anticipar la física moderna comparten el mismo prejuicio: leerlas como fórmulas físico-matemáticas. Según Heidegger, se trata del despliegue analítico de las tesis co-puestas en el proyecto metafísico del ente en su totalidad como eterno caos de la necesidad.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>¿Por qué distingue Heidegger entre embriaguez estética y «borrachera»?</span>
+            <span class="faq-chevron">DESPLEGAR</span>
+          </summary>
+          <div class="faq-body">
+            Porque todo sentimiento es un temple de ánimo que vive corporalmente (<em>leiben</em>). La embriaguez auténtica —de la que lo apolíneo y lo dionisíaco son dos tipos— es el estado estético que nos eleva junto a nosotros y más allá de nosotros mismos. Quien ha bebido mucho «tiene» una borrachera que precisamente impide un estado creador semejante.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>¿Defiende Nietzsche un biologismo o una doctrina política del poder?</span>
+            <span class="faq-chevron">DESPLEGAR</span>
+          </summary>
+          <div class="faq-body">
+            Heidegger advierte que hablar de «biologismo» sin más desconoce que «vida» es para Nietzsche un título metafísico para el ser como devenir, no una mera extrapolación de la biología animal o vegetal. Asimismo, señala que las interpretaciones políticas —ya alimenten el odio o el supuesto servicio a lo alemán— aplanan y eliminan la esencia metafísica de la voluntad de poder.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>¿Quién o qué es el «superhombre» según la lectura de Heidegger?</span>
+            <span class="faq-chevron">DESPLEGAR</span>
+          </summary>
+          <div class="faq-body">
+            No es un ideal suprasensible ni una persona biológica que vaya a aparecer en algún momento futuro. Tampoco nace de la «arrogancia» personal de Nietzsche. En cuanto sujeto supremo de la subjetividad acabada, el superhombre es el puro ejercicio de poder de la voluntad de poder: la fijación del «animal aún no fijado» que asume el «sentido de la tierra» tras el derrumbe de lo suprasensible.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>¿Logra Nietzsche superar la metafísica occidental al invertir el platonismo?</span>
+            <span class="faq-chevron">DESPLEGAR</span>
+          </summary>
+          <div class="faq-body">
+            No. Al invertir el platonismo (afirmando el devenir y lo sensible frente a lo suprasensible), Nietzsche permanece atrapado dentro del viejo esquema platónico de «ser y devenir» y de la subjetividad moderna inaugurada por Descartes. Por eso su pensamiento es la consumación extrema —y en cierto modo el final— de la metafísica occidental, no su superación ni otro inicio.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>¿Por qué afirma Heidegger que el pensamiento después del «Zaratustra» no quedó estancado?</span>
+            <span class="faq-chevron">DESPLEGAR</span>
+          </summary>
+          <div class="faq-body">
+            Porque categorías como «ir adelante» o «retroceder» pertenecen al progreso calculable de la ciencia y la técnica, no a la filosofía ni al arte. Entre 1884 y 1889 el pensamiento de Nietzsche experimentó transformaciones esenciales y publicó la tercera comunicación del eterno retorno en <em>Más allá del bien y del mal</em>, subtitulada precisamente «Preludio de una filosofía del futuro».
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- AUTOEVALUACIÓN INTERACTIVA -->
+    <section id="autoevaluacion" class="nucleus-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Autoevaluación</span>
+          <span class="dossier-meta">8 preguntas diagnósticas con retroalimentación inmediata</span>
+        </div>
+      </div>
+      <h2 class="section-title">Comprueba tu comprensión de la obra</h2>
+      <p class="standfirst">Responde las cuestiones basadas directamente en los pasajes analizados. Tu progreso y puntuación se guardan automáticamente.</p>
+
+      <div class="interactive-panel">
+        <div class="panel-header">
+          <div>
+            <span class="index-num">RESULTADO GLOBAL</span>
+            <div style="font-family: var(--font-headline); font-size: 1.35rem; font-weight: 600;" id="quiz-score-display">0 de 8 aciertos (0 respondidas)</div>
+          </div>
+          <button type="button" class="btn" id="btn-quiz-reset" onclick="handleQuizReset(this)">Reiniciar autoevaluación</button>
+        </div>
+
+        <div id="quiz-container" style="display: grid; gap: var(--space-lg);"></div>
+      </div>
+    </section>
+
+    <footer class="source-footer">
+      <div>
+        <strong>Fuente base:</strong> Martin Heidegger, <em>Nietzsche</em> (Lecciones impartidas en la Universidad de Friburgo en Brisgovia entre 1936 y 1940, y ensayos de 1940–1946; referencias internas a GA 47, GA 48, GA 50 y fragmentos de Nietzsche citados en la obra).
+      </div>
+      <div class="btn-row compact">
+        <a href="#inicio" class="btn">Volver al inicio</a>
+      </div>
+    </footer>
+  </main>
+
+  <api-shim></api-shim>
+  <script>
+    const appState = {
+      reviewedNuclei: [],
+      quizAnswers: {},
+      contextTab: 'nietzsche',
+      feelingMode: 'afecto',
+      nihilismView: 'nietzsche',
+      returnNode: 'ciencia',
+      artProp: 0,
+      valueStep: 1,
+      thinker: 'grecia',
+      eraFilter: 'all',
+      glossaryCat: 'all',
+      glossaryQuery: ''
+    };
+
+    const CONTEXT_DATA = {
+      nietzsche: {
+        title: `Hechos biográficos y génesis de «La voluntad de poder»`,
+        items: [
+          `1844: Nace en el hogar de un pastor protestante.`,
+          `1865 (Leipzig): Conoce «El mundo como voluntad y representación» de Schopenhauer.`,
+          `Noviembre de 1868: Traba contacto personal con Richard Wagner (junto al mundo griego, Schopenhauer y Wagner fueron sus fuerzas determinantes; en los últimos años dejó lugar en cierto modo a lo romano).`,
+          `Primavera de 1869: Catedrático de filología clásica en Basilea antes de cumplir 25 años y antes de doctorarse; amistad con Jakob Burckhardt y Overbeck (trato de colega con Bachofen).`,
+          `1879: Abandona la cátedra. En 1882 redacta las primeras notas sobre el eterno retorno; el 20 de diciembre de 1887 escribe a Carl von Gersdorff que su vida está «como en pleno mediodía» en medio de un inmenso desierto.`,
+          `Enero de 1889 – 25 de agosto de 1900: Se hunde en la locura y fallece. Sus notas (1882–1888) fueron reunidas póstumamente bajo el título «La voluntad de poder» en 1901 (tomo XV), ampliadas en 1906 e integradas en 1911 (tomos XV y XVI).`
+        ]
+      },
+      heidegger: {
+        title: `Estructura de las lecciones y ensayos de Heidegger (1936–1946)`,
+        items: [
+          `1936–1940 (Friburgo de Brisgovia): Lecciones universitarias concebidas como una confrontación (Auseinandersetzung) que prepare al pensar para penetrar en la causa en litigio.`,
+          `Segundo trimestre de 1940: Curso sobre «Nietzsche: el nihilismo europeo» (publicado en GA 48; base de la parte V, segunda del segundo tomo de Nietzsche).`,
+          `Agosto de 1940: Manuscrito «La metafísica de Nietzsche», pensado para el semestre de invierno 1941–1942 (sustituido finalmente por el curso sobre «Andenken» de Hölderlin); pasó a la parte VI de Nietzsche y al tomo 50 de GA.`,
+          `1940–1946: Ensayos que amplían el camino de confrontación abierto por las lecciones (incluyendo referencias en las dos primeras clases de «Pensar y poetizar», invierno 1944–1945).`,
+          `Los cinco títulos capitales que articulan la lectura: voluntad de poder, nihilismo, eterno retorno de lo mismo, transvaloración de todos los valores y superhombre.`
+        ]
+      }
+    };
+
+    const FEELING_DATA = {
+      afecto: {
+        tag: `Afecto · Asalto repentino`,
+        title: `La ira como ejemplo de afecto`,
+        body: `No podemos proponernos ni decidir la ira: nos asalta, nos ataca y nos «afecta» de forma súbita e impetuosa. En la excitación desaparece el contenerse y se transforma en explosión («está fuera de sí de alegría»); ya no somos dueños de nosotros mismos.`
+      },
+      pasion: {
+        tag: `Pasión · Constancia duradera`,
+        title: `El odio frente a la ira`,
+        body: `El odio no es simplemente otro afecto distinto de la ira: no es un afecto, sino una pasión. A ambos los llamamos sentimientos, pero Heidegger exige distinguir el asalto pasajero del afecto de la estructura sostenida de la pasión para comprender la voluntad.`
+      },
+      tradicion: {
+        tag: `Tradición occidental · Deseo y representación`,
+        title: `De Aristóteles a Kant`,
+        body: `Desde Aristóteles (deseo y entendimiento deliberativo), la voluntad se concibió como apetito unido al representar: appetitus intellectualis en la Edad Media (con tendencia idealista en Tomás de Aquino), perceptio y appetitus en Leibniz, y facultad desiderativa según conceptos en Kant.`
+      },
+      poder: {
+        tag: `Nietzsche · Sobrepotenciación`,
+        title: `La voluntad de poder como esencia unitaria`,
+        body: `Querer es querer más allá de sí. Nietzsche integra el estar-más-allá-de-sí del afecto y dice que la voluntad de poder es su «forma originaria». «Voluntad» y «poder» no existen separados: la voluntad es el puro asaltar y la sobrepotenciación frente a resistencias.`
+      }
+    };
+
+    const NIHILISM_DATA = {
+      nietzsche: {
+        tag: `Historia de los valores supremos`,
+        title: `Desvalorización y estadio intermedio`,
+        body: `Para Nietzsche, el nihilismo acontece cuando los «fines» incondicionados nunca se alcanzan en el devenir y la búsqueda de un sentido único resulta engañosa. El mundo del devenir no puede negarse como real, pero aparece privado de meta y orientación. Nietzsche propone superarlo mediante la transvaloración de todos los valores.`
+      },
+      heidegger: {
+        tag: `Historia del ser · Nihilismo clásico`,
+        title: `Abandono del ente por el ser y maquinación`,
+        body: `Heidegger señala que Nietzsche reconoce el nihilismo porque él mismo piensa de modo nihilista: no pregunta por la esencia de la nada. El nihilismo esencial es la sustracción del ser (εποχή), que abandona al ente y da paso a la maquinación (Machenschaft): movilización total y valores puestos al servicio de ampliar el poder. Solo el «paso atrás» libera el espacio esencial del hombre.`
+      }
+    };
+
+    const RETURN_DATA = {
+      ciencia: {
+        tag: `Clave 01 · Más allá de las ciencias naturales`,
+        title: `Por qué no es una demostración física`,
+        body: `Tanto el rechazo como la defensa de las «demostraciones» de Nietzsche mediante aparato matemático comparten el error de creerlas científico-naturales. Que el mundo sea finito como totalidad de fuerza aunque produzca «infinitos» (inmensurables) efectos no es una fórmula física, sino el despliegue analítico de lo co-puesto al proyectar el ente como eterno caos de la necesidad.`
+      },
+      hendidura: {
+        tag: `Clave 02 · «Todo es lo mismo»`,
+        title: `La hendidura más estrecha`,
+        body: `El pensamiento del eterno retorno exige superar un puente engañoso. En las mismas palabras «todo es lo mismo» habitan dos extremos opuestos: de un lado, «todo es nada, todo es indiferente, nada merece la pena»; del otro, «todo retorna, cada instante importa, nada es indiferente».`
+      },
+      amorfati: {
+        tag: `Clave 03 · Transfiguración del instante`,
+        title: `Amor fati y giro de la necesidad`,
+        body: `No debe forzarse la doctrina en la antinomia formal entre libertad y necesidad. «Amor» es la voluntad que eleva lo amado a sus posibilidades supremas; «Fatum» no es fatalidad ciega, sino el giro del estado de necesidad (Wende der Not) que, al asumir el instante, descubre la eternidad de la plenitud del devenir: circulus vitiosus deus.`
+      },
+      angulo: {
+        tag: `Clave 04 · Topología del hombre`,
+        title: `Deshumanización y humanización simultáneas`,
+        body: `Nietzsche no cae en una contradicción ingenua: une la voluntad de deshumanizar la interpretación del mundo (extrema naturalización) con la voluntad de reconocer seriamente la esencia del hombre como un «estar en el ángulo» desde donde se avista la totalidad del ente.`
+      }
+    };
+
+    const ART_PROPS = [
+      {
+        tag: `Proposición fundamental · N. 808`,
+        title: `El arte es «el mayor estimulante de la vida»`,
+        body: `Lejos de ser un quietivo que aquieta el querer (inversión directa de Schopenhauer), el arte es estimulante: impulsa, intensifica y eleva la vida más allá de sí misma. Ese «más» de poder significa simplemente que el arte es una forma de la voluntad de poder. Las cinco proposiciones restantes explicitan esta tesis fundamental.`
+      },
+      {
+        tag: `Proposición 1`,
+        title: `La forma más transparente y conocida de la voluntad de poder`,
+        body: `A través de la creación artística, la esencia oculta del ente en su totalidad se muestra con mayor claridad que en ningún otro ámbito.`
+      },
+      {
+        tag: `Proposición 2`,
+        title: `El arte tiene que comprenderse desde el artista`,
+        body: `No desde el mero espectador pasivo o receptor de vivencias, sino desde quien configura, crea e instaura leyes de forma y gran estilo.`
+      },
+      {
+        tag: `Proposición 3`,
+        title: `El acontecer fundamental de todo ente`,
+        body: `De acuerdo con el concepto ampliado de artista, el ente mismo, en la medida en que es, es algo que se crea a sí mismo, algo creado.`
+      },
+      {
+        tag: `Proposición 4`,
+        title: `El contramovimiento por excelencia frente al nihilismo`,
+        body: `El arte asume la posición de nuevos valores supremos y fundamenta las medidas y leyes de una existencia histórico-espiritual frente a la desvalorización.`
+      },
+      {
+        tag: `Proposición 5`,
+        title: `El arte tiene más valor que «la verdad»`,
+        body: `Mientras la verdad fija y estabiliza el devenir para asegurar la conservación, el arte transfigura en una apariencia resplandeciente que abre las posibilidades superiores de la vida.`
+      }
+    ];
+
+    const VALUE_STEPS = {
+      1: {
+        tag: `Paso 01 · Necesidad práctica`,
+        title: `Conocer como esquematización del caos`,
+        body: `Conocer no es copiar pasivamente imágenes del mundo exterior. Nietzsche lo define como «imponer al caos tanta regularidad y tantas formas como para satisfacer nuestra necesidad práctica». El conocer reconduce así su esencia a la praxis vital y al caos.`
+      },
+      2: {
+        tag: `Paso 02 · Aristóteles y n. 516`,
+        title: `El principio de no contradicción como orden`,
+        body: `Lo que Aristóteles formuló en Metafísica IV 3 como principio supremo de todos los axiomas, Nietzsche lo interpreta como imposibilidad o incapacidad subjetiva. Heidegger muestra su carácter de posición e imperativo: trazar de antemano el horizonte de lo idéntico para que haya concordia o discordia.`
+      },
+      3: {
+        tag: `Paso 03 · Fragmento n. 567`,
+        title: `Justicia como modo de pensar constructivo y eliminador`,
+        body: `La justicia en Nietzsche es el «modo de pensar constructivo, eliminador, aniquilador, a partir de las estimaciones de valor: supremo representante de la vida misma». Erigir medidas exige decidir y eliminar; así coinciden ordenar e inventar.`
+      },
+      4: {
+        tag: `Paso 04 · Fragmentos n. 507 y n. 567`,
+        title: `El «mundo aparente» como perspectiva instaurada`,
+        body: `Tras abolir el «mundo verdadero» suprasensible, no queda una ilusión vacía, sino el único mundo real del devenir, articulado en horizontes «relativos» a un punto de vista. La apariencia es el embate del caos fijado en una forma o en una obra.`
+      }
+    };
+
+    const THINKER_DATA = {
+      grecia: {
+        tag: `Inicio griego · Protágoras`,
+        title: `Φύσις, αλήθεια y mesura`,
+        body: `Los griegos pensaron el ser como φύσις (surgir-abriendo-desde-sí) y la verdad como αλήθεια (desocultamiento). En la sentencia de Protágoras, el hombre es medida de la presencia mediante mesura ante lo abierto próximo, sin huella alguna de un sujeto cartesiano juez de objetos.`
+      },
+      platon: {
+        tag: `Inicio de la metafísica`,
+        title: `El ser como ιδέα (presencia consistente)`,
+        body: `La identidad del ente se fija en el aspecto visto (ιδέα, είδος), lo uno permanente frente a lo múltiple y cambiante. Se consolida la separación entre όντως όν (lo verdaderamente ente) y μή όν, abriendo la diferencia entre qué-es y que-es.`
+      },
+      aristoteles: {
+        tag: `Ontología de la presencia efectiva`,
+        title: `Ουσία como ενέργεια del τόδε τι`,
+        body: `Mientras Platón recoge el ser en la ιδέα común, Aristóteles piensa la presencia como ενέργεια del ente singular (τόδε τι), otorgando preeminencia a lo que luego se llamará existentia frente a essentia.`
+      },
+      descartes: {
+        tag: `Giro moderno · Principia I, 7`,
+        title: `Ego cogito, ergo sum y verdad como certeza`,
+        body: `El representar (cogitatio) deviene subiectum: «represento, luego soy». La verdad se determina como certeza (Gewissheit) consciente de sí misma, dando origen histórico a la «cultura» como proyecto de autoaseguramiento humano.`
+      },
+      leibniz: {
+        tag: `Subjetividad y eficacia`,
+        title: `Mónadas (Leibniz) y condiciones de posibilidad (Kant)`,
+        body: `Con Leibniz todo ente es representante-apetente (perceptio y appetitus, vis primitiva activa), espejo del universo (speculum universi). Kant formula el principio supremo moderno: las condiciones de posibilidad de la experiencia son las de sus objetos —el ser es representatividad.`
+      },
+      hegel: {
+        tag: `Subjetividad incondicionada I`,
+        title: `Absolutización de la rationalitas`,
+        body: `El idealismo alemán funde objetividad y eficacia como voluntad que sabe («razón» y «espíritu»). En Hegel, la rationalitas del animal rationale alcanza validez incondicionada en el sistema especulativo-dialéctico.`
+      },
+      nietzsche: {
+        tag: `Subjetividad incondicionada II · Consumación`,
+        title: `Absolutización de la animalitas y superhombre`,
+        body: `Nietzsche desconoce su vínculo histórico-esencial con Descartes y lleva a validez incondicionada la animalitas (cuerpo vivo y devenir). El superhombre es el único sujeto de la subjetividad acabada; al no pensar la verdad del ser, Nietzsche consuma y cierra la metafísica occidental.`
+      }
+    };
+
+    const GLOSSARY_ITEMS = [
+      { term: `Voluntad de poder`, orig: `Wille zur Macht`, cat: `voluntad`, def: `Esencia unitaria del ente en su constitución (essentia): querer más allá de sí como sobrepotenciación constante frente a resistencias.`, ref: `Núcleo 01 · No es suma de voluntad + poder.` },
+      { term: `Afecto y pasión`, orig: `Affekt / Leidenschaft`, cat: `voluntad`, def: `El afecto (como la ira) asalta súbitamente y saca fuera de sí; la pasión (como el odio) persevera. La voluntad de poder es la forma originaria del afecto.`, ref: `Núcleo 01 · Distinción frente a sentimientos.` },
+      { term: `Sobrepotenciación`, orig: `Übermächtigung`, cat: `voluntad`, def: `Movimiento íntimo del poder que niega cualquier meta final en reposo y convierte los obstáculos en impulsos para crecer.`, ref: `Núcleo 01 · Metas internas al poder.` },
+      { term: `Nihilismo clásico`, orig: `Klassischer Nihilismus`, cat: `nihilismo`, def: `Acabamiento del nihilismo en Nietzsche: reconoce la desvalorización de los valores supremos, pero piensa nihilistamente al no interrogar la esencia de la nada.`, ref: `Núcleo 02 · Jacobi (1799) y GA 48.` },
+      { term: `Abandono del ser`, orig: `Seinsverlassenheit`, cat: `nihilismo`, def: `Sustracción o retención (εποχή) de la verdad del ser mismo, por la cual el ente queda entregado a su mero cálculo y dominio.`, ref: `Núcleo 02 · Historia del ser.` },
+      { term: `Maquinación`, orig: `Machenschaft`, cat: `nihilismo`, def: `Preponderancia del ser como autoaseguramiento y calculabilidad total donde la carencia de sentido se oculta mediante movilización total y cosmovisiones.`, ref: `Núcleo 02 · Época de la carencia de sentido.` },
+      { term: `Paso atrás`, orig: `Schritt zurück`, cat: `nihilismo`, def: `Movimiento del pensar que no abandona la metafísica, sino que libera el espacio esencial del hombre para pensar la proveniencia olvidada de la metafísica.`, ref: `Núcleo 02 · Preparación de otro inicio.` },
+      { term: `Eterno retorno de lo mismo`, orig: `Ewige Wiederkehr des Gleichen`, cat: `retorno`, def: `Modo en que el ente cuya esencia es voluntad de poder existe en su totalidad: proyecto ontológico centrado en el instante y el caos de la necesidad.`, ref: `Núcleo 03 · Tres comunicaciones.` },
+      { term: `Mediodía y eternidad`, orig: `Mittag und Ewigkeit`, cat: `retorno`, def: `Determinación temporal suprema del proyecto de Nietzsche: el instante en que chocan y se deciden pasado y futuro, simbolizado por la serpiente de la eternidad.`, ref: `Núcleo 03 · Zaratustra y planes.` },
+      { term: `Amor fati`, orig: `Amor fati / Wende der Not`, cat: `retorno`, def: `Voluntad transfiguradora («amor») unida al giro del estado de necesidad («fatum») que asume el instante como plenitud del devenir: circulus vitiosus deus.`, ref: `Núcleo 03 · Superación de la antinomia.` },
+      { term: `Embriaguez y vivir corporal`, orig: `Rausch / Leiben`, cat: `arte`, def: `Estado estético fundamental —del que lo apolíneo y lo dionisíaco son tipos— fundado en el vivir corporalmente templado, opuesto a la mera «borrachera».`, ref: `Núcleo 04 · Estética como fisiología.` },
+      { term: `Discrepancia`, orig: `Zwiespalt vs. Felsspalt`, cat: `arte`, def: `Desavenencia entre arte y verdad que no es simple separación inerte (hendidura entre rocas), sino divergencia surgida en el mismo ámbito en que concuerdan.`, ref: `Núcleo 04 · Platón y el arte.` },
+      { term: `Mímesis`, orig: `Μίμησις / Δημιουργός`, cat: `arte`, def: `Imitar o producir enseres (camas, mesas) respecto de su única idea consistente para el uso del pueblo (δήμος) en República 596 b.`, ref: `Núcleo 04 · Meditación de Platón.` },
+      { term: `Esquematización del caos`, orig: `Schematisieren`, cat: `arte`, def: `Definición nietzscheana del conocer: imponer al caos del devenir tanta regularidad y formas como exija nuestra necesidad práctica de conservación.`, ref: `Núcleo 05 · Verdad como fijación.` },
+      { term: `Justicia pensante`, orig: `Gerechtigkeit`, cat: `arte`, def: `Según n. 567, modo de pensar constructivo, eliminador y aniquilador a partir de estimaciones de valor; supremo representante de la vida misma.`, ref: `Núcleo 05 · Ordenar e inventar.` },
+      { term: `Confrontación`, orig: `Auseinandersetzung`, cat: `metafisica`, def: `Causa en litigio que guía todo el «Nietzsche» de Heidegger: diálogo crítico para delimitar la esencia de la metafísica desde la pregunta por el ser.`, ref: `Introducción · Propósito de la obra.` },
+      { term: `Qué-es y que-es`, orig: `Essentia / Existentia`, cat: `metafisica`, def: `Distinción básica e impensada de toda metafísica desde Platón (ιδέα) y Aristóteles (ενέργεια): qué es un ente (τό τι έστιν) frente al hecho de que es (τό έστιν).`, ref: `Núcleo 06 · Estructura metafísica.` },
+      { term: `Superhombre`, orig: `Übermensch`, cat: `metafisica`, def: `No un ideal suprasensible ni una figura biológica futura, sino el sujeto supremo de la subjetividad acabada y el puro ejercicio de la voluntad de poder.`, ref: `Núcleo 06 · Sentido de la tierra.` }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        id: `q1`,
+        nucleus: `Núcleo 01`,
+        prompt: `Según la interpretación de Heidegger en el «Nietzsche», ¿cómo debe entenderse la expresión «voluntad de poder»?`,
+        options: [
+          `Como la unión mecánica de dos conceptos independientes: una voluntad psicológica más el poder político.`,
+          `Como una esencia originariamente unitaria que designa qué es el ente: sobrepotenciación que quiere más allá de sí ante resistencias.`,
+          `Como una extrapolación de las leyes biológicas de animales y plantas hacia la historia humana.`
+        ],
+        correct: 1,
+        explanation: `Correcto: «voluntad» y «poder» tomados por separado son abstracciones. La voluntad de poder es una esencia unitaria que nombra la constitución (essentia) del ente como sobrepotenciación, no una tesis biologista ni política.`
+      },
+      {
+        id: `q2`,
+        nucleus: `Núcleo 02`,
+        prompt: `¿Por qué califica Heidegger a Nietzsche como el «nihilista clásico»?`,
+        options: [
+          `Porque propuso destruir toda forma de arte y cultura clásica griega.`,
+          `Porque utilizó la palabra «nihilismo» antes que F. H. Jacobi en 1799.`,
+          `Porque reconoce la desvalorización de los valores supremos, pero piensa de modo nihilista al no preguntar por la esencia de la nada y del ser.`
+        ],
+        correct: 2,
+        explanation: `Así es: Jacobi empleó filosóficamente el término en 1799. Nietzsche es el nihilista clásico porque diagnostica el nihilismo desde el pensamiento de los valores, pero permanece sin interrogar la esencia de la nada ni el abandono del ente por el ser.`
+      },
+      {
+        id: `q3`,
+        nucleus: `Núcleo 03`,
+        prompt: `¿Qué error señala Heidegger en las interpretaciones habituales de las «demostraciones» del eterno retorno?`,
+        options: [
+          `Suponer, tanto para rechazarlas como para aprobarlas, que se trata de demostraciones científico-naturales o físicas.`,
+          `Olvidar que Nietzsche publicó la doctrina por primera vez en su tesis doctoral en Basilea.`,
+          `Confundir el eterno retorno con la doctrina platónica de las ideas.`
+        ],
+        correct: 0,
+        explanation: `Exacto: leerlas como fórmulas físicas impide captar la cosa. Se trata de un despliegue analítico de las tesis co-puestas en el proyecto metafísico del ente en su totalidad desde el instante («Mediodía y eternidad»).`
+      },
+      {
+        id: `q4`,
+        nucleus: `Núcleo 03`,
+        prompt: `En el análisis de «La visión y el enigma», ¿qué opuestos extremos oculta la aparente igualdad «todo es lo mismo»?`,
+        options: [
+          `«Todo es materia» frente a «todo es espíritu».`,
+          `«Todo es indiferente» (nada vale la pena) frente a «nada es indiferente» (cada instante importa eternamente).`,
+          `«Todo es progreso científico» frente a «todo es retroceso técnico».`
+        ],
+        correct: 1,
+        explanation: `Correcto: esa es la hendidura más estrecha sobre la que debe pasar el pensamiento de superación del eterno retorno.`
+      },
+      {
+        id: `q5`,
+        nucleus: `Núcleo 04`,
+        prompt: `¿Cuál es la proposición fundamental de Nietzsche sobre el arte según Heidegger?`,
+        options: [
+          `Que el arte produce un agrado desinteresado que aquieta toda voluntad.`,
+          `Que el arte es una mera copia (μίμησις) inferior al saber teórico de las ideas.`,
+          `Que el arte es «el mayor estimulante de la vida», es decir, la forma más transparente de la voluntad de poder.`
+        ],
+        correct: 2,
+        explanation: `Así es: frente al quietivo de Schopenhauer, la sentencia del n. 808 («el mayor estimulante de la vida») funda y articula las otras cinco proposiciones sobre el arte.`
+      },
+      {
+        id: `q6`,
+        nucleus: `Núcleo 05`,
+        prompt: `¿Cómo define Nietzsche el conocer en el contexto de la transvaloración de todos los valores?`,
+        options: [
+          `Como copiar y transcribir pasivamente las cosas tal como son en sí.`,
+          `Como esquematizar: imponer al caos tanta regularidad y formas como exija nuestra necesidad práctica.`,
+          `Como deducir verdades eternas a partir de un mundo suprasensible inmutable.`
+        ],
+        correct: 1,
+        explanation: `Exacto: la verdad como corrección se consolida como fijación perspectiva necesaria para la conservación de lo viviente.`
+      },
+      {
+        id: `q7`,
+        nucleus: `Núcleo 06`,
+        prompt: `¿Cómo interpreta Heidegger la noción de «superhombre» (Übermensch) en la metafísica de Nietzsche?`,
+        options: [
+          `Como el sujeto supremo de la subjetividad acabada y el puro ejercicio de poder de la voluntad de poder.`,
+          `Como un ideal moral suprasensible situado más allá de la tierra.`,
+          `Como un programa eugenésico o una figura política concreta.`
+        ],
+        correct: 0,
+        explanation: `Correcto: tras derrumbarse lo suprasensible, el superhombre asume el lugar del sujeto de la subjetividad moderna acabada, fijando al «animal aún no fijado».`
+      },
+      {
+        id: `q8`,
+        nucleus: `Núcleo 06`,
+        prompt: `¿Por qué concluye Heidegger que Nietzsche consuma la metafísica occidental en lugar de superarla?`,
+        options: [
+          `Porque Nietzsche nunca leyó a Descartes ni a Kant.`,
+          `Porque su inversión del platonismo sigue presa del esquema «ser y devenir» y de la subjetividad moderna sin preguntar por la verdad del ser.`,
+          `Porque en 1888 Nietzsche regresó al idealismo especulativo de Hegel.`
+        ],
+        correct: 1,
+        explanation: `Exacto: Nietzsche invierte el platonismo, pero mantiene el marco de la metafísica de la subjetividad (llevando la animalitas al rango incondicionado que Hegel dio a la rationalitas) y deja impensada la diferencia entre ser y ente.`
+      }
+    ];
+
+    function setContextTab(tab) {
+      appState.contextTab = tab;
+      const bN = document.getElementById('btn-ctx-nietzsche');
+      const bH = document.getElementById('btn-ctx-heidegger');
+      if (bN) bN.setAttribute('aria-pressed', String(tab === 'nietzsche'));
+      if (bH) bH.setAttribute('aria-pressed', String(tab === 'heidegger'));
+
+      const out = document.getElementById('context-output');
+      const data = CONTEXT_DATA[tab];
+      if (!out || !data) return;
+
+      out.innerHTML = `
+        <h3 class="subhead" style="margin:0;">${data.title}</h3>
+        <ul class="key-points" style="margin-top:var(--space-sm);">
+          ${data.items.map((item, idx) => `
+            <li>
+              <span class="index-num">0${idx + 1}</span>
+              <span>${item}</span>
+            </li>
+          `).join('')}
+        </ul>
+      `;
+      saveAppStateSafe();
+    }
+
+    function setFeelingMode(mode) {
+      appState.feelingMode = mode;
+      ['afecto', 'pasion', 'tradicion', 'poder'].forEach((m) => {
+        const btn = document.getElementById(`btn-feel-${m}`);
+        if (btn) btn.setAttribute('aria-pressed', String(m === mode));
+      });
+      const out = document.getElementById('feeling-output');
+      const data = FEELING_DATA[mode];
+      if (!out || !data) return;
+      out.innerHTML = `
+        <div><span class="tag-warm">${data.tag}</span></div>
+        <h3 class="subhead" style="margin:0;">${data.title}</h3>
+        <p style="margin:0;">${data.body}</p>
+      `;
+      saveAppStateSafe();
+    }
+
+    function setNihilismView(view) {
+      appState.nihilismView = view;
+      const bN = document.getElementById('btn-nih-nietzsche');
+      const bH = document.getElementById('btn-nih-heidegger');
+      if (bN) bN.setAttribute('aria-pressed', String(view === 'nietzsche'));
+      if (bH) bH.setAttribute('aria-pressed', String(view === 'heidegger'));
+      const out = document.getElementById('nihilism-output');
+      const data = NIHILISM_DATA[view];
+      if (!out || !data) return;
+      out.innerHTML = `
+        <div><span class="tag-slate">${data.tag}</span></div>
+        <h3 class="subhead" style="margin:0;">${data.title}</h3>
+        <p style="margin:0;">${data.body}</p>
+      `;
+      saveAppStateSafe();
+    }
+
+    function setReturnNode(node) {
+      appState.returnNode = node;
+      ['ciencia', 'hendidura', 'amorfati', 'angulo'].forEach((n) => {
+        const btn = document.getElementById(`btn-ret-${n}`);
+        if (btn) btn.setAttribute('aria-pressed', String(n === node));
+      });
+      const out = document.getElementById('return-output');
+      const data = RETURN_DATA[node];
+      if (!out || !data) return;
+      out.innerHTML = `
+        <div><span class="tag-warm">${data.tag}</span></div>
+        <h3 class="subhead" style="margin:0;">${data.title}</h3>
+        <p style="margin:0;">${data.body}</p>
+      `;
+      saveAppStateSafe();
+    }
+
+    function setArtProp(idx) {
+      appState.artProp = idx;
+      for (let i = 0; i < 6; i++) {
+        const btn = document.getElementById(`btn-art-${i}`);
+        if (btn) btn.setAttribute('aria-pressed', String(i === idx));
+      }
+      const out = document.getElementById('art-output');
+      const data = ART_PROPS[idx];
+      if (!out || !data) return;
+      out.innerHTML = `
+        <div><span class="tag-slate">${data.tag}</span></div>
+        <h3 class="subhead" style="margin:0;">${data.title}</h3>
+        <p style="margin:0;">${data.body}</p>
+      `;
+      saveAppStateSafe();
+    }
+
+    function setValueStep(step) {
+      appState.valueStep = step;
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`btn-val-${i}`);
+        if (btn) btn.setAttribute('aria-pressed', String(i === step));
+      }
+      const out = document.getElementById('value-output');
+      const data = VALUE_STEPS[step];
+      if (!out || !data) return;
+      out.innerHTML = `
+        <div><span class="tag-warm">${data.tag}</span></div>
+        <h3 class="subhead" style="margin:0;">${data.title}</h3>
+        <p style="margin:0;">${data.body}</p>
+      `;
+      saveAppStateSafe();
+    }
+
+    function setThinker(key) {
+      appState.thinker = key;
+      ['grecia', 'platon', 'aristoteles', 'descartes', 'leibniz', 'hegel', 'nietzsche'].forEach((k) => {
+        const btn = document.getElementById(`btn-th-${k}`);
+        if (btn) btn.setAttribute('aria-pressed', String(k === key));
+      });
+      const out = document.getElementById('thinker-output');
+      const data = THINKER_DATA[key];
+      if (!out || !data) return;
+      out.innerHTML = `
+        <div><span class="tag-slate">${data.tag}</span></div>
+        <h3 class="subhead" style="margin:0;">${data.title}</h3>
+        <p style="margin:0;">${data.body}</p>
+      `;
+      saveAppStateSafe();
+    }
+
+    function filterEraTable(era) {
+      appState.eraFilter = era;
+      const map = { all: 'btn-tbl-all', antigua: 'btn-tbl-ant', moderna: 'btn-tbl-mod' };
+      Object.keys(map).forEach((k) => {
+        const btn = document.getElementById(map[k]);
+        if (btn) btn.setAttribute('aria-pressed', String(k === era));
+      });
+      const tbody = document.getElementById('era-table-body');
+      if (!tbody) return;
+      const rows = tbody.querySelectorAll('tr');
+      rows.forEach((row) => {
+        const rowEra = row.getAttribute('data-era');
+        row.style.display = (era === 'all' || rowEra === era) ? '' : 'none';
+      });
+      saveAppStateSafe();
+    }
+
+    function setGlossaryCat(cat) {
+      appState.glossaryCat = cat;
+      ['all', 'voluntad', 'nihilismo', 'retorno', 'arte', 'metafisica'].forEach((c) => {
+        const btn = document.getElementById(`btn-gl-${c}`);
+        if (btn) btn.setAttribute('aria-pressed', String(c === cat));
+      });
+      renderGlossary();
+    }
+
+    function filterGlossary() {
+      const input = document.getElementById('glossary-search');
+      appState.glossaryQuery = input ? input.value.trim().toLowerCase() : '';
+      renderGlossary();
+    }
+
+    function resetGlossaryFilters() {
+      const input = document.getElementById('glossary-search');
+      if (input) input.value = '';
+      appState.glossaryQuery = '';
+      setGlossaryCat('all');
+    }
+
+    function renderGlossary() {
+      const grid = document.getElementById('glossary-grid');
+      const empty = document.getElementById('glossary-empty');
+      const countEl = document.getElementById('glossary-count');
+      if (!grid || !empty || !countEl) return;
+
+      const q = appState.glossaryQuery;
+      const cat = appState.glossaryCat;
+
+      const filtered = GLOSSARY_ITEMS.filter((item) => {
+        const matchCat = cat === 'all' || item.cat === cat;
+        if (!matchCat) return false;
+        if (!q) return true;
+        return (
+          item.term.toLowerCase().includes(q) ||
+          item.orig.toLowerCase().includes(q) ||
+          item.def.toLowerCase().includes(q) ||
+          item.ref.toLowerCase().includes(q)
+        );
+      });
+
+      countEl.textContent = `Mostrando ${filtered.length} de ${GLOSSARY_ITEMS.length} conceptos`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+
+      empty.style.display = 'none';
+      grid.innerHTML = filtered.map((item) => `
+        <article class="glossary-card">
+          <div>
+            <div class="glossary-head">
+              <h3 class="glossary-term">${item.term}</h3>
+              <span class="glossary-orig">${item.orig}</span>
+            </div>
+            <p class="glossary-def" style="margin-top:var(--space-sm);">${item.def}</p>
+          </div>
+          <p class="glossary-ref">${item.ref}</p>
+        </article>
+      `).join('');
+    }
+
+    function toggleNucleusReview(num) {
+      const idx = appState.reviewedNuclei.indexOf(num);
+      if (idx === -1) {
+        appState.reviewedNuclei.push(num);
+      } else {
+        appState.reviewedNuclei.splice(idx, 1);
+      }
+      updateProgressUI();
+      saveAppStateSafe();
+    }
+
+    function updateProgressUI() {
+      const reviewedCount = appState.reviewedNuclei.length;
+      const progressLabel = document.getElementById('progress-label');
+      const progressFill = document.getElementById('progress-fill');
+
+      if (progressLabel) {
+        progressLabel.textContent = `Progreso de lectura: ${reviewedCount} de 6 núcleos revisados`;
+      }
+      if (progressFill) {
+        const pct = Math.round((reviewedCount / 6) * 100);
+        progressFill.style.width = `${pct}%`;
+      }
+
+      for (let i = 1; i <= 6; i++) {
+        const isDone = appState.reviewedNuclei.indexOf(i) !== -1;
+        const navStatus = document.getElementById(`nav-status-${i}`);
+        const badgeSec = document.getElementById(`badge-sec-${i}`);
+        const btn = document.getElementById(`review-btn-${i}`);
+
+        if (navStatus) {
+          navStatus.textContent = isDone ? `Revisado` : `Pendiente`;
+          navStatus.className = isDone ? `tag-done` : `tag-slate`;
+        }
+        if (badgeSec) {
+          badgeSec.textContent = isDone ? `Revisado` : `Sin revisar`;
+          badgeSec.className = isDone ? `tag-done` : `tag-slate`;
+        }
+        if (btn) {
+          btn.setAttribute('aria-pressed', String(isDone));
+          btn.textContent = isDone
+            ? `Núcleo 0${i} revisado (pulsa para desmarcar)`
+            : `Marcar Núcleo 0${i} como revisado`;
+        }
+      }
+
+      updateQuizScoreUI();
+    }
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      if (!container) return;
+
+      container.innerHTML = QUIZ_QUESTIONS.map((q, qIdx) => {
+        const chosen = appState.quizAnswers[q.id];
+        const answered = typeof chosen === 'number';
+        const isCorrect = answered && chosen === q.correct;
+
+        const optionsHtml = q.options.map((opt, oIdx) => {
+          let cls = 'btn quiz-opt';
+          if (answered) {
+            if (oIdx === q.correct) cls += ' opt-correct';
+            else if (oIdx === chosen) cls += ' opt-wrong';
+          }
+          return `
+            <button type="button" class="${cls}" onclick="answerQuiz('${q.id}', ${oIdx})">
+              <span><strong>${String.fromCharCode(65 + oIdx)}.</strong> ${opt}</span>
+            </button>
+          `;
+        }).join('');
+
+        const feedbackHtml = answered ? `
+          <div class="quiz-feedback ${isCorrect ? 'fb-ok' : 'fb-err'}">
+            <strong>${isCorrect ? 'Respuesta correcta.' : 'Revisa este punto.'}</strong> ${q.explanation}
+          </div>
+        ` : '';
+
+        return `
+          <article class="quiz-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:var(--space-sm); flex-wrap:wrap;">
+              <span class="index-num">PREGUNTA 0${qIdx + 1} · ${q.nucleus.toUpperCase()}</span>
+              <span class="${answered ? (isCorrect ? 'tag-done' : 'tag-warm') : 'tag-slate'}">
+                ${answered ? (isCorrect ? 'Acierto' : 'Incorrecta') : 'Sin responder'}
+              </span>
+            </div>
+            <h3 class="subhead" style="margin:0;">${q.prompt}</h3>
+            <div class="quiz-options">${optionsHtml}</div>
+            ${feedbackHtml}
+          </article>
+        `;
+      }).join('');
+
+      updateQuizScoreUI();
+    }
+
+    function answerQuiz(qId, optIdx) {
+      appState.quizAnswers[qId] = optIdx;
+      renderQuiz();
+      saveAppStateSafe();
+    }
+
+    function updateQuizScoreUI() {
+      let answeredCount = 0;
+      let correctCount = 0;
+      QUIZ_QUESTIONS.forEach((q) => {
+        const ans = appState.quizAnswers[q.id];
+        if (typeof ans === 'number') {
+          answeredCount++;
+          if (ans === q.correct) correctCount++;
+        }
+      });
+
+      const scoreEl = document.getElementById('quiz-score-display');
+      const headerQuizEl = document.getElementById('quiz-progress-label');
+      if (scoreEl) {
+        scoreEl.textContent = `${correctCount} de ${QUIZ_QUESTIONS.length} aciertos (${answeredCount} respondidas)`;
+      }
+      if (headerQuizEl) {
+        headerQuizEl.textContent = `Autoevaluación: ${answeredCount} de ${QUIZ_QUESTIONS.length} respondidas (${correctCount} aciertos)`;
+      }
+    }
+
+    function handleQuizReset(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.classList.add('btn-warning');
+        btn.textContent = `Pulsa de nuevo para confirmar reinicio`;
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.classList.remove('btn-warning');
+      btn.textContent = `Reiniciar autoevaluación`;
+      appState.quizAnswers = {};
+      renderQuiz();
+      saveAppStateSafe();
+    }
+
+    function exportStudyGuide() {
+      let correctCount = 0;
+      let answeredCount = 0;
+      QUIZ_QUESTIONS.forEach((q) => {
+        const ans = appState.quizAnswers[q.id];
+        if (typeof ans === 'number') {
+          answeredCount++;
+          if (ans === q.correct) correctCount++;
+        }
+      });
+
+      const lines = [
+        `GUÍA DE ESTUDIO — «NIETZSCHE» DE MARTIN HEIDEGGER (1936–1946)`,
+        `================================================================`,
+        `Núcleos revisados: ${appState.reviewedNuclei.length} de 6 (${appState.reviewedNuclei.join(', ') || 'ninguno'})`,
+        `Autoevaluación: ${correctCount} de ${QUIZ_QUESTIONS.length} aciertos (${answeredCount} respondidas)`,
+        ``,
+        `LOS SEIS NÚCLEOS CENTRALES:`,
+        `1. Voluntad de poder: qué es el ente (sobrepotenciación más allá de sí ante resistencias; forma originaria del afecto).`,
+        `2. Nihilismo: abandono del ente por el ser, no pensar la esencia de la nada y dominio de la maquinación (Machenschaft).`,
+        `3. Eterno retorno de lo mismo: cómo es el ente en su totalidad desde el instante («Mediodía y eternidad»); amor fati.`,
+        `4. Metafísica del artista: el arte como «mayor estimulante de la vida» (n. 808); embriaguez corporal y pugna con Platón.`,
+        `5. Transvaloración de todos los valores: conocer como esquematización del caos y justicia constructivo-eliminadora.`,
+        `6. Consumación de la metafísica occidental: subjetividad acabada de la animalitas y el superhombre como cierre sin superación.`
+      ];
+      const text = lines.join('\n');
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+        window.notebookAppApi.triggerFileDownload({
+          content: text,
+          contentType: 'text/plain',
+          encoding: 'UTF-8',
+          filename: 'guia-heidegger-nietzsche.txt'
+        });
+      } else {
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'guia-heidegger-nietzsche.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    async function saveAppStateSafe() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+        await window.notebookAppApi.setAppState({
+          reviewedNuclei: appState.reviewedNuclei,
+          quizAnswers: appState.quizAnswers,
+          contextTab: appState.contextTab,
+          feelingMode: appState.feelingMode,
+          nihilismView: appState.nihilismView,
+          returnNode: appState.returnNode,
+          artProp: appState.artProp,
+          valueStep: appState.valueStep,
+          thinker: appState.thinker,
+          eraFilter: appState.eraFilter
+        });
+      }
+    }
+
+    function restoreSavedState(saved) {
+      if (!saved || typeof saved !== 'object') return;
+      if (Array.isArray(saved.reviewedNuclei)) {
+        appState.reviewedNuclei = saved.reviewedNuclei.filter((n) => typeof n === 'number' && n >= 1 && n <= 6);
+      }
+      if (saved.quizAnswers && typeof saved.quizAnswers === 'object') {
+        appState.quizAnswers = saved.quizAnswers;
+      }
+      if (typeof saved.contextTab === 'string' && CONTEXT_DATA[saved.contextTab]) {
+        appState.contextTab = saved.contextTab;
+      }
+      if (typeof saved.feelingMode === 'string' && FEELING_DATA[saved.feelingMode]) {
+        appState.feelingMode = saved.feelingMode;
+      }
+      if (typeof saved.nihilismView === 'string' && NIHILISM_DATA[saved.nihilismView]) {
+        appState.nihilismView = saved.nihilismView;
+      }
+      if (typeof saved.returnNode === 'string' && RETURN_DATA[saved.returnNode]) {
+        appState.returnNode = saved.returnNode;
+      }
+      if (typeof saved.artProp === 'number' && ART_PROPS[saved.artProp]) {
+        appState.artProp = saved.artProp;
+      }
+      if (typeof saved.valueStep === 'number' && VALUE_STEPS[saved.valueStep]) {
+        appState.valueStep = saved.valueStep;
+      }
+      if (typeof saved.thinker === 'string' && THINKER_DATA[saved.thinker]) {
+        appState.thinker = saved.thinker;
+      }
+      if (typeof saved.eraFilter === 'string') {
+        appState.eraFilter = saved.eraFilter;
+      }
+    }
+
+    async function initArtifact() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+        const saved = await window.notebookAppApi.getAppState();
+        if (saved) {
+          restoreSavedState(saved);
+        }
+      }
+
+      setContextTab(appState.contextTab);
+      setFeelingMode(appState.feelingMode);
+      setNihilismView(appState.nihilismView);
+      setReturnNode(appState.returnNode);
+      setArtProp(appState.artProp);
+      setValueStep(appState.valueStep);
+      setThinker(appState.thinker);
+      filterEraTable(appState.eraFilter);
+      renderGlossary();
+      renderQuiz();
+      updateProgressUI();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initArtifact);
+  </script>
+</body>
+</html>

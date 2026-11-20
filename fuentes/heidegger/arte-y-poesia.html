@@ -1,0 +1,2300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="kiln">
+  <title>Arte y poesía — Ontología estética de Martin Heidegger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js" defer></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces: unbleached linen and river clay (Kiln) */
+      --background: #f4f1ea;
+      --surface-container-low: #ebe6db;
+      --surface-container: #e3ddd0;
+      --surface-container-high: #d9d1c2;
+
+      /* Ink */
+      --on-surface: #1c1b18;
+      --on-surface-variant: #5e5a51;
+
+      /* Rules */
+      --outline: #1c1b18;
+      --outline-variant: #d2cbbd;
+
+      /* Accents */
+      --primary: #1c1b18;
+      --on-primary: #f4f1ea;
+      --primary-container: #ebe6db;
+      --on-primary-container: #1c1b18;
+      --secondary: #4a5d46;
+      --tertiary: #9e3b2b;
+      --error: #9e2a22;
+      --on-error: #f4f1ea;
+
+      /* Data series */
+      --data-1: #4a5d46;
+      --data-2: #9e3b2b;
+      --data-3: #1c1b18;
+      --data-4: #8a6f48;
+      --data-context: #c7bfb0;
+
+      /* Semantic */
+      --positive: #3b5937;
+      --warning: #8a6016;
+      --focus: #1c1b18;
+
+      /* Fonts */
+      --font-headline: 'Shippori Mincho', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.125rem;
+      --rounded-lg: 0.125rem;
+      --rounded-full: 0.125rem;
+
+      /* Style effects */
+      --rule-sumi-left: 2px solid var(--outline);
+      --rule-sumi: 1px solid var(--outline);
+      --rule-linen: 1px solid var(--outline-variant);
+      --rule-cinnabar: 1px solid var(--tertiary);
+      --rule-moss-left: 2px solid var(--secondary);
+      --rule-cinnabar-left: 2px solid var(--tertiary);
+      --label-tracking: 0.14em;
+
+      /* Type scale (Narrative) */
+      --display-size:  clamp(2.375rem, 1.45rem + 3.8vw, 4.25rem);
+      --headline-size: clamp(1.625rem, 1.2rem + 1.8vw, 2.375rem);
+      --subhead-size:  clamp(1.125rem, 1.02rem + 0.5vw, 1.375rem);
+      --body-size:     clamp(1rem, 0.96rem + 0.22vw, 1.125rem);
+      --label-size:    0.75rem;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long:  420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Page layout */
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1120px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-style: normal;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .display {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--display-size);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+    }
+    .section-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--headline-size);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-sm);
+    }
+    .subhead-moss {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--subhead-size);
+      line-height: 1.35;
+      color: var(--secondary);
+      margin: var(--space-sm) 0 0;
+    }
+    .label {
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--secondary);
+    }
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 66ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: var(--space-sm);
+      background: var(--primary);
+      color: var(--on-primary);
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-decoration: none;
+      z-index: 100;
+    }
+    .skip-link:focus {
+      left: var(--space-md);
+    }
+
+    /* Header & Seal stamp */
+    .folio-header {
+      border-bottom: var(--rule-sumi);
+      padding-bottom: var(--space-xl);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-lg);
+      margin-bottom: var(--space-md);
+      align-items: center;
+    }
+    .lede {
+      font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+      line-height: 1.6;
+      color: var(--on-surface-variant);
+      max-width: 62ch;
+      margin-top: var(--space-md);
+    }
+    .seal-stamp {
+      border: var(--rule-cinnabar);
+      color: var(--tertiary);
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: var(--label-tracking);
+      padding: var(--space-sm) var(--space-xs);
+      writing-mode: vertical-rl;
+      text-transform: uppercase;
+      user-select: none;
+      align-self: start;
+    }
+
+    /* Navigation strip & status */
+    .nav-band {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md) 0;
+      border-bottom: var(--rule-linen);
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--on-surface);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-links a:hover {
+      color: var(--secondary);
+      background-color: var(--surface-container-low);
+      border-bottom-color: var(--secondary);
+    }
+    .nav-status {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      background: var(--surface-container-low);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+    }
+
+    /* Sections */
+    .chapter {
+      padding-top: var(--space-xl);
+      border-top: var(--rule-linen);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .chapter:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+    .chapter-head {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    /* Washi spine cards */
+    .washi-card {
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .washi-card--moss {
+      border-left: var(--rule-moss-left);
+    }
+    .washi-card--cinnabar {
+      border-left: var(--rule-cinnabar-left);
+    }
+    .washi-card .value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.375rem, 1.15rem + 1vw, 1.875rem);
+      line-height: 1.2;
+      color: var(--on-surface);
+      font-variant-numeric: lining-nums tabular-nums;
+      margin: var(--space-xs) 0;
+    }
+    .washi-card .note {
+      color: var(--secondary);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    /* Asymmetric 2-column prose + specimen layout */
+    .split-editorial {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Adaptive card grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    /* Quote block */
+    .epigraph-quote {
+      margin: var(--space-md) 0;
+      padding: var(--space-md) var(--space-lg);
+      background: var(--surface-container-low);
+      border-left: var(--rule-moss-left);
+      border-radius: var(--rounded);
+    }
+    .epigraph-quote blockquote {
+      margin: 0 0 var(--space-xs);
+      font-family: var(--font-headline);
+      font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+      line-height: 1.5;
+      color: var(--on-surface);
+    }
+    .epigraph-quote cite {
+      font-family: var(--font-label);
+      font-style: normal;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--secondary);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      border-radius: var(--rounded);
+      cursor: pointer;
+      border: var(--rule-sumi);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--secondary);
+      border-color: var(--secondary);
+    }
+    .btn-secondary {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: var(--rule-sumi);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--surface-container);
+    }
+    .btn-secondary[aria-pressed="true"],
+    .btn-tab[aria-selected="true"] {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--secondary);
+      background: var(--surface-container-low);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      padding: 2px var(--space-sm);
+    }
+    .tag--cinnabar {
+      color: var(--tertiary);
+      border-color: var(--tertiary);
+    }
+
+    /* Tables */
+    .folio-table-wrap {
+      overflow-x: auto;
+      border-top: var(--rule-sumi);
+      border-bottom: var(--rule-sumi);
+    }
+    table.folio-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+    table.folio-table th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--secondary);
+      padding: var(--space-md) var(--space-sm);
+      border-bottom: var(--rule-sumi);
+      background: var(--surface-container-low);
+    }
+    table.folio-table td {
+      padding: var(--space-md) var(--space-sm);
+      border-bottom: var(--rule-linen);
+      vertical-align: top;
+    }
+    table.folio-table tr:last-child td {
+      border-bottom: none;
+    }
+    table.folio-table tr.is-highlighted td {
+      background: var(--surface-container);
+    }
+
+    /* Interactive Comparator */
+    .interactive-panel {
+      background: var(--surface-container-low);
+      border: var(--rule-linen);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+      container-type: inline-size;
+    }
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .comparator-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .specimen-box {
+      background: var(--background);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .diagnostic-list {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .diagnostic-btn {
+      width: 100%;
+      text-align: left;
+      justify-content: space-between;
+      text-transform: none;
+      letter-spacing: 0.01em;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 500;
+    }
+
+    /* Interactive Diagram: Mundo vs Tierra */
+    .diagram-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .diagram-canvas {
+      background: var(--background);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .diagram-svg {
+      width: 100%;
+      height: auto;
+      min-height: 310px;
+      display: block;
+    }
+    .slider-field {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .slider-field label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface);
+      display: flex;
+      justify-content: space-between;
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--secondary);
+      min-height: 44px;
+      cursor: pointer;
+    }
+
+    /* Hölderlin 5 Palabras-Guía Explorer */
+    .holderlin-nav {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .holderlin-step-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+      min-height: 64px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--background);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      text-align: left;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .holderlin-step-btn:hover {
+      background: var(--surface-container);
+    }
+    .holderlin-step-btn[aria-selected="true"] {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .holderlin-step-btn[aria-selected="true"] .label {
+      color: var(--surface-container);
+    }
+    .holderlin-step-title {
+      font-family: var(--font-headline);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      line-height: 1.25;
+    }
+    .holderlin-detail {
+      background: var(--background);
+      border: var(--rule-linen);
+      border-left: var(--rule-cinnabar-left);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .holderlin-verse {
+      font-family: var(--font-headline);
+      font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.625rem);
+      line-height: 1.35;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    /* Glossary Search & Cards */
+    .search-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: end;
+    }
+    .input-group {
+      flex: 1 1 260px;
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .input-group label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface);
+    }
+    .text-input {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      color: var(--on-surface);
+      background: var(--background);
+      border: var(--rule-sumi);
+      border-radius: var(--rounded);
+    }
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .glossary-card {
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+    }
+    .glossary-card.is-studied {
+      border-left-color: var(--secondary);
+      background: var(--surface-container);
+    }
+    .glossary-trigger {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 0;
+      min-height: 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      text-align: left;
+      cursor: pointer;
+      color: var(--on-surface);
+    }
+    .glossary-term {
+      font-family: var(--font-headline);
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .glossary-origin {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      display: block;
+    }
+    .glossary-body {
+      border-top: var(--rule-linen);
+      padding-top: var(--space-sm);
+      display: grid;
+      gap: var(--space-sm);
+      font-size: 0.9375rem;
+    }
+    .glossary-body[hidden] {
+      display: none;
+    }
+    .empty-state {
+      background: var(--surface-container-low);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      padding: var(--space-xl);
+      text-align: left;
+      display: grid;
+      gap: var(--space-md);
+      justify-items: start;
+    }
+
+    /* Quiz */
+    .quiz-card {
+      background: var(--surface-container-low);
+      border: var(--rule-linen);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .quiz-progress-bar {
+      height: 6px;
+      background: var(--surface-container-high);
+      border-radius: var(--rounded);
+      overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      background: var(--secondary);
+      width: 0%;
+      transition: width var(--dur-short) var(--ease-out);
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .quiz-option {
+      width: 100%;
+      min-height: 48px;
+      padding: var(--space-sm) var(--space-md);
+      text-align: left;
+      font-family: var(--font-body);
+      font-size: 0.96875rem;
+      line-height: 1.45;
+      background: var(--background);
+      color: var(--on-surface);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      display: flex;
+      gap: var(--space-md);
+      align-items: flex-start;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .quiz-option.is-correct {
+      background: var(--surface-container);
+      border-color: var(--positive);
+      border-left: 4px solid var(--positive);
+    }
+    .quiz-option.is-wrong {
+      background: var(--surface-container);
+      border-color: var(--error);
+      border-left: 4px solid var(--error);
+    }
+    .quiz-feedback {
+      padding: var(--space-md);
+      background: var(--background);
+      border-left: var(--rule-moss-left);
+      border-radius: var(--rounded);
+      font-size: 0.9375rem;
+    }
+    .quiz-feedback--error {
+      border-left-color: var(--error);
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .faq-item {
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-md);
+    }
+    .faq-btn {
+      width: 100%;
+      min-height: 52px;
+      background: transparent;
+      border: none;
+      padding: var(--space-sm) 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      text-align: left;
+      cursor: pointer;
+      font-family: var(--font-headline);
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: var(--on-surface);
+    }
+    .faq-panel {
+      padding: 0 0 var(--space-md);
+      border-top: var(--rule-linen);
+      padding-top: var(--space-md);
+      color: var(--on-surface-variant);
+      font-size: 0.96875rem;
+    }
+    .faq-panel[hidden] { display: none; }
+
+    /* Footer */
+    .folio-footer {
+      border-top: var(--rule-sumi);
+      padding-top: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      color: var(--on-surface-variant);
+      font-size: 0.875rem;
+    }
+
+    /* Icons */
+    .icon-sm {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* Container queries */
+    @container (max-width: 680px) {
+      .comparator-stage {
+        grid-template-columns: 1fr;
+      }
+      .diagram-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .split-editorial {
+        grid-template-columns: 1fr;
+      }
+      .holderlin-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .folio-header {
+        grid-template-columns: 1fr;
+      }
+      .seal-stamp {
+        writing-mode: horizontal-tb;
+        justify-self: start;
+      }
+      .holderlin-nav {
+        grid-template-columns: 1fr;
+      }
+      .diagram-grid {
+        grid-template-columns: 1fr;
+      }
+      .comparator-stage {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration:  0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior:     auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido-principal">Ir al contenido principal</a>
+
+  <main id="contenido-principal" class="page-grid">
+
+    <!-- ENCABEZADO EDITORIAL -->
+    <header class="folio-header">
+      <div>
+        <div class="header-meta">
+          <span class="label">Monografía Filosófica Interactiva</span>
+          <span class="tag">Martin Heidegger · 1935–1952</span>
+        </div>
+        <h1 class="display">Arte y poesía: ontología de la obra y palabra originaria</h1>
+        <p class="subhead-moss">De la cosa y el útil al combate entre Mundo y Tierra, y la instauración del ser en Hölderlin</p>
+        <p class="lede">
+          Una guía interactiva sobre los dos ensayos fundamentales de estética de Martin Heidegger —«El origen de la obra de arte» y «Hölderlin y la esencia de la poesía»— en diálogo con el estudio preliminar de Samuel Ramos.
+        </p>
+      </div>
+      <div class="seal-stamp" aria-hidden="true">Alétheia · Dichtung</div>
+    </header>
+
+    <!-- NAVEGACIÓN DE SECCIONES Y ESTADO -->
+    <nav aria-label="Índice de la base de conocimientos" class="nav-band">
+      <ul class="nav-links">
+        <li><a href="#panorama">1. Panorama</a></li>
+        <li><a href="#cosa-y-util">2. Cosa y Útil</a></li>
+        <li><a href="#mundo-y-tierra">3. Mundo y Tierra</a></li>
+        <li><a href="#holderlin">4. Hölderlin</a></li>
+        <li><a href="#glosario">5. Glosario</a></li>
+        <li><a href="#evaluacion">6. Autoevaluación</a></li>
+        <li><a href="#faq">7. FAQ</a></li>
+      </ul>
+      <div class="nav-status" aria-live="polite">
+        <span class="status-pill" id="status-glossary">Glosario: 0/12 estudiados</span>
+        <span class="status-pill" id="status-quiz">Evaluación: 0/8 respondidas</span>
+      </div>
+    </nav>
+
+    <!-- SECCIÓN 1: INICIO Y PANORAMA GENERAL -->
+    <section id="panorama" class="chapter" aria-labelledby="titulo-panorama">
+      <div class="chapter-head">
+        <span class="label">01 · Inicio y Panorama General</span>
+        <h2 id="titulo-panorama" class="section-title">La estética subjetiva frente a la ontología de la obra</h2>
+      </div>
+
+      <div class="split-editorial">
+        <div>
+          <p>
+            Frente a la estética moderna y del siglo XIX —que redujo el arte a la actividad subjetiva del genio o a un mero objeto de <em>vivencia</em> sensible (<em>aísthesis</em>)—, Martin Heidegger propone un giro radical: interrogar directamente la obra de arte en su ser propio. El arte no es un adorno cultural ni un excitante de estados de ánimo; en él acontece una apertura ontológica de la verdad del ente.
+          </p>
+          <p>
+            Al preguntar por el <strong>origen</strong> de la obra de arte, tropezamos con un círculo aparente: el artista es el origen de la obra y la obra hace resaltar al artista como maestro, pero ambos son lo que son en virtud de un tercero primordial: el <strong>arte</strong>. Lejos de evadir este círculo por exigencia lógica, Heidegger sostiene que debemos recorrerlo hasta comprender cómo «en la obra de arte se ha puesto en operación la verdad del ente».
+          </p>
+          <div class="epigraph-quote">
+            <blockquote>«¿Qué parece más fácil que dejar al ente ser precisamente el ente que es? ¿O en esta labor llegamos a lo más difícil, que es dejar ser al ente como es, sobre todo cuando tal propósito es lo contrario de aquella indiferencia que sencillamente vuelve la espalda al ente?»</blockquote>
+            <cite>Martin Heidegger · El origen de la obra de arte</cite>
+          </div>
+        </div>
+
+        <aside aria-label="Claves del giro heideggeriano" class="card-grid" style="grid-template-columns: 1fr;">
+          <div class="washi-card">
+            <span class="label">Ruptura con la estética clásica</span>
+            <div class="value">De vivencia a verdad</div>
+            <p class="note">Heidegger advierte (citando a Hegel) que la vivencia subjetiva es el elemento en que muere el gran arte si éste pierde su capacidad de instaurar historia.</p>
+          </div>
+          <div class="washi-card washi-card--moss">
+            <span class="label">Método filosófico</span>
+            <div class="value">Fenomenología y hermenéutica</div>
+            <p class="note">Desbrozar los prejuicios tradicionales sobre la cosa para que el fenómeno del ser-obra se muestre sin ocultarse tras teorías previas.</p>
+          </div>
+          <div class="washi-card washi-card--cinnabar">
+            <span class="label">Tesis unificadora</span>
+            <div class="value">Todo arte es en esencia Poesía</div>
+            <p class="note">Poesía (<em>Dichtung</em>) entendida no como fantasía caprichosa, sino como proyección instauradora de lo abierto mediante la palabra y el habla originaria.</p>
+          </div>
+        </aside>
+      </div>
+
+      <div>
+        <h3 style="font-size: 1.375rem; margin-bottom: var(--space-md);">Crítica a los tres prejuicios tradicionales sobre la cosa</h3>
+        <p>
+          Toda obra tiene un carácter material o «cósico»: la piedra en el templo, el color en el cuadro, el sonido en la música. Sin embargo, al intentar explicar esa <em>cosidad</em> con las tres doctrinas heredadas de Grecia y Roma, Heidegger muestra que ninguna logra distinguir entre una mera cosa, un útil y una obra de arte; todas «atracan» a la cosa en lugar de dejarla reposar en sí.
+        </p>
+        <div class="card-grid">
+          <article class="washi-card">
+            <span class="label">1 · Teoría sustancialista</span>
+            <h4 style="font-size: 1.1875rem; margin: var(--space-xs) 0;">Sustancia y accidentes</h4>
+            <p style="font-size: 0.9375rem;">
+              Concibe la cosa como un núcleo portador (<em>hypokéimenon</em>) rodeado de propiedades variables (<em>symbebekóta</em>). Al traducirse al latín como <em>subjectum</em> y <em>accidens</em>, proyecta la estructura lógica de la proposición (sujeto–predicado) sobre la cosa misma, alejándola de nuestra experiencia directa.
+            </p>
+          </article>
+          <article class="washi-card">
+            <span class="label">2 · Teoría sensualista</span>
+            <h4 style="font-size: 1.1875rem; margin: var(--space-xs) 0;">Unidad de sensaciones</h4>
+            <p style="font-size: 0.9375rem;">
+              Define la cosa como <em>aisthetón</em>: un haz de impresiones sensibles (color, dureza, sonido). Heidegger replica que jamás oímos primero «ruidos puros», sino el silbido de la tempestad en la chimenea o el golpe de una puerta: las cosas mismas están más cerca de nosotros que las sensaciones abstractas.
+            </p>
+          </article>
+          <article class="washi-card washi-card--cinnabar">
+            <span class="label">3 · Teoría hilemórfica</span>
+            <h4 style="font-size: 1.1875rem; margin: var(--space-xs) 0;">Materia y forma</h4>
+            <p style="font-size: 0.9375rem;">
+              La interpretación dominante en estética (<em>hylé</em> y <em>morphé</em>). Pero la forma que predetermina y ordena la materia por su utilidad no proviene de la mera cosa ni de la obra de arte: nace de la experiencia del <strong>útil</strong> fabricado por la mano humana y se extendió indebidamente a todo ente.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: LA ESENCIA DE LA OBRA DE ARTE Y EL ÚTIL -->
+    <section id="cosa-y-util" class="chapter" aria-labelledby="titulo-cosa-util">
+      <div class="chapter-head">
+        <span class="label">02 · La Esencia de la Obra de Arte y el Útil</span>
+        <h2 id="titulo-cosa-util" class="section-title">Los zapatos de Van Gogh y el «ser de confianza»</h2>
+      </div>
+
+      <div class="split-editorial">
+        <div>
+          <p>
+            Para descubrir qué es propiamente el útil sin caer en las teorías tradicionales, Heidegger elige un ejemplo cotidiano: un par de zapatos de labriego, pero contemplado a través de un cuadro de Vincent van Gogh. Cuando la labriega trabaja en el campo, usa los zapatos sin pensar en ellos ni mirarlos; justamente en ese uso pasan inadvertidos.
+          </p>
+          <p>
+            Sin embargo, ante el cuadro —donde ni siquiera hay terrones de tierra adheridos ni un entorno explícito—, «el cuadro habló». Lo que emerge de la oscura abertura del cuero gastado no es la simple utilidad instrumental («servir para calzar»), sino su raíz ontológica más honda: el <strong>ser de confianza</strong> (<em>Verlässlichkeit</em>). En virtud de ese ser de confianza, la labriega está segura de su mundo y escucha la silenciosa llamada de la tierra: la fatiga de los surcos, el temor por el pan y la cercanía del nacimiento y la muerte.
+          </p>
+          <p>
+            Así descubrimos dos verdades simultáneamente: el ser del útil sólo se hizo patente gracias a la obra de arte, y el arte no es una copia mimética (<em>adaequatio</em>) de zapatos reales, sino el acontecimiento por el cual ese ente sale al estado de no-ocultación de su ser.
+          </p>
+        </div>
+
+        <div class="washi-card washi-card--moss">
+          <span class="label">Posición ontológica intermedia</span>
+          <div class="value">Cosa &larr; Útil &rarr; Obra</div>
+          <p style="font-size: 0.9375rem;">
+            El <strong>útil</strong> comparte con la mera cosa el descansar como objeto acabado, pero carece de la espontaneidad del bloque de granito; a la vez, se emparenta con la <strong>obra de arte</strong> por ser producido por el hombre, aunque carece de su presencia autosuficiente, pues el útil se agota y desgasta en el servicio.
+          </p>
+        </div>
+      </div>
+
+      <!-- MÓDULO COMPARATIVO INTERACTIVO -->
+      <div class="interactive-panel" aria-labelledby="titulo-comparador">
+        <div>
+          <span class="label">Módulo Comparativo Interactivo</span>
+          <h3 id="titulo-comparador" style="font-size: 1.5rem; margin-top: var(--space-xs);">Cosa, Útil y Obra de Arte bajo examen ontológico</h3>
+          <p style="font-size: 0.9375rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">
+            Selecciona un ente ejemplar del texto de Heidegger o activa una prueba diagnóstica para contrastar cómo se manifiesta su materia, su reposo y su relación con la verdad.
+          </p>
+        </div>
+
+        <div class="control-row" role="tablist" aria-label="Seleccionar ente para analizar">
+          <button type="button" class="btn btn-secondary btn-tab" role="tab" id="comp-tab-cosa" aria-selected="true" onclick="selectEntity('cosa')">1. Mera cosa (Bloque de granito)</button>
+          <button type="button" class="btn btn-secondary btn-tab" role="tab" id="comp-tab-util" aria-selected="false" onclick="selectEntity('util')">2. Útil (Zapatos en el campo)</button>
+          <button type="button" class="btn btn-secondary btn-tab" role="tab" id="comp-tab-obra" aria-selected="false" onclick="selectEntity('obra')">3. Obra de arte (Cuadro / Templo)</button>
+        </div>
+
+        <div class="comparator-stage">
+          <div class="specimen-box" id="comparator-detail" aria-live="polite">
+            <!-- Rellenado dinámicamente -->
+          </div>
+
+          <div class="diagnostic-list" aria-label="Pruebas ontológicas rápidas">
+            <span class="label" style="margin-bottom: var(--space-xs);">Criterios diagnósticos (pulsa para resaltar en la tabla)</span>
+            <button type="button" class="btn btn-secondary diagnostic-btn" id="diag-btn-materia" aria-pressed="false" onclick="highlightDimension('materia')">
+              <span>¿Se consume o desaparece su materia?</span>
+              <i data-lucide="layers" class="icon-sm" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-secondary diagnostic-btn" id="diag-btn-origen" aria-pressed="false" onclick="highlightDimension('origen')">
+              <span>¿Cuál es la fuente de su forma?</span>
+              <i data-lucide="compass" class="icon-sm" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-secondary diagnostic-btn" id="diag-btn-mundo" aria-pressed="false" onclick="highlightDimension('mundo')">
+              <span>¿Abre un Mundo histórico?</span>
+              <i data-lucide="book-open" class="icon-sm" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-secondary diagnostic-btn" id="diag-btn-reposo" aria-pressed="false" onclick="highlightDimension('reposo')">
+              <span>¿Cómo es su «reposar en sí»?</span>
+              <i data-lucide="feather" class="icon-sm" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-secondary diagnostic-btn" id="diag-btn-verdad" aria-pressed="false" onclick="highlightDimension('verdad')">
+              <span>¿Acontece en ella la Alétheia?</span>
+              <i data-lucide="help-circle" class="icon-sm" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="folio-table-wrap">
+          <table class="folio-table">
+            <thead>
+              <tr>
+                <th scope="col">Dimensión</th>
+                <th scope="col">Mera Cosa</th>
+                <th scope="col">Útil</th>
+                <th scope="col">Obra de Arte</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="row-materia">
+                <td><strong>Relación con la materia</strong></td>
+                <td>Descansa en su pesantez hermética; sin función asignada.</td>
+                <td>La materia se gasta y desaparece en el servicio (el acero en el hacha).</td>
+                <td>No gasta la materia: hace sobresalir a la Tierra (la piedra llega a ser piedra, el color a lucir).</td>
+              </tr>
+              <tr id="row-origen">
+                <td><strong>Origen y confección</strong></td>
+                <td>Espontánea de la naturaleza; no es producto humano.</td>
+                <td>Confeccionado por la mano humana según utilidad previa (<em>hylé–morphé</em>).</td>
+                <td>Ser-creado que no se disuelve en artesanía; resalta el simple <em>factum est</em> («que es»).</td>
+              </tr>
+              <tr id="row-mundo">
+                <td><strong>Mundo y pertenencia</strong></td>
+                <td>La piedra «no tiene mundo».</td>
+                <td>Pertenece a la tierra y es resguardado por el mundo cotidiano mediante su <em>ser de confianza</em>.</td>
+                <td>Erige y mantiene abierto un Mundo histórico concreto para un pueblo.</td>
+              </tr>
+              <tr id="row-reposo">
+                <td><strong>Modo de reposo</strong></td>
+                <td>Inercia silenciosa y reticencia cerrada sobre sí.</td>
+                <td>Reposo ligado al hábito; si no se usa queda en pura habitualidad apagada.</td>
+                <td>Reposo como máxima concentración de movimiento: el combate sostenido entre Mundo y Tierra.</td>
+              </tr>
+              <tr id="row-verdad">
+                <td><strong>Relación con la verdad</strong></td>
+                <td>Permanece oculta para el concepto lógico habitual.</td>
+                <td>Su verdad (<em>Verlässlichkeit</em>) se vuelve invisible en el uso diario.</td>
+                <td>Pone en operación la verdad del ente (<em>Alétheia</em>); la belleza es ese brillo puesto en obra.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: EL COMBATE ENTRE MUNDO Y TIERRA -->
+    <section id="mundo-y-tierra" class="chapter" aria-labelledby="titulo-mundo-tierra">
+      <div class="chapter-head">
+        <span class="label">03 · El Combate entre Mundo y Tierra</span>
+        <h2 id="titulo-mundo-tierra" class="section-title">El templo griego y el acontecer de la verdad (Alétheia)</h2>
+      </div>
+
+      <div class="split-editorial">
+        <div>
+          <p>
+            Para mostrar cómo opera el arte más allá de toda representación o copia, Heidegger elige una obra arquitectónica: un templo griego —tal vez el de Paestum— alzado en un valle rocoso. El templo no imita nada. Al estar ahí, congrega en torno suyo las relaciones esenciales de un pueblo histórico: nacimiento y muerte, victoria e ignominia, destino y presencia del dios. Esa apertura histórica de sentido es lo que Heidegger llama <strong>Mundo</strong>.
+          </p>
+          <p>
+            Al mismo tiempo, su mole de piedra hace visible aquello que antes pasaba inadvertido: la firmeza oscura de la roca, la furia de la tempestad contra sus columnas, la luz del día, el espacio del aire y la agitación del oleaje marino. Este fondo que alberga y sostiene, al que los griegos llamaron <em>physis</em>, es la <strong>Tierra</strong>: aquello esencialmente autoocultante que resiste toda reducción científica o técnica.
+          </p>
+          <p>
+            Entre Mundo (que tiende a abrirse a la claridad) y Tierra (que tiende a retraerse y resguardar) se libra un <strong>combate</strong> (<em>Streit</em>). No es destrucción ni discordia vacía, sino una mutua exaltación fijada en la forma a través de la <strong>desgarradura</strong> (<em>Riss</em>). En esa tensión concentrada acontece la verdad originaria como <em>Alétheia</em> (desocultación en pugna con la ocultación), cuyo resplandor en la obra llamamos <strong>belleza</strong>.
+          </p>
+        </div>
+
+        <div class="washi-card washi-card--cinnabar">
+          <span class="label">Tékhne y creación</span>
+          <div class="value">Saber que desoculta</div>
+          <p style="font-size: 0.9375rem;">
+            Los griegos llamaban <em>tékhne</em> tanto al arte como a la artesanía, pero no por su ejecución manual: <em>tékhne</em> significa un modo de <strong>saber</strong> (haber visto) que saca al ente de la ocultación y lo pone delante en su presencia. La contemplación auténtica tampoco es goce pasivo, sino estar decidido dentro de la verdad que la obra abre.
+          </p>
+        </div>
+      </div>
+
+      <!-- DIAGRAMA INTERACTIVO MUNDO-TIERRA Y VERDAD -->
+      <div class="interactive-panel" aria-labelledby="titulo-diagrama">
+        <div>
+          <span class="label">Diagrama Interactivo de Fuerzas Ontológicas</span>
+          <h3 id="titulo-diagrama" style="font-size: 1.5rem; margin-top: var(--space-xs);">Acontecimiento de la verdad y combate Mundo–Tierra</h3>
+          <p style="font-size: 0.9375rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">
+            Explora cada polo del acontecer de la verdad en la obra y ajusta el equilibrio de tensión para observar por qué el arte requiere tanto la apertura del Mundo como el resguardo de la Tierra.
+          </p>
+        </div>
+
+        <div class="control-row" role="tablist" aria-label="Foco del diagrama Mundo y Tierra">
+          <button type="button" class="btn btn-secondary btn-tab" role="tab" id="diag-focus-todo" aria-selected="true" onclick="setDiagramFocus('todo')">Visión integral</button>
+          <button type="button" class="btn btn-secondary btn-tab" role="tab" id="diag-focus-mundo" aria-selected="false" onclick="setDiagramFocus('mundo')">El Mundo (Apertura)</button>
+          <button type="button" class="btn btn-secondary btn-tab" role="tab" id="diag-focus-tierra" aria-selected="false" onclick="setDiagramFocus('tierra')">La Tierra (Autoocultación)</button>
+          <button type="button" class="btn btn-secondary btn-tab" role="tab" id="diag-focus-riss" aria-selected="false" onclick="setDiagramFocus('riss')">Desgarradura (Riss)</button>
+          <button type="button" class="btn btn-secondary btn-tab" role="tab" id="diag-focus-aletheia" aria-selected="false" onclick="setDiagramFocus('aletheia')">Alétheia y Belleza</button>
+        </div>
+
+        <div class="diagram-grid">
+          <div class="diagram-canvas">
+            <svg id="mundo-tierra-svg" class="diagram-svg" viewBox="0 0 600 360" role="img" aria-labelledby="svg-title svg-desc">
+              <title id="svg-title">Esquema del combate entre Mundo y Tierra en la obra de arte</title>
+              <desc id="svg-desc">Diagrama arquitectónico que muestra el horizonte abierto del Mundo arriba, el fundamento hermético de la Tierra abajo, y el Templo fijando el combate mediante la desgarradura (Riss) donde acontece la Alétheia.</desc>
+
+              <!-- Fondo cielo / apertura del Mundo -->
+              <rect id="svg-mundo-zone" x="20" y="18" width="560" height="145" fill="var(--surface-container-low)" stroke="var(--outline-variant)" stroke-width="1" />
+              <!-- Fondo roca / Tierra -->
+              <rect id="svg-tierra-zone" x="20" y="210" width="560" height="132" fill="var(--surface-container)" stroke="var(--outline)" stroke-width="1" />
+
+              <!-- Líneas de horizonte y apertura (Mundo) -->
+              <g id="svg-mundo-rays" stroke="var(--secondary)" stroke-width="1.5" fill="none">
+                <line x1="300" y1="150" x2="110" y2="45" stroke-dasharray="4 4" />
+                <line x1="300" y1="150" x2="210" y2="30" stroke-dasharray="4 4" />
+                <line x1="300" y1="150" x2="300" y2="25" />
+                <line x1="300" y1="150" x2="390" y2="30" stroke-dasharray="4 4" />
+                <line x1="300" y1="150" x2="490" y2="45" stroke-dasharray="4 4" />
+              </g>
+
+              <!-- Estratos herméticos (Tierra) -->
+              <g id="svg-tierra-strata" stroke="var(--on-surface-variant)" stroke-width="1.2" fill="none">
+                <path d="M 35 245 Q 160 232 300 246 T 565 242" />
+                <path d="M 35 278 Q 180 292 315 276 T 565 284" />
+                <path d="M 35 312 Q 210 302 350 318 T 565 310" />
+              </g>
+
+              <!-- Templo griego (La Obra en reposo concentrado) -->
+              <g id="svg-temple" stroke="var(--on-surface)" stroke-width="2" fill="var(--background)">
+                <!-- Estilóbato / base -->
+                <rect x="175" y="196" width="250" height="14" fill="var(--surface-container-high)" />
+                <rect x="190" y="184" width="220" height="12" fill="var(--surface-container-low)" />
+                <!-- Columnas -->
+                <rect x="202" y="114" width="16" height="70" />
+                <rect x="246" y="114" width="16" height="70" />
+                <rect x="292" y="114" width="16" height="70" />
+                <rect x="338" y="114" width="16" height="70" />
+                <rect x="382" y="114" width="16" height="70" />
+                <!-- Entablamento y frontón -->
+                <rect x="192" y="98" width="216" height="16" fill="var(--surface-container-low)" />
+                <polygon points="184,98 300,56 416,98" fill="var(--surface-container-low)" />
+              </g>
+
+              <!-- Flechas de combate y Desgarradura (Riss) -->
+              <g id="svg-riss-group">
+                <!-- Trazo vertical de tensión (Riss) -->
+                <line id="svg-riss-line" x1="300" y1="68" x2="300" y2="288" stroke="var(--tertiary)" stroke-width="2.5" />
+                <!-- Vector ascendente Mundo -->
+                <polygon id="svg-arrow-up" points="300,58 293,72 307,72" fill="var(--secondary)" />
+                <!-- Vector descendente Tierra -->
+                <polygon id="svg-arrow-down" points="300,298 293,284 307,284" fill="var(--on-surface)" />
+                <!-- Halo de Alétheia (desocultamiento) -->
+                <circle id="svg-aletheia-core" cx="300" cy="148" r="24" fill="var(--background)" fill-opacity="0.88" stroke="var(--tertiary)" stroke-width="2" />
+                <text x="300" y="145" text-anchor="middle" font-family="var(--font-label)" font-size="9.5" fill="var(--tertiary)" font-weight="500">ALÉTHEIA</text>
+                <text x="300" y="157" text-anchor="middle" font-family="var(--font-label)" font-size="8.5" fill="var(--on-surface)">RISS</text>
+              </g>
+
+              <!-- Etiquetas directas en el gráfico -->
+              <text x="36" y="42" font-family="var(--font-label)" font-size="11" fill="var(--secondary)" font-weight="500">MUNDO · APERTURA HISTÓRICA</text>
+              <text x="36" y="58" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">Claridad, decisiones y destino de un pueblo</text>
+
+              <text x="36" y="232" font-family="var(--font-label)" font-size="11" fill="var(--on-surface)" font-weight="500">TIERRA · FUNDAMENTO AUTOOCULTANTE</text>
+              <text x="36" y="332" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">Physis: roca que soporta, hermetismo y albergue</text>
+
+              <text x="435" y="148" font-family="var(--font-label)" font-size="10" fill="var(--on-surface)">REPOSO EN SÍ</text>
+              <text x="435" y="163" font-family="var(--font-body)" font-size="10.5" fill="var(--on-surface-variant)">Combate fijado en forma</text>
+            </svg>
+
+            <div class="slider-field">
+              <label for="tension-slider">
+                <span>Equilibrio del combate (Tierra &harr; Mundo)</span>
+                <span id="tension-readout">Equilibrio en lucha (50% / 50%)</span>
+              </label>
+              <input id="tension-slider" type="range" min="0" max="100" value="50" oninput="updateTension(this.value)">
+            </div>
+          </div>
+
+          <div class="specimen-box" id="diagram-info-panel" aria-live="polite">
+            <!-- Rellenado dinámicamente -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: HÖLDERLIN Y LA ESENCIA DE LA POESÍA -->
+    <section id="holderlin" class="chapter" aria-labelledby="titulo-holderlin">
+      <div class="chapter-head">
+        <span class="label">04 · Hölderlin y la Esencia de la Poesía</span>
+        <h2 id="titulo-holderlin" class="section-title">Cinco palabras-guía sobre la instauración del ser</h2>
+      </div>
+
+      <div class="split-editorial">
+        <div>
+          <p>
+            En la parte final de «El origen de la obra de arte», Heidegger afirma que toda obra de arte es en esencia <strong>Poesía</strong> (<em>Dichtung</em>), entendida en sentido amplio como proyección alumbradora de la verdad. Para pensar esa esencia esencial de la poesía, no busca un promedio general entre muchos autores, sino que interroga a Friedrich Hölderlin, «el poeta del poeta», porque su obra poetiza la propia esencia de la poesía.
+          </p>
+          <p>
+            Así distingue Heidegger entre <em>Dichtung</em> (Poesía primordial, creación instauradora en el habla) y <em>Poesie</em> (la poesía como subgénero literario). El lenguaje no es un simple instrumento de comunicación ya fabricado que el poeta adorna: la poesía hace posible el lenguaje mismo y constituye «el lenguaje primitivo de un pueblo histórico».
+          </p>
+        </div>
+
+        <div class="washi-card">
+          <span class="label">El poeta como médium</span>
+          <div class="value">Signos y voz del pueblo</div>
+          <p style="font-size: 0.9375rem;">
+            El poeta habita el reino intermedio entre los dioses (que hablan mediante signos) y el pueblo (cuya voz legendaria a menudo enmudece). En el «tiempo de indigencia» —entre los dioses que han huido y el dios que vendrá—, el poeta sostiene la memoria y funda un tiempo nuevo.
+          </p>
+        </div>
+      </div>
+
+      <!-- EXPLORADOR DE LAS 5 PALABRAS-GUÍA DE HÖLDERLIN -->
+      <div class="interactive-panel" aria-labelledby="titulo-palabras-guia">
+        <div>
+          <span class="label">Explorador Secuencial · Cinco Palabras-Guía</span>
+          <h3 id="titulo-palabras-guia" style="font-size: 1.5rem; margin-top: var(--space-xs);">Recorrido por los cinco fragmentos de Hölderlin</h3>
+        </div>
+
+        <div class="holderlin-nav" role="tablist" aria-label="Las cinco palabras-guía de Hölderlin">
+          <button type="button" class="holderlin-step-btn" role="tab" id="hold-tab-0" aria-selected="true" onclick="selectHolderlin(0)">
+            <span class="label">Palabra 01</span>
+            <span class="holderlin-step-title">La más inocente</span>
+          </button>
+          <button type="button" class="holderlin-step-btn" role="tab" id="hold-tab-1" aria-selected="false" onclick="selectHolderlin(1)">
+            <span class="label">Palabra 02</span>
+            <span class="holderlin-step-title">El bien más peligroso</span>
+          </button>
+          <button type="button" class="holderlin-step-btn" role="tab" id="hold-tab-2" aria-selected="false" onclick="selectHolderlin(2)">
+            <span class="label">Palabra 03</span>
+            <span class="holderlin-step-title">Somos un diálogo</span>
+          </button>
+          <button type="button" class="holderlin-step-btn" role="tab" id="hold-tab-3" aria-selected="false" onclick="selectHolderlin(3)">
+            <span class="label">Palabra 04</span>
+            <span class="holderlin-step-title">Instauran lo que queda</span>
+          </button>
+          <button type="button" class="holderlin-step-btn" role="tab" id="hold-tab-4" aria-selected="false" onclick="selectHolderlin(4)">
+            <span class="label">Palabra 05</span>
+            <span class="holderlin-step-title">Habitar poéticamente</span>
+          </button>
+        </div>
+
+        <div class="holderlin-detail" id="holderlin-detail-box" aria-live="polite">
+          <!-- Rellenado dinámicamente -->
+        </div>
+
+        <div class="control-row" style="justify-content: space-between;">
+          <button type="button" class="btn btn-secondary" id="hold-prev-btn" onclick="stepHolderlin(-1)">
+            <i data-lucide="arrow-left" class="icon-sm" aria-hidden="true"></i>
+            <span>Palabra anterior</span>
+          </button>
+          <span class="label" id="hold-counter">1 de 5 palabras-guía</span>
+          <button type="button" class="btn btn-primary" id="hold-next-btn" onclick="stepHolderlin(1)">
+            <span>Siguiente palabra</span>
+            <i data-lucide="arrow-right" class="icon-sm" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- SÍNTESIS DEL PRÓLOGO DE SAMUEL RAMOS -->
+      <div class="washi-card washi-card--moss">
+        <span class="label">Lectura crítica · Prólogo de Samuel Ramos (1958)</span>
+        <h3 style="font-size: 1.25rem; margin: var(--space-xs) 0 var(--space-sm);">Aciertos y tensiones de la estética heideggeriana</h3>
+        <p style="font-size: 0.9375rem;">
+          Samuel Ramos destaca como aporte decisivo la rehabilitación del primer plano material (la «tierra») frente al idealismo de Croce o Collingwood, que reducían la obra a pura intuición mental. Al mismo tiempo, plantea objeciones lúcidas: señala una ambigüedad en si el ente que se desoculta es la obra o lo representado, cuestiona la dificultad de aplicar la lucha Mundo–Tierra a artes no representativas como la música, y advierte que al apelar a la «contemplación» reaparece inevitablemente el sujeto contemplador que Heidegger intentaba suprimir.
+        </p>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: BUSCADOR Y GLOSARIO CONCEPTUAL -->
+    <section id="glosario" class="chapter" aria-labelledby="titulo-glosario">
+      <div class="chapter-head">
+        <span class="label">05 · Buscador y Glosario Conceptual</span>
+        <h2 id="titulo-glosario" class="section-title">Léxico fundamental de Arte y poesía</h2>
+        <p style="color: var(--on-surface-variant);">
+          Filtra por eje temático o busca términos en español, alemán o griego. Despliega cada tarjeta para consultar su definición en la obra y márcala como estudiada.
+        </p>
+      </div>
+
+      <div class="search-toolbar">
+        <div class="input-group">
+          <label for="glossary-search">Buscar concepto, raíz griega o alemana</label>
+          <input id="glossary-search" class="text-input" type="search" placeholder="Ejemplo: Alétheia, Verlässlichkeit, Dichtung, Riss..." oninput="filterGlossary()">
+        </div>
+        <div class="control-row" role="group" aria-label="Filtrar glosario por tema">
+          <button type="button" class="btn btn-secondary btn-tab" aria-pressed="true" id="gcat-todos" onclick="setGlossaryCategory('todos')">Todos</button>
+          <button type="button" class="btn btn-secondary btn-tab" aria-pressed="false" id="gcat-ontologia" onclick="setGlossaryCategory('ontologia')">Ontología</button>
+          <button type="button" class="btn btn-secondary btn-tab" aria-pressed="false" id="gcat-combate" onclick="setGlossaryCategory('combate')">Mundo y Tierra</button>
+          <button type="button" class="btn btn-secondary btn-tab" aria-pressed="false" id="gcat-poesia" onclick="setGlossaryCategory('poesia')">Poesía y Lenguaje</button>
+        </div>
+      </div>
+
+      <div id="glossary-results-meta" class="label">Mostrando 12 de 12 conceptos</div>
+
+      <div id="glossary-container" class="glossary-grid">
+        <!-- Rellenado dinámicamente -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN 6: AUTOEVALUACIÓN CONCEPTUAL -->
+    <section id="evaluacion" class="chapter" aria-labelledby="titulo-evaluacion">
+      <div class="chapter-head">
+        <span class="label">06 · Autoevaluación Conceptual</span>
+        <h2 id="titulo-evaluacion" class="section-title">Comprueba tu comprensión de los ensayos</h2>
+        <p style="color: var(--on-surface-variant);">
+          Ocho preguntas analíticas sobre la ontología de la obra de arte, el análisis de Van Gogh, el templo griego y las cinco palabras-guía de Hölderlin. Tu progreso se guarda automáticamente en la sesión.
+        </p>
+      </div>
+
+      <div class="quiz-card" id="quiz-root">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-sm);">
+          <span class="label" id="quiz-step-label">Pregunta 1 de 8</span>
+          <span class="label" id="quiz-score-label">Aciertos: 0 / 0</span>
+        </div>
+
+        <div class="quiz-progress-bar" aria-hidden="true">
+          <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+        </div>
+
+        <div id="quiz-stage" aria-live="polite">
+          <!-- Rellenado dinámicamente -->
+        </div>
+
+        <div class="control-row" style="justify-content: space-between;">
+          <button type="button" class="btn btn-secondary" id="quiz-reset-btn" onclick="handleQuizReset(this)">
+            <i data-lucide="rotate-ccw" class="icon-sm" aria-hidden="true"></i>
+            <span>Reiniciar evaluación</span>
+          </button>
+          <div class="control-row">
+            <button type="button" class="btn btn-secondary" id="quiz-prev-btn" onclick="moveQuiz(-1)">Anterior</button>
+            <button type="button" class="btn btn-primary" id="quiz-next-btn" onclick="moveQuiz(1)">Siguiente pregunta</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 7: PREGUNTAS FRECUENTES (FAQ) -->
+    <section id="faq" class="chapter" aria-labelledby="titulo-faq">
+      <div class="chapter-head">
+        <span class="label">07 · Preguntas Frecuentes (FAQ)</span>
+        <h2 id="titulo-faq" class="section-title">Dudas clave sobre la lectura de Arte y poesía</h2>
+      </div>
+
+      <div class="faq-list" id="faq-container">
+        <!-- Rellenado dinámicamente -->
+      </div>
+    </section>
+
+    <!-- PIE DE PÁGINA Y FUENTES -->
+    <footer class="folio-footer">
+      <span class="label">Fuentes de la edición de estudio</span>
+      <p>
+        Basado en <em>Arte y poesía</em> de Martin Heidegger (traducción y prólogo de Samuel Ramos, Fondo de Cultura Económica): conferencias «El origen de la obra de arte» (<em>Der Ursprung des Kunstwerkes</em>) y «Hölderlin y la esencia de la poesía» (<em>Hölderlin und das Wesen der Dichtung</em>).
+      </p>
+    </footer>
+  </main>
+
+  <api-shim></api-shim>
+
+  <script>
+    /* =========================================================================
+       DATOS DE LA BASE DE CONOCIMIENTOS (todos en backticks seguros)
+       ========================================================================= */
+
+    const ENTITY_DATA = {
+      cosa: {
+        tag: `Ente espontáneo · Sin utilidad`,
+        title: `Mera cosa: el bloque de granito`,
+        quote: `«La cosa poco aparente se sustrae al pensamiento del modo más obstinado. ¿O deberá precisamente pertenecer a la esencia de la cosa, esta reticencia, este ser que tiende a no ser nada y que descansa en sí?»`,
+        summary: `Duro, pesado, extenso y macizo, el bloque de granito no ha sido confeccionado por la mano humana ni sirve para ningún fin práctico. Al llamarlo «mera» cosa solemos definirlo negativamente, como un útil al que se le quitó la utilidad, pero su verdadera cosidad radica en su reticente descansar en sí y su pertenencia silenciosa a la Tierra.`,
+        traits: [
+          { label: `Relación con la materia`, value: `Masa indiferenciada que descansa en sí misma` },
+          { label: `Relación con el Mundo`, value: `Carece de mundo («la piedra no tiene mundo»)` },
+          { label: `Accesibilidad`, value: `Resiste a los conceptos lógicos de sustancia, sensación o materia-forma` }
+        ]
+      },
+      util: {
+        tag: `Posición intermedia · Verlässlichkeit`,
+        title: `El útil: los zapatos de labriego en el campo`,
+        quote: `«En virtud del ser de confianza del útil, está la labriega segura de su mundo. Mundo y tierra sólo existen para ella y para los que existen con ella de su mismo modo, sólo así: en el útil.»`,
+        summary: `Producido por el ser humano según una utilidad previa (calzar el pie para la labranza), el útil adopta su forma y materia desde ese fin. Sin embargo, su esencia más profunda no es el mero «servir para algo», sino el ser de confianza (Verlässlichkeit), que desaparece y se vuelve invisible con el desgaste del uso cotidiano.`,
+        traits: [
+          { label: `Relación con la materia`, value: `La materia desaparece y se desgasta en la servicialidad` },
+          { label: `Relación con el Mundo`, value: `Sostiene en silencio el mundo cotidiano y la llamada de la tierra` },
+          { label: `Accesibilidad`, value: `Pasa inadvertido al usarse; sólo el cuadro de Van Gogh reveló su ser` }
+        ]
+      },
+      obra: {
+        tag: `Acontecer de la verdad · Alétheia`,
+        title: `Obra de arte: el cuadro de Van Gogh y el templo griego`,
+        quote: `«En la obra de arte se ha puesto en operación la verdad del ente. “Poner” quiere decir aquí: asentar establemente.»`,
+        summary: `Aunque comparte con la cosa su presencia autosuficiente y con el útil el haber sido creada, la obra de arte no se agota en el uso ni en la mera artesanía. Erige un Mundo histórico abierto y hace sobresalir a la Tierra sin consumirla. En ella resalta el puro «que es» (factum est) de su ser-creada y acontece la verdad como desocultación.`,
+        traits: [
+          { label: `Relación con la materia`, value: `Libera la materia como Tierra: la roca reposa, el color luce, la palabra dice` },
+          { label: `Relación con el Mundo`, value: `Funda, abre y mantiene un Mundo histórico para un pueblo` },
+          { label: `Accesibilidad`, value: `Exige contemplación creadora como saber que habita la lucha abierta` }
+        ]
+      }
+    };
+
+    const DIAGRAM_STATES = {
+      todo: {
+        badge: `Síntesis ontológica`,
+        title: `La obra como lucha fijada entre Mundo y Tierra`,
+        text: `El ser-obra de la obra consiste en sostener el combate entre la apertura del Mundo y la autoocultación de la Tierra. No es una discordia destructiva: en la intimidad de esta pelea cada polo lleva al otro más allá de sí mismo, produciendo el reposo concentrado en que reposa la obra.`,
+        quote: `«Puesto que la lucha llega a su punto más alto en la sencillez de la intimidad, por eso la unidad de la obra acontece en el costear esta lucha.»`
+      },
+      mundo: {
+        badge: `Polo ascendente · Apertura`,
+        title: `El Mundo: horizonte de sentido y destino histórico`,
+        text: `El Mundo no es la suma de cosas visibles ni un marco abstracto. Es lo siempre inobjetivable que se abre donde caen las decisiones esenciales de un pueblo (victoria o ruina, gracia o ausencia de los dioses). Al erigirse el templo, todas las cosas cobran su ritmo, cercanía y amplitud.`,
+        quote: `«El mundo se mundaniza y es más existente que lo aprehensible y lo perceptible, donde nos creemos en casa.»`
+      },
+      tierra: {
+        badge: `Polo descendente · Resguardo`,
+        title: `La Tierra: physis y fundamento autoocultante`,
+        text: `La Tierra es donde todo lo naciente vuelve a albergarse; guarda su secreto frente a todo cálculo técnico o científico. Mientras el útil gasta la piedra o el metal, la obra hace que la Tierra sobresalga en la patencia de un mundo precisamente como lo que se retrae e impone su pesantez.`,
+        quote: `«La roca llega a soportar y a reposar, y así llega a ser por primera vez roca; el metal llega a brillar y a centellar, los colores a lucir, el sonido a sonar, la palabra a la dicción.»`
+      },
+      riss: {
+        badge: `Corte basal · Forma`,
+        title: `La Desgarradura (Riss): el trazo que une la contienda`,
+        text: `La lucha entre Mundo y Tierra no abre un abismo vacío; traza un corte vertical y basal que junta a los adversarios en su único fundamento. Al fijarse esa desgarradura en la Tierra, surge la figura o forma de la obra sin destruir ninguno de los dos polos.`,
+        quote: `«Este corte no deja que los contrarios se destruyan mutuamente, sino que da a la contraposición de medida y límite un solo perfil.»`
+      },
+      aletheia: {
+        badge: `Verdad y Belleza`,
+        title: `Alétheia: desocultación y brillo de la verdad`,
+        text: `La verdad para Heidegger no es mera concordancia lógica de una proposición con un objeto, sino el acontecimiento originario por el que el ente sale a la no-ocultación (Alétheia) en lucha constante con dos modos de ocultación. Cuando esa luz se asienta en la obra, su resplandor es la belleza.`,
+        quote: `«El brillo puesto en la obra es lo bello. La belleza es un modo de ser la verdad.»`
+      }
+    };
+
+    const HOLDERLIN_WORDS = [
+      {
+        num: `01`,
+        ref: `Carta a su madre, enero de 1799 (III, 377)`,
+        verse: `«Poetizar: la más inocente de todas las ocupaciones.»`,
+        title: `La apariencia inofensiva de un juego sin acción`,
+        analysis: `A primera vista, la poesía parece un sueño inofensivo: inventa imágenes sin insertarse en la realidad práctica ni cargar con la culpa de la acción decisiva. Sin embargo, Heidegger muestra que esta apariencia modesta e inocua es el refugio exterior que protege al poeta para poder sostener una obra que, en su fondo, es sumamente peligrosa.`,
+        keyPoint: `Su campo de acción es el lenguaje; por ello debemos preguntar qué dice Hölderlin sobre el lenguaje mismo.`
+      },
+      {
+        num: `02`,
+        ref: `Bosquejo de poema sobre el hombre (IV, 246)`,
+        verse: `«Y se le ha dado al hombre el más peligroso de los bienes, el lenguaje… para que muestre lo que es…»`,
+        title: `El peligro del ser y la posibilidad de la historia`,
+        analysis: `El lenguaje no es un simple utensilio comunicativo entre otros, sino el acontecimiento que hace posible que el hombre esté en medio de lo abierto, tenga mundo y sea histórico. Es el «más peligroso de los bienes» porque el habla funda la conciencia del ser, pero también crea la posibilidad del engaño, la ambigüedad y la degradación de la palabra esencial en mera vulgaridad.`,
+        keyPoint: `Sólo donde hay habla puede haber mundo, y sólo donde rige un mundo existe historia humana.`
+      },
+      {
+        num: `03`,
+        ref: `Proyecto para «Reconciliador en que tú nunca has creído…» (IV, 343)`,
+        verse: `«El hombre ha experimentado mucho. / Nombrado a muchos celestes, / desde que somos un diálogo / y podemos oír unos de otros.»`,
+        title: `El diálogo como fundamento de nuestra existencia`,
+        analysis: `El habla sólo es esencial como diálogo. Poder hablar y poder oír son igualmente originarios: nos reunimos en torno a la palabra esencial que hace manifiesto lo uno y permanente en el tiempo que se desgarra. Este diálogo comienza desde que los dioses nos invocan y el hombre responde nombrándolos, decidiendo así su destino histórico.`,
+        keyPoint: `Un repertorio de palabras y reglas gramaticales es sólo el primer plano superficial del habla.`
+      },
+      {
+        num: `04`,
+        ref: `Conclusión del poema «En memoria» / Andenken (IV, 63)`,
+        verse: `«Pero lo que queda, lo instauran los poetas.»`,
+        title: `La poesía como instauración del ser por la palabra`,
+        analysis: `Lo permanente no se deduce de lo pasajero ni de lo ya existente; debe ser detenido contra el torrente del tiempo mediante una libre donación. Poetizar es instaurar (Stiftung) el ser en triple sentido: como libre ofrenda, como firme fundación de la existencia humana y como comienzo histórico. Al nombrar originalmente a los dioses y a las cosas, éstas brillan por primera vez como entes.`,
+        keyPoint: `La instauración poética está doblemente vinculada: a los signos de los dioses y a la voz legendaria del pueblo.`
+      },
+      {
+        num: `05`,
+        ref: `«En azul amable florece…» (VI, 25)`,
+        verse: `«Pleno de méritos, pero es poéticamente / como el hombre habita esta tierra.»`,
+        title: `El habitar poético y el tiempo de indigencia`,
+        analysis: `Todo lo que el hombre logra por su esfuerzo técnico y moral («pleno de méritos») no alcanza la razón de ser de su morada. Habitar poéticamente significa estar en presencia de los dioses y ser tocado por la esencia cercana de las cosas; significa que la existencia es una donación, no un adorno ni una «expresión del alma de la cultura». Hölderlin anticipa así un tiempo nuevo en medio de la doble carencia: la de los dioses que han huido y el dios que vendrá.`,
+        keyPoint: `La síntesis de la 1.ª y 2.ª palabra: la poesía es a la vez la obra más peligrosa y la más inocente apariencia.`
+      }
+    ];
+
+    const GLOSSARY_TERMS = [
+      {
+        id: `aletheia`,
+        term: `Alétheia (Verdad)`,
+        origin: `Griego: ἀλήθεια · Desocultación`,
+        category: `combate`,
+        categoryLabel: `Mundo y Tierra`,
+        definition: `Estado de no-ocultación del ente. Para Heidegger, la verdad no es primariamente la corrección lógica de un enunciado (adaequatio), sino el acontecimiento por el que el ser del ente sale a la luz en lucha permanente con la ocultación.`,
+        example: `En el cuadro de Van Gogh y en el templo griego acontece la verdad porque los entes se muestran en su ser total.`
+      },
+      {
+        id: `cosidad`,
+        term: `Cosidad y lo cósico`,
+        origin: `Alemán: Dingheit / Dinghaft`,
+        category: `ontologia`,
+        categoryLabel: `Ontología`,
+        definition: `Aquello que constituye el ser propio de una mera cosa (neologismos introducidos por el traductor Samuel Ramos). La obra de arte posee un soporte material («cósico»), pero su realidad artística no puede reducirse a esa base ni interpretarse con los conceptos tradicionales de cosa.`,
+        example: `La piedra en la arquitectura o el colorido en el cuadro forman parte de la obra, pero desde la Tierra y no como materia prima consumible.`
+      },
+      {
+        id: `verlasslichkeit`,
+        term: `Ser de confianza`,
+        origin: `Alemán: Verlässlichkeit`,
+        category: `ontologia`,
+        categoryLabel: `Ontología`,
+        definition: `Esencia profunda del útil que subyace a su simple «servir para algo». Gracias al ser de confianza, el útil vincula silenciosamente al ser humano con su mundo y con la tierra sin reclamar atención para sí.`,
+        example: `La labriega confía en sus zapatos al pisar los surcos del invierno y del verano; el cuadro de Van Gogh nos revela esa confianza.`
+      },
+      {
+        id: `mundo`,
+        term: `Mundo`,
+        origin: `Alemán: Welt · Apertura histórica`,
+        category: `combate`,
+        categoryLabel: `Mundo y Tierra`,
+        definition: `No es un conjunto contable de objetos ni un marco espacial, sino el ámbito abierto de sentido, decisiones esenciales, caminos y destinos en el que habita un pueblo histórico. La obra de arte erige y mantiene abierto un Mundo.`,
+        example: `El templo de Paestum congrega el nacimiento, la muerte, la bendición y la maldición de los griegos antiguos.`
+      },
+      {
+        id: `tierra`,
+        term: `Tierra`,
+        origin: `Alemán: Erde · Griego: φύσις (Physis)`,
+        category: `combate`,
+        categoryLabel: `Mundo y Tierra`,
+        definition: `Aquello donde todo lo naciente vuelve a albergarse; lo esencialmente autoocultante, hermético y portador que resiste a la descomposición científica. La obra de arte hace que la Tierra sea Tierra al hacer sobresalir su piedra, color, sonido o palabra sin gastarlos.`,
+        example: `El escultor no gasta la piedra como el albañil en el muro utilitario; la deja reposar y brillar en su pesantez.`
+      },
+      {
+        id: `riss`,
+        term: `Desgarradura (Corte)`,
+        origin: `Alemán: Riss`,
+        category: `combate`,
+        categoryLabel: `Mundo y Tierra`,
+        definition: `Trazo íntimo que une a los adversarios (Mundo y Tierra) en un mismo fundamento. Lejos de separar violentamente, la desgarradura fija el combate en un perfil único: la forma de la obra de arte.`,
+        example: `Heidegger reinterpreta la frase de Durero («el arte está metido en la naturaleza; quien puede arrancarlo lo tiene») refiriéndola a extraer ese corte creador.`
+      },
+      {
+        id: `tekhne`,
+        term: `Tékhne`,
+        origin: `Griego: τέχνη · Saber desocultador`,
+        category: `ontologia`,
+        categoryLabel: `Ontología`,
+        definition: `Para el pensamiento griego, no significa técnica moderna ni mero hacer manual, sino una forma de saber («haber visto») que saca a un ente de lo oculto para ponerlo delante en su presencia.`,
+        example: `El artista es un tekhnítes no por su destreza artesanal, sino porque su crear fija el acontecer de la verdad en la forma.`
+      },
+      {
+        id: `dichtung`,
+        term: `Poesía vs. poesía`,
+        origin: `Alemán: Dichtung / Poesie`,
+        category: `poesia`,
+        categoryLabel: `Poesía y Lenguaje`,
+        definition: `Heidegger usa Dichtung (traducido como «Poesía» con mayúscula) para designar el acontecer primordial del habla que proyecta e instaura la verdad en todo arte; reserva Poesie («poesía» en minúscula) para la subespecie literaria en verso.`,
+        example: `La arquitectura y la escultura también acontecen dentro de lo patente del decir y nombrar, siendo modos propios de Poesía.`
+      },
+      {
+        id: `instauracion`,
+        term: `Instauración`,
+        origin: `Alemán: Stiftung`,
+        category: `poesia`,
+        categoryLabel: `Poesía y Lenguaje`,
+        definition: `Esencia de la Poesía como donación libre de lo permanente en la palabra. Comprende un triple movimiento: ofrenda (superabundancia no deducible de lo habitual), fundación (asentamiento en la tierra y en un pueblo) y comienzo (arranque histórico).`,
+        example: `«Pero lo que queda, lo instauran los poetas» (Hölderlin, En memoria).`
+      },
+      {
+        id: `vivencia`,
+        term: `Vivencia estética`,
+        origin: `Alemán: Erlebnis · Estética moderna`,
+        category: `ontologia`,
+        categoryLabel: `Ontología`,
+        definition: `Concepción moderna que transforma la obra de arte en un objeto destinado a producir estados psicológicos o experiencias subjetivas en el espectador. Heidegger advierte en el Epílogo que la vivencia podría ser «el elemento en que muere el arte».`,
+        example: `Cuando el arte se reduce a vivencia, deja de fundar existencia histórica y pasa a ser un mero fenómeno cultural.`
+      },
+      {
+        id: `dasein`,
+        term: `Existente histórico (Dasein)`,
+        origin: `Alemán: Dasein`,
+        category: `poesia`,
+        categoryLabel: `Poesía y Lenguaje`,
+        definition: `El ser humano en cuanto existente abierto al ser y situado históricamente. A través de la contemplación creadora y del diálogo en el habla, el Dasein soporta su pertenencia a la verdad que acontece en la obra.`,
+        example: `La contemplación auténtica inserta las vivencias individuales del Dasein en el histórico soportar la no-ocultación.`
+      },
+      {
+        id: `indigencia`,
+        term: `Tiempo de indigencia`,
+        origin: `Alemán: Dürftige Zeit`,
+        category: `poesia`,
+        categoryLabel: `Poesía y Lenguaje`,
+        definition: `Época histórica marcada por una doble carencia: el «ya no más» de los dioses que han huido y el «todavía no» del dios que vendrá. Es el tiempo al que pertenece la poesía profética de Hölderlin.`,
+        example: `El poeta se mantiene en pie en la noche de esa doble negación para preservar el recuerdo y anunciar un tiempo nuevo.`
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        question: `Según el inicio de «El origen de la obra de arte», ¿por qué Heidegger afirma que debemos recorrer el círculo entre artista, obra y arte en lugar de evitarlo?`,
+        options: [
+          `Porque la lógica formal impide estudiar obras antiguas como el templo de Paestum.`,
+          `Porque ni el recuento empírico de obras ni la deducción desde conceptos altos alcanzan la esencia del arte; andar el círculo es la fiesta del pensamiento.`,
+          `Porque el artista es siempre una causa previa y completamente independiente de la obra.`
+        ],
+        correct: 1,
+        explanation: `Correcto. Heidegger rechaza tanto la inducción comparativa (que presupone saber ya qué es arte) como la deducción abstracta; permanecer en el círculo interrogando la obra real es el camino propio del pensar.`
+      },
+      {
+        question: `¿Cuál de las tres interpretaciones tradicionales de la cosa domina en la estética occidental y de dónde procede en realidad?`,
+        options: [
+          `La unión de materia y forma (hylé–morphé), que proviene de la esencia del útil confeccionado para un servicio.`,
+          `La teoría sensualista (aisthetón), nacida de la contemplación de la arquitectura griega.`,
+          `La teoría sustancialista (hypokéimenon), creada exclusivamente para explicar la música.`
+        ],
+        correct: 0,
+        explanation: `Exacto. Heidegger muestra que la dupla materia–forma está predeterminada por la utilidad de los artefactos fabricados (como un jarro o un hacha) y se extrapoló indebidamente a las meras cosas y a las obras de arte.`
+      },
+      {
+        question: `Al analizar el cuadro de los zapatos de labriego de Van Gogh, ¿qué descubre Heidegger como el ser más esencial del útil?`,
+        options: [
+          `La perfección técnica del pincel y la fidelidad fotográfica de la copia.`,
+          `El «ser de confianza» (Verlässlichkeit), en el cual descansa el simple «servir para algo».`,
+          `La capacidad del útil para resistir eternamente al desgaste físico.`
+        ],
+        correct: 1,
+        explanation: `Muy bien. El cuadro «habló» revelando que bajo el servir para algo habita el ser de confianza (Verlässlichkeit), mediante el cual la labriega está segura de su mundo y escucha la llamada de la tierra.`
+      },
+      {
+        question: `En contraste con el útil, ¿qué ocurre con la materia prima (piedra, color, palabra) dentro de la obra de arte?`,
+        options: [
+          `Se consume y desaparece por completo en aras del mensaje moral de la obra.`,
+          `Se mantiene oculta tras una capa de forma racional pura.`,
+          `Sobresale y llega a ser plenamente ella misma (la roca soporta, el color luce, la palabra dice) como Tierra.`
+        ],
+        correct: 2,
+        explanation: `Correcto. Mientras el útil gasta su materia en la servicialidad, la obra hace sobresalir a la Tierra en la patencia de un mundo, liberándola para sí misma.`
+      },
+      {
+        question: `¿Qué designa el término griego «tékhne» según la interpretación de Heidegger?`,
+        options: [
+          `Un saber («haber visto») que saca al ente de la ocultación y lo pone delante en su presencia.`,
+          `La habilidad mecánica de copiar exactamente modelos de la naturaleza.`,
+          `La producción industrial en serie de objetos de uso cotidiano.`
+        ],
+        correct: 0,
+        explanation: `Exacto. Tékhne no significa artesanía manual ni técnica moderna, sino un saber arraigado en la Alétheia (desocultación) que trae el ente a presencia.`
+      },
+      {
+        question: `En la dinámica del templo griego, ¿qué relación sostienen el Mundo y la Tierra?`,
+        options: [
+          `El Mundo destruye la pesantez de la Tierra hasta espiritualizarla por completo.`,
+          `Sostienen un combate (Streit) fijado en la forma por la desgarradura (Riss), donde cada uno eleva al otro hacia su propia esencia.`,
+          `Permanecen completamente separados: la Tierra pertenece a las ciencias naturales y el Mundo a la religión.`
+        ],
+        correct: 1,
+        explanation: `Correcto. Mundo (apertura histórica) y Tierra (fundamento autoocultante) son inseparables y sostienen una lucha íntima que constituye el reposo concentrado de la obra.`
+      },
+      {
+        question: `¿Cómo concilia Heidegger la primera palabra-guía de Hölderlin («la más inocente de todas las ocupaciones») con la segunda («el más peligroso de los bienes, el lenguaje»)?`,
+        options: [
+          `Afirmando que la poesía sólo es peligrosa cuando aborda temas políticos directos.`,
+          `Sosteniendo que Hölderlin escribió la primera frase únicamente por cortesía hacia su madre, sin valor filosófico.`,
+          `Explicando que la apariencia inocua de juego protege al poeta desde fuera para poder elaborar una obra sumamente peligrosa: instaurar el ser en el lenguaje.`
+        ],
+        correct: 2,
+        explanation: `Exacto. La apariencia inofensiva pertenece a la esencia de la poesía «como el valle a la montaña», resguardando al poeta mientras afronta el peligro de nombrar lo sagrado y fundar el diálogo.`
+      },
+      {
+        question: `¿Qué crítica formula Samuel Ramos en el Prólogo respecto a la supresión del dualismo sujeto–objeto en Heidegger?`,
+        options: [
+          `Que al introducir la «contemplación» como condición para que lo creado llegue a ser existente, reaparece inevitablemente el sujeto contemplador.`,
+          `Que Heidegger concede demasiada importancia psicológica al espectador moderno.`,
+          `Que Heidegger olvida por completo mencionar el concepto de verdad en su ensayo.`
+        ],
+        correct: 0,
+        explanation: `Muy bien. Ramos señala que una pura ontología de la obra sin sujeto es imposible, como delata la necesidad heideggeriana de recurrir a la contemplación para actualizar la obra.`
+      }
+    ];
+
+    const FAQ_ITEMS = [
+      {
+        question: `¿Por qué dice Heidegger que la «vivencia» estética es el elemento en que muere el arte?`,
+        answer: `En el Epílogo, Heidegger explica que la estética moderna reduce la obra de arte a un objeto de percepción sensible (aísthesis) y de vivencia subjetiva. Al valorar la obra únicamente por los estados de ánimo o emociones que provoca en un sujeto, el arte pierde su fuerza originaria para fundar un mundo histórico y queda rebajado a mero fenómeno cultural o entretenimiento.`
+      },
+      {
+        question: `Si el arte no es imitación ni copia de la realidad, ¿en qué sentido «acontece la verdad» en la obra?`,
+        answer: `Heidegger abandona la noción tradicional de verdad como concordancia o adecuación entre una proposición (o imagen) y un objeto (adaequatio). Recuperando el término griego Alétheia, entiende la verdad como el acontecimiento histórico por el cual el ente en totalidad sale al estado de no-ocultación. El cuadro de Van Gogh o el templo griego no copian objetos: abren un mundo donde el ser de los entes se vuelve patente.`
+      },
+      {
+        question: `¿Cuál es la diferencia entre «Poesía» (Dichtung) y «poesía» (Poesie)?`,
+        answer: `Como aclara el traductor Samuel Ramos en sus notas, Heidegger distingue entre Dichtung (Poesía con mayúscula) —que nombra la proyección primordial del habla que abre el ente y funda la verdad en todas las artes— y Poesie (poesía con minúscula) —el género literario específico en verso—. Por eso puede afirmar que la arquitectura o la pintura también son, en esencia, Poesía.`
+      },
+      {
+        question: `¿Por qué elige Heidegger analizar unos zapatos pintados por Van Gogh en vez de describir unos zapatos reales?`,
+        answer: `Porque cuando usamos un útil real en la vida cotidiana, éste desaparece en su función y su ser propio pasa inadvertido. Si sólo observamos unos zapatos reales sin usar, únicamente vemos su apariencia exterior o su desgaste físico. Fue precisamente la obra de arte —el cuadro de Van Gogh— la que hizo hablar al útil y puso al descubierto su esencia: el ser de confianza (Verlässlichkeit).`
+      },
+      {
+        question: `¿Qué significa que la poesía de Hölderlin pertenezca a un «tiempo de indigencia»?`,
+        answer: `Significa que el poeta se encuentra en una época definida por una doble negación histórica: el «ya no más» de los dioses antiguos que han huido y el «todavía no» del dios que vendrá. Lejos de evadirse en un narcisismo vacío, Hölderlin asume la soledad de ese intervalo nocturno para preservar los signos de lo sagrado y anticipar un tiempo histórico venidero.`
+      },
+      {
+        question: `¿Qué valor y qué límites encuentra Samuel Ramos en estos dos ensayos?`,
+        answer: `En su prólogo de 1958, Ramos elogia la rehabilitación de la materia («la tierra») como elemento estético propio frente al idealismo de Croce o Collingwood. Sin embargo, advierte que la tesis de la lucha Mundo–Tierra resulta forzada en artes como la música o la poesía (cuya materia ya es espiritual), señala un tono oracular e irracionalista en el capítulo final y observa una circularidad entre creación, verdad y poesía.`
+      }
+    ];
+
+    /* =========================================================================
+       ESTADO DE LA APLICACIÓN (persistido vía notebookAppApi)
+       ========================================================================= */
+    const appState = {
+      selectedEntity: `cosa`,
+      highlightedDimension: ``,
+      diagramFocus: `todo`,
+      diagramTension: 50,
+      holderlinIndex: 0,
+      glossarySearch: ``,
+      glossaryCategory: `todos`,
+      expandedGlossary: [],
+      studiedGlossary: [],
+      quizIndex: 0,
+      quizAnswers: {},
+      expandedFaq: [0]
+    };
+
+    function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        window.notebookAppApi.setAppState({
+          selectedEntity: appState.selectedEntity,
+          highlightedDimension: appState.highlightedDimension,
+          diagramFocus: appState.diagramFocus,
+          diagramTension: appState.diagramTension,
+          holderlinIndex: appState.holderlinIndex,
+          glossaryCategory: appState.glossaryCategory,
+          studiedGlossary: appState.studiedGlossary,
+          quizIndex: appState.quizIndex,
+          quizAnswers: appState.quizAnswers,
+          expandedFaq: appState.expandedFaq
+        }).catch(function () {});
+      }
+    }
+
+    function updateHeaderStatus() {
+      const gPill = document.getElementById(`status-glossary`);
+      if (gPill) {
+        gPill.textContent = `Glosario: ${appState.studiedGlossary.length}/${GLOSSARY_TERMS.length} estudiados`;
+      }
+      const qPill = document.getElementById(`status-quiz`);
+      const answeredCount = Object.keys(appState.quizAnswers).length;
+      if (qPill) {
+        qPill.textContent = `Evaluación: ${answeredCount}/${QUIZ_QUESTIONS.length} respondidas`;
+      }
+    }
+
+    /* =========================================================================
+       MÓDULO 1: COMPARADOR COSA / ÚTIL / OBRA
+       ========================================================================= */
+    function selectEntity(key) {
+      if (!ENTITY_DATA[key]) return;
+      appState.selectedEntity = key;
+
+      [`cosa`, `util`, `obra`].forEach(function (k) {
+        const btn = document.getElementById(`comp-tab-${k}`);
+        if (btn) btn.setAttribute(`aria-selected`, k === key ? `true` : `false`);
+      });
+
+      const box = document.getElementById(`comparator-detail`);
+      if (!box) return;
+      const item = ENTITY_DATA[key];
+      const traitsHtml = item.traits.map(function (t) {
+        return `<div style="border-top: var(--rule-linen); padding-top: var(--space-sm);">
+          <span class="label" style="display: block;">${t.label}</span>
+          <span style="font-size: 0.9375rem;">${t.value}</span>
+        </div>`;
+      }).join(``);
+
+      box.innerHTML = `
+        <span class="tag tag--cinnabar" style="justify-self: start;">${item.tag}</span>
+        <h4 style="font-size: 1.375rem;">${item.title}</h4>
+        <p style="font-size: 0.9375rem; margin-bottom: 0;">${item.summary}</p>
+        <blockquote style="margin: 0; padding: var(--space-sm) var(--space-md); background: var(--surface-container-low); border-left: var(--rule-moss-left); font-family: var(--font-headline); font-size: 0.96875rem;">${item.quote}</blockquote>
+        <div style="display: grid; gap: var(--space-sm);">${traitsHtml}</div>
+      `;
+      persistState();
+    }
+
+    function highlightDimension(dim) {
+      const nextDim = appState.highlightedDimension === dim ? `` : dim;
+      appState.highlightedDimension = nextDim;
+
+      const dims = [`materia`, `origen`, `mundo`, `reposo`, `verdad`];
+      dims.forEach(function (d) {
+        const btn = document.getElementById(`diag-btn-${d}`);
+        const row = document.getElementById(`row-${d}`);
+        const active = d === nextDim;
+        if (btn) btn.setAttribute(`aria-pressed`, active ? `true` : `false`);
+        if (row) row.classList.toggle(`is-highlighted`, active);
+      });
+      persistState();
+    }
+
+    /* =========================================================================
+       MÓDULO 2: DIAGRAMA MUNDO Y TIERRA
+       ========================================================================= */
+    function setDiagramFocus(focusKey) {
+      if (!DIAGRAM_STATES[focusKey]) return;
+      appState.diagramFocus = focusKey;
+
+      [`todo`, `mundo`, `tierra`, `riss`, `aletheia`].forEach(function (k) {
+        const btn = document.getElementById(`diag-focus-${k}`);
+        if (btn) btn.setAttribute(`aria-selected`, k === focusKey ? `true` : `false`);
+      });
+
+      const mundoRays = document.getElementById(`svg-mundo-rays`);
+      const mundoZone = document.getElementById(`svg-mundo-zone`);
+      const tierraZone = document.getElementById(`svg-tierra-zone`);
+      const tierraStrata = document.getElementById(`svg-tierra-strata`);
+      const rissGroup = document.getElementById(`svg-riss-group`);
+      const temple = document.getElementById(`svg-temple`);
+
+      if (mundoRays && mundoZone && tierraZone && tierraStrata && rissGroup && temple) {
+        mundoRays.style.opacity = (focusKey === `todo` || focusKey === `mundo` || focusKey === `aletheia`) ? `1` : `0.25`;
+        mundoZone.style.opacity = (focusKey === `todo` || focusKey === `mundo`) ? `1` : `0.45`;
+        tierraZone.style.opacity = (focusKey === `todo` || focusKey === `tierra`) ? `1` : `0.45`;
+        tierraStrata.style.opacity = (focusKey === `todo` || focusKey === `tierra`) ? `1` : `0.25`;
+        rissGroup.style.opacity = (focusKey === `todo` || focusKey === `riss` || focusKey === `aletheia`) ? `1` : `0.35`;
+        temple.style.opacity = (focusKey === `tierra` || focusKey === `mundo`) ? `0.78` : `1`;
+      }
+
+      const panel = document.getElementById(`diagram-info-panel`);
+      if (panel) {
+        const data = DIAGRAM_STATES[focusKey];
+        panel.innerHTML = `
+          <span class="tag" style="justify-self: start;">${data.badge}</span>
+          <h4 style="font-size: 1.375rem;">${data.title}</h4>
+          <p style="font-size: 0.9375rem; margin-bottom: 0;">${data.text}</p>
+          <blockquote style="margin: 0; padding: var(--space-sm) var(--space-md); background: var(--surface-container-low); border-left: var(--rule-cinnabar-left); font-family: var(--font-headline); font-size: 0.96875rem;">${data.quote}</blockquote>
+          <div id="tension-diagnosis" style="border-top: var(--rule-linen); padding-top: var(--space-sm); font-size: 0.875rem; color: var(--secondary);"></div>
+        `;
+      }
+      updateTension(appState.diagramTension, true);
+      persistState();
+    }
+
+    function updateTension(val, skipPersist) {
+      const numeric = Math.max(0, Math.min(100, Number(val)));
+      appState.diagramTension = numeric;
+
+      const slider = document.getElementById(`tension-slider`);
+      if (slider && Number(slider.value) !== numeric) {
+        slider.value = String(numeric);
+      }
+
+      const readout = document.getElementById(`tension-readout`);
+      const diag = document.getElementById(`tension-diagnosis`);
+      const arrowUp = document.getElementById(`svg-arrow-up`);
+      const arrowDown = document.getElementById(`svg-arrow-down`);
+      const core = document.getElementById(`svg-aletheia-core`);
+
+      const mundoPct = numeric;
+      const tierraPct = 100 - numeric;
+      let statusMsg = ``;
+
+      if (numeric < 30) {
+        if (readout) readout.textContent = `Predominio Tierra (${tierraPct}% / ${mundoPct}%)`;
+        statusMsg = `Exceso de retraimiento hermético: sin la apertura de un Mundo histórico, la piedra queda muda como mero bloque inerte.`;
+      } else if (numeric > 70) {
+        if (readout) readout.textContent = `Predominio Mundo (${tierraPct}% / ${mundoPct}%)`;
+        statusMsg = `Apertura desarraigada: un Mundo que huye de la Tierra carece de fundamento portador y se disuelve en idealismo abstracto.`;
+      } else {
+        if (readout) readout.textContent = `Equilibrio en lucha (${tierraPct}% / ${mundoPct}%)`;
+        statusMsg = `Tensión creadora óptima: la Tierra resguarda y sostiene mientras el Mundo abre su horizonte; en esta desgarradura acontece la obra.`;
+      }
+
+      if (diag) diag.textContent = statusMsg;
+
+      if (arrowUp && arrowDown && core) {
+        const upScale = 0.7 + (numeric / 100) * 0.6;
+        const downScale = 0.7 + ((100 - numeric) / 100) * 0.6;
+        const coreRadius = 26 - Math.abs(numeric - 50) * 0.22;
+        arrowUp.setAttribute(`transform`, `translate(0, ${Math.round((1 - upScale) * 20)})`);
+        arrowDown.setAttribute(`transform`, `translate(0, ${Math.round((downScale - 1) * 14)})`);
+        core.setAttribute(`r`, coreRadius.toFixed(1));
+      }
+
+      if (!skipPersist) persistState();
+    }
+
+    /* =========================================================================
+       MÓDULO 3: LAS 5 PALABRAS-GUÍA DE HÖLDERLIN
+       ========================================================================= */
+    function selectHolderlin(index) {
+      const idx = Math.max(0, Math.min(HOLDERLIN_WORDS.length - 1, Number(index)));
+      appState.holderlinIndex = idx;
+
+      HOLDERLIN_WORDS.forEach(function (_, i) {
+        const btn = document.getElementById(`hold-tab-${i}`);
+        if (btn) btn.setAttribute(`aria-selected`, i === idx ? `true` : `false`);
+      });
+
+      const item = HOLDERLIN_WORDS[idx];
+      const box = document.getElementById(`holderlin-detail-box`);
+      if (box) {
+        box.innerHTML = `
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-sm); align-items: center;">
+            <span class="tag tag--cinnabar">Palabra-guía ${item.num}</span>
+            <span class="label">${item.ref}</span>
+          </div>
+          <p class="holderlin-verse">${item.verse}</p>
+          <h4 style="font-size: 1.25rem;">${item.title}</h4>
+          <p style="font-size: 0.96875rem; margin-bottom: 0;">${item.analysis}</p>
+          <div style="border-top: var(--rule-linen); padding-top: var(--space-sm); font-size: 0.9375rem; color: var(--secondary);">
+            <strong>Clave de enlace:</strong> ${item.keyPoint}
+          </div>
+        `;
+      }
+
+      const counter = document.getElementById(`hold-counter`);
+      if (counter) counter.textContent = `${idx + 1} de ${HOLDERLIN_WORDS.length} palabras-guía`;
+
+      const prevBtn = document.getElementById(`hold-prev-btn`);
+      const nextBtn = document.getElementById(`hold-next-btn`);
+      if (prevBtn) prevBtn.disabled = idx === 0;
+      if (nextBtn) nextBtn.disabled = idx === HOLDERLIN_WORDS.length - 1;
+
+      persistState();
+    }
+
+    function stepHolderlin(delta) {
+      selectHolderlin(appState.holderlinIndex + delta);
+    }
+
+    /* =========================================================================
+       MÓDULO 4: GLOSARIO CONCEPTUAL INTERACTIVO
+       ========================================================================= */
+    function setGlossaryCategory(cat) {
+      appState.glossaryCategory = cat;
+      [`todos`, `ontologia`, `combate`, `poesia`].forEach(function (c) {
+        const btn = document.getElementById(`gcat-${c}`);
+        if (btn) btn.setAttribute(`aria-pressed`, c === cat ? `true` : `false`);
+      });
+      renderGlossary();
+      persistState();
+    }
+
+    function filterGlossary() {
+      const input = document.getElementById(`glossary-search`);
+      appState.glossarySearch = input ? input.value.trim().toLowerCase() : ``;
+      renderGlossary();
+    }
+
+    function resetGlossaryFilters() {
+      appState.glossarySearch = ``;
+      const input = document.getElementById(`glossary-search`);
+      if (input) input.value = ``;
+      setGlossaryCategory(`todos`);
+    }
+
+    function toggleGlossaryCard(id) {
+      const pos = appState.expandedGlossary.indexOf(id);
+      if (pos === -1) {
+        appState.expandedGlossary.push(id);
+      } else {
+        appState.expandedGlossary.splice(pos, 1);
+      }
+      renderGlossary();
+    }
+
+    function toggleStudiedTerm(id) {
+      const pos = appState.studiedGlossary.indexOf(id);
+      if (pos === -1) {
+        appState.studiedGlossary.push(id);
+      } else {
+        appState.studiedGlossary.splice(pos, 1);
+      }
+      renderGlossary();
+      updateHeaderStatus();
+      persistState();
+    }
+
+    function renderGlossary() {
+      const container = document.getElementById(`glossary-container`);
+      const meta = document.getElementById(`glossary-results-meta`);
+      if (!container) return;
+
+      const q = appState.glossarySearch;
+      const filtered = GLOSSARY_TERMS.filter(function (item) {
+        const catMatch = appState.glossaryCategory === `todos` || item.category === appState.glossaryCategory;
+        if (!catMatch) return false;
+        if (!q) return true;
+        const haystack = `${item.term} ${item.origin} ${item.definition} ${item.example}`.toLowerCase();
+        return haystack.indexOf(q) !== -1;
+      });
+
+      if (meta) {
+        meta.textContent = `Mostrando ${filtered.length} de ${GLOSSARY_TERMS.length} conceptos`;
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <span class="label">Sin coincidencias</span>
+            <p style="margin-bottom: 0;">Ningún concepto del glosario coincide con tu búsqueda actual o el filtro seleccionado.</p>
+            <button type="button" class="btn btn-primary" onclick="resetGlossaryFilters()">Mostrar todos los conceptos</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(function (item) {
+        const isOpen = appState.expandedGlossary.indexOf(item.id) !== -1;
+        const isStudied = appState.studiedGlossary.indexOf(item.id) !== -1;
+        return `
+          <article class="glossary-card ${isStudied ? `is-studied` : ``}">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-sm);">
+              <span class="tag">${item.categoryLabel}</span>
+              ${isStudied ? `<span class="label" style="color: var(--positive);">Comprendido</span>` : ``}
+            </div>
+            <button type="button" class="glossary-trigger" aria-expanded="${isOpen ? `true` : `false`}" aria-controls="gbody-${item.id}" onclick="toggleGlossaryCard('${item.id}')">
+              <span>
+                <span class="glossary-term">${item.term}</span>
+                <span class="glossary-origin">${item.origin}</span>
+              </span>
+              <span class="label" aria-hidden="true">${isOpen ? `Ocultar` : `Desplegar`}</span>
+            </button>
+            <div id="gbody-${item.id}" class="glossary-body" ${isOpen ? `` : `hidden`}>
+              <p style="margin-bottom: 0;">${item.definition}</p>
+              <p style="margin-bottom: 0; color: var(--on-surface-variant);"><strong>En la obra:</strong> ${item.example}</p>
+              <button type="button" class="btn btn-secondary" style="justify-self: start; margin-top: var(--space-xs);" aria-pressed="${isStudied ? `true` : `false`}" onclick="toggleStudiedTerm('${item.id}')">
+                <span>${isStudied ? `Marcado como estudiado` : `Marcar como estudiado`}</span>
+              </button>
+            </div>
+          </article>
+        `;
+      }).join(``);
+    }
+
+    /* =========================================================================
+       MÓDULO 5: QUIZ DE AUTOEVALUACIÓN
+       ========================================================================= */
+    function selectQuizAnswer(optionIdx) {
+      const qIdx = appState.quizIndex;
+      if (typeof appState.quizAnswers[qIdx] === `number`) return;
+      appState.quizAnswers[qIdx] = optionIdx;
+      renderQuiz();
+      updateHeaderStatus();
+      persistState();
+    }
+
+    function moveQuiz(delta) {
+      const maxIndex = QUIZ_QUESTIONS.length;
+      const next = Math.max(0, Math.min(maxIndex, appState.quizIndex + delta));
+      appState.quizIndex = next;
+      renderQuiz();
+      persistState();
+    }
+
+    function handleQuizReset(btn) {
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.innerHTML = `<span>Confirmar reinicio</span>`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.innerHTML = `<i data-lucide="rotate-ccw" class="icon-sm" aria-hidden="true"></i><span>Reiniciar evaluación</span>`;
+      appState.quizAnswers = {};
+      appState.quizIndex = 0;
+      renderQuiz();
+      updateHeaderStatus();
+      persistState();
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function renderQuiz() {
+      const stage = document.getElementById(`quiz-stage`);
+      const stepLbl = document.getElementById(`quiz-step-label`);
+      const scoreLbl = document.getElementById(`quiz-score-label`);
+      const fill = document.getElementById(`quiz-progress-fill`);
+      const prevBtn = document.getElementById(`quiz-prev-btn`);
+      const nextBtn = document.getElementById(`quiz-next-btn`);
+      const resetBtn = document.getElementById(`quiz-reset-btn`);
+
+      if (!stage) return;
+
+      let correctCount = 0;
+      const answeredKeys = Object.keys(appState.quizAnswers);
+      answeredKeys.forEach(function (k) {
+        const qi = Number(k);
+        if (QUIZ_QUESTIONS[qi] && appState.quizAnswers[qi] === QUIZ_QUESTIONS[qi].correct) {
+          correctCount += 1;
+        }
+      });
+
+      if (scoreLbl) scoreLbl.textContent = `Aciertos: ${correctCount} / ${answeredKeys.length}`;
+      if (fill) {
+        const pct = Math.round((answeredKeys.length / QUIZ_QUESTIONS.length) * 100);
+        fill.style.width = `${pct}%`;
+      }
+
+      if (resetBtn && resetBtn.dataset.armed === `true`) {
+        resetBtn.dataset.armed = `false`;
+        resetBtn.innerHTML = `<i data-lucide="rotate-ccw" class="icon-sm" aria-hidden="true"></i><span>Reiniciar evaluación</span>`;
+        if (window.lucide) window.lucide.createIcons();
+      }
+
+      if (appState.quizIndex >= QUIZ_QUESTIONS.length) {
+        if (stepLbl) stepLbl.textContent = `Resultado final`;
+        if (prevBtn) prevBtn.disabled = false;
+        if (nextBtn) {
+          nextBtn.disabled = true;
+          nextBtn.textContent = `Evaluación completada`;
+        }
+
+        const pctScore = Math.round((correctCount / QUIZ_QUESTIONS.length) * 100);
+        let verdict = `Lectura inicial en curso`;
+        if (pctScore >= 85) verdict = `Dominio sólido de la ontología estética heideggeriana`;
+        else if (pctScore >= 55) verdict = `Comprensión intermedia: repasa el glosario de Mundo y Tierra`;
+
+        stage.innerHTML = `
+          <div class="washi-card washi-card--moss" style="background: var(--background);">
+            <span class="label">Balance de autoevaluación</span>
+            <div class="value">${correctCount} de ${QUIZ_QUESTIONS.length} aciertos (${pctScore}%)</div>
+            <p style="margin-bottom: var(--space-sm);"><strong>Diagnóstico:</strong> ${verdict}.</p>
+            <p style="font-size: 0.9375rem; color: var(--on-surface-variant); margin-bottom: 0;">
+              Puedes retroceder para revisar tus respuestas o reiniciar la evaluación para volver a intentarlo.
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      const qIdx = appState.quizIndex;
+      const q = QUIZ_QUESTIONS[qIdx];
+      const chosen = appState.quizAnswers[qIdx];
+      const isAnswered = typeof chosen === `number`;
+
+      if (stepLbl) stepLbl.textContent = `Pregunta ${qIdx + 1} de ${QUIZ_QUESTIONS.length}`;
+      if (prevBtn) prevBtn.disabled = qIdx === 0;
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.textContent = qIdx === QUIZ_QUESTIONS.length - 1 ? `Ver resultado final` : `Siguiente pregunta`;
+      }
+
+      const letters = [`A`, `B`, `C`];
+      const optionsHtml = q.options.map(function (optText, oi) {
+        let cls = `quiz-option`;
+        if (isAnswered) {
+          if (oi === q.correct) cls += ` is-correct`;
+          else if (oi === chosen) cls += ` is-wrong`;
+        }
+        return `
+          <button type="button" class="${cls}" ${isAnswered ? `disabled` : ``} onclick="selectQuizAnswer(${oi})">
+            <span class="label" style="min-width: 20px;">${letters[oi]}</span>
+            <span>${optText}</span>
+          </button>
+        `;
+      }).join(``);
+
+      let feedbackHtml = ``;
+      if (isAnswered) {
+        const ok = chosen === q.correct;
+        feedbackHtml = `
+          <div class="quiz-feedback ${ok ? `` : `quiz-feedback--error`}">
+            <strong>${ok ? `Respuesta correcta.` : `Revisión conceptual.`}</strong> ${q.explanation}
+          </div>
+        `;
+      }
+
+      stage.innerHTML = `
+        <h3 style="font-size: 1.25rem; line-height: 1.35; margin-bottom: var(--space-md);">${q.question}</h3>
+        <div class="quiz-options">${optionsHtml}</div>
+        ${feedbackHtml}
+      `;
+    }
+
+    /* =========================================================================
+       MÓDULO 6: FAQ ACORDEÓN
+       ========================================================================= */
+    function toggleFaq(index) {
+      const pos = appState.expandedFaq.indexOf(index);
+      if (pos === -1) appState.expandedFaq.push(index);
+      else appState.expandedFaq.splice(pos, 1);
+      renderFaq();
+      persistState();
+    }
+
+    function renderFaq() {
+      const container = document.getElementById(`faq-container`);
+      if (!container) return;
+
+      container.innerHTML = FAQ_ITEMS.map(function (item, idx) {
+        const isOpen = appState.expandedFaq.indexOf(idx) !== -1;
+        return `
+          <article class="faq-item">
+            <button type="button" class="faq-btn" aria-expanded="${isOpen ? `true` : `false`}" aria-controls="faq-panel-${idx}" onclick="toggleFaq(${idx})">
+              <span>${item.question}</span>
+              <span class="label" style="flex-shrink: 0;">${isOpen ? `Cerrar` : `Leer`}</span>
+            </button>
+            <div id="faq-panel-${idx}" class="faq-panel" ${isOpen ? `` : `hidden`}>
+              <p style="margin-bottom: 0;">${item.answer}</p>
+            </div>
+          </article>
+        `;
+      }).join(``);
+    }
+
+    /* =========================================================================
+       INICIALIZACIÓN
+       ========================================================================= */
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            if (saved.selectedEntity && ENTITY_DATA[saved.selectedEntity]) appState.selectedEntity = saved.selectedEntity;
+            if (typeof saved.highlightedDimension === `string`) appState.highlightedDimension = saved.highlightedDimension;
+            if (saved.diagramFocus && DIAGRAM_STATES[saved.diagramFocus]) appState.diagramFocus = saved.diagramFocus;
+            if (typeof saved.diagramTension === `number`) appState.diagramTension = saved.diagramTension;
+            if (typeof saved.holderlinIndex === `number`) appState.holderlinIndex = saved.holderlinIndex;
+            if (typeof saved.glossaryCategory === `string`) appState.glossaryCategory = saved.glossaryCategory;
+            if (Array.isArray(saved.studiedGlossary)) appState.studiedGlossary = saved.studiedGlossary;
+            if (typeof saved.quizIndex === `number`) appState.quizIndex = saved.quizIndex;
+            if (saved.quizAnswers && typeof saved.quizAnswers === `object`) appState.quizAnswers = saved.quizAnswers;
+            if (Array.isArray(saved.expandedFaq)) appState.expandedFaq = saved.expandedFaq;
+          }
+        } catch (err) {
+          /* Estado inicial limpio si no hay datos guardados */
+        }
+      }
+
+      selectEntity(appState.selectedEntity);
+      if (appState.highlightedDimension) {
+        const d = appState.highlightedDimension;
+        appState.highlightedDimension = ``;
+        highlightDimension(d);
+      }
+      setDiagramFocus(appState.diagramFocus);
+      updateTension(appState.diagramTension, true);
+      selectHolderlin(appState.holderlinIndex);
+      setGlossaryCategory(appState.glossaryCategory);
+      renderQuiz();
+      renderFaq();
+      updateHeaderStatus();
+
+      if (window.lucide && typeof window.lucide.createIcons === `function`) {
+        window.lucide.createIcons();
+      }
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>

@@ -1,0 +1,1992 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="nocturne">
+  <title>De la esencia de la verdad — Martin Heidegger</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/scrollama@3.2.0/build/scrollama.min.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* Page and surfaces: Prussian midnight steps */
+      --background: #0a101d;
+      --surface-container-low: #0e1626;
+      --surface-container: #111b2e;
+      --surface-container-high: #17243c;
+
+      /* Text */
+      --on-surface: #f2ece1;
+      --on-surface-variant: #9ba8bf;
+
+      /* Borders */
+      --outline: #384d73;
+      --outline-variant: #21304d;
+
+      /* Accents */
+      --primary: #dfaa5b;
+      --on-primary: #0a101d;
+      --primary-container: #2b261c;
+      --on-primary-container: #f5dcb0;
+      --secondary: #687a99;
+      --tertiary: #7cc4e8;
+      --error: #f27474;
+      --on-error: #1a0606;
+
+      /* Data series */
+      --data-1: #dfaa5b;
+      --data-2: #7cc4e8;
+      --data-3: #52d19c;
+      --data-4: #e07a5f;
+      --data-context: #4a5d80;
+
+      /* Shared semantic & focus tokens */
+      --positive: #52d19c;
+      --warning: #e07a5f;
+      --focus: #dfaa5b;
+
+      /* Fonts */
+      --font-headline: 'EB Garamond', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'JetBrains Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --hairline: 1px solid var(--outline-variant);
+      --hairline-strong: 1px solid var(--outline);
+      --panel-highlight: inset 0 1px 0 rgba(242, 236, 225, 0.05);
+      --brass-glow: radial-gradient(circle at 88% 12%, rgba(223, 170, 91, 0.08), transparent 45%);
+      --heading-tracking: -0.015em;
+      --label-tracking: 0.06em;
+      --sky-tint: color-mix(in srgb, var(--tertiary) 12%, transparent);
+      --brass-tint: color-mix(in srgb, var(--primary) 14%, transparent);
+      --coral-tint: color-mix(in srgb, var(--data-4) 14%, transparent);
+      --mint-tint: color-mix(in srgb, var(--positive) 12%, transparent);
+      --brass-border: color-mix(in srgb, var(--primary) 42%, transparent);
+      --sky-border: color-mix(in srgb, var(--tertiary) 35%, transparent);
+      --coral-border: color-mix(in srgb, var(--data-4) 40%, transparent);
+
+      /* Type scale: Narrative */
+      --display-size: clamp(2.65rem, 1.5rem + 4.2vw, 4.75rem);
+      --headline-size: clamp(1.85rem, 1.25rem + 2vw, 2.65rem);
+      --subhead-size: clamp(1.22rem, 1.08rem + 0.5vw, 1.45rem);
+      --body-size: clamp(1.03rem, 0.98rem + 0.22vw, 1.15rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-medium: 320ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 65ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .greek {
+      font-family: var(--font-headline);
+      font-style: italic;
+      color: var(--primary);
+      font-weight: 500;
+    }
+    .coord-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+      display: block;
+    }
+    .deck-brass {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-top: var(--space-sm);
+    }
+
+    /* Layout containers (NO overflow: hidden on ancestors of sticky graphic) */
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-lg);
+      overflow-x: clip;
+    }
+    .wrap * { min-width: 0; }
+
+    .section-band {
+      padding: var(--space-2xl) 0;
+      border-top: var(--hairline);
+    }
+    .section-header {
+      margin-bottom: var(--space-xl);
+      max-width: 72ch;
+    }
+    .section-header h2 {
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      margin-top: var(--space-xs);
+    }
+    .section-header h2 em {
+      font-style: italic;
+      color: var(--primary);
+    }
+    .section-lede {
+      font-size: var(--subhead-size);
+      line-height: 1.48;
+      color: var(--on-surface-variant);
+      margin-top: var(--space-md);
+      max-width: 60ch;
+    }
+
+    /* Hero */
+    .hero-header {
+      background-color: var(--background);
+      background-image: var(--brass-glow);
+      padding: var(--space-3xl) 0 var(--space-2xl);
+    }
+    .hero-title {
+      font-size: var(--display-size);
+      line-height: 1.06;
+      margin-top: var(--space-sm);
+      max-width: 18ch;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--primary);
+      font-weight: 400;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+      gap: var(--space-xl);
+      align-items: end;
+      margin-top: var(--space-xl);
+    }
+    .hero-lede {
+      font-size: var(--subhead-size);
+      line-height: 1.52;
+      color: var(--on-surface);
+      max-width: 56ch;
+    }
+    .hero-meta-panel {
+      background: var(--surface-container);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--hairline);
+    }
+    .meta-row:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .meta-key {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+    .meta-val {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface);
+      text-align: right;
+    }
+
+    /* Index Navigation Strip */
+    .toc-nav {
+      margin-top: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: var(--hairline);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .toc-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      background: var(--surface-container-low);
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .toc-link:hover {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+
+    /* Panels & Badges */
+    .panel {
+      background: var(--surface-container);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .observation-well {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      color: var(--on-surface);
+    }
+    .badge {
+      display: inline-block;
+      background: var(--sky-tint);
+      color: var(--tertiary);
+      border: 1px solid var(--sky-border);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+    }
+    .badge-brass {
+      background: var(--brass-tint);
+      color: var(--primary);
+      border-color: var(--brass-border);
+    }
+    .badge-coral {
+      background: var(--coral-tint);
+      color: var(--data-4);
+      border-color: var(--coral-border);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      cursor: pointer;
+      border: var(--hairline-strong);
+      background: transparent;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover {
+      background: var(--surface-container-high);
+    }
+    .btn[aria-pressed="true"],
+    .btn.is-selected {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-secondary {
+      background: var(--surface-container-low);
+      color: var(--on-surface-variant);
+      border-color: var(--outline-variant);
+    }
+    .btn-secondary[aria-pressed="true"] {
+      background: var(--sky-tint);
+      color: var(--tertiary);
+      border-color: var(--tertiary);
+    }
+
+    /* Section 1: 6 Objections Explorer */
+    .split-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .aporia-selector-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .aporia-btn {
+      text-align: left;
+      justify-content: flex-start;
+      padding: var(--space-sm) var(--space-md);
+      line-height: 1.35;
+      text-transform: none;
+      letter-spacing: 0.01em;
+    }
+    .aporia-num {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--primary);
+      margin-right: var(--space-xs);
+    }
+    .aporia-btn[aria-pressed="true"] .aporia-num {
+      color: var(--on-primary);
+    }
+    .aporia-detail-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--hairline);
+      margin-bottom: var(--space-md);
+    }
+    .aporia-detail h3 {
+      font-size: var(--subhead-size);
+      margin-bottom: var(--space-sm);
+    }
+    .quote-strip {
+      border-left: 2px solid var(--primary);
+      padding: var(--space-sm) 0 var(--space-sm) var(--space-md);
+      margin: var(--space-md) 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.18rem;
+      line-height: 1.48;
+      color: var(--on-surface);
+    }
+
+    /* ══ PIN CORE — Sticky Scrollytelling ════════════════════════════════════ */
+    .scrolly {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+    .scrolly-graphic {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: grid;
+      align-content: center;
+      gap: var(--space-md);
+      margin: 0;
+      padding: var(--space-lg) 0;
+    }
+    .steps {
+      padding: 25vh 0 35vh;
+    }
+    .step {
+      min-height: 76vh;
+      display: grid;
+      align-content: center;
+    }
+    @media (max-width: 860px) {
+      .scrolly { grid-template-columns: 1fr; }
+      .scrolly-graphic {
+        position: sticky;
+        top: 0;
+        height: auto;
+        min-height: 52vh;
+        background: var(--background);
+        z-index: 2;
+        padding: var(--space-sm) 0;
+        border-bottom: var(--hairline);
+      }
+      .steps { padding: 8vh 0 12vh; }
+      .step { min-height: 58vh; }
+    }
+    /* ══ end PIN CORE ════════════════════════════════════════════════════════ */
+
+    .step-card {
+      background: var(--surface-container);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      opacity: 0.45;
+      transform: translateY(8px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out), border-color var(--dur-long) var(--ease-out);
+    }
+    .step.is-active .step-card {
+      opacity: 1;
+      transform: none;
+      border-color: var(--outline);
+    }
+    .step-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-sm);
+    }
+    .step-card h3 {
+      font-size: var(--subhead-size);
+      line-height: 1.22;
+      margin-bottom: var(--space-sm);
+    }
+    .step-card p {
+      font-size: 0.98rem;
+      color: var(--on-surface-variant);
+    }
+    .step.is-active .step-card p {
+      color: var(--on-surface);
+    }
+
+    /* Cave Graphic Frame */
+    .cave-frame {
+      background: var(--surface-container);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .cave-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .cave-jump-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .jump-btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 var(--space-sm);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background: var(--background);
+      color: var(--on-surface-variant);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .jump-btn:hover {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+    }
+    .jump-btn[aria-current="step"] {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    .cave-svg-well {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm);
+      min-height: 290px;
+      display: grid;
+      place-items: center;
+    }
+    .cave-svg-well svg {
+      width: 100%;
+      height: auto;
+      max-height: 360px;
+      display: block;
+    }
+
+    /* Telemetry Strip below Cave SVG */
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-sm);
+      padding-top: var(--space-sm);
+      border-top: var(--hairline);
+    }
+    .telemetry-cell {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm);
+    }
+    .telemetry-val {
+      font-family: var(--font-headline);
+      font-size: 1.08rem;
+      color: var(--on-surface);
+      margin-top: var(--space-xs);
+      line-height: 1.25;
+    }
+
+    /* Section 3: Truth Transition Comparator */
+    .mode-switch-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .transition-diagram-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-lg);
+      align-items: center;
+    }
+    .schema-svg-box {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      min-height: 250px;
+    }
+    .schema-svg-box svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .compare-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+
+    /* Section 4: Truth & Freedom Interactive */
+    .freedom-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .freedom-controls {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .freedom-option {
+      display: grid;
+      gap: var(--space-xs);
+      text-align: left;
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-md);
+      border-radius: var(--rounded-lg);
+      border: var(--hairline);
+      background: var(--surface-container);
+      color: var(--on-surface);
+      cursor: pointer;
+      transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .freedom-option:hover {
+      background: var(--surface-container-high);
+    }
+    .freedom-option[aria-pressed="true"] {
+      background: var(--primary-container);
+      border-color: var(--primary);
+    }
+    .freedom-option-title {
+      font-family: var(--font-headline);
+      font-size: var(--subhead-size);
+      color: var(--on-surface);
+    }
+    .freedom-option[aria-pressed="true"] .freedom-option-title {
+      color: var(--primary);
+    }
+    .freedom-option-sub {
+      font-size: 0.92rem;
+      color: var(--on-surface-variant);
+    }
+    .lichtung-well {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      min-height: 230px;
+      margin-bottom: var(--space-md);
+    }
+    .lichtung-well svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Section 5: Untruth Modes */
+    .untruth-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .untruth-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .untruth-metrics {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .metric-tile {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+    .metric-tile-title {
+      font-family: var(--font-headline);
+      font-size: 1.2rem;
+      color: var(--on-surface);
+      margin-top: var(--space-xs);
+    }
+
+    /* Section 6: FAQ & Glossary Table */
+    .faq-list {
+      display: grid;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-2xl);
+    }
+    .faq-item {
+      background: var(--surface-container);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+    }
+    .faq-trigger {
+      width: 100%;
+      min-height: 52px;
+      padding: var(--space-md) var(--space-lg);
+      background: transparent;
+      border: none;
+      color: var(--on-surface);
+      font-family: var(--font-headline);
+      font-size: var(--subhead-size);
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      cursor: pointer;
+    }
+    .faq-trigger:hover {
+      background: var(--surface-container-high);
+    }
+    .faq-icon {
+      font-family: var(--font-label);
+      font-size: 1rem;
+      color: var(--primary);
+      flex-shrink: 0;
+      transition: transform var(--dur-short) var(--ease-out);
+    }
+    .faq-trigger[aria-expanded="true"] .faq-icon {
+      transform: rotate(45deg);
+    }
+    .faq-body {
+      padding: 0 var(--space-lg) var(--space-lg);
+      color: var(--on-surface-variant);
+      border-top: var(--hairline);
+      padding-top: var(--space-md);
+    }
+    .faq-body[hidden] {
+      display: none;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-top: var(--hairline-strong);
+      border-bottom: var(--hairline-strong);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      border-bottom: var(--hairline-strong);
+      font-weight: 500;
+    }
+    td {
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      border-bottom: var(--hairline);
+      vertical-align: top;
+      font-size: 0.96rem;
+    }
+    tr:last-child td { border-bottom: none; }
+    .td-term {
+      font-family: var(--font-headline);
+      font-size: 1.15rem;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    /* Footer */
+    footer {
+      padding: var(--space-2xl) 0 var(--space-3xl);
+      border-top: var(--hairline);
+      color: var(--on-surface-variant);
+      font-size: 0.92rem;
+    }
+
+    /* SVG Transitions */
+    .svg-fade {
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+
+    /* Mobile Breakpoint */
+    @media (max-width: 640px) {
+      .hero-grid,
+      .split-grid,
+      .transition-diagram-panel,
+      .freedom-grid,
+      .untruth-stage,
+      .telemetry-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-header { padding: var(--space-2xl) 0 var(--space-xl); }
+      .section-band { padding: var(--space-xl) 0; }
+      .wrap { padding: 0 var(--space-md); }
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero-header">
+    <div class="wrap">
+      <span class="coord-label">Universidad de Friburgo · Semestre de invierno 1931–1932 · Politeia VII y Teeteto</span>
+      <h1 class="hero-title">De la esencia de la <em>verdad</em></h1>
+      <div class="deck-brass">Martin Heidegger · Del enunciado recto al suceso del no-ocultamiento (Ἀλήθεια)</div>
+
+      <div class="hero-grid">
+        <div>
+          <p class="hero-lede">
+            La tradición filosófica da por evidente que la verdad es la coincidencia de un enunciado con la cosa. En estas lecciones de Friburgo, Heidegger muestra que esa definición es solo un concepto derivado: antes de que un juicio pueda regirse por algo, aquello sobre lo cual enuncia tiene que haberse arrancado al ocultamiento.
+          </p>
+        </div>
+
+        <aside class="hero-meta-panel" aria-label="Coordenadas de la obra">
+          <div class="meta-row">
+            <span class="meta-key">Tesis central</span>
+            <span class="meta-val">Ἀλήθεια precede a Adaequatio</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">Ejes platónicos</span>
+            <span class="meta-val">Caverna (514a–517a) · Teeteto</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">Fundamento</span>
+            <span class="meta-val">Libertad como vinculación al ser</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">Giro decisivo</span>
+            <span class="meta-val">Esencia de la no-verdad (λήθη / ψεῦδος)</span>
+          </div>
+        </aside>
+      </div>
+
+      <nav class="toc-nav" aria-label="Recorrido por las secciones">
+        <a class="toc-link" href="#seccion-obviedad">I. Crítica a lo obvio</a>
+        <a class="toc-link" href="#seccion-caverna">II. Parábola de la caverna</a>
+        <a class="toc-link" href="#seccion-transito">III. Ἀλήθεια y Adaequatio</a>
+        <a class="toc-link" href="#seccion-libertad">IV. Verdad y libertad</a>
+        <a class="toc-link" href="#seccion-noverdad">V. La no-verdad</a>
+        <a class="toc-link" href="#seccion-faq">VI. Síntesis y léxico</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- SECCIÓN I: CRÍTICA A LO OBVIO -->
+    <section class="section-band" id="seccion-obviedad">
+      <div class="wrap">
+        <div class="section-header">
+          <span class="coord-label">§ 1 · Observaciones introductorias</span>
+          <h2>Por qué la definición cotidiana de la verdad como <em>coincidencia</em> se vuelve incomprensible</h2>
+          <p class="section-lede">
+            Cuando enumeramos verdades particulares («2 + 1 = 3», «la tierra gira en torno al sol», «aquí en la sala está encendida la luz»), asumimos conocer ya qué es la verdad en general: la rectitud del enunciado que coincide con la cosa. Sin embargo, apenas interrogamos esta obviedad, se resquebraja en seis aporías.
+          </p>
+        </div>
+
+        <div class="split-grid">
+          <div>
+            <p>
+              Algo nos resulta «comprensible» solo cuando lo abarcamos de un vistazo y lo captamos en su estructura interna. Lo «obvio», en cambio, nos es demasiado próximo e inmediato: tratamos los enunciados verdaderos como utensilios diarios y no tomamos distancia frente a ellos.
+            </p>
+            <p>
+              Para descubrir qué sostiene realmente a una proposición verdadera, Heidegger somete la fórmula usual —verdad como coincidencia y esencia como género universal (<span class="greek">quidditas</span>)— a seis pruebas críticas. Selecciona cada objeción para inspeccionar dónde falla lo que damos por sentado.
+            </p>
+            <div class="quote-strip">
+              «Lo aparentemente obvio se ha vuelto incomprensible; pero eso significa: cuestionable, digno de ser cuestionado.»
+            </div>
+          </div>
+
+          <div class="panel">
+            <span class="coord-label" style="margin-bottom: var(--space-sm);">Selector de aporías · § 1 (1–6)</span>
+            <div class="aporia-selector-grid" role="group" aria-label="Las seis aporías de lo obvio">
+              <button type="button" class="btn aporia-btn" id="aporia-btn-0" aria-pressed="true" onclick="selectAporia(0)">
+                <span class="aporia-num">01</span> Regresión infinita
+              </button>
+              <button type="button" class="btn aporia-btn" id="aporia-btn-1" aria-pressed="false" onclick="selectAporia(1)">
+                <span class="aporia-num">02</span> Oro verdadero
+              </button>
+              <button type="button" class="btn aporia-btn" id="aporia-btn-2" aria-pressed="false" onclick="selectAporia(2)">
+                <span class="aporia-num">03</span> Mesa vs. verdad
+              </button>
+              <button type="button" class="btn aporia-btn" id="aporia-btn-3" aria-pressed="false" onclick="selectAporia(3)">
+                <span class="aporia-num">04</span> Saber previo
+              </button>
+              <button type="button" class="btn aporia-btn" id="aporia-btn-4" aria-pressed="false" onclick="selectAporia(4)">
+                <span class="aporia-num">05</span> Garantía aparente
+              </button>
+              <button type="button" class="btn aporia-btn" id="aporia-btn-5" aria-pressed="false" onclick="selectAporia(5)">
+                <span class="aporia-num">06</span> ¿Quiénes somos?
+              </button>
+            </div>
+
+            <div class="observation-well aporia-detail" id="aporia-detail" aria-live="polite">
+              <div class="aporia-detail-head">
+                <span class="badge badge-brass" id="aporia-tag">Aporía 01 · Coincidencia</span>
+                <span class="coord-label" id="aporia-ref">Sobre el enunciado</span>
+              </div>
+              <h3 id="aporia-title">El círculo de coincidir con algo que coincide</h3>
+              <p id="aporia-body">
+                Para que el enunciado «la luz está encendida» coincida con la situación, debemos saber ya qué y cómo es esa situación mediante un conocimiento. Pero el conocimiento solo capta lo verdadero: es decir, algo que a su vez coincide con la cosa. La definición se disuelve en una cadena infinita de coincidencias sin base.
+              </p>
+              <div class="deck-brass" id="aporia-takeaway">Conclusión: La concepción formal de la coincidencia oculta lo que posibilita el primer darse de la cosa.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN II: PARÁBOLA DE LA CAVERNA (SCROLLYTELLING) -->
+    <section class="section-band" id="seccion-caverna">
+      <div class="wrap">
+        <div class="section-header">
+          <span class="coord-label">Primera parte · §§ 3–16 · Politeia VII (514a–517a)</span>
+          <h2>Los cuatro estadios del suceder la <em>ἀλήθεια</em> en la caverna de Platón</h2>
+          <p class="section-lede">
+            Platón no presenta la verdad mediante una definición conceptual, sino mediante una <span class="greek">Sinn-Bild</span> (imagen simbólica que hace señas hacia un suceso). Lo decisivo no son los estadios aislados, sino las transiciones que sacuden al hombre desde la sombra hasta el sol y lo devuelven a la caverna.
+          </p>
+        </div>
+
+        <div class="scrolly">
+          <!-- PINNED GRAPHIC -->
+          <figure class="scrolly-graphic" aria-label="Diagrama interactivo de la Parábola de la Caverna">
+            <div class="cave-frame">
+              <div class="cave-topbar">
+                <div>
+                  <span class="coord-label" id="cave-stage-label">Estadio A · 514a 2 – 515c 3</span>
+                  <div class="deck-brass" id="cave-stage-sub" style="margin-top: 2px;">La situación en la morada subterránea</div>
+                </div>
+                <div class="cave-jump-group" role="group" aria-label="Saltar a estadio de la caverna">
+                  <button type="button" class="jump-btn" id="jump-0" aria-current="step" onclick="jumpToStep(0)">I</button>
+                  <button type="button" class="jump-btn" id="jump-1" onclick="jumpToStep(1)">II</button>
+                  <button type="button" class="jump-btn" id="jump-2" onclick="jumpToStep(2)">III</button>
+                  <button type="button" class="jump-btn" id="jump-3" onclick="jumpToStep(3)">IV</button>
+                  <button type="button" class="jump-btn" id="jump-4" onclick="jumpToStep(4)">V</button>
+                </div>
+              </div>
+
+              <div class="cave-svg-well">
+                <svg id="cave-svg" viewBox="0 0 680 390" role="img" aria-labelledby="cave-svg-title">
+                  <title id="cave-svg-title">Esquema evolutivo de la caverna de Platón según Heidegger</title>
+                  <defs>
+                    <linearGradient id="fireGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.34"/>
+                      <stop offset="100%" stop-color="var(--primary)" stop-opacity="0.02"/>
+                    </linearGradient>
+                    <linearGradient id="sunGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+                      <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.45"/>
+                      <stop offset="100%" stop-color="var(--primary)" stop-opacity="0.03"/>
+                    </linearGradient>
+                    <radialGradient id="sunHalo" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.95"/>
+                      <stop offset="55%" stop-color="var(--primary)" stop-opacity="0.28"/>
+                      <stop offset="100%" stop-color="var(--primary)" stop-opacity="0"/>
+                    </radialGradient>
+                  </defs>
+
+                  <!-- Estructura geológica de la caverna y superficie exterior -->
+                  <rect x="0" y="0" width="680" height="390" fill="var(--background)"/>
+
+                  <!-- Suelo exterior y cielo -->
+                  <path d="M 390 148 L 680 148 L 680 390 L 0 390 L 0 185 L 280 185 L 355 155 Z" fill="var(--surface-container-low)"/>
+                  <!-- Techo rocoso de la caverna -->
+                  <path d="M 0 185 L 25 170 L 385 170 L 445 148 L 390 148 L 355 155 L 280 185 Z" fill="var(--surface-container-high)"/>
+                  <!-- Cámara subterránea -->
+                  <path d="M 38 188 L 360 188 L 430 148 L 470 148 L 415 245 L 365 348 L 38 348 Z" fill="var(--background)" stroke="var(--outline-variant)" stroke-width="1.5"/>
+
+                  <!-- Pared frontal de las sombras (τὸ πρόσθεν) -->
+                  <line x1="52" y1="200" x2="52" y2="345" stroke="var(--outline)" stroke-width="3"/>
+                  <text x="58" y="212" font-family="var(--font-label)" font-size="10" fill="var(--tertiary)">τὸ πρόσθεν</text>
+
+                  <!-- Cono de luz del fuego dentro de la caverna -->
+                  <polygon id="svg-fire-cone" points="325,258 55,212 55,342" fill="url(#fireGrad)" class="svg-fade"/>
+
+                  <!-- Sombras en la pared -->
+                  <g id="svg-shadows" class="svg-fade">
+                    <rect x="55" y="255" width="12" height="58" fill="var(--surface-container-high)" opacity="0.9"/>
+                    <polygon points="55,238 69,246 69,254 55,254" fill="var(--surface-container-high)" opacity="0.9"/>
+                    <text x="74" y="275" font-family="var(--font-label)" font-size="10" fill="var(--on-surface-variant)">σκιαί (sombras)</text>
+                  </g>
+
+                  <!-- Prisioneros encadenados -->
+                  <g id="svg-prisoners" class="svg-fade">
+                    <circle cx="132" cy="292" r="9" fill="none" stroke="var(--on-surface-variant)" stroke-width="2"/>
+                    <path d="M 132 301 L 132 332 L 116 344 M 132 318 L 114 316" fill="none" stroke="var(--on-surface-variant)" stroke-width="2"/>
+                    <line x1="126" y1="297" x2="144" y2="344" stroke="var(--data-4)" stroke-width="1.8" stroke-dasharray="3,2"/>
+                    <circle cx="164" cy="296" r="8.5" fill="none" stroke="var(--on-surface-variant)" stroke-width="1.6" opacity="0.7"/>
+                    <path d="M 164 305 L 164 334 L 150 344" fill="none" stroke="var(--on-surface-variant)" stroke-width="1.6" opacity="0.7"/>
+                    <text x="108" y="365" font-family="var(--font-label)" font-size="10" fill="var(--on-surface-variant)">δεσμῶται</text>
+                  </g>
+
+                  <!-- Tabique de los titiriteros y objetos confeccionados -->
+                  <g id="svg-wall-carriers" class="svg-fade">
+                    <rect x="216" y="282" width="14" height="66" fill="var(--surface-container-high)" stroke="var(--outline)" stroke-width="1.2"/>
+                    <circle cx="246" cy="306" r="7" fill="none" stroke="var(--secondary)" stroke-width="1.6"/>
+                    <path d="M 246 313 L 246 346" stroke="var(--secondary)" stroke-width="1.6"/>
+                    <!-- Objeto sobre el tabique -->
+                    <rect x="234" y="256" width="16" height="22" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="1.5"/>
+                    <text x="206" y="365" font-family="var(--font-label)" font-size="10" fill="var(--secondary)">τειχίον / σκεύη</text>
+                  </g>
+
+                  <!-- Fuego (πῦρ) -->
+                  <g id="svg-fire" class="svg-fade">
+                    <circle cx="326" cy="260" r="18" fill="var(--primary)" opacity="0.22"/>
+                    <path d="M 326 240 C 335 252, 336 266, 326 272 C 316 266, 317 252, 326 240 Z" fill="var(--primary)"/>
+                    <text x="310" y="294" font-family="var(--font-label)" font-size="10" fill="var(--primary)">πῦρ (fuego)</text>
+                  </g>
+
+                  <!-- Figura dinámica del liberado / filósofo -->
+                  <g id="svg-seeker" class="svg-fade" transform="translate(148, 290)">
+                    <circle cx="0" cy="0" r="10" fill="var(--background)" stroke="var(--primary)" stroke-width="2.2"/>
+                    <path d="M 0 10 L 0 40 M 0 22 L -14 14" fill="none" stroke="var(--primary)" stroke-width="2.2"/>
+                    <line id="svg-gaze-ray" x1="-10" y1="-2" x2="-82" y2="-10" stroke="var(--tertiary)" stroke-width="1.6" stroke-dasharray="4,3"/>
+                  </g>
+
+                  <!-- Zona exterior: cosas reales, reflejo y Sol (ἰδέα τοῦ ἀγαθοῦ) -->
+                  <g id="svg-exterior" class="svg-fade" opacity="0.28">
+                    <!-- Luz solar descendente -->
+                    <polygon points="575,58 430,148 665,148" fill="url(#sunGrad)"/>
+                    <!-- Sol -->
+                    <circle cx="575" cy="54" r="34" fill="url(#sunHalo)"/>
+                    <circle cx="575" cy="54" r="14" fill="var(--primary)"/>
+                    <text x="488" y="30" font-family="var(--font-label)" font-size="10" fill="var(--primary)">ἰδέα τοῦ ἀγαθοῦ (sol)</text>
+
+                    <!-- Ente real exterior (árbol / columna) y agua -->
+                    <line x1="518" y1="148" x2="518" y2="108" stroke="var(--positive)" stroke-width="2.5"/>
+                    <circle cx="518" cy="100" r="13" fill="var(--mint-tint)" stroke="var(--positive)" stroke-width="1.6"/>
+                    <ellipse cx="605" cy="148" rx="34" ry="5" fill="var(--sky-tint)" stroke="var(--tertiary)" stroke-width="1.2"/>
+                    <text x="492" y="166" font-family="var(--font-label)" font-size="10" fill="var(--positive)">τὰ ὄντα / ἰδέαι</text>
+                  </g>
+
+                  <!-- Flecha de retorno (Estadio IV) o de desgaste histórico (Beat V) -->
+                  <g id="svg-return-arrow" class="svg-fade" opacity="0">
+                    <path d="M 465 132 Q 395 152 340 218" fill="none" stroke="var(--data-4)" stroke-width="2.4" stroke-dasharray="5,4"/>
+                    <polygon points="334,225 346,219 338,211" fill="var(--data-4)"/>
+                    <text x="358" y="132" font-family="var(--font-label)" font-size="10" fill="var(--data-4)">descenso del φιλόσοφος</text>
+                  </g>
+
+                  <!-- Overlay Beat V: Desgaste hacia adaequatio -->
+                  <g id="svg-adaequatio-overlay" class="svg-fade" opacity="0">
+                    <rect x="445" y="188" width="212" height="145" rx="4" fill="var(--surface-container)" stroke="var(--outline)"/>
+                    <text x="460" y="212" font-family="var(--font-label)" font-size="10" fill="var(--tertiary)">TRÁNSITO HISTÓRICO</text>
+                    <text x="460" y="236" font-family="var(--font-headline)" font-size="15" fill="var(--primary)">Ἀλήθεια (no-ocultamiento)</text>
+                    <line x1="550" y1="246" x2="550" y2="274" stroke="var(--primary)" stroke-width="1.5"/>
+                    <polygon points="550,280 546,272 554,272" fill="var(--primary)"/>
+                    <text x="460" y="298" font-family="var(--font-headline)" font-size="14" fill="var(--on-surface)">Ὁμοίωσις / Adaequatio</text>
+                    <text x="460" y="318" font-family="var(--font-label)" font-size="9.5" fill="var(--on-surface-variant)">Rectitud del enunciado</text>
+                  </g>
+                </svg>
+              </div>
+
+              <div class="telemetry-grid" aria-live="polite">
+                <div class="telemetry-cell">
+                  <span class="coord-label">Qué es τὸ ἀληθές</span>
+                  <div class="telemetry-val" id="tel-alethes">Sombras en la pared</div>
+                </div>
+                <div class="telemetry-cell">
+                  <span class="coord-label">Estado de la libertad</span>
+                  <div class="telemetry-val" id="tel-freedom">Encadenado sin distancia</div>
+                </div>
+                <div class="telemetry-cell">
+                  <span class="coord-label">Relación con la luz</span>
+                  <div class="telemetry-val" id="tel-light">Sin relación con πῦρ / φῶς</div>
+                </div>
+              </div>
+            </div>
+          </figure>
+
+          <!-- SCROLL STEPS -->
+          <div class="steps" id="steps"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN III: TRÁNSITO HISTÓRICO -->
+    <section class="section-band" id="seccion-transito">
+      <div class="wrap">
+        <div class="section-header">
+          <span class="coord-label">§§ 2, 16, 18 · Historia del concepto de verdad</span>
+          <h2>El tránsito de la <em>ἀλήθεια</em> como no-ocultamiento a la <em>adaequatio</em> como rectitud</h2>
+          <p class="section-lede">
+            El regreso a la historia no es un «paseo inofensivo por viejos jardines», sino el impulso para ganar distancia respecto a lo actual. Allí descubrimos que la verdad como coincidencia (<span class="greek">ὁμοίωσις</span>, <span class="greek">adaequatio</span>) no es el origen, sino el resultado de un desgaste de la experiencia griega primordial.
+          </p>
+        </div>
+
+        <div class="panel">
+          <div class="mode-switch-row" role="group" aria-label="Comparar concepción originaria y derivada">
+            <button type="button" class="btn" id="mode-btn-aletheia" aria-pressed="true" onclick="setTruthMode('aletheia')">
+              1. Experiencia originaria: Ἀλήθεια
+            </button>
+            <button type="button" class="btn" id="mode-btn-adaequatio" aria-pressed="false" onclick="setTruthMode('adaequatio')">
+              2. Concepción derivada: Adaequatio / Ὀρθότης
+            </button>
+          </div>
+
+          <div class="transition-diagram-panel">
+            <div class="schema-svg-box">
+              <svg id="truth-schema-svg" viewBox="0 0 560 230" role="img" aria-labelledby="truth-schema-title">
+                <title id="truth-schema-title">Relación de fundamentación entre no-ocultamiento y rectitud</title>
+                <!-- Fondo de esquema -->
+                <rect x="0" y="0" width="560" height="230" fill="var(--background)"/>
+
+                <!-- Capa 1: Ocultamiento / Physis -->
+                <g id="schema-layer-1" class="svg-fade">
+                  <rect x="18" y="34" width="146" height="162" rx="4" fill="var(--surface-container-low)" stroke="var(--outline-variant)"/>
+                  <text x="30" y="58" font-family="var(--font-label)" font-size="9.5" fill="var(--on-surface-variant)">1. OCULTAMIENTO</text>
+                  <text x="30" y="84" font-family="var(--font-headline)" font-size="17" fill="var(--on-surface)">φύσις κρύπτεσθαι</text>
+                  <text x="30" y="106" font-family="var(--font-headline)" font-size="16" fill="var(--on-surface)">φιλεῖ</text>
+                  <text x="30" y="136" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">Lo ente ama</text>
+                  <text x="30" y="152" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">ocultarse (Heráclito).</text>
+                </g>
+
+                <!-- Flecha 1 -> 2 -->
+                <line id="schema-arrow-1" x1="164" y1="115" x2="198" y2="115" stroke="var(--primary)" stroke-width="2" class="svg-fade"/>
+                <polygon id="schema-head-1" points="204,115 196,110 196,120" fill="var(--primary)" class="svg-fade"/>
+
+                <!-- Capa 2: Aletheia (Desencubrimiento) -->
+                <g id="schema-layer-2" class="svg-fade">
+                  <rect x="206" y="24" width="160" height="182" rx="4" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="1.6"/>
+                  <text x="218" y="48" font-family="var(--font-label)" font-size="9.5" fill="var(--primary)">2. SUELO ORIGINARIO</text>
+                  <text x="218" y="76" font-family="var(--font-headline)" font-size="20" fill="var(--primary)">Ἀ-λήθεια</text>
+                  <text x="218" y="98" font-family="var(--font-body)" font-size="11.5" fill="var(--on-surface)">No-ocultamiento del</text>
+                  <text x="218" y="114" font-family="var(--font-body)" font-size="11.5" fill="var(--on-surface)">ente mismo.</text>
+                  <text x="218" y="144" font-family="var(--font-body)" font-size="11" fill="var(--on-primary-container)">Carácter privativo:</text>
+                  <text x="218" y="160" font-family="var(--font-body)" font-size="11" fill="var(--on-primary-container)">arrancar de λήθη</text>
+                  <text x="218" y="176" font-family="var(--font-body)" font-size="11" fill="var(--on-primary-container)">(desencubrimiento).</text>
+                </g>
+
+                <!-- Flecha 2 -> 3 -->
+                <line id="schema-arrow-2" x1="366" y1="115" x2="398" y2="115" stroke="var(--tertiary)" stroke-width="2" class="svg-fade"/>
+                <polygon id="schema-head-2" points="404,115 396,110 396,120" fill="var(--tertiary)" class="svg-fade"/>
+
+                <!-- Capa 3: Rectitud / Adaequatio -->
+                <g id="schema-layer-3" class="svg-fade">
+                  <rect x="406" y="44" width="136" height="142" rx="4" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.2"/>
+                  <text x="418" y="68" font-family="var(--font-label)" font-size="9.5" fill="var(--tertiary)">3. DERIVADO</text>
+                  <text x="418" y="94" font-family="var(--font-headline)" font-size="17" fill="var(--on-surface)">Ὀρθότης</text>
+                  <text x="418" y="116" font-family="var(--font-headline)" font-size="15" fill="var(--on-surface)">Adaequatio</text>
+                  <text x="418" y="142" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">El enunciado se</text>
+                  <text x="418" y="158" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">rige por lo ya</text>
+                  <text x="418" y="174" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">desoculto.</text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="observation-well" id="truth-mode-copy" aria-live="polite">
+              <span class="badge badge-brass" id="truth-mode-badge">Verdad originaria</span>
+              <h3 id="truth-mode-title" style="margin-top: var(--space-sm); margin-bottom: var(--space-sm); font-size: var(--subhead-size);">
+                Ἀλήθεια: carácter de lo ente, no del enunciado
+              </h3>
+              <p id="truth-mode-desc">
+                Para los griegos del comienzo, lo verdadero (<span class="greek">τὸ ἀληθές</span>) no es la proposición ni el juicio, sino lo ente mismo en cuanto arrancado al ocultamiento. Como la palabra alemana <span class="greek">Un-schuld</span> (inocencia, falta de culpa), <span class="greek">ἀ-λήθεια</span> es privativa: presupone la lucha frente a un ocultar que envuelve al hombre.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="compare-cards">
+          <article class="panel">
+            <span class="coord-label">Cómo se desgastó el comienzo</span>
+            <h3 style="font-size: var(--subhead-size); margin: var(--space-xs) 0 var(--space-sm);">De comparecencia a enunciado</h3>
+            <p>
+              Cuando los griegos conciben el ser como mera «comparecencia» (estar presente), el ocultamiento (<span class="greek">λήθη</span>) se debilita en simple «haberse marchado» (ausencia), y la <span class="greek">ἀλήθεια</span> se reduce a «no haberse marchado» (estar delante).
+            </p>
+          </article>
+
+          <article class="panel">
+            <span class="coord-label">El contragolpe del ψεῦδος</span>
+            <h3 style="font-size: var(--subhead-size); margin: var(--space-xs) 0 var(--space-sm);">De ἀλήθεια a ἀ-ψευδές</h3>
+            <p>
+              Al oponerse a <span class="greek">ψεῦδος</span> (encubrir simulando, invertir), el desocultar pasa a entenderse como «no invertir» (<span class="greek">ἀψευδεῖν</span>): orientarse correctamente en el decir (<span class="greek">λόγος</span>). Así el ser termina interpretado como «ser enunciado» (categorías).
+            </p>
+          </article>
+
+          <article class="panel">
+            <span class="coord-label">La deuda oculta</span>
+            <h3 style="font-size: var(--subhead-size); margin: var(--space-xs) 0 var(--space-sm);">Por qué «oro verdadero» sobrevive</h3>
+            <p>
+              Llamamos «verdadero» tanto a un enunciado como al «oro verdadero» o a «un verdadero amigo». Esa equivocidad cotidiana prueba que la <span class="greek">ἀλήθεια</span> —lo ente genuino y no encubierto— sigue actuando, aunque debilitada, bajo la rectitud formal.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN IV: VERDAD Y LIBERTAD -->
+    <section class="section-band" id="seccion-libertad">
+      <div class="wrap">
+        <div class="section-header">
+          <span class="coord-label">§§ 6–9 · Idea, luz, libertad y ente</span>
+          <h2>Verdad y libertad: el <em>rayo de luz</em> como vinculación con lo que deja pasar el ser</h2>
+          <p class="section-lede">
+            La esencia de la luz es la permeabilidad: despejar y abrir paso a la vista, como un «claro del bosque». Visibilizar la conexión entre idea y luz revela que la libertad auténtica no consiste en romper cadenas, sino en vincularse proyectivamente al ser.
+          </p>
+        </div>
+
+        <div class="freedom-grid">
+          <div class="freedom-controls" role="group" aria-label="Niveles de libertad en Heidegger">
+            <button type="button" class="freedom-option" id="free-btn-0" aria-pressed="false" onclick="selectFreedom(0)">
+              <span class="coord-label">Estadio I · Ausencia de distancia</span>
+              <span class="freedom-option-title">1. Cautividad en lo inmediato</span>
+              <span class="freedom-option-sub">El hombre es presa de las sombras sin saber que está atado. No conoce la diferencia entre sombra y cosa.</span>
+            </button>
+
+            <button type="button" class="freedom-option" id="free-btn-1" aria-pressed="false" onclick="selectFreedom(1)">
+              <span class="coord-label">Estadio II · Libertad negativa</span>
+              <span class="freedom-option-title">2. Mera des-vinculación («libre de…»)</span>
+              <span class="freedom-option-sub">Retirar las cadenas por la fuerza deja al individuo desamparado e inseguro: quiere regresar a la servidumbre habitual.</span>
+            </button>
+
+            <button type="button" class="freedom-option" id="free-btn-2" aria-pressed="true" onclick="selectFreedom(2)">
+              <span class="coord-label">Estadio III · Libertad positiva</span>
+              <span class="freedom-option-title">3. Vinculación con la luz («libre para…»)</span>
+              <span class="freedom-option-sub">«Darse a sí mismo para sí mismo una vinculación»: proyectar el ser (<span class="greek">ἰδέα</span>) para que lo ente advenga desoculto.</span>
+            </button>
+
+            <button type="button" class="freedom-option" id="free-btn-3" aria-pressed="false" onclick="selectFreedom(3)">
+              <span class="coord-label">Estadio IV · Culminación del ser-libre</span>
+              <span class="freedom-option-title">4. Ser liberador desde la oscuridad</span>
+              <span class="freedom-option-sub">La libertad no es contemplación ociosa bajo el sol, sino descenso histórico para confrontar apariencia y ser en la caverna.</span>
+            </button>
+          </div>
+
+          <div class="panel">
+            <div class="lichtung-well">
+              <svg id="lichtung-svg" viewBox="0 0 520 220" role="img" aria-labelledby="lichtung-title">
+                <title id="lichtung-title">Esquema óptico-existencial del claro del bosque y la vinculación</title>
+                <rect x="0" y="0" width="520" height="220" fill="var(--background)"/>
+
+                <!-- Claro despejado -->
+                <polygon id="licht-beam" points="260,18 90,196 430,196" fill="var(--brass-tint)" class="svg-fade"/>
+                <circle id="licht-source" cx="260" cy="24" r="12" fill="var(--primary)" class="svg-fade"/>
+                <text x="278" y="28" font-family="var(--font-label)" font-size="10" fill="var(--primary)">φῶς / ἰδέα (lo que deja pasar)</text>
+
+                <!-- Mirada del ex-sistente -->
+                <circle id="licht-eye" cx="120" cy="170" r="10" fill="var(--background)" stroke="var(--tertiary)" stroke-width="2" class="svg-fade"/>
+                <line id="licht-ray" x1="130" y1="166" x2="250" y2="34" stroke="var(--tertiary)" stroke-width="2" stroke-dasharray="4,3" class="svg-fade"/>
+
+                <!-- Ente que adviene al claro -->
+                <rect id="licht-entity" x="342" y="132" width="46" height="58" rx="3" fill="var(--surface-container-high)" stroke="var(--positive)" stroke-width="2" class="svg-fade"/>
+                <text id="licht-entity-label" x="330" y="206" font-family="var(--font-label)" font-size="10" fill="var(--positive)">τὸ ὄν (ente desoculto)</text>
+
+                <!-- Cadenas rotas / obstáculos -->
+                <g id="licht-chains" class="svg-fade" opacity="0.2">
+                  <line x1="98" y1="184" x2="142" y2="184" stroke="var(--data-4)" stroke-width="2.5"/>
+                  <text x="86" y="204" font-family="var(--font-label)" font-size="10" fill="var(--data-4)">desamparo / atadura</text>
+                </g>
+              </svg>
+            </div>
+
+            <div aria-live="polite">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+                <span class="badge badge-brass" id="free-badge">Libertad positiva</span>
+                <span class="coord-label" id="free-formula">Ex-sistere · § 7–8</span>
+              </div>
+              <h3 id="free-title" style="font-size: var(--subhead-size); margin-bottom: var(--space-sm);">
+                La libertad como proyecto vinculante del ser
+              </h3>
+              <p id="free-body">
+                Solo donde se entiende previamente qué significa ser (la <span class="greek">ἰδέα</span>), hay paso abierto para que lo ente nos salga al encuentro como libro, montaña o historia. Que lo ente se haga más o menos ente depende de la resolución de esta vinculación: «vinculación no es pérdida de poder, sino tomar en posesión».
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN V: LA ESENCIA DE LA NO-VERDAD -->
+    <section class="section-band" id="seccion-noverdad">
+      <div class="wrap">
+        <div class="section-header">
+          <span class="coord-label">Capítulo tercero (§§ 17–19) y Segunda parte (Teeteto)</span>
+          <h2>La esencia de la <em>no-verdad</em>: ocultamiento, <em>λήθη</em> y errancia</h2>
+          <p class="section-lede">
+            Porque <span class="greek">ἀ-λήθεια</span> expresa un arrancar y una acometida contra el ocultar, la pregunta por la verdad se transforma necesariamente en la pregunta por la no-verdad. El ocultamiento no es un mero defecto exterior a la verdad, sino que le pertenece «como el valle a la montaña».
+          </p>
+        </div>
+
+        <div class="untruth-tabs" role="group" aria-label="Modos de la no-verdad">
+          <button type="button" class="btn" id="untruth-btn-0" aria-pressed="true" onclick="selectUntruth(0)">
+            1. Ocultamiento originario (φύσις)
+          </button>
+          <button type="button" class="btn" id="untruth-btn-1" aria-pressed="false" onclick="selectUntruth(1)">
+            2. Λήθη (sustracción y ausencia)
+          </button>
+          <button type="button" class="btn" id="untruth-btn-2" aria-pressed="false" onclick="selectUntruth(2)">
+            3. Ψεῦδος y errancia (apariencia)
+          </button>
+        </div>
+
+        <div class="untruth-stage">
+          <div class="panel" aria-live="polite">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md);">
+              <span class="badge" id="untruth-badge">Todavía-no-desencubierto</span>
+              <span class="coord-label" id="untruth-ref">Heráclito · § 2 y § 19</span>
+            </div>
+            <h3 id="untruth-title" style="font-size: var(--headline-size); line-height: 1.15; margin-bottom: var(--space-md);">
+              Lo ente ama ocultarse: el suelo abismal de la verdad
+            </h3>
+            <p id="untruth-p1">
+              El ocultamiento no equivale sin más a falsedad o error lógico. Cuando algo todavía no ha sido desencubierto —aunque sea desencubrible—, no poseemos algo «falso», sino la reserva originaria que Heráclito nombra con <span class="greek">φύσις κρύπτεσθαι φιλεῖ</span>.
+            </p>
+            <p id="untruth-p2">
+              Sólo porque el ocultamiento asedia al hombre desde el fondo, le resulta necesario y posible arrancar lo ente al velamiento. Si desaparece la experiencia de este ocultar, el no-ocultamiento se vuelve superficial y se degrada en mera disponibilidad cotidiana.
+            </p>
+            <div class="quote-strip" id="untruth-quote">
+              «La manifestabilidad de lo ente es necesariamente en sí misma superación de un ocultamiento: el ocultamiento forma parte esencialmente del no-ocultamiento, como el valle de la montaña.»
+            </div>
+          </div>
+
+          <div class="untruth-metrics" aria-live="polite">
+            <div class="metric-tile">
+              <span class="coord-label">Estatuto ontológico</span>
+              <div class="metric-tile-title" id="untruth-m1">Condición de posibilidad</div>
+              <p id="untruth-m1-desc" style="margin-top: var(--space-xs); color: var(--on-surface-variant); font-size: 0.94rem;">
+                Sin algo oculto previo no habría nada que arrancar hacia el no-ocultamiento.
+              </p>
+            </div>
+            <div class="metric-tile">
+              <span class="coord-label">Relación con el hombre</span>
+              <div class="metric-tile-title" id="untruth-m2">Acometida y desencubrimiento</div>
+              <p id="untruth-m2-desc" style="margin-top: var(--space-xs); color: var(--on-surface-variant); font-size: 0.94rem;">
+                Desencubrir es lucha constante contra la propensión de lo ente a replegarse.
+              </p>
+            </div>
+            <div class="metric-tile">
+              <span class="coord-label">Ejemplo clave del curso</span>
+              <div class="metric-tile-title" id="untruth-m3">El valle y la montaña</div>
+              <p id="untruth-m3-desc" style="margin-top: var(--space-xs); color: var(--on-surface-variant); font-size: 0.94rem;">
+                No hay altura luminosa sin la hondonada oscura que la delimita y sostiene.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN VI: FAQ Y LÉXICO -->
+    <section class="section-band" id="seccion-faq">
+      <div class="wrap">
+        <div class="section-header">
+          <span class="coord-label">Síntesis y preguntas fundamentales</span>
+          <h2>Cuestiones decisivas y léxico de la <em>ἀλήθεια</em></h2>
+          <p class="section-lede">
+            Respuestas breves fundamentadas en los pasajes de la <span class="greek">Politeia</span>, el <span class="greek">Teeteto</span> y los suplementos del manuscrito de Heidegger.
+          </p>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="true" aria-controls="faq-ans-0" id="faq-btn-0" onclick="toggleFaq(0)">
+              <span>¿Por qué el descenso del liberado a la caverna es la culminación de la libertad?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-body" id="faq-ans-0" role="region" aria-labelledby="faq-btn-0">
+              <p>
+                Quien asciende al exterior solo para perderse en la contemplación pasiva de las ideas las reduce a un estrato superior de objetos y no comprende el desencubrimiento. La auténtica libertad no es escapar ni descansar en una posesión estática, sino «ser liberador desde la oscuridad»: asumir la confrontación histórica con la apariencia en la caverna, incluso bajo amenaza de muerte, para que el no-ocultamiento siga sucediendo.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-1" id="faq-btn-1" onclick="toggleFaq(1)">
+              <span>Si la verdad sucede en el existir humano, ¿cae Heidegger en una «humanización» subjetivista?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-body" id="faq-ans-1" role="region" aria-labelledby="faq-btn-1" hidden>
+              <p>
+                No. Quienes objetan una «humanización» presuponen un concepto vulgar del hombre como individuo psicológico encerrado en sí mismo. Para Heidegger, el hombre de la parábola es el ente que <span class="greek">ex-siste</span>: se saca afuera hacia el no-ocultamiento de lo ente en cuanto comprende el ser. No somos nosotros quienes fabricamos la verdad a capricho; es el suceso del desencubrimiento el que funda y determina por vez primera quién es el hombre.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-2" id="faq-btn-2" onclick="toggleFaq(2)">
+              <span>¿Por qué advierte Heidegger que no debemos apoyarnos en la mera etimología de ἀλήθεια?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-body" id="faq-ans-2" role="region" aria-labelledby="faq-btn-2" hidden>
+              <p>
+                Los malabarismos etimológicos de diccionario resultan estériles si no nos conducen a la realidad que acuñó esa palabra. Lo determinante no es descomponer el vocablo griego, sino recobrar la experiencia fundamental del hombre antiguo frente a lo ente que se oculta (<span class="greek">φύσις κρύπτεσθαι φιλεῖ</span>) y ver cómo esa experiencia ya comenzaba a debilitarse en Platón y Aristóteles.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-3" id="faq-btn-3" onclick="toggleFaq(3)">
+              <span>¿Qué conecta la Parábola de la Caverna con el diálogo Teeteto en la Segunda Parte?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-body" id="faq-ans-3" role="region" aria-labelledby="faq-btn-3" hidden>
+              <p>
+                Mientras la parábola conduce al «desencubrimiento» como suceso fundamental, la lectura del <span class="greek">Teeteto</span> sobre qué es saber (<span class="greek">ἐπιστήμη</span>) y opinión falsa (<span class="greek">ψεῦδος</span>) conduce a la «aspiración al ser». Ambas obras convergen en la <span class="greek">παιδεία</span> —el afianzamiento propio del hombre ante lo ente— y muestran cómo, al interpretarse el <span class="greek">ψεῦδος</span> como simple error de predicado en el <span class="greek">λόγος</span>, se obstruyó la comprensión de que la no-verdad pertenece a la esencia de la verdad.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-4" id="faq-btn-4" onclick="toggleFaq(4)">
+              <span>¿Qué significa que preguntar por la esencia de la verdad es preguntar por la historia esencial del hombre?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-body" id="faq-ans-4" role="region" aria-labelledby="faq-btn-4" hidden>
+              <p>
+                El no-ocultamiento no flota en sí mismo ni es una propiedad inerte de las piedras o las proposiciones: solo sucede en el enfrentamiento entre lo ente y la apariencia, donde el hombre se vincula libremente a un proyecto de ser y transforma su existencia. Por eso la verdad no es una posesión estática, sino el comienzo permanente que sostiene nuestra historia.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="font-size: var(--subhead-size); margin-bottom: var(--space-md);">Cuadro de correspondencias conceptuales</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Término original</th>
+                <th>Sentido originario (Heidegger)</th>
+                <th>Desgaste en la tradición</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-term">Ἀλήθεια</td>
+                <td>No-ocultamiento de lo ente mismo; lucha privativa contra el ocultar (<span class="greek">Entbergsamkeit</span>).</td>
+                <td>Mero «estar presente» no ausente o rectitud del enunciado (<span class="greek">adaequatio</span>).</td>
+              </tr>
+              <tr>
+                <td class="td-term">Λήθη</td>
+                <td>Suceso objetivo en que lo ente se retira, se marcha o cae en el ocultamiento.</td>
+                <td>«Olvido» reducido a un estado psicológico o subjetivo de la conciencia.</td>
+              </tr>
+              <tr>
+                <td class="td-term">Ψεῦδος</td>
+                <td>Darle la vuelta a la cosa; encubrir mediante un mostrar (apariencia, errar con la mirada).</td>
+                <td>Simple falsedad o incorrección lógica de un predicado en el juicio.</td>
+              </tr>
+              <tr>
+                <td class="td-term">Ἰδέα / Φῶς</td>
+                <td>Lo avistado de entrada que «deja pasar» el ser-qué de lo ente, como la claridad despeja la vista.</td>
+                <td>Objeto suprasensible estático separado de la existencia histórica.</td>
+              </tr>
+              <tr>
+                <td class="td-term">Ex-sistere</td>
+                <td>Sacarse afuera hacia el no-ocultamiento de lo ente sobre la base de comprender el ser.</td>
+                <td>Simple «estar ahí» presente de cualquier cosa entre las cosas.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>
+        Elaborado íntegramente a partir de Martin Heidegger, <em>De la esencia de la verdad</em> (lecciones de la Universidad de Friburgo del semestre de invierno de 1931/32, título original <em>Vom Wesen der Wahrheit</em>, traducción de Alberto Ciria), sobre la parábola de la caverna (Platón, <em>Politeia</em> VII, 514a–517a) y el diálogo <em>Teeteto</em>.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // ═══ DATA: Aporías de lo obvio (§ 1) ═════════════════════════════════════
+    const APORIAS = [
+      {
+        tag: `Aporía 01 · Coincidencia`,
+        ref: `Sobre el enunciado`,
+        title: `El círculo de coincidir con algo que coincide`,
+        body: `Para que el enunciado «la luz está encendida» coincida con la situación, debemos saber ya qué y cómo es esa situación mediante un conocimiento. Pero el conocimiento solo capta lo verdadero: es decir, algo que a su vez coincide con la cosa. La definición se disuelve en una cadena infinita de coincidencias sin base.`,
+        takeaway: `Conclusión: La concepción formal de la coincidencia oculta lo que posibilita el primer darse de la cosa.`
+      },
+      {
+        tag: `Aporía 02 · Equivocidad`,
+        ref: `Cosas y hombres verdaderos`,
+        title: `¿Con qué coincide el «oro verdadero»?`,
+        body: `No solo llamamos verdadero a un enunciado; también decimos «oro verdadero» o «un verdadero amigo». Evidentemente el oro verdadero no coincide con una proposición. O «verdadero» carece de unidad o ambos usos brotan de una procedencia común más originaria que la coincidencia no expresa.`,
+        takeaway: `Conclusión: La verdad como carácter del enunciado deja sin explicar la verdad de lo ente mismo.`
+      },
+      {
+        tag: `Aporía 03 · Esencialidad`,
+        ref: `Mesa frente a verdad`,
+        title: `¿Son las verdades cosas puestas como mesas?`,
+        body: `Explicamos «esencia» comparando mesas individuales para extraer su ser-qué universal (<span class="greek">quidditas</span>). Pero ¿es legítimo transferir el modo de captar la esencia de una mesa o un buzón a la esencia de la verdad? Además, ¿entendemos siquiera qué significa «ser» dentro de «ser-qué»?`,
+        takeaway: `Conclusión: La esencialidad misma de la esencia permanece incomprendida.`
+      },
+      {
+        tag: `Aporía 04 · Pre-comprensión`,
+        ref: `Conocer de antemano`,
+        title: `La paradoja del conocimiento previo`,
+        body: `Para abstraer la esencia comparando verdades particulares, tenemos que saber ya de antemano qué es la verdad —de lo contrario no podríamos reconocer esos enunciados como verdades. ¿Qué extraña necesidad es esta por la que la esencia tiene que ser conocida antes que lo individual?`,
+        takeaway: `Conclusión: Quedarse perplejo ante esta anticipación muestra que no dominamos la esencia.`
+      },
+      {
+        tag: `Aporía 05 · Garantía`,
+        ref: `Criterio de evidencia`,
+        title: `La obviedad no es garantía de verdad`,
+        body: `Aun concediendo que «coincidencia» y «universalidad» nos resultaran del todo claras, ¿de dónde sabemos que lo obvio es verdadero? ¡Cuántas cosas fueron inmediatamente evidentes para los hombres y luego resultaron ser mera apariencia y lo contrario del saber asegurado!`,
+        takeaway: `Conclusión: Apelar a la obviedad como fundamento carece de fundamentación.`
+      },
+      {
+        tag: `Aporía 06 · Corte Suprema`,
+        ref: `¿Quién es el hombre?`,
+        title: `¿Cómo nos erigimos en jueces de lo evidente?`,
+        body: `Llamamos obvio a lo que «nos entra en la cabeza» sin esfuerzo. Pero ¿quiénes somos nosotros, sumidos en nuestras penas y hábitos cotidianos, para constituirnos en Corte Suprema de la verdad? Antes de invocar lo que nos parece obvio, habría que preguntar quién es el hombre.`,
+        takeaway: `Conclusión: La pregunta por la verdad exige cuestionar al propio hombre y tomar distancia histórica.`
+      }
+    ];
+
+    function selectAporia(index) {
+      const item = APORIAS[index];
+      if (!item) return;
+
+      for (let i = 0; i < APORIAS.length; i++) {
+        const btn = document.getElementById(`aporia-btn-${i}`);
+        if (btn) btn.setAttribute(`aria-pressed`, i === index ? `true` : `false`);
+      }
+
+      const tag = document.getElementById(`aporia-tag`);
+      const ref = document.getElementById(`aporia-ref`);
+      const title = document.getElementById(`aporia-title`);
+      const body = document.getElementById(`aporia-body`);
+      const takeaway = document.getElementById(`aporia-takeaway`);
+
+      if (tag) tag.textContent = item.tag;
+      if (ref) ref.textContent = item.ref;
+      if (title) title.textContent = item.title;
+      if (body) body.innerHTML = item.body;
+      if (takeaway) takeaway.textContent = item.takeaway;
+    }
+
+    // ═══ [1] STEPS: Parábola de la caverna (Scrollytelling) ═══════════════════
+    const STEPS = [
+      {
+        label: `Estadio A · 514a 2 – 515c 3`,
+        sub: `La situación del hombre en la caverna subterránea`,
+        title: `I. Presos ante las sombras sin conocer la sombra como sombra`,
+        body: `Desde la infancia, los prisioneros tienen encadenadas las piernas y el cuello, mirando solo hacia adelante (<span class="greek">τὸ πρόσθεν</span>). Un fuego arde lejos a sus espaldas, detrás de un tabique donde otros hombres transportan figuras. Los encadenados toman las sombras proyectadas —y el eco de las voces— por <span class="greek">τὸ ἀληθές</span> (lo no-oculto) y <span class="greek">τὰ ὄντα</span> (lo ente). No ven la luz ni el fuego, carecen de relación consigo mismos y no conocen la diferencia entre sombra y cosa real. Aun así, ya están puestos ante un no-ocultamiento: ser hombre implica comportarse respecto de lo no-oculto.`,
+        alethes: `Sombras proyectadas (σκιαί)`,
+        freedom: `Cautividad en lo cotidiano (ἄτοπον)`,
+        light: `A sus espaldas; sin relación con πῦρ / φῶς`
+      },
+      {
+        label: `Estadio B · 515c 4 – 515e 5`,
+        sub: `Intento fallido de liberación dentro de la caverna`,
+        title: `II. El deslumbramiento y el deseo de volver a las cadenas`,
+        body: `A uno de los prisioneros se le retiran las cadenas y se le obliga bruscamente a levantarse, girar el cuello y mirar hacia la luz del fuego. El dolor y el deslumbramiento le impiden contemplar las cosas reales (<span class="greek">σκεύη</span>) cuyas sombras veía antes. Si alguien le pregunta «qué es eso» (<span class="greek">τί ἐστιν</span>), quedará perplejo y juzgará que lo visto anteriormente —las sombras— es <span class="greek">ἀληθέστερα</span> (más desoculto y claro). La liberación fracasa porque solo es un mero «quitar cadenas» externo: el desencadenado quiere regresar a lo habitual y no lleva a cabo la diferenciación.`,
+        alethes: `Tensión entre sombras y cosas (ἀληθέστερα)`,
+        freedom: `Desvinculación negativa sin asidero`,
+        light: `Deslumbra y duele; provoca huida`
+      },
+      {
+        label: `Estadio C · 515e 5 – 516e 2`,
+        sub: `Ascenso al exterior y rehabituación hacia la luz del sol`,
+        title: `III. El desencubrimiento ante las ideas y el sol del bien`,
+        body: `Arrastrado por el escarpado ascenso fuera de la caverna, el hombre debe rehabituarse gradualmente: primero sombras reales, luego reflejos en el agua, después las cosas mismas, el cielo nocturno y finalmente el sol (<span class="greek">ἰδέα τοῦ ἀγαθοῦ</span>). Aquí emergen las ideas como lo «más desoculto» (<span class="greek">τὰ νῦν λεγόμενα ἀληθῆ</span>) y «más ente»: aquello cuyo dejar-pasar (luz) permite ver qué es cada ente. El suceso que funda este ver superior es el <strong>desencubrimiento</strong> (<span class="greek">Entbergsamkeit</span>), sobre cuya base el hombre <span class="greek">ex-siste</span>.`,
+        alethes: `Las ideas y el ser (τὰ νῦν λεγόμενα ἀληθῆ)`,
+        freedom: `Libertad positiva: vinculación a la luz`,
+        light: `Claridad que deja pasar el ser (ἰδέα)`
+      },
+      {
+        label: `Estadio D · 516e 3 – 517a 6`,
+        sub: `El descenso de regreso del libre a la caverna`,
+        title: `IV. El φιλόσοφος como liberador desde la oscuridad`,
+        body: `El ascenso no termina bajo el sol: el liberado debe descender de vuelta a su antiguo asiento en la caverna. Sus ojos quedan llenos de tinieblas y los prisioneros se burlan de él e incluso buscan matarlo si intenta desatar a otro. Sin embargo, este descenso es la <strong>culminación del hacerse libre</strong>: la verdad no es una posesión estática para disfrutar en soledad, sino lucha histórica en la que se enfrentan ente y apariencia (<span class="greek">δόξα</span>), manifestando que el ocultamiento pertenece esencialmente a la <span class="greek">ἀλήθεια</span>.`,
+        alethes: `Confrontación entre ente y apariencia`,
+        freedom: `Ser liberador desde la oscuridad`,
+        light: `Mirada esencial que discierne sombras`
+      },
+      {
+        label: `Síntesis · El giro histórico`,
+        sub: `De la ἀλήθεια platónica a la rectitud del enunciado`,
+        title: `V. Donde comienza a ocultarse el no-ocultamiento`,
+        body: `Al observar la marcha completa de los cuatro estadios, Heidegger descubre una ambigüedad decisiva en Platón: la parábola todavía trata de la <span class="greek">ἀλήθεια</span> como grados del no-ocultamiento, pero al someterla bajo el yugo de la <span class="greek">ἰδέα</span> y compararla como «ver más correctamente» (<span class="greek">ὀρθότερον βλέπειν</span>), se prepara el tránsito fatídico. La verdad deja de interrogarse como lucha contra el ocultar y pasa a concebirse como <strong>rectitud de la mirada y del enunciado</strong> (<span class="greek">ὁμοίωσις / adaequatio</span>).`,
+        alethes: `Tránsito hacia ὀρθότης / adaequatio`,
+        freedom: `Historia esencial del hombre`,
+        light: `La ἰδέα desplaza al ocultar originario`
+      }
+    ];
+
+    // ═══ [2]/[3] GRAPHIC: buildGraphic() & renderGraphic(i) ══════════════════
+    function buildGraphic() {
+      // Static SVG layers already structured cleanly inside #cave-svg.
+    }
+
+    function setElOpacity(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.style.opacity = val;
+    }
+
+    function setElTransform(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.setAttribute(`transform`, val);
+    }
+
+    function setLineCoords(id, x1, y1, x2, y2) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.setAttribute(`x1`, x1);
+      el.setAttribute(`y1`, y1);
+      el.setAttribute(`x2`, x2);
+      el.setAttribute(`y2`, y2);
+    }
+
+    function renderGraphic(i) {
+      const s = STEPS[i];
+      if (!s) return;
+
+      const lbl = document.getElementById(`cave-stage-label`);
+      const sub = document.getElementById(`cave-stage-sub`);
+      const telA = document.getElementById(`tel-alethes`);
+      const telF = document.getElementById(`tel-freedom`);
+      const telL = document.getElementById(`tel-light`);
+
+      if (lbl) lbl.textContent = s.label;
+      if (sub) sub.textContent = s.sub;
+      if (telA) telA.textContent = s.alethes;
+      if (telF) telF.textContent = s.freedom;
+      if (telL) telL.textContent = s.light;
+
+      for (let j = 0; j < STEPS.length; j++) {
+        const jb = document.getElementById(`jump-${j}`);
+        if (jb) {
+          if (j === i) jb.setAttribute(`aria-current`, `step`);
+          else jb.removeAttribute(`aria-current`);
+        }
+      }
+
+      if (i === 0) {
+        // Estadio A: en la caverna mirando sombras
+        setElOpacity(`svg-fire-cone`, `0.75`);
+        setElOpacity(`svg-shadows`, `1`);
+        setElOpacity(`svg-prisoners`, `1`);
+        setElOpacity(`svg-wall-carriers`, `0.85`);
+        setElOpacity(`svg-fire`, `0.7`);
+        setElOpacity(`svg-exterior`, `0.22`);
+        setElOpacity(`svg-return-arrow`, `0`);
+        setElOpacity(`svg-adaequatio-overlay`, `0`);
+        setElTransform(`svg-seeker`, `translate(132, 292)`);
+        setLineCoords(`svg-gaze-ray`, `-10`, `-2`, `-76`, `-10`);
+      } else if (i === 1) {
+        // Estadio B: girado hacia el fuego dentro de la caverna, deslumbrado
+        setElOpacity(`svg-fire-cone`, `0.95`);
+        setElOpacity(`svg-shadows`, `0.55`);
+        setElOpacity(`svg-prisoners`, `0.8`);
+        setElOpacity(`svg-wall-carriers`, `1`);
+        setElOpacity(`svg-fire`, `1`);
+        setElOpacity(`svg-exterior`, `0.3`);
+        setElOpacity(`svg-return-arrow`, `0`);
+        setElOpacity(`svg-adaequatio-overlay`, `0`);
+        setElTransform(`svg-seeker`, `translate(192, 286)`);
+        setLineCoords(`svg-gaze-ray`, `10`, `-4`, `118`, `-24`);
+      } else if (i === 2) {
+        // Estadio C: fuera de la caverna, mirando la luz del sol
+        setElOpacity(`svg-fire-cone`, `0.35`);
+        setElOpacity(`svg-shadows`, `0.35`);
+        setElOpacity(`svg-prisoners`, `0.65`);
+        setElOpacity(`svg-wall-carriers`, `0.45`);
+        setElOpacity(`svg-fire`, `0.45`);
+        setElOpacity(`svg-exterior`, `1`);
+        setElOpacity(`svg-return-arrow`, `0`);
+        setElOpacity(`svg-adaequatio-overlay`, `0`);
+        setElTransform(`svg-seeker`, `translate(476, 108)`);
+        setLineCoords(`svg-gaze-ray`, `10`, `-6`, `88`, `-48`);
+      } else if (i === 3) {
+        // Estadio D: descenso de regreso a la caverna como liberador
+        setElOpacity(`svg-fire-cone`, `0.65`);
+        setElOpacity(`svg-shadows`, `1`);
+        setElOpacity(`svg-prisoners`, `1`);
+        setElOpacity(`svg-wall-carriers`, `0.8`);
+        setElOpacity(`svg-fire`, `0.85`);
+        setElOpacity(`svg-exterior`, `0.85`);
+        setElOpacity(`svg-return-arrow`, `1`);
+        setElOpacity(`svg-adaequatio-overlay`, `0`);
+        setElTransform(`svg-seeker`, `translate(290, 232)`);
+        setLineCoords(`svg-gaze-ray`, `-10`, `6`, `-145`, `56`);
+      } else {
+        // Estadio V: Tránsito histórico hacia Adaequatio
+        setElOpacity(`svg-fire-cone`, `0.4`);
+        setElOpacity(`svg-shadows`, `0.6`);
+        setElOpacity(`svg-prisoners`, `0.7`);
+        setElOpacity(`svg-wall-carriers`, `0.5`);
+        setElOpacity(`svg-fire`, `0.6`);
+        setElOpacity(`svg-exterior`, `0.9`);
+        setElOpacity(`svg-return-arrow`, `0`);
+        setElOpacity(`svg-adaequatio-overlay`, `1`);
+        setElTransform(`svg-seeker`, `translate(476, 108)`);
+        setLineCoords(`svg-gaze-ray`, `10`, `-6`, `88`, `-48`);
+      }
+    }
+
+    function jumpToStep(index) {
+      activate(index);
+      const target = document.querySelector(`.scrolly .step[data-step="${index}"]`);
+      if (target) {
+        target.scrollIntoView({ behavior: `smooth`, block: `center` });
+      }
+    }
+
+    // ═══ ENGINE: Sticky Scroller (Scrollama + IntersectionObserver fallback) ══
+    const stepsEl = document.getElementById(`steps`);
+    if (stepsEl) {
+      STEPS.forEach((s, i) => {
+        stepsEl.insertAdjacentHTML(
+          `beforeend`,
+          `<div class="step" data-step="${i}"><div class="step-card">` +
+          `<div class="step-meta"><span class="coord-label">Paso ${i + 1} / ${STEPS.length}</span>` +
+          `<span class="badge badge-brass">${s.label}</span></div>` +
+          `<h3>${s.title}</h3><p>${s.body}</p></div></div>`
+        );
+      });
+    }
+
+    buildGraphic();
+    renderGraphic(0);
+
+    const nodes = document.querySelectorAll(`.scrolly .step`);
+    function activate(i) {
+      if (!nodes.length || i < 0 || i >= nodes.length) return;
+      nodes.forEach((n) => n.classList.remove(`is-active`));
+      nodes[i].classList.add(`is-active`);
+      renderGraphic(i);
+    }
+
+    if (window.scrollama && nodes.length) {
+      const sc = scrollama();
+      sc.setup({ step: `.scrolly .step`, offset: 0.55 }).onStepEnter(({ index }) => activate(index));
+      window.addEventListener(`resize`, sc.resize);
+    } else if (nodes.length) {
+      const io = new IntersectionObserver(
+        (es) => es.forEach((e) => { if (e.isIntersecting) activate(+e.target.dataset.step); }),
+        { rootMargin: `-45% 0px -45% 0px`, threshold: 0 }
+      );
+      nodes.forEach((n) => io.observe(n));
+    }
+
+    // ═══ SECCIÓN III: Comparador Ἀλήθεια vs Adaequatio ════════════════════════
+    function setTruthMode(mode) {
+      const btnA = document.getElementById(`mode-btn-aletheia`);
+      const btnB = document.getElementById(`mode-btn-adaequatio`);
+      const badge = document.getElementById(`truth-mode-badge`);
+      const title = document.getElementById(`truth-mode-title`);
+      const desc = document.getElementById(`truth-mode-desc`);
+
+      if (mode === `aletheia`) {
+        if (btnA) btnA.setAttribute(`aria-pressed`, `true`);
+        if (btnB) btnB.setAttribute(`aria-pressed`, `false`);
+        setElOpacity(`schema-layer-1`, `1`);
+        setElOpacity(`schema-arrow-1`, `1`);
+        setElOpacity(`schema-head-1`, `1`);
+        setElOpacity(`schema-layer-2`, `1`);
+        setElOpacity(`schema-arrow-2`, `0.65`);
+        setElOpacity(`schema-head-2`, `0.65`);
+        setElOpacity(`schema-layer-3`, `0.5`);
+
+        if (badge) {
+          badge.textContent = `Verdad originaria`;
+          badge.className = `badge badge-brass`;
+        }
+        if (title) title.textContent = `Ἀλήθεια: carácter de lo ente, no del enunciado`;
+        if (desc) {
+          desc.innerHTML = `Para los griegos del comienzo, lo verdadero (<span class="greek">τὸ ἀληθές</span>) no es la proposición ni el juicio, sino lo ente mismo en cuanto arrancado al ocultamiento. Como la palabra alemana <span class="greek">Un-schuld</span> (inocencia, falta de culpa), <span class="greek">ἀ-λήθεια</span> es privativa: presupone la lucha frente a un ocultar que envuelve al hombre.`;
+        }
+      } else {
+        if (btnA) btnA.setAttribute(`aria-pressed`, `false`);
+        if (btnB) btnB.setAttribute(`aria-pressed`, `true`);
+        setElOpacity(`schema-layer-1`, `0.3`);
+        setElOpacity(`schema-arrow-1`, `0.3`);
+        setElOpacity(`schema-head-1`, `0.3`);
+        setElOpacity(`schema-layer-2`, `0.55`);
+        setElOpacity(`schema-arrow-2`, `1`);
+        setElOpacity(`schema-head-2`, `1`);
+        setElOpacity(`schema-layer-3`, `1`);
+
+        if (badge) {
+          badge.textContent = `Verdad derivada`;
+          badge.className = `badge`;
+        }
+        if (title) title.textContent = `Adaequatio / Ὀρθότης: la rectitud presupone el desocultar`;
+        if (desc) {
+          desc.innerHTML = `La verdad como coincidencia del enunciado con la cosa no es falsa, pero es <strong>derivada</strong>. Aquello conforme a lo cual debe regirse el enunciado para ser correcto tiene que estar ya previamente desoculto. Si olvidamos esta procedencia, nos quedamos con una «mitad» sin raíz, como ocurre desde Aristóteles y Tomás de Aquino.`;
+        }
+      }
+    }
+
+    // ═══ SECCIÓN IV: Verdad y Libertad ════════════════════════════════════════
+    const FREEDOM_STATES = [
+      {
+        badge: `Cautividad cotidiana`,
+        cls: `badge badge-coral`,
+        formula: `Estadio I · § 3`,
+        title: `Presa de lo inmediato sin relación con la luz`,
+        body: `Encadenado ante las sombras, el hombre ni siquiera sabe que está atado. No conoce el fuego (<span class="greek">πῦρ</span>) ni la claridad (<span class="greek">φῶς</span>), por lo que confunde lo proyectado con el ser mismo.`,
+        beamOpacity: `0.12`,
+        sourceOpacity: `0.25`,
+        rayCoords: [`120`, `170`, `72`, `170`],
+        entityOpacity: `0.2`,
+        chainsOpacity: `1`
+      },
+      {
+        badge: `Libertad negativa`,
+        cls: `badge badge-coral`,
+        formula: `Estadio II · § 7`,
+        title: `Des-vinculación sin asidero ni proyecto`,
+        body: `Retirar las cadenas externamente deja al hombre inseguro, confuso y desamparado. Porque aún no entiende la luz, prefiere regresar a las cadenas. Esta libertad meramente negativa fracasa.`,
+        beamOpacity: `0.35`,
+        sourceOpacity: `0.6`,
+        rayCoords: [`130`, `166`, `195`, `122`],
+        entityOpacity: `0.42`,
+        chainsOpacity: `0.85`
+      },
+      {
+        badge: `Libertad positiva`,
+        cls: `badge badge-brass`,
+        formula: `Ex-sistere · § 7–8`,
+        title: `La libertad como proyecto vinculante del ser`,
+        body: `Solo donde se entiende previamente qué significa ser (la <span class="greek">ἰδέα</span>), hay paso abierto para que lo ente nos salga al encuentro como libro, montaña o historia. Que lo ente se haga más o menos ente depende de la resolución de esta vinculación: «vinculación no es pérdida de poder, sino tomar en posesión».`,
+        beamOpacity: `0.92`,
+        sourceOpacity: `1`,
+        rayCoords: [`130`, `166`, `250`, `34`],
+        entityOpacity: `1`,
+        chainsOpacity: `0.12`
+      },
+      {
+        badge: `Culminación histórica`,
+        cls: `badge`,
+        formula: `Estadio IV · § 10`,
+        title: `Ser liberador descendiendo a la oscuridad`,
+        body: `Quien ha ganado el rayo de luz del ser no se aísla bajo el sol: desciende para abrir la diferenciación entre apariencia y ente ante quienes siguen atrapados. Ahí sucede la historia esencial del hombre.`,
+        beamOpacity: `1`,
+        sourceOpacity: `1`,
+        rayCoords: [`130`, `166`, `338`, `155`],
+        entityOpacity: `1`,
+        chainsOpacity: `0.35`
+      }
+    ];
+
+    function selectFreedom(idx) {
+      const st = FREEDOM_STATES[idx];
+      if (!st) return;
+
+      for (let i = 0; i < FREEDOM_STATES.length; i++) {
+        const b = document.getElementById(`free-btn-${i}`);
+        if (b) b.setAttribute(`aria-pressed`, i === idx ? `true` : `false`);
+      }
+
+      const badge = document.getElementById(`free-badge`);
+      const formula = document.getElementById(`free-formula`);
+      const title = document.getElementById(`free-title`);
+      const body = document.getElementById(`free-body`);
+
+      if (badge) {
+        badge.textContent = st.badge;
+        badge.className = st.cls;
+      }
+      if (formula) formula.textContent = st.formula;
+      if (title) title.textContent = st.title;
+      if (body) body.innerHTML = st.body;
+
+      setElOpacity(`licht-beam`, st.beamOpacity);
+      setElOpacity(`licht-source`, st.sourceOpacity);
+      setElOpacity(`licht-entity`, st.entityOpacity);
+      setElOpacity(`licht-entity-label`, st.entityOpacity);
+      setElOpacity(`licht-chains`, st.chainsOpacity);
+      setLineCoords(`licht-ray`, st.rayCoords[0], st.rayCoords[1], st.rayCoords[2], st.rayCoords[3]);
+    }
+
+    // ═══ SECCIÓN V: Modos de la No-Verdad ════════════════════════════════════
+    const UNTRUTH_MODES = [
+      {
+        badge: `Todavía-no-desencubierto`,
+        cls: `badge badge-brass`,
+        ref: `Heráclito · § 2 y § 19`,
+        title: `Lo ente ama ocultarse: el suelo abismal de la verdad`,
+        p1: `El ocultamiento no equivale sin más a falsedad o error lógico. Cuando algo todavía no ha sido desencubierto —aunque sea desencubrible—, no poseemos algo «falso», sino la reserva originaria que Heráclito nombra con <span class="greek">φύσις κρύπτεσθαι φιλεῖ</span>.`,
+        p2: `Sólo porque el ocultamiento asedia al hombre desde el fondo, le resulta necesario y posible arrancar lo ente al velamiento. Si desaparece la experiencia de este ocultar, el no-ocultamiento se vuelve superficial y se degrada en mera disponibilidad cotidiana.`,
+        quote: `«La manifestabilidad de lo ente es necesariamente en sí misma superación de un ocultamiento: el ocultamiento forma parte esencialmente del no-ocultamiento, como el valle de la montaña.»`,
+        m1: `Condición de posibilidad`,
+        m1Desc: `Sin algo oculto previo no habría nada que arrancar hacia el no-ocultamiento.`,
+        m2: `Acometida y desencubrimiento`,
+        m2Desc: `Desencubrir es lucha constante contra la propensión de lo ente a replegarse.`,
+        m3: `El valle y la montaña`,
+        m3Desc: `No hay altura luminosa sin la hondonada oscura que la delimita y sostiene.`
+      },
+      {
+        badge: `Ya-no-desencubierto`,
+        cls: `badge`,
+        ref: `Λήθη y ἄγνοια · § 18`,
+        title: `Λήθη: cuando lo ente mismo se retira y se marcha`,
+        p1: `Es erróneo traducir <span class="greek">λήθη</span> como un simple «olvido» psicológico dentro de la mente humana. En sentido griego, <span class="greek">λήθη</span> es un suceso objetivo del destino: lo ente mismo cae en el ocultamiento, se escurre y «se marcha» de la comparecencia.`,
+        p2: `Solo porque lo ente se sustrae así, sobreviene al hombre la <span class="greek">ἄγνοια</span>: el no saber ya nada y no poder orientarse hacia la cosa. El desgaste histórico convirtió esa retirada en simple ausencia, y la verdad en mero «estar presente».`,
+        quote: `«El griego dice: lo ente se ha marchado, de modo que el hombre ya no sabe nada. Nosotros lo decimos a la inversa: el hombre está “ido”.»`,
+        m1: `Retirada de la presencia`,
+        m1Desc: `Acontece en la relación entre ser y hombre, antes que en un acto psíquico.`,
+        m2: `Consecuencia: ἄγνοια`,
+        m2Desc: `El extravío cognoscitivo sigue a la sustracción de lo ente, no al revés.`,
+        m3: `Desgaste conceptual`,
+        m3Desc: `Reducir λήθη a «olvido subjetivo» oculta su poder ontológico.`
+      },
+      {
+        badge: `Encubrir mostrando (errancia)`,
+        cls: `badge badge-coral`,
+        ref: `Ψεῦδος y Teeteto · §§ 17–19, 36`,
+        title: `Ψεῦδος y errancia: darle la vuelta mediante la apariencia`,
+        p1: `El significado originario de <span class="greek">ψεῦδος</span> no es un nombre incorrecto, sino «darle la vuelta» a la cosa: encubrir precisamente mediante un mostrar visible. Así ocurre en el pseudónimo —como Kierkegaard firmando bajo «Johannes Climacus»— o en las sombras de la caverna, que se exhiben como no-ocultas mientras ocultan lo ente.`,
+        p2: `En el <span class="greek">Teeteto</span>, esta posibilidad aparece como «pasar de largo con la mirada» y equivocarse mirando al tomar algo por algo (<span class="greek">δόξα</span>). Cuando la tradición redujo el <span class="greek">ψεῦδος</span> a mera incorrección del predicado lógico, quedó cegada la raíz por la cual la apariencia y la errancia co-pertenecen a la verdad.`,
+        quote: `«Lo falso y la apariencia, conforme a su esencia, exigen manifestarse, estar no-ocultos: de la apariencia y lo falso forma parte el no-ocultamiento.»`,
+        m1: `Encubrimiento activo`,
+        m1Desc: `Desvía la mirada ofreciendo un lado visible que oculta que ha sido invertido.`,
+        m2: `Equivocarse mirando`,
+        m2Desc: `Errancia en la δόξα al pasar de largo frente al ser de aquello que comparece.`,
+        m3: `Ejemplo de Kierkegaard`,
+        m3Desc: `El pseudónimo «Johannes Climacus» es un nombre correcto que encubre al autor real.`
+      }
+    ];
+
+    function selectUntruth(idx) {
+      const m = UNTRUTH_MODES[idx];
+      if (!m) return;
+
+      for (let i = 0; i < UNTRUTH_MODES.length; i++) {
+        const b = document.getElementById(`untruth-btn-${i}`);
+        if (b) b.setAttribute(`aria-pressed`, i === idx ? `true` : `false`);
+      }
+
+      const badge = document.getElementById(`untruth-badge`);
+      const ref = document.getElementById(`untruth-ref`);
+      const title = document.getElementById(`untruth-title`);
+      const p1 = document.getElementById(`untruth-p1`);
+      const p2 = document.getElementById(`untruth-p2`);
+      const quote = document.getElementById(`untruth-quote`);
+      const m1 = document.getElementById(`untruth-m1`);
+      const m1d = document.getElementById(`untruth-m1-desc`);
+      const m2 = document.getElementById(`untruth-m2`);
+      const m2d = document.getElementById(`untruth-m2-desc`);
+      const m3 = document.getElementById(`untruth-m3`);
+      const m3d = document.getElementById(`untruth-m3-desc`);
+
+      if (badge) {
+        badge.textContent = m.badge;
+        badge.className = m.cls;
+      }
+      if (ref) ref.textContent = m.ref;
+      if (title) title.textContent = m.title;
+      if (p1) p1.innerHTML = m.p1;
+      if (p2) p2.innerHTML = m.p2;
+      if (quote) quote.textContent = m.quote;
+      if (m1) m1.textContent = m.m1;
+      if (m1d) m1d.textContent = m.m1Desc;
+      if (m2) m2.textContent = m.m2;
+      if (m2d) m2d.textContent = m.m2Desc;
+      if (m3) m3.textContent = m.m3;
+      if (m3d) m3d.textContent = m.m3Desc;
+    }
+
+    // ═══ SECCIÓN VI: FAQ Accordion ════════════════════════════════════════════
+    function toggleFaq(idx) {
+      const btn = document.getElementById(`faq-btn-${idx}`);
+      const ans = document.getElementById(`faq-ans-${idx}`);
+      if (!btn || !ans) return;
+
+      const isOpen = btn.getAttribute(`aria-expanded`) === `true`;
+      btn.setAttribute(`aria-expanded`, isOpen ? `false` : `true`);
+      ans.hidden = isOpen;
+    }
+  </script>
+</body>
+</html>

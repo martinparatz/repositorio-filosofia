@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>Problemas fundamentales de la fenomenología (1919–1920) — Martin Heidegger</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Broadsheet palette & tokens */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      --primary: #990f3d;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* 3. Shared foundation tokens */
+      --positive: #0d7680;
+      --warning: #9a6312;
+      --focus: #990f3d;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.35rem, 1.35rem + 3.4vw, 4.1rem);
+      --headline-size: clamp(1.65rem, 1.15rem + 1.6vw, 2.35rem);
+      --subhead-size: clamp(1.18rem, 1.04rem + 0.45vw, 1.4rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.22vw, 1.1875rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.14vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      font-optical-sizing: auto;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+    }
+    h1 {
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.18;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 65ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .lede {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: clamp(1.18rem, 1.06rem + 0.4vw, 1.38rem);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 58ch;
+      margin-top: var(--space-md);
+    }
+
+    /* Broadsheet Masthead */
+    .masthead-line {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm) var(--space-lg);
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+
+    .masthead-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-md);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .masthead-nav a {
+      color: var(--on-surface);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: var(--space-xs);
+      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .masthead-nav a:hover {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+    .masthead-kicker {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Hairline columns */
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-lg);
+    }
+    .columns > * {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .columns > :last-child {
+      padding-right: 0;
+    }
+
+    .figure-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+    }
+    .figure-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.5rem, 1.25rem + 0.9vw, 2.05rem);
+      line-height: 1.1;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      margin-bottom: var(--space-xs);
+    }
+    .figure-note {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      line-height: 1.45;
+      color: var(--on-surface-variant);
+    }
+
+    /* Section framing */
+    .section-block {
+      border-top: var(--rule-section);
+      padding-top: var(--space-md);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-lg);
+    }
+    .section-header {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    /* Bare teal tags (ONLY on --background) */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+    }
+
+    /* Editorial layout grid inside sections */
+    .split-editorial {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 0;
+      border-top: var(--rule-column);
+      padding-top: var(--space-lg);
+    }
+    .split-col-left {
+      padding-right: var(--space-xl);
+    }
+    .split-col-right {
+      border-left: var(--rule-column);
+      padding-left: var(--space-xl);
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-md) 0;
+      margin: var(--space-lg) 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.25rem, 1.1rem + 0.55vw, 1.55rem);
+      line-height: 1.38;
+      color: var(--on-surface);
+      max-width: 50ch;
+    }
+    .pull-quote cite {
+      display: block;
+      margin-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+
+    /* Broadsheet interactive buttons & filter strips */
+    .control-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: stretch;
+    }
+    .btn-sheet {
+      appearance: none;
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+    .btn-sheet:hover {
+      background-color: var(--surface-container-low);
+    }
+    .btn-sheet.is-active {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-sheet.is-active:hover {
+      background-color: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+    }
+
+    .btn-secondary {
+      appearance: none;
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      cursor: pointer;
+      transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .btn-secondary:hover {
+      background-color: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .btn-secondary.is-active {
+      background-color: var(--on-surface);
+      border-color: var(--on-surface);
+      color: var(--background);
+    }
+
+    /* Interactive Module 1: Objections Ledger */
+    .objection-ledger {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+      gap: 0;
+    }
+    .objection-nav {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      padding-right: var(--space-lg);
+    }
+    .objection-tab {
+      appearance: none;
+      text-align: left;
+      border: 0;
+      border-left: 3px solid var(--outline-variant);
+      background: transparent;
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      color: var(--on-surface-variant);
+      transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+    }
+    .objection-tab:hover {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+    }
+    .objection-tab.is-active {
+      border-left-color: var(--primary);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+    }
+    .objection-tab-num {
+      display: block;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      margin-bottom: var(--space-xs);
+    }
+    .objection-tab-title {
+      display: block;
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.0625rem;
+      line-height: 1.25;
+    }
+    .objection-detail {
+      border-left: var(--rule-column);
+      padding-left: var(--space-xl);
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+    }
+    .objection-meta-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 0;
+      border-top: var(--rule-column);
+      padding-top: var(--space-md);
+    }
+    .objection-meta-cell:first-child {
+      padding-right: var(--space-md);
+    }
+    .objection-meta-cell:last-child {
+      border-left: var(--rule-column);
+      padding-left: var(--space-md);
+    }
+
+    /* Interactive Module 2: Philosophical Currents & Distortions Index */
+    .dossier-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      margin-top: var(--space-md);
+    }
+    .dossier-list {
+      display: flex;
+      flex-direction: column;
+      padding-right: var(--space-lg);
+      padding-block: var(--space-sm);
+    }
+    .dossier-item {
+      appearance: none;
+      text-align: left;
+      width: 100%;
+      border: 0;
+      border-bottom: var(--rule-column);
+      background: transparent;
+      padding: var(--space-sm) var(--space-sm);
+      min-height: 48px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+      font-family: var(--font-body);
+      color: var(--on-surface);
+      transition: background-color var(--dur-short) var(--ease-out);
+    }
+    .dossier-item:last-child { border-bottom: 0; }
+    .dossier-item:hover {
+      background-color: var(--surface-container-low);
+    }
+    .dossier-item.is-active {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    .dossier-item-name {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+    .dossier-item-cat {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface-variant);
+      white-space: nowrap;
+    }
+    .dossier-item.is-active .dossier-item-cat {
+      color: var(--on-primary-container);
+    }
+    .dossier-reader {
+      border-left: var(--rule-column);
+      padding: var(--space-lg) 0 var(--space-lg) var(--space-xl);
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+    }
+    .dossier-verdict {
+      background-color: var(--surface-container-low);
+      border-left: 3px solid var(--primary);
+      padding: var(--space-md);
+    }
+    .dossier-verdict-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Interactive Module 3: Three Worlds & Relief Character */
+    .worlds-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+    .worlds-svg-pane {
+      padding-right: var(--space-xl);
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+    }
+    .worlds-info-pane {
+      border-left: var(--rule-column);
+      padding-left: var(--space-xl);
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+    }
+    .world-svg-wrap {
+      width: 100%;
+      max-width: 440px;
+    }
+    .world-svg-wrap svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .svg-ring {
+      fill: var(--background);
+      stroke: var(--outline);
+      stroke-width: 1.5;
+      cursor: pointer;
+      transition: fill var(--dur-short) var(--ease-out), stroke var(--dur-short) var(--ease-out), stroke-width var(--dur-short) var(--ease-out);
+    }
+    .svg-ring:hover {
+      fill: var(--surface-container-low);
+    }
+    .svg-ring.is-selected {
+      fill: var(--primary-container);
+      stroke: var(--primary);
+      stroke-width: 2.5;
+    }
+    .svg-ring-dashed {
+      fill: none;
+      stroke: var(--secondary);
+      stroke-width: 1.5;
+      stroke-dasharray: 5 4;
+      pointer-events: none;
+    }
+    .svg-text-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      fill: var(--on-surface);
+      pointer-events: none;
+    }
+    .svg-text-sub {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 11px;
+      fill: var(--on-surface-variant);
+      pointer-events: none;
+    }
+    .svg-text-accent {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      fill: var(--secondary);
+      pointer-events: none;
+    }
+
+    .relief-box {
+      border-top: var(--rule-column);
+      padding-top: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .example-list {
+      margin: 0;
+      padding-left: 1.15rem;
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    /* Interactive Module 4: 4-Stage Methodological Stepper */
+    .method-console {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .method-flow-svg {
+      width: 100%;
+      overflow: hidden;
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-md);
+    }
+    .method-flow-svg svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .svg-node-box {
+      fill: var(--background);
+      stroke: var(--outline-variant);
+      stroke-width: 1.5;
+      cursor: pointer;
+      transition: fill var(--dur-short) var(--ease-out), stroke var(--dur-short) var(--ease-out);
+    }
+    .svg-node-box.is-selected {
+      fill: var(--primary-container);
+      stroke: var(--primary);
+      stroke-width: 2;
+    }
+    .svg-node-num {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 11px;
+      fill: var(--primary);
+      pointer-events: none;
+    }
+    .svg-node-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 12.5px;
+      fill: var(--on-surface);
+      pointer-events: none;
+    }
+    .svg-arrow-line {
+      stroke: var(--outline);
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .method-detail-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 0;
+    }
+    .method-detail-main {
+      padding-right: var(--space-xl);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+    }
+    .method-detail-side {
+      border-left: var(--rule-column);
+      padding-left: var(--space-xl);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+    }
+    .triad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+      margin-top: var(--space-sm);
+    }
+    .triad-cell {
+      padding-inline: var(--space-md);
+      border-left: var(--rule-column);
+    }
+    .triad-cell:first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+    .triad-cell:last-child {
+      padding-right: 0;
+    }
+
+    /* Broadsheet Tables */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+    table.sheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      font-size: 0.95rem;
+    }
+    table.sheet-table th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: left;
+      color: var(--on-surface);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      vertical-align: bottom;
+    }
+    table.sheet-table td {
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    table.sheet-table tr:last-child td {
+      border-bottom: 0;
+    }
+    table.sheet-table td.num-col,
+    table.sheet-table th.num-col {
+      font-variant-numeric: lining-nums tabular-nums;
+      white-space: nowrap;
+    }
+
+    /* Footer / Sources note */
+    .colophon {
+      border-top: var(--rule-section);
+      padding-top: var(--space-md);
+      padding-bottom: var(--space-xl);
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+      gap: var(--space-xl);
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Reveal animation */
+    .reveal-block {
+      opacity: 1;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    /* Container queries for adaptive split panes */
+    .card-wrapper { container-type: inline-size; }
+
+    @media (max-width: 860px) {
+      .columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-md) 0;
+      }
+      .columns > :nth-child(3) {
+        border-left: 0;
+        padding-left: 0;
+      }
+      .split-editorial,
+      .objection-ledger,
+      .dossier-grid,
+      .worlds-stage,
+      .method-detail-grid,
+      .colophon {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-lg);
+      }
+      .split-col-left,
+      .objection-nav,
+      .dossier-list,
+      .worlds-svg-pane,
+      .method-detail-main {
+        padding-right: 0;
+      }
+      .split-col-right,
+      .objection-detail,
+      .dossier-reader,
+      .worlds-info-pane,
+      .method-detail-side {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding-left: 0;
+        padding-top: var(--space-lg);
+      }
+      .triad-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-md);
+      }
+      .triad-cell {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding-inline: 0;
+        padding-top: var(--space-sm);
+      }
+      .triad-cell:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .columns > * {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-sm) 0;
+      }
+      .columns > :first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .objection-meta-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-md);
+      }
+      .objection-meta-cell:first-child { padding-right: 0; }
+      .objection-meta-cell:last-child {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding-left: 0;
+        padding-top: var(--space-sm);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <header>
+      <div class="masthead-line">
+        <span>Archivo Filosófico · Friburgo, Semestre de Invierno 1919–1920 · GA 58</span>
+        <nav aria-label="Secciones del dossier">
+          <ul class="masthead-nav">
+            <li><a href="#paradoja">I. Paradoja</a></li>
+            <li><a href="#corrientes">II. Cartografía</a></li>
+            <li><a href="#vida-factica">III. Vida fáctica</a></li>
+            <li><a href="#metodo">IV. Acceso y método</a></li>
+            <li><a href="#arquitectura">V. Arquitectura</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="masthead">
+        <div class="masthead-kicker">Martin Heidegger · Albert-Ludwigs-Universität de Freiburg</div>
+        <h1>La ciencia originaria de la vida que no puede convertirse en objeto</h1>
+        <p class="lede">
+          En el curso inédito de 1919–1920, <em>Problemas fundamentales de la fenomenología</em>, Heidegger emprende una confrontación sistemática con su época: fundar la filosofía como «ciencia del origen de la vida en y para sí» sin paralizar el flujo vivo bajo categorías objetivadoras ni ceder al entusiasmo de las cosmovisiones.
+        </p>
+      </div>
+    </header>
+
+    <section aria-label="Coordenadas del curso">
+      <div class="columns">
+        <div>
+          <div class="figure-label">Curso académico</div>
+          <div class="figure-value">1919–1920</div>
+          <div class="figure-note">Semestre de invierno, impartido dos horas semanales como profesor adjunto en Friburgo.</div>
+        </div>
+        <div>
+          <div class="figure-label">Ámbito de la vida</div>
+          <div class="figure-value">3 mundos</div>
+          <div class="figure-note">Mundo circundante, mundo compartido y mundo del sí-mismo, compenetrados emocionalmente.</div>
+        </div>
+        <div>
+          <div class="figure-label">Aporías del método</div>
+          <div class="figure-value">3 objeciones</div>
+          <div class="figure-note">Absurdidad desvivificadora, imposibilidad fáctica de cierre y aparente superfluidad científica.</div>
+        </div>
+        <div>
+          <div class="figure-label">Edición integral</div>
+          <div class="figure-value">Tomo 58</div>
+          <div class="figure-note">Publicado en 1993 a partir del manuscrito taquigráfico y los apuntes de Oskar Becker.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN I -->
+    <section id="paradoja" class="section-block">
+      <div class="section-header">
+        <div class="section-label">Sección I · Consideración preliminar (§§ 1, 18)</div>
+        <h2>El problema más candente de la fenomenología es ella misma para sí misma</h2>
+      </div>
+
+      <div class="split-editorial">
+        <div class="split-col-left">
+          <p>
+            Para el joven Heidegger de la posguerra, la fenomenología no es una disciplina auxiliar encargada de afinar definiciones previas ni una imitación del progreso acumulativo de las ciencias matemáticas de la naturaleza. Es la <strong>ciencia originaria</strong>: la ciencia del origen absoluto del espíritu en y para sí, esto es, de la «vida en y para sí».
+          </p>
+          <p>
+            De esa exigencia brota de inmediato un círculo que desconcierta al pensamiento habitual. Todo preguntar referido a la fenomenología debe ser ya él mismo fenomenológico. No es posible situarse fuera de la línea de la vida para observar su punto de partida desde una posición neutral, ni tomar prestado un método técnico como si fuese una herramienta desligada de su campo de objetos. Por ello advierte Heidegger en el § 1b: <em>«¡No reflexionemos sobre el comienzo, comencemos fácticamente!»</em>.
+          </p>
+          <blockquote class="pull-quote">
+            «La fenomenología lucha incesantemente con una paradoja que llegaremos a comprender como la paradoja originaria de la vida en y para sí.»
+            <cite>Martin Heidegger · § 1a, El sentido de la idea de ciencia del origen</cite>
+          </blockquote>
+        </div>
+
+        <div class="split-col-right">
+          <span class="tag">Tesis de apertura</span>
+          <h3>¿Por qué una ciencia de la vida parece imposible?</h3>
+          <p style="margin-top: var(--space-sm);">
+            Al llegar a la Sección Segunda (§ 18), Heidegger formula con brutal honestidad las objeciones que amenazan con destruir desde dentro su propio proyecto. Si toda ciencia teórica corta las relaciones vivas y transforma su objeto en algo detenido, ¿no sería la «más rigurosa ciencia de la vida» precisamente aquella que la desvivifica de modo más radical?
+          </p>
+          <p>
+            La salida no consiste en suavizar el rigor científico ni en refugiarse en un misticismo irracionalista, sino en descubrir cómo la propia vida fáctica contiene señales que motivan un modo de comprensión no objetivador.
+          </p>
+        </div>
+      </div>
+
+      <!-- INTERACTIVO 1: Las tres objeciones -->
+      <div aria-label="Explorador de las tres dificultades de la ciencia del origen">
+        <div style="margin-bottom: var(--space-sm);">
+          <span class="tag">Interacción I · § 18 del curso</span>
+          <h3 style="margin-top: var(--space-xs);">Examina las tres objeciones radicales contra la idea de ciencia del origen</h3>
+        </div>
+
+        <div class="objection-ledger">
+          <div class="objection-nav" role="tablist" aria-label="Objeciones contra la ciencia del origen">
+            <button type="button" class="objection-tab is-active" role="tab" aria-selected="true" data-obj="0" onclick="selectObjection(0)">
+              <span class="objection-tab-num">Objeción 01 · Contrasentido</span>
+              <span class="objection-tab-title">Su pretendida absurdidad desvivificadora</span>
+            </button>
+            <button type="button" class="objection-tab" role="tab" aria-selected="false" data-obj="1" onclick="selectObjection(1)">
+              <span class="objection-tab-num">Objeción 02 · Inaccesibilidad</span>
+              <span class="objection-tab-title">La imposibilidad de efectuarla fácticamente</span>
+            </button>
+            <button type="button" class="objection-tab" role="tab" aria-selected="false" data-obj="2" onclick="selectObjection(2)">
+              <span class="objection-tab-num">Objeción 03 · Redundancia</span>
+              <span class="objection-tab-title">Su aparente superfluidad frente a las ciencias</span>
+            </button>
+          </div>
+
+          <div class="objection-detail" id="objection-panel" aria-live="polite">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN II -->
+    <section id="corrientes" class="section-block">
+      <div class="section-header">
+        <div class="section-label">Sección II · Confrontación histórica (§§ 2–4)</div>
+        <h2>Ni psicología descriptiva ni mística cosmovisional: las corrientes y sus desfiguraciones</h2>
+      </div>
+
+      <p>
+        Antes de adentrarse en la analítica de la vida fáctica, el curso traza una panorámica crítica de la filosofía de 1919 para despejar el terreno. Heidegger no busca construir un sistema ecléctico que sintetice las escuelas del presente, sino someter a crítica radical tanto a las «filosofías del punto de vista» heredadas del siglo XIX como a las deformaciones que circulan bajo el nombre de fenomenología.
+      </p>
+
+      <!-- INTERACTIVO 2: Dossier crítico de corrientes y desfiguraciones -->
+      <div aria-label="Dossier crítico de corrientes filosóficas">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: var(--space-md); margin-bottom: var(--space-sm);">
+          <div>
+            <span class="tag">Interacción II · §§ 2–4 del curso</span>
+            <h3 style="margin-top: var(--space-xs);">Selecciona una corriente o desfiguración para leer el diagnóstico de Heidegger</h3>
+          </div>
+          <div class="control-strip" role="group" aria-label="Filtrar corrientes filosóficas">
+            <button type="button" class="btn-sheet is-active" data-filter="all" onclick="filterDossier('all')">Todas (8)</button>
+            <button type="button" class="btn-sheet" data-filter="corriente" onclick="filterDossier('corriente')">Corrientes</button>
+            <button type="button" class="btn-sheet" data-filter="fenomenologia" onclick="filterDossier('fenomenologia')">Tradición fenoménica</button>
+            <button type="button" class="btn-sheet" data-filter="desfiguracion" onclick="filterDossier('desfiguracion')">Desfiguraciones</button>
+          </div>
+        </div>
+
+        <div class="dossier-grid">
+          <div class="dossier-list" id="dossier-list" role="listbox" aria-label="Corrientes y autores examinados">
+            <!-- Populated by JS -->
+          </div>
+          <div class="dossier-reader" id="dossier-reader" aria-live="polite">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN III -->
+    <section id="vida-factica" class="section-block">
+      <div class="section-header">
+        <div class="section-label">Sección III · La vida como ámbito originario (§§ 5–10)</div>
+        <h2>Vivimos siempre en un mundo, inmersos en una autosuficiencia que oculta el origen</h2>
+      </div>
+
+      <p>
+        ¿Por qué está ausente el ámbito del origen en la experiencia cotidiana? Para responderlo, Heidegger propone un ejercicio de atención hacia las «meras obviedades» de nuestra existencia: aquello que tenemos tan cerca que carecemos de distancia respecto a ello, porque nosotros mismos lo somos. La vida fáctica no es una conciencia vacía que luego busque objetos con los que llenarse; vivir es ya, en cada instante, habitar un mundo en una dirección determinada.
+      </p>
+
+      <!-- INTERACTIVO 3: Los 3 Mundos + Carácter de Relieve -->
+      <div aria-label="Explorador de los tres mundos de la vida fáctica">
+        <div style="margin-bottom: var(--space-sm);">
+          <span class="tag">Interacción III · §§ 7–10 del curso</span>
+          <h3 style="margin-top: var(--space-xs);">Explora las tres esferas compenetradas y la modulación de su carácter de relieve</h3>
+        </div>
+
+        <div class="worlds-stage">
+          <div class="worlds-svg-pane">
+            <div class="world-svg-wrap">
+                <svg viewBox="0 0 420 350" role="img" aria-label="Diagrama de los tres mundos de la vida fáctica: circundante, compartido y del sí-mismo">
+                  <!-- Outer envelope: Autosuficiencia -->
+                  <rect x="14" y="14" width="392" height="322" class="svg-ring-dashed"></rect>
+                  <text x="26" y="34" class="svg-text-accent">Autosuficiencia: la vida se responde en su propio idioma</text>
+
+                  <!-- Mundo circundante -->
+                  <circle id="ring-circundante" cx="210" cy="184" r="134" class="svg-ring is-selected" role="button" tabindex="0" aria-label="Seleccionar mundo circundante" onclick="selectWorld('circundante')" onkeydown="handleSvgKey(event, 'world', 'circundante')"></circle>
+                  <text x="210" y="76" text-anchor="middle" class="svg-text-label">1. Mundo circundante</text>
+                  <text x="210" y="92" text-anchor="middle" class="svg-text-sub">Entorno inmediato, útiles, parajes</text>
+
+                  <!-- Mundo compartido -->
+                  <circle id="ring-compartido" cx="210" cy="204" r="92" class="svg-ring" role="button" tabindex="0" aria-label="Seleccionar mundo compartido" onclick="selectWorld('compartido')" onkeydown="handleSvgKey(event, 'world', 'compartido')"></circle>
+                  <text x="210" y="136" text-anchor="middle" class="svg-text-label">2. Mundo compartido</text>
+                  <text x="210" y="152" text-anchor="middle" class="svg-text-sub">Los otros en nuestra vida</text>
+
+                  <!-- Mundo del sí-mismo -->
+                  <circle id="ring-simismo" cx="210" cy="232" r="50" class="svg-ring" role="button" tabindex="0" aria-label="Seleccionar mundo del sí-mismo" onclick="selectWorld('simismo')" onkeydown="handleSvgKey(event, 'world', 'simismo')"></circle>
+                  <text x="210" y="226" text-anchor="middle" class="svg-text-label">3. Sí-mismo</text>
+                  <text x="210" y="242" text-anchor="middle" class="svg-text-sub">Centro rítmico</text>
+                </svg>
+            </div>
+
+            <div class="control-strip" role="group" aria-label="Seleccionar esfera del mundo">
+              <button type="button" class="btn-sheet is-active" data-world="circundante" onclick="selectWorld('circundante')">Mundo circundante</button>
+              <button type="button" class="btn-sheet" data-world="compartido" onclick="selectWorld('compartido')">Mundo compartido</button>
+              <button type="button" class="btn-sheet" data-world="simismo" onclick="selectWorld('simismo')">Mundo del sí-mismo</button>
+            </div>
+          </div>
+
+          <div class="worlds-info-pane">
+            <div id="world-detail" aria-live="polite">
+              <!-- Populated by JS -->
+            </div>
+
+            <div class="relief-box">
+              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-sm);">
+                <div class="figure-label" style="margin: 0; color: var(--primary);">Modulación del «carácter de relieve» (§ 8)</div>
+                <div class="control-strip" role="group" aria-label="Alternar régimen de relieve">
+                  <button type="button" class="btn-secondary is-active" data-relief="cotidianidad" onclick="selectRelief('cotidianidad')">Cotidianidad discreta</button>
+                  <button type="button" class="btn-secondary" data-relief="tirania" onclick="selectRelief('tirania')">Tiranía cosmovisional</button>
+                </div>
+              </div>
+              <div id="relief-detail" aria-live="polite" style="margin-top: var(--space-xs);">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="split-editorial" style="border-top: 0; padding-top: var(--space-sm);">
+        <div class="split-col-left">
+          <h3>La autosuficiencia como barrera estructural</h3>
+          <p style="margin-top: var(--space-sm);">
+            Incluso cuando sufrimos la vida, nos decepcionamos de ella o proyectamos religiones y cosmovisiones para redimirla, la vida fáctica sigue moviéndose dentro de sus propias formas de motivación y cumplimiento. Heidegger denomina <strong>autosuficiencia</strong> a esta estructura: la vida «tiene estructuralmente en sí misma las disponibilidades que necesita» y no requiere salir de sí para mantenerse. Por eso las cosmovisiones —por elevadas o mejores que sean— responden a las preguntas últimas dentro del mismo círculo mundano y nunca alcanzan el ámbito científico-originario.
+          </p>
+        </div>
+        <div class="split-col-right">
+          <span class="tag">Testimonio histórico · § 10 y Anexo B</span>
+          <h3>La irrupción proto-cristiana del sí-mismo</h3>
+          <p style="margin-top: var(--space-sm);">
+            Al rastrear cuándo se hizo visible por primera vez la hondura del mundo del sí-mismo, Heidegger señala el choque del cristianismo originario contra la ciencia antigua aristotélica. En las <em>Confesiones</em> de San Agustín —con su <em>inquietum cor nostrum</em> y el imperativo <em>crede ut intelligas</em>—, así como en la mística medieval (Eckhart, Tauler) y en Lutero o Kierkegaard, irrumpe una autoexperiencia viva previa al conocimiento teórico, que la escolástica posterior y Descartes volvieron a encubrir bajo conceptos de la realidad natural.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN IV -->
+    <section id="metodo" class="section-block">
+      <div class="section-header">
+        <div class="section-label">Sección IV · Ciencia del origen y método (§§ 19–29, Apéndices)</div>
+        <h2>La «agudización» hacia el sí-mismo y el camino de la diahermenéutica</h2>
+      </div>
+
+      <p>
+        Si la vida fáctica es autosuficiente, ¿cómo no cae la fenomenología en una invención arbitraria al buscar un ámbito de origen? La respuesta de la Sección Segunda es decisiva: aunque los objetos del mundo son siempre diversos en su <em>qué</em> (contenidos quiditativos o cósicos), la vida exhibe en su propio decurso un <strong>contenido modal</strong> —un <em>cómo</em> o rítmica funcional— en el que las experiencias convergen y se intensifican hacia el mundo del sí-mismo. Heidegger llama a este fenómeno fáctico <strong>agudización</strong>.
+      </p>
+
+      <!-- INTERACTIVO 4: Itinerario metódico en 4 estaciones -->
+      <div aria-label="Itinerario del método fenomenológico en cuatro estaciones">
+        <div style="margin-bottom: var(--space-sm);">
+          <span class="tag">Interacción IV · §§ 19–29 y Apéndices A–B</span>
+          <h3 style="margin-top: var(--space-xs);">Recorre las cuatro estaciones metódicas desde la vida fáctica hasta la comprensión originaria</h3>
+        </div>
+
+        <div class="method-console">
+          <div class="method-flow-svg">
+            <svg viewBox="0 0 920 112" role="img" aria-label="Secuencia de cuatro estaciones del método fenomenológico">
+              <!-- Arrows -->
+              <line x1="210" y1="56" x2="238" y2="56" class="svg-arrow-line"></line>
+              <polygon points="238,51 248,56 238,61" style="fill: var(--outline);"></polygon>
+
+              <line x1="444" y1="56" x2="472" y2="56" class="svg-arrow-line"></line>
+              <polygon points="472,51 482,56 472,61" style="fill: var(--outline);"></polygon>
+
+              <line x1="678" y1="56" x2="706" y2="56" class="svg-arrow-line"></line>
+              <polygon points="706,51 716,56 706,61" style="fill: var(--outline);"></polygon>
+
+              <!-- Node 1 -->
+              <rect id="node-0" x="4" y="14" width="206" height="84" class="svg-node-box is-selected" role="button" tabindex="0" aria-label="Estación 01: Significatividad" onclick="selectMethodStep(0)" onkeydown="handleSvgKey(event, 'method', 0)"></rect>
+              <text x="18" y="38" class="svg-node-num">ESTACIÓN 01</text>
+              <text x="18" y="60" class="svg-node-title">Significatividad</text>
+              <text x="18" y="78" class="svg-text-sub">Experiencia no destacada</text>
+
+              <!-- Node 2 -->
+              <rect id="node-1" x="248" y="14" width="196" height="84" class="svg-node-box" role="button" tabindex="0" aria-label="Estación 02: Agudización" onclick="selectMethodStep(1)" onkeydown="handleSvgKey(event, 'method', 1)"></rect>
+              <text x="262" y="38" class="svg-node-num">ESTACIÓN 02</text>
+              <text x="262" y="60" class="svg-node-title">Agudización</text>
+              <text x="262" y="78" class="svg-text-sub">Hacia el sí-mismo</text>
+
+              <!-- Node 3 -->
+              <rect id="node-2" x="482" y="14" width="196" height="84" class="svg-node-box" role="button" tabindex="0" aria-label="Estación 03: Destrucción crítica" onclick="selectMethodStep(2)" onkeydown="handleSvgKey(event, 'method', 2)"></rect>
+              <text x="496" y="38" class="svg-node-num">ESTACIÓN 03</text>
+              <text x="496" y="60" class="svg-node-title">Destrucción crítica</text>
+              <text x="496" y="78" class="svg-text-sub">E indicación formal</text>
+
+              <!-- Node 4 -->
+              <rect id="node-3" x="716" y="14" width="200" height="84" class="svg-node-box" role="button" tabindex="0" aria-label="Estación 04: Diahermenéutica" onclick="selectMethodStep(3)" onkeydown="handleSvgKey(event, 'method', 3)"></rect>
+              <text x="730" y="38" class="svg-node-num">ESTACIÓN 04</text>
+              <text x="730" y="60" class="svg-node-title">Diahermenéutica</text>
+              <text x="730" y="78" class="svg-text-sub">Situación y origen</text>
+            </svg>
+          </div>
+
+          <div class="control-strip" role="group" aria-label="Seleccionar estación metódica">
+            <button type="button" class="btn-sheet is-active" data-step="0" onclick="selectMethodStep(0)">01. Significatividad</button>
+            <button type="button" class="btn-sheet" data-step="1" onclick="selectMethodStep(1)">02. Agudización</button>
+            <button type="button" class="btn-sheet" data-step="2" onclick="selectMethodStep(2)">03. Destrucción e indicación</button>
+            <button type="button" class="btn-sheet" data-step="3" onclick="selectMethodStep(3)">04. Situación y diahermenéutica</button>
+          </div>
+
+          <div class="method-detail-grid" id="method-detail" aria-live="polite">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparativa sistemática -->
+      <div>
+        <span class="tag">Balance sistemático · Apéndices A y B</span>
+        <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-md);">Contraste entre las ciencias objetivadoras y la fenomenología como ciencia del origen</h3>
+        <div class="table-wrap">
+          <table class="sheet-table">
+            <thead>
+              <tr>
+                <th>Eje de análisis</th>
+                <th>Ciencias particulares y psicología experimental</th>
+                <th>Fenomenología (ciencia del origen / diahermenéutica)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Objeto o asunto</strong></td>
+                <td>Nexos cósicos destacados («coseidad»), procesos psíquicos inferidos o datos hyléticos aislados de todo sentido.</td>
+                <td>La vida fáctica en cuanto emergiendo de su origen; figuras concretas de sentido en el mundo del sí-mismo.</td>
+              </tr>
+              <tr>
+                <td><strong>Relación con la vida</strong></td>
+                <td>Desvivificación objetivadora o subjetivación; interrumpe el nexo vital al observarlo desde fuera o mediante «observación interior».</td>
+                <td>Acompañar intuitivo («ir-con»); permanencia en el nexo de efectuación sin convertir la vida en mero objeto de estudio.</td>
+              </tr>
+              <tr>
+                <td><strong>Conceptualidad</strong></td>
+                <td>Definiciones fijas, clasificaciones regionales y conceptos genéricos o construcciones lógico-trascendentales.</td>
+                <td><strong>Indicación formal</strong>: conceptos cotidianos abiertos que señalan un fenómeno concreto sin determinarlo de una vez por todas.</td>
+              </tr>
+              <tr>
+                <td><strong>Tratamiento de la historia</strong></td>
+                <td>Mina de rarezas o mera secuencia de hechos en un tiempo objetivo; sistema cerrado de valores o morfologías.</td>
+                <td>El verdadero «hilo conductor» y <em>organon</em>: vivo co-vivenciar en el que se rastrea lo originario frente a sus desviaciones.</td>
+              </tr>
+              <tr>
+                <td><strong>Fundamento motivador</strong></td>
+                <td>Curiosidad teorética o afán constructivo de leyes causales (<em>causa aequat effectum</em>) y sistemas definitivos.</td>
+                <td>Estar familiarizado con la vida y «amor» como fundamento motivador de la comprensión intuitiva (§ 12 y Hoja 1).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN V -->
+    <section id="arquitectura" class="section-block">
+      <div class="section-header">
+        <div class="section-label">Sección V · Arquitectura del volumen (GA 58)</div>
+        <h2>Del manuscrito de Friburgo a la hermenéutica de la facticidad del Dasein</h2>
+      </div>
+
+      <p>
+        Como destaca el editor alemán Hans-Helmuth Gander en su epílogo de 1992, el curso del semestre de invierno 1919–1920 no es un simple documento de transición. En él ya comparecen el análisis del mundo circundante, la primacía de la vida fáctica sobre el conocimiento teórico y el proyecto de una «hermenéutica de la facticidad» que anticipa las categorías centrales de <em>Ser y tiempo</em>. Dado que el tramo final del manuscrito original de Heidegger contenía taquigrafías y pasajes incompletos, la edición integral reconstruye el cierre del curso combinando los propios apuntes del autor con las transcripciones fieles de su alumno Oskar Becker.
+      </p>
+
+      <div class="table-wrap">
+        <table class="sheet-table">
+          <thead>
+            <tr>
+              <th>División de la obra</th>
+              <th>Parágrafos / Partes</th>
+              <th>Núcleo temático en el desarrollo del curso</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Consideración preliminar</strong></td>
+              <td class="num-col">§§ 1–4</td>
+              <td>Paradoja de la ciencia del origen; cuestión del inicio y el método; panorama crítico de la filosofía contemporánea y doble desfiguración de la fenomenología.</td>
+            </tr>
+            <tr>
+              <td><strong>Sección Primera</strong><br><em>La vida como ámbito originario</em></td>
+              <td class="num-col">§§ 5–10</td>
+              <td>Actitud fenomenológica investigadora; el problema de la donación; mundanidad de la vida (circundante, compartido, sí-mismo), carácter de relieve y autosuficiencia.</td>
+            </tr>
+            <tr>
+              <td><strong>Sección Segunda</strong><br><em>Fenomenología como ciencia del origen</em></td>
+              <td class="num-col">§§ 18–24</td>
+              <td>Las tres dificultades de la ciencia del origen; la agudización como contenido modal hacia el sí-mismo; significatividad de la experiencia fáctica frente a la coseidad.</td>
+            </tr>
+            <tr>
+              <td><strong>Apéndice A</strong><br><em>Apuntes de Heidegger</em></td>
+              <td class="num-col">Partes I–II y Hojas</td>
+              <td>Reconstrucción del tramo final y anexos: crítica a Marburgo y Rickert, historia como <em>organon</em>, «tenerse a sí mismo», indicación formal, situación (relación, efectuación, contenido) y diahermenéutica.</td>
+            </tr>
+            <tr>
+              <td><strong>Apéndice B</strong><br><em>Apuntes de Oskar Becker</em></td>
+              <td class="num-col">Complementos y §§ 6–29</td>
+              <td>Notas de clase del discípulo que completan la crítica a la psicología experimental, la diferencia entre formalización y generalización, la reducción fenomenológica y la estructura de la existencia.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="colophon">
+      <div>
+        <div class="figure-label">Fuente y edición</div>
+        <p style="margin-top: var(--space-xs); max-width: 65ch;">
+          Elaborado íntegramente a partir de Martin Heidegger, <em>Problemas fundamentales de la fenomenología (1919/1920)</em> [título original: <em>Grundprobleme der Phänomenologie (1919/1920)</em>, tomo 58 de la <em>Gesamtausgabe</em>], traducción al español de Francisco de Lara López, con reconstrucción final a partir de los apuntes de Martin Heidegger, los apuntes de Oskar Becker y el epílogo de Hans-Helmuth Gander (Friburgo, 1992).
+        </p>
+      </div>
+      <div>
+        <div class="figure-label">Nota terminológica</div>
+        <p style="margin-top: var(--space-xs);">
+          Las nociones de «autosuficiencia», «carácter de relieve», «agudización», «coseidad», «indicación formal» y «diahermenéutica» responden a la terminología del curso y a la traducción castellana citada.
+        </p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    const objectionsData = [
+      {
+        num: `Objeción 01 · Contrasentido`,
+        title: `La pretendida absurdidad de una ciencia de la vida`,
+        claim: `Si toda ciencia objetiva interrumpe las relaciones vivas y convierte su asunto en algo detenido y fijado, entonces la más radical y rigurosa ciencia de la vida sería precisamente aquella que con mayor violencia la «desvivifica». Hablar de ciencia rigurosa de la vida parece una contradicción en los términos.`,
+        tension: `La teoría objetivadora arranca las vivencias de su flujo de sentido y las transforma en «objetos» o «procesos psíquicos» muertos.`,
+        response: `La fenomenología no es una ciencia objetivadora ni busca captar la vida en determinaciones quiditativas fijas. Su tarea consiste en comprender la vida «en cuanto emergiendo de su origen», acompañándola mediante un nexo expresivo que no cosifica la vitalidad.`
+      },
+      {
+        num: `Objeción 02 · Inaccesibilidad`,
+        title: `La imposibilidad de efectuarla fácticamente`,
+        claim: `Toda ciencia necesita un suelo de experiencia disponible. Pero en la vida fáctica sólo experimentamos fragmentos limitados y fases aisladas. En el instante mismo en que intento aprehenderla en su curso pleno, la vida fáctica ya ha corrido más allá y me deja persiguiéndola desde atrás.`,
+        tension: `No es posible reunir ni acumular la totalidad de la vida fáctica en su transcurso para disponer de ella como un material completo.`,
+        response: `No hace falta poner a disposición la vida fáctica entera. Basta con encontrar en ella señalamientos motivadores fácticos (el contenido modal de la «agudización» hacia el mundo del sí-mismo) que indican la dirección hacia el ámbito del origen.`
+      },
+      {
+        num: `Objeción 03 · Redundancia`,
+        title: `Su supuesta superfluidad frente a las ciencias particulares`,
+        claim: `Existen ya ciencias históricas, ciencias naturales, economía y psicología que investigan cada región de la vida. ¿Para qué fundar otra ciencia distante de lo fáctico, lastrada por aporías de principio y obligada en última instancia a aceptar los resultados de las ciencias objetivas?`,
+        tension: `La filosofía corre el riesgo de parecer una ciencia global superflua que sólo resume o rectifica desde fuera a las disciplinas positivas.`,
+        response: `La ciencia del origen no compite con las ciencias particulares en su mismo terreno ni pretende sumarlas. Vive en una tendencia radicalmente distinta: preguntar por la génesis de sentido de la vida en y para sí, desde la cual incluso las ciencias objetivas resultan comprensibles.`
+      }
+    ];
+
+    const dossierData = [
+      {
+        id: `realismo`,
+        category: `corriente`,
+        categoryLabel: `Corriente`,
+        name: `Realismo crítico`,
+        tag: `No-filosofía del sentido común`,
+        thesis: `Goza de gran popularidad entre representantes de las ciencias naturales y del espíritu porque confirma tranquilizadoramente su actividad. Reduce la filosofía a probar científicamente al «alarmado ciudadano» que el mundo exterior existe «de verdad».`,
+        critique: `Heidegger lo califica de «trivial no-filosofía» y punto de vista de un Aristóteles malinterpretado, que sirve de antesala a una teología sistemática venida a menos y queda atrapado en el pseudoproblema epistemológico de la existencia del mundo.`,
+        verdict: `Atrapado en el prejuicio epistemológico: presupone la escisión sujeto-objeto sin preguntar por la vida fáctica mundana.`
+      },
+      {
+        id: `marburgo`,
+        category: `corriente`,
+        categoryLabel: `Corriente`,
+        name: `Escuela de Marburgo (Cohen, Natorp, Cassirer)`,
+        tag: `Neokantismo lógico`,
+        thesis: `Culmina la idea de ciencia en la conciencia: algo es objetivado en el sujeto mediante el «fundamento lógico de las ciencias» y el pensamiento puro como órgano determinante del objeto.`,
+        critique: `Es una «filosofía del punto de vista» que asume tesis sin examinar su evidencia última y tiende a un constructivismo sistemático cerrado (aunque Heidegger reconoce que en Paul Natorp late en parte una problemática viva de la investigación).`,
+        verdict: `Reduce lo dado a una X indeterminada que el pensamiento debe determinar; el neohegelianismo naciente agrava esa ceguera ante la donación.`
+      },
+      {
+        id: `valores`,
+        category: `corriente`,
+        categoryLabel: `Corriente`,
+        name: `Filosofía de los Valores (Windelband, Rickert, Lask)`,
+        tag: `Neokantismo axiológico`,
+        thesis: `Busca un sistema de valores últimos como norma suprema para interpretar la vida, la cultura, la historia y la religión, dividiendo las ciencias en naturaleza y cultura o espíritu.`,
+        critique: `Confunde la sistematicidad metódica con sistemas constructivos rígidos. Heidegger censura el concepto contradictorio de «psicología trascendental» en Rickert («hierro de madera») y su pobre teoría de la formación de conceptos. Destaca a Emil Lask como el único que vio el alcance positivo de la mathesis universalis en Husserl.`,
+        verdict: `Impone esquemas de valores y clasificaciones heredadas en lugar de tornar problemáticas las ciencias desde el origen.`
+      },
+      {
+        id: `vida`,
+        category: `corriente`,
+        categoryLabel: `Corriente`,
+        name: `Dilthey, Simmel, Bergson, James y Spengler`,
+        tag: `Filosofía de la vida e historia`,
+        thesis: `Abren una nueva sensibilidad hacia la historia del espíritu (Dilthey), la dinámica del espíritu vivo (Simmel), la duración y el élan vital (Bergson) y el pragmatismo (W. James).`,
+        critique: `Aunque Dilthey inauguró la auténtica idea de historia del espíritu y Bergson mostró cómo las palabras están cortadas a la medida del espacio, todos quedan a medio camino, de modo semioscuro o formalista. En cuanto a Oswald Spengler (La decadencia de Occidente, 1918), su éxito es una ruidosa afectación que habla contra sí misma en cada página.`,
+        verdict: `Contienen intuiciones valiosas, pero no alcanzan el suelo radical del origen y requieren una crítica positiva e investigadora.`
+      },
+      {
+        id: `hegel`,
+        category: `fenomenologia`,
+        categoryLabel: `Tradición`,
+        name: `Hegel y la Fenomenología del espíritu (1807)`,
+        tag: `Antecedente dialéctico`,
+        thesis: `Bajo el lema «el sentido del espíritu es acrecentarse a sí mismo», Hegel concibe el curso del automovimiento del espíritu que «no toma nada de fuera», rechazando tanto el entusiasmo profético como la arbitrariedad.`,
+        critique: `La fenomenología actual tiene con Hegel «mucho y muy poco» que ver: rescata la historia como verdadero organon y la «productividad del no» frente a la rigidez cósica, pero rechaza la dialéctica especulativa porque es «ciega ante la donación» y confunde la intuición con la expresión.`,
+        verdict: `Sus motivos últimos sólo se descifran desde la fenomenología radical, desmontando su panlogismo constructivo.`
+      },
+      {
+        id: `husserl`,
+        category: `fenomenologia`,
+        categoryLabel: `Tradición`,
+        name: `Psicología descriptiva y Husserl (1901–1913)`,
+        tag: `Irrupción fenomenológica`,
+        thesis: `En 1900 Pfänder (escuela de Lipps) usa «fenomenología» como psicología introspectiva y descriptiva. En 1901 Husserl publica las Investigaciones lógicas, seguidas por «La filosofía como ciencia rigurosa» (1910) e Ideas (1913).`,
+        critique: `La introducción al vol. II de Husserl indujo a leer su obra como psicología descriptiva (lo que él mismo corrigió en 1903). Sin embargo, también en Husserl persisten restos objetivadores: las descripciones del «yo puro» vacían el nexo vivo de las vivencias, y la «tensión» entre Friburgo y la escuela de Múnich exige una radicalización mayor.`,
+        verdict: `El paso decisivo de reconocer la filosofía como conocimiento intuitivo aún debe liberarse de las recaídas en el «yo puro» y la reflexión inmanente.`
+      },
+      {
+        id: `estrechamiento`,
+        category: `desfiguracion`,
+        categoryLabel: `Desfiguración I`,
+        name: `Estrechamiento y oscurecimiento de la idea`,
+        tag: `Reducción académica`,
+        thesis: `Interpreta la fenomenología como mera explicación tautológica del significado de palabras («a = a»), ciencia previa definitoria, sustituto de la psicología experimental o simple teoría del conocimiento realista o trascendental.`,
+        critique: `Caracterizada por incrustar la fenomenología en la división tradicional de disciplinas (lógica, ética, estética, metafísica) sin someter esa clasificación heredada a crítica radical. No es tan peligrosa para el avance, pero bloquea el alcance originario de los problemas.`,
+        verdict: `Adhiere la investigación viva a compartimentos históricos accidentales en lugar de reformular la filosofía desde su raíz.`
+      },
+      {
+        id: `exacerbacion`,
+        category: `desfiguracion`,
+        categoryLabel: `Desfiguración II`,
+        name: `Exacerbación acrítica y cosmovisional`,
+        tag: `Peligro contracientífico`,
+        thesis: `Convierte palabras como «intuición», «visión» y «visión de esencias» en eslóganes de moda para un tiempo sediento de sensaciones; mezcla fenomenología con mística o teosofía y busca decretar una «cosmovisión fenomenológica».`,
+        critique: `Es la deformación más destructiva porque corrompe la actitud investigadora desde dentro. Pretende reemplazar la vida religiosa o artística por conocimiento teórico o caer en el balbuceo irracionalista de «protopalabras».`,
+        verdict: `La fenomenología combate por igual el racionalismo absoluto y el irracionalismo; la vida sólo se renueva en su efectuación fiel, no con programas.`
+      }
+    ];
+
+    const worldsData = {
+      circundante: {
+        tag: `Esfera I · § 7c y § 8`,
+        title: `Mundo circundante (Umwelt)`,
+        summary: `Es el horizonte inmediato de cosas, útiles y parajes en los que nos mantenemos y actuamos antes de cualquier mirada teórica. La vida nunca está vacía buscando llenarse de objetos: comparece siempre ya dentro de su entorno.`,
+        examples: [
+          `Paisajes, parajes, ciudades y desiertos en los que nos movemos.`,
+          `Los objetos de uso cotidiano, los medios de transporte, la escuela y el parlamento.`,
+          `En el aula de Friburgo: mi escritorio, la biblioteca, los textos y los documentos.`,
+          `Recursos que ponemos a nuestro servicio: aire, luz, calor, cascadas, maderas y carbón.`
+        ]
+      },
+      compartido: {
+        tag: `Esfera II · § 7c y § 8`,
+        title: `Mundo compartido (Mitwelt)`,
+        summary: `No habitamos un mundo solitario de meras cosas físicas: los demás comparecen inmediatamente en nuestra vida fáctica según usos, afectos, selecciones y destinos compartidos, formando un fondo común de comprensibilidades.`,
+        examples: [
+          `Padres, hermanos, conocidos, jefes, maestros, alumnos y funcionarios.`,
+          `Desconocidos que salen al encuentro en la calle: el señor con la muleta, la señora del sombrero elegante, la niñita con la muñeca.`,
+          `Ustedes escuchando la clase y yo impartiéndola en la facultad por la mañana.`,
+          `El indio que vuelve de la cacería y es comprendido de inmediato por sus compañeros de tribu.`
+        ]
+      },
+      simismo: {
+        tag: `Esfera III · § 7c, § 10d y § 19c`,
+        title: `Mundo del sí-mismo (Selbstwelt)`,
+        summary: `Es el centro rítmico y personal hacia el cual converge todo lo que nos sale al encuentro. Las tendencias emergen de él, las motivaciones despiertan desde su propia historia y sus cumplimientos retornan siempre a sus situaciones fácticas.`,
+        examples: [
+          `La rítmica personal que hace mía una situación: disfrutar un concierto de Bach, leer poemas o sufrir horas de desesperación.`,
+          `El «tenerme a mí mismo» en mis obras y destinos, sin necesidad de observarme como un objeto psicológico.`,
+          `Reconsiderar acciones, ajustar la dirección de la propia vida o abandonarse al momento.`,
+          `El centro hacia el cual se «agudiza» la vida fáctica en artistas, santos o investigadores.`
+        ]
+      }
+    };
+
+    const reliefData = {
+      cotidianidad: {
+        title: `Cotidianidad discreta (Momentos 1 al 3 del relieve)`,
+        desc: `Los tres mundos se compenetran emocionalmente —no como suma teórica, sino fascinados, asqueados o renunciando— manteniendo un fondo de comprensibilidades inmediatas y una estabilización lábil que otorga a la vida su coloración neutral, gris y discreta.`
+      },
+      tirania: {
+        title: `Impulso hacia la tiranía y conformación radical (Momento 4 del relieve)`,
+        desc: `En contraste con el flujo discreto, ciertas direcciones muestran tenacidad y vehemencia: la vida científica, artística, religiosa o político-económica instan a plasmarse de manera pura, rechazar lo ajeno y expandir su dominio sobre la vida entera mediante cosmovisiones.`
+      }
+    };
+
+    const methodStepsData = [
+      {
+        num: `Estación 01 · §§ 21–24 y Complemento 8`,
+        title: `Experiencia fáctica y nexo de significatividad`,
+        body: `En la vida irreflexiva no experimentamos datos sensibles aislados ni cosas neutras, sino nexos de significatividad cargados de vida (incluso lo indeterminado puede volverse amenazante o atemorizante). Por el contrario, las ciencias objetivadoras nivelan esta riqueza al construir la «objetualidad cósica» (coseidad), solidificada y desprendida de la significatividad originaria.`,
+        sideTitle: `Frente al neokantismo y la coseidad`,
+        sideBody: `La «existencia» plenamente determinada del juicio lógico de Marburgo no comparece jamás en la vida fáctica. Incluso las leyes electrodinámicas sólo interesan al físico cuando entran en el entramado de significatividad de su vida.`
+      },
+      {
+        num: `Estación 02 · § 19b–c y Anexo 4`,
+        title: `La agudización hacia el mundo del sí-mismo`,
+        body: `Aunque la vida fáctica es autosuficiente, muestra fácticamente un «contenido modal» (un cómo, una rítmica funcional que atraviesa cualquier contenido cósico): toda experiencia se acentúa y empuja hacia el mundo del sí-mismo. Este «señalar a» motiva desde dentro de la propia vida el giro hacia el ámbito del origen.`,
+        sideTitle: `Testimonio experiencial`,
+        sideBody: `Esta agudización se percibe a-teóricamente en el encuentro con personas significativas (artistas, héroes, santos, investigadores geniales), en la literatura de Shakespeare o Dostoievski y en las biografías del Renacimiento.`
+      },
+      {
+        num: `Estación 03 · Apéndice A (§§ 14–17)`,
+        title: `Destrucción crítica e indicación formal`,
+        body: `Al entrar en el mundo del sí-mismo acechan la objetivación psicológica («observación interior», complejo psicofísico) y la subjetivación trascendental (el «yo puro» vacío de Husserl). La fenomenología ejerce un desmontaje destructivo de esas deformaciones y opera con conceptos cotidianos («vivir, vivenciar, sí-mismo») a título de mera «indicación formal», sin fijarlos en definiciones cerradas.`,
+        sideTitle: `Máxima metódica (Complemento 8)`,
+        sideBody: `Las donaciones fenomenológicas no son inventadas ni producidas por la actitud fenomenológica al expresarlas; únicamente le deben a esta actitud el «haber sido vistas» tras desconectar las objetivaciones (sentido positivo de la ἐποχή).`
+      },
+      {
+        num: `Estación 04 · Apéndice A (§§ 21–29) y Hoja 1`,
+        title: `Estructura de la situación y diahermenéutica`,
+        body: `El método culmina en la comprensión intuitiva de la situación sin objetivación, articulada en tres sentidos inseparables: sentido de relación (el «tenerse a sí mismo»), sentido de efectuación (espontaneidad viva de la «existencia») y sentido de contenido (la idea o mundo abarcado). Los conceptos de esta filosofía no son dialéctica especulativa, sino diahermenéutica.`,
+        sideTitle: `Amor como fundamento motivador`,
+        sideBody: `La comprensión fenomenológica es un «ir-con» procesal, una pre-captación y re-captación intuyente cuyo fundamento motivador es estar familiarizado con la vida y el «amor» dado en su sentido de efectuación.`,
+        showTriad: true
+      }
+    ];
+
+    let activeDossierFilter = `all`;
+    let activeDossierId = dossierData[0].id;
+    let activeWorld = `circundante`;
+    let activeRelief = `cotidianidad`;
+
+    function selectObjection(index) {
+      const data = objectionsData[index];
+      const panel = document.getElementById(`objection-panel`);
+      if (!data || !panel) return;
+
+      const tabs = document.querySelectorAll(`.objection-tab`);
+      tabs.forEach(function(tab, idx) {
+        const isCurrent = idx === index;
+        tab.classList.toggle(`is-active`, isCurrent);
+        tab.setAttribute(`aria-selected`, isCurrent ? `true` : `false`);
+      });
+
+      panel.innerHTML = `
+        <div>
+          <span class="tag">${data.num}</span>
+          <h3 style="margin-top: var(--space-xs);">${data.title}</h3>
+        </div>
+        <p>${data.claim}</p>
+        <div class="objection-meta-row">
+          <div class="objection-meta-cell">
+            <div class="figure-label" style="color: var(--error);">Núcleo de la aporía</div>
+            <p style="font-size: 0.96rem;">${data.tension}</p>
+          </div>
+          <div class="objection-meta-cell">
+            <div class="figure-label" style="color: var(--secondary);">Respuesta fenomenológica</div>
+            <p style="font-size: 0.96rem;">${data.response}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function filterDossier(category) {
+      activeDossierFilter = category;
+      const buttons = document.querySelectorAll(`[data-filter]`);
+      buttons.forEach(function(btn) {
+        btn.classList.toggle(`is-active`, btn.getAttribute(`data-filter`) === category);
+      });
+
+      const filtered = category === `all`
+        ? dossierData
+        : dossierData.filter(function(item) { return item.category === category; });
+
+      if (filtered.length > 0 && !filtered.some(function(i) { return i.id === activeDossierId; })) {
+        activeDossierId = filtered[0].id;
+      }
+      renderDossierList(filtered);
+      renderDossierDetail(activeDossierId);
+    }
+
+    function selectDossierItem(id) {
+      activeDossierId = id;
+      const filtered = activeDossierFilter === `all`
+        ? dossierData
+        : dossierData.filter(function(item) { return item.category === activeDossierFilter; });
+      renderDossierList(filtered);
+      renderDossierDetail(id);
+    }
+
+    function renderDossierList(items) {
+      const listEl = document.getElementById(`dossier-list`);
+      if (!listEl) return;
+
+      listEl.innerHTML = items.map(function(item) {
+        const activeClass = item.id === activeDossierId ? ` is-active` : ``;
+        const selectedAttr = item.id === activeDossierId ? `true` : `false`;
+        return `
+          <button type="button" class="dossier-item${activeClass}" role="option" aria-selected="${selectedAttr}" onclick="selectDossierItem('${item.id}')">
+            <span class="dossier-item-name">${item.name}</span>
+            <span class="dossier-item-cat">${item.categoryLabel}</span>
+          </button>
+        `;
+      }).join(``);
+    }
+
+    function renderDossierDetail(id) {
+      const readerEl = document.getElementById(`dossier-reader`);
+      const item = dossierData.find(function(entry) { return entry.id === id; });
+      if (!readerEl || !item) return;
+
+      readerEl.innerHTML = `
+        <div>
+          <span class="tag">${item.tag}</span>
+          <h3 style="margin-top: var(--space-xs);">${item.name}</h3>
+        </div>
+        <div>
+          <div class="figure-label">Planteamiento en el debate de 1919</div>
+          <p>${item.thesis}</p>
+        </div>
+        <div>
+          <div class="figure-label">Crítica de Heidegger en el curso</div>
+          <p>${item.critique}</p>
+        </div>
+        <div class="dossier-verdict">
+          <div class="dossier-verdict-label">Balance fenomenológico</div>
+          <p style="font-size: 0.96rem;">${item.verdict}</p>
+        </div>
+      `;
+    }
+
+    function selectWorld(worldKey) {
+      activeWorld = worldKey;
+      const data = worldsData[worldKey];
+      const detailEl = document.getElementById(`world-detail`);
+      if (!data || !detailEl) return;
+
+      const worldButtons = document.querySelectorAll(`[data-world]`);
+      worldButtons.forEach(function(btn) {
+        btn.classList.toggle(`is-active`, btn.getAttribute(`data-world`) === worldKey);
+      });
+
+      const keys = [`circundante`, `compartido`, `simismo`];
+      keys.forEach(function(k) {
+        const ring = document.getElementById(`ring-` + k);
+        if (ring) ring.classList.toggle(`is-selected`, k === worldKey);
+      });
+
+      const itemsHtml = data.examples.map(function(ex) {
+        return `<li>${ex}</li>`;
+      }).join(``);
+
+      detailEl.innerHTML = `
+        <span class="tag">${data.tag}</span>
+        <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">${data.title}</h3>
+        <p>${data.summary}</p>
+        <div class="figure-label" style="margin-top: var(--space-md);">Ejemplos concretos citados en el curso</div>
+        <ul class="example-list">
+          ${itemsHtml}
+        </ul>
+      `;
+    }
+
+    function selectRelief(reliefKey) {
+      activeRelief = reliefKey;
+      const data = reliefData[reliefKey];
+      const detailEl = document.getElementById(`relief-detail`);
+      if (!data || !detailEl) return;
+
+      const btns = document.querySelectorAll(`[data-relief]`);
+      btns.forEach(function(btn) {
+        btn.classList.toggle(`is-active`, btn.getAttribute(`data-relief`) === reliefKey);
+      });
+
+      detailEl.innerHTML = `
+        <p style="font-weight: 600; margin-bottom: var(--space-xs);">${data.title}</p>
+        <p style="font-size: 0.96rem; color: var(--on-surface-variant);">${data.desc}</p>
+      `;
+    }
+
+    function selectMethodStep(stepIdx) {
+      const data = methodStepsData[stepIdx];
+      const detailEl = document.getElementById(`method-detail`);
+      if (!data || !detailEl) return;
+
+      const btns = document.querySelectorAll(`[data-step]`);
+      btns.forEach(function(btn) {
+        btn.classList.toggle(`is-active`, Number(btn.getAttribute(`data-step`)) === stepIdx);
+      });
+
+      for (let i = 0; i < 4; i++) {
+        const node = document.getElementById(`node-` + i);
+        if (node) node.classList.toggle(`is-selected`, i === stepIdx);
+      }
+
+      const triadHtml = data.showTriad ? `
+        <div class="triad-grid" style="grid-column: 1 / -1;">
+          <div class="triad-cell">
+            <div class="figure-label" style="color: var(--primary);">1. Sentido de relación</div>
+            <p style="font-size: 0.94rem;">El «tenerse a sí mismo» en el estar familiarizado de la vida con el mundo en que vivo.</p>
+          </div>
+          <div class="triad-cell">
+            <div class="figure-label" style="color: var(--primary);">2. Sentido de efectuación</div>
+            <p style="font-size: 0.94rem;">La espontaneidad del sí-mismo vivo, raíz del significado originario de «existencia».</p>
+          </div>
+          <div class="triad-cell">
+            <div class="figure-label" style="color: var(--primary);">3. Sentido de contenido</div>
+            <p style="font-size: 0.94rem;">La conformación última de la tendencia (idea) que abarca un mundo de la vida.</p>
+          </div>
+        </div>
+      ` : ``;
+
+      detailEl.innerHTML = `
+        <div class="method-detail-main">
+          <span class="tag">${data.num}</span>
+          <h3>${data.title}</h3>
+          <p>${data.body}</p>
+        </div>
+        <div class="method-detail-side">
+          <div class="figure-label" style="color: var(--primary);">${data.sideTitle}</div>
+          <p style="font-size: 0.96rem;">${data.sideBody}</p>
+        </div>
+        ${triadHtml}
+      `;
+    }
+
+    function handleSvgKey(event, kind, value) {
+      if (event.key === `Enter` || event.key === ` `) {
+        event.preventDefault();
+        if (kind === `world`) selectWorld(value);
+        if (kind === `method`) selectMethodStep(value);
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, function() {
+      selectObjection(0);
+      filterDossier(`all`);
+      selectWorld(`circundante`);
+      selectRelief(`cotidianidad`);
+      selectMethodStep(0);
+    });
+  </script>
+</body>
+</html>

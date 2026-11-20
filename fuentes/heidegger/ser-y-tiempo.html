@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>Ser y tiempo — Arquitectura ontológica y guía interactiva</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces: warm stone-white paper */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      /* Ink */
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      /* Rules */
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+      --border-subtle: #c8c4b8;
+
+      /* Accents */
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --secondary-soft: #e9f1f4;
+      --tertiary: #785008;
+      --tertiary-soft: #f5e6c4;
+      --error: #b42318;
+      --error-soft: #fceae8;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      /* Fonts */
+      --font-headline: 'Source Serif 4', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      /* Style effects */
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* Semantic */
+      --positive: #1f5c43;
+      --positive-soft: #e7f3ed;
+      --warning: #785008;
+      --warning-soft: #f8eed8;
+      --focus: #1f4e5f;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.4rem, 1.4rem + 3.6vw, 4.1rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.8vw, 2.35rem);
+      --subhead-size: clamp(1.15rem, 1.05rem + 0.45vw, 1.375rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.08rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: clip; margin: 0; padding: 0; }
+    body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    .skip-link {
+      position: absolute;
+      left: var(--space-md);
+      top: -120px;
+      background: var(--primary);
+      color: var(--on-primary);
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: var(--label-size);
+      border-radius: var(--rounded);
+      z-index: 100;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: var(--space-md);
+      outline: 2.5px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    :focus-visible {
+      outline: 2.5px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Briefing Dossier Treatments */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      line-height: 1.2;
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--display-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.07;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-md) 0;
+      max-width: 24ch;
+    }
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      line-height: 1.45;
+      color: var(--secondary);
+      margin: 0 0 var(--space-lg) 0;
+      max-width: 65ch;
+    }
+
+    h2.section-heading {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--headline-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.12;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-sm) 0;
+    }
+    h3.sub-heading {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      letter-spacing: -0.01em;
+      line-height: 1.22;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-xs) 0;
+    }
+
+    .prose {
+      max-width: 65ch;
+      margin: 0 0 var(--space-md) 0;
+      color: var(--on-surface);
+    }
+    .prose-muted {
+      max-width: 65ch;
+      margin: 0 0 var(--space-md) 0;
+      color: var(--on-surface-variant);
+    }
+
+    /* Navigation Strip */
+    .quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding: var(--space-md) 0;
+      border-top: 1px solid var(--outline-variant);
+      border-bottom: 1px solid var(--outline-variant);
+      margin-bottom: var(--space-lg);
+    }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      text-decoration: none;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:hover {
+      background: var(--surface-container);
+      color: var(--secondary);
+    }
+    .nav-idx {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    /* Key Figures Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .figure-card .kpi-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+    }
+    .figure-card .value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.75rem, 1.4rem + 1vw, 2.25rem);
+      line-height: 1.1;
+      color: var(--secondary);
+      font-variant-numeric: lining-nums tabular-nums;
+      margin-bottom: var(--space-xs);
+    }
+    .figure-card .kpi-note {
+      font-size: 0.875rem;
+      line-height: 1.45;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    /* Epigraph & Translator Callout */
+    .intro-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+    }
+    .aside-kicker {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--tertiary);
+      font-weight: 600;
+      margin-bottom: var(--space-xs);
+    }
+    .epigraph-quote {
+      margin: 0;
+      padding: var(--space-md) var(--space-lg);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-left: 3px solid var(--secondary);
+      border-radius: var(--rounded-lg);
+    }
+    .epigraph-greek {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--on-surface-variant);
+      margin: 0 0 var(--space-sm) 0;
+      line-height: 1.5;
+    }
+    .epigraph-es {
+      font-family: var(--font-headline);
+      font-size: 1.08rem;
+      line-height: 1.5;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-xs) 0;
+    }
+    .epigraph-source {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* Section 01: Architecture Explorer */
+    .arch-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .arch-tree {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .arch-part {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+    }
+    .arch-part-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: 1px solid var(--outline-variant);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-sm);
+    }
+    .arch-part-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--on-surface);
+    }
+    .arch-nodes {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-sm);
+    }
+    .arch-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      width: 100%;
+      min-height: 48px;
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--background);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      font-family: inherit;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .arch-btn:hover {
+      background: var(--surface-container);
+    }
+    .arch-btn[aria-pressed="true"] {
+      background: var(--secondary-soft);
+      box-shadow: inset 3px 0 0 var(--secondary);
+    }
+    .arch-btn-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .arch-btn-code {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      font-weight: 600;
+    }
+    .arch-btn-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .status-chip {
+      flex-shrink: 0;
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--badge-radius);
+      text-transform: uppercase;
+    }
+    .status-published {
+      background: var(--positive-soft);
+      color: var(--positive);
+    }
+    .status-unwritten {
+      background: var(--tertiary-soft);
+      color: var(--tertiary);
+    }
+    .arch-detail-panel {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-top: 2px solid var(--secondary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .detail-list {
+      margin: var(--space-md) 0 0 0;
+      padding-left: var(--space-lg);
+    }
+    .detail-list li {
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Section 02: Existential Dynamics & Temporality Diagram */
+    .mode-switcher {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .mode-btn {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.92rem;
+      border-radius: var(--rounded);
+      border: 1px solid var(--border-subtle);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .mode-btn:hover {
+      background: var(--surface-container);
+    }
+    .mode-btn[aria-pressed="true"] {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    .dynamics-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: stretch;
+    }
+    .svg-stage {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .svg-stage svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .axis-steps {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .step-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+    }
+    .step-card-head {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-xs);
+    }
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      background: var(--surface-container);
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--badge-radius);
+    }
+
+    /* Section 03: Glossary */
+    .glossary-controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+      margin-bottom: var(--space-md);
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface-variant);
+      font-weight: 600;
+    }
+    .text-input {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--on-surface);
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--rounded);
+      width: 100%;
+    }
+    .text-input:focus {
+      outline: 2.5px solid var(--focus);
+      outline-offset: 1px;
+    }
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .chip-btn {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.85rem;
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .chip-btn:hover {
+      background: var(--surface-container);
+    }
+    .chip-btn[aria-pressed="true"] {
+      background: var(--secondary);
+      color: var(--on-primary);
+      border-color: var(--secondary);
+    }
+    .glossary-count {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-sm);
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .term-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .term-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .term-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.18rem;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .term-de {
+      font-family: var(--font-label);
+      font-size: 0.78rem;
+      color: var(--secondary);
+      font-weight: 500;
+    }
+    .term-cat {
+      display: inline-block;
+      align-self: flex-start;
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      background: var(--tertiary-soft);
+      color: var(--tertiary);
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--badge-radius);
+      margin-top: var(--space-xs);
+    }
+    .empty-state {
+      background: var(--surface-container);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+      text-align: left;
+    }
+
+    /* Section 04: Comparisons */
+    .comp-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .table-wrap {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow-x: auto;
+    }
+    table.comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+    table.comp-table thead th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface);
+      background: var(--surface-container);
+      padding: var(--space-md);
+      border-bottom: var(--section-rule);
+    }
+    table.comp-table tbody td {
+      padding: var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+      vertical-align: top;
+      line-height: 1.55;
+    }
+    table.comp-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    table.comp-table tbody td:first-child {
+      font-family: var(--font-label);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--secondary);
+      width: 22%;
+    }
+
+    /* Section 05: Interactive Quiz */
+    .quiz-shell {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .quiz-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+      margin-bottom: var(--space-lg);
+    }
+    .quiz-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-lg);
+    }
+    .quiz-stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .quiz-stat-val {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.5rem;
+      color: var(--secondary);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+    }
+    .quiz-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .btn-primary {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--primary);
+      color: var(--on-primary);
+      border: 1px solid var(--primary);
+      border-radius: var(--rounded);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-secondary {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--rounded);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .btn-secondary:hover { background: var(--surface-container); }
+
+    .question-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .q-card {
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      background: var(--background);
+    }
+    .q-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--space-xs);
+    }
+    .q-prompt {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.15rem;
+      line-height: 1.35;
+      margin: 0 0 var(--space-md) 0;
+      color: var(--on-surface);
+    }
+    .q-options {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-sm);
+    }
+    .opt-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      text-align: left;
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--rounded);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      line-height: 1.45;
+      color: var(--on-surface);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .opt-btn:hover:not(:disabled) {
+      background: var(--surface-container);
+    }
+    .opt-btn:disabled {
+      cursor: default;
+    }
+    .opt-btn.is-correct {
+      background: var(--positive-soft);
+      border-color: var(--positive);
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+    .opt-btn.is-wrong {
+      background: var(--error-soft);
+      border-color: var(--error);
+      color: var(--on-surface);
+    }
+    .opt-letter {
+      font-family: var(--font-label);
+      font-weight: 600;
+      color: var(--secondary);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .q-feedback {
+      margin-top: var(--space-md);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+    .q-feedback.fb-ok {
+      background: var(--positive-soft);
+      border-left: 3px solid var(--positive);
+      color: var(--on-surface);
+    }
+    .q-feedback.fb-err {
+      background: var(--error-soft);
+      border-left: 3px solid var(--error);
+      color: var(--on-surface);
+    }
+
+    .footer-sources {
+      border-top: var(--section-rule);
+      padding-top: var(--space-lg);
+      color: var(--on-surface-variant);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 760px) {
+      .intro-split,
+      .arch-layout,
+      .dynamics-grid,
+      .glossary-controls {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .quiz-shell,
+      .arch-detail-panel,
+      .q-card {
+        padding: var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
+
+  <main id="contenido-principal" class="page-grid">
+
+    <!-- HERO / PORTADA EDITORIAL -->
+    <header>
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Dossier Ontológico</span>
+          <span class="dossier-meta">Martin Heidegger · Sein und Zeit (1927) · Trad. Jorge Eduardo Rivera C.</span>
+        </div>
+        <span class="dossier-meta" id="estado-sesion">Progreso listo</span>
+      </div>
+
+      <h1 class="title">Ser y tiempo: la pregunta por el sentido del ser y el horizonte del tiempo</h1>
+      <p class="standfirst">
+        Guía interactiva sobre la obra capital de Martin Heidegger en la traducción de Jorge Eduardo Rivera C.: arquitectura del tratado, dinámica existencial del Dasein, glosario terminológico, comparaciones clave y autoevaluación.
+      </p>
+
+      <nav class="quick-nav" aria-label="Navegación por secciones">
+        <a class="nav-link" href="#estructura"><span class="nav-idx">01</span> Estructura del tratado</a>
+        <a class="nav-link" href="#ejes"><span class="nav-idx">02</span> Dinámica existencial</a>
+        <a class="nav-link" href="#glosario"><span class="nav-idx">03</span> Glosario crítico</a>
+        <a class="nav-link" href="#comparaciones"><span class="nav-idx">04</span> Comparaciones</a>
+        <a class="nav-link" href="#cuestionario"><span class="nav-idx">05</span> Cuestionario</a>
+      </nav>
+
+      <div class="kpi-grid">
+        <div class="figure-card">
+          <div class="kpi-label">Publicación original</div>
+          <div class="value">1927</div>
+          <p class="kpi-note">Dedicada a Edmund Husserl desde Todtnauberg, Selva Negra (8 de abril de 1926).</p>
+        </div>
+        <div class="figure-card">
+          <div class="kpi-label">Alcance del volumen</div>
+          <div class="value">2 de 6</div>
+          <p class="kpi-note">Se publicaron solo las dos primeras secciones de la Primera Parte; la Tercera y toda la Segunda quedaron pendientes.</p>
+        </div>
+        <div class="figure-card">
+          <div class="kpi-label">Frecuencia de «je»</div>
+          <div class="value">403×</div>
+          <p class="kpi-note">Apariciones de «cada vez» (<em>je</em>), clave formal que indica cómo el Dasein se realiza en cada situación.</p>
+        </div>
+        <div class="figure-card">
+          <div class="kpi-label">Traducciones al español</div>
+          <div class="value">1951 / 97</div>
+          <p class="kpi-note">De la obra pionera de José Gaos (1951) al hito filosófico de Jorge Eduardo Rivera C.</p>
+        </div>
+      </div>
+
+      <div class="intro-split">
+        <blockquote class="epigraph-quote">
+          <p class="epigraph-greek">«…δηλον γάρ ώς ύμεις μέν ταυτα (τί ποτε βούλεσθε σημαίνειν οπόταν ον φθέγγησθε) πάλαι γιγνώσκετε, ημείς δέ προ του μέν φόμεθα, νυν δ’ ήπορήκαμεν…»</p>
+          <p class="epigraph-es">«Porque manifiestamente vosotros estáis familiarizados desde hace mucho tiempo con lo que propiamente queréis decir cuando usáis la expresión “ente”; en cambio, nosotros creíamos otrora comprenderlo, pero ahora nos encontramos en aporía…»</p>
+          <footer class="epigraph-source">Platón, El Sofista (244a) — Epígrafe inaugural de Ser y tiempo</footer>
+        </blockquote>
+
+        <aside class="aside-box" aria-label="Tesis central de la obra">
+          <div class="aside-kicker">Tesis ontológica fundamental</div>
+          <p style="margin: 0; font-size: 0.95rem;">
+            Comprendemos de modo borroso y preontológico qué significa «ser», pero hemos olvidado la pregunta por su sentido. Para responderla, Heidegger analiza primero al ente que comprende el ser —el <strong>Dasein</strong>— mostrando que su ser es el cuidado y su sentido la <strong>temporeidad</strong>, como paso previo para desentrañar la <strong>temporariedad</strong> del ser mismo.
+          </p>
+        </aside>
+      </div>
+    </header>
+
+    <!-- SECCIÓN 01: ESTRUCTURA CONCEPTUAL -->
+    <section id="estructura" aria-labelledby="h-estructura">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Sección 01</span>
+          <span class="dossier-meta">Arquitectura del proyecto filosófico</span>
+        </div>
+      </div>
+      <h2 id="h-estructura" class="section-heading">Un tratado inconcluso diseñado en dos partes y seis divisiones</h2>
+      <p class="prose">
+        La elaboración de la pregunta por el sentido del ser se bifurca en dos grandes tareas: una analítica existencial del Dasein orientada hacia el tiempo como horizonte trascendental, y una destrucción fenomenológica de la historia de la ontología. Selecciona cada bloque del plano arquitectónico para inspeccionar su función y alcance real en el tomo de 1927.
+      </p>
+
+      <div class="arch-layout">
+        <div class="arch-tree">
+          <div class="arch-part">
+            <div class="arch-part-header">
+              <span class="arch-part-title">Primera Parte — El Dasein y el horizonte del tiempo</span>
+              <span class="dossier-meta">3 Secciones</span>
+            </div>
+            <div class="arch-nodes">
+              <button type="button" class="arch-btn" data-arch="p1s1" aria-pressed="true" onclick="selectArch('p1s1')">
+                <span class="arch-btn-main">
+                  <span class="arch-btn-code">Sección 1 · § 9–44</span>
+                  <span class="arch-btn-name">Etapa preparatoria del análisis fundamental del Dasein</span>
+                </span>
+                <span class="status-chip status-published">Publicada</span>
+              </button>
+              <button type="button" class="arch-btn" data-arch="p1s2" aria-pressed="false" onclick="selectArch('p1s2')">
+                <span class="arch-btn-main">
+                  <span class="arch-btn-code">Sección 2 · § 45–83</span>
+                  <span class="arch-btn-name">Dasein y temporeidad</span>
+                </span>
+                <span class="status-chip status-published">Publicada</span>
+              </button>
+              <button type="button" class="arch-btn" data-arch="p1s3" aria-pressed="false" onclick="selectArch('p1s3')">
+                <span class="arch-btn-main">
+                  <span class="arch-btn-code">Sección 3 · Horizonte ontológico</span>
+                  <span class="arch-btn-name">Tiempo y ser (Temporalität des Seins)</span>
+                </span>
+                <span class="status-chip status-unwritten">Inédita en 1927</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="arch-part">
+            <div class="arch-part-header">
+              <span class="arch-part-title">Segunda Parte — Historia de la ontología</span>
+              <span class="dossier-meta">Tarea crítica</span>
+            </div>
+            <div class="arch-nodes">
+              <button type="button" class="arch-btn" data-arch="p2" aria-pressed="false" onclick="selectArch('p2')">
+                <span class="arch-btn-main">
+                  <span class="arch-btn-code">Parte II · Revisión histórica</span>
+                  <span class="arch-btn-name">Destrucción fenomenológica de la historia de la ontología</span>
+                </span>
+                <span class="status-chip status-unwritten">Inédita en 1927</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-detail-panel" id="arch-detail" aria-live="polite">
+          <!-- Rellenado dinámicamente por JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 02: DINÁMICA EXISTENCIAL Y TEMPOREIDAD -->
+    <section id="ejes" aria-labelledby="h-ejes">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Sección 02</span>
+          <span class="dossier-meta">Analítica existencial y horizonte temporal</span>
+        </div>
+      </div>
+      <h2 id="h-ejes" class="section-heading">De la absorción cotidiana en «el uno» a la apertura extática del tiempo</h2>
+      <p class="prose">
+        El Dasein no es un sujeto aislado frente a objetos externos (§ 13): existe siempre arrojado en un mundo de significatividad y útiles. Cambia entre el modo cotidiano (impropio) y el modo resuelto (propio) para observar cómo se articulan el mundo, el sí-mismo y los tres éxtasis del tiempo.
+      </p>
+
+      <div class="mode-switcher" role="group" aria-label="Modo existencial del Dasein">
+        <button type="button" class="mode-btn" id="btn-mode-impropio" aria-pressed="true" onclick="setExistentialMode('impropio')">
+          Modo cotidiano / Impropio («El uno»)
+        </button>
+        <button type="button" class="mode-btn" id="btn-mode-propio" aria-pressed="false" onclick="setExistentialMode('propio')">
+          Modo resuelto / Propio (Temporeidad)
+        </button>
+      </div>
+
+      <div class="dynamics-grid">
+        <div class="svg-stage">
+          <div>
+            <div class="aside-kicker" id="svg-kicker">Esquema extático-horizontal · Modo cotidiano</div>
+            <h3 class="sub-heading" id="svg-title">El encubrimiento en el presente nivelado y la caída</h3>
+          </div>
+          <svg viewBox="0 0 560 300" role="img" aria-labelledby="svg-title" style="min-height: 240px;">
+            <defs>
+              <marker id="arrow-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--secondary)" />
+              </marker>
+            </defs>
+            <!-- Horizonte de fondo -->
+            <rect x="16" y="18" width="528" height="264" rx="6" fill="var(--background)" stroke="var(--outline-variant)" stroke-width="1" />
+            <!-- Eje del tiempo -->
+            <line x1="56" y1="215" x2="504" y2="215" stroke="var(--outline)" stroke-width="1.5" />
+            <!-- Tres éxtasis -->
+            <g id="svg-extasis-past">
+              <rect x="44" y="138" width="136" height="62" rx="4" fill="var(--surface-container-low)" stroke="var(--outline-variant)" stroke-width="1.5" />
+              <text x="112" y="162" text-anchor="middle" font-family="Geist Mono, monospace" font-size="11" fill="var(--on-surface-variant)">HABER-SIDO</text>
+              <text id="svg-past-label" x="112" y="182" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="13" fill="var(--on-surface)">Olvido de sí</text>
+            </g>
+            <g id="svg-extasis-present">
+              <rect x="212" y="138" width="136" height="62" rx="4" fill="var(--surface-container-low)" stroke="var(--secondary)" stroke-width="2" />
+              <text x="280" y="162" text-anchor="middle" font-family="Geist Mono, monospace" font-size="11" fill="var(--secondary)">PRESENTE</text>
+              <text id="svg-present-label" x="280" y="182" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="13" fill="var(--on-surface)">Presentación dispersa</text>
+            </g>
+            <g id="svg-extasis-future">
+              <rect x="380" y="138" width="136" height="62" rx="4" fill="var(--surface-container-low)" stroke="var(--outline-variant)" stroke-width="1.5" />
+              <text x="448" y="162" text-anchor="middle" font-family="Geist Mono, monospace" font-size="11" fill="var(--on-surface-variant)">FUTURO</text>
+              <text id="svg-future-label" x="448" y="182" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="13" fill="var(--on-surface)">Estar a la espera</text>
+            </g>
+            <!-- Núcleo del Dasein / Cuidado -->
+            <rect id="svg-core-box" x="150" y="38" width="260" height="58" rx="4" fill="var(--surface-container)" stroke="var(--outline)" stroke-width="1.5" />
+            <text x="280" y="60" text-anchor="middle" font-family="Geist Mono, monospace" font-size="11" fill="var(--tertiary)">DASEIN COMO CUIDADO (SORGE)</text>
+            <text id="svg-core-label" x="280" y="80" text-anchor="middle" font-family="Source Serif 4, serif" font-weight="600" font-size="15" fill="var(--on-surface)">Uno-mismo en la caída</text>
+            <!-- Conectores -->
+            <line x1="215" y1="96" x2="128" y2="134" stroke="var(--secondary)" stroke-width="1.5" marker-end="url(#arrow-head)" />
+            <line x1="280" y1="96" x2="280" y2="134" stroke="var(--secondary)" stroke-width="1.5" marker-end="url(#arrow-head)" />
+            <line x1="345" y1="96" x2="432" y2="134" stroke="var(--secondary)" stroke-width="1.5" marker-end="url(#arrow-head)" />
+            <!-- Nota inferior -->
+            <text id="svg-horizon-note" x="280" y="248" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5" fill="var(--on-surface-variant)">
+              El tiempo se nivela como sucesión continua de «ahoras» que cualquiera toma o pierde.
+            </text>
+          </svg>
+        </div>
+
+        <div class="axis-steps" id="mode-steps" aria-live="polite">
+          <!-- Rellenado dinámicamente por JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 03: GLOSARIO CRÍTICO -->
+    <section id="glosario" aria-labelledby="h-glosario">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Sección 03</span>
+          <span class="dossier-meta">Léxico fundamental y equivalencias alemanas</span>
+        </div>
+      </div>
+      <h2 id="h-glosario" class="section-heading">Glosario conceptual y decisiones de traducción de Rivera</h2>
+      <p class="prose">
+        La precisión terminológica es inseparable de la analítica heideggeriana. Filtra por eje temático o busca cualquier concepto en español o alemán para explorar su definición y alcance en la obra.
+      </p>
+
+      <div class="glossary-controls">
+        <div class="field-group">
+          <label class="field-label" for="glossary-search">Buscar concepto o término alemán</label>
+          <input type="search" id="glossary-search" class="text-input" placeholder="Ej.: Dasein, Zuhanden, angustia, temporariedad…" oninput="filterGlossary()">
+        </div>
+        <button type="button" class="btn-secondary" onclick="resetGlossaryFilters()">Limpiar filtros</button>
+      </div>
+
+      <div class="filter-chips" role="group" aria-label="Filtrar glosario por categoría">
+        <button type="button" class="chip-btn" data-cat="todos" aria-pressed="true" onclick="setGlossaryCat('todos')">Todos (12)</button>
+        <button type="button" class="chip-btn" data-cat="estructura" aria-pressed="false" onclick="setGlossaryCat('estructura')">Estructura del Dasein</button>
+        <button type="button" class="chip-btn" data-cat="cotidianidad" aria-pressed="false" onclick="setGlossaryCat('cotidianidad')">Cotidianidad y Caída</button>
+        <button type="button" class="chip-btn" data-cat="tiempo" aria-pressed="false" onclick="setGlossaryCat('tiempo')">Tiempo e Historia</button>
+        <button type="button" class="chip-btn" data-cat="traduccion" aria-pressed="false" onclick="setGlossaryCat('traduccion')">Notas de traducción</button>
+      </div>
+
+      <div class="glossary-count" id="glossary-count" aria-live="polite"></div>
+      <div class="card-grid" id="glossary-grid"></div>
+    </section>
+
+    <!-- SECCIÓN 04: COMPARACIONES CLAVE -->
+    <section id="comparaciones" aria-labelledby="h-comparaciones">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Sección 04</span>
+          <span class="dossier-meta">Contrastes ontológicos y traductológicos</span>
+        </div>
+      </div>
+      <h2 id="h-comparaciones" class="section-heading">Cuatro distinciones decisivas para leer Ser y tiempo</h2>
+      <p class="prose">
+        Heidegger construye su ontología fundamental desmontando pares conceptuales confundidos por la tradición filosófica. Selecciona una matriz comparativa para contraponer los polos en cuestión.
+      </p>
+
+      <div class="comp-tabs" role="group" aria-label="Seleccionar tabla comparativa">
+        <button type="button" class="chip-btn" data-comp="utiles" aria-pressed="true" onclick="selectComparison('utiles')">A la mano vs. Estar-ahí</button>
+        <button type="button" class="chip-btn" data-comp="angustia" aria-pressed="false" onclick="selectComparison('angustia')">Angustia vs. Miedo</button>
+        <button type="button" class="chip-btn" data-comp="tiempo" aria-pressed="false" onclick="selectComparison('tiempo')">Temporeidad vs. Tiempo vulgar</button>
+        <button type="button" class="chip-btn" data-comp="traduccion" aria-pressed="false" onclick="selectComparison('traduccion')">Rivera vs. Gaos / Tradición</button>
+      </div>
+
+      <div class="table-wrap" id="comparison-container" aria-live="polite">
+        <!-- Tabla renderizada dinámicamente -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN 05: CUESTIONARIO INTERACTIVO -->
+    <section id="cuestionario" aria-labelledby="h-cuestionario">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Sección 05</span>
+          <span class="dossier-meta">Autoevaluación de comprensión filosófica</span>
+        </div>
+      </div>
+      <h2 id="h-cuestionario" class="section-heading">Cuestionario interactivo sobre los conceptos clave</h2>
+      <p class="prose">
+        Pon a prueba tu comprensión de los pasajes y notas fundamentales del tratado. Tus respuestas y tu puntuación se guardan automáticamente entre sesiones.
+      </p>
+
+      <div class="quiz-shell">
+        <div class="quiz-topbar">
+          <div class="quiz-stats">
+            <div class="quiz-stat-item">
+              <span class="dossier-meta">Respondidas</span>
+              <span class="quiz-stat-val" id="quiz-answered">0 / 8</span>
+            </div>
+            <div class="quiz-stat-item">
+              <span class="dossier-meta">Aciertos</span>
+              <span class="quiz-stat-val" id="quiz-score">0</span>
+            </div>
+            <div class="quiz-stat-item">
+              <span class="dossier-meta">Precisión</span>
+              <span class="quiz-stat-val" id="quiz-pct">—</span>
+            </div>
+          </div>
+          <div class="quiz-actions">
+            <button type="button" class="btn-secondary" id="btn-filter-missed" onclick="toggleMissedOnly()">Ver solo pendientes / errores</button>
+            <button type="button" class="btn-secondary" id="btn-reset-quiz" onclick="handleQuizReset(this)">Reiniciar cuestionario</button>
+          </div>
+        </div>
+
+        <div class="question-list" id="quiz-list">
+          <!-- Preguntas renderizadas por JS -->
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer-sources">
+      <div class="aside-kicker">Fuentes y atribución editorial</div>
+      <p style="margin: 0;">
+        Contenido fundamentado íntegramente en <em>Ser y tiempo</em> de Martin Heidegger (<em>Sein und Zeit</em>, 1927), en la traducción española y notas críticas de Jorge Eduardo Rivera C. (edición digital Titivillus, r1.1/r1.2), junto con las referencias comparativas al prólogo sobre la traducción precedente de José Gaos (1951) y el epígrafe de Platón (<em>El Sofista</em>, 244a).
+      </p>
+    </footer>
+
+  </main>
+
+  <api-shim></api-shim>
+  <script>
+    const ARCH_DATA = {
+      p1s1: {
+        badge: `Primera Parte · Sección 1`,
+        title: `Etapa preparatoria del análisis fundamental del Dasein`,
+        status: `Publicada en 1927`,
+        summary: `Se la denomina «preparatoria» porque saca a la luz las estructuras fundamentales del Dasein en su unidad primaria —partiendo de la cotidianidad media— pero todavía no esclarece el sentido último de su ser.`,
+        points: [
+          `Crítica al modelo tradicional «sujeto y objeto» en el conocimiento del mundo (§ 13): el estar-en-el-mundo es una constitución previa y unitaria.`,
+          `Análisis del mundo circundante y del trato pragmático con lo «a la mano» (Zuhanden) frente a lo que simplemente «está-ahí» (Vorhanden).`,
+          `El sí-mismo cotidiano como «uno-mismo» (Man selbst) y la caída en la habladuría, la curiosidad y la ambigüedad.`,
+          `La angustia como disposición afectiva fundamental que revela lo desazonante del mundo y prepara la definición del ser del Dasein como cuidado (Sorge).`,
+          `Concepción originaria de la verdad como ser-descubridor (ἀπόφανσις) fundada en el estar-en-el-mundo.`
+        ]
+      },
+      p1s2: {
+        badge: `Primera Parte · Sección 2`,
+        title: `Dasein y temporeidad`,
+        status: `Publicada en 1927`,
+        summary: `Despliega la temporeidad (Zeitlichkeit) como el verdadero sentido ontológico del cuidado y de la existencia del Dasein, desde la finitud hasta la historicidad.`,
+        points: [
+          `El estar vuelto hacia la muerte como posibilidad más propia, frente a la huida cotidiana en la caída.`,
+          `La llamada de la conciencia y la resolución (Entschlossenheit) como atestiguación del poder-ser propio.`,
+          `La unidad extático-horizontal de futuro, haber-sido y presente que temporiza la apertura de un mundo.`,
+          `La historicidad (Geschichtlichkeit) del Dasein como acontecer originario en el que se enraíza la historiografía (Historie).`,
+          `Crítica a la concepción vulgar del tiempo como sucesión infinita y nivelada de «ahoras» públicos.`
+        ]
+      },
+      p1s3: {
+        badge: `Primera Parte · Sección 3`,
+        title: `Tiempo y ser (Temporalität des Seins)`,
+        status: `No publicada en el tomo de 1927`,
+        summary: `Debía consumar la inversión decisiva del tratado: pasar de la temporeidad del Dasein a la abertura del tiempo como horizonte trascendental para comprender el sentido del ser en general.`,
+        points: [
+          `Objetivo proyectado: desentrañar la «temporariedad del ser» (Temporalität des Seins) más allá de la existencia humana.`,
+          `Explicar por qué incluso lo «intemporal» y lo «supratemporal» son temporales en un sentido ontológico positivo.`,
+          `Como señala Jorge Eduardo Rivera C., al no concluir esta sección, la respuesta concreta al sentido del ser quedó en suspenso en el volumen publicado.`
+        ]
+      },
+      p2: {
+        badge: `Segunda Parte · Plan original`,
+        title: `Destrucción fenomenológica de la historia de la ontología`,
+        status: `No publicada en el tomo de 1927`,
+        summary: `Concebida para desmontar críticamente las capas de la metafísica tradicional al hilo de la problemática de la temporariedad, mostrando cómo la tradición interpretó el ser únicamente como mera presencia («ahora»).`,
+        points: [
+          `Rastrear el origen de la paradoja tradicional que entiende el ser desde un solo momento del tiempo: la pura presencia (Gegenwärtigen).`,
+          `Revisar críticamente las bases ontológicas heredadas de Kant (por ejemplo, la Crítica de la razón pura), Descartes y la ontología grecoplatónica.`,
+          `Liberar las experiencias originarias encubiertas bajo conceptos anquilosados de sustancia, sujeto y tiempo infinito.`
+        ]
+      }
+    };
+
+    const MODE_DATA = {
+      impropio: {
+        kicker: `Esquema extático-horizontal · Modo cotidiano`,
+        title: `El encubrimiento en el presente nivelado y la caída`,
+        past: `Olvido de sí`,
+        present: `Presentación dispersa`,
+        future: `Estar a la espera`,
+        core: `Uno-mismo en la caída`,
+        note: `El tiempo público se nivela como secuencia infinita de «ahoras» que cualquiera toma o pierde.`,
+        steps: [
+          {
+            idx: `01`,
+            title: `Absorción en «el uno» (Das Man)`,
+            body: `Inmediatamente no soy «yo» en sentido propio, sino los otros a la manera de la medianía pública. «El uno» bosqueja de antemano la interpretación del mundo.`
+          },
+          {
+            idx: `02`,
+            title: `Habladuría, curiosidad y ambigüedad`,
+            body: `La caída abre el mundo en la modalidad de estar «en todas partes y en ninguna», suspendido en el vacío de lo más nuevo, incapaz de demorarse en lo genuino.`
+          },
+          {
+            idx: `03`,
+            title: `Huida ante la finitud y tiempo infinito`,
+            body: `El Dasein regular oculta su estar vuelto hacia la muerte y reduce el tiempo a una sucesión continua e infinita donde siempre «queda todavía tiempo».`
+          }
+        ]
+      },
+      propio: {
+        kicker: `Esquema extático-horizontal · Modo resuelto`,
+        title: `La unidad extática de la temporeidad originaria`,
+        past: `Asumir el estar arrojado`,
+        present: `Instante abierto en el Ahí`,
+        future: `Estar vuelto hacia la muerte`,
+        core: `Sí-mismo resuelto y finito`,
+        note: `Al temporizarse la unidad extático-horizontal, se abre un mundo y acontece la historicidad.`,
+        steps: [
+          {
+            idx: `01`,
+            title: `La angustia y el hundimiento de la insignificancia`,
+            body: `A diferencia del miedo, el ante-qué y el por-qué de la angustia coinciden en el Dasein mismo: todo lo a la mano pierde su condición respectiva y revela el estar arrojado.`
+          },
+          {
+            idx: `02`,
+            title: `Llamada de la conciencia y resolución`,
+            body: `La conciencia convoca al Dasein ante su más propio poder-ser. La resolución hace suya la verdad como ser-descubridor, apartando disimulaciones y encubrimientos.`
+          },
+          {
+            idx: `03`,
+            title: `Temporeidad e historicidad (Geschichtlichkeit)`,
+            body: `El presente brota del futuro finito y del haber-sido. El tiempo no está «dentro» ni «fuera», sino que es anterior a toda subjetividad y objetividad.`
+          }
+        ]
+      }
+    };
+
+    const GLOSSARY_TERMS = [
+      {
+        term: `Dasein / Ex-sistencia`,
+        de: `Dasein · Existenz`,
+        cat: `estructura`,
+        catLabel: `Estructura del Dasein`,
+        def: `El ente que somos en cada caso nosotros mismos y que posee una comprensión del ser. Su «esencia» es la Existenz, entendida por Rivera como «ex-sistencia» o salida afuera de sí mismo hacia el mundo.`
+      },
+      {
+        term: `Estar-en-el-mundo`,
+        de: `In-der-Welt-sein`,
+        cat: `estructura`,
+        catLabel: `Estructura del Dasein`,
+        def: `Constitución fundamental y unitaria del Dasein, previa a toda separación teórica entre «sujeto» y «objeto» (§ 13). El conocimiento del mundo es solo un modo fundado en este estar-en.`
+      },
+      {
+        term: `A la mano / Lo que está-ahí`,
+        de: `Zuhanden · Vorhanden`,
+        cat: `estructura`,
+        catLabel: `Estructura del Dasein`,
+        def: `Lo «a la mano» es el útil en su trato pragmático y contexto remisional; lo que «está-ahí» es el ente mirado de modo aislado, neutro o puramente teórico.`
+      },
+      {
+        term: `Cuidado`,
+        de: `Sorge`,
+        cat: `estructura`,
+        catLabel: `Estructura del Dasein`,
+        def: `Estructura ontológica integral del Dasein determinada por existencia, facticidad y caída. En el cuidado se funda la posibilidad ontológica del morir y del estar vuelto hacia el fin.`
+      },
+      {
+        term: `El uno / Uno-mismo`,
+        de: `Das Man · Man selbst`,
+        cat: `cotidianidad`,
+        catLabel: `Cotidianidad y Caída`,
+        def: `Existencial que describe el sujeto de la cotidianidad media: el Dasein está disperso en los otros y en la medianía pública, antes de asumir expresamente su sí-mismo propio.`
+      },
+      {
+        term: `Caída (Habladuría, Curiosidad, Ambigüedad)`,
+        de: `Verfallen · Gerede · Neugier · Zweideutigkeit`,
+        cat: `cotidianidad`,
+        catLabel: `Cotidianidad y Caída`,
+        def: `Modalidad existencial en que el Dasein queda suspendido en el vacío de la opinión pública, saltando de novedad en novedad «en todas partes y en ninguna».`
+      },
+      {
+        term: `Angustia`,
+        de: `Angst`,
+        cat: `cotidianidad`,
+        catLabel: `Cotidianidad y Caída`,
+        def: `Disposición afectiva fundamental en que el mundo circundante se hunde en la insignificancia. Su ante-qué y su por-qué coinciden en el Dasein mismo, revelando su desazonante estar arrojado.`
+      },
+      {
+        term: `Verdad como ser-descubridor`,
+        de: `ἀπόφανσις · Entdeckend-sein`,
+        cat: `estructura`,
+        catLabel: `Estructura del Dasein`,
+        def: `El enunciado verdadero «hace ver» al ente en sí mismo. La verdad no es primariamente adecuación entre sujeto y objeto, sino descubrimiento posible por el estar-en-el-mundo.`
+      },
+      {
+        term: `Temporeidad vs. Temporariedad`,
+        de: `Zeitlichkeit · Temporalität`,
+        cat: `tiempo`,
+        catLabel: `Tiempo e Historia`,
+        def: `Rivera distingue «temporeidad» (modo de ser extático-horizontal de la existencia del Dasein) de «temporariedad» (la determinación del sentido del ser mismo a partir del tiempo).`
+      },
+      {
+        term: `Historicidad vs. Historiografía`,
+        de: `Geschichtlichkeit · Historie`,
+        cat: `tiempo`,
+        catLabel: `Tiempo e Historia`,
+        def: `La historicidad es el carácter aconteciente (geschehen) del propio Dasein; la historiografía es la ciencia o saber histórico que presupone y se enraíza en esa historicidad originaria.`
+      },
+      {
+        term: `Cada vez`,
+        de: `je · jemeinig`,
+        cat: `traduccion`,
+        catLabel: `Notas de traducción`,
+        def: `Palabra clave repetida 403 veces en la obra: indica que las estructuras formales del Dasein se concretan en cada caso o situación de manera singular e intransferible.`
+      },
+      {
+        term: `Exégesis vs. Interpretación`,
+        de: `Interpretation · Auslegung`,
+        cat: `traduccion`,
+        catLabel: `Notas de traducción`,
+        def: `Decisión estilística y técnica de Rivera para evitar cacofonías y preservar el matiz entre el estado interpretativo cotidiano (Ausgelegtheit / Auslegung) y la elaboración temática (Interpretation).`
+      }
+    ];
+
+    const COMPARISONS = {
+      utiles: {
+        colA: `Lo «a la mano» (Zuhanden)`,
+        colB: `Lo que «está-ahí» (Vorhanden)`,
+        rows: [
+          { dim: `Modo de acceso`, a: `Trato circunspectivo y uso cotidiano dentro de la ocupación.`, b: `Mirada teórica o contemplación externa cuando el útil falta o falla.` },
+          { dim: `Estructura relacional`, a: `Remite siempre a un contexto pragmático («todo pragmático» de útiles).`, b: `Aparece como cosa aislada, desligada de sus respectos remisionales.` },
+          { dim: `Relación con el Dasein`, a: `El sí-mismo se «pierde» operativamente en la obra y en el mundo de los útiles.`, b: `Origina la interpretación secundaria del conocimiento como relación sujeto–objeto (§ 13).` },
+          { dim: `Estatuto temporal`, a: `Intratempóreo, fundado en el dejar estar en respectividad de la temporeidad.`, b: `Intempóreo en sentido estricto (no tiene el modo de ser del Dasein).` }
+        ]
+      },
+      angustia: {
+        colA: `Angustia (Angst)`,
+        colB: `Miedo (Furcht)`,
+        rows: [
+          { dim: `Ante-qué de la amenaza`, a: `Indeterminado intramundanamente: ningún útil ni ente particular «dice» nada; es la nada del mundo.`, b: `Un ente particular y determinado dentro del mundo que se acerca como dañino.` },
+          { dim: `Por-qué de la afección`, a: `Coincide con el ante-qué: el Dasein mismo en su estar-en-el-mundo como tal.`, b: `El Dasein ocupado ante un peligro concreto del entorno.` },
+          { dim: `Efecto sobre el mundo`, a: `El mundo se hunde en la insignificancia y el ente pierde su condición respectiva.`, b: `El mundo sigue operando como trama de significatividad y urgencias prácticas.` },
+          { dim: `Temporalidad propia`, a: `Desvela el estar arrojado y abre un futuro propio, ajeno a la mera espera ocupada.`, b: `Se mueve en la espera impropia de un suceso futuro amenazante.` }
+        ]
+      },
+      tiempo: {
+        colA: `Temporeidad originaria`,
+        colB: `Concepción vulgar del tiempo`,
+        rows: [
+          { dim: `Naturaleza del tiempo`, a: `Extensión extático-horizontal de futuro, haber-sido y presente que hace posible el mundo.`, b: `Sucesión continua e uniforme de «ahoras» simplemente presentes (denantes / en seguida).` },
+          { dim: `Finitud vs. infinitud`, a: `Esencialmente finita, arraigada en el estar vuelto hacia la muerte del Dasein.`, b: `Postulada como «infinita en ambas direcciones» al pensarse como serie sin fin.` },
+          { dim: `Relación con sujeto/objeto`, a: `Anterior a toda subjetividad y objetividad; no está «dentro» ni «fuera».`, b: `Cosificada como un transcurso flotante en sí o un ente que «sigue su marcha».` },
+          { dim: `Propiedad del tiempo`, a: `Constituye la apertura singular de cada Dasein y su databilidad originaria.`, b: `Tiempo público y nivelado: pertenece a cualquiera y, por ello, a nadie.` }
+        ]
+      },
+      traduccion: {
+        colA: `Jorge Eduardo Rivera C. (1997)`,
+        colB: `José Gaos (1951) / Uso corriente`,
+        rows: [
+          { dim: `Vorhanden / Zuhanden`, a: `«Lo que está-ahí» y «lo a la mano» (resaltando el contraste fenomenológico del estar).`, b: `Tradiciones previas tendían a «ser ante los ojos» o equivalentes más rígidos.` },
+          { dim: `Temporalität vs. Zeitlichkeit`, a: `Distingue «temporariedad» (tiempo del ser mismo) frente a «temporeidad» (existencia humana).`, b: `Uso indiferenciado de «temporal» para «lo que está en el tiempo» y el ser.` },
+          { dim: `je (403 apariciones)`, a: `«Cada vez» (y ocasionalmente «siempre» o «en cada caso» por fidelidad situacional).`, b: `Lectura estática que pierde el matiz latino de vicis (turno, situación).` },
+          { dim: `Auslegung vs. Interpretation`, a: `Reserva «interpretación» para Auslegung y «exégesis» para Interpretation.`, b: `Riesgo de cacofonía o confusión entre comprensión preontológica y análisis temático.` }
+        ]
+      }
+    };
+
+    const QUIZ_QUESTIONS = [
+      {
+        id: `q1`,
+        ref: `Epígrafe · El Sofista`,
+        prompt: `¿Qué situación filosófica ilustra el epígrafe de Platón con el que abre Ser y tiempo?`,
+        options: [
+          `La certeza absoluta con la que la ciencia moderna define el ser de las cosas.`,
+          `La aporía frente a la expresión «ente»: creíamos comprenderla, pero su sentido permanece oscuro.`,
+          `La superioridad de la lengua griega sobre la terminología escolástica medieval.`,
+          `La imposibilidad de distinguir entre el Dasein y los útiles intramundanos.`
+        ],
+        correct: 1,
+        explanation: `Platón expone en El Sofista (244a) que antes creíamos comprender qué significa «ente», pero ahora nos encontramos en aporía, punto de partida para replantear la pregunta por el ser.`
+      },
+      {
+        id: `q2`,
+        ref: `Plan de la obra · Rivera n. 52`,
+        prompt: `¿Por qué quedó inconclusa la tarea fundamental propuesta en el volumen publicado en 1927?`,
+        options: [
+          `Porque solo se publicaron las dos primeras secciones de la Primera Parte y faltó la Sección 3 («Tiempo y ser»).`,
+          `Porque Heidegger rechazó por completo la fenomenología de Edmund Husserl antes de imprimir el libro.`,
+          `Porque la Segunda Parte ya contenía la respuesta definitiva al sentido del ser.`,
+          `Porque el tratado estaba pensado únicamente como una historia de la lógica formal.`
+        ],
+        correct: 0,
+        explanation: `En 1927 se publicaron únicamente la etapa preparatoria (Sección 1) y Dasein y temporeidad (Sección 2); ni Tiempo y ser (Sección 3) ni la Segunda Parte vieron la luz en ese tomo.`
+      },
+      {
+        id: `q3`,
+        ref: `§ 13 · Estar-en-el-mundo`,
+        prompt: `¿Qué crítica dirige Heidegger en el § 13 al modo habitual de entender el conocimiento del mundo?`,
+        options: [
+          `Que el conocimiento científico es imposible sin una lógica matemática previa.`,
+          `Que reducirlo a una relación externa entre «sujeto» y «objeto» encubre la constitución originaria del estar-en-el-mundo.`,
+          `Que los objetos materiales carecen de realidad fuera de la conciencia.`,
+          `Que el Dasein conoce primero entes aislados y solo después construye un mundo.`
+        ],
+        correct: 1,
+        explanation: `Heidegger señala que el esquema «sujeto y objeto» es una interpretación externa y formal que no coincide con Dasein y mundo, pues el conocimiento es un modo fundado en el estar-en-el-mundo.`
+      },
+      {
+        id: `q4`,
+        ref: `Cotidianidad y Caída`,
+        prompt: `En la cotidianidad media, ¿cómo describe Heidegger el modo de ser del «uno» (Das Man) y la caída?`,
+        options: [
+          `Como un aislamiento deliberado del filósofo frente a la sociedad.`,
+          `Como una dispersión en la medianía pública donde la habladuría y la curiosidad mantienen al Dasein «en todas partes y en ninguna».`,
+          `Como un defecto moral individual superable mediante reglas de conducta.`,
+          `Como la plenitud de la existencia propia y resuelta.`
+        ],
+        correct: 1,
+        explanation: `Inmediatamente, el Dasein es «el uno»: está disperso en los otros, y la caída (habladuría, curiosidad, ambigüedad) lo retiene desarraigado y suspendido en el vacío.`
+      },
+      {
+        id: `q5`,
+        ref: `Disposición afectiva`,
+        prompt: `¿Qué rasgo distingue estructuralmente a la angustia frente al miedo en el análisis de Heidegger?`,
+        options: [
+          `El miedo carece de objeto, mientras que la angustia teme siempre un daño físico concreto.`,
+          `En la angustia, el ante-qué y el por-qué coinciden en el Dasein mismo cuando el mundo se hunde en la insignificancia.`,
+          `La angustia pertenece solo a lo que «está-ahí», no a la existencia humana.`,
+          `El miedo revela el estar arrojado propio, mientras que la angustia pertenece a la habladuría.`
+        ],
+        correct: 1,
+        explanation: `En la angustia ninguna cosa particular amenaza: todo ente intramundano pierde su condición respectiva, de modo que el ante-qué y el por-qué coinciden en el estar-en-el-mundo del propio Dasein.`
+      },
+      {
+        id: `q6`,
+        ref: `Verdad y ἀπόφανσις`,
+        prompt: `¿Cómo define Heidegger el ser-verdadero (verdad) del enunciado?`,
+        options: [
+          `Como la concordancia o adecuación exacta entre una representación mental y un objeto externo.`,
+          `Como un ser-descubridor que «hace ver» al ente en sí mismo, fundado en el estar-en-el-mundo.`,
+          `Como el consenso estadístico de la opinión pública en el seno de «el uno».`,
+          `Como una propiedad inmutable de las proposiciones puramente ideales.`
+        ],
+        correct: 1,
+        explanation: `La verdad como ἀπόφανσις significa descubrir al ente en su estar al descubierto; por ello es ontológicamente posible gracias al estar-en-el-mundo del Dasein.`
+      },
+      {
+        id: `q7`,
+        ref: `Terminología · Rivera n. 53`,
+        prompt: `¿Qué diferencia terminológica establece la traducción de Rivera entre «tempóreo/temporeidad» y «temporario/temporariedad»?`,
+        options: [
+          `Ninguna; son sinónimos estilísticos intercambiables a lo largo de todo el tratado.`,
+          `«Temporeidad» nombra el tiempo existencial del Dasein (Zeitlichkeit) y «temporariedad» la determinación del sentido del ser mismo (Temporalität).`,
+          `«Temporariedad» refiere al tiempo de los relojes y «temporeidad» al tiempo infinito de la física.`,
+          `«Tempóreo» designa únicamente a los útiles a la mano.`
+        ],
+        correct: 1,
+        explanation: `Rivera reserva «tempóreo/temporeidad» para la existencia humana (Zeitlichkeit) y acuña «temporario/temporariedad» para el tiempo del ser mismo (Temporalität des Seins).`
+      },
+      {
+        id: `q8`,
+        ref: `Concepción vulgar del tiempo`,
+        prompt: `¿Por qué sostiene Heidegger que la tesis vulgar de un «tiempo infinito» encubre la temporeidad originaria?`,
+        options: [
+          `Porque reduce el fenómeno plenario del «ahora» (databilidad, mundaneidad, tensidad) a una sucesión nivelada sin comienzo ni fin, ocultando la finitud.`,
+          `Porque el tiempo verdadero se detiene por completo cuando el Dasein comprende el ser.`,
+          `Porque el tiempo solo existe dentro de la mente subjetiva del observador.`,
+          `Porque preguntar la hora equivale únicamente a medir movimientos astronómicos sin relación con la ocupación.`
+        ],
+        correct: 0,
+        explanation: `Al nivelar el tiempo como un transcurso de ahoras intercambiables que «sigue su marcha», la interpretación vulgar oculta que el tiempo público procede de la extensión extática y finita del Dasein.`
+      }
+    ];
+
+    let appState = {
+      selectedArch: `p1s1`,
+      existentialMode: `impropio`,
+      glossaryCat: `todos`,
+      glossaryQuery: ``,
+      selectedComp: `utiles`,
+      quizAnswers: {},
+      showMissedOnly: false
+    };
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, `&amp;`)
+        .replace(/</g, `&lt;`)
+        .replace(/>/g, `&gt;`)
+        .replace(/"/g, `&quot;`);
+    }
+
+    async function persistState() {
+      const statusEl = document.getElementById(`estado-sesion`);
+      if (statusEl) statusEl.textContent = `Progreso guardado`;
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+        } catch (err) {
+          if (statusEl) statusEl.textContent = `Sesión local`;
+        }
+      }
+    }
+
+    function selectArch(id) {
+      if (!ARCH_DATA[id]) return;
+      appState.selectedArch = id;
+      const buttons = document.querySelectorAll(`.arch-btn`);
+      buttons.forEach(function (btn) {
+        const isSel = btn.getAttribute(`data-arch`) === id;
+        btn.setAttribute(`aria-pressed`, isSel ? `true` : `false`);
+      });
+      renderArchDetail();
+      persistState();
+    }
+
+    function renderArchDetail() {
+      const panel = document.getElementById(`arch-detail`);
+      if (!panel) return;
+      const item = ARCH_DATA[appState.selectedArch] || ARCH_DATA.p1s1;
+      const pointsHtml = item.points.map(function (p) {
+        return `<li>${escapeHtml(p)}</li>`;
+      }).join(``);
+      panel.innerHTML = `
+        <div class="aside-kicker">${escapeHtml(item.badge)} · ${escapeHtml(item.status)}</div>
+        <h3 class="sub-heading">${escapeHtml(item.title)}</h3>
+        <p class="prose" style="margin-bottom: var(--space-sm);">${escapeHtml(item.summary)}</p>
+        <div class="dossier-meta" style="margin-top: var(--space-md);">Núcleos temáticos</div>
+        <ul class="detail-list">${pointsHtml}</ul>
+      `;
+    }
+
+    function setExistentialMode(mode) {
+      if (!MODE_DATA[mode]) return;
+      appState.existentialMode = mode;
+      const btnImpropio = document.getElementById(`btn-mode-impropio`);
+      const btnPropio = document.getElementById(`btn-mode-propio`);
+      if (btnImpropio) btnImpropio.setAttribute(`aria-pressed`, mode === `impropio` ? `true` : `false`);
+      if (btnPropio) btnPropio.setAttribute(`aria-pressed`, mode === `propio` ? `true` : `false`);
+      renderExistentialMode();
+      persistState();
+    }
+
+    function renderExistentialMode() {
+      const d = MODE_DATA[appState.existentialMode] || MODE_DATA.impropio;
+      const kicker = document.getElementById(`svg-kicker`);
+      const title = document.getElementById(`svg-title`);
+      const pastLbl = document.getElementById(`svg-past-label`);
+      const presLbl = document.getElementById(`svg-present-label`);
+      const futLbl = document.getElementById(`svg-future-label`);
+      const coreLbl = document.getElementById(`svg-core-label`);
+      const horizonNote = document.getElementById(`svg-horizon-note`);
+      const stepsEl = document.getElementById(`mode-steps`);
+
+      if (kicker) kicker.textContent = d.kicker;
+      if (title) title.textContent = d.title;
+      if (pastLbl) pastLbl.textContent = d.past;
+      if (presLbl) presLbl.textContent = d.present;
+      if (futLbl) futLbl.textContent = d.future;
+      if (coreLbl) coreLbl.textContent = d.core;
+      if (horizonNote) horizonNote.textContent = d.note;
+
+      if (stepsEl) {
+        stepsEl.innerHTML = d.steps.map(function (st) {
+          return `
+            <article class="step-card">
+              <div class="step-card-head">
+                <span class="index-num">${escapeHtml(st.idx)}</span>
+                <h3 class="sub-heading" style="margin: 0; font-size: 1.05rem;">${escapeHtml(st.title)}</h3>
+              </div>
+              <p style="margin: 0; font-size: 0.94rem; color: var(--on-surface-variant);">${escapeHtml(st.body)}</p>
+            </article>
+          `;
+        }).join(``);
+      }
+    }
+
+    function setGlossaryCat(cat) {
+      appState.glossaryCat = cat;
+      const buttons = document.querySelectorAll(`.filter-chips .chip-btn`);
+      buttons.forEach(function (btn) {
+        btn.setAttribute(`aria-pressed`, btn.getAttribute(`data-cat`) === cat ? `true` : `false`);
+      });
+      renderGlossary();
+      persistState();
+    }
+
+    function filterGlossary() {
+      const input = document.getElementById(`glossary-search`);
+      appState.glossaryQuery = input ? input.value : ``;
+      renderGlossary();
+      persistState();
+    }
+
+    function resetGlossaryFilters() {
+      appState.glossaryCat = `todos`;
+      appState.glossaryQuery = ``;
+      const input = document.getElementById(`glossary-search`);
+      if (input) input.value = ``;
+      setGlossaryCat(`todos`);
+    }
+
+    function renderGlossary() {
+      const grid = document.getElementById(`glossary-grid`);
+      const countEl = document.getElementById(`glossary-count`);
+      if (!grid) return;
+
+      const q = (appState.glossaryQuery || ``).trim().toLowerCase();
+      const filtered = GLOSSARY_TERMS.filter(function (item) {
+        const catOk = appState.glossaryCat === `todos` || item.cat === appState.glossaryCat;
+        if (!catOk) return false;
+        if (!q) return true;
+        return (
+          item.term.toLowerCase().indexOf(q) !== -1 ||
+          item.de.toLowerCase().indexOf(q) !== -1 ||
+          item.def.toLowerCase().indexOf(q) !== -1
+        );
+      });
+
+      if (countEl) {
+        countEl.textContent = `Mostrando ${filtered.length} de ${GLOSSARY_TERMS.length} conceptos`;
+      }
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <h3 class="sub-heading">No hay términos que coincidan con «${escapeHtml(appState.glossaryQuery)}»</h3>
+            <p class="prose-muted">Prueba buscando otra palabra clave en español o alemán, o vuelve a mostrar todos los conceptos del glosario.</p>
+            <button type="button" class="btn-primary" onclick="resetGlossaryFilters()">Mostrar los 12 términos</button>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(function (item) {
+        return `
+          <article class="term-card">
+            <div class="term-header">
+              <h3 class="term-title">${escapeHtml(item.term)}</h3>
+            </div>
+            <div class="term-de">${escapeHtml(item.de)}</div>
+            <p style="margin: var(--space-xs) 0 0 0; font-size: 0.94rem;">${escapeHtml(item.def)}</p>
+            <span class="term-cat">${escapeHtml(item.catLabel)}</span>
+          </article>
+        `;
+      }).join(``);
+    }
+
+    function selectComparison(key) {
+      if (!COMPARISONS[key]) return;
+      appState.selectedComp = key;
+      const buttons = document.querySelectorAll(`.comp-tabs .chip-btn`);
+      buttons.forEach(function (btn) {
+        btn.setAttribute(`aria-pressed`, btn.getAttribute(`data-comp`) === key ? `true` : `false`);
+      });
+      renderComparison();
+      persistState();
+    }
+
+    function renderComparison() {
+      const container = document.getElementById(`comparison-container`);
+      if (!container) return;
+      const comp = COMPARISONS[appState.selectedComp] || COMPARISONS.utiles;
+      const rowsHtml = comp.rows.map(function (r) {
+        return `
+          <tr>
+            <td>${escapeHtml(r.dim)}</td>
+            <td>${escapeHtml(r.a)}</td>
+            <td>${escapeHtml(r.b)}</td>
+          </tr>
+        `;
+      }).join(``);
+
+      container.innerHTML = `
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th scope="col">Dimensión</th>
+              <th scope="col">${escapeHtml(comp.colA)}</th>
+              <th scope="col">${escapeHtml(comp.colB)}</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function answerQuestion(qId, optIdx) {
+      if (typeof appState.quizAnswers[qId] === `number`) return;
+      appState.quizAnswers[qId] = optIdx;
+      renderQuiz();
+      persistState();
+    }
+
+    function toggleMissedOnly() {
+      appState.showMissedOnly = !appState.showMissedOnly;
+      renderQuiz();
+      persistState();
+    }
+
+    function handleQuizReset(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirmar reinicio`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reiniciar cuestionario`;
+      appState.quizAnswers = {};
+      appState.showMissedOnly = false;
+      renderQuiz();
+      persistState();
+    }
+
+    function renderQuiz() {
+      const list = document.getElementById(`quiz-list`);
+      const answeredEl = document.getElementById(`quiz-answered`);
+      const scoreEl = document.getElementById(`quiz-score`);
+      const pctEl = document.getElementById(`quiz-pct`);
+      const filterBtn = document.getElementById(`btn-filter-missed`);
+      if (!list) return;
+
+      let answeredCount = 0;
+      let correctCount = 0;
+
+      QUIZ_QUESTIONS.forEach(function (q) {
+        const ans = appState.quizAnswers[q.id];
+        if (typeof ans === `number`) {
+          answeredCount += 1;
+          if (ans === q.correct) correctCount += 1;
+        }
+      });
+
+      if (answeredEl) answeredEl.textContent = `${answeredCount} / ${QUIZ_QUESTIONS.length}`;
+      if (scoreEl) scoreEl.textContent = `${correctCount}`;
+      if (pctEl) {
+        pctEl.textContent = answeredCount > 0
+          ? `${Math.round((correctCount / answeredCount) * 100)}%`
+          : `—`;
+      }
+      if (filterBtn) {
+        filterBtn.textContent = appState.showMissedOnly
+          ? `Mostrar todas (${QUIZ_QUESTIONS.length})`
+          : `Ver solo pendientes / errores`;
+      }
+
+      const visibleQuestions = QUIZ_QUESTIONS.filter(function (q) {
+        if (!appState.showMissedOnly) return true;
+        const ans = appState.quizAnswers[q.id];
+        return typeof ans !== `number` || ans !== q.correct;
+      });
+
+      if (visibleQuestions.length === 0) {
+        list.innerHTML = `
+          <div class="empty-state">
+            <h3 class="sub-heading">Todas las preguntas han sido respondidas correctamente</h3>
+            <p class="prose-muted">Has completado el cuestionario sin errores pendientes. Puedes volver a ver las 8 preguntas o reiniciar para practicar de nuevo.</p>
+            <button type="button" class="btn-primary" onclick="toggleMissedOnly()">Mostrar todas las preguntas</button>
+          </div>
+        `;
+        return;
+      }
+
+      const letters = [`A`, `B`, `C`, `D`];
+      list.innerHTML = visibleQuestions.map(function (q, index) {
+        const userAns = appState.quizAnswers[q.id];
+        const isAnswered = typeof userAns === `number`;
+        const isCorrect = isAnswered && userAns === q.correct;
+
+        const optionsHtml = q.options.map(function (optText, idx) {
+          let cls = `opt-btn`;
+          if (isAnswered) {
+            if (idx === q.correct) cls += ` is-correct`;
+            else if (idx === userAns) cls += ` is-wrong`;
+          }
+          const disabledAttr = isAnswered ? `disabled` : ``;
+          return `
+            <button type="button" class="${cls}" ${disabledAttr} onclick="answerQuestion('${q.id}', ${idx})">
+              <span class="opt-letter">${letters[idx]}.</span>
+              <span>${escapeHtml(optText)}</span>
+            </button>
+          `;
+        }).join(``);
+
+        const feedbackHtml = isAnswered
+          ? `<div class="q-feedback ${isCorrect ? `fb-ok` : `fb-err`}">
+              <strong>${isCorrect ? `Correcto.` : `Revisión necesaria.`}</strong> ${escapeHtml(q.explanation)}
+            </div>`
+          : ``;
+
+        return `
+          <article class="q-card">
+            <div class="q-meta">Pregunta ${index + 1} · ${escapeHtml(q.ref)}</div>
+            <h3 class="q-prompt">${escapeHtml(q.prompt)}</h3>
+            <div class="q-options">${optionsHtml}</div>
+            ${feedbackHtml}
+          </article>
+        `;
+      }).join(``);
+    }
+
+    function applyRestoredState(saved) {
+      if (!saved || typeof saved !== `object`) return;
+      if (saved.selectedArch && ARCH_DATA[saved.selectedArch]) {
+        appState.selectedArch = saved.selectedArch;
+      }
+      if (saved.existentialMode && MODE_DATA[saved.existentialMode]) {
+        appState.existentialMode = saved.existentialMode;
+      }
+      if (typeof saved.glossaryCat === `string`) {
+        appState.glossaryCat = saved.glossaryCat;
+      }
+      if (typeof saved.glossaryQuery === `string`) {
+        appState.glossaryQuery = saved.glossaryQuery;
+      }
+      if (saved.selectedComp && COMPARISONS[saved.selectedComp]) {
+        appState.selectedComp = saved.selectedComp;
+      }
+      if (saved.quizAnswers && typeof saved.quizAnswers === `object`) {
+        appState.quizAnswers = saved.quizAnswers;
+      }
+      if (typeof saved.showMissedOnly === `boolean`) {
+        appState.showMissedOnly = saved.showMissedOnly;
+      }
+    }
+
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved) {
+            applyRestoredState(saved);
+            const statusEl = document.getElementById(`estado-sesion`);
+            if (statusEl) statusEl.textContent = `Progreso restaurado`;
+          }
+        } catch (err) {
+          // Continuar con estado por defecto
+        }
+      }
+
+      // Sincronizar UI inicial sin disparar persistencia redundante
+      const archButtons = document.querySelectorAll(`.arch-btn`);
+      archButtons.forEach(function (btn) {
+        btn.setAttribute(`aria-pressed`, btn.getAttribute(`data-arch`) === appState.selectedArch ? `true` : `false`);
+      });
+      renderArchDetail();
+
+      const btnImpropio = document.getElementById(`btn-mode-impropio`);
+      const btnPropio = document.getElementById(`btn-mode-propio`);
+      if (btnImpropio) btnImpropio.setAttribute(`aria-pressed`, appState.existentialMode === `impropio` ? `true` : `false`);
+      if (btnPropio) btnPropio.setAttribute(`aria-pressed`, appState.existentialMode === `propio` ? `true` : `false`);
+      renderExistentialMode();
+
+      const searchInput = document.getElementById(`glossary-search`);
+      if (searchInput) searchInput.value = appState.glossaryQuery;
+      const catButtons = document.querySelectorAll(`.filter-chips .chip-btn`);
+      catButtons.forEach(function (btn) {
+        btn.setAttribute(`aria-pressed`, btn.getAttribute(`data-cat`) === appState.glossaryCat ? `true` : `false`);
+      });
+      renderGlossary();
+
+      const compButtons = document.querySelectorAll(`.comp-tabs .chip-btn`);
+      compButtons.forEach(function (btn) {
+        btn.setAttribute(`aria-pressed`, btn.getAttribute(`data-comp`) === appState.selectedComp ? `true` : `false`);
+      });
+      renderComparison();
+
+      renderQuiz();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    if (document.readyState === `loading`) {
+      document.addEventListener(`DOMContentLoaded`, initApp);
+    } else {
+      initApp();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,2480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="kiln">
+  <title>Caminos de bosque (Holzwege) — Base de conocimientos sobre Martin Heidegger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Kiln palette: unbleached linen and sumi charcoal */
+      --background: #f4f1ea;
+      --surface-container-low: #ebe6db;
+      --surface-container: #e3ddd0;
+      --surface-container-high: #d9d1c2;
+
+      /* Ink */
+      --on-surface: #1c1b18;
+      --on-surface-variant: #5e5a51;
+
+      /* Rules */
+      --outline: #1c1b18;
+      --outline-variant: #d2cbbd;
+
+      /* Accents */
+      --primary: #1c1b18;
+      --on-primary: #f4f1ea;
+      --primary-container: #ebe6db;
+      --on-primary-container: #1c1b18;
+      --secondary: #4a5d46;
+      --tertiary: #9e3b2b;
+      --error: #9e2a22;
+      --on-error: #f4f1ea;
+
+      /* Data series */
+      --data-1: #4a5d46;
+      --data-2: #9e3b2b;
+      --data-3: #1c1b18;
+      --data-4: #8a6f48;
+      --data-context: #c7bfb0;
+
+      /* Fonts */
+      --font-headline: 'Shippori Mincho', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.125rem;
+      --rounded-lg: 0.125rem;
+      --rounded-full: 0.125rem;
+
+      /* Style effects */
+      --rule-sumi-left: 2px solid var(--outline);
+      --rule-moss-left: 2px solid var(--secondary);
+      --rule-cinnabar-left: 2px solid var(--tertiary);
+      --rule-sumi: 1px solid var(--outline);
+      --rule-linen: 1px solid var(--outline-variant);
+      --label-tracking: 0.14em;
+
+      /* 3. Shared semantic & scale tokens */
+      --positive: #3b5937;
+      --positive-bg: #e1e8de;
+      --warning: #7a5c22;
+      --warning-bg: #efe6d2;
+      --error-bg: #f1dedc;
+      --focus: #1c1b18;
+
+      /* Narrative type scale */
+      --display-size: clamp(2.5rem, 1.4rem + 4vw, 4.5rem);
+      --headline-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.55vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
+      --label-size: 0.75rem;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { overflow-x: clip; margin: 0; padding: 0; }
+    header { position: static !important; }
+
+    body {
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Layout spine */
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Typography */
+    .display {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--display-size);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    h2.section-title {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--headline-size);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    h3.subhead {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--subhead-size);
+      line-height: 1.3;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .subhead-moss {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--subhead-size);
+      line-height: 1.35;
+      color: var(--secondary);
+      margin: var(--space-sm) 0 0;
+    }
+
+    .label {
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface-variant);
+    }
+
+    .label-moss {
+      color: var(--secondary);
+    }
+
+    .prose {
+      max-width: 65ch;
+      margin: 0;
+    }
+
+    .prose + .prose {
+      margin-top: var(--space-md);
+    }
+
+    /* Title block & hanko seal */
+    .masthead {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-lg);
+      align-items: start;
+      padding-bottom: var(--space-xl);
+      border-bottom: var(--rule-sumi);
+    }
+
+    .masthead-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-lg);
+      margin-bottom: var(--space-md);
+    }
+
+    .seal-stamp {
+      border: 1px solid var(--tertiary);
+      color: var(--tertiary);
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      padding: var(--space-sm) var(--space-xs);
+      writing-mode: vertical-rl;
+      text-transform: uppercase;
+      line-height: 1.2;
+      user-select: none;
+    }
+
+    /* Top index navigation */
+    .forest-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+      padding: var(--space-md) 0;
+      border-bottom: var(--rule-linen);
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--on-surface);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: var(--rounded);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+
+    .nav-link:hover {
+      background-color: var(--surface-container-low);
+    }
+
+    .nav-link-accent {
+      background-color: var(--surface-container-low);
+      border-color: var(--outline-variant);
+      color: var(--secondary);
+    }
+
+    /* Progress & utility strip */
+    .progress-strip {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: center;
+      background-color: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+    }
+
+    .progress-bar-track {
+      height: 6px;
+      background-color: var(--surface-container-high);
+      border-radius: var(--rounded);
+      overflow: hidden;
+      margin-top: var(--space-sm);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--secondary);
+      transition: width var(--dur-long) var(--ease-out);
+    }
+
+    .progress-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 1px solid var(--outline);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+    }
+
+    .btn-secondary {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--surface-container-high);
+    }
+
+    .btn-secondary[aria-pressed="true"] {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn-moss {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+      color: var(--on-primary);
+    }
+
+    .btn-moss:hover {
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Washi cards & grids */
+    .washi-card {
+      background-color: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+    }
+
+    .washi-card-moss {
+      border-left: var(--rule-moss-left);
+    }
+
+    .washi-card-cinnabar {
+      border-left: var(--rule-cinnabar-left);
+    }
+
+    .washi-card .value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+      line-height: 1.15;
+      color: var(--on-surface);
+      font-variant-numeric: lining-nums tabular-nums;
+      margin: var(--space-xs) 0;
+    }
+
+    .washi-card .note {
+      color: var(--secondary);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    .asymmetric-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .asymmetric-split-reverse {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Section framing */
+    .major-section {
+      padding-top: var(--space-xl);
+      border-top: var(--rule-linen);
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+    }
+
+    .epigraph-quote {
+      margin: 0;
+      padding: var(--space-md) var(--space-lg);
+      background-color: var(--surface-container-low);
+      border-left: var(--rule-moss-left);
+      border-radius: var(--rounded);
+    }
+
+    .epigraph-quote blockquote {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+      line-height: 1.5;
+      color: var(--on-surface);
+    }
+
+    .epigraph-quote figcaption {
+      margin-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+
+    /* Tags */
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: var(--space-xs) var(--space-sm);
+      border: var(--rule-linen);
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--secondary);
+    }
+
+    /* Interactive panels inside paths */
+    .interactive-panel {
+      background-color: var(--surface-container);
+      border-top: var(--rule-sumi);
+      border-bottom: var(--rule-linen);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+      container-type: inline-size;
+    }
+
+    .panel-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: end;
+    }
+
+    .panel-output {
+      background-color: var(--background);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+    }
+
+    @container (min-width: 560px) {
+      .panel-two-col {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: var(--space-lg);
+        align-items: start;
+      }
+    }
+
+    @container (max-width: 559px) {
+      .panel-two-col {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-md);
+      }
+    }
+
+    /* SVG figures */
+    .diagram-frame {
+      background-color: var(--surface-container-low);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+
+    .diagram-svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 300px;
+    }
+
+    .svg-stroke-ink { stroke: var(--on-surface); fill: none; }
+    .svg-stroke-moss { stroke: var(--secondary); fill: none; }
+    .svg-stroke-cinnabar { stroke: var(--tertiary); fill: none; }
+    .svg-stroke-muted { stroke: var(--data-context); fill: none; }
+    .svg-fill-washi { fill: var(--surface-container-low); stroke: var(--on-surface); }
+    .svg-fill-paper { fill: var(--background); stroke: var(--on-surface); }
+    .svg-fill-moss { fill: var(--secondary); }
+    .svg-fill-cinnabar { fill: var(--tertiary); }
+    .svg-text-ink { fill: var(--on-surface); font-family: var(--font-label); font-size: 11px; }
+    .svg-text-serif { fill: var(--on-surface); font-family: var(--font-headline); font-size: 14px; font-weight: 600; }
+    .svg-text-moss { fill: var(--secondary); font-family: var(--font-label); font-size: 11px; }
+    .svg-text-cinnabar { fill: var(--tertiary); font-family: var(--font-label); font-size: 11px; }
+
+    /* Path index overview cards */
+    .path-index-card {
+      background-color: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+      text-decoration: none;
+      color: inherit;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .path-index-card:hover {
+      background-color: var(--surface-container-high);
+    }
+
+    .path-index-card.studied {
+      border-left-color: var(--secondary);
+    }
+
+    /* Tables */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border-bottom: var(--rule-linen);
+    }
+
+    table.kiln-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+
+    table.kiln-table thead th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface);
+      border-top: var(--rule-sumi);
+      border-bottom: var(--rule-sumi);
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--surface-container-low);
+      vertical-align: bottom;
+    }
+
+    table.kiln-table tbody td {
+      padding: var(--space-md);
+      border-bottom: var(--rule-linen);
+      vertical-align: top;
+      line-height: 1.55;
+    }
+
+    table.kiln-table tbody tr.row-highlighted {
+      background-color: var(--surface-container-low);
+    }
+
+    /* Form controls */
+    .control-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .control-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--on-surface);
+    }
+
+    .input-field, .select-field {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--background);
+      border: var(--rule-sumi);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+    }
+
+    .select-field {
+      padding-right: var(--space-xl);
+    }
+
+    .filter-toolbar {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) minmax(200px, 0.7fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+    }
+
+    /* Glossary items */
+    .glossary-card {
+      background-color: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .glossary-card-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+
+    .glossary-term {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .glossary-original {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      letter-spacing: 0.06em;
+    }
+
+    .bookmark-btn {
+      min-height: 36px;
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background-color: transparent;
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      color: var(--on-surface-variant);
+    }
+
+    .bookmark-btn[aria-pressed="true"] {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+      color: var(--on-primary);
+    }
+
+    /* Quiz */
+    .quiz-card {
+      background-color: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .quiz-option {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      text-align: left;
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--background);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .quiz-option:hover:not(:disabled) {
+      background-color: var(--surface-container);
+    }
+
+    .quiz-option.selected-correct {
+      background-color: var(--positive-bg);
+      border-color: var(--positive);
+      color: var(--on-surface);
+    }
+
+    .quiz-option.selected-wrong {
+      background-color: var(--error-bg);
+      border-color: var(--error);
+      color: var(--on-surface);
+    }
+
+    .quiz-option.reveal-correct {
+      background-color: var(--positive-bg);
+      border-color: var(--positive);
+    }
+
+    .feedback-box {
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border-left: var(--rule-moss-left);
+      background-color: var(--background);
+    }
+
+    .feedback-box.feedback-error {
+      border-left: var(--rule-cinnabar-left);
+    }
+
+    /* FAQ / synthesis accordions */
+    .accordion-list {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    details.kiln-details {
+      background-color: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+    }
+
+    details.kiln-details summary {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.125rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      min-height: 44px;
+    }
+
+    details.kiln-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.kiln-details summary::after {
+      content: "+";
+      font-family: var(--font-label);
+      font-size: 1.125rem;
+      color: var(--secondary);
+      flex-shrink: 0;
+    }
+
+    details.kiln-details[open] summary::after {
+      content: "−";
+    }
+
+    .details-body {
+      margin-top: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: var(--rule-linen);
+    }
+
+    /* Status pill & inline message */
+    .status-note {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      min-height: 1.25em;
+    }
+
+    /* Footer */
+    .colophon {
+      padding-top: var(--space-xl);
+      border-top: var(--rule-sumi);
+      color: var(--on-surface-variant);
+      font-size: 0.9375rem;
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    /* Scroll reveal */
+    .reveal-section {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+
+    @media (max-width: 780px) {
+      .asymmetric-split,
+      .asymmetric-split-reverse,
+      .filter-toolbar,
+      .progress-strip,
+      .section-header {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .masthead {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .seal-stamp {
+        writing-mode: horizontal-tb;
+        justify-self: start;
+        padding: var(--space-xs) var(--space-sm);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: minmax(0, 1fr);
+        padding: var(--space-md) var(--space-sm) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      body {
+        padding: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- MASTHEAD & PORTADA CONCEPTUAL -->
+    <header class="masthead" id="inicio">
+      <div>
+        <div class="masthead-meta">
+          <span class="label label-moss">Martin Heidegger · 1950</span>
+          <span class="label">Base de conocimientos interactiva</span>
+          <span class="label">6 sendas · 12 conceptos · 8 preguntas</span>
+        </div>
+        <h1 class="display">Caminos de bosque</h1>
+        <p class="subhead-moss">Holzwege: seis sendas que se internan en lo no hollado para preguntar por la verdad del Ser</p>
+      </div>
+      <div class="seal-stamp" aria-hidden="true">Holzwege · GA 5</div>
+    </header>
+
+    <!-- NAVEGACIÓN PRINCIPAL EN FLUJO VERTICAL -->
+    <nav class="forest-nav" aria-label="Índice de secciones y sendas">
+      <a class="nav-link" href="#senda-1">I. Obra de arte</a>
+      <a class="nav-link" href="#senda-2">II. Imagen del mundo</a>
+      <a class="nav-link" href="#senda-3">III. Experiencia en Hegel</a>
+      <a class="nav-link" href="#senda-4">IV. Dios ha muerto</a>
+      <a class="nav-link" href="#senda-5">V. Poetas en penuria</a>
+      <a class="nav-link" href="#senda-6">VI. Anaximandro</a>
+      <a class="nav-link nav-link-accent" href="#matriz">Matriz comparativa</a>
+      <a class="nav-link nav-link-accent" href="#glosario">Glosario</a>
+      <a class="nav-link nav-link-accent" href="#cuestionario">Autoevaluación</a>
+      <a class="nav-link nav-link-accent" href="#faq">Síntesis y FAQ</a>
+    </nav>
+
+    <!-- PANEL DE PROGRESO DE ESTUDIO -->
+    <section class="progress-strip" aria-label="Progreso de lectura y estudio">
+      <div>
+        <span class="label label-moss">Cuaderno de estudio del lector</span>
+        <div id="progress-summary" style="font-weight: 500; margin-top: var(--space-xs);">
+          0 de 6 sendas marcadas como estudiadas · 0 de 8 preguntas respondidas
+        </div>
+        <div class="progress-bar-track" aria-hidden="true">
+          <div class="progress-bar-fill" id="progress-bar-fill"></div>
+        </div>
+      </div>
+      <div class="progress-actions">
+        <button type="button" class="btn btn-secondary" onclick="exportStudySummary()">Exportar notas (.txt)</button>
+        <button type="button" class="btn btn-secondary" id="reset-progress-btn" onclick="resetAllProgress(this)">Reiniciar progreso</button>
+      </div>
+    </section>
+
+    <!-- INTRODUCCIÓN CONCEPTUAL -->
+    <section class="asymmetric-split" aria-labelledby="intro-title">
+      <div>
+        <span class="label label-moss">Introducción al bosque y al Ser</span>
+        <h2 class="section-title" id="intro-title" style="margin-top: var(--space-xs);">¿Qué significa extraviarse en un Holzweg?</h2>
+        <p class="prose" style="margin-top: var(--space-md);">
+          En alemán, <em>Holz</em> (madera, leña) es un antiguo nombre para el bosque. En él existen senderos (<em>Wege</em>), a menudo cubiertos por la maleza, que terminan bruscamente en lo no hollado: son los <em>Holzwege</em>, caminos de leñadores que no conducen a un destino práctico ni enlazan ciudades entre sí.
+        </p>
+        <p class="prose">
+          Cada uno de los seis tratados reunidos por Martin Heidegger en 1950 sigue un trazado propio —el arte, la ciencia moderna, Hegel, Nietzsche, Hölderlin y Rilke, Anaximandro—, pero todos discurren dentro del mismo bosque. Lo que los reúne no es un sistema cerrado de doctrina, sino el ejercicio reiterado de la pregunta fundamental del pensar occidental: <strong>la pregunta por la verdad del Ser</strong> y por la diferencia entre el Ser y lo ente.
+        </p>
+      </div>
+
+      <div style="display: grid; gap: var(--space-md);">
+        <figure class="epigraph-quote">
+          <blockquote>«Los leñadores y guardabosques conocen los caminos. Ellos saben lo que significa encontrarse en un camino que se pierde en el bosque.»</blockquote>
+          <figcaption>Epígrafe inicial de Holzwege · Martin Heidegger (1950)</figcaption>
+        </figure>
+
+        <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: var(--space-md);">
+          <div class="washi-card">
+            <span class="label">Metáfora central</span>
+            <div class="value">Holzweg</div>
+            <div class="note">Senda sin salida utilitaria, abierta al pensar</div>
+          </div>
+          <div class="washi-card washi-card-moss">
+            <span class="label">Hilo conductor</span>
+            <div class="value">Sein / Aletheia</div>
+            <div class="note">Desocultamiento del Ser frente al olvido metafísico</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAPA DE LAS 6 SENDAS -->
+    <section aria-labelledby="mapa-sendas-title">
+      <div style="margin-bottom: var(--space-md);">
+        <span class="label label-moss">Cartografía de la obra</span>
+        <h2 class="section-title" id="mapa-sendas-title" style="margin-top: var(--space-xs);">Las seis sendas del mismo bosque</h2>
+      </div>
+      <div class="card-grid" id="path-overview-grid">
+        <a class="path-index-card" href="#senda-1" id="overview-card-1">
+          <span class="label label-moss">Senda 01 · Arte y verdad</span>
+          <strong style="font-family: var(--font-headline); font-size: 1.2rem;">El origen de la obra de arte</strong>
+          <span style="font-size: 0.9375rem; color: var(--on-surface-variant);">Cosa, útil y obra; Van Gogh, el templo griego y la lucha entre Mundo y Tierra.</span>
+        </a>
+        <a class="path-index-card" href="#senda-2" id="overview-card-2">
+          <span class="label label-moss">Senda 02 · Modernidad (1938)</span>
+          <strong style="font-family: var(--font-headline); font-size: 1.2rem;">La época de la imagen del mundo</strong>
+          <span style="font-size: 0.9375rem; color: var(--on-surface-variant);">Descartes, ciencia como investigación, certeza subjetiva y objetivación técnica.</span>
+        </a>
+        <a class="path-index-card" href="#senda-3" id="overview-card-3">
+          <span class="label label-moss">Senda 03 · Idealismo (1942/43)</span>
+          <strong style="font-family: var(--font-headline); font-size: 1.2rem;">El concepto de experiencia de Hegel</strong>
+          <span style="font-size: 0.9375rem; color: var(--on-surface-variant);">Conciencia natural frente a saber absoluto y movimiento dialéctico como parusía.</span>
+        </a>
+        <a class="path-index-card" href="#senda-4" id="overview-card-4">
+          <span class="label label-moss">Senda 04 · Nihilismo (1943)</span>
+          <strong style="font-family: var(--font-headline); font-size: 1.2rem;">La frase de Nietzsche «Dios ha muerto»</strong>
+          <span style="font-size: 0.9375rem; color: var(--on-surface-variant);">Voluntad de poder, teoría del valor, transhombre y consumación metafísica.</span>
+        </a>
+        <a class="path-index-card" href="#senda-5" id="overview-card-5">
+          <span class="label label-moss">Senda 05 · Poesía y técnica</span>
+          <strong style="font-family: var(--font-headline); font-size: 1.2rem;">¿Y para qué poetas?</strong>
+          <span style="font-size: 0.9375rem; color: var(--on-surface-variant);">Hölderlin y Rilke en la noche del mundo; lo Abierto, el lenguaje y lo sagrado.</span>
+        </a>
+        <a class="path-index-card" href="#senda-6" id="overview-card-6">
+          <span class="label label-moss">Senda 06 · Aurora presocrática</span>
+          <strong style="font-family: var(--font-headline); font-size: 1.2rem;">La sentencia de Anaximandro</strong>
+          <span style="font-size: 0.9375rem; color: var(--on-surface-variant);">El uso (tó chreón), el ajustamiento (Dike) y la presencia originaria de lo ente.</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SENDA 1: EL ORIGEN DE LA OBRA DE ARTE
+         ========================================================= -->
+    <section class="major-section reveal-section" id="senda-1" aria-labelledby="senda-1-title">
+      <div class="section-header">
+        <div>
+          <span class="label label-moss">Senda 01 · Arte, verdad y lucha ontológica</span>
+          <h2 class="section-title" id="senda-1-title" style="margin-top: var(--space-xs);">El origen de la obra de arte</h2>
+        </div>
+        <button type="button" class="btn btn-secondary" id="study-btn-1" aria-pressed="false" onclick="togglePathStudied(1)">
+          Marcar senda estudiada
+        </button>
+      </div>
+
+      <div class="asymmetric-split">
+        <div>
+          <p class="prose">
+            El ensayo arranca en un círculo inevitable: el artista es el origen de la obra y la obra es el origen del artista, porque ninguno sostiene al otro por separado; ambos son por un tercero que viene a ser lo primero: el <strong>arte</strong>. Lejos de ser un fallo lógico que deba romperse mediante comparaciones empíricas o deducciones abstractas, recorrer este círculo constituye «la fiesta del pensar».
+          </p>
+          <p class="prose" style="margin-top: var(--space-md);">
+            Toda obra tiene un carácter de cosa (piedra, madera, color, palabra, sonido), pero las tres interpretaciones tradicionales de la coseidad fracasan al intentar captarlo y «atropellan» tanto a la mera cosa como a la obra:
+          </p>
+          <ul style="max-width: 65ch; padding-left: 1.25rem; margin-top: var(--space-sm);">
+            <li><strong>Substancia y accidentes</strong> (<em>hypokeimenon / symbebekota</em>): trasladada del griego al latín (<em>subiectum / accidens</em>), proyecta la estructura sujeto-predicado de la oración sobre toda cosa y pierde la experiencia griega de la presencia.</li>
+            <li><strong>Unidad de sensaciones</strong> (<em>aistheton</em>): confunde la percepción con un cúmulo acústico o táctil; en casa oímos el portazo o el silbido del vendaval, no ruidos abstractos.</li>
+            <li><strong>Materia conformada</strong> (<em>hyle / morphe</em>): procede en realidad del ámbito del <strong>utensilio</strong> elaborado para un fin útil, y se extendió indebidamente a la naturaleza y al arte (impulsada por la noción medieval de <em>ens creatum</em>).</li>
+          </ul>
+        </div>
+
+        <div class="diagram-frame">
+          <span class="label label-moss">Esquema ontológico · Senda 01</span>
+          <h3 class="subhead" style="margin: var(--space-xs) 0 var(--space-md);">La obra como combate entre Mundo y Tierra</h3>
+          <svg class="diagram-svg" viewBox="0 0 420 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama de la tensión entre Mundo abierto y Tierra cerrada en la figura de la obra de arte">
+            <rect x="16" y="18" width="170" height="106" rx="2" class="svg-fill-washi" stroke-width="1.5"/>
+            <text x="28" y="42" class="svg-text-serif">Mundo (Welt)</text>
+            <text x="28" y="62" class="svg-text-moss">CLARIDAD Y APERTURA</text>
+            <text x="28" y="82" class="svg-text-ink">Historia de un pueblo,</text>
+            <text x="28" y="98" class="svg-text-ink">lo sagrado, decisiones</text>
+            <text x="28" y="114" class="svg-text-ink">y relaciones abiertas.</text>
+
+            <rect x="234" y="18" width="170" height="106" rx="2" class="svg-fill-washi" stroke-width="1.5"/>
+            <text x="246" y="42" class="svg-text-serif">Tierra (Erde)</text>
+            <text x="246" y="62" class="svg-text-cinnabar">REFUGIO QUE SE CIERRA</text>
+            <text x="246" y="82" class="svg-text-ink">Masa de la piedra, brillo</text>
+            <text x="246" y="98" class="svg-text-ink">del metal, color, timbre</text>
+            <text x="246" y="114" class="svg-text-ink">del sonido y physis.</text>
+
+            <line x1="186" y1="62" x2="234" y2="62" class="svg-stroke-cinnabar" stroke-width="2"/>
+            <line x1="186" y1="80" x2="234" y2="80" class="svg-stroke-moss" stroke-width="2"/>
+            <text x="210" y="54" text-anchor="middle" class="svg-text-cinnabar">COMBATE</text>
+
+            <rect x="70" y="158" width="280" height="74" rx="2" class="svg-fill-paper" stroke-width="2"/>
+            <text x="210" y="182" text-anchor="middle" class="svg-text-serif">La Obra de Arte · Figura (Gestalt)</text>
+            <text x="210" y="202" text-anchor="middle" class="svg-text-moss">PONERSE A LA OBRA DE LA VERDAD (ALETHEIA)</text>
+            <text x="210" y="220" text-anchor="middle" class="svg-text-ink">Reposo en sí misma · Origen en el Ereignis</text>
+
+            <line x1="120" y1="124" x2="160" y2="158" class="svg-stroke-ink" stroke-width="1.5"/>
+            <line x1="300" y1="124" x2="260" y2="158" class="svg-stroke-ink" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Explorador interactivo de Senda 1 -->
+      <div class="interactive-panel" aria-label="Explorador interactivo de cosa, útil y obra">
+        <div>
+          <span class="label label-moss">Explorador conceptual · Senda 01</span>
+          <h3 class="subhead" style="margin-top: var(--space-xs);">Del bloque de granito a las botas de Van Gogh y al templo griego</h3>
+        </div>
+        <div class="panel-controls" role="group" aria-label="Seleccionar nivel ontológico">
+          <button type="button" class="btn btn-secondary" id="s1-btn-cosa" aria-pressed="true" onclick="selectArtMode('cosa')">1. La mera cosa (Granito)</button>
+          <button type="button" class="btn btn-secondary" id="s1-btn-util" aria-pressed="false" onclick="selectArtMode('util')">2. El útil (Botas de Van Gogh)</button>
+          <button type="button" class="btn btn-secondary" id="s1-btn-obra" aria-pressed="false" onclick="selectArtMode('obra')">3. La obra (Templo griego)</button>
+        </div>
+        <div class="panel-output" id="s1-output" aria-live="polite">
+          <!-- Rellenado dinámicamente -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SENDA 2: LA ÉPOCA DE LA IMAGEN DEL MUNDO
+         ========================================================= -->
+    <section class="major-section reveal-section" id="senda-2" aria-labelledby="senda-2-title">
+      <div class="section-header">
+        <div>
+          <span class="label label-moss">Senda 02 · Ciencia, Descartes y modernidad (1938)</span>
+          <h2 class="section-title" id="senda-2-title" style="margin-top: var(--space-xs);">La época de la imagen del mundo</h2>
+        </div>
+        <button type="button" class="btn btn-secondary" id="study-btn-2" aria-pressed="false" onclick="togglePathStudied(2)">
+          Marcar senda estudiada
+        </button>
+      </div>
+
+      <div class="asymmetric-split-reverse">
+        <div class="washi-card washi-card-moss" style="display: grid; gap: var(--space-md);">
+          <span class="label">Cinco fenómenos de la Edad Moderna</span>
+          <div>
+            <strong style="font-family: var(--font-headline);">1. La ciencia como investigación</strong>
+            <p style="margin: var(--space-xs) 0 0; font-size: 0.9375rem;">Basada en el proyecto de un sector de objetos, el rigor metódico, el experimento matemático y su organización en «empresa».</p>
+          </div>
+          <div>
+            <strong style="font-family: var(--font-headline);">2. La técnica mecanizada</strong>
+            <p style="margin: var(--space-xs) 0 0; font-size: 0.9375rem;">No es una simple aplicación de la física; es una transformación autónoma de la práctica que exige el uso de la ciencia matemática.</p>
+          </div>
+          <div>
+            <strong style="font-family: var(--font-headline);">3. El arte en la vivencia (Erlebnis)</strong>
+            <p style="margin: var(--space-xs) 0 0; font-size: 0.9375rem;">Lo artístico queda reducido al horizonte estético y psicológico del sujeto que «vive» emociones.</p>
+          </div>
+          <div>
+            <strong style="font-family: var(--font-headline);">4. Cultura y desdivinización</strong>
+            <p style="margin: var(--space-xs) 0 0; font-size: 0.9375rem;">La actividad humana se entiende como realización de valores culturales mientras los dioses huyen y lo sagrado se psicologiza.</p>
+          </div>
+        </div>
+
+        <div>
+          <p class="prose">
+            Toda época histórica reposa sobre una decisión metafísica acerca de qué es lo ente y qué es la verdad. En las <em>Meditationes de prima philosophia</em> de <strong>René Descartes</strong>, se consuma el giro decisivo de la modernidad: lo ente se determina por primera vez como <strong>objetividad de la representación</strong> y la verdad se transforma en <strong>certeza</strong> de dicha representación.
+          </p>
+          <p class="prose" style="margin-top: var(--space-md);">
+            A partir de aquí, el hombre pasa a ser el <em>subiectum</em> —el fundamento que da medida y norma a todo ente— y conquista el mundo como «imagen» (<em>Weltbild</em>). «Imagen del mundo» no significa un retrato del mundo, sino el mundo mismo concebido como un todo objetivado, calculable por adelantado (en la naturaleza) o a posteriori (en la historia) y puesto ante la representación explicativa del sujeto.
+          </p>
+          <p class="prose" style="margin-top: var(--space-md);">
+            Subjetivismo e individualismo no se oponen al objetivismo ni a lo colectivo, sino que forman un juego alternante necesario. Frente al poder ilimitado del cálculo y la lucha entre visiones del mundo, sólo la <strong>meditación</strong> creadora permite preservar lo incalculable y situar al hombre en ese espacio abierto llamado «Entre» (<em>Da-sein</em>).
+          </p>
+        </div>
+      </div>
+
+      <!-- Comparador interactivo de épocas en Senda 2 -->
+      <div class="interactive-panel" aria-label="Transformación metafísica de las épocas históricas">
+        <div>
+          <span class="label label-moss">Contraste epocal · Senda 02</span>
+          <h3 class="subhead" style="margin-top: var(--space-xs);">Cómo cambia la concepción del ente y del hombre entre épocas</h3>
+        </div>
+        <div class="panel-controls" role="group" aria-label="Seleccionar época histórica">
+          <button type="button" class="btn btn-secondary" id="s2-btn-grecia" aria-pressed="true" onclick="selectEpoch('grecia')">Antigüedad griega</button>
+          <button type="button" class="btn btn-secondary" id="s2-btn-medievo" aria-pressed="false" onclick="selectEpoch('medievo')">Edad Media</button>
+          <button type="button" class="btn btn-secondary" id="s2-btn-modernidad" aria-pressed="false" onclick="selectEpoch('modernidad')">Edad Moderna</button>
+        </div>
+        <div class="panel-output" id="s2-output" aria-live="polite">
+          <!-- Rellenado dinámicamente -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SENDA 3: EL CONCEPTO DE EXPERIENCIA DE HEGEL
+         ========================================================= -->
+    <section class="major-section reveal-section" id="senda-3" aria-labelledby="senda-3-title">
+      <div class="section-header">
+        <div>
+          <span class="label label-moss">Senda 03 · Fenomenología del Espíritu (1942/43)</span>
+          <h2 class="section-title" id="senda-3-title" style="margin-top: var(--space-xs);">El concepto de experiencia de Hegel</h2>
+        </div>
+        <button type="button" class="btn btn-secondary" id="study-btn-3" aria-pressed="false" onclick="togglePathStudied(3)">
+          Marcar senda estudiada
+        </button>
+      </div>
+
+      <div class="asymmetric-split">
+        <div>
+          <p class="prose">
+            En 1807, Hegel tituló inicialmente su gran obra <em>Ciencia de la experiencia de la conciencia</em>, dentro del proyecto global del <em>Sistema de la Ciencia</em>. Heidegger analiza la introducción de ese texto para mostrar que en Hegel la palabra <strong>experiencia</strong> no designa una simple empiría pasiva ni una guía didáctica previa a la filosofía, sino el <strong>ser mismo de la conciencia</strong>.
+          </p>
+          <p class="prose" style="margin-top: var(--space-md);">
+            La <strong>conciencia natural</strong> (que abarca tanto lo sensible como lo lógico, lo suprasensible y la pretensión productiva del mundo técnico moderno) se toma inmediatamente a sí misma por el saber real, cuando en verdad es «sólo concepto del saber o saber no real». La conciencia (<em>Bewusst-sein</em>, literalmente ser-sabido) habita en una escisión interna: está dividida entre saber y objeto, y entre el <em>ya</em> de su concepto y el <em>todavía-no</em> de su verdad consumada.
+          </p>
+          <p class="prose" style="margin-top: var(--space-md);">
+            El <strong>movimiento dialéctico</strong> es ese diálogo entre la conciencia natural y el saber absoluto: un «escepticismo que se consuma» y un «camino de la desesperación» (<em>Verzweiflung</em>, ligado a la duda, <em>Zweifel</em>) donde cada figura falsa muere para que lo absoluto aparezca en su <em>parusía</em> (presencia plena junto a sí mismo). Así se consuma la subjetidad cartesiana como saber onto-teiológico absoluto.
+          </p>
+        </div>
+
+        <div class="washi-card" style="display: grid; gap: var(--space-md);">
+          <span class="label label-moss">Claves filológicas del ensayo</span>
+          <div>
+            <div class="label">Subjetidad absoluta</div>
+            <p style="margin: var(--space-xs) 0 0; font-size: 0.9375rem;">La <em>res cogitans</em> se eleva a sujeto absoluto cuya presencia es manifestación (<em>parusía</em>) en la representación.</p>
+          </div>
+          <div style="border-top: var(--rule-linen); padding-top: var(--space-sm);">
+            <div class="label">Skepsis de la presentación</div>
+            <p style="margin: var(--space-xs) 0 0; font-size: 0.9375rem;">Observar lo que se manifiesta en cuanto que se manifiesta (<em>theorei to on he on</em>), dejando de aferrarse a la opinión no examinada.</p>
+          </div>
+          <div style="border-top: var(--rule-linen); padding-top: var(--space-sm);">
+            <div class="label">Calvario del espíritu</div>
+            <p style="margin: var(--space-xs) 0 0; font-size: 0.9375rem;">La fenomenología no es un libro más, sino la realidad efectiva de la conciencia sacrificando su verdad provisional.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulador de recorrido dialéctico Senda 3 -->
+      <div class="interactive-panel" aria-label="Recorrido paso a paso del movimiento dialéctico">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-sm);">
+          <div>
+            <span class="label label-moss">Secuencia dialéctica · Senda 03</span>
+            <h3 class="subhead" style="margin-top: var(--space-xs);">Paso a paso: cómo la conciencia hace «experiencia»</h3>
+          </div>
+          <span class="label" id="s3-step-indicator">Fase 1 de 4</span>
+        </div>
+        <div class="panel-controls">
+          <button type="button" class="btn btn-secondary" id="s3-prev-btn" onclick="stepHegel(-1)">Fase anterior</button>
+          <button type="button" class="btn btn-primary" id="s3-next-btn" onclick="stepHegel(1)">Siguiente fase</button>
+        </div>
+        <div class="panel-output" id="s3-output" aria-live="polite">
+          <!-- Rellenado dinámicamente -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SENDA 4: LA FRASE DE NIETZSCHE «DIOS HA MUERTO»
+         ========================================================= -->
+    <section class="major-section reveal-section" id="senda-4" aria-labelledby="senda-4-title">
+      <div class="section-header">
+        <div>
+          <span class="label label-moss">Senda 04 · Metafísica de valores y nihilismo (1943)</span>
+          <h2 class="section-title" id="senda-4-title" style="margin-top: var(--space-xs);">La frase de Nietzsche «Dios ha muerto»</h2>
+        </div>
+        <button type="button" class="btn btn-secondary" id="study-btn-4" aria-pressed="false" onclick="togglePathStudied(4)">
+          Marcar senda estudiada
+        </button>
+      </div>
+
+      <div class="asymmetric-split-reverse">
+        <div class="diagram-frame">
+          <span class="label label-moss">Crítica ontológica · Senda 04</span>
+          <h3 class="subhead" style="margin: var(--space-xs) 0 var(--space-md);">¿Por qué el pensar según valores consuma el nihilismo?</h3>
+          <svg class="diagram-svg" viewBox="0 0 420 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Esquema del platonismo, su inversión nietzscheana y la crítica de Heidegger">
+            <rect x="20" y="16" width="170" height="68" rx="2" class="svg-fill-washi" stroke-width="1.5"/>
+            <text x="32" y="38" class="svg-text-serif">1. Platonismo</text>
+            <text x="32" y="56" class="svg-text-ink">Suprasensible = real</text>
+            <text x="32" y="72" class="svg-text-ink">Sensible = aparente</text>
+
+            <rect x="230" y="16" width="170" height="68" rx="2" class="svg-fill-washi" stroke-width="1.5"/>
+            <text x="242" y="38" class="svg-text-serif">2. «Dios ha muerto»</text>
+            <text x="242" y="56" class="svg-text-cinnabar">Desvalorización total</text>
+            <text x="242" y="72" class="svg-text-ink">Vacío del más allá</text>
+
+            <line x1="190" y1="50" x2="230" y2="50" class="svg-stroke-ink" stroke-width="1.5"/>
+
+            <rect x="20" y="114" width="380" height="54" rx="2" class="svg-fill-paper" stroke-width="1.5"/>
+            <text x="32" y="136" class="svg-text-serif">3. Transvaloración: Voluntad de poder y Valor</text>
+            <text x="32" y="155" class="svg-text-ink">El transhombre asume la voluntad de poder; el valor mide el dominio.</text>
+
+            <line x1="315" y1="84" x2="315" y2="114" class="svg-stroke-cinnabar" stroke-width="1.5"/>
+
+            <rect x="20" y="184" width="380" height="44" rx="2" class="svg-fill-washi" stroke-width="2"/>
+            <text x="210" y="204" text-anchor="middle" class="svg-text-cinnabar">4. DIAGNÓSTICO DE HEIDEGGER</text>
+            <text x="210" y="220" text-anchor="middle" class="svg-text-ink">Rebajar el Ser a «valor» impide al Ser ser en cuanto Ser.</text>
+          </svg>
+        </div>
+
+        <div>
+          <p class="prose">
+            Pronunciada en el aforismo 125 de <em>La gaya ciencia</em> (1882), la sentencia «Dios ha muerto» no expresa una mera actitud atea o falta de fe personal. «Dios» nombra aquí el <strong>mundo suprasensible</strong> de las ideas, metas y fundamentos que desde Platón sostenía la realidad occidental. Su muerte significa que ese ámbito ha perdido su fuerza vinculante y efectiva, abriendo la puerta al «más inquietante de todos los huéspedes»: el <strong>nihilismo</strong>.
+          </p>
+          <p class="prose" style="margin-top: var(--space-md);">
+            Nietzsche interpreta el nihilismo como la historia de la desvalorización de los valores supremos e intenta superarlo mediante una <strong>transvaloración de todos los valores</strong> fundada en la <strong>voluntad de poder</strong> (sinónimo de devenir, vida y ser en su totalidad), cuya existencia es el eterno retorno de lo mismo y cuya figura humana es el <strong>transhombre</strong> (<em>Übermensch</em>).
+          </p>
+          <p class="prose" style="margin-top: var(--space-md);">
+            Sin embargo, Heidegger lanza una tesis radical: el golpe más duro contra Dios y contra el Ser no proviene de los incrédulos, sino de elevar al propio Ser —y a Dios— a la condición de «valor supremo». Al convertir todo ente en objeto evaluable para asegurar centros de dominio, la metafísica de la voluntad de poder no supera el nihilismo, sino que lo <strong>consuma</strong> y cierra el horizonte para pensar el Ser mismo.
+          </p>
+        </div>
+      </div>
+
+      <!-- Explorador interactivo Senda 4 -->
+      <div class="interactive-panel" aria-label="Selector de estadios del nihilismo">
+        <div>
+          <span class="label label-moss">Anatomía del nihilismo · Senda 04</span>
+          <h3 class="subhead" style="margin-top: var(--space-xs);">Explora las tesis de Nietzsche frente a la lectura ontológica de Heidegger</h3>
+        </div>
+        <div class="panel-controls" role="group" aria-label="Seleccionar tesis sobre Nietzsche">
+          <button type="button" class="btn btn-secondary" id="s4-btn-suprasensible" aria-pressed="true" onclick="selectNietzscheAspect('suprasensible')">Muerte de lo suprasensible</button>
+          <button type="button" class="btn btn-secondary" id="s4-btn-valor" aria-pressed="false" onclick="selectNietzscheAspect('valor')">Voluntad de poder y valor</button>
+          <button type="button" class="btn btn-secondary" id="s4-btn-consumacion" aria-pressed="false" onclick="selectNietzscheAspect('consumacion')">Consumación del nihilismo</button>
+        </div>
+        <div class="panel-output" id="s4-output" aria-live="polite">
+          <!-- Rellenado dinámicamente -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SENDA 5: ¿Y PARA QUÉ POETAS?
+         ========================================================= -->
+    <section class="major-section reveal-section" id="senda-5" aria-labelledby="senda-5-title">
+      <div class="section-header">
+        <div>
+          <span class="label label-moss">Senda 05 · Hölderlin, Rilke y la noche del mundo</span>
+          <h2 class="section-title" id="senda-5-title" style="margin-top: var(--space-xs);">¿Y para qué poetas? (en tiempos de penuria)</h2>
+        </div>
+        <button type="button" class="btn btn-secondary" id="study-btn-5" aria-pressed="false" onclick="togglePathStudied(5)">
+          Marcar senda estudiada
+        </button>
+      </div>
+
+      <div class="asymmetric-split">
+        <div>
+          <p class="prose">
+            Heidegger parte de la pregunta de la elegía <em>Pan y Vino</em> de <strong>Friedrich Hölderlin</strong>: «… ¿y para qué poetas en tiempos de penuria?». Tras la partida de «aquellos tres» (Hércules, Dioniso y Cristo), la tarde del mundo declina hacia la noche. Nuestra era está marcada por la <strong>falta de dios</strong>: ningún dios reúne ya manifiestamente a hombres y cosas, y la penuria es tan extrema que la época ni siquiera siente esa falta como carencia. En esa noche sagrada, los poetas peregrinan como sacerdotes del dios del vino para custodiar la huella de lo sagrado.
+          </p>
+          <p class="prose" style="margin-top: var(--space-md);">
+            Heidegger examina luego si <strong>Rainer Maria Rilke</strong> (<em>Elegías de Duino</em> y <em>Sonetos a Orfeo</em>) es un poeta en tiempos de penuria. Para Rilke, la indigencia reside en que los mortales no dominan su mortalidad ni el misterio del sufrimiento ni el amor. Rilke piensa la totalidad de lo ente (<em>physis / vida</em>) como el <strong>riesgo</strong> que arroja todo a la balanza, y contrapone la conciencia humana objetivante a <strong>lo Abierto</strong> en que habitan el animal y la flor.
+          </p>
+          <p class="prose" style="margin-top: var(--space-md);">
+            La técnica moderna es la organización de la <strong>separación</strong>: convierte la naturaleza en mero objeto y desplaza las cosas tangibles hacia la «vibración del dinero». Frente a esa desprotección, Heidegger formula una de sus sentencias más célebres: <strong>«El lenguaje es la casa del ser»</strong> (<em>templum</em>). Los poetas más arriesgados arriesgan el lenguaje mismo; su canto salva y consagra lo intacto, transformando lo visible en lo invisible interior (<em>Er-innerung</em>, simbolizada en el ángel de las <em>Elegías</em>) y abriendo una relación de serenidad ante el dominio técnico.
+          </p>
+        </div>
+
+        <div style="display: grid; gap: var(--space-md);">
+          <figure class="epigraph-quote">
+            <blockquote>«Cuando caminamos hacia la fuente, cuando atravesamos el bosque, siempre caminamos o atravesamos por las palabras “fuente” y “bosque”, incluso cuando no pronunciamos esas palabras…»</blockquote>
+            <figcaption>¿Y para qué poetas? · Martin Heidegger</figcaption>
+          </figure>
+          <div class="washi-card washi-card-cinnabar">
+            <span class="label">Riesgo y salvación</span>
+            <div class="value">Templum del Ser</div>
+            <div class="note">Arriesgar el lenguaje para vislumbrar la huella de lo salvo y lo sagrado en la era técnica</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explorador poético-ontológico Senda 5 -->
+      <div class="interactive-panel" aria-label="Comparador poético entre Hölderlin, Rilke y la técnica">
+        <div>
+          <span class="label label-moss">Diálogo poético · Senda 05</span>
+          <h3 class="subhead" style="margin-top: var(--space-xs);">Poetas, técnica y lenguaje: explora las figuras de la quinta senda</h3>
+        </div>
+        <div class="panel-controls" role="group" aria-label="Seleccionar concepto poético">
+          <button type="button" class="btn btn-secondary" id="s5-btn-holderlin" aria-pressed="true" onclick="selectPoetConcept('holderlin')">Hölderlin y la noche del mundo</button>
+          <button type="button" class="btn btn-secondary" id="s5-btn-rilke" aria-pressed="false" onclick="selectPoetConcept('rilke')">Rilke: Lo Abierto y el Ángel</button>
+          <button type="button" class="btn btn-secondary" id="s5-btn-lenguaje" aria-pressed="false" onclick="selectPoetConcept('lenguaje')">Lenguaje y serenidad técnica</button>
+        </div>
+        <div class="panel-output" id="s5-output" aria-live="polite">
+          <!-- Rellenado dinámicamente -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SENDA 6: LA SENTENCIA DE ANAXIMANDRO
+         ========================================================= -->
+    <section class="major-section reveal-section" id="senda-6" aria-labelledby="senda-6-title">
+      <div class="section-header">
+        <div>
+          <span class="label label-moss">Senda 06 · Pensamiento presocrático primordial</span>
+          <h2 class="section-title" id="senda-6-title" style="margin-top: var(--space-xs);">La sentencia de Anaximandro</h2>
+        </div>
+        <button type="button" class="btn btn-secondary" id="study-btn-6" aria-pressed="false" onclick="togglePathStudied(6)">
+          Marcar senda estudiada
+        </button>
+      </div>
+
+      <div class="asymmetric-split-reverse">
+        <div class="diagram-frame">
+          <span class="label label-moss">Dinámica de la presencia · Senda 06</span>
+          <h3 class="subhead" style="margin: var(--space-xs) 0 var(--space-md);">El tránsito de lo presente bajo el Uso (τό χρεών)</h3>
+          <svg class="diagram-svg" viewBox="0 0 420 235" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ciclo del llegar a la presencia y retirarse al ocultamiento según Anaximandro">
+            <rect x="24" y="80" width="110" height="72" rx="2" class="svg-fill-washi" stroke-width="1.5"/>
+            <text x="79" y="106" text-anchor="middle" class="svg-text-serif">Ocultamiento</text>
+            <text x="79" y="126" text-anchor="middle" class="svg-text-moss">PROCEDENCIA</text>
+            <text x="79" y="142" text-anchor="middle" class="svg-text-ink">De donde surge</text>
+
+            <rect x="155" y="24" width="110" height="72" rx="2" class="svg-fill-paper" stroke-width="2"/>
+            <text x="210" y="48" text-anchor="middle" class="svg-text-serif">Presencia</text>
+            <text x="210" y="66" text-anchor="middle" class="svg-text-moss">DIKE · ACUERDO</text>
+            <text x="210" y="82" text-anchor="middle" class="svg-text-ink">Demora temporal</text>
+
+            <rect x="286" y="80" width="110" height="72" rx="2" class="svg-fill-washi" stroke-width="1.5"/>
+            <text x="341" y="106" text-anchor="middle" class="svg-text-serif">Retirada</text>
+            <text x="341" y="126" text-anchor="middle" class="svg-text-cinnabar">ADIKIA SI SE FIJA</text>
+            <text x="341" y="142" text-anchor="middle" class="svg-text-ink">Ceder lugar (tisis)</text>
+
+            <path d="M 90 80 Q 115 44 155 52" class="svg-stroke-moss" stroke-width="2"/>
+            <path d="M 265 52 Q 305 44 330 80" class="svg-stroke-cinnabar" stroke-width="2"/>
+
+            <rect x="52" y="176" width="316" height="44" rx="2" class="svg-fill-washi" stroke-width="1.5"/>
+            <text x="210" y="196" text-anchor="middle" class="svg-text-serif">Τό χρεών · El Uso (der Brauch)</text>
+            <text x="210" y="212" text-anchor="middle" class="svg-text-ink">Entrega cada ente a su demora y preserva el límite de su presencia</text>
+          </svg>
+        </div>
+
+        <div>
+          <p class="prose">
+            El último camino de <em>Holzwege</em> desciende al fragmento filosófico más antiguo de Occidente: la sentencia de <strong>Anaximandro de Mileto</strong> (siglo VI a. C.). Para escuchar lo que dice el texto primordial, Heidegger advierte que debemos despojarnos de las traducciones moralizantes y físico-jurídicas posteriores —marcadas por la traslación romana de los conceptos griegos que ya señalaba en el primer ensayo— y pensar desde la experiencia griega del Ser como presencia en el desocultamiento.
+          </p>
+          <p class="prose" style="margin-top: var(--space-md);">
+            Lo ente (<em>ta eonta</em>) es aquello que llega a la presencia y se demora transitoriamente entre dos ocultamientos: su procedencia y su ocaso. Lejos de ser «injusticia» moral, la <em>adikia</em> (dislocación o desajuste) ocurre cuando algo presente se obstina en perseverar de modo rígido, negándose a ceder su lugar. Al otorgar estima o consideración mutua (<em>tisis</em>), las cosas restituyen el ajustamiento (<strong><em>Dike</em></strong>).
+          </p>
+          <p class="prose" style="margin-top: var(--space-md);">
+            Todo este tránsito acontece según <strong>τό χρεών</strong> (<em>to chreon</em>), que Heidegger traduce como <strong>el Uso</strong> (<em>der Brauch</em>): no una necesidad ciega ni una utilidad humana, sino el entregar y sostener a cada ente presente en su límite. Así, pensar la aurora griega prepara a Occidente —la «tierra del ocaso» o <em>Abend-Land</em>— para una relación distinta con el destino del Ser más allá de la técnica planetaria.
+          </p>
+        </div>
+      </div>
+
+      <!-- Explorador filológico Senda 6 -->
+      <div class="interactive-panel" aria-label="Desglose terminológico de Anaximandro">
+        <div>
+          <span class="label label-moss">Lectura primordial · Senda 06</span>
+          <h3 class="subhead" style="margin-top: var(--space-xs);">Palabras fundamentales de la sentencia de Anaximandro</h3>
+        </div>
+        <div class="panel-controls" role="group" aria-label="Seleccionar palabra griega de Anaximandro">
+          <button type="button" class="btn btn-secondary" id="s6-btn-chreon" aria-pressed="true" onclick="selectAnaximanderTerm('chreon')">Τό χρεών (El Uso)</button>
+          <button type="button" class="btn btn-secondary" id="s6-btn-dike" aria-pressed="false" onclick="selectAnaximanderTerm('dike')">Δίκη y Ἀδικία</button>
+          <button type="button" class="btn btn-secondary" id="s6-btn-eonta" aria-pressed="false" onclick="selectAnaximanderTerm('eonta')">Τὰ ἐόντα (Lo presente)</button>
+        </div>
+        <div class="panel-output" id="s6-output" aria-live="polite">
+          <!-- Rellenado dinámicamente -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         MATRIZ COMPARATIVA INTERACTIVA
+         ========================================================= -->
+    <section class="major-section reveal-section" id="matriz" aria-labelledby="matriz-title">
+      <div>
+        <span class="label label-moss">Síntesis transversal</span>
+        <h2 class="section-title" id="matriz-title" style="margin-top: var(--space-xs);">Matriz comparativa entre los seis ensayos y sus figuras clave</h2>
+        <p class="prose" style="margin-top: var(--space-sm);">
+          Filtra por eje filosófico o selecciona una senda para resaltar cómo varía la comprensión del Ser, la verdad y el lugar del hombre a lo largo de <em>Holzwege</em>.
+        </p>
+      </div>
+
+      <div class="interactive-panel" aria-label="Controles de la matriz comparativa">
+        <div class="filter-toolbar" style="grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));">
+          <div class="control-group">
+            <label class="control-label" for="matrix-axis-select">Eje comparativo visible</label>
+            <select class="select-field" id="matrix-axis-select" onchange="updateMatrixView()">
+              <option value="all">Todos los ejes (tabla completa)</option>
+              <option value="verdad">Concepción de la verdad</option>
+              <option value="ente">Determinación de lo ente</option>
+              <option value="hombre">Posición del hombre / sujeto</option>
+              <option value="critica">Diagnóstico de Heidegger</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="matrix-highlight-select">Destacar ensayo / figura</label>
+            <select class="select-field" id="matrix-highlight-select" onchange="updateMatrixView()">
+              <option value="none">Sin resaltado específico</option>
+              <option value="1">01 · Obra de arte (Van Gogh / Templo)</option>
+              <option value="2">02 · Imagen del mundo (Descartes)</option>
+              <option value="3">03 · Experiencia (Hegel)</option>
+              <option value="4">04 · Dios ha muerto (Nietzsche)</option>
+              <option value="5">05 · Para qué poetas (Hölderlin / Rilke)</option>
+              <option value="6">06 · Anaximandro (Pensamiento griego)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="kiln-table" id="comparison-table">
+            <thead>
+              <tr>
+                <th scope="col">Senda y figuras</th>
+                <th scope="col" data-col="verdad">Verdad</th>
+                <th scope="col" data-col="ente">Estatuto de lo ente</th>
+                <th scope="col" data-col="hombre">Lugar del hombre</th>
+                <th scope="col" data-col="critica">Diagnóstico ontológico</th>
+              </tr>
+            </thead>
+            <tbody id="comparison-tbody">
+              <!-- Generado por JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         GLOSARIO INTERACTIVO FILTRABLE Y BUSCABLE
+         ========================================================= -->
+    <section class="major-section reveal-section" id="glosario" aria-labelledby="glosario-title">
+      <div>
+        <span class="label label-moss">Léxico ontológico</span>
+        <h2 class="section-title" id="glosario-title" style="margin-top: var(--space-xs);">Glosario interactivo de conceptos fundamentales</h2>
+        <p class="prose" style="margin-top: var(--space-sm);">
+          Busca por término en español, alemán o griego, filtra por ámbito temático o guarda conceptos clave en tu cuaderno de estudio.
+        </p>
+      </div>
+
+      <div class="interactive-panel" aria-label="Filtros del glosario ontológico">
+        <div class="filter-toolbar">
+          <div class="control-group">
+            <label class="control-label" for="glossary-search">Buscar concepto o definición</label>
+            <input type="search" class="input-field" id="glossary-search" placeholder="Ej. Aletheia, Ge-stell, Tierra, Nihilismo…" oninput="renderGlossary()">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="glossary-category">Ámbito temático</label>
+            <select class="select-field" id="glossary-category" onchange="renderGlossary()">
+              <option value="todos">Todos los ámbitos (12)</option>
+              <option value="arte">Arte, cosa y obra</option>
+              <option value="metafisica">Metafísica y técnica</option>
+              <option value="poesia">Poesía y lenguaje</option>
+              <option value="originario">Pensamiento originario</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-secondary" id="glossary-bookmark-filter" aria-pressed="false" onclick="toggleBookmarkFilter()">
+            Solo guardados (<span id="bookmark-count">0</span>)
+          </button>
+        </div>
+
+        <div class="status-note" id="glossary-status" aria-live="polite"></div>
+
+        <div class="card-grid" id="glossary-grid">
+          <!-- Generado por JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CUESTIONARIO DE AUTOEVALUACIÓN INTERACTIVO
+         ========================================================= -->
+    <section class="major-section reveal-section" id="cuestionario" aria-labelledby="quiz-title">
+      <div class="section-header">
+        <div>
+          <span class="label label-moss">Comprobación de lectura</span>
+          <h2 class="section-title" id="quiz-title" style="margin-top: var(--space-xs);">Cuestionario de autoevaluación</h2>
+          <p class="prose" style="margin-top: var(--space-sm);">
+            Ocho preguntas basadas directamente en los textos de <em>Caminos de bosque</em>, con retroalimentación explicativa inmediata tras cada respuesta.
+          </p>
+        </div>
+        <div class="washi-card washi-card-moss" style="min-width: 190px;">
+          <span class="label">Puntuación</span>
+          <div class="value" id="quiz-score-display">0 / 8</div>
+          <div class="note" id="quiz-progress-note">Pendiente de iniciar</div>
+        </div>
+      </div>
+
+      <div id="quiz-container" style="display: grid; gap: var(--space-lg);">
+        <!-- Generado por JS -->
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SÍNTESIS Y PREGUNTAS FRECUENTES (FAQ)
+         ========================================================= -->
+    <section class="major-section reveal-section" id="faq" aria-labelledby="faq-title">
+      <div>
+        <span class="label label-moss">Profundización y síntesis</span>
+        <h2 class="section-title" id="faq-title" style="margin-top: var(--space-xs);">Síntesis transversal y preguntas frecuentes</h2>
+      </div>
+
+      <div class="accordion-list">
+        <details class="kiln-details" open>
+          <summary>¿Por qué los «caminos de bosque» no equivalen a perderse sin sentido o fracasar?</summary>
+          <div class="details-body">
+            <p class="prose">
+              Para los leñadores y guardabosques, un <em>Holzweg</em> es un camino legítimo dentro del bosque aunque cese bruscamente en lo no hollado. En filosofía, la ausencia de un resultado práctico o de una fórmula doctrinal definitiva no es esterilidad: es la condición para permanecer dentro de la pregunta por el Ser (como en el círculo hermenéutico entre obra, artista y arte) sin reducirla a un cálculo técnico o a una clasificación de manual.
+            </p>
+          </div>
+        </details>
+
+        <details class="kiln-details">
+          <summary>¿Cómo se relacionan el útil de Van Gogh, el templo griego y la «esencia» de la técnica moderna?</summary>
+          <div class="details-body">
+            <p class="prose">
+              En el útil auténtico (las botas campesinas), la materia sirve a la utilidad sostenida por la <strong>fiabilidad</strong>, pero el desgaste cotidiano oculta esa pertenencia al mundo y a la tierra. Sólo la obra de arte (la tela de Van Gogh o el templo griego) desoculta esa verdad sin consumir la materia: la piedra soporta y el color reluce. En contraste, la técnica moderna (<em>Ge-stell</em> o com-posición) objetiva todo ente como fondo calculable y «organiza la separación», borrando tanto el reposo de la cosa como la cercanía poética de lo Abierto.
+            </p>
+          </div>
+        </details>
+
+        <details class="kiln-details">
+          <summary>¿Qué une a Descartes, Hegel y Nietzsche dentro de una misma historia de la metafísica?</summary>
+          <div class="details-body">
+            <p class="prose">
+              Los tres despliegan, en grados crecientes, la metafísica de la <strong>subjetidad</strong>. Descartes convierte al hombre en <em>subiectum</em> que asegura la verdad como certeza representativa; Hegel eleva esa representación al movimiento absoluto de la conciencia en su <em>parusía</em> onto-teiológica; y Nietzsche, al invertir el platonismo y proclamar la voluntad de poder como principio de instauración de valores, consuma la subjetidad convirtiendo al Ser mismo en un «valor» puesto por la voluntad.
+            </p>
+          </div>
+        </details>
+
+        <details class="kiln-details">
+          <summary>¿Por qué afirma Heidegger que la sentencia de Nietzsche es la consumación del nihilismo y no su superación?</summary>
+          <div class="details-body">
+            <p class="prose">
+              Porque pensar según «valores» presupone reducir lo ente (e incluso a Dios y al Ser) a una estimación puesta por un sujeto o centro de dominio para su conservación o acrecentamiento. Aunque Nietzsche reemplaza los valores suprasensibles antiguos por nuevos valores terrenos de la vida y el transhombre, mantiene intacto el principio valorativo que impide pensar el Ser desde sí mismo.
+            </p>
+          </div>
+        </details>
+
+        <details class="kiln-details">
+          <summary>¿Qué papel cumplen los poetas en tiempos de penuria frente al dominio de la técnica?</summary>
+          <div class="details-body">
+            <p class="prose">
+              En la noche del mundo determinada por la huida de los dioses y la objetivación técnica total, los poetas como Hölderlin y Rilke no fabrican consuelos subjetivos, sino que arriesgan el recinto mismo del Ser: el <strong>lenguaje</strong>. Al decir lo salvo y custodiar la huella de lo sagrado, abren una escucha serena que prepara una relación con el Ser irreductible al cálculo.
+            </p>
+          </div>
+        </details>
+
+        <details class="kiln-details">
+          <summary>¿Por qué el libro cierra descendiendo al fragmento de Anaximandro en el siglo VI a. C.?</summary>
+          <div class="details-body">
+            <p class="prose">
+              Porque para comprender el extravío contemporáneo de Occidente (la tierra del ocaso, <em>Abend-Land</em>), el pensar debe regresar allí donde la diferencia entre presencia y lo presente aún resplandecía antes de cristalizar en la metafísica escolar platónico-aristotélica y en su posterior traducción latina. El <em>tó chreón</em> (el Uso) y la <em>Dike</em> muestran una experiencia originaria del Ser previa al sujeto calculante.
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- COLOFÓN Y FUENTES -->
+    <footer class="colophon">
+      <span class="label label-moss">Fuentes y aparato editorial</span>
+      <p style="margin: 0;">
+        Base de conocimientos elaborada a partir de <em>Caminos de bosque</em> (título original: <em>Gesamtausgabe, Band 5: Holzwege</em>, 1950) de Martin Heidegger, según la traducción al español de Helena Cortés Gabaudan y Arturo Leyte. Los fragmentos sobre las cinco primeras sendas se apoyan directamente en los textos de la obra; la síntesis de la sexta senda contextualiza la introducción sobre el pensamiento primordial del Ser con las categorías del ensayo <em>La sentencia de Anaximandro</em>.
+      </p>
+    </footer>
+
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    /* =========================================================================
+       DATOS DE LA BASE DE CONOCIMIENTOS (todos los strings en backticks)
+       ========================================================================= */
+
+    const artModes = {
+      cosa: {
+        kicker: `Nivel 1 · La mera cosa (El bloque de granito)`,
+        title: `Lo que reposa en sí mismo sin haber sido elaborado`,
+        body: `El bloque de granito es duro, pesado, extenso y parte mate, parte brillante. Las tres definiciones habituales (soporte de accidentes, suma de sensaciones, materia conformada) fracasan porque proyectan la estructura lógica de la oración o la fabricación del útil sobre aquello que brota espontáneamente y se retrae en sí.`,
+        note: `Clave de Heidegger: no se llega a la cosa violentándola con conceptos de útil, sino dejándola reposar en su pertenencia a la Tierra.`
+      },
+      util: {
+        kicker: `Nivel 2 · El útil (Las botas de campesino de Van Gogh)`,
+        title: `La utilidad descansa en la fiabilidad`,
+        body: `En el cuadro de Van Gogh no vemos un simple objeto vacío: en la oscura boca del cuero gastado tiembla la fatiga del campo, la humedad del surco y el callado temor por el pan. El útil pertenece a la tierra y su refugio es el mundo de la labradora. Esa plenitud se llama fiabilidad (Verlässlichkeit); su desgaste cotidiano la degrada a mera utilidad vulgar.`,
+        note: `Descubrimiento decisivo: no es la observación empírica de un zapato real, sino la obra de arte (el cuadro) la que nos revela qué es de verdad el útil.`
+      },
+      obra: {
+        kicker: `Nivel 3 · La obra de arte (El templo griego)`,
+        title: `Ponerse a la obra de la verdad (Aletheia)`,
+        body: `El templo no copia ninguna imagen: simplemente se alza en el valle rocoso y consagra el recinto donde el dios se hace presente. Al erigirse, levanta un Mundo (las vías históricas de nacimiento y muerte, victoria y derrota de un pueblo) y hace emerger la Tierra (la roca que soporta, la furia del mar, la luz del día). En ese combate mantenido en la figura acontece la verdad como desocultamiento.`,
+        note: `Giro metódico: el carácter de cosa de la obra no se entiende desde la mera cosa ni desde el útil, sino desde la Tierra tal como aparece en la obra.`
+      }
+    };
+
+    const epochModes = {
+      grecia: {
+        kicker: `Época 1 · Antigüedad griega`,
+        title: `El ente como lo que surge y se desoculta (Physis y Aletheia)`,
+        body: `El hombre griego no es «sujeto» frente a un «objeto», sino quien es mirado por lo ente y lo acoge en la apertura. No hay «imagen del mundo» ni ciencia como investigación experimental; la episteme contempla lo presente tal como se muestra desde sí mismo, y en las fiestas olímpicas los griegos no «sufrían vivencias» psicológicas.`,
+        note: `Diferencia clave: la traducción latina de hypokeimenon por subiectum inicia la pérdida de esta experiencia originaria.`
+      },
+      medievo: {
+        kicker: `Época 2 · Edad Media`,
+        title: `Todo ente es ens creatum dentro de un orden divino`,
+        body: `La verdad reside en la doctrina revelada de la fe y en la correspondencia (adaequatio) de la criatura con el intelecto creador. El mundo no se conquista como imagen proyectada por la razón humana, pero la filosofía escolástica interpreta el ens creatum desde el par materia-forma, preparando el terreno de la metafísica moderna.`,
+        note: `Transición: el hombre todavía no es el fundamento autónomo que dicta la medida de todo ente.`
+      },
+      modernidad: {
+        kicker: `Época 3 · Edad Moderna`,
+        title: `El mundo convertido en imagen calculable ante el subiectum`,
+        body: `Con Descartes, el hombre se vuelve subiectum y el ente se reduce a objeto representable. La verdad se vuelve certeza; la ciencia se vuelve investigación (proyecto + rigor + método + empresa); la naturaleza y la historia quedan sometidas al cálculo anticipatorio y a posteriori. El mundo entero es ahora Bild (imagen producida por el sujeto).`,
+        note: `Consecuencia: las grandes confrontaciones modernas son luchas entre «visiones del mundo» apoyadas en el cálculo ilimitado.`
+      }
+    };
+
+    const hegelSteps = [
+      {
+        kicker: `Fase 1 de 4 · Punto de partida`,
+        title: `La conciencia natural y su certeza inmediata`,
+        body: `La conciencia natural (que incluye no sólo lo sensible, sino lo lógico y el mundo técnico moderno) se aferra a su saber inmediato y lo toma por la verdad definitiva. Sin embargo, para la ciencia filosófica, es «sólo concepto del saber o saber no real».`,
+        note: `Término clave: Bewusst-sein (ser-sabido). La conciencia ya es su concepto, pero todavía no es su verdad real.`
+      },
+      {
+        kicker: `Fase 2 de 4 · La escisión y la duda`,
+        title: `El camino de la desesperación (Verzweiflung)`,
+        body: `En el interior de la conciencia, el saber y el objeto están escindidos pero nunca separados. Al examinarse a sí misma frente a su propio criterio, la conciencia descubre que lo que consideraba verdadero en sí era sólo verdadero «para ella». Cada figura provisional debe morir.`,
+        note: `Etimología destacada por Heidegger: duda (Zweifel) y desesperación (Ver-zweiflung) comparten raíz en alemán.`
+      },
+      {
+        kicker: `Fase 3 de 4 · El movimiento dialéctico`,
+        title: `La experiencia como inversión creadora de camino`,
+        body: `Este movimiento dialéctico es propiamente la «experiencia»: no una simple recopilación empírica, sino la marcha en que la conciencia se construye su propio camino, sacrificando su «todavía-no-verdadero» a la manifestación de la verdad. Es el «escepticismo que se consuma».`,
+        note: `Ontología hegeliana: la experiencia nombra la entidad de lo ente concebida como subjetidad en movimiento.`
+      },
+      {
+        kicker: `Fase 4 de 4 · La consumación`,
+        title: `Parusía de lo absoluto y «calvario del espíritu»`,
+        body: `Cuando la experiencia se consuma, lo absoluto accede a todo el reino de su verdad y se hace presente junto a sí mismo (parusía). La fenomenología es la «ciencia primera» onto-teiológica de ese sistema donde la pura manifestación coincide con la esencia.`,
+        note: `Balance de Heidegger: Hegel lleva a su plenitud especulativa el destino moderno del Ser como presencia en la representación.`
+      }
+    ];
+
+    const nietzscheAspects = {
+      suprasensible: {
+        kicker: `Tesis 1 · Alcance metafísico de la sentencia`,
+        title: `No es una declaración de ateísmo personal, sino un diagnóstico histórico`,
+        body: `Para Nietzsche, «Dios» nombra el mundo suprasensible de las ideas, metas e ideales que desde el platonismo y la teología cristiana histórica regía la vida. Decir «Dios ha muerto» significa que ese fundamento ha perdido su fuerza operativa y creadora de vida, dejando al hombre errar por una «nada infinita».`,
+        note: `Fuente: aforismo 125 de La gaya ciencia (1882) y el proyecto inconcluso de La voluntad de poder.`
+      },
+      valor: {
+        kicker: `Tesis 2 · Metafísica de la voluntad de poder`,
+        title: `El valor como condición de dominio de la vida`,
+        body: `Nietzsche equipara devenir, vida, voluntad de poder y ser. Dentro del devenir, la vida se organiza en centros de dominio (arte, Estado, religión, ciencia). El «valor» es esencialmente el punto de vista para conservar o incrementar esos centros. El transhombre asume conscientemente la voluntad de poder y el eterno retorno de lo mismo.`,
+        note: `Inversión del platonismo: lo sensible deviene realidad única y los antiguos valores supremos se desvalorizan.`
+      },
+      consumacion: {
+        kicker: `Tesis 3 · Crítica heideggeriana`,
+        title: `Por qué el pensar por valores es el nihilismo consumado`,
+        body: `Nietzsche cree superar el nihilismo instaurando nuevos valores desde la voluntad de poder. Heidegger responde que precisamente el pensar en términos de valor es el golpe mortal contra Dios y contra el Ser: reducir lo ente y al propio Ser a un «valor» estimado por la voluntad impide que el Ser sea pensado en cuanto Ser.`,
+        note: `Conclusión del ensayo: la metafísica es, en su esencia, la historia del olvido del Ser —el nihilismo mismo.`
+      }
+    };
+
+    const poetConcepts = {
+      holderlin: {
+        kicker: `Figura 1 · Friedrich Hölderlin (Elegía Pan y Vino)`,
+        title: `Precursor en la noche del mundo y la falta de dios`,
+        body: `Desde la partida de Hércules, Dioniso y Cristo, declina la tarde hacia la noche del mundo. La «falta de dios» significa que ningún dios reúne ya visiblemente a hombres y cosas, y la penuria es tan honda que la época ni siquiera advierte esa falta. Los poetas peregrinan como sacerdotes del dios del vino para preservar la huella de lo sagrado.`,
+        note: `Temporalidad poética: el precursor no marcha hacia el futuro, sino que vuelve desde él en el advenimiento de su palabra.`
+      },
+      rilke: {
+        kicker: `Figura 2 · Rainer Maria Rilke (Elegías de Duino y Sonetos a Orfeo)`,
+        title: `El riesgo, lo Abierto y el Ángel de la metamorfosis`,
+        body: `Rilke experimenta la penuria en que los mortales desconocen su mortalidad, el sufrimiento y el amor. Llama «riesgo» a la totalidad de la naturaleza; «lo Abierto» designa la libertad no-objetiva en la que habitan el animal y la flor sin enfrentarse al mundo como objeto. El Ángel encarna la transformación de lo visible en el espacio interno invisible (Er-innerung).`,
+        note: `Límite señalado por Heidegger: Rilke permanece dentro de la metafísica moderna de la conciencia, aunque vislumbra la amenaza técnica.`
+      },
+      lenguaje: {
+        kicker: `Figura 3 · Técnica moderna y casa del Ser`,
+        title: `Arriesgar el lenguaje para preparar la serenidad`,
+        body: `La producción técnica organiza la separación y convierte todo en objeto disponible, desplazando la realidad tangible de las cosas a la abstracción del dinero. Frente a ella, el lenguaje es el recinto (templum) y la casa del Ser. Los poetas más arriesgados arriesgan el lenguaje mismo; su canto celebra lo intacto (lo salvo) y abre una serenidad no calculante.`,
+        note: `Vínculo con todo el libro: atravesamos el bosque siempre a través de la palabra «bosque», aun cuando guardemos silencio.`
+      }
+    };
+
+    const anaximanderTerms = {
+      chreon: {
+        kicker: `Palabra primordial 1 · Τό χρεών`,
+        title: `El Uso (der Brauch), más antiguo que «necesidad» o «ley»`,
+        body: `Traducido habitualmente como «necesidad» o «destino fatal», Heidegger propone pensar τό χρεών desde la mano que entrega y resguarda: el Uso. El Ser «usa» lo presente entregándolo a su demora en el desocultamiento y manteniendo sus límites frente a la desmesura.`,
+        note: `Ruptura con el utilitarismo: este «uso» originario no es aprovechamiento técnico ni utilidad instrumental humana.`
+      },
+      dike: {
+        kicker: `Palabra primordial 2 · Δίκη y Ἀδικία`,
+        title: `Ajustamiento del tránsito frente a la dislocación`,
+        body: `Interpretar dike como «justicia moral» y adikia como «injusticia jurídica» proyecta categorías tardías sobre el alba griega. En Anaximandro, adikia es el desajuste de lo que se aferra rígidamente a permanecer; dike es el acuerdo de lo que comparece y se retira cediendo lugar (tisis) al otro.`,
+        note: `Lección temporal: la presencia auténtica lleva inscrita la finitud y la consideración mutua entre los entes.`
+      },
+      eonta: {
+        kicker: `Palabra primordial 3 · Τὰ ἐόντα`,
+        title: `Lo presente en su doble dimensión de presencia y ocaso`,
+        body: `El griego antiguo escucha en el participio eonta tanto «lo que está presente» como «el estar presente mismo». Lo ente demora un breve trecho en la claridad entre su surgimiento desde lo oculto y su retorno a ello. Recordar este comienzo permite a Occidente (Abend-Land, tierra del ocaso) meditar el olvido del Ser.`,
+        note: `Cierre de Holzwege: el sexto camino enlaza directamente el alba presocrática con la urgencia técnica del siglo XX.`
+      }
+    };
+
+    const matrixData = [
+      {
+        id: `1`,
+        path: `01 · El origen de la obra de arte`,
+        figures: `Van Gogh, Templo griego, Hölderlin, C. F. Meyer`,
+        verdad: `Aletheia: desocultamiento que acontece en la obra como combate entre Mundo (claro) y Tierra (encubrimiento).`,
+        ente: `Distinción radical entre mera cosa, útil (fiabilidad) y obra de arte (reposo en la figura).`,
+        hombre: `El artista es sólo un puente hacia la obra; el pueblo histórico habita el Mundo abierto por la obra.`,
+        critica: `Supera la estética de la vivencia y el esquema materia-forma heredado del útil.`
+      },
+      {
+        id: `2`,
+        path: `02 · La época de la imagen del mundo`,
+        figures: `Descartes, Aristóteles, Hölderlin`,
+        verdad: `Certeza de la representación: sólo vale como verdadero lo que el sujeto asegura y calcula ante sí.`,
+        ente: `Objetividad (Gegenstand): naturaleza e historia reducidas a objetos disponibles de cálculo.`,
+        hombre: `Subiectum: medida y centro de todo ente; conquista el mundo como «imagen» (Weltbild).`,
+        critica: `La ciencia como investigación y la técnica mecanizada consumen la metafísica moderna; urge la meditación en el «Entre».`
+      },
+      {
+        id: `3`,
+        path: `03 · El concepto de experiencia de Hegel`,
+        figures: `Hegel (Fenomenología del Espíritu, 1807)`,
+        verdad: `Parusía de lo absoluto: manifestación plena donde el saber absoluto se presenta junto a sí mismo.`,
+        ente: `Lo que se manifiesta en y para la conciencia (subjetidad absoluta en movimiento dialéctico).`,
+        hombre: `Conciencia natural escindida que atraviesa el «camino de la desesperación» hasta el saber absoluto.`,
+        critica: `La dialéctica lleva a su cumbre onto-teiológica la metafísica moderna de la subjetidad sin pensar la verdad del Ser.`
+      },
+      {
+        id: `4`,
+        path: `04 · La frase de Nietzsche «Dios ha muerto»`,
+        figures: `Nietzsche (La gaya ciencia, Zarathustra), Platón`,
+        verdad: `Error necesario o función estimativa al servicio del acrecentamiento de la voluntad de poder.`,
+        ente: `Centros de dominio de la vida/devenir evaluados según su valor de conservación y poder.`,
+        hombre: `El transhombre (Übermensch) asume la voluntad de poder tras la caída de lo suprasensible.`,
+        critica: `Al convertir al Ser en «valor», Nietzsche consuma el nihilismo y da el golpe final contra el Ser mismo.`
+      },
+      {
+        id: `5`,
+        path: `05 · ¿Y para qué poetas?`,
+        figures: `Hölderlin, Rilke`,
+        verdad: `Custodia de la huella de lo sagrado y lo salvo en el recinto del lenguaje (casa del Ser).`,
+        ente: `En Rilke: el «riesgo» y lo Abierto (animal/flor) frente al objeto técnico desplazado al dinero.`,
+        hombre: `Mortales en la noche del mundo; los poetas arriesgan el lenguaje e interiorizan lo visible (Ángel).`,
+        critica: `Rilke intuye el peligro de la separación técnica aunque permanece ligado a la metafísica de la conciencia; Hölderlin es el precursor.`
+      },
+      {
+        id: `6`,
+        path: `06 · La sentencia de Anaximandro`,
+        figures: `Anaximandro de Mileto (fragmento del s. VI a. C.)`,
+        verdad: `Desocultamiento primordial de lo presente que comparece y se retira entre ocultamientos.`,
+        ente: `Ta eonta: lo que demora temporalmente en la presencia bajo la ley de Dike (ajustamiento) y el Uso.`,
+        hombre: `Oyente y corresponsal de la presencia originaria antes de devenir sujeto calculante.`,
+        critica: `Descender al alba presocrática libera al pensamiento de la traslación latino-metafísica y abre otro horizonte para Occidente.`
+      }
+    ];
+
+    const glossaryData = [
+      {
+        id: `aletheia`,
+        term: `Aletheia (Verdad como desocultamiento)`,
+        original: `Ἀλήθεια · Unverborgenheit`,
+        category: `arte`,
+        pathRef: `Sendas 01 y 06`,
+        def: `Experiencia griega originaria de la verdad: no es adecuación del juicio a un objeto (adaequatio), sino la apertura por la cual lo ente sale del ocultamiento y se muestra tal como es. En la obra de arte ocurre como lucha entre claridad (Mundo) y encubrimiento (Tierra).`
+      },
+      {
+        id: `welt-erde`,
+        term: `Mundo y Tierra`,
+        original: `Welt und Erde`,
+        category: `arte`,
+        pathRef: `Senda 01`,
+        def: `Dos rasgos inseparables del ser-obra. El Mundo es el ámbito abierto de las decisiones y relaciones históricas de un pueblo; la Tierra es aquello hacia lo cual la obra se retira y que hace emerger sin desgastarlo (la pesadez de la piedra, el brillo del color, el sonido). Su combate reposa en la figura.`
+      },
+      {
+        id: `verlasslichkeit`,
+        term: `Fiabilidad`,
+        original: `Verlässlichkeit`,
+        category: `arte`,
+        pathRef: `Senda 01`,
+        def: `Modo de ser esencial del utensilio (ej. las botas de campesino de Van Gogh) que sostiene su utilidad. Gracias a la fiabilidad, el útil reúne silenciosamente el mundo humano y la llamada de la tierra antes de degradarse por el desgaste en mera utilidad vulgar.`
+      },
+      {
+        id: `holzweg`,
+        term: `Camino de bosque`,
+        original: `Holzweg`,
+        category: `originario`,
+        pathRef: `Prólogo`,
+        def: `Sendero cubierto por la maleza dentro del bosque que termina bruscamente en lo no hollado. Nombra el modo de proceder del pensar heideggeriano: seis trayectos distintos dentro del mismo bosque (la pregunta por el Ser) que no buscan resultados técnicos utilitarios.`
+      },
+      {
+        id: `gestell`,
+        term: `Com-posición (Esencia de la técnica)`,
+        original: `Ge-stell`,
+        category: `metafisica`,
+        pathRef: `Sendas 01, 02 y 05`,
+        def: `En el epílogo de «El origen de la obra de arte», Heidegger vincula la «com-posición» (agrupación del traer delante de la figura) con la palabra clave para la esencia de la técnica moderna: el emplazamiento que provoca a toda la naturaleza y al hombre a quedar disponibles como objetos de cálculo.`
+      },
+      {
+        id: `weltbild`,
+        term: `Imagen del mundo`,
+        original: `Weltbild`,
+        category: `metafisica`,
+        pathRef: `Senda 02`,
+        def: `No significa una copia del mundo, sino el mundo concebido como imagen ante el sujeto moderno. Ocurre cuando el hombre se instaura como subiectum y reduce todo ente a objeto calculable de su representación científica y técnica.`
+      },
+      {
+        id: `subiectum`,
+        term: `Sujeto y Subjetidad`,
+        original: `Subiectum / Subjektität`,
+        category: `metafisica`,
+        pathRef: `Sendas 01, 02 y 03`,
+        def: `Traducción latina del griego hypokeimenon (lo que subyace en presencia). Con Descartes, el hombre deviene el subiectum por excelencia (res cogitans) frente a objetos; en Hegel, la subjetidad absoluta se consuma como experiencia dialéctica de la conciencia.`
+      },
+      {
+        id: `nihilismus`,
+        term: `Nihilismo`,
+        original: `Nihilismus`,
+        category: `metafisica`,
+        pathRef: `Senda 04`,
+        def: `Movimiento histórico fundamental de Occidente resumido en «Dios ha muerto»: la pérdida de fuerza efectiva del mundo suprasensible. Para Heidegger, pensar el Ser como «valor» —incluso en la transvaloración nietzscheana— consuma el nihilismo porque no deja ser al Ser en cuanto Ser.`
+      },
+      {
+        id: `das-offene`,
+        term: `Lo Abierto`,
+        original: `Das Offene`,
+        category: `poesia`,
+        pathRef: `Senda 05`,
+        def: `Término tomado de la Octava Elegía de Duino de Rilke para nombrar la amplitud no-objetiva en la que están situados el animal y la flor sin enfrentarse al mundo como objeto. El hombre moderno, por su conciencia objetivante, queda situado «ante» el mundo en separación técnica.`
+      },
+      {
+        id: `haus-des-seins`,
+        term: `Lenguaje como casa del Ser`,
+        original: `Haus des Seins · Templum`,
+        category: `poesia`,
+        pathRef: `Senda 05`,
+        def: `El lenguaje no es un simple instrumento de signos, sino el recinto sagrado (templum) a través del cual caminamos siempre hacia las cosas. Los poetas más arriesgados arriesgan el lenguaje mismo para salvaguardar lo intacto en la noche del mundo.`
+      },
+      {
+        id: `logos-physis`,
+        term: `Physis y Logos`,
+        original: `Φύσις · Λόγος`,
+        category: `originario`,
+        pathRef: `Sendas 01, 05 y 06`,
+        def: `Physis en el pensamiento griego temprano no significa «naturaleza física», sino el surgir y aparecer mismo de todo lo que brota y da acogida. Logos es la reunión y el decir que recoge lo presente en su desocultamiento, antes de quedar reducido a lógica formal.`
+      },
+      {
+        id: `ereignis-chreon`,
+        term: `Ereignis y Τό χρεών (El Uso)`,
+        original: `Ereignis · Τό χρεών · Δίκη`,
+        category: `originario`,
+        pathRef: `Sendas 01 y 06`,
+        def: `Ereignis (acontecimiento apropiador) es aquello primero desde donde se determina el sentido del Ser y tiene lugar el arte. En la sentencia de Anaximandro, τό χρεών (el Uso) entrega cada ente presente a su demora temporal bajo el ajustamiento de Dike, evitando el desajuste de perseverar rígidamente.`
+      }
+    ];
+
+    const quizQuestions = [
+      {
+        id: `q1`,
+        path: `Senda 01`,
+        question: `¿Por qué fracasan los tres conceptos tradicionales de cosa (portadora de propiedades, unidad de sensaciones y materia conformada) al explicar la obra de arte?`,
+        options: [
+          `Porque la obra de arte carece por completo de dimensión material o física.`,
+          `Porque atropellan el reposar en sí mismo de la cosa y proyectan sobre la obra categorías derivadas de la lógica o del ser-utensilio.`,
+          `Porque fueron inventados exclusivamente en la Edad Moderna por Descartes.`
+        ],
+        correct: 1,
+        explanation: `En «El origen de la obra de arte», Heidegger demuestra que las tres interpretaciones bloquean el acceso tanto a la mera cosa como a la obra; en particular, el par materia-forma proviene de la elaboración del utensilio y no de la esencia de la obra.`
+      },
+      {
+        id: `q2`,
+        path: `Senda 01`,
+        question: `Según el análisis del cuadro de Van Gogh, ¿qué sostiene en última instancia la utilidad de las botas de campesino y quién nos la revela?`,
+        options: [
+          `La fiabilidad (Verlässlichkeit), que sólo llega propiamente a la presencia a través de la obra de arte.`,
+          `La perfección artesanal del cosido, comprobable únicamente examinando unas botas reales en el campo.`,
+          `La subjetividad estética del espectador que proyecta recuerdos sobre la pintura.`
+        ],
+        correct: 0,
+        explanation: `La utilidad del útil palpita en su fiabilidad, que reúne mundo y tierra; y es precisamente la obra de arte (la tela de Van Gogh) —no una descripción empírica ni una proyección subjetiva— la que desoculta qué es de verdad el útil.`
+      },
+      {
+        id: `q3`,
+        path: `Senda 02`,
+        question: `En «La época de la imagen del mundo», ¿qué significa que el mundo moderno se convierta en «imagen» (Weltbild)?`,
+        options: [
+          `Que la pintura figurativa sustituye a la filosofía en las universidades modernas.`,
+          `Que cada época posee su propia cosmovisión visual igualmente válida desde la Antigüedad.`,
+          `Que lo ente en su totalidad queda puesto ante el hombre (subiectum) como objeto representable, calculable y asegurable.`
+        ],
+        correct: 2,
+        explanation: `«Imagen» no alude a una reproducción pictórica, sino a la configuración representadora por la que el hombre, convertido en subiectum desde Descartes, toma la medida de todo ente y transforma la verdad en certeza calculable.`
+      },
+      {
+        id: `q4`,
+        path: `Senda 02`,
+        question: `¿Qué relación establece Heidegger entre la ciencia matemática moderna y el experimento?`,
+        options: [
+          `La ciencia moderna se vuelve investigación gracias al experimento heredado de Aristóteles.`,
+          `El experimento sólo es posible allí donde el conocimiento ya se ha proyectado matemáticamente como investigación.`,
+          `La técnica mecanizada es una mera aplicación práctica posterior de la ciencia pura.`
+        ],
+        correct: 1,
+        explanation: `Heidegger invierte el tópico habitual: ni la doctrina medieval ni la episteme griega conocían el experimento moderno; éste sólo surge porque la física ya es matemática y proyecta un sector de objetos con rigor metódico.`
+      },
+      {
+        id: `q5`,
+        path: `Senda 03`,
+        question: `¿Qué designa la palabra «experiencia» en el título inicial de la Fenomenología del Espíritu según la lectura de Heidegger?`,
+        options: [
+          `El movimiento dialéctico como el ser mismo de la conciencia, donde el saber absoluto se manifiesta (parusía).`,
+          `Una colección de observaciones psicológicas previas a la entrada en el sistema filosófico.`,
+          `La superioridad del empirismo británico sobre el racionalismo alemán.`
+        ],
+        correct: 0,
+        explanation: `Hegel no usa «experiencia» como mera empiría ni como propedéutica externa: la experiencia es el movimiento dialéctico de la conciencia en que ésta sacrifica su «todavía-no-verdadero» hasta la parusía del saber absoluto.`
+      },
+      {
+        id: `q6`,
+        path: `Senda 04`,
+        question: `¿Por qué sostiene Heidegger que la metafísica de la voluntad de poder de Nietzsche consuma el nihilismo en lugar de superarlo?`,
+        options: [
+          `Porque Nietzsche defendía en secreto el retorno al dogma medieval platónico.`,
+          `Porque al rebajar el Ser a «valor» puesto para consolidar centros de dominio, impide pensar el Ser en cuanto Ser.`,
+          `Porque la frase «Dios ha muerto» expresa únicamente una incredulidad religiosa individual.`
+        ],
+        correct: 1,
+        explanation: `El golpe más duro contra Dios y contra el Ser no es la increencia, sino elevar el Ser a la calidad de valor supremo: el pensar valorativo somete todo ente al dominio de la voluntad y vuelve superflua la pregunta por el Ser.`
+      },
+      {
+        id: `q7`,
+        path: `Senda 05`,
+        question: `En «¿Y para qué poetas?», ¿en qué consiste la doble gravedad de los «tiempos de penuria» y cuál es la tarea poética?`,
+        options: [
+          `Los dioses han huido y la época ni siquiera percibe esa falta como falta; los poetas arriesgan el lenguaje (casa del Ser) custodiando lo sagrado.`,
+          `Falta progreso científico, por lo que los poetas deben traducir los resultados de la técnica al verso libre.`,
+          `La naturaleza ha desaparecido y los poetas deben refugiarse en la nostalgia del pasado sin relación con el lenguaje.`
+        ],
+        correct: 0,
+        explanation: `La noche del mundo es tan indigente que ya no siente la falta de dios como falta. Caminando siempre a través de las palabras —el lenguaje como casa del Ser—, los poetas más arriesgados salvaguardan la huella de lo salvo y lo sagrado.`
+      },
+      {
+        id: `q8`,
+        path: `Senda 06`,
+        question: `En la lectura heideggeriana de la sentencia de Anaximandro, ¿qué nombran «τό χρεών» (el Uso) y «Dike»?`,
+        options: [
+          `Leyes físicas deterministas sobre la conservación de la masa en el universo.`,
+          `La entrega que sostiene cada ente en su demora temporal (Uso) y el ajustamiento que cede lugar al otro frente al desajuste de aferrarse (Dike).`,
+          `Un código penal arcaico aplicado en las ciudades jónicas del siglo VI a. C.`
+        ],
+        correct: 1,
+        explanation: `Heidegger evita las lecturas morales o físico-jurídicas posteriores: el Uso (tó chreón) entrega lo presente a su tránsito temporal en el desocultamiento, y Dike es el acuerdo que supera la obstinación rígida (adikia).`
+      }
+    ];
+
+    /* =========================================================================
+       ESTADO PERSISTENTE Y REFERENCIAS DEL SHIM
+       ========================================================================= */
+
+    let appState = {
+      studiedPaths: [],
+      bookmarks: [],
+      quizAnswers: {},
+      bookmarkFilterOnly: false,
+      activeArtMode: `cosa`,
+      activeEpoch: `grecia`,
+      hegelStep: 0,
+      activeNietzsche: `suprasensible`,
+      activePoet: `holderlin`,
+      activeAnaximander: `chreon`
+    };
+
+    async function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        try {
+          await window.notebookAppApi.setAppState({
+            studiedPaths: appState.studiedPaths,
+            bookmarks: appState.bookmarks,
+            quizAnswers: appState.quizAnswers,
+            activeArtMode: appState.activeArtMode,
+            activeEpoch: appState.activeEpoch,
+            hegelStep: appState.hegelStep,
+            activeNietzsche: appState.activeNietzsche,
+            activePoet: appState.activePoet,
+            activeAnaximander: appState.activeAnaximander
+          });
+        } catch (err) {
+          /* Silencioso si el contenedor no permite escritura */
+        }
+      }
+    }
+
+    /* =========================================================================
+       FUNCIONES INTERACTIVAS DE LAS 6 SENDAS (hoisted declarations)
+       ========================================================================= */
+
+    function renderOutputBox(containerId, item) {
+      const box = document.getElementById(containerId);
+      if (!box || !item) return;
+      box.innerHTML = `
+        <span class="label label-moss">${item.kicker}</span>
+        <h4 style="font-family: var(--font-headline); font-size: 1.25rem; font-weight: 600; margin: var(--space-xs) 0 var(--space-sm);">${item.title}</h4>
+        <p class="prose">${item.body}</p>
+        <p style="margin: var(--space-sm) 0 0; font-size: 0.9375rem; color: var(--secondary); font-weight: 500;">${item.note}</p>
+      `;
+    }
+
+    function setGroupPressed(mapping, activeKey) {
+      Object.keys(mapping).forEach(function (k) {
+        const btn = document.getElementById(mapping[k]);
+        if (btn) {
+          btn.setAttribute(`aria-pressed`, k === activeKey ? `true` : `false`);
+        }
+      });
+    }
+
+    function selectArtMode(mode) {
+      if (!artModes[mode]) return;
+      appState.activeArtMode = mode;
+      setGroupPressed({ cosa: `s1-btn-cosa`, util: `s1-btn-util`, obra: `s1-btn-obra` }, mode);
+      renderOutputBox(`s1-output`, artModes[mode]);
+      persistState();
+    }
+
+    function selectEpoch(epoch) {
+      if (!epochModes[epoch]) return;
+      appState.activeEpoch = epoch;
+      setGroupPressed({ grecia: `s2-btn-grecia`, medievo: `s2-btn-medievo`, modernidad: `s2-btn-modernidad` }, epoch);
+      renderOutputBox(`s2-output`, epochModes[epoch]);
+      persistState();
+    }
+
+    function renderHegelStep() {
+      const idx = Math.max(0, Math.min(hegelSteps.length - 1, appState.hegelStep));
+      appState.hegelStep = idx;
+      const indicator = document.getElementById(`s3-step-indicator`);
+      if (indicator) indicator.textContent = `Fase ${idx + 1} de ${hegelSteps.length}`;
+      const prevBtn = document.getElementById(`s3-prev-btn`);
+      const nextBtn = document.getElementById(`s3-next-btn`);
+      if (prevBtn) prevBtn.disabled = idx === 0;
+      if (nextBtn) nextBtn.disabled = idx === hegelSteps.length - 1;
+      renderOutputBox(`s3-output`, hegelSteps[idx]);
+    }
+
+    function stepHegel(delta) {
+      const next = appState.hegelStep + delta;
+      if (next < 0 || next >= hegelSteps.length) return;
+      appState.hegelStep = next;
+      renderHegelStep();
+      persistState();
+    }
+
+    function selectNietzscheAspect(key) {
+      if (!nietzscheAspects[key]) return;
+      appState.activeNietzsche = key;
+      setGroupPressed({
+        suprasensible: `s4-btn-suprasensible`,
+        valor: `s4-btn-valor`,
+        consumacion: `s4-btn-consumacion`
+      }, key);
+      renderOutputBox(`s4-output`, nietzscheAspects[key]);
+      persistState();
+    }
+
+    function selectPoetConcept(key) {
+      if (!poetConcepts[key]) return;
+      appState.activePoet = key;
+      setGroupPressed({
+        holderlin: `s5-btn-holderlin`,
+        rilke: `s5-btn-rilke`,
+        lenguaje: `s5-btn-lenguaje`
+      }, key);
+      renderOutputBox(`s5-output`, poetConcepts[key]);
+      persistState();
+    }
+
+    function selectAnaximanderTerm(key) {
+      if (!anaximanderTerms[key]) return;
+      appState.activeAnaximander = key;
+      setGroupPressed({
+        chreon: `s6-btn-chreon`,
+        dike: `s6-btn-dike`,
+        eonta: `s6-btn-eonta`
+      }, key);
+      renderOutputBox(`s6-output`, anaximanderTerms[key]);
+      persistState();
+    }
+
+    /* =========================================================================
+       PROGRESO DE LECTURA DE SENDAS
+       ========================================================================= */
+
+    function togglePathStudied(pathNum) {
+      const idx = appState.studiedPaths.indexOf(pathNum);
+      if (idx === -1) {
+        appState.studiedPaths.push(pathNum);
+      } else {
+        appState.studiedPaths.splice(idx, 1);
+      }
+      updateProgressUI();
+      persistState();
+    }
+
+    function updateProgressUI() {
+      for (let i = 1; i <= 6; i++) {
+        const isStudied = appState.studiedPaths.indexOf(i) !== -1;
+        const btn = document.getElementById(`study-btn-${i}`);
+        if (btn) {
+          btn.setAttribute(`aria-pressed`, isStudied ? `true` : `false`);
+          btn.textContent = isStudied ? `Senda estudiada` : `Marcar senda estudiada`;
+        }
+        const card = document.getElementById(`overview-card-${i}`);
+        if (card) {
+          if (isStudied) card.classList.add(`studied`);
+          else card.classList.remove(`studied`);
+        }
+      }
+
+      const answeredCount = Object.keys(appState.quizAnswers).length;
+      const studiedCount = appState.studiedPaths.length;
+      const summary = document.getElementById(`progress-summary`);
+      if (summary) {
+        summary.textContent = `${studiedCount} de 6 sendas marcadas como estudiadas · ${answeredCount} de ${quizQuestions.length} preguntas respondidas`;
+      }
+      const totalItems = 6 + quizQuestions.length;
+      const pct = Math.round(((studiedCount + answeredCount) / totalItems) * 100);
+      const fill = document.getElementById(`progress-bar-fill`);
+      if (fill) fill.style.width = `${pct}%`;
+    }
+
+    /* =========================================================================
+       MATRIZ COMPARATIVA
+       ========================================================================= */
+
+    function updateMatrixView() {
+      const axisEl = document.getElementById(`matrix-axis-select`);
+      const highlightEl = document.getElementById(`matrix-highlight-select`);
+      const tbody = document.getElementById(`comparison-tbody`);
+      const table = document.getElementById(`comparison-table`);
+      if (!axisEl || !highlightEl || !tbody || !table) return;
+
+      const axis = axisEl.value;
+      const highlight = highlightEl.value;
+
+      const headerCols = table.querySelectorAll(`thead th[data-col]`);
+      headerCols.forEach(function (th) {
+        const colName = th.getAttribute(`data-col`);
+        th.style.display = (axis === `all` || axis === colName) ? `` : `none`;
+      });
+
+      let rowsHtml = ``;
+      matrixData.forEach(function (row) {
+        const cls = row.id === highlight ? `row-highlighted` : ``;
+        rowsHtml += `<tr class="${cls}">`;
+        rowsHtml += `<td><strong style="font-family: var(--font-headline); display: block;">${row.path}</strong><span style="font-size: 0.85rem; color: var(--secondary);">${row.figures}</span></td>`;
+        if (axis === `all` || axis === `verdad`) rowsHtml += `<td>${row.verdad}</td>`;
+        if (axis === `all` || axis === `ente`) rowsHtml += `<td>${row.ente}</td>`;
+        if (axis === `all` || axis === `hombre`) rowsHtml += `<td>${row.hombre}</td>`;
+        if (axis === `all` || axis === `critica`) rowsHtml += `<td>${row.critica}</td>`;
+        rowsHtml += `</tr>`;
+      });
+      tbody.innerHTML = rowsHtml;
+    }
+
+    /* =========================================================================
+       GLOSARIO INTERACTIVO
+       ========================================================================= */
+
+    function toggleBookmark(termId) {
+      const idx = appState.bookmarks.indexOf(termId);
+      if (idx === -1) appState.bookmarks.push(termId);
+      else appState.bookmarks.splice(idx, 1);
+      renderGlossary();
+      persistState();
+    }
+
+    function toggleBookmarkFilter() {
+      appState.bookmarkFilterOnly = !appState.bookmarkFilterOnly;
+      const btn = document.getElementById(`glossary-bookmark-filter`);
+      if (btn) btn.setAttribute(`aria-pressed`, appState.bookmarkFilterOnly ? `true` : `false`);
+      renderGlossary();
+    }
+
+    function renderGlossary() {
+      const searchEl = document.getElementById(`glossary-search`);
+      const catEl = document.getElementById(`glossary-category`);
+      const grid = document.getElementById(`glossary-grid`);
+      const status = document.getElementById(`glossary-status`);
+      const countEl = document.getElementById(`bookmark-count`);
+      if (!searchEl || !catEl || !grid || !status) return;
+
+      if (countEl) countEl.textContent = String(appState.bookmarks.length);
+
+      const query = searchEl.value.trim().toLowerCase();
+      const cat = catEl.value;
+
+      const filtered = glossaryData.filter(function (item) {
+        const matchesCat = cat === `todos` || item.category === cat;
+        const matchesBookmark = !appState.bookmarkFilterOnly || appState.bookmarks.indexOf(item.id) !== -1;
+        const haystack = `${item.term} ${item.original} ${item.def} ${item.pathRef}`.toLowerCase();
+        const matchesQuery = query === `` || haystack.indexOf(query) !== -1;
+        return matchesCat && matchesBookmark && matchesQuery;
+      });
+
+      status.textContent = `Mostrando ${filtered.length} de ${glossaryData.length} conceptos ontológicos.`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="washi-card" style="grid-column: 1 / -1;">
+            <span class="label">Sin coincidencias</span>
+            <p class="prose" style="margin-top: var(--space-xs);">Ningún concepto coincide con los filtros actuales. Prueba limpiar la búsqueda o desactivar el filtro de guardados.</p>
+            <button type="button" class="btn btn-secondary" style="margin-top: var(--space-sm);" onclick="clearGlossaryFilters()">Mostrar todos los conceptos</button>
+          </div>
+        `;
+        return;
+      }
+
+      let html = ``;
+      filtered.forEach(function (item) {
+        const isSaved = appState.bookmarks.indexOf(item.id) !== -1;
+        html += `
+          <article class="glossary-card">
+            <div class="glossary-card-header">
+              <div>
+                <h3 class="glossary-term">${item.term}</h3>
+                <div class="glossary-original">${item.original}</div>
+              </div>
+              <button type="button" class="bookmark-btn" aria-pressed="${isSaved ? `true` : `false`}" onclick="toggleBookmark('${item.id}')">
+                ${isSaved ? `Guardado` : `Guardar`}
+              </button>
+            </div>
+            <p style="margin: 0; font-size: 0.95rem;">${item.def}</p>
+            <div class="tag-row">
+              <span class="tag">${item.pathRef}</span>
+            </div>
+          </article>
+        `;
+      });
+      grid.innerHTML = html;
+    }
+
+    function clearGlossaryFilters() {
+      const searchEl = document.getElementById(`glossary-search`);
+      const catEl = document.getElementById(`glossary-category`);
+      const bmBtn = document.getElementById(`glossary-bookmark-filter`);
+      if (searchEl) searchEl.value = ``;
+      if (catEl) catEl.value = `todos`;
+      appState.bookmarkFilterOnly = false;
+      if (bmBtn) bmBtn.setAttribute(`aria-pressed`, `false`);
+      renderGlossary();
+    }
+
+    /* =========================================================================
+       CUESTIONARIO DE AUTOEVALUACIÓN
+       ========================================================================= */
+
+    function answerQuestion(qId, optionIdx) {
+      if (typeof appState.quizAnswers[qId] === `number`) return;
+      appState.quizAnswers[qId] = optionIdx;
+      renderQuiz();
+      updateProgressUI();
+      persistState();
+    }
+
+    function renderQuiz() {
+      const container = document.getElementById(`quiz-container`);
+      const scoreEl = document.getElementById(`quiz-score-display`);
+      const noteEl = document.getElementById(`quiz-progress-note`);
+      if (!container) return;
+
+      let correctCount = 0;
+      let answeredCount = 0;
+
+      let html = ``;
+      quizQuestions.forEach(function (q, qIndex) {
+        const chosen = appState.quizAnswers[q.id];
+        const isAnswered = typeof chosen === `number`;
+        if (isAnswered) {
+          answeredCount++;
+          if (chosen === q.correct) correctCount++;
+        }
+
+        html += `<article class="quiz-card">`;
+        html += `<div style="display: flex; justify-content: space-between; gap: var(--space-sm); flex-wrap: wrap;">`;
+        html += `<span class="label label-moss">Pregunta 0${qIndex + 1} · ${q.path}</span>`;
+        if (isAnswered) {
+          html += `<span class="label" style="color: ${chosen === q.correct ? `var(--positive)` : `var(--error)`};">${chosen === q.correct ? `Respuesta correcta` : `Revisión necesaria`}</span>`;
+        }
+        html += `</div>`;
+        html += `<h3 class="subhead" style="font-size: 1.15rem;">${q.question}</h3>`;
+        html += `<div class="quiz-options">`;
+
+        q.options.forEach(function (optText, oIdx) {
+          let cls = `quiz-option`;
+          if (isAnswered) {
+            if (oIdx === chosen && oIdx === q.correct) cls += ` selected-correct`;
+            else if (oIdx === chosen && oIdx !== q.correct) cls += ` selected-wrong`;
+            else if (oIdx === q.correct) cls += ` reveal-correct`;
+          }
+          const letter = [`A`, `B`, `C`][oIdx] || String(oIdx + 1);
+          html += `
+            <button type="button" class="${cls}" ${isAnswered ? `disabled` : ``} onclick="answerQuestion('${q.id}', ${oIdx})">
+              <span class="label" style="flex-shrink: 0; margin-top: 2px;">${letter}.</span>
+              <span>${optText}</span>
+            </button>
+          `;
+        });
+
+        html += `</div>`;
+
+        if (isAnswered) {
+          const isOk = chosen === q.correct;
+          html += `
+            <div class="feedback-box ${isOk ? `` : `feedback-error`}" aria-live="polite">
+              <strong style="font-family: var(--font-label); font-size: var(--label-size); text-transform: uppercase; letter-spacing: 0.08em;">
+                ${isOk ? `Correcto` : `Explicación según el texto`}
+              </strong>
+              <p style="margin: var(--space-xs) 0 0; font-size: 0.95rem;">${q.explanation}</p>
+            </div>
+          `;
+        }
+
+        html += `</article>`;
+      });
+
+      container.innerHTML = html;
+
+      if (scoreEl) scoreEl.textContent = `${correctCount} / ${quizQuestions.length}`;
+      if (noteEl) {
+        if (answeredCount === 0) noteEl.textContent = `Pendiente de iniciar`;
+        else if (answeredCount < quizQuestions.length) noteEl.textContent = `${answeredCount} de ${quizQuestions.length} respondidas`;
+        else noteEl.textContent = `Autoevaluación completada`;
+      }
+    }
+
+    /* =========================================================================
+       REINICIO Y EXPORTACIÓN DE NOTAS
+       ========================================================================= */
+
+    function resetAllProgress(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirmar reinicio`;
+        setTimeout(function () {
+          if (btn.dataset.armed === `true`) {
+            btn.dataset.armed = `false`;
+            btn.textContent = `Reiniciar progreso`;
+          }
+        }, 4000);
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reiniciar progreso`;
+      appState.studiedPaths = [];
+      appState.bookmarks = [];
+      appState.quizAnswers = {};
+      appState.bookmarkFilterOnly = false;
+      const bmBtn = document.getElementById(`glossary-bookmark-filter`);
+      if (bmBtn) bmBtn.setAttribute(`aria-pressed`, `false`);
+      renderGlossary();
+      renderQuiz();
+      updateProgressUI();
+      persistState();
+    }
+
+    function exportStudySummary() {
+      const studiedLabels = appState.studiedPaths.slice().sort().map(function (n) {
+        const m = matrixData[n - 1];
+        return m ? `- ${m.path}` : `- Senda ${n}`;
+      });
+      const bookmarkedTerms = glossaryData.filter(function (g) {
+        return appState.bookmarks.indexOf(g.id) !== -1;
+      }).map(function (g) {
+        return `- ${g.term} (${g.original}): ${g.def}`;
+      });
+
+      let correctCount = 0;
+      const totalAns = Object.keys(appState.quizAnswers).length;
+      quizQuestions.forEach(function (q) {
+        if (appState.quizAnswers[q.id] === q.correct) correctCount++;
+      });
+
+      const content = [
+        `CUADERNO DE ESTUDIO — CAMINOS DE BOSQUE (HOLZWEGE), MARTIN HEIDEGGER`,
+        `====================================================================`,
+        ``,
+        `1. SENDAS ESTUDIADAS (${studiedLabels.length} / 6):`,
+        studiedLabels.length ? studiedLabels.join(`\n`) : `(Ninguna marcada todavía)`,
+        ``,
+        `2. AUTOEVALUACIÓN: ${correctCount} correctas de ${totalAns} respondidas (total: ${quizQuestions.length}).`,
+        ``,
+        `3. CONCEPTOS GUARDADOS EN EL GLOSARIO (${bookmarkedTerms.length}):`,
+        bookmarkedTerms.length ? bookmarkedTerms.join(`\n`) : `(Ningún concepto guardado todavía)`
+      ].join(`\n`);
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `notas-holzwege-heidegger.txt`
+        });
+      }
+    }
+
+    /* =========================================================================
+       INICIALIZACIÓN
+       ========================================================================= */
+
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            if (Array.isArray(saved.studiedPaths)) appState.studiedPaths = saved.studiedPaths;
+            if (Array.isArray(saved.bookmarks)) appState.bookmarks = saved.bookmarks;
+            if (saved.quizAnswers && typeof saved.quizAnswers === `object`) appState.quizAnswers = saved.quizAnswers;
+            if (typeof saved.activeArtMode === `string` && artModes[saved.activeArtMode]) appState.activeArtMode = saved.activeArtMode;
+            if (typeof saved.activeEpoch === `string` && epochModes[saved.activeEpoch]) appState.activeEpoch = saved.activeEpoch;
+            if (typeof saved.hegelStep === `number`) appState.hegelStep = saved.hegelStep;
+            if (typeof saved.activeNietzsche === `string` && nietzscheAspects[saved.activeNietzsche]) appState.activeNietzsche = saved.activeNietzsche;
+            if (typeof saved.activePoet === `string` && poetConcepts[saved.activePoet]) appState.activePoet = saved.activePoet;
+            if (typeof saved.activeAnaximander === `string` && anaximanderTerms[saved.activeAnaximander]) appState.activeAnaximander = saved.activeAnaximander;
+          }
+        } catch (err) {
+          /* Continuar con estado inicial por defecto */
+        }
+      }
+
+      selectArtMode(appState.activeArtMode);
+      selectEpoch(appState.activeEpoch);
+      renderHegelStep();
+      selectNietzscheAspect(appState.activeNietzsche);
+      selectPoetConcept(appState.activePoet);
+      selectAnaximanderTerm(appState.activeAnaximander);
+
+      updateMatrixView();
+      renderGlossary();
+      renderQuiz();
+      updateProgressUI();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    if (document.readyState === `loading`) {
+      document.addEventListener(`DOMContentLoaded`, initApp);
+    } else {
+      initApp();
+    }
+  </script>
+</body>
+</html>

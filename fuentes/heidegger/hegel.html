@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="atelier">
+  <title>Hegel ante el abismo del ser — Lectura de Martin Heidegger</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #fafaf8;
+      --surface-container-low: #ece8e1;
+      --surface-container: #e5e0d8;
+      --surface-container-high: #ddd7cd;
+
+      /* Ink */
+      --on-surface: #111111;
+      --on-surface-variant: #5b5752;
+
+      /* Rules */
+      --outline: #111111;
+      --outline-variant: #d8d3cb;
+
+      /* Accents */
+      --primary: #111111;
+      --on-primary: #fafaf8;
+      --primary-container: #ece8e1;
+      --on-primary-container: #111111;
+      --secondary: #7a5c48;
+      --tertiary: #a89c8c;
+      --error: #9a2b22;
+      --on-error: #fafaf8;
+
+      /* Data series */
+      --data-1: #111111;
+      --data-2: #7a5c48;
+      --data-3: #948a7d;
+      --data-4: #55657a;
+      --data-context: #cfc9bf;
+
+      /* Fonts */
+      --font-headline: 'Bodoni Moda', serif;
+      --font-body: 'Jost', sans-serif;
+      --font-label: 'Jost', sans-serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-ink: 1px solid var(--outline);
+      --rule-stone: 1px solid var(--outline-variant);
+      --label-tracking: 0.22em;
+
+      /* Semantic */
+      --positive: #2b593f;
+      --positive-container: #e6efe9;
+      --warning: #7a5c48;
+      --error-container: #f5e6e4;
+
+      /* Focus ring */
+      --focus: #111111;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.75rem, 1.5rem + 4.5vw, 4.75rem);
+      --headline-size: clamp(1.875rem, 1.25rem + 2.2vw, 2.75rem);
+      --subhead-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      font-weight: 400;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-lg);
+      padding: var(--space-lg);
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    .display {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.01em;
+      font-optical-sizing: auto;
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .display em, .section-title em {
+      font-style: italic;
+    }
+
+    .section-title {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      font-size: var(--headline-size);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      font-optical-sizing: auto;
+      margin: 0 0 var(--space-md) 0;
+      color: var(--on-surface);
+    }
+
+    .subhead {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      font-size: var(--subhead-size);
+      line-height: 1.25;
+      margin: 0 0 var(--space-sm) 0;
+      color: var(--on-surface);
+    }
+
+    .lede {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: clamp(1.2rem, 1.08rem + 0.5vw, 1.45rem);
+      line-height: 1.6;
+      color: var(--on-surface);
+      max-width: 62ch;
+      margin: var(--space-lg) 0 0 0;
+    }
+
+    .label {
+      font-family: var(--font-label);
+      font-weight: 400;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface-variant);
+    }
+
+    .kicker {
+      color: var(--secondary);
+      margin-top: var(--space-md);
+      display: block;
+    }
+
+    p {
+      max-width: 65ch;
+      margin: 0 0 var(--space-md) 0;
+    }
+
+    strong {
+      font-weight: 500;
+    }
+
+    blockquote.epigraph {
+      margin: var(--space-lg) 0;
+      padding: var(--space-sm) 0 var(--space-sm) var(--space-lg);
+      border-left: 2px solid var(--outline);
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: var(--subhead-size);
+      line-height: 1.45;
+      color: var(--on-surface);
+      max-width: 54ch;
+    }
+    blockquote.epigraph footer {
+      margin-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--secondary);
+    }
+
+    /* Gallery margins & Layout containers */
+    .shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding-inline: var(--space-xl);
+    }
+
+    .title-block {
+      padding: var(--space-2xl) 0 var(--space-xl);
+      border-bottom: var(--rule-ink);
+    }
+
+    /* Navigation strip */
+    .thematic-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: var(--space-md) 0;
+      border-bottom: var(--rule-stone);
+      margin-bottom: var(--space-xl);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-lg);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-link {
+      background: transparent;
+      border: none;
+      padding: var(--space-sm) 0;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface-variant);
+      cursor: pointer;
+      border-bottom: 1px solid transparent;
+      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .nav-link:hover {
+      color: var(--on-surface);
+      border-bottom-color: var(--secondary);
+    }
+    .nav-link.active {
+      color: var(--on-surface);
+      border-bottom-color: var(--outline);
+    }
+
+    .study-status {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--secondary);
+      white-space: nowrap;
+    }
+
+    /* Key figures strip */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-lg);
+      margin: var(--space-xl) 0 var(--space-2xl);
+    }
+
+    .ruled-top {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-sm);
+      background: transparent;
+    }
+    .ruled-top .value {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem);
+      line-height: 1.15;
+      margin: var(--space-xs) 0;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+    }
+    .ruled-top .note {
+      font-size: 0.9375rem;
+      line-height: 1.45;
+      color: var(--secondary);
+      margin: 0;
+    }
+
+    /* Sections */
+    .study-section {
+      padding: var(--space-2xl) 0;
+      border-top: var(--rule-ink);
+    }
+    .study-section--first {
+      border-top: none;
+      padding-top: var(--space-lg);
+    }
+
+    .section-header-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      gap: var(--space-xl);
+      margin-bottom: var(--space-xl);
+      align-items: start;
+    }
+
+    .asymmetric-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.25fr);
+      gap: var(--space-xl);
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+
+    .two-col-prose {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-xl);
+      margin-top: var(--space-lg);
+    }
+
+    .divider {
+      border-top: var(--rule-stone);
+      margin: var(--space-xl) 0;
+    }
+
+    /* Stone plate (only for interactive apparatus / inset panels) */
+    .plate {
+      background-color: var(--surface-container-low);
+      padding: var(--space-lg);
+      border-top: var(--rule-ink);
+      container-type: inline-size;
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+    }
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--on-surface);
+      border: 1px solid var(--outline);
+    }
+    .btn-secondary:hover,
+    .btn-secondary[aria-pressed="true"],
+    .btn-secondary.is-active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    /* Concept comparison matrix */
+    .concept-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-md);
+    }
+    @container (max-width: 560px) {
+      .concept-detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .lens-box {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+    }
+    .lens-box--heidegger {
+      border-top-color: var(--secondary);
+    }
+
+    /* Tables */
+    .atelier-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-lg) 0;
+    }
+    .atelier-table th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface);
+      text-align: left;
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+    }
+    .atelier-table td {
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      border-bottom: var(--rule-stone);
+      vertical-align: top;
+      font-size: 0.96rem;
+    }
+
+    /* Exhibition-label figcaption */
+    figcaption {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-sm);
+      margin-top: var(--space-md);
+      color: var(--on-surface-variant);
+      font-size: 0.9375rem;
+    }
+    figcaption .label {
+      display: block;
+      color: var(--on-surface);
+      margin-bottom: var(--space-xs);
+    }
+
+    figure {
+      margin: 0;
+    }
+
+    /* SVG Canvas styling */
+    .diagram-frame {
+      background-color: var(--background);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-stone);
+      padding: var(--space-md) 0;
+    }
+    .diagram-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .svg-label {
+      font-family: var(--font-label);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      fill: var(--on-surface-variant);
+    }
+    .svg-title {
+      font-family: var(--font-headline);
+      font-size: 17px;
+      fill: var(--on-surface);
+    }
+    .svg-note {
+      font-family: var(--font-body);
+      font-size: 12.5px;
+      fill: var(--secondary);
+    }
+    .svg-node {
+      cursor: pointer;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    /* Stepper list */
+    .step-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: var(--rule-ink);
+    }
+    .step-item {
+      border-bottom: var(--rule-stone);
+    }
+    .step-trigger {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      padding: var(--space-md) var(--space-sm);
+      min-height: 44px;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 3.5rem minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: baseline;
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      transition: background-color var(--dur-short) var(--ease-out);
+    }
+    .step-trigger:hover {
+      background-color: var(--surface-container-low);
+    }
+    .step-trigger[aria-expanded="true"] {
+      background-color: var(--surface-container);
+    }
+    .step-num {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      color: var(--secondary);
+    }
+    .step-heading {
+      font-family: var(--font-headline);
+      font-size: 1.25rem;
+      font-weight: 400;
+    }
+    .step-body {
+      padding: 0 var(--space-md) var(--space-lg) calc(3.5rem + var(--space-md) + var(--space-sm));
+      background-color: var(--surface-container-low);
+      font-size: 0.98rem;
+    }
+
+    /* Glossary controls */
+    .glossary-controls {
+      display: grid;
+      grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: end;
+      margin-bottom: var(--space-xl);
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .atelier-input {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--on-surface);
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--outline);
+      padding: var(--space-sm) 0;
+      min-height: 44px;
+      width: 100%;
+      border-radius: 0;
+    }
+    .atelier-input:focus {
+      outline: none;
+      border-bottom-width: 2px;
+    }
+
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-xl) var(--space-lg);
+    }
+    .glossary-entry {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+    }
+    .glossary-term {
+      font-family: var(--font-headline);
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin: var(--space-xs) 0 var(--space-xs) 0;
+      color: var(--on-surface);
+    }
+    .glossary-german {
+      font-style: italic;
+      color: var(--secondary);
+      font-size: 1rem;
+      margin-bottom: var(--space-sm);
+      display: block;
+    }
+    .glossary-tag {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--secondary);
+    }
+
+    .empty-state {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-stone);
+      padding: var(--space-xl) 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    /* Quiz styles */
+    .quiz-summary-bar {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .quiz-card {
+      border-top: var(--rule-ink);
+      padding: var(--space-lg) 0 var(--space-xl);
+    }
+    .quiz-question {
+      font-family: var(--font-headline);
+      font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+      font-weight: 400;
+      line-height: 1.3;
+      margin: var(--space-xs) 0 var(--space-md) 0;
+      max-width: 58ch;
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+      max-width: 68ch;
+    }
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 1px solid var(--outline-variant);
+      padding: var(--space-md);
+      min-height: 44px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--on-surface);
+      display: grid;
+      grid-template-columns: 2rem minmax(0, 1fr);
+      gap: var(--space-sm);
+      align-items: start;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      background-color: var(--surface-container-low);
+      border-color: var(--outline);
+    }
+    .quiz-option.is-correct {
+      background-color: var(--positive-container);
+      border-color: var(--positive);
+    }
+    .quiz-option.is-wrong {
+      background-color: var(--error-container);
+      border-color: var(--error);
+    }
+    .quiz-option-letter {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--secondary);
+      padding-top: 0.15rem;
+    }
+    .quiz-feedback {
+      margin-top: var(--space-md);
+      padding: var(--space-md) var(--space-lg);
+      background-color: var(--surface-container-low);
+      border-left: 2px solid var(--outline);
+      max-width: 66ch;
+      font-size: 0.96rem;
+    }
+    .quiz-feedback--correct {
+      border-left-color: var(--positive);
+    }
+    .quiz-feedback--wrong {
+      border-left-color: var(--error);
+    }
+
+    /* Footer */
+    .study-footer {
+      border-top: var(--rule-ink);
+      padding: var(--space-xl) 0 var(--space-2xl);
+      margin-top: var(--space-xl);
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+    }
+
+    /* Subtle reveal animation */
+    .reveal {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal.is-pending {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 900px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .section-header-grid,
+      .asymmetric-split,
+      .two-col-prose,
+      .glossary-controls,
+      .study-footer {
+        grid-template-columns: 1fr;
+      }
+      .quiz-summary-bar {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        padding-inline: var(--space-md);
+      }
+      .title-block {
+        padding: var(--space-xl) 0 var(--space-lg);
+      }
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+      .page-grid {
+        grid-template-columns: 1fr;
+      }
+      .step-trigger {
+        grid-template-columns: 2.5rem minmax(0, 1fr);
+      }
+      .step-body {
+        padding-left: var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="title-block" id="apertura">
+      <span class="label kicker">Martin Heidegger · Tomo LXVIII (1938–1942) · Guía analítica de estudio</span>
+      <h1 class="display">Hegel ante el <em>abismo</em> del ser</h1>
+      <p class="lede">
+        Entre 1938 y 1942, Heidegger emprende una confrontación decisiva con la metafísica de Hegel. No busca refutarlo desde un punto de vista externo ni superarlo en autoconciencia, sino descender hasta el fundamento oculto e impensado del sistema: la negatividad, la diferencia entre el ser y el ente, la nada abismal y la experiencia ontológica de la conciencia.
+      </p>
+
+      <div class="metrics-grid" aria-label="Coordenadas fundamentales de la obra">
+        <div class="ruled-top">
+          <span class="label">Composición</span>
+          <div class="value">1938–1942</div>
+          <p class="note">Notas de 1938/39–1941 y dilucidación de 1942 en plena meditación sobre la historia del ser.</p>
+        </div>
+        <div class="ruled-top">
+          <span class="label">Estructura</span>
+          <div class="value">2 tratados</div>
+          <p class="note">«La Negatividad» y la «Dilucidación de la Introducción a la Fenomenología del espíritu».</p>
+        </div>
+        <div class="ruled-top">
+          <span class="label">Eje crítico</span>
+          <div class="value">Seyn ≠ Ente</div>
+          <p class="note">El olvido de la diferencia ontológica como presupuesto tácito del saber absoluto.</p>
+        </div>
+        <div class="ruled-top">
+          <span class="label">Desplazamiento</span>
+          <div class="value">Ab-grund</div>
+          <p class="note">La nada pensada no como vacío nulo, sino como el claro abismal del ser mismo.</p>
+        </div>
+      </div>
+    </header>
+
+    <nav class="thematic-nav" aria-label="Navegación temática del estudio">
+      <ul class="nav-links">
+        <li><button type="button" class="nav-link active" data-target="subjetividad" onclick="scrollToSection('subjetividad')">I. Subjetividad</button></li>
+        <li><button type="button" class="nav-link" data-target="negatividad" onclick="scrollToSection('negatividad')">II. Negatividad</button></li>
+        <li><button type="button" class="nav-link" data-target="abismo" onclick="scrollToSection('abismo')">III. Diferencia y Abismo</button></li>
+        <li><button type="button" class="nav-link" data-target="experiencia" onclick="scrollToSection('experiencia')">IV. Experiencia</button></li>
+        <li><button type="button" class="nav-link" data-target="glosario" onclick="scrollToSection('glosario')">V. Glosario</button></li>
+        <li><button type="button" class="nav-link" data-target="autoevaluacion" onclick="scrollToSection('autoevaluacion')">VI. Autoevaluación</button></li>
+      </ul>
+      <div class="study-status" id="study-status">Autoevaluación: 0 / 8 respondidas</div>
+    </nav>
+
+    <main>
+      <!-- SECCIÓN I -->
+      <section class="study-section study-section--first reveal" id="subjetividad" aria-labelledby="title-subjetividad">
+        <div class="section-header-grid">
+          <div>
+            <span class="label kicker">Tratado I · La Negatividad (§§ 1–3, 16–19)</span>
+            <h2 class="section-title" id="title-subjetividad">La metafísica de la <em>subjetividad</em> absoluta</h2>
+          </div>
+          <div>
+            <p>
+              Para Heidegger, la filosofía de Hegel ocupa un lugar singular en la historia del pensamiento occidental: por encima de la autoconciencia del espíritu ya no es posible un punto de vista «más elevado». Por eso, confrontarse con Hegel no significa aplicar una crítica externa ni medir inexactitudes desde el kantismo, el cartesianismo o la escolástica. La confrontación debe hallar su lugar dentro de la propia filosofía hegeliana, pero en aquello que permanece como su <strong>fundamento oculto, inaccesible e indiferente para ella misma</strong>.
+            </p>
+            <p>
+              Lejos de ser una reliquia historiográfica, la metafísica hegeliana sigue actuante precisamente allí donde suscita su contrario: sin el idealismo absoluto no serían pensables ni el positivismo ni el marxismo ni la época de Nietzsche. Su realidad histórica radica en haber llevado a culminación la esencia moderna de la metafísica como <strong>representatividad incondicionada</strong>.
+            </p>
+          </div>
+        </div>
+
+        <div class="two-col-prose">
+          <div>
+            <h3 class="subhead">Punto de vista y principio del sistema</h3>
+            <p>
+              Heidegger distingue dos coordenadas estructurales en Hegel. El <strong>punto de vista</strong> —aquello desde donde lo por pensar se vuelve accesible— es el <em>idealismo absoluto</em>: la incondicionalidad de la conciencia (*ego cogito certum*), donde ser equivale a re-presentar y re-presentatividad. El <strong>principio</strong> —aquello con lo que la filosofía comienza y que permanece como fundamento— reza: <em>«La sustancia es sujeto»</em>, o bien, <em>«el ser es devenir»</em>.
+            </p>
+            <p>
+              Bajo este horizonte, la célebre proposición del Prefacio a la <em>Filosofía del derecho</em> (<em>«Lo que es racional, es real; y lo que es real, es racional»</em>) no es una constatación empírica ni un elogio conformista de lo dado, sino el principio esencial de la entidad del ente: <strong>realidad significa perceptibilidad y representatividad de la razón absoluta</strong>.
+            </p>
+          </div>
+          <div>
+            <h3 class="subhead">El giro terminológico decisivo</h3>
+            <p>
+              Toda lectura rigurosa tropieza si confunde el léxico hegeliano con la pregunta heideggeriana por el ser. Lo que Heidegger denomina <strong>«ser» (<em>Seyn</em>)</strong> en sentido esencial e histórico, Hegel lo llama <strong>«realidad» (<em>Wirklichkeit</em>)</strong> —la idea absoluta o el saber absoluto—. Inversamente, lo que Hegel llama <strong>«ser» (<em>Sein</em>)</strong> al inicio de la <em>Lógica</em> —lo enteramente indeterminado e inmediato— es denominado por Heidegger <strong>«objetividad» (<em>Gegenständlichkeit</em>)</strong>: un concepto reductivo surgido al sustraer toda mediación a la realidad absoluta.
+            </p>
+          </div>
+        </div>
+
+        <div class="plate" style="margin-top: var(--space-xl);" aria-label="Comparador conceptual entre Hegel y Heidegger">
+          <span class="label">Aparato comparativo · Fijación del lenguaje conceptual</span>
+          <h3 class="subhead" style="margin-top: var(--space-xs);">Dos léxicos para una misma frontera metafísica</h3>
+          <p style="margin-bottom: var(--space-md); color: var(--on-surface-variant);">
+            Seleccione una categoría fundamental para contrastar su función dentro del sistema absoluto hegeliano con su desvelamiento en el pensar según la historia del ser.
+          </p>
+          <div class="button-row" role="group" aria-label="Selector de términos comparativos">
+            <button type="button" class="btn btn-secondary is-active" data-term="ser" onclick="selectLexiconTerm('ser')">«Ser» (Sein / Seyn)</button>
+            <button type="button" class="btn btn-secondary" data-term="realidad" onclick="selectLexiconTerm('realidad')">«Realidad» (Wirklichkeit)</button>
+            <button type="button" class="btn btn-secondary" data-term="nada" onclick="selectLexiconTerm('nada')">«Nada» (Nichts)</button>
+            <button type="button" class="btn btn-secondary" data-term="comienzo" onclick="selectLexiconTerm('comienzo')">«Comienzo y Devenir»</button>
+          </div>
+          <div id="lexicon-comparator-output" class="concept-detail-grid" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN II -->
+      <section class="study-section reveal" id="negatividad" aria-labelledby="title-negatividad">
+        <div class="section-header-grid">
+          <div>
+            <span class="label kicker">Tratado I · La Negatividad (§§ 4–14, II §§ 1–2)</span>
+            <h2 class="section-title" id="title-negatividad">La <em>negatividad</em> y la negación de la negación</h2>
+          </div>
+          <div>
+            <p>
+              ¿Cuál es la determinación fundamental del sistema hegeliano cuyo examen reconduce a un punto de vista más originario, sin vaciar la riqueza articulada de sus ámbitos? Heidegger responde: <strong>la negatividad</strong>. Sin embargo, advierte de inmediato contra un equívoco: la negatividad hegeliana <em>no</em> puede explicarse a partir de la «nada» pura del comienzo de la <em>Lógica</em>.
+            </p>
+            <p>
+              En ese inicio abstracto, el ser y la nada son lo mismo; aún no existe diferencia entre ellos y, por tanto, tampoco hay todavía negatividad. La verdadera negatividad —la <strong>negatividad absoluta o concreta</strong>— brota como la diferencia interna de la conciencia: el movimiento por el cual lo «uno» se vuelve «lo otro de lo otro», refiriéndose a sí mismo en la alteridad.
+            </p>
+          </div>
+        </div>
+
+        <blockquote class="epigraph">
+          «La negatividad como desgarramiento y separación es la “muerte” —el señor absoluto—, y “vida del espíritu absoluto” no significa otra cosa que soportar y solventar la muerte. Pero esta “muerte” no se puede tomar nunca en serio; ninguna καταστροφή posible… todo amortiguado y allanado.»
+          <footer>Martin Heidegger · La Negatividad, I, § 10</footer>
+        </blockquote>
+
+        <div class="asymmetric-split">
+          <div>
+            <span class="label">Recorrido interactivo · Cuatro momentos de la negatividad</span>
+            <p style="margin-top: var(--space-sm); color: var(--on-surface-variant);">
+              Explore cómo la dialéctica asciende desde la inmediatez vacía hasta la negación absoluta, y dónde descubre Heidegger la presuposición que Hegel no interroga.
+            </p>
+            <ul class="step-list" id="negativity-steps">
+              <li class="step-item">
+                <button type="button" class="step-trigger" aria-expanded="true" data-step="0" onclick="selectNegativityStep(0)">
+                  <span class="step-num">01</span>
+                  <span class="step-heading">Indeterminación inicial: Ser y Nada sin diferencia</span>
+                </button>
+                <div class="step-body" id="neg-body-0">
+                  El «ser» del comienzo de la <em>Lógica</em> es la pura indeterminación e inmediatez: la plena suspensión del pensar determinante. Por eso coincide sin resto con la «nada». Al no haber aún diferencia entre ambos, la negatividad no aparece todavía allí como tal; ese «ser» es ya producto de una reducción (<em>Ab-bau</em>) respecto a la realidad absoluta.
+                </div>
+              </li>
+              <li class="step-item">
+                <button type="button" class="step-trigger" aria-expanded="false" data-step="1" onclick="selectNegativityStep(1)">
+                  <span class="step-num">02</span>
+                  <span class="step-heading">Negatividad abstracta: Sujeto y Objeto</span>
+                </button>
+                <div class="step-body" id="neg-body-1" hidden>
+                  La primera negación distingue unilateralmente algo y lo otro, sujeto y objeto. Queda condicionada por aquello que opone: el «yo» y el «objeto» permanecen separados exteriormente, sin haber alcanzado su copertenencia interna.
+                </div>
+              </li>
+              <li class="step-item">
+                <button type="button" class="step-trigger" aria-expanded="false" data-step="2" onclick="selectNegativityStep(2)">
+                  <span class="step-num">03</span>
+                  <span class="step-heading">Negatividad absoluta: Energía del pensar y Aufhebung</span>
+                </button>
+                <div class="step-body" id="neg-body-2" hidden>
+                  La negación de la negación transforma lo uno en lo otro de lo otro: el dividir (<em>Scheiden</em>) ya no separa sin retorno, sino que se conserva en el desgarro. Así, la negatividad se resuelve íntegramente en la positividad del absoluto como «sí» de la autoconciencia incondicionada.
+                </div>
+              </li>
+              <li class="step-item">
+                <button type="button" class="step-trigger" aria-expanded="false" data-step="3" onclick="selectNegativityStep(3)">
+                  <span class="step-num">04</span>
+                  <span class="step-heading">El punto ciego: Lo incuestionable del «No» y del pensar</span>
+                </button>
+                <div class="step-body" id="neg-body-3" hidden>
+                  Para Heidegger, Hegel da por descontado el origen del «no» (<em>Nicht</em> / <em>Nein</em>) porque presupone la evidencia del pensar (<em>animal rationale</em>) como hilo conductor del ser. Al quedar absorbido en el «sí» absoluto, ni la relación del hombre con el ser ni la diferencia ontológica llegan a ser interrogadas.
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <figure class="diagram-frame">
+            <svg class="diagram-svg" viewBox="0 0 560 390" role="img" aria-labelledby="svg-neg-title">
+              <title id="svg-neg-title">Esquema de los niveles de la negatividad en Hegel y su límite ontológico</title>
+              <!-- Gridlines -->
+              <line x1="30" y1="60" x2="530" y2="60" stroke="var(--outline-variant)" stroke-width="1" />
+              <line x1="30" y1="145" x2="530" y2="145" stroke="var(--outline-variant)" stroke-width="1" />
+              <line x1="30" y1="230" x2="530" y2="230" stroke="var(--outline-variant)" stroke-width="1" />
+              <line x1="30" y1="315" x2="530" y2="315" stroke="var(--outline-variant)" stroke-width="1" />
+
+              <!-- Axis labels -->
+              <text x="30" y="48" class="svg-label">Plano I · Inmediatez lógica</text>
+              <text x="30" y="133" class="svg-label">Plano II · Escisión sujeto-objeto</text>
+              <text x="30" y="218" class="svg-label">Plano III · Negatividad absoluta (Aufhebung)</text>
+              <text x="30" y="303" class="svg-label">Plano IV · Presupuesto oculto (Heidegger)</text>
+
+              <!-- Node 0 -->
+              <g id="svg-neg-node-0" class="svg-node" onclick="selectNegativityStep(0)">
+                <rect x="30" y="70" width="500" height="44" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+                <text x="48" y="96" class="svg-title">Ser puro = Nada pura (ausencia de diferencia)</text>
+                <text x="430" y="96" class="svg-note">Re-ducción (Ab-bau)</text>
+              </g>
+
+              <!-- Node 1 -->
+              <g id="svg-neg-node-1" class="svg-node" onclick="selectNegativityStep(1)" opacity="0.55">
+                <rect x="30" y="155" width="230" height="44" fill="var(--background)" stroke="var(--outline)" stroke-width="1" />
+                <text x="48" y="181" class="svg-title">Algo / Sujeto</text>
+                <rect x="300" y="155" width="230" height="44" fill="var(--background)" stroke="var(--outline)" stroke-width="1" />
+                <text x="318" y="181" class="svg-title">Otro / Objeto</text>
+                <line x1="260" y1="177" x2="300" y2="177" stroke="var(--secondary)" stroke-width="1.5" stroke-dasharray="3 3" />
+              </g>
+
+              <!-- Node 2 -->
+              <g id="svg-neg-node-2" class="svg-node" onclick="selectNegativityStep(2)" opacity="0.55">
+                <rect x="30" y="240" width="500" height="44" fill="var(--background)" stroke="var(--outline)" stroke-width="1" />
+                <text x="48" y="266" class="svg-title">Negación de la negación → Positividad del Espíritu</text>
+                <text x="425" y="266" class="svg-note">Certeza de sí</text>
+              </g>
+
+              <!-- Node 3 -->
+              <g id="svg-neg-node-3" class="svg-node" onclick="selectNegativityStep(3)" opacity="0.55">
+                <rect x="30" y="325" width="500" height="48" fill="var(--background)" stroke="var(--secondary)" stroke-width="1.5" stroke-dasharray="5 3" />
+                <text x="48" y="348" class="svg-title">Ab-sage (Ne-gativa de la diferencia Ser / Ente)</text>
+                <text x="48" y="365" class="svg-note">Lo indeciso: ¿de dónde brota el «No» y el pensar como hilo conductor?</text>
+              </g>
+            </svg>
+            <figcaption>
+              <span class="label">Figura 1 · Arquitectura de la negatividad</span>
+              Haga clic en cualquiera de los cuatro planos o en la lista adjunta para examinar la transición desde la inmediatez abstracta hasta el presupuesto metafísico señalado por Heidegger.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- SECCIÓN III -->
+      <section class="study-section reveal" id="abismo" aria-labelledby="title-abismo">
+        <div class="section-header-grid">
+          <div>
+            <span class="label kicker">Tratado I · Diferencia y Abismo (III–IV)</span>
+            <h2 class="section-title" id="title-abismo">Diferencia ontológica y <em>abismo</em> del ser</h2>
+          </div>
+          <div>
+            <p>
+              Al interrogar la negatividad como «energía» del pensar absoluto, Heidegger saca a la luz dos cuestiones que toda la tradición metafísica —de Platón a Hegel y Nietzsche— dejó sin decidir: <strong>1) la relación del hombre con el ser (<em>Seyn</em>)</strong>, y <strong>2) la diferencia entre el ser y el ente</strong>.
+            </p>
+            <p>
+              Porque el pensar representativo toma al ente como punto de partida y determina su ser como mera <em>entidad</em> o <em>pensabilidad</em>, la diferencia misma entre ser y ente queda en el olvido. En Hegel, ese olvido adquiere la forma de una doble operación tácita: la <strong>re-ducción (<em>Ab-bau</em>)</strong> de la realidad absoluta hasta el «ser» indeterminado, y la <strong>ne-gativa (<em>Ab-sage</em>)</strong> frente a la fundamentación de la diferencia ontológica.
+            </p>
+          </div>
+        </div>
+
+        <div class="two-col-prose">
+          <div>
+            <h3 class="subhead">El claro (<em>Lichtung</em>) y el «como»</h3>
+            <p>
+              Incluso en el representar cotidiano —«yo represento algo <em>como</em> algo a la luz de…»— opera ya una estructura que no es ningún ente: el <strong>claro</strong> de lo despejado. Ni el «de», ni el «como», ni el «a la luz» son objetos presentes ante la mano. Desde el punto de vista de los entes, son <em>nada</em>; sin embargo, constituyen lo de máximo peso, <strong>«la verdadera fuerza de gravedad»</strong> en la que todo ente puede aparecer como ente.
+            </p>
+            <p>
+              El hombre no es primero un <em>animal rationale</em> al que luego se añade la conciencia; existe en el fundamento del <strong>ser-ahí (<em>Da-sein</em>)</strong> en cuanto está expuesto en la apertura de ese claro.
+            </p>
+          </div>
+          <div>
+            <h3 class="subhead">La nada como abismo (<em>Ab-grund</em>), no como nihilismo</h3>
+            <p>
+              Heidegger invierte radicalmente la interpretación habitual de la nada. La nada no es lo meramente nulo, ineficaz o vacío, sino el <strong>esenciarse del ser (<em>Seyn</em>) mismo</strong> como <em>anonadamiento (Nichtung)</em>: el re-huso de todo apoyo y refugio en los entes.
+            </p>
+            <p>
+              Lejos de conducir al nihilismo, pensar la nada significa interrogar la verdad del ser y experimentar la indigencia del ente en su totalidad. <strong>La esencia del nihilismo consiste, por el contrario, en olvidar la nada</strong> en el extravío junto a la <em>maquinación</em> del ente, rebajando el ser a una cáscara vacía («el último vaho de una realidad evaporada», en palabras de Nietzsche).
+            </p>
+          </div>
+        </div>
+
+        <div class="plate" style="margin-top: var(--space-xl);" aria-label="Contraste espacial entre metafísica absoluta y claro del ser">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md); margin-bottom: var(--space-md);">
+            <div>
+              <span class="label">Modelo espacial interactivo</span>
+              <h3 class="subhead" style="margin-top: var(--space-xs); margin-bottom: 0;">De la esfera cerrada del Espíritu al claro del <em>Ab-grund</em></h3>
+            </div>
+            <div class="button-row" style="margin-bottom: 0;" role="group" aria-label="Modo de visualización ontológica">
+              <button type="button" class="btn btn-secondary is-active" id="btn-mode-hegel" onclick="setOntologyMode('hegel')">Esfera absoluta (Hegel)</button>
+              <button type="button" class="btn btn-secondary" id="btn-mode-heidegger" onclick="setOntologyMode('heidegger')">Claro y Abismo (Heidegger)</button>
+            </div>
+          </div>
+
+          <div class="asymmetric-split" style="margin-top: var(--space-md);">
+            <figure class="diagram-frame" style="background: var(--background); padding: var(--space-md);">
+              <svg id="ontology-svg" class="diagram-svg" viewBox="0 0 460 300" role="img" aria-labelledby="svg-ont-title">
+                <title id="svg-ont-title">Comparación visual entre la esfera de la metafísica absoluta y la apertura del claro</title>
+                <!-- Hegel Sphere Group -->
+                <g id="group-hegel">
+                  <circle cx="230" cy="150" r="108" fill="none" stroke="var(--outline)" stroke-width="1.5" />
+                  <circle cx="230" cy="150" r="68" fill="none" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="4 4" />
+                  <circle cx="230" cy="150" r="5" fill="var(--outline)" />
+                  <!-- Reflexive arcs -->
+                  <path d="M 162 150 A 68 68 0 0 1 298 150" fill="none" stroke="var(--secondary)" stroke-width="1.5" />
+                  <path d="M 298 150 A 68 68 0 0 1 162 150" fill="none" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="230" y="28" text-anchor="middle" class="svg-label">Sphaera intelligibilis · Todo «para sí»</text>
+                  <text x="230" y="135" text-anchor="middle" class="svg-title">Saber Absoluto</text>
+                  <text x="230" y="176" text-anchor="middle" class="svg-note">Sujeto ↔ Objeto reabsorbidos</text>
+                  <text x="230" y="282" text-anchor="middle" class="svg-note">Ningún «fuera» · La nada es anulada en el «sí»</text>
+                </g>
+
+                <!-- Heidegger Clearing Group -->
+                <g id="group-heidegger" style="display: none;">
+                  <!-- Open horizon lines -->
+                  <line x1="30" y1="75" x2="430" y2="75" stroke="var(--outline-variant)" stroke-width="1" />
+                  <line x1="30" y1="225" x2="430" y2="225" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="6 4" />
+                  <!-- Clearing beam / openness -->
+                  <polygon points="230,225 110,75 350,75" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1" />
+                  <!-- Ente & Man -->
+                  <rect x="108" y="96" width="84" height="34" fill="var(--background)" stroke="var(--outline)" stroke-width="1" />
+                  <text x="150" y="118" text-anchor="middle" class="svg-title" style="font-size: 14px;">Ente</text>
+                  <rect x="268" y="96" width="84" height="34" fill="var(--background)" stroke="var(--outline)" stroke-width="1" />
+                  <text x="310" y="118" text-anchor="middle" class="svg-title" style="font-size: 14px;">Ser-ahí</text>
+                  <!-- Relation "como" -->
+                  <line x1="192" y1="113" x2="268" y2="113" stroke="var(--secondary)" stroke-width="1.5" />
+                  <text x="230" y="106" text-anchor="middle" class="svg-label">«Como»</text>
+                  <!-- Ab-grund -->
+                  <text x="230" y="45" text-anchor="middle" class="svg-label">Lo abierto del Claro (Lichtung)</text>
+                  <text x="230" y="196" text-anchor="middle" class="svg-title">El «Entretanto» (Seyn)</text>
+                  <text x="230" y="255" text-anchor="middle" class="svg-title" style="font-size: 15px;">Ab-grund · La Nada como re-huso del fundamento</text>
+                  <text x="230" y="278" text-anchor="middle" class="svg-note">Verdadera fuerza de gravedad · Decisión y evento-apropiador</text>
+                </g>
+              </svg>
+            </figure>
+            <div id="ontology-mode-text" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN IV -->
+      <section class="study-section reveal" id="experiencia" aria-labelledby="title-experiencia">
+        <div class="section-header-grid">
+          <div>
+            <span class="label kicker">Tratado II · Dilucidación de la «Introducción» (1942)</span>
+            <h2 class="section-title" id="title-experiencia">La <em>experiencia</em> de la conciencia y el rayo del absoluto</h2>
+          </div>
+          <div>
+            <p>
+              En el segundo tratado, Heidegger comenta los 16 parágrafos de la «Introducción» a la <em>Fenomenología del espíritu</em> —obra cuyo título inicial fue <em>Ciencia de la experiencia de la conciencia</em>—. Allí descubre el instante privilegiado en que el absoluto aparece en su propio elemento moderno: la <strong>con-ciencia</strong>.
+            </p>
+            <p>
+              ¿Por qué la <em>Fenomenología</em> comienza con una crítica a la idea común del conocer como «instrumento» o «medium»? Porque si el conocimiento fuese un medio exterior para capturar el absoluto, jamás lo alcanzaría. Según Hegel, <strong>el absoluto ya está con nosotros</strong>: el conocimiento es el <em>rayo</em> mediante el cual la verdad misma nos toca. Por ello, conocer no es aplicar una herramienta, sino seguir ese rayo en sentido inverso como un <strong>camino (<em>ὁδός</em>)</strong> —un «camino de la desesperación» en el que la conciencia natural pierde su obstinación para llegar a ser su propio concepto—.
+            </p>
+          </div>
+        </div>
+
+        <table class="atelier-table" aria-label="Comparación del concepto de experiencia en Aristóteles, Kant y Hegel">
+          <thead>
+            <tr>
+              <th>Pensador</th>
+              <th>Estatuto de la experiencia</th>
+              <th>Relación con el ente</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Aristóteles</strong> (<em>ἐμπειρία</em>)</td>
+              <td>Recogimiento habitual de casos singulares percibidos sin conocer todavía la causa (<em>διότι</em>).</td>
+              <td>Permanece dirigida inmediatamente al ente accesible a diario.</td>
+            </tr>
+            <tr>
+              <td><strong>Kant</strong> (<em>Experiencia</em>)</td>
+              <td>Conocimiento sintético a priori de enlaces causa-efecto que hace posible los objetos de la naturaleza.</td>
+              <td>Óntico-ontológica, pero referida aún al ente de la intuición sensible finita.</td>
+            </tr>
+            <tr>
+              <td><strong>Hegel</strong> (<em>Experiencia de la conciencia</em>)</td>
+              <td>Movimiento dialéctico trascendental-especulativo por el cual la conciencia produce su «nuevo verdadero objeto».</td>
+              <td>No se dirige al ente cotidiano, sino a la <strong>objetividad</strong> del objeto como aparecer del absoluto.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="plate" style="margin-top: var(--space-xl);" aria-label="Secuencia de la inversión de la conciencia">
+          <span class="label">Parágrafos 14–15 · El ejemplo del «libro aquí»</span>
+          <h3 class="subhead" style="margin-top: var(--space-xs);">Cómo surge el «nuevo verdadero objeto» en la experiencia</h3>
+          <p style="color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+            Recorra los cuatro momentos en que la conciencia pasa de la intuición inmediata de un objeto (por ejemplo, «este libro aquí») a la verdad de su objetividad mediante nuestra «inversión».
+          </p>
+          <div class="button-row" role="group" aria-label="Pasos de la experiencia ontológica">
+            <button type="button" class="btn btn-secondary is-active" data-exp="0" onclick="selectExperienceStep(0)">1. Primer «En sí»</button>
+            <button type="button" class="btn btn-secondary" data-exp="1" onclick="selectExperienceStep(1)">2. Inversión (Intervención)</button>
+            <button type="button" class="btn btn-secondary" data-exp="2" onclick="selectExperienceStep(2)">3. Nuevo verdadero objeto</button>
+            <button type="button" class="btn btn-secondary" data-exp="3" onclick="selectExperienceStep(3)">4. Dolor y regreso</button>
+          </div>
+          <div id="experience-step-output" class="ruled-top" style="margin-top: var(--space-sm);" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN V -->
+      <section class="study-section reveal" id="glosario" aria-labelledby="title-glosario">
+        <div class="section-header-grid">
+          <div>
+            <span class="label kicker">Léxico bilingüe · Traducción de Dina Picotti</span>
+            <h2 class="section-title" id="title-glosario">Glosario <em>conceptual</em> de la confrontación</h2>
+          </div>
+          <div>
+            <p>
+              La lectura heideggeriana exige distinguir con rigor entre el vocabulario especulativo de Hegel, las acuñaciones de la historia del ser en Heidegger y los recursos estilísticos (como los guiones etimológicos y neologismos) que preservan el sentido alemán original.
+            </p>
+          </div>
+        </div>
+
+        <div class="glossary-controls">
+          <div class="field-group">
+            <label for="glossary-search" class="label">Buscar término o concepto alemán</label>
+            <input type="search" id="glossary-search" class="atelier-input" placeholder="Ej. Seyn, Ab-grund, Aufhebung, claro…" oninput="onGlossarySearch(this.value)">
+          </div>
+          <div>
+            <span class="label" style="display: block; margin-bottom: var(--space-xs);">Filtrar por ámbito temático</span>
+            <div class="button-row" style="margin-bottom: 0;" role="group" aria-label="Filtro por ámbito conceptual">
+              <button type="button" class="btn btn-secondary is-active" data-gcat="todos" onclick="setGlossaryFilter('todos')">Todos (14)</button>
+              <button type="button" class="btn btn-secondary" data-gcat="hegel" onclick="setGlossaryFilter('hegel')">Hegel</button>
+              <button type="button" class="btn btn-secondary" data-gcat="heidegger" onclick="setGlossaryFilter('heidegger')">Ser y Diferencia</button>
+              <button type="button" class="btn btn-secondary" data-gcat="nada" onclick="setGlossaryFilter('nada')">Negatividad y Nada</button>
+              <button type="button" class="btn btn-secondary" data-gcat="experiencia" onclick="setGlossaryFilter('experiencia')">Experiencia</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="glossary-container" class="glossary-grid" aria-live="polite"></div>
+      </section>
+
+      <!-- SECCIÓN VI -->
+      <section class="study-section reveal" id="autoevaluacion" aria-labelledby="title-quiz">
+        <div class="section-header-grid">
+          <div>
+            <span class="label kicker">Verificación de comprensión · 8 cuestiones</span>
+            <h2 class="section-title" id="title-quiz">Autoevaluación <em>crítica</em> del recorrido</h2>
+          </div>
+          <div>
+            <p>
+              Compruebe su dominio de las tesis centrales de ambos tratados: la inversión terminológica entre ser y realidad, el estatuto de la negatividad absoluta, la diferencia ontológica, el abismo como nada y el concepto especulativo de experiencia. Su progreso se guarda automáticamente en el cuaderno.
+            </p>
+          </div>
+        </div>
+
+        <div class="quiz-summary-bar" aria-label="Resumen de resultados">
+          <div class="ruled-top">
+            <span class="label">Progreso</span>
+            <div class="value" id="quiz-progress-val">0 / 8</div>
+            <p class="note">Cuestiones respondidas hasta el momento.</p>
+          </div>
+          <div class="ruled-top">
+            <span class="label">Aciertos</span>
+            <div class="value" id="quiz-score-val">0 / 8</div>
+            <p class="note" id="quiz-score-note">Responda las cuestiones para obtener una valoración diagnóstica.</p>
+          </div>
+          <div class="ruled-top" style="display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-sm);">
+            <div>
+              <span class="label">Reinicio</span>
+              <p class="note" style="margin-top: var(--space-xs);">Puede borrar sus respuestas para repetir el examen desde cero.</p>
+            </div>
+            <div>
+              <button type="button" class="btn btn-secondary" id="reset-quiz-btn" data-armed="false" onclick="handleResetQuiz(this)">Reiniciar autoevaluación</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="quiz-container"></div>
+      </section>
+    </main>
+
+    <footer class="study-footer">
+      <div>
+        <span class="label">Fuentes primarias y referencia editorial</span>
+        <p style="margin-top: var(--space-sm); font-size: 0.95rem; color: var(--on-surface-variant);">
+          Material estructurado íntegramente a partir de Martin Heidegger, <em>Hegel</em> (Tomo LXVIII de las <em>Obras completas</em>, edición alemana al cuidado de Ingrid Schüssler; traducción castellana y notas de Dina V. Picotti C.), compuesto por los tratados <em>La Negatividad. Una confrontación con Hegel desde el planteo de la negatividad</em> (1938/39, 1941) y <em>Dilucidación de la «Introducción» a la «Fenomenología del espíritu» de Hegel</em> (1942), junto con sus anexos y referencias a la <em>Ciencia de la lógica</em> y la <em>Fenomenología del espíritu</em> de G. W. F. Hegel.
+        </p>
+      </div>
+      <div>
+        <span class="label">Criterio de lectura</span>
+        <p style="margin-top: var(--space-sm); font-size: 0.95rem; color: var(--on-surface-variant);">
+          Las definiciones respetan los guiones interpretativos de Heidegger (<em>re-ducción</em>, <em>ne-gativa</em>, <em>a-bismo</em>, <em>con-ciencia</em>, <em>ser-ahí</em>) y distinguen la grafía arcaica <em>Seyn</em> (el ser pensado desde su verdad e historia) del «ser» metafísico reducido a objetividad o entidad.
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    const LEXICON_TERMS = {
+      ser: {
+        hegelTitle: `En Hegel: «Ser» (Sein) como indeterminación inmediata`,
+        hegelText: `Al comienzo de la Ciencia de la lógica, «ser» designa lo enteramente indeterminado e inmediato: la pura ausencia de mediación y pensamiento determinante. Por carecer de toda determinación, coincide inmediatamente con la «nada». No es todavía lo verdaderamente real, sino la figura más pobre y vacía del inicio lógico.`,
+        heideggerTitle: `En Heidegger: Objetividad vs. Ser esencial (Seyn)`,
+        heideggerText: `Heidegger llama «objetividad» (Gegenständlichkeit) a lo que Hegel denomina «ser». Ese ser vacío surge por re-ducción (Ab-bau) de la realidad absoluta. En contraste, el Seyn heideggeriano no es entidad del ente ni objetividad para una conciencia, sino el claro (Lichtung) y el abismo desde el cual todo ente comparece.`
+      },
+      realidad: {
+        hegelTitle: `En Hegel: «Realidad» (Wirklichkeit) como Idea absoluta`,
+        hegelText: `Lo verdaderamente real no es lo meramente presente ante la mano o fáctico, sino la unidad de razón y ser: la idea absoluta en la Lógica y el saber absoluto en la Fenomenología. «Lo que es racional, es real» expresa que ser es perceptibilidad y representatividad del espíritu incondicionado.`,
+        heideggerTitle: `En Heidegger: La culminación moderna de la entidad`,
+        heideggerText: `Heidegger subraya que lo que Hegel llama «realidad» corresponde a lo que la historia de la metafísica pensó como entidad del ente (desde la ενέργεια aristotélica hasta la actualitas y el ego cogito certum). Al identificar ser con representatividad absoluta, Hegel clausura la pregunta por la verdad del Seyn.`
+      },
+      nada: {
+        hegelTitle: `En Hegel: La «Nada» (Nichts) como ausencia de determinación`,
+        hegelText: `En el arranque lógico, la nada es indistinguible del ser indeterminado: pura ausencia de pensamiento, nulidad formal que el devenir se encarga de superar inmediatamente. En el movimiento absoluto, lo negativo queda siempre absorbido y conservado dentro de la afirmación del espíritu.`,
+        heideggerTitle: `En Heidegger: El «Ab-grund» y el anonadamiento (Nichtung)`,
+        heideggerText: `La nada no es lo nulo ni la mera negación lógica del ente, sino el «no» originario que pertenece al Seyn mismo. El anonadamiento es el re-huso de todo apoyo y refugio en los entes (Ab-grund), que abre la urgencia de la decisión y convierte al hombre en guardián del claro.`
+      },
+      comienzo: {
+        hegelTitle: `En Hegel: Comenzar con el devenir y el saber absoluto`,
+        hegelText: `Hegel distingue entre «inicio» (el ser inmediato que desaparece) y «comienzo» (el devenir del saber absoluto que permanece como fundamento). La sustancia es sujeto: el absoluto se enajena en lo inmediato solo para volver a sí mismo y poseerse con libertad.`,
+        heideggerTitle: `En Heidegger: El salto a otro comienzo`,
+        heideggerText: `El comienzo hegeliano consuma el primer comienzo de la metafísica occidental (Platón / Aristóteles), resolviendo el ente en pensabilidad. Para Heidegger, pensar los presupuestos ocultos de Hegel exige no continuar el sistema, sino dar el salto hacia un nuevo comienzo que interrogue la verdad del Seyn.`
+      }
+    };
+
+    const ONTOLOGY_MODES = {
+      hegel: {
+        kicker: `Metafísica absoluta · Idealismo incondicionado`,
+        title: `La esfera inteligible del Saber Absoluto`,
+        p1: `Heidegger evoca la imagen de Parménides y la sentencia atribuida a Trismegisto: «Dios es una esfera inteligible cuyo centro está en todas partes y su circunferencia en ninguna». En Hegel, el absoluto es presencia presente a sí misma sin resto ni exterioridad.`,
+        p2: `Todo ente queda resuelto en entidad, y toda entidad en representatividad del espíritu. La negatividad es el motor interno que asegura este círculo: ningún desgarro puede quebrar el sistema porque el «no» ha sido ya sobreasumido de antemano en el «sí» de la certeza absoluta.`
+      },
+      heidegger: {
+        kicker: `Historia del ser · El claro y el a-bismo`,
+        title: `El «entretanto» del claro y el re-huso del fundamento`,
+        p1: `Cuando Heidegger pregunta por el origen del «como» («representar algo como algo a la luz de…»), descubre una apertura que ningún ente puede explicar. Ese claro (Lichtung) es el «entre» espacio-temporal en el que tanto el ente como el ser-ahí (Da-sein) reciben su lugar.`,
+        p2: `Desde la perspectiva de los objetos, el claro es «nada», pero lejos de ser nulo es la verdadera fuerza de gravedad. Es Ab-grund (abismo): re-huso de todo fundamento óntico que dona la posibilidad de la decisión y de la diferencia entre ser y ente.`
+      }
+    };
+
+    const EXPERIENCE_STEPS = [
+      {
+        label: `Momento I · La conciencia natural`,
+        title: `El primer «En sí»: la intuición inmediata de «este libro aquí»`,
+        body: `La conciencia sensible toma el objeto (por ejemplo, «este libro aquí») por el ente verdadero en sí mismo, inmediato y autosuficiente. Cree poseer la cosa directamente, sin advertir todavía qué es lo que hace posible que el libro aparezca como objeto ante ella.`
+      },
+      {
+        label: `Momento II · Nuestra intervención`,
+        title: `La doble inversión de la conciencia (Umkehrung)`,
+        body: `Aunque Hegel afirma que en la Fenomenología nos limitamos a un «mero mirar», ese mirar exige una intervención decisiva: girar la mirada desde el objeto hacia la conciencia del objeto (giro trascendental) y comprender que el absoluto mismo se vuelve hacia su alienación para poder regresar a sí.`
+      },
+      {
+        label: `Momento III · Parágrafo 14`,
+        title: `Surge el «nuevo verdadero objeto»: la objetividad`,
+        body: `Al examinar su saber, la conciencia descubre que «este libro aquí» es un «ser-para-ella». Ese ser-para-ella no es un añadido externo, sino la esencia misma del objeto: su objetividad (mediación). El primer objeto inmediato se revela entonces como «nulo» (no-verdadero en su inmediatez), mientras la objetividad emerge como el nuevo verdadero objeto.`
+      },
+      {
+        label: `Momento IV · Esencia de la vida`,
+        title: `La experiencia como dolor, des-engaño y regreso`,
+        body: `Para Hegel, toda experiencia es esencialmente dolorosa —una «mala experiencia» en sentido ontológico, no moral— porque somete a la conciencia natural a la violencia de lo negativo, arrancándola de su satisfacción limitada. En ese tránsito (el verbo alemán fahren / erfahren), el espíritu recorre sus figuras hasta alcanzarse como saber absoluto.`
+      }
+    ];
+
+    const GLOSSARY_ENTRIES = [
+      {
+        term: `Ser (sentido esencial)`,
+        german: `Seyn`,
+        category: `heidegger`,
+        categoryLabel: `Ser y Diferencia`,
+        def: `Grafía arcaica empleada por Heidegger para distinguir el ser pensado desde su verdad e historia respecto al «ser» metafísico concebido únicamente como entidad (Seiendheit) u objetividad del ente. El Seyn no es un ente ni el ente supremo, sino el claro y el abismo.`
+      },
+      {
+        term: `Realidad efectiva`,
+        german: `Wirklichkeit`,
+        category: `hegel`,
+        categoryLabel: `Hegel`,
+        def: `Aquello que en el sistema de Hegel corresponde a lo que Heidegger denomina «ser» en sentido amplio: la entidad como representatividad de la razón absoluta, idea absoluta y saber absoluto. No designa los hechos empíricos casuales, sino la unidad consumada de razón y existencia.`
+      },
+      {
+        term: `Objetividad`,
+        german: `Gegenständlichkeit`,
+        category: `hegel`,
+        categoryLabel: `Hegel`,
+        def: `Nombre con el que Heidegger traduce el sentido estricto del «ser» al comienzo de la Lógica de Hegel: lo indeterminado e inmediato que queda al sustraer toda mediación. También nombra el «ser-para-la-conciencia» que aparece como el nuevo verdadero objeto en la experiencia.`
+      },
+      {
+        term: `Re-ducción`,
+        german: `Ab-bau`,
+        category: `nada`,
+        categoryLabel: `Negatividad y Nada`,
+        def: `Operación por la cual el concepto hegeliano de «ser» inicial surge al desmontar, rebajar o sustraer toda determinación y mediación de la realidad absoluta. Muestra que el «ser» vacío del comienzo no es originario, sino un residuo reductivo.`
+      },
+      {
+        term: `Ne-gativa`,
+        german: `Ab-sage`,
+        category: `nada`,
+        categoryLabel: `Negatividad y Nada`,
+        def: `El rehusamiento u omisión de preguntar por la diferencia entre el ser y el ente. Según Heidegger, esta ne-gativa —heredada del olvido tradicional de la diferencia ontológica— es el presupuesto oculto que permite a Hegel proclamar la incondicionalidad absoluta del pensar.`
+      },
+      {
+        term: `Sobreasunción`,
+        german: `Aufhebung`,
+        category: `hegel`,
+        categoryLabel: `Hegel`,
+        def: `Traducción de Dina Picotti para el movimiento dialéctico triple de suprimir (tollere), conservar (conservare) y elevar (elevare). Hace que la negatividad absoluta no destruya sin retorno, sino que se resuelva en la positividad del espíritu.`
+      },
+      {
+        term: `Anonadamiento`,
+        german: `Nichtung`,
+        category: `nada`,
+        categoryLabel: `Negatividad y Nada`,
+        def: `La acción propia de la nada en el seno del Seyn. No equivale a aniquilar entes ni a un mero vacío lógico, sino al re-huso de todo fundamento óntico que despeja el claro donde el ente puede manifestarse como tal.`
+      },
+      {
+        term: `A-bismo`,
+        german: `Ab-grund`,
+        category: `heidegger`,
+        categoryLabel: `Ser y Diferencia`,
+        def: `Ausencia de fundamento entendida no como caída caótica ni defecto, sino como el modo propio en que el Seyn funda al rehusarse a ser reducido a un ente o razón explicativa. Constituye la verdadera fuerza de gravedad del claro.`
+      },
+      {
+        term: `Claro`,
+        german: `Lichtung`,
+        category: `heidegger`,
+        categoryLabel: `Ser y Diferencia`,
+        def: `Lo abierto y despejado que hace posible la estructura del «como» («representar algo como algo a la luz de…»). No es ningún ente presente ante la mano, sino el «entretanto» originario en el que hombre y ente se encuentran.`
+      },
+      {
+        term: `Ser-ahí`,
+        german: `Da-sein`,
+        category: `heidegger`,
+        categoryLabel: `Ser y Diferencia`,
+        def: `Determinación transformadora de la esencia humana a partir de su instancia en el claro del ser, frente a la definición metafísica tradicional del hombre como animal rationale (sujeto que representa objetos).`
+      },
+      {
+        term: `Experiencia ontológica`,
+        german: `Erfahrung`,
+        category: `experiencia`,
+        categoryLabel: `Experiencia`,
+        def: `En los parágrafos 14–15 de la Introducción a la Fenomenología del espíritu, no significa empiria ni síntesis kantiana, sino el movimiento dialéctico-especulativo de la conciencia en el que emerge el nuevo verdadero objeto. Heidegger remite al verbo raíz fahren (ir, atravesar un camino).`
+      },
+      {
+        term: `Inversión de la conciencia`,
+        german: `Umkehrung des Bewusstseins`,
+        category: `experiencia`,
+        categoryLabel: `Experiencia`,
+        def: `«Nuestra intervención» filosófica que vuelve la mirada desde los objetos hacia el saber de los objetos (su objetividad) y sigue el curso del absoluto desde su alienación de regreso a sí mismo, posibilitando el auténtico mirar fenomenológico.`
+      },
+      {
+        term: `Noedad y lo noedor`,
+        german: `Nichtheit / das Nichthafte`,
+        category: `nada`,
+        categoryLabel: `Negatividad y Nada`,
+        def: `Neologismos con los que la traducción española reproduce las sustantivaciones heideggerianas del «no» (nicht y nein). Designan la dimensión de lo negativo cuya procedencia queda inexplicada cuando se da por obvio el juicio lógico.`
+      },
+      {
+        term: `Evento-apropiador`,
+        german: `Er-eignis`,
+        category: `heidegger`,
+        categoryLabel: `Ser y Diferencia`,
+        def: `Acaecimiento originario en el que el Seyn «de-cide» apropiando recíprocamente al hombre y a los dioses en la indigencia, haciendo surgir el conflicto de mundo y tierra donde el ente recibe su peso.`
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        axis: `Método de confrontación`,
+        question: `1. ¿Por qué sostiene Heidegger que una confrontación fundamental con Hegel no puede basarse en una «crítica» desde el kantismo, el cartesianismo o la escolástica?`,
+        options: [
+          `Porque la filosofía de Hegel contiene en sí misma todos los puntos de vista anteriores y no admite un punto de vista de autoconciencia más elevado que ella.`,
+          `Porque el sistema de Hegel carece de aplicación en ámbitos concretos como el derecho, el arte o la religión.`,
+          `Porque Hegel renunció explícitamente al concepto de sistema en la Fenomenología del espíritu.`,
+          `Porque la filosofía moderna debe limitarse a describir hechos historiográficos sin emitir juicios conceptuales.`
+        ],
+        correct: 0,
+        explanation: `En La Negatividad (I, 1), Heidegger afirma que por encima de la autoconciencia del espíritu no cabe un punto de vista superior. Por ello, la confrontación debe hallar su punto de apoyo dentro de la propia filosofía hegeliana, pero en su fundamento oculto e inaccesible para ella misma.`
+      },
+      {
+        axis: `Léxico ontológico`,
+        question: `2. ¿Cómo traduce o reubica Heidegger la distinción terminológica entre lo que Hegel llama «ser» (al comienzo de la Lógica) y lo que Hegel llama «realidad» (Wirklichkeit)?`,
+        options: [
+          `Para Heidegger ambos términos significan lo mismo: la existencia empírica y cotidiana de los entes sensibles.`,
+          `Lo que Hegel llama «realidad» (idea o saber absoluto) equivale a lo que Heidegger llama «ser» en sentido esencial, mientras que lo que Hegel llama «ser» (indeterminación inmediata) equivale a «objetividad».`,
+          `Hegel usa «realidad» para designar la nada pura y «ser» para designar el evento-apropiador.`,
+          `Heidegger adopta sin cambios la definición hegeliana de la realidad efectiva como verdad originaria del Seyn.`
+        ],
+        correct: 1,
+        explanation: `En I, 1 (2) y V, 1, Heidegger fija con precisión el lenguaje conceptual: lo que él nombra «ser» en sentido esencial, Hegel lo denomina «realidad» (Wirklichkeit); inversamente, lo que Hegel llama «ser» como pura indeterminación e inmediatez recibe en Heidegger el nombre de «objetividad» (Gegenständlichkeit).`
+      },
+      {
+        axis: `Negatividad y Nada lógica`,
+        question: `3. ¿Por qué afirma Heidegger que la negatividad hegeliana NO puede determinarse a partir de la «nada» del inicio de la Ciencia de la lógica?`,
+        options: [
+          `Porque la nada al inicio de la Lógica ya es el saber absoluto consumado.`,
+          `Porque Hegel nunca menciona la nada en el primer libro de la Lógica.`,
+          `Porque al comienzo de la Lógica la nada y el ser son exactamente lo mismo: todavía no hay diferencia entre ellos y, sin diferencia, aún no hay negatividad.`,
+          `Porque la nada hegeliana pertenece exclusivamente a la filosofía de la naturaleza.`
+        ],
+        correct: 2,
+        explanation: `Según La Negatividad (I, 2 y 4), la negatividad hegeliana es esencia de la diferencia (sujeto-objeto, algo y lo otro, negación de la negación). Como en el arranque de la Lógica ser y nada son indistintos —«diferencia que es ninguna»—, la negatividad no puede aclararse desde esa nada abstracta.`
+      },
+      {
+        axis: `Crítica a la negatividad`,
+        question: `4. ¿En qué sentido sostiene Heidegger que Hegel «en el fondo no toma en serio» la negatividad ni la «muerte, el señor absoluto»?`,
+        options: [
+          `Porque Hegel ignora por completo el conflicto y el desgarramiento en la historia humana.`,
+          `Porque en el sistema absoluto toda negación y desgarro están ya de antemano amortiguados, allanados y sobreasumidos (aufgehoben) en la positividad y certeza del «sí».`,
+          `Porque Hegel considera que la negatividad es un mero error psicológico del entendimiento común.`,
+          `Porque la dialéctica hegeliana impide cualquier movimiento o transición entre figuras de la conciencia.`
+        ],
+        correct: 1,
+        explanation: `En I, § 10, Heidegger señala que en la filosofía absoluta no hay catástrofe ni caída posible: la negatividad es absorbida en la positividad del absoluto, de modo que el «no» queda subordinado al «sí» incondicionado de la autoconciencia.`
+      },
+      {
+        axis: `Presupuestos del sistema`,
+        question: `5. ¿Qué nombran respectivamente la «re-ducción» (Ab-bau) y la «ne-gativa» (Ab-sage) como presupuestos impensados del pensar hegeliano?`,
+        options: [
+          `Dos reglas metodológicas de la lógica formal aristotélica adoptadas por Kant.`,
+          `La re-ducción designa la sustracción que produce el «ser» vacío desde la realidad absoluta; la ne-gativa designa el rechazo tácito a interrogar y fundamentar la diferencia entre ser y ente.`,
+          `La re-ducción es el paso de la tesis a la antítesis, y la ne-gativa es el paso a la síntesis.`,
+          `Son sinónimos de la certeza sensible y de la percepción en la Fenomenología del espíritu.`
+        ],
+        correct: 1,
+        explanation: `En I, §§ 17–18, Heidegger muestra que el «ser» indeterminado de Hegel procede de una re-ducción (Ab-bau) de la pensabilidad incondicionada, mientras que el absolutismo del sistema descansa en una ne-gativa (Ab-sage) respecto a la fundamentación de la diferencia ontológica.`
+      },
+      {
+        axis: `Abismo y Nihilismo`,
+        question: `6. Frente a la acusación habitual, ¿cómo relaciona Heidegger el pensar la «nada» (como Ab-grund) con el «nihilismo»?`,
+        options: [
+          `Pensar la nada es la forma más extrema y consecuente de nihilismo contemporáneo.`,
+          `La nada no tiene relación alguna con el ser (Seyn), sino únicamente con los juicios negativos.`,
+          `Pensar la nada no es nihilismo; por el contrario, la esencia del nihilismo consiste en olvidar la nada en el extravío junto a la maquinación del ente, rebajando el ser a vacía nulidad.`,
+          `El nihilismo solo se supera regresando al idealismo absoluto de la Enciclopedia de Hegel.`
+        ],
+        correct: 2,
+        explanation: `En I, 2 (§§ 16–17) y IV, 4, Heidegger sostiene que la nada es el abismal re-huso del fundamento óntico (el ser mismo en su anonadamiento). El verdadero nihilismo ocurre cuando la metafísica olvida esa nada abismal y reduce el ser a un «último vaho».`
+      },
+      {
+        axis: `Experiencia ontológica`,
+        question: `7. En el comentario de 1942 a la «Introducción» de la Fenomenología del espíritu, ¿qué es el «nuevo verdadero objeto» que surge en la experiencia de la conciencia?`,
+        options: [
+          `Un objeto físico diferente que reemplaza al anterior mediante observación empírica.`,
+          `La objetividad misma del primer objeto —su ser-para-la-conciencia—, frente a la cual el primer objeto inmediato («en sí») se revela nulo o no verdadero.`,
+          `La cosa en sí kantiana entendida como límite inaccesible para toda razón.`,
+          `Un mero instrumento técnico para medir la aptitud de nuestra facultad cognoscitiva.`
+        ],
+        correct: 1,
+        explanation: `En la parte IV del segundo tratado (§ 14), Heidegger analiza el ejemplo de «este libro aquí»: al volverse sobre sí, la conciencia descubre que el verdadero objeto no es el libro aislado «en sí», sino su ser-objeto (objetividad / mediación), lo que hace aparecer al primer objeto inmediato como nulo.`
+      },
+      {
+        axis: `Inversión y Meramente Mirar`,
+        question: `8. ¿Cómo resuelve Heidegger la aparente contradicción entre la exigencia hegeliana de un «mero mirar» (§§ 12–13) y el hecho de que la inversión de la conciencia sea «nuestra intervención»?`,
+        options: [
+          `Acepta que Hegel se contradijo y abandonó el método fenomenológico antes del parágrafo 14.`,
+          `Sostiene que «nuestra intervención» es un cálculo arbitrario impuesto desde fuera al absoluto.`,
+          `Muestra que la inversión trascendental no agrega nada extraño a la conciencia, sino que abre el pasaje y la mirada hacia lo incondicional para que el nuevo verdadero objeto pueda mostrarse.`,
+          `Afirma que el mero mirar pertenece al Sistema-Enciclopedia y la intervención solo a la Lógica.`
+        ],
+        correct: 2,
+        explanation: `En IV, 1 del segundo tratado, Heidegger explica que el puro mirar nunca es un tomar pasivo: la doble inversión (el giro trascendental hacia la objetividad y el acompañar el volverse del absoluto a su alienación) es el acto primero del mirar que allana el camino para que el absoluto aparezca.`
+      }
+    ];
+
+    let appState = {
+      lexiconTerm: `ser`,
+      negativityStep: 0,
+      ontologyMode: `hegel`,
+      experienceStep: 0,
+      glossarySearch: ``,
+      glossaryFilter: `todos`,
+      quizAnswers: {}
+    };
+
+    function renderLexiconComparator() {
+      const container = document.getElementById(`lexicon-comparator-output`);
+      if (!container) return;
+      const entry = LEXICON_TERMS[appState.lexiconTerm] || LEXICON_TERMS.ser;
+
+      const buttons = document.querySelectorAll(`[data-term]`);
+      buttons.forEach(function (btn) {
+        const active = btn.dataset.term === appState.lexiconTerm;
+        btn.classList.toggle(`is-active`, active);
+        btn.setAttribute(`aria-pressed`, active ? `true` : `false`);
+      });
+
+      container.innerHTML = `
+        <div class="lens-box">
+          <span class="label">Metafísica absoluta · Hegel</span>
+          <h4 class="subhead" style="margin-top: var(--space-xs);">${entry.hegelTitle}</h4>
+          <p style="margin-bottom: 0;">${entry.hegelText}</p>
+        </div>
+        <div class="lens-box lens-box--heidegger">
+          <span class="label" style="color: var(--secondary);">Historia del ser · Heidegger</span>
+          <h4 class="subhead" style="margin-top: var(--space-xs);">${entry.heideggerTitle}</h4>
+          <p style="margin-bottom: 0;">${entry.heideggerText}</p>
+        </div>
+      `;
+    }
+
+    function selectLexiconTerm(term) {
+      if (!LEXICON_TERMS[term]) return;
+      appState.lexiconTerm = term;
+      renderLexiconComparator();
+      saveState();
+    }
+
+    function renderNegativityStepper() {
+      const triggers = document.querySelectorAll(`#negativity-steps .step-trigger`);
+      triggers.forEach(function (btn) {
+        const idx = Number(btn.dataset.step);
+        const isOpen = idx === appState.negativityStep;
+        btn.setAttribute(`aria-expanded`, isOpen ? `true` : `false`);
+        const body = document.getElementById(`neg-body-${idx}`);
+        if (body) {
+          body.hidden = !isOpen;
+        }
+        const svgNode = document.getElementById(`svg-neg-node-${idx}`);
+        if (svgNode) {
+          svgNode.setAttribute(`opacity`, isOpen ? `1` : `0.45`);
+          const rects = svgNode.querySelectorAll(`rect`);
+          rects.forEach(function (r) {
+            r.setAttribute(`fill`, isOpen ? `var(--surface-container-low)` : `var(--background)`);
+            r.setAttribute(`stroke-width`, isOpen ? `1.5` : `1`);
+          });
+        }
+      });
+    }
+
+    function selectNegativityStep(stepIndex) {
+      appState.negativityStep = stepIndex;
+      renderNegativityStepper();
+      saveState();
+    }
+
+    function renderOntologyMode() {
+      const mode = appState.ontologyMode === `heidegger` ? `heidegger` : `hegel`;
+      const data = ONTOLOGY_MODES[mode];
+      const textBox = document.getElementById(`ontology-mode-text`);
+      const groupHegel = document.getElementById(`group-hegel`);
+      const groupHeidegger = document.getElementById(`group-heidegger`);
+      const btnHegel = document.getElementById(`btn-mode-hegel`);
+      const btnHeidegger = document.getElementById(`btn-mode-heidegger`);
+
+      if (groupHegel) groupHegel.style.display = mode === `hegel` ? `block` : `none`;
+      if (groupHeidegger) groupHeidegger.style.display = mode === `heidegger` ? `block` : `none`;
+
+      if (btnHegel) {
+        btnHegel.classList.toggle(`is-active`, mode === `hegel`);
+        btnHegel.setAttribute(`aria-pressed`, mode === `hegel` ? `true` : `false`);
+      }
+      if (btnHeidegger) {
+        btnHeidegger.classList.toggle(`is-active`, mode === `heidegger`);
+        btnHeidegger.setAttribute(`aria-pressed`, mode === `heidegger` ? `true` : `false`);
+      }
+
+      if (textBox) {
+        textBox.innerHTML = `
+          <span class="label" style="color: var(--secondary);">${data.kicker}</span>
+          <h4 class="subhead" style="margin-top: var(--space-xs);">${data.title}</h4>
+          <p>${data.p1}</p>
+          <p style="margin-bottom: 0;">${data.p2}</p>
+        `;
+      }
+    }
+
+    function setOntologyMode(mode) {
+      appState.ontologyMode = mode;
+      renderOntologyMode();
+      saveState();
+    }
+
+    function renderExperienceStep() {
+      const output = document.getElementById(`experience-step-output`);
+      if (!output) return;
+      const step = EXPERIENCE_STEPS[appState.experienceStep] || EXPERIENCE_STEPS[0];
+
+      const buttons = document.querySelectorAll(`[data-exp]`);
+      buttons.forEach(function (btn) {
+        const active = Number(btn.dataset.exp) === appState.experienceStep;
+        btn.classList.toggle(`is-active`, active);
+        btn.setAttribute(`aria-pressed`, active ? `true` : `false`);
+      });
+
+      output.innerHTML = `
+        <span class="label" style="color: var(--secondary);">${step.label}</span>
+        <h4 class="subhead" style="margin-top: var(--space-xs);">${step.title}</h4>
+        <p style="margin-bottom: 0;">${step.body}</p>
+      `;
+    }
+
+    function selectExperienceStep(index) {
+      appState.experienceStep = index;
+      renderExperienceStep();
+      saveState();
+    }
+
+    function renderGlossary() {
+      const container = document.getElementById(`glossary-container`);
+      if (!container) return;
+
+      const filterBtns = document.querySelectorAll(`[data-gcat]`);
+      filterBtns.forEach(function (btn) {
+        const active = btn.dataset.gcat === appState.glossaryFilter;
+        btn.classList.toggle(`is-active`, active);
+        btn.setAttribute(`aria-pressed`, active ? `true` : `false`);
+      });
+
+      const searchInput = document.getElementById(`glossary-search`);
+      if (searchInput && searchInput.value !== appState.glossarySearch) {
+        searchInput.value = appState.glossarySearch;
+      }
+
+      const query = appState.glossarySearch.trim().toLowerCase();
+      const filtered = GLOSSARY_ENTRIES.filter(function (item) {
+        const matchesCat = appState.glossaryFilter === `todos` || item.category === appState.glossaryFilter;
+        if (!matchesCat) return false;
+        if (!query) return true;
+        return (
+          item.term.toLowerCase().includes(query) ||
+          item.german.toLowerCase().includes(query) ||
+          item.def.toLowerCase().includes(query)
+        );
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <div>
+              <span class="label">Sin coincidencias</span>
+              <p style="margin: var(--space-xs) 0 0 0;">No hay términos que coincidan con «${escapeHtml(appState.glossarySearch)}» en este ámbito.</p>
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="clearGlossaryFilters()">Restablecer glosario</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(function (item) {
+        return `
+          <article class="glossary-entry">
+            <span class="glossary-tag">${item.categoryLabel}</span>
+            <h3 class="glossary-term">${item.term}</h3>
+            <span class="glossary-german">${item.german}</span>
+            <p style="margin-bottom: 0;">${item.def}</p>
+          </article>
+        `;
+      }).join(``);
+    }
+
+    function onGlossarySearch(val) {
+      appState.glossarySearch = val;
+      renderGlossary();
+      saveState();
+    }
+
+    function setGlossaryFilter(cat) {
+      appState.glossaryFilter = cat;
+      renderGlossary();
+      saveState();
+    }
+
+    function clearGlossaryFilters() {
+      appState.glossarySearch = ``;
+      appState.glossaryFilter = `todos`;
+      renderGlossary();
+      saveState();
+    }
+
+    function renderQuiz() {
+      const container = document.getElementById(`quiz-container`);
+      if (!container) return;
+      const letters = [`A`, `B`, `C`, `D`];
+
+      container.innerHTML = QUIZ_QUESTIONS.map(function (q, qIndex) {
+        const chosen = appState.quizAnswers[qIndex];
+        const hasAnswered = typeof chosen === `number`;
+        const isCorrect = hasAnswered && chosen === q.correct;
+
+        const optionsHtml = q.options.map(function (optText, oIndex) {
+          let extraClass = ``;
+          if (hasAnswered) {
+            if (oIndex === q.correct) {
+              extraClass = ` is-correct`;
+            } else if (oIndex === chosen) {
+              extraClass = ` is-wrong`;
+            }
+          }
+          return `
+            <button
+              type="button"
+              class="quiz-option${extraClass}"
+              onclick="answerQuestion(${qIndex}, ${oIndex})"
+              ${hasAnswered ? `disabled` : ``}
+              aria-pressed="${chosen === oIndex ? `true` : `false`}"
+            >
+              <span class="quiz-option-letter">${letters[oIndex]}</span>
+              <span>${optText}</span>
+            </button>
+          `;
+        }).join(``);
+
+        let feedbackHtml = ``;
+        if (hasAnswered) {
+          feedbackHtml = `
+            <div class="quiz-feedback ${isCorrect ? `quiz-feedback--correct` : `quiz-feedback--wrong`}" role="status">
+              <span class="label" style="display: block; margin-bottom: var(--space-xs); color: ${isCorrect ? `var(--positive)` : `var(--error)`};">
+                ${isCorrect ? `Respuesta correcta` : `Revisión conceptual · La opción correcta es ${letters[q.correct]}`}
+              </span>
+              <p style="margin-bottom: 0;">${q.explanation}</p>
+            </div>
+          `;
+        }
+
+        return `
+          <article class="quiz-card">
+            <span class="label" style="color: var(--secondary);">${q.axis}</span>
+            <h3 class="quiz-question">${q.question}</h3>
+            <div class="quiz-options">
+              ${optionsHtml}
+            </div>
+            ${feedbackHtml}
+          </article>
+        `;
+      }).join(``);
+
+      updateQuizStats();
+    }
+
+    function updateQuizStats() {
+      const total = QUIZ_QUESTIONS.length;
+      let answered = 0;
+      let correctCount = 0;
+
+      QUIZ_QUESTIONS.forEach(function (q, idx) {
+        if (typeof appState.quizAnswers[idx] === `number`) {
+          answered += 1;
+          if (appState.quizAnswers[idx] === q.correct) {
+            correctCount += 1;
+          }
+        }
+      });
+
+      const progressEl = document.getElementById(`quiz-progress-val`);
+      const scoreEl = document.getElementById(`quiz-score-val`);
+      const noteEl = document.getElementById(`quiz-score-note`);
+      const statusEl = document.getElementById(`study-status`);
+
+      if (progressEl) progressEl.textContent = `${answered} / ${total}`;
+      if (scoreEl) scoreEl.textContent = `${correctCount} / ${total}`;
+      if (statusEl) statusEl.textContent = `Autoevaluación: ${answered} / ${total} respondidas`;
+
+      if (noteEl) {
+        if (answered === 0) {
+          noteEl.textContent = `Responda las cuestiones para obtener una valoración diagnóstica.`;
+        } else if (answered < total) {
+          noteEl.textContent = `Lleva ${correctCount} acierto(s) de ${answered} cuestión(es) respondida(s).`;
+        } else if (correctCount >= 7) {
+          noteEl.textContent = `Dominio riguroso de la lectura heideggeriana sobre Hegel.`;
+        } else if (correctCount >= 5) {
+          noteEl.textContent = `Buena comprensión general; revise los ejes donde hubo desacierto.`;
+        } else {
+          noteEl.textContent = `Conviene repasar el glosario conceptual y las secciones I–IV.`;
+        }
+      }
+    }
+
+    function answerQuestion(qIndex, optionIndex) {
+      if (typeof appState.quizAnswers[qIndex] === `number`) return;
+      appState.quizAnswers[qIndex] = optionIndex;
+
+      const resetBtn = document.getElementById(`reset-quiz-btn`);
+      if (resetBtn) {
+        resetBtn.dataset.armed = `false`;
+        resetBtn.textContent = `Reiniciar autoevaluación`;
+      }
+
+      renderQuiz();
+      saveState();
+    }
+
+    function handleResetQuiz(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Pulse de nuevo para confirmar`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reiniciar autoevaluación`;
+      appState.quizAnswers = {};
+      renderQuiz();
+      saveState();
+    }
+
+    function scrollToSection(id) {
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: `smooth`, block: `start` });
+      }
+      setActiveNav(id);
+    }
+
+    function setActiveNav(id) {
+      const links = document.querySelectorAll(`.nav-link`);
+      links.forEach(function (link) {
+        link.classList.toggle(`active`, link.dataset.target === id);
+      });
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, `&amp;`)
+        .replace(/</g, `&lt;`)
+        .replace(/>/g, `&gt;`)
+        .replace(/"/g, `&quot;`);
+    }
+
+    async function saveState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+        } catch (err) {
+          /* Silently ignore persistence errors outside host */
+        }
+      }
+    }
+
+    function setupObservers() {
+      if (!(`IntersectionObserver` in window)) return;
+
+      const revealEls = document.querySelectorAll(`.reveal`);
+      revealEls.forEach(function (el) {
+        el.classList.add(`is-pending`);
+      });
+
+      const revealObserver = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove(`is-pending`);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      revealEls.forEach(function (el) {
+        revealObserver.observe(el);
+      });
+
+      const sectionIds = [`subjetividad`, `negatividad`, `abismo`, `experiencia`, `glosario`, `autoevaluacion`];
+      const navObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            setActiveNav(entry.target.id);
+          }
+        });
+      }, { rootMargin: `-20% 0px -65% 0px` });
+
+      sectionIds.forEach(function (id) {
+        const sec = document.getElementById(id);
+        if (sec) navObserver.observe(sec);
+      });
+    }
+
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            appState = Object.assign({}, appState, saved);
+            if (!appState.quizAnswers || typeof appState.quizAnswers !== `object`) {
+              appState.quizAnswers = {};
+            }
+          }
+        } catch (err) {
+          /* Fallback to default state */
+        }
+      }
+
+      renderLexiconComparator();
+      renderNegativityStepper();
+      renderOntologyMode();
+      renderExperienceStep();
+      renderGlossary();
+      renderQuiz();
+      setupObservers();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>

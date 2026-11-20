@@ -1,0 +1,2471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>Kant y el problema de la metafísica — Hipertexto filosófico interactivo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      /* Ink */
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      /* Rules */
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      /* Accents */
+      --primary: #990f3d;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      /* Fonts */
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* Shared semantic & focus tokens */
+      --positive: #0d7680;
+      --warning: #9a6312;
+      --focus: #990f3d;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.35rem, 1.4rem + 3.6vw, 4.1rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.8vw, 2.4rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.55vw, 1.45rem);
+      --body-size: clamp(1.05rem, 1rem + 0.22vw, 1.15rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      font-optical-sizing: auto;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1120px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.2;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 66ch;
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    button, input, select {
+      font-family: inherit;
+    }
+
+    /* Broadsheet Masthead */
+    .masthead-line {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm) var(--space-lg);
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .masthead-meta {
+      color: var(--on-surface-variant);
+    }
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+    .masthead-lede {
+      font-family: var(--font-body);
+      font-size: clamp(1.15rem, 1.05rem + 0.45vw, 1.35rem);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 58ch;
+      margin-top: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .masthead-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    /* Navigation strip */
+    .nav-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs) var(--space-md);
+      padding-block: var(--space-sm);
+      border-bottom: var(--rule-column);
+      align-items: center;
+    }
+    .nav-link {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      text-decoration: none;
+      padding: var(--space-xs) 0;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:hover {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .nav-link.is-active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      border: 1px solid transparent;
+      text-decoration: none;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+    }
+    .btn-secondary {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-secondary:hover {
+      background-color: var(--surface-container-high);
+    }
+    .btn-ghost {
+      background-color: transparent;
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+    .btn-ghost:hover {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Broadsheet Ruled Columns */
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: 0;
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-md);
+    }
+    .col-item {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+    .col-item:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .col-item-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+    }
+    .col-item-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.75rem);
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      line-height: 1.15;
+    }
+    .col-item-delta {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--secondary);
+      margin-top: var(--space-xs);
+    }
+
+    /* Two-column reading & interactive layout */
+    .split-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .reading-flow {
+      max-width: 66ch;
+    }
+
+    /* Section framing */
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-md);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .section-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm) var(--space-md);
+    }
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+    }
+    .tag-on-fill {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      background: transparent;
+      padding: 0;
+    }
+
+    /* Pull Quote */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+      margin-block: var(--space-md);
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.18rem, 1.05rem + 0.5vw, 1.42rem);
+      line-height: 1.42;
+      color: var(--on-surface);
+    }
+    .pull-quote cite {
+      display: block;
+      font-style: normal;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      margin-top: var(--space-sm);
+    }
+
+    /* Key Takeaways list */
+    .key-points {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-top: var(--rule-column);
+    }
+    .key-points li {
+      border-bottom: var(--rule-column);
+      padding-block: var(--space-sm);
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: baseline;
+    }
+    .kp-num {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      color: var(--primary);
+      letter-spacing: 0.06em;
+    }
+
+    /* Hypertext Inline Terms */
+    .hyper-term {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--primary);
+      padding: 0 var(--space-xs);
+      margin: 0 1px;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      display: inline;
+      line-height: inherit;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .hyper-term:hover,
+    .hyper-term[aria-expanded="true"] {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    /* Contextual Hypertext Note Box */
+    .hyper-note {
+      background-color: var(--surface-container-low);
+      border-left: 3px solid var(--primary);
+      padding: var(--space-md) var(--space-lg);
+      margin-block: var(--space-md);
+      display: none;
+    }
+    .hyper-note.is-open {
+      display: block;
+      animation: fadeSlide var(--dur-short) var(--ease-out);
+    }
+    .hyper-note-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xs);
+    }
+    .hyper-note-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--on-surface);
+    }
+    .hyper-note-close {
+      background: transparent;
+      border: 1px solid var(--outline);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: var(--space-xs) var(--space-sm);
+      min-height: 36px;
+      cursor: pointer;
+    }
+    .hyper-note-close:hover {
+      background-color: var(--surface-container-high);
+    }
+    .hyper-note-actions {
+      margin-top: var(--space-sm);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: center;
+    }
+    .text-link {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+    .text-link:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    /* Filled Newsprint Panel (used sparingly for interactive tools) */
+    .panel-box {
+      background-color: var(--surface-container-low);
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg);
+    }
+    .panel-box-dense {
+      background-color: var(--surface-container);
+      border: 1px solid var(--outline);
+      padding: var(--space-lg);
+    }
+
+    /* Interactive Schematism Diagram & Controls */
+    .step-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .step-btn {
+      background-color: var(--background);
+      color: var(--on-surface);
+      border: 1px solid var(--outline);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .step-btn:hover {
+      background-color: var(--surface-container-high);
+    }
+    .step-btn.is-active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    .edition-toggle {
+      display: inline-flex;
+      border: 1px solid var(--outline);
+      margin-bottom: var(--space-md);
+    }
+    .edition-btn {
+      background: var(--background);
+      color: var(--on-surface);
+      border: none;
+      border-right: 1px solid var(--outline);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+    }
+    .edition-btn:last-child {
+      border-right: none;
+    }
+    .edition-btn.is-active {
+      background: var(--on-surface);
+      color: var(--background);
+    }
+
+    .svg-frame {
+      background-color: var(--background);
+      border: 1px solid var(--outline-variant);
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .svg-frame svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Being Articulation Explorer */
+    .example-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .triad-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      margin-top: var(--space-md);
+    }
+    .triad-cell {
+      padding: var(--space-md);
+      border-left: var(--rule-column);
+    }
+    .triad-cell:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    /* Comparison Table */
+    .table-wrap {
+      overflow-x: auto;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    thead th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--rule-ink);
+      background-color: var(--surface-container-low);
+    }
+    tbody td {
+      padding: var(--space-md);
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+    tbody td:first-child {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      width: 22%;
+    }
+
+    /* Glossary Controls & Grid */
+    .glossary-toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+      padding-bottom: var(--space-md);
+      border-bottom: var(--rule-ink);
+    }
+    .field-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .text-input, .select-input {
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      color: var(--on-surface);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      font-size: 1rem;
+      border-radius: var(--rounded);
+      width: 100%;
+    }
+    .select-input {
+      padding-right: var(--space-xl);
+    }
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-lg);
+      padding-top: var(--space-md);
+    }
+    .glossary-entry {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+      transition: background-color var(--dur-short) var(--ease-out);
+    }
+    .glossary-entry.is-highlighted {
+      background-color: var(--primary-container);
+      padding: var(--space-md);
+      border-top: 2px solid var(--primary);
+    }
+    .glossary-entry-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+    .glossary-entry h3 {
+      font-size: 1.2rem;
+    }
+    .study-toggle {
+      background: transparent;
+      border: 1px solid var(--outline);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: var(--space-xs) var(--space-sm);
+      min-height: 36px;
+      cursor: pointer;
+    }
+    .study-toggle.is-studied {
+      background-color: var(--on-surface);
+      color: var(--background);
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      border-top: var(--rule-ink);
+    }
+    .faq-item {
+      border-bottom: var(--rule-column);
+    }
+    .faq-trigger {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: var(--space-md) 0;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      cursor: pointer;
+      color: var(--on-surface);
+      min-height: 44px;
+    }
+    .faq-trigger:hover .faq-q {
+      color: var(--primary);
+    }
+    .faq-q {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.15rem;
+      line-height: 1.3;
+    }
+    .faq-icon {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+    .faq-answer {
+      display: none;
+      padding-bottom: var(--space-md);
+      color: var(--on-surface-variant);
+      max-width: 66ch;
+    }
+    .faq-answer.is-open {
+      display: block;
+    }
+
+    /* Quiz Section */
+    .quiz-progress-bar {
+      width: 100%;
+      height: 8px;
+      background-color: var(--surface-container-high);
+      border: 1px solid var(--outline);
+      margin-bottom: var(--space-md);
+      overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      width: 0%;
+      transition: width var(--dur-short) var(--ease-out);
+    }
+    .quiz-card {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .quiz-option {
+      text-align: left;
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      color: var(--on-surface);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.45;
+      display: flex;
+      gap: var(--space-sm);
+      align-items: baseline;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      background-color: var(--surface-container-high);
+    }
+    .quiz-option.is-correct {
+      background-color: var(--background);
+      border-color: var(--secondary);
+      box-shadow: inset 4px 0 0 var(--secondary);
+    }
+    .quiz-option.is-wrong {
+      background-color: var(--primary-container);
+      border-color: var(--error);
+      box-shadow: inset 4px 0 0 var(--error);
+    }
+    .quiz-feedback {
+      margin-top: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--background);
+      border-left: 3px solid var(--outline);
+      font-size: 0.96rem;
+    }
+    .quiz-feedback.is-good {
+      border-left-color: var(--secondary);
+    }
+    .quiz-feedback.is-bad {
+      border-left-color: var(--error);
+    }
+    .quiz-footer-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--rule-masthead);
+      padding-top: var(--space-md);
+      padding-bottom: var(--space-xl);
+      color: var(--on-surface-variant);
+      font-size: 0.92rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 860px) {
+      .split-layout {
+        grid-template-columns: 1fr;
+      }
+      .glossary-toolbar {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: 1fr;
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .columns {
+        grid-template-columns: 1fr;
+      }
+      .col-item {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-sm) 0;
+      }
+      .col-item:first-child {
+        border-top: 0;
+      }
+      .triad-grid {
+        grid-template-columns: 1fr;
+      }
+      .triad-cell {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-sm) 0;
+      }
+      .triad-cell:first-child {
+        border-top: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- MASTHEAD -->
+    <header>
+      <div class="masthead-line">
+        <span>Archivo de Filosofía Crítica · Monografía Interactiva</span>
+        <span class="masthead-meta">Fuente: Martin Heidegger — Kant y el problema de la metafísica</span>
+      </div>
+
+      <nav class="nav-strip" aria-label="Navegación principal del estudio">
+        <a class="nav-link" href="#reinterpretacion">01 · Reinterpretación</a>
+        <a class="nav-link" href="#finitud">02 · Finitud</a>
+        <a class="nav-link" href="#esquematismo">03 · Esquematismo</a>
+        <a class="nav-link" href="#fundamentacion">04 · Fundamentación</a>
+        <a class="nav-link" href="#ser">05 · Pregunta por el ser</a>
+        <a class="nav-link" href="#comparaciones">06 · Comparaciones</a>
+        <a class="nav-link" href="#glosario">07 · Glosario</a>
+        <a class="nav-link" href="#faq">08 · Preguntas</a>
+        <a class="nav-link" href="#cuestionario">09 · Autoevaluación</a>
+      </nav>
+
+      <div class="masthead">
+        <h1>Kant y el problema de la metafísica: guía hipertextual</h1>
+        <p class="masthead-lede">
+          Martin Heidegger lee la <em>Crítica de la razón pura</em> no como una teoría del conocimiento o de las ciencias positivas, sino como la fundamentación de la metafísica en la finitud del <em>ser-ahí</em> humano y en el tiempo originario.
+        </p>
+        <div class="masthead-actions">
+          <a href="#reinterpretacion" class="btn btn-primary">Iniciar recorrido filosófico</a>
+          <a href="#glosario" class="btn btn-secondary">Explorar glosario conceptual</a>
+          <a href="#cuestionario" class="btn btn-ghost">Ir a la autoevaluación</a>
+        </div>
+      </div>
+
+      <!-- Ruled Key Figures / Study Tracker -->
+      <div class="columns" aria-label="Indicadores de lectura y estudio">
+        <div class="col-item">
+          <div class="col-item-label">Eje de lectura</div>
+          <div class="col-item-value">Ontología fundamental</div>
+          <div class="col-item-delta">Frente a la teoría del conocimiento</div>
+        </div>
+        <div class="col-item">
+          <div class="col-item-label">Centro de la Crítica</div>
+          <div class="col-item-value">Esquematismo</div>
+          <div class="col-item-delta">Imaginación y tiempo originario</div>
+        </div>
+        <div class="col-item">
+          <div class="col-item-label">Conceptos estudiados</div>
+          <div class="col-item-value" id="stat-studied">0 / 15</div>
+          <div class="col-item-delta" id="stat-studied-note">Haz clic en cualquier término subrayado</div>
+        </div>
+        <div class="col-item">
+          <div class="col-item-label">Autoevaluación</div>
+          <div class="col-item-value" id="stat-quiz">Sin iniciar</div>
+          <div class="col-item-delta" id="stat-quiz-note">8 cuestiones sobre la obra</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION 1: REINTERPRETACIÓN -->
+    <section id="reinterpretacion" class="section-open">
+      <div class="section-header-row">
+        <div>
+          <span class="section-label">Sección 01 · Reinterpretación de la Crítica de la razón pura</span>
+          <h2>De la teoría del conocimiento a la ontología fundamental</h2>
+        </div>
+        <span class="tag">Metaphysica generalis</span>
+      </div>
+
+      <div class="split-layout">
+        <div class="reading-flow">
+          <p>
+            La primera frase de la obra anuncia sin rodeos la tarea de Heidegger: interpretar la <em>Crítica de la razón pura</em> de Kant como una <button type="button" class="hyper-term" data-term="fundamentacion" aria-expanded="false">fundamentación de la metafísica</button>. No busca resolver malentendidos menores ni añadir notas aclaratorias, sino sacar a luz lo que Kant «ha querido decir», apoyándose en la propia máxima kantiana de reconocer, apartándose de la letra, la intención decisiva del autor.
+          </p>
+          <p>
+            Con ello, Heidegger disiente frontalmente de los comentaristas habituales que conciben la <em>Crítica</em> como una «teoría del conocimiento», una «teoría de la experiencia» o una teoría de las ciencias positivas. Si se le concediera tal nombre, tendría que decirse que trata del <button type="button" class="hyper-term" data-term="conocimiento-ontologico" aria-expanded="false">conocimiento ontológico</button> y no del conocimiento óntico. Pero incluso esa fórmula queda corta: lo esencial es que la ontología —como <button type="button" class="hyper-term" data-term="metaphysica-generalis" aria-expanded="false">metaphysica generalis</button>, pieza fundamental de la metafísica entera— se fundamenta aquí por primera vez en su propia esfera.
+          </p>
+          <p>
+            Por eso Kant emplea el término «filosofía trascendental» para caracterizar la problemática de la ontología tradicional. La <em>Crítica</em> no es un «sistema» cerrado de filosofía trascendental, sino un «tratado del método» que traza el «croquis entero de un sistema de metafísica» al interrogar por la posibilidad interna de la <button type="button" class="hyper-term" data-term="trascendencia" aria-expanded="false">trascendencia</button>, es decir, de la comprensión del ser.
+          </p>
+
+          <div id="note-sec1" class="hyper-note" aria-live="polite"></div>
+        </div>
+
+        <aside aria-label="Puntos clave y sospecha hermenéutica">
+          <blockquote class="pull-quote">
+            «La Crítica de la razón pura no tiene nada que ver con la “teoría del conocimiento”. Al plantear el problema de la trascendencia se interroga acerca de la posibilidad interna de la ontología.»
+            <cite>Martin Heidegger · Kant y el problema de la metafísica</cite>
+          </blockquote>
+
+          <ul class="key-points">
+            <li>
+              <span class="kp-num">01</span>
+              <span><strong>Conocimiento óntico vs. ontológico:</strong> El primero se dirige a los entes ya patentes (experiencia); el segundo investiga la posibilidad de comprender el ser de los entes.</span>
+            </li>
+            <li>
+              <span class="kp-num">02</span>
+              <span><strong>La sospecha del lector:</strong> Que ya en la introducción aparezca la expresión <button type="button" class="hyper-term" data-term="ontologia-fundamental" aria-expanded="false">ontología fundamental</button> despierta la sospecha de que Heidegger presta a Kant su propia problemática; el propio texto deja al lector juzgar si esta lectura penetra más hondo que los comentarios previos.</span>
+            </li>
+            <li>
+              <span class="kp-num">03</span>
+              <span><strong>Tratado del método:</strong> No una técnica operativa, sino la determinación completa de los contornos generales y la estructuración interna total de la ontología.</span>
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECTION 2: FINITUD HUMANA -->
+    <section id="finitud" class="section-open">
+      <div class="section-header-row">
+        <div>
+          <span class="section-label">Sección 02 · La finitud del conocer humano</span>
+          <h2>Conocer es primariamente intuir: el pensamiento al servicio de la intuición</h2>
+        </div>
+        <span class="tag">Razón pura sensible</span>
+      </div>
+
+      <div class="split-layout">
+        <div class="reading-flow">
+          <p>
+            Heidegger subraya una frase inicial de Kant frecuentemente subestimada: «Sean cualesquiera el modo y los medios con que un conocimiento se refiera a sus objetos, la referencia inmediata —que todo pensar busca como medio— se llama intuición». De aquí se desprende una tesis radical: <strong>conocer es primariamente intuir</strong>. Interpretar el conocimiento ante todo como un juzgar o un mero pensar contradice el sentido decisivo del problema kantiano.
+          </p>
+          <p>
+            La finitud del conocimiento humano consiste en que nuestra intuición es una <button type="button" class="hyper-term" data-term="intuicion-receptiva" aria-expanded="false">intuición receptiva</button> (sensibilidad), incapaz de crear por sí misma el ente que intuye. El segundo elemento esencial es el pensamiento puro: el concepto determina «tal o cual cosa» en una representación general, pero está enteramente al servicio de la intuición. En la ob-jetivación pura del objeto se manifiesta algo «que se opone» a que nuestro conocer sea caprichoso.
+          </p>
+          <p>
+            De ahí que la razón pura humana sea forzosamente una <button type="button" class="hyper-term" data-term="razon-pura-sensible" aria-expanded="false">razón pura sensible</button>. No se vuelve sensible de modo accidental por estar unida a un cuerpo; al revés, el hombre puede «tener» un cuerpo en sentido trascendental solo porque la trascendencia misma es sensible <em>a priori</em>. Incluso en el ámbito ético, el sí-mismo moral («persona») se constituye mediante el <button type="button" class="hyper-term" data-term="respeto" aria-expanded="false">respeto</button>: un sentimiento puro «producido por uno mismo» que hace posible recibir la ley moral y revela la estructura originaria de la imaginación trascendental.
+          </p>
+
+          <div id="note-sec2" class="hyper-note" aria-live="polite"></div>
+        </div>
+
+        <aside aria-label="La esencia de la finitud y la cuarta pregunta">
+          <div class="panel-box">
+            <span class="tag-on-fill">§ 39 · El problema de la finitud</span>
+            <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">¿Por qué no basta enumerar imperfecciones?</h3>
+            <p>
+              Señalar defectos o límites cotidianos solo aporta datos de hecho sobre que el hombre es finito, pero no esclarece <em>en qué consiste la esencia de su finitud</em> ni cómo determina al hombre en su totalidad.
+            </p>
+            <p>
+              La pregunta por la finitud brota de la tarea de fundamentar la metafísica. Cuando Kant retrotrae las tres cuestiones fundamentales a la cuarta —«¿Qué es el hombre?»—, vuelve cuestionable la pregunta misma: no puede responderse desde una antropología, sino desde la ontología fundamental.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECTION 3: ESQUEMATISMO TRASCENDENTAL (INTERACTIVE ANCHOR) -->
+    <section id="esquematismo" class="section-open">
+      <div class="section-header-row">
+        <div>
+          <span class="section-label">Sección 03 · El corazón de la Crítica</span>
+          <h2>El esquematismo trascendental y el retroceso de Kant</h2>
+        </div>
+        <span class="tag">Determinación del tiempo</span>
+      </div>
+
+      <div class="split-layout">
+        <div class="reading-flow">
+          <p>
+            Si los conceptos puros del entendimiento (categorías) son completamente heterogéneos respecto a los fenómenos empíricos, ¿cómo pueden aplicarse a ellos? En el lenguaje lógico, aplicar conceptos a objetos se llama subsunción. Pero tratándose de conceptos ontológicos, nos enfrentamos a una <button type="button" class="hyper-term" data-term="subsuncion-ontologica" aria-expanded="false">subsunción ontológica</button> que convierte en problema la «generalidad» misma de lo que significa <em>generalis</em> en <em>metaphysica generalis</em>.
+          </p>
+          <p>
+            Kant resuelve esta heterogeneidad mediante una representación medianera pura (sin nada empírico), a la vez intelectual y sensible: el <button type="button" class="hyper-term" data-term="esquema-trascendental" aria-expanded="false">esquema trascendental</button>, es decir, la determinación trascendental del tiempo. Lejos de ser una doctrina «barroca» o «confusa», el capítulo del esquematismo —ilustrado por Heidegger con la categoría de la <strong>substancia</strong>— posee una estructura transparente y conduce al centro de toda la <em>Crítica</em>.
+          </p>
+          <p>
+            La raíz común donde convergen sensibilidad y entendimiento es la <button type="button" class="hyper-term" data-term="imaginacion-trascendental" aria-expanded="false">imaginación trascendental</button>, facultad de una «espontaneidad receptiva» que proyecta el horizonte donde el tiempo opera como <button type="button" class="hyper-term" data-term="afeccion-pura" aria-expanded="false">afección pura de sí mismo</button> y hace patente incluso el espacio puro. Sin embargo, al hacer «saltar la plataforma de la razón», Kant se detuvo ante ese abismo en la segunda edición.
+          </p>
+
+          <div id="note-sec3" class="hyper-note" aria-live="polite"></div>
+        </div>
+
+        <!-- INTERACTIVE SCHEMATISM EXPLORER -->
+        <div class="panel-box" aria-label="Explorador interactivo del esquematismo trascendental">
+          <span class="tag-on-fill">Diagrama interactivo · Mecanismo de mediación</span>
+          <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">Arquitectura del esquema y giro entre ediciones</h3>
+
+          <div class="edition-toggle" role="group" aria-label="Comparar edición de la Crítica de la razón pura">
+            <button type="button" class="edition-btn is-active" id="ed-btn-1" onclick="setEdition(1)">1.ª Edición (Raíz común)</button>
+            <button type="button" class="edition-btn" id="ed-btn-2" onclick="setEdition(2)">2.ª Edición (Retroceso)</button>
+          </div>
+
+          <div class="step-controls" role="group" aria-label="Etapas del esquematismo trascendental">
+            <button type="button" class="step-btn is-active" id="step-btn-1" onclick="setSchematismStep(1)">1. Heterogeneidad</button>
+            <button type="button" class="step-btn" id="step-btn-2" onclick="setSchematismStep(2)">2. Imaginación</button>
+            <button type="button" class="step-btn" id="step-btn-3" onclick="setSchematismStep(3)">3. Tiempo puro</button>
+            <button type="button" class="step-btn" id="step-btn-4" onclick="setSchematismStep(4)">4. Subsunción</button>
+          </div>
+
+          <div class="svg-frame">
+            <svg id="schematism-svg" viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Esquema estructural de la mediación trascendental entre entendimiento, imaginación, tiempo y fenómeno">
+              <!-- Static Baseline Axes -->
+              <line x1="20" y1="268" x2="500" y2="268" stroke="var(--outline-variant)" stroke-width="1"/>
+
+              <!-- Left Node: Concepto puro / Entendimiento -->
+              <g id="svg-node-concept">
+                <rect x="24" y="24" width="170" height="66" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5"/>
+                <text x="36" y="46" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--primary)">INTELECTUAL · PURO</text>
+                <text x="36" y="66" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--on-surface)">Categoría (Concepto)</text>
+                <text x="36" y="81" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">Ej.: Substancia · «Yo pienso»</text>
+              </g>
+
+              <!-- Right Node: Fenómeno / Intuición -->
+              <g id="svg-node-phenom">
+                <rect x="326" y="24" width="170" height="66" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5"/>
+                <text x="338" y="46" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--primary)">SENSIBLE · RECEPTIVO</text>
+                <text x="338" y="66" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--on-surface)">Fenómeno / Intuición</text>
+                <text x="338" y="81" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">Lo particular dado</text>
+              </g>
+
+              <!-- Heterogeneity barrier line -->
+              <g id="svg-barrier">
+                <line x1="260" y1="22" x2="260" y2="96" stroke="var(--primary)" stroke-width="2" stroke-dasharray="5,4"/>
+                <text x="260" y="16" text-anchor="middle" font-family="var(--font-label)" font-size="10" font-weight="700" fill="var(--primary)">HETEROGENEIDAD</text>
+              </g>
+
+              <!-- Center Node: Esquema trascendental / Tiempo -->
+              <g id="svg-node-schema">
+                <rect x="145" y="116" width="230" height="62" fill="var(--background)" stroke="var(--outline)" stroke-width="2"/>
+                <text id="svg-schema-kicker" x="158" y="137" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--secondary)">REPRESENTACIÓN MEDIANERA</text>
+                <text id="svg-schema-title" x="158" y="156" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--on-surface)">Esquema trascendental</text>
+                <text id="svg-schema-sub" x="158" y="171" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">Determinación trascendental del tiempo</text>
+              </g>
+
+              <!-- Root Node: Imaginación trascendental -->
+              <g id="svg-node-imag">
+                <rect id="svg-imag-box" x="115" y="198" width="290" height="58" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2"/>
+                <text id="svg-imag-kicker" x="128" y="218" font-family="var(--font-label)" font-size="11" font-weight="700" fill="var(--on-primary-container)">ESPONTANEIDAD RECEPTIVA · RAÍZ</text>
+                <text id="svg-imag-title" x="128" y="236" font-family="var(--font-headline)" font-size="15" font-weight="700" fill="var(--on-surface)">Imaginación trascendental</text>
+                <text id="svg-imag-sub" x="128" y="249" font-family="var(--font-body)" font-size="11" fill="var(--on-surface-variant)">Afección pura de sí mismo (Tiempo originario)</text>
+              </g>
+
+              <!-- Connectors -->
+              <line id="svg-conn-left" x1="109" y1="90" x2="185" y2="116" stroke="var(--outline)" stroke-width="1.5"/>
+              <line id="svg-conn-right" x1="411" y1="90" x2="335" y2="116" stroke="var(--outline)" stroke-width="1.5"/>
+              <line id="svg-conn-root" x1="260" y1="198" x2="260" y2="178" stroke="var(--primary)" stroke-width="2"/>
+              <line id="svg-conn-ed2" x1="109" y1="90" x2="115" y2="227" stroke="var(--primary)" stroke-width="2" stroke-dasharray="4,3" opacity="0"/>
+            </svg>
+          </div>
+
+          <div id="schematism-caption" style="font-size: 0.96rem; line-height: 1.55;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: FUNDAMENTACIÓN Y SER-AHÍ -->
+    <section id="fundamentacion" class="section-open">
+      <div class="section-header-row">
+        <div>
+          <span class="section-label">Sección 04 · Metafísica del ser-ahí</span>
+          <h2>De la ontología orgullosa al suelo abismal de la temporalidad</h2>
+        </div>
+        <span class="tag">Analítica existenciaria</span>
+      </div>
+
+      <div class="split-layout">
+        <div class="reading-flow">
+          <p>
+            La ontología tradicional («el orgulloso nombre de ontología») pretendía ofrecer conocimientos sintéticos <em>a priori</em> de las cosas en general, como si fuera un conocimiento óntico <em>a priori</em>, privilegio de un ser infinito. Al renunciar a ese orgullo y asumirse en su finitud, la ontología recibe su esencia legítima como revelación de la <button type="button" class="hyper-term" data-term="trascendencia" aria-expanded="false">trascendencia</button> del sujeto finito.
+          </p>
+          <p>
+            Heidegger muestra así que el hombre solo es hombre a raíz del <button type="button" class="hyper-term" data-term="ser-ahi" aria-expanded="false">ser-ahí</button> (<em>Dasein</em>) en él. Por ello, ninguna antropología —ni siquiera la filosófica— puede desarrollar la fundamentación de la metafísica, pues toda antropología supone ya al hombre como hombre. Se impone, antes bien, una <strong>metafísica del ser-ahí como ontología fundamental</strong>.
+          </p>
+          <p>
+            Esta analítica existenciaria aclara la <button type="button" class="hyper-term" data-term="cura" aria-expanded="false">cura</button> (unidad trascendental de la finitud) como <strong>temporalidad</strong>, protoestructura trascendental del ser-ahí. En su desarrollo se hace necesaria una interpretación existenciaria de la conciencia, de la culpa y de la muerte, y se abre la exigencia de fundamentar positivamente la «no-verdad trascendental» —la <button type="button" class="hyper-term" data-term="apariencia-trascendental" aria-expanded="false">apariencia trascendental</button> que Kant declara necesaria— en su unidad originaria con la verdad trascendental.
+          </p>
+
+          <div id="note-sec4" class="hyper-note" aria-live="polite"></div>
+        </div>
+
+        <aside aria-label="El tiempo y la repetición de El ser y el tiempo">
+          <blockquote class="pull-quote">
+            «La fundamentación de la metafísica se funda en el tiempo. La pregunta por el ser, pregunta fundamental de la fundamentación de la metafísica, es el problema de El ser y el tiempo.»
+            <cite>Martin Heidegger · § 42–44</cite>
+          </blockquote>
+
+          <ul class="key-points">
+            <li>
+              <span class="kp-num">01</span>
+              <span><strong>Repetición, no novedad:</strong> La ontología fundamental no busca una «novedad» frente a lo antiguo, sino apropiarse originariamente de la fundamentación kantiana ayudándola a alcanzar su posibilidad más propia.</span>
+            </li>
+            <li>
+              <span class="kp-num">02</span>
+              <span><strong>Tiempo y espacio:</strong> El tiempo como afección pura de sí mismo no está «junto» a la apercepción pura, sino en ella. Admitir el papel trascendental del espacio puro no niega la supremacía del tiempo originario, sino que muestra cómo el sí-mismo finito es también «espacial».</span>
+            </li>
+            <li>
+              <span class="kp-num">03</span>
+              <span><strong>Finitud e infinitud supuesta:</strong> ¿Puede pensarse la finitud del ser-ahí sin una «supuesta» infinitud? La idea de un ser infinito rechaza la ontología, pues solo el ente finito necesita comprender el ser.</span>
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECTION 5: ARTICULACIÓN DE LA PREGUNTA POR EL SER -->
+    <section id="ser" class="section-open">
+      <div class="section-header-row">
+        <div>
+          <span class="section-label">Sección 05 · El problema rector de la metafísica</span>
+          <h2>La articulación oculta del «es»: qué-es, que-es y ser-verdad</h2>
+        </div>
+        <span class="tag">Τί τὸ ὄν;</span>
+      </div>
+
+      <div class="split-layout">
+        <div class="reading-flow">
+          <p>
+            Al repetir la pregunta de la metafísica antigua —<em>τί τὸ ὄν;</em> («¿qué es propiamente el ser?»)—, Heidegger advierte que la cuestión del ser nos conduce hasta el borde de la más completa oscuridad (como evocó Hegel al decir que «el ser puro y la nada pura son, por lo tanto, la misma cosa»). Sin embargo, no debemos retroceder ante esa oscuridad.
+          </p>
+          <p>
+            En todo tiempo y en todo trato con el ente —incluso cuando guardamos silencio frente a él— poseemos ya una comprensión previa del ser. Sin ella, faltaría todo horizonte para definir la esencialidad de la esencia o explicar la realidad de lo real. En cada proposición o conducta se articulan ocultamente tres caracteres del ser: el <strong>«qué-es»</strong> (y <em>ser-tal</em>), el <strong>«que-es»</strong> y el <strong>«ser-verdad»</strong> manifestado en el «es».
+          </p>
+
+          <div id="note-sec5" class="hyper-note" aria-live="polite"></div>
+        </div>
+
+        <!-- INTERACTIVE BEING ARTICULATION EXPLORER -->
+        <div class="panel-box" aria-label="Explorador de la articulación del ser en ejemplos cotidianos">
+          <span class="tag-on-fill">Laboratorio fenomenológico · Ejemplos del texto</span>
+          <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">Cómo comprendemos el «es» antes de toda teoría</h3>
+
+          <div class="example-tabs" role="group" aria-label="Seleccionar ejemplo de comprensión del ser">
+            <button type="button" class="step-btn is-active" id="ex-btn-1" onclick="setBeingExample(1)">«Hoy es día de fiesta»</button>
+            <button type="button" class="step-btn" id="ex-btn-2" onclick="setBeingExample(2)">El grito «¡Fuego!»</button>
+            <button type="button" class="step-btn" id="ex-btn-3" onclick="setBeingExample(3)">Conducta silenciosa</button>
+          </div>
+
+          <p id="being-example-lead" style="font-style: italic; color: var(--on-surface-variant); margin-bottom: var(--space-sm);"></p>
+
+          <div class="triad-grid" id="being-triad">
+            <div class="triad-cell">
+              <div class="col-item-label">1. Qué-es y ser-tal</div>
+              <div id="triad-que-es" style="font-size: 0.96rem;"></div>
+            </div>
+            <div class="triad-cell">
+              <div class="col-item-label">2. Que-es (existencia)</div>
+              <div id="triad-que-esta" style="font-size: 0.96rem;"></div>
+            </div>
+            <div class="triad-cell">
+              <div class="col-item-label">3. Ser-verdad («es»)</div>
+              <div id="triad-verdad" style="font-size: 0.96rem;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: COMPARACIONES TEÓRICAS -->
+    <section id="comparaciones" class="section-open">
+      <div class="section-header-row">
+        <div>
+          <span class="section-label">Sección 06 · Confrontaciones teóricas</span>
+          <h2>Tres ejes de contraste filosófico</h2>
+        </div>
+        <span class="tag">Heidegger · Kant · Cassirer</span>
+      </div>
+
+      <p>
+        Selecciona un eje de comparación para contrastar las posiciones filosóficas documentadas en la obra y en el coloquio final entre Heidegger y Ernst Cassirer.
+      </p>
+
+      <div class="step-controls" role="tablist" aria-label="Ejes de comparación teórica">
+        <button type="button" class="step-btn is-active" role="tab" aria-selected="true" id="cmp-tab-1" onclick="setComparison(1)">Lectura neokantiana vs. Heidegger</button>
+        <button type="button" class="step-btn" role="tab" aria-selected="false" id="cmp-tab-2" onclick="setComparison(2)">1.ª vs. 2.ª Edición de la Crítica</button>
+        <button type="button" class="step-btn" role="tab" aria-selected="false" id="cmp-tab-3" onclick="setComparison(3)">Debate Cassirer vs. Heidegger</button>
+      </div>
+
+      <div id="comparison-summary" class="panel-box" style="margin-bottom: var(--space-md);"></div>
+
+      <div class="table-wrap">
+        <table>
+          <thead id="comparison-thead"></thead>
+          <tbody id="comparison-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 7: GLOSARIO INTERACTIVO -->
+    <section id="glosario" class="section-open">
+      <div class="section-header-row">
+        <div>
+          <span class="section-label">Sección 07 · Hipertexto conceptual</span>
+          <h2>Glosario interactivo de conceptos fundamentales</h2>
+        </div>
+        <span class="tag">15 términos clave</span>
+      </div>
+
+      <div class="glossary-toolbar">
+        <div class="field-group">
+          <label for="glossary-search" class="field-label">Buscar término o definición</label>
+          <input id="glossary-search" type="search" class="text-input" placeholder="Ej. esquematismo, respeto, Dasein, Cassirer…" oninput="filterGlossary()">
+        </div>
+
+        <div class="field-group">
+          <label for="glossary-category" class="field-label">Filtrar por eje temático</label>
+          <select id="glossary-category" class="select-input" onchange="filterGlossary()">
+            <option value="all">Todos los ejes (15)</option>
+            <option value="ontologia">Ontología y Ser</option>
+            <option value="finitud">Conocimiento y Finitud</option>
+            <option value="esquematismo">Esquematismo y Tiempo</option>
+            <option value="debate">Debate Cassirer y Tradición</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="glossary-empty" class="panel-box" style="display: none;">
+        <p style="margin-bottom: var(--space-sm);"><strong>Ningún término coincide con tu búsqueda actual.</strong> Prueba con otra palabra clave o restablece el filtro para ver las 14 entradas.</p>
+        <button type="button" class="btn btn-secondary" onclick="resetGlossaryFilter()">Mostrar todos los términos</button>
+      </div>
+
+      <div class="glossary-grid" id="glossary-grid"></div>
+    </section>
+
+    <!-- SECTION 8: PREGUNTAS FRECUENTES (FAQ) -->
+    <section id="faq" class="section-open">
+      <div class="section-header-row">
+        <div>
+          <span class="section-label">Sección 08 · Preguntas frecuentes</span>
+          <h2>Dudas esenciales sobre la interpretación heideggeriana</h2>
+        </div>
+        <span class="tag">Guía de lectura</span>
+      </div>
+
+      <div class="faq-list" id="faq-list"></div>
+    </section>
+
+    <!-- SECTION 9: CUESTIONARIO DE AUTOEVALUACIÓN -->
+    <section id="cuestionario" class="section-open">
+      <div class="section-header-row">
+        <div>
+          <span class="section-label">Sección 09 · Comprobación de lectura</span>
+          <h2>Cuestionario de autoevaluación</h2>
+        </div>
+        <span class="tag">8 preguntas · Progreso guardado</span>
+      </div>
+
+      <div class="panel-box">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+          <span class="field-label" id="quiz-status-label">Respondidas: 0 de 8 · Aciertos: 0</span>
+          <span class="field-label" id="quiz-percent-label">0% completado</span>
+        </div>
+        <div class="quiz-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="quiz-progressbar">
+          <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+        </div>
+
+        <div id="quiz-container"></div>
+
+        <div class="quiz-footer-bar">
+          <div id="quiz-summary-msg" style="font-weight: 600;">
+            Selecciona una opción en cada pregunta para recibir retroalimentación inmediata basada en la obra.
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm);">
+            <button type="button" class="btn btn-secondary" onclick="exportStudyNotes()">Exportar resumen (.txt)</button>
+            <button type="button" class="btn btn-ghost" id="quiz-reset-btn" onclick="resetQuiz(this)">Reiniciar cuestionario</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <span>Fuente única: extractos de Martin Heidegger, <em>Kant y el problema de la metafísica</em> (incluyendo referencias a Kant, Hegel y el coloquio con Ernst Cassirer).</span>
+      <span>Edición hipertextual de estudio · Estado sincronizado localmente</span>
+    </footer>
+
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    const GLOSSARY_TERMS = [
+      {
+        id: `ontologia-fundamental`,
+        term: `Ontología fundamental`,
+        category: `ontologia`,
+        tag: `Ontología y Ser`,
+        section: `Sección 01 y 04`,
+        definition: `Proyecto filosófico que interroga por la posibilidad interna de la comprensión del ser. No pretende ser una novedad frente a lo antiguo, sino apropiarse originariamente de la fundamentación kantiana revelando la constitución del ser del ser-ahí.`,
+        quote: `«La pregunta fundamental es el problema de la posibilidad interna de la comprensión del ser, problema del cual ha de brotar toda pregunta explícita sobre el ser.»`
+      },
+      {
+        id: `metaphysica-generalis`,
+        term: `Metaphysica generalis`,
+        category: `ontologia`,
+        tag: `Ontología y Ser`,
+        section: `Sección 01 y 03`,
+        definition: `Nombre tradicional de la ontología entendida como pieza fundamental de la metafísica entera. Kant emplea «filosofía trascendental» en su lugar, y el esquematismo aclara qué significa «generalis» en los conceptos ontológicos.`,
+        quote: `«La ontología, como metaphysica generalis —pieza fundamental de la metafísica entera— se ha fundamentado y elevado por primera vez a su propia esfera.»`
+      },
+      {
+        id: `fundamentacion`,
+        term: `Fundamentación de la metafísica`,
+        category: `ontologia`,
+        tag: `Ontología y Ser`,
+        section: `Sección 01`,
+        definition: `Sentido profundo que Heidegger descubre en la Crítica de la razón pura: no una teoría de las ciencias positivas, sino un «tratado del método» que traza el «croquis entero de un sistema de metafísica».`,
+        quote: `«La siguiente investigación se propone la tarea de interpretar la Crítica de la razón pura de Kant como una fundamentación de la metafísica.»`
+      },
+      {
+        id: `conocimiento-ontologico`,
+        term: `Conocimiento óntico vs. ontológico`,
+        category: `finitud`,
+        tag: `Conocimiento y Finitud`,
+        section: `Sección 01`,
+        definition: `El conocimiento óntico trata de los entes dados en la experiencia. El conocimiento ontológico no versa sobre cosas particulares, sino sobre la estructura del ser que hace posible referirse a los entes.`,
+        quote: `«La Crítica de la razón pura no es, de ningún modo, una teoría del conocimiento óntico (experiencia), sino del conocimiento ontológico.»`
+      },
+      {
+        id: `trascendencia`,
+        term: `Trascendencia`,
+        category: `ontologia`,
+        tag: `Ontología y Ser`,
+        section: `Sección 01 y 04`,
+        definition: `La comprensión del ser propia de la subjetividad del sujeto humano finito. Elevar la posibilidad de la ontología a problema equivale a preguntar por la esencia de esta trascendencia, que es sensible a priori.`,
+        quote: `«Se funda la posibilidad interna de la ontología como una revelación de la trascendencia, es decir, de la subjetividad del sujeto humano.»`
+      },
+      {
+        id: `intuicion-receptiva`,
+        term: `Intuición receptiva`,
+        category: `finitud`,
+        tag: `Conocimiento y Finitud`,
+        section: `Sección 02`,
+        definition: `Rasgo primario de la finitud humana: conocer es primariamente intuir, y nuestra intuición recibe lo dado en lugar de crearlo. Todo pensar y juzgar está al servicio de esta referencia inmediata.`,
+        quote: `«Quien quiera entender la Crítica de la razón pura tiene que grabarse en la mente que conocer es primariamente intuir.»`
+      },
+      {
+        id: `razon-pura-sensible`,
+        term: `Razón pura sensible`,
+        category: `finitud`,
+        tag: `Conocimiento y Finitud`,
+        section: `Sección 02`,
+        definition: `Condición necesaria del conocer finito: la sensibilidad pertenece a la estructura trascendental del hombre. No somos sensibles solo por tener cuerpo; podemos «tener» un cuerpo porque la trascendencia es sensible a priori.`,
+        quote: `«La razón pura humana es forzosamente una razón pura sensible.»`
+      },
+      {
+        id: `respeto`,
+        term: `Respeto (sentimiento moral puro)`,
+        category: `finitud`,
+        tag: `Conocimiento y Finitud`,
+        section: `Sección 02`,
+        definition: `Receptividad respecto a la ley moral que constituye la esencia de la persona o sí-mismo moral. No es un estado afectivo empírico, sino un sentimiento puro «producido por uno mismo» que revela la imaginación trascendental.`,
+        quote: `«La estructura de la esencia del respeto pone de relieve en sí mismo la constitución originaria de la imaginación trascendental.»`
+      },
+      {
+        id: `esquema-trascendental`,
+        term: `Esquema trascendental`,
+        category: `esquematismo`,
+        tag: `Esquematismo y Tiempo`,
+        section: `Sección 03`,
+        definition: `Representación medianera pura (sin nada empírico), intelectual y sensible a la vez, que supera la heterogeneidad entre categorías y fenómenos mediante una determinación trascendental del tiempo (por ejemplo, en la substancia).`,
+        quote: `«La teoría del esquematismo de los conceptos puros del entendimiento constituye la etapa decisiva de la fundamentación de la metaphysica generalis.»`
+      },
+      {
+        id: `subsuncion-ontologica`,
+        term: `Subsunción ontológica`,
+        category: `esquematismo`,
+        tag: `Esquematismo y Tiempo`,
+        section: `Sección 03`,
+        definition: `Uso a priori de los conceptos puros como determinaciones del tiempo. A diferencia de la lógica tradicional (poner casos bajo géneros ónticos), aquí se pregunta cómo unos conceptos ontológicos determinan fenómenos heterogéneos.`,
+        quote: `«Se trata de antemano de conceptos ontológicos, y por consiguiente, de una subsunción específica, es decir, de una subsunción ontológica.»`
+      },
+      {
+        id: `imaginacion-trascendental`,
+        term: `Imaginación trascendental`,
+        category: `esquematismo`,
+        tag: `Esquematismo y Tiempo`,
+        section: `Sección 03`,
+        definition: `Facultad de «espontaneidad receptiva» en la que se originan tanto la intuición pura como el pensamiento puro y el respeto práctico. En la 2.ª edición de la Crítica, Kant retrocede y la subordina al entendimiento.`,
+        quote: `«Sin embargo, la imaginación trascendental existe en la segunda edición solamente de nombre.»`
+      },
+      {
+        id: `afeccion-pura`,
+        term: `Tiempo como afección pura de sí mismo`,
+        category: `esquematismo`,
+        tag: `Esquematismo y Tiempo`,
+        section: `Sección 03 y 04`,
+        definition: `El tiempo originario no está «junto» a la apercepción pura, sino dentro de ella como fundamento del sí-mismo finito. Hace posible también el formar representativo del espacio puro.`,
+        quote: `«El tiempo, como afección pura de sí mismo, se encuentra ya en la apercepción pura y hace del espíritu lo que éste es.»`
+      },
+      {
+        id: `ser-ahi`,
+        term: `Ser-ahí (Dasein)`,
+        category: `ontologia`,
+        tag: `Ontología y Ser`,
+        section: `Sección 04`,
+        definition: `Aquel fundamento íntimo en el hombre donde acontece la comprensión del ser como finitud esencialmente existente. Es más primordial que el hombre concebido por cualquier antropología filosófica.`,
+        quote: `«El hombre sólo es hombre a raíz del ser-ahí en él.»`
+      },
+      {
+        id: `cura`,
+        term: `Cura y temporalidad`,
+        category: `esquematismo`,
+        tag: `Esquematismo y Tiempo`,
+        section: `Sección 04`,
+        definition: `Unidad trascendental de la finitud del ser-ahí que se aclara concretamente como temporalidad (protoestructura trascendental). Exige una interpretación existenciaria de la conciencia, la culpa y la muerte.`,
+        quote: `«El segundo paso, decisivo, de la analítica existenciaria consiste en aclarar concretamente la cura como temporalidad.»`
+      },
+      {
+        id: `apariencia-trascendental`,
+        term: `Apariencia (no-verdad) trascendental`,
+        category: `debate`,
+        tag: `Debate Cassirer y Tradición`,
+        section: `Sección 04`,
+        definition: `Ilusión que Kant considera necesaria y a la que debe su posibilidad la metafísica trascendental. Heidegger pregunta si esta no-esencia pertenece intrínsecamente a la esencia finita del ser-ahí junto a la verdad trascendental.`,
+        quote: `«¿Acaso no forma parte de esta esencia de la finitud la no-esencia de esta apariencia?»`
+      }
+    ];
+
+    // Keep glossary count aligned with UI label (15 terms -> let's inspect or keep exact count dynamically!)
+    const SCHEMATISM_STEPS = {
+      1: {
+        title: `Paso 1 · Heterogeneidad entre categoría y fenómeno`,
+        text: `Los conceptos puros del entendimiento son completamente heterogéneos respecto a los fenómenos empíricos. Por ello, hablar de «subsunción» de los fenómenos bajo categorías no resuelve el problema, sino que plantea la pregunta por cómo unos conceptos ontológicos pueden determinar lo intuido.`
+      },
+      2: {
+        title: `Paso 2 · La imaginación trascendental como raíz`,
+        text: `El pensar puro es en sí una «espontaneidad receptiva» que se origina en la imaginación trascendental. Ésta no es una facultad inferior del alma, sino la condición de posibilidad que proyecta de antemano el horizonte unitario de lo representable.`
+      },
+      3: {
+        title: `Paso 3 · El tiempo como determinación y afección pura`,
+        text: `El esquema trascendental es la «representación medianera» pura, intelectual y sensible a la vez: la determinación trascendental del tiempo. Como afección pura de sí mismo, el tiempo habita ya en la apercepción pura y funda incluso la patencia del espacio puro.`
+      },
+      4: {
+        title: `Paso 4 · Subsunción ontológica en el fenómeno`,
+        text: `Gracias al esquema trascendental (como ocurre en el esquema de la substancia), las categorías se usan a priori como determinaciones del tiempo, realizando el conocimiento ontológico y haciendo posible que el ente se nos manifieste en su objetividad.`
+      }
+    };
+
+    const EDITION_NOTES = {
+      1: `En la 1.ª edición, Kant descubre la función central de la imaginación trascendental en la deducción y en el esquematismo, haciendo «saltar la plataforma de la razón».`,
+      2: `En la 2.ª edición, Kant se retira de esa posición radical: la imaginación queda reducida a un nombre de la síntesis intelectual y se restituye el predominio al entendimiento.`
+    };
+
+    const BEING_EXAMPLES = {
+      1: {
+        lead: `Proposición expresa: «Hoy es día de fiesta». Cada vez que la enunciamos, comprendemos el «es» y, con ello, algo semejante al ser.`,
+        queEs: `Comprendemos qué significa que algo sea «día de fiesta» (su ser-tal y su determinación esencial).`,
+        queEsta: `Comprendemos que efectivamente «hoy» acaece o se da ese carácter festivo en nuestra situación.`,
+        verdad: `El «es» de la proposición manifiesta el ser-verdad, articulando lo patente sin que reparemos explícitamente en la pregunta por el ser.`
+      },
+      2: {
+        lead: `Exclamación urgente: «¡Fuego!». Aunque no haya un verbo copulativo expreso, condensa toda una comprensión del ser.`,
+        queEs: `Identifica de inmediato la índole de lo que sucede («se ha iniciado un fuego» frente a cualquier otro suceso).`,
+        queEsta: `Atestigua la presencia fáctica e inminente del suceso («se necesita ayuda, ¡sálvese quien pueda!»).`,
+        verdad: `Pone en juego el propio ser del ser-ahí («ponga a salvo su propio ser») dentro de la patentibilidad inmediata de la situación.`
+      },
+      3: {
+        lead: `Conducta silenciosa frente al ente: «Aun en el caso que no nos pronunciemos expresamente sobre el ente, conduciéndonos en silencio frente a él…».`,
+        queEs: `Entendemos de antemano qué clase de ente tenemos delante sin necesidad de formular definiciones lógicas.`,
+        queEsta: `Nos atenemos a su existencia efectiva en el trato cotidiano, distinguiendo lo real de lo irreal.`,
+        verdad: `Los caracteres del «qué-es», del «que-es» y del «ser-verdad» hacen juego ocultamente entre sí en toda relación silenciosa con lo que es.`
+      }
+    };
+
+    const COMPARISONS = {
+      1: {
+        summary: `Heidegger rechaza reducir la Crítica de la razón pura a una teoría del conocimiento positivo y la lee como la primera fundamentación expresa de la ontología (metaphysica generalis) en la finitud humana.`,
+        headers: [`Dimensión`, `Comentaristas habituales / Neokantismo`, `Interpretación de Heidegger`],
+        rows: [
+          [`Naturaleza de la Crítica`, `«Teoría del conocimiento», teoría de la experiencia o de las ciencias positivas.`, `Fundamentación de la metafísica; «tratado del método» que traza el croquis entero de la ontología.`],
+          [`Relación pensar / intuición`, `Privilegia el juzgar y el pensar lógico como núcleo del conocer.`, `Conocer es primariamente intuir; todo pensar está simplemente al servicio de la intuición.`],
+          [`Tipo de conocimiento estudiado`, `Conocimiento óntico de objetos y validez de la ciencia natural matemática.`, `Conocimiento ontológico: posibilidad interna de la comprensión del ser (trascendencia).`],
+          [`Criterio hermenéutico`, `Atenimiento literal a la arquitectura epistemológica.`, `Reconocer, apartándose de la letra, lo que Kant «ha querido decir».`]
+        ]
+      },
+      2: {
+        summary: `Al llevar la intuición y el entendimiento a su raíz común en la imaginación trascendental, Kant alcanzó una posición radical que amenazaba la supremacía de la razón; en la 2.ª edición dio marcha atrás.`,
+        headers: [`Aspecto`, `1.ª Edición de la Crítica`, `2.ª Edición y proyección histórica`],
+        rows: [
+          [`Estatus de la imaginación`, `Raíz común y «espontaneidad receptiva» donde arraigan intuición pura, pensamiento puro y respeto moral.`, `Existe «solamente de nombre»; Kant afirma que es la misma espontaneidad llamada entendimiento cuando enlaza lo múltiple.`],
+          [`Posición de la razón y el entendimiento`, `Se «hace saltar la plataforma de la razón»; el entendimiento puro tiene carácter imaginativo y temporal.`, `Se restituye el predominio al entendimiento y al Logos frente a la sensibilidad.`],
+          [`Destino posterior en el idealismo`, `Posibilidad abierta de profundizar en la finitud del ser-ahí.`, `En Hegel la metafísica se convierte más radicalmente en una «lógica», y el idealismo olvida el problema de la finitud al luchar contra «la cosa en sí».`]
+        ]
+      },
+      3: {
+        summary: `En el diálogo recogido al final de la obra, Ernst Cassirer y Martin Heidegger debaten sobre el punto de partida (terminus a quo) y la meta (terminus ad quem) de la filosofía kantiana.`,
+        headers: [`Eje del diálogo`, `Posición de Ernst Cassirer`, `Posición de Martin Heidegger`],
+        rows: [
+          [`Terminus a quo / ad quem`, `Su terminus a quo parte del «hecho» (Cohen: de la ciencia matemática al lenguaje y el arte); su terminus ad quem es la totalidad de una filosofía de la cultura.`, `Su terminus a quo es su problemática central (finitud del ser-ahí); su terminus ad quem es la pregunta antigua τί τὸ ὄν; (¿qué es propiamente ser?).`],
+          [`Mediación intersubjetiva vs. Dasein`, `No hay otro camino de Dasein a Dasein sino a través del «espíritu objetivo» y las formas simbólicas (lenguaje, arte).`, `La filosofía alcanza la totalidad del hombre desde su finitud radical; una filosofía de la cultura o antropología supone ya lo que debe fundamentarse.`],
+          [`Giro copernicano y multiplicidad`, `El ser deja de ser una «substancia» única y se torna una multiplicidad de determinaciones funcionales y estructuras ontológicas diversas (arte, física, ética).`, `El ser se halla escindido en una multiplicidad, pero justamente por ello hace falta ganar un horizonte unitario a partir de la idea de ser.`],
+          [`Esquematismo y razón práctica`, `Reconoce el valor extraordinario del esquematismo teórico, pero recuerda que en lo ético Kant distingue la «típica» de la razón práctica y busca una objetividad absoluta.`, `Incluso el sentimiento moral de respeto revela la imaginación trascendental; el suelo de la Crítica se convierte en un abismo que exige una metafísica del ser-ahí.`]
+        ]
+      }
+    };
+
+    const FAQS = [
+      {
+        q: `¿Por qué sospechan algunos lectores que Heidegger proyecta su propio pensamiento sobre Kant?`,
+        a: `Porque ya desde la introducción de Kant y el problema de la metafísica aparece la expresión «ontología fundamental», propia de la filosofía de Heidegger. Sin embargo, Heidegger invoca la máxima kantiana de ir más allá de la letra para exponer lo que el autor «ha querido decir», y deja explícitamente al lector la decisión final sobre si esa lectura penetra más en Kant que los comentarios epistemológicos tradicionales.`
+      },
+      {
+        q: `Si conocer es primariamente intuir, ¿significa esto que el pensamiento es prescindible?`,
+        a: `No. La finitud del conocimiento humano exige dos elementos esenciales: la intuición receptiva y el pensamiento puro (el concepto). Lo decisivo es su orden jerárquico: el pensamiento no existe simplemente «junto» a la intuición como facultad superior autónoma, sino que está enteramente al servicio de la intuición para determinar lo intuido como «tal o cual cosa».`
+      },
+      {
+        q: `¿Por qué el tiempo tiene supremacía sobre el espacio en el esquematismo si el espacio también es intuición pura?`,
+        a: `El espacio puro está igualmente arraigado en la imaginación trascendental y coincide, como algo intuido en forma pura, con el tiempo entendido como mera sucesión de «ahoras». Pero el tiempo originario es más radical: opera como «afección pura de sí mismo» dentro de la apercepción pura, haciendo posible el formar representativo mismo del espacio puro y revelando que el sí-mismo finito es temporal y también espacial.`
+      },
+      {
+        q: `¿En qué se diferencia la «metafísica del ser-ahí» de una antropología filosófica?`,
+        a: `Toda antropología, incluso la antropología filosófica, parte dando por supuesto al hombre como hombre y se limita a describir sus propiedades o imperfecciones. La ontología fundamental investiga aquello más primordial que hace posible al hombre ser hombre: el ser-ahí (Dasein) en él, es decir, la comprensión del ser como finitud existente.`
+      },
+      {
+        q: `¿Qué implica fundamentar la «apariencia trascendental» junto a la verdad trascendental?`,
+        a: `Kant sostiene que la «apariencia trascendental» es necesaria y hace posible la metafísica trascendental. Heidegger señala que esa «no-verdad trascendental» no es un error accidental, sino que debe fundamentarse positivamente en su unidad originaria con la verdad trascendental a partir de la esencia íntima de la finitud del ser-ahí.`
+      },
+      {
+        q: `¿Qué concluye Heidegger tras el intercambio filosófico con Ernst Cassirer?`,
+        a: `Advierte a los oyentes que lo decisivo en filosofía no es alinearse con las posiciones personales de Cassirer o de Heidegger, ni quedarse en la mera contraposición de «puntos de vista», sino liberarse de ellos para tomar nuevamente en serio la cuestión central de la metafísica: la pregunta por el ser y su multiplicidad.`
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        id: `q1`,
+        prompt: `Según Heidegger, ¿qué desconoce quienes interpretan la Crítica de la razón pura como una simple «teoría de la experiencia» o de las ciencias positivas?`,
+        options: [
+          `Que Kant pretendía defender el empirismo inglés frente al racionalismo.`,
+          `Que la Crítica fundamenta la metafísica (metaphysica generalis / ontología) preguntando por la posibilidad interna de la trascendencia.`,
+          `Que la lógica formal aristotélica basta para resolver los problemas de la estética.`,
+          `Que Kant rechazó definitivamente todo uso del término «ontología».`
+        ],
+        correct: 1,
+        explanation: `Heidegger afirma que la Crítica no es teoría del conocimiento óntico, sino un «tratado del método» que fundamenta por primera vez la ontología (metaphysica generalis) en su propia esfera.`
+      },
+      {
+        id: `q2`,
+        prompt: `¿Cuál es la relación estructural entre intuición y pensamiento en el conocimiento finito según la lectura de Kant?`,
+        options: [
+          `El pensamiento crea los objetos y la intuición solo los ordena lógicamente.`,
+          `Ambos son facultades totalmente independientes sin relación necesaria.`,
+          `Conocer es primariamente intuir, y todo pensar está simplemente al servicio de la intuición.`,
+          `El juzgar tiene primacía absoluta sobre la receptividad sensible.`
+        ],
+        correct: 2,
+        explanation: `Citando la primera frase temática de Kant, Heidegger recalca que todo pensar busca la intuición como medio y está al servicio de ella.`
+      },
+      {
+        id: `q3`,
+        prompt: `¿Qué función cumple el «esquema trascendental» en el capítulo homónimo de la Crítica?`,
+        options: [
+          `Mediar entre categorías puras y fenómenos heterogéneos mediante una determinación trascendental del tiempo.`,
+          `Reemplazar las categorías por observaciones empíricas acumuladas.`,
+          `Demostrar que la razón práctica también se esquematiza igual que el conocimiento teórico.`,
+          `Sustituir la sensibilidad por conceptos meramente lógicos de género superior.`
+        ],
+        correct: 0,
+        explanation: `El esquema trascendental es la «representación medianera» pura, intelectual y sensible a la vez, que hace posible la subsunción ontológica (ejemplificada con la substancia).`
+      },
+      {
+        id: `q4`,
+        prompt: `¿Qué ocurre con la «imaginación trascendental» en la segunda edición de la Crítica de la razón pura?`,
+        options: [
+          `Se convierte en la única facultad reconocida por encima de la razón práctica.`,
+          `Se identifica explícitamente con el «espíritu objetivo» de la cultura.`,
+          `Existe solamente de nombre, pues Kant retrocede y restituye el predominio al entendimiento.`,
+          `Es eliminada también de la primera edición retroactivamente.`
+        ],
+        correct: 2,
+        explanation: `Heidegger señala que en la 2.ª edición la imaginación queda subordinada a la misma espontaneidad del entendimiento, lo que abrió el camino a que en Hegel la metafísica se volviera una «lógica».`
+      },
+      {
+        id: `q5`,
+        prompt: `¿Cómo interpreta Heidegger el sentimiento moral del «respeto» en Kant?`,
+        options: [
+          `Como una emoción empírica causada por estados físicos del cuerpo.`,
+          `Como un sentimiento puro «producido por uno mismo» que constituye al sí-mismo moral y revela la imaginación trascendental.`,
+          `Como una simple convención social estudiada por la antropología.`,
+          `Como prueba de que la razón práctica es infinita y creadora.`
+        ],
+        correct: 1,
+        explanation: `El respeto es la receptividad respecto a la ley moral, una estructura trascendental del sí-mismo moral que pone de relieve la constitución originaria de la imaginación trascendental.`
+      },
+      {
+        id: `q6`,
+        prompt: `¿Por qué la fundamentación de la metafísica no puede llevarse a cabo desde una antropología filosófica?`,
+        options: [
+          `Porque la antropología no estudia al ser humano en ninguna dimensión.`,
+          `Porque toda antropología supone ya al hombre como hombre, mientras el hombre solo lo es a raíz del «ser-ahí» (Dasein) en él.`,
+          `Porque la antropología pertenece exclusivamente a las ciencias matemáticas.`,
+          `Porque Kant prohibió formular la pregunta «¿Qué es el hombre?».`
+        ],
+        correct: 1,
+        explanation: `La pregunta por la finitud requiere una metafísica del ser-ahí (ontología fundamental) previa a toda antropología o filosofía de la cultura.`
+      },
+      {
+        id: `q7`,
+        prompt: `¿Qué tres caracteres ocultos operan en toda comprensión del ser, incluso en el grito «¡fuego!» o en el silencio frente al ente?`,
+        options: [
+          `Espacio, causalidad y substancia.`,
+          `Tesis, antítesis y síntesis.`,
+          `El «qué-es» (ser-tal), el «que-es» y el «ser-verdad» manifestado en el «es».`,
+          `Estética, analítica y dialéctica.`
+        ],
+        correct: 2,
+        explanation: `En todo trato con el ente entendemos silenciosa o expresamente su qué-es, su que-es y su ser-verdad.`
+      },
+      {
+        id: `q8`,
+        prompt: `En el diálogo con Heidegger, ¿en qué cifra Ernst Cassirer su principal diferencia frente a la ontología fundamental?`,
+        options: [
+          `En que Cassirer niega que Kant tenga relación alguna con Platón y Aristóteles.`,
+          `En que Cassirer parte de la objetividad de las formas simbólicas y el espíritu objetivo (filosofía de la cultura) y ve el ser como multiplicidad de determinaciones funcionales.`,
+          `En que Cassirer defiende que el conocimiento humano es infinito y creador.`,
+          `En que Cassirer rechaza por completo la importancia del esquematismo en el ámbito teórico.`
+        ],
+        correct: 1,
+        explanation: `Cassirer afirma que solo se va de Dasein a Dasein mediante el mundo objetivo de las formas simbólicas (lenguaje, arte) y que el giro copernicano sustituye la substancia por determinaciones funcionales.`
+      }
+    ];
+
+    /* Application State */
+    const appState = {
+      studiedTerms: [],
+      quizAnswers: {},
+      schematismStep: 1,
+      edition: 1,
+      beingExample: 1,
+      comparisonTab: 1,
+      openFaqs: [0]
+    };
+
+    let currentGlossaryCount = GLOSSARY_TERMS.length;
+
+    /* Helper: Persist state via notebookAppApi */
+    async function saveState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+        try {
+          await window.notebookAppApi.setAppState({
+            studiedTerms: appState.studiedTerms,
+            quizAnswers: appState.quizAnswers,
+            schematismStep: appState.schematismStep,
+            edition: appState.edition,
+            beingExample: appState.beingExample,
+            comparisonTab: appState.comparisonTab,
+            openFaqs: appState.openFaqs
+          });
+        } catch (err) {
+          /* Fail gracefully if host rejects transient write */
+        }
+      }
+    }
+
+    function findTerm(id) {
+      return GLOSSARY_TERMS.find(function (t) { return t.id === id; }) || null;
+    }
+
+    /* Update header stats */
+    function updateStats() {
+      const studiedEl = document.getElementById('stat-studied');
+      const studiedNoteEl = document.getElementById('stat-studied-note');
+      if (studiedEl) {
+        studiedEl.textContent = `${appState.studiedTerms.length} / ${GLOSSARY_TERMS.length}`;
+      }
+      if (studiedNoteEl) {
+        studiedNoteEl.textContent = appState.studiedTerms.length === 0
+          ? `Haz clic en cualquier término subrayado`
+          : `${appState.studiedTerms.length} marcados como estudiados`;
+      }
+
+      const answeredCount = Object.keys(appState.quizAnswers).length;
+      let correctCount = 0;
+      QUIZ_QUESTIONS.forEach(function (q) {
+        if (appState.quizAnswers[q.id] === q.correct) correctCount += 1;
+      });
+
+      const quizStatEl = document.getElementById('stat-quiz');
+      const quizNoteEl = document.getElementById('stat-quiz-note');
+      if (quizStatEl) {
+        quizStatEl.textContent = answeredCount === 0
+          ? `Sin iniciar`
+          : `${correctCount} / ${QUIZ_QUESTIONS.length} aciertos`;
+      }
+      if (quizNoteEl) {
+        quizNoteEl.textContent = answeredCount === 0
+          ? `8 cuestiones sobre la obra`
+          : `${answeredCount} de ${QUIZ_QUESTIONS.length} respondidas`;
+      }
+    }
+
+    /* Hypertext Inline Terms */
+    function markTermStudied(termId, forceState) {
+      const idx = appState.studiedTerms.indexOf(termId);
+      if (typeof forceState === 'boolean') {
+        if (forceState && idx === -1) appState.studiedTerms.push(termId);
+        if (!forceState && idx !== -1) appState.studiedTerms.splice(idx, 1);
+      } else {
+        if (idx === -1) appState.studiedTerms.push(termId);
+        else appState.studiedTerms.splice(idx, 1);
+      }
+      updateStats();
+      renderGlossary();
+      saveState();
+    }
+
+    function openInlineHyperNote(buttonEl) {
+      const termId = buttonEl.getAttribute('data-term');
+      const entry = findTerm(termId);
+      if (!entry) return;
+
+      const sectionEl = buttonEl.closest('section');
+      if (!sectionEl) return;
+      const noteEl = sectionEl.querySelector('.hyper-note');
+      if (!noteEl) return;
+
+      const wasSameOpen = noteEl.classList.contains('is-open') && noteEl.dataset.activeTerm === termId;
+
+      sectionEl.querySelectorAll('.hyper-term').forEach(function (btn) {
+        btn.setAttribute('aria-expanded', 'false');
+      });
+
+      if (wasSameOpen) {
+        noteEl.classList.remove('is-open');
+        noteEl.dataset.activeTerm = '';
+        return;
+      }
+
+      buttonEl.setAttribute('aria-expanded', 'true');
+      noteEl.dataset.activeTerm = termId;
+      noteEl.innerHTML = '';
+
+      const head = document.createElement('div');
+      head.className = 'hyper-note-head';
+
+      const title = document.createElement('div');
+      title.className = 'hyper-note-title';
+      title.textContent = `${entry.term} — ${entry.tag}`;
+
+      const closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'hyper-note-close';
+      closeBtn.textContent = 'Cerrar';
+      closeBtn.onclick = function () {
+        noteEl.classList.remove('is-open');
+        noteEl.dataset.activeTerm = '';
+        buttonEl.setAttribute('aria-expanded', 'false');
+      };
+
+      head.appendChild(title);
+      head.appendChild(closeBtn);
+
+      const defP = document.createElement('p');
+      defP.textContent = entry.definition;
+      defP.style.marginBottom = 'var(--space-xs)';
+
+      const quoteP = document.createElement('p');
+      quoteP.style.fontStyle = 'italic';
+      quoteP.style.color = 'var(--on-surface-variant)';
+      quoteP.style.marginBottom = '0';
+      quoteP.textContent = entry.quote;
+
+      const actions = document.createElement('div');
+      actions.className = 'hyper-note-actions';
+
+      const jumpBtn = document.createElement('button');
+      jumpBtn.type = 'button';
+      jumpBtn.className = 'text-link';
+      jumpBtn.textContent = 'Ver en el glosario completo ↓';
+      jumpBtn.onclick = function () {
+        jumpToGlossaryTerm(termId);
+      };
+
+      actions.appendChild(jumpBtn);
+      noteEl.appendChild(head);
+      noteEl.appendChild(defP);
+      noteEl.appendChild(quoteP);
+      noteEl.appendChild(actions);
+      noteEl.classList.add('is-open');
+
+      if (appState.studiedTerms.indexOf(termId) === -1) {
+        markTermStudied(termId, true);
+      }
+    }
+
+    function jumpToGlossaryTerm(termId) {
+      const searchEl = document.getElementById('glossary-search');
+      const catEl = document.getElementById('glossary-category');
+      if (searchEl) searchEl.value = '';
+      if (catEl) catEl.value = 'all';
+      renderGlossary(termId);
+
+      const target = document.getElementById(`glossary-card-${termId}`);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    /* Interactive Schematism Diagram */
+    function setSchematismStep(stepNum) {
+      appState.schematismStep = stepNum;
+      updateSchematismView();
+      saveState();
+    }
+
+    function setEdition(edNum) {
+      appState.edition = edNum;
+      updateSchematismView();
+      saveState();
+    }
+
+    function updateSchematismView() {
+      const s = appState.schematismStep;
+      const ed = appState.edition;
+
+      [1, 2, 3, 4].forEach(function (i) {
+        const btn = document.getElementById(`step-btn-${i}`);
+        if (btn) btn.classList.toggle('is-active', i === s);
+      });
+
+      const edBtn1 = document.getElementById('ed-btn-1');
+      const edBtn2 = document.getElementById('ed-btn-2');
+      if (edBtn1) edBtn1.classList.toggle('is-active', ed === 1);
+      if (edBtn2) edBtn2.classList.toggle('is-active', ed === 2);
+
+      const barrier = document.getElementById('svg-barrier');
+      const schemaNode = document.getElementById('svg-node-schema');
+      const imagBox = document.getElementById('svg-imag-box');
+      const imagTitle = document.getElementById('svg-imag-title');
+      const imagKicker = document.getElementById('svg-imag-kicker');
+      const imagSub = document.getElementById('svg-imag-sub');
+      const connLeft = document.getElementById('svg-conn-left');
+      const connRight = document.getElementById('svg-conn-right');
+      const connRoot = document.getElementById('svg-conn-root');
+      const connEd2 = document.getElementById('svg-conn-ed2');
+
+      if (barrier) barrier.setAttribute('opacity', s === 1 ? '1' : '0.25');
+      if (schemaNode) schemaNode.setAttribute('opacity', s >= 3 ? '1' : '0.45');
+      if (connLeft) {
+        connLeft.setAttribute('stroke', s === 4 ? 'var(--primary)' : 'var(--outline)');
+        connLeft.setAttribute('stroke-width', s === 4 ? '2.5' : '1.5');
+      }
+      if (connRight) {
+        connRight.setAttribute('stroke', s === 4 ? 'var(--secondary)' : 'var(--outline)');
+        connRight.setAttribute('stroke-width', s === 4 ? '2.5' : '1.5');
+      }
+      if (connRoot) connRoot.setAttribute('opacity', s >= 2 ? '1' : '0.3');
+
+      if (imagBox && imagTitle && imagKicker && imagSub && connEd2) {
+        if (ed === 1) {
+          imagBox.setAttribute('fill', s === 2 ? 'var(--primary-container)' : 'var(--surface-container-low)');
+          imagBox.setAttribute('stroke', 'var(--primary)');
+          imagKicker.textContent = `ESPONTANEIDAD RECEPTIVA · RAÍZ`;
+          imagTitle.textContent = `Imaginación trascendental`;
+          imagSub.textContent = `Afección pura de sí mismo (Tiempo originario)`;
+          connEd2.setAttribute('opacity', '0');
+        } else {
+          imagBox.setAttribute('fill', 'var(--surface-container)');
+          imagBox.setAttribute('stroke', 'var(--outline)');
+          imagKicker.textContent = `2.ª EDICIÓN · SUBORDINACIÓN`;
+          imagTitle.textContent = `Síntesis del entendimiento`;
+          imagSub.textContent = `La imaginación queda solo de nombre`;
+          connEd2.setAttribute('opacity', '1');
+        }
+      }
+
+      const capEl = document.getElementById('schematism-caption');
+      const stepData = SCHEMATISM_STEPS[s];
+      if (capEl && stepData) {
+        capEl.innerHTML = '';
+        const h = document.createElement('strong');
+        h.textContent = stepData.title + ': ';
+        const p1 = document.createElement('p');
+        p1.style.marginBottom = 'var(--space-xs)';
+        p1.appendChild(h);
+        p1.appendChild(document.createTextNode(stepData.text));
+
+        const p2 = document.createElement('p');
+        p2.style.marginBottom = '0';
+        p2.style.color = 'var(--primary)';
+        p2.style.fontWeight = '600';
+        p2.textContent = `Lectura de edición (${ed === 1 ? '1.ª Edición' : '2.ª Edición'}): ${EDITION_NOTES[ed]}`;
+
+        capEl.appendChild(p1);
+        capEl.appendChild(p2);
+      }
+    }
+
+    /* Interactive Being Example Explorer */
+    function setBeingExample(exNum) {
+      appState.beingExample = exNum;
+      [1, 2, 3].forEach(function (i) {
+        const btn = document.getElementById(`ex-btn-${i}`);
+        if (btn) btn.classList.toggle('is-active', i === exNum);
+      });
+
+      const data = BEING_EXAMPLES[exNum];
+      if (!data) return;
+      const leadEl = document.getElementById('being-example-lead');
+      const q1 = document.getElementById('triad-que-es');
+      const q2 = document.getElementById('triad-que-esta');
+      const q3 = document.getElementById('triad-verdad');
+
+      if (leadEl) leadEl.textContent = data.lead;
+      if (q1) q1.textContent = data.queEs;
+      if (q2) q2.textContent = data.queEsta;
+      if (q3) q3.textContent = data.verdad;
+
+      saveState();
+    }
+
+    /* Comparisons Switcher */
+    function setComparison(tabNum) {
+      appState.comparisonTab = tabNum;
+      [1, 2, 3].forEach(function (i) {
+        const btn = document.getElementById(`cmp-tab-${i}`);
+        if (btn) {
+          btn.classList.toggle('is-active', i === tabNum);
+          btn.setAttribute('aria-selected', i === tabNum ? 'true' : 'false');
+        }
+      });
+
+      const data = COMPARISONS[tabNum];
+      if (!data) return;
+
+      const summaryEl = document.getElementById('comparison-summary');
+      const theadEl = document.getElementById('comparison-thead');
+      const tbodyEl = document.getElementById('comparison-tbody');
+
+      if (summaryEl) {
+        summaryEl.textContent = data.summary;
+      }
+      if (theadEl) {
+        theadEl.innerHTML = '';
+        const tr = document.createElement('tr');
+        data.headers.forEach(function (h) {
+          const th = document.createElement('th');
+          th.scope = 'col';
+          th.textContent = h;
+          tr.appendChild(th);
+        });
+        theadEl.appendChild(tr);
+      }
+      if (tbodyEl) {
+        tbodyEl.innerHTML = '';
+        data.rows.forEach(function (row) {
+          const tr = document.createElement('tr');
+          row.forEach(function (cell) {
+            const td = document.createElement('td');
+            td.textContent = cell;
+            tr.appendChild(td);
+          });
+          tbodyEl.appendChild(tr);
+        });
+      }
+
+      saveState();
+    }
+
+    /* Interactive Glossary */
+    function renderGlossary(highlightId) {
+      const grid = document.getElementById('glossary-grid');
+      const emptyBox = document.getElementById('glossary-empty');
+      const searchEl = document.getElementById('glossary-search');
+      const catEl = document.getElementById('glossary-category');
+      if (!grid) return;
+
+      const query = searchEl ? searchEl.value.trim().toLowerCase() : '';
+      const cat = catEl ? catEl.value : 'all';
+
+      const filtered = GLOSSARY_TERMS.filter(function (item) {
+        const matchesCat = cat === 'all' || item.category === cat;
+        const matchesQuery = !query ||
+          item.term.toLowerCase().includes(query) ||
+          item.definition.toLowerCase().includes(query) ||
+          item.tag.toLowerCase().includes(query);
+        return matchesCat && matchesQuery;
+      });
+
+      grid.innerHTML = '';
+      if (emptyBox) {
+        emptyBox.style.display = filtered.length === 0 ? 'block' : 'none';
+      }
+
+      filtered.forEach(function (item) {
+        const card = document.createElement('article');
+        card.className = 'glossary-entry';
+        card.id = `glossary-card-${item.id}`;
+        if (highlightId && highlightId === item.id) {
+          card.classList.add('is-highlighted');
+        }
+
+        const isStudied = appState.studiedTerms.indexOf(item.id) !== -1;
+
+        const head = document.createElement('div');
+        head.className = 'glossary-entry-head';
+
+        const metaWrap = document.createElement('div');
+        const tagSpan = document.createElement('span');
+        tagSpan.className = highlightId === item.id ? 'tag-on-fill' : 'tag';
+        tagSpan.textContent = `${item.tag} · ${item.section}`;
+
+        const h3 = document.createElement('h3');
+        h3.textContent = item.term;
+        h3.style.marginTop = 'var(--space-xs)';
+
+        metaWrap.appendChild(tagSpan);
+        metaWrap.appendChild(h3);
+
+        const toggleBtn = document.createElement('button');
+        toggleBtn.type = 'button';
+        toggleBtn.className = 'study-toggle' + (isStudied ? ' is-studied' : '');
+        toggleBtn.textContent = isStudied ? 'Estudiado' : 'Marcar';
+        toggleBtn.setAttribute('aria-pressed', isStudied ? 'true' : 'false');
+        toggleBtn.onclick = function () {
+          markTermStudied(item.id);
+        };
+
+        head.appendChild(metaWrap);
+        head.appendChild(toggleBtn);
+
+        const defP = document.createElement('p');
+        defP.textContent = item.definition;
+        defP.style.marginBottom = 'var(--space-xs)';
+
+        const quoteP = document.createElement('p');
+        quoteP.textContent = item.quote;
+        quoteP.style.fontStyle = 'italic';
+        quoteP.style.color = 'var(--on-surface-variant)';
+        quoteP.style.fontSize = '0.95rem';
+
+        card.appendChild(head);
+        card.appendChild(defP);
+        card.appendChild(quoteP);
+        grid.appendChild(card);
+      });
+    }
+
+    function filterGlossary() {
+      renderGlossary();
+    }
+
+    function resetGlossaryFilter() {
+      const searchEl = document.getElementById('glossary-search');
+      const catEl = document.getElementById('glossary-category');
+      if (searchEl) searchEl.value = '';
+      if (catEl) catEl.value = 'all';
+      renderGlossary();
+    }
+
+    /* FAQ Accordion */
+    function renderFaqs() {
+      const list = document.getElementById('faq-list');
+      if (!list) return;
+      list.innerHTML = '';
+
+      FAQS.forEach(function (item, idx) {
+        const isOpen = appState.openFaqs.indexOf(idx) !== -1;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'faq-item';
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'faq-trigger';
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        btn.setAttribute('aria-controls', `faq-ans-${idx}`);
+        btn.onclick = function () {
+          toggleFaq(idx);
+        };
+
+        const qSpan = document.createElement('span');
+        qSpan.className = 'faq-q';
+        qSpan.textContent = item.q;
+
+        const iconSpan = document.createElement('span');
+        iconSpan.className = 'faq-icon';
+        iconSpan.setAttribute('aria-hidden', 'true');
+        iconSpan.textContent = isOpen ? '−' : '+';
+
+        btn.appendChild(qSpan);
+        btn.appendChild(iconSpan);
+
+        const ans = document.createElement('div');
+        ans.id = `faq-ans-${idx}`;
+        ans.className = 'faq-answer' + (isOpen ? ' is-open' : '');
+        const ansP = document.createElement('p');
+        ansP.textContent = item.a;
+        ans.appendChild(ansP);
+
+        wrap.appendChild(btn);
+        wrap.appendChild(ans);
+        list.appendChild(wrap);
+      });
+    }
+
+    function toggleFaq(idx) {
+      const pos = appState.openFaqs.indexOf(idx);
+      if (pos === -1) appState.openFaqs.push(idx);
+      else appState.openFaqs.splice(pos, 1);
+      renderFaqs();
+      saveState();
+    }
+
+    /* Self-Assessment Quiz */
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      const statusLabel = document.getElementById('quiz-status-label');
+      const percentLabel = document.getElementById('quiz-percent-label');
+      const progressFill = document.getElementById('quiz-progress-fill');
+      const progressBar = document.getElementById('quiz-progressbar');
+      const summaryMsg = document.getElementById('quiz-summary-msg');
+      if (!container) return;
+
+      container.innerHTML = '';
+
+      let answered = 0;
+      let correct = 0;
+
+      QUIZ_QUESTIONS.forEach(function (q, qIdx) {
+        const userChoice = appState.quizAnswers[q.id];
+        const hasAnswered = typeof userChoice === 'number';
+        if (hasAnswered) {
+          answered += 1;
+          if (userChoice === q.correct) correct += 1;
+        }
+
+        const card = document.createElement('div');
+        card.className = 'quiz-card';
+
+        const qTitle = document.createElement('p');
+        qTitle.style.fontWeight = '600';
+        qTitle.style.marginBottom = 'var(--space-sm)';
+        qTitle.textContent = `${qIdx + 1}. ${q.prompt}`;
+        card.appendChild(qTitle);
+
+        const optsWrap = document.createElement('div');
+        optsWrap.className = 'quiz-options';
+
+        const letters = [`A`, `B`, `C`, `D`];
+        q.options.forEach(function (optText, optIdx) {
+          const optBtn = document.createElement('button');
+          optBtn.type = 'button';
+          optBtn.className = 'quiz-option';
+
+          if (hasAnswered) {
+            if (optIdx === q.correct) {
+              optBtn.classList.add('is-correct');
+            } else if (optIdx === userChoice) {
+              optBtn.classList.add('is-wrong');
+            }
+          }
+
+          const letterSpan = document.createElement('strong');
+          letterSpan.style.fontFamily = 'var(--font-label)';
+          letterSpan.textContent = `${letters[optIdx]}.`;
+
+          const textSpan = document.createElement('span');
+          textSpan.textContent = optText;
+
+          optBtn.appendChild(letterSpan);
+          optBtn.appendChild(textSpan);
+          optBtn.onclick = function () {
+            selectQuizOption(q.id, optIdx);
+          };
+
+          optsWrap.appendChild(optBtn);
+        });
+
+        card.appendChild(optsWrap);
+
+        if (hasAnswered) {
+          const isOk = userChoice === q.correct;
+          const fb = document.createElement('div');
+          fb.className = 'quiz-feedback ' + (isOk ? 'is-good' : 'is-bad');
+          fb.textContent = (isOk ? 'Correcto. ' : 'Revisión: ') + q.explanation;
+          card.appendChild(fb);
+        }
+
+        container.appendChild(card);
+      });
+
+      const pct = Math.round((answered / QUIZ_QUESTIONS.length) * 100);
+      if (statusLabel) {
+        statusLabel.textContent = `Respondidas: ${answered} de ${QUIZ_QUESTIONS.length} · Aciertos: ${correct}`;
+      }
+      if (percentLabel) {
+        percentLabel.textContent = `${pct}% completado`;
+      }
+      if (progressFill) {
+        progressFill.style.width = `${pct}%`;
+      }
+      if (progressBar) {
+        progressBar.setAttribute('aria-valuenow', String(pct));
+      }
+      if (summaryMsg) {
+        if (answered === 0) {
+          summaryMsg.textContent = `Selecciona una opción en cada pregunta para recibir retroalimentación inmediata basada en la obra.`;
+        } else if (answered < QUIZ_QUESTIONS.length) {
+          summaryMsg.textContent = `Llevas ${correct} aciertos de ${answered} preguntas respondidas. Puedes cambiar cualquier respuesta para comprobar su explicación.`;
+        } else {
+          summaryMsg.textContent = `Autoevaluación completa: ${correct} de ${QUIZ_QUESTIONS.length} respuestas correctas.`;
+        }
+      }
+
+      updateStats();
+    }
+
+    function selectQuizOption(questionId, optionIdx) {
+      appState.quizAnswers[questionId] = optionIdx;
+      const resetBtn = document.getElementById('quiz-reset-btn');
+      if (resetBtn) {
+        resetBtn.dataset.armed = 'false';
+        resetBtn.textContent = 'Reiniciar cuestionario';
+      }
+      renderQuiz();
+      saveState();
+    }
+
+    function resetQuiz(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = 'Confirmar reinicio';
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = 'Reiniciar cuestionario';
+      appState.quizAnswers = {};
+      renderQuiz();
+      saveState();
+    }
+
+    function exportStudyNotes() {
+      const lines = [
+        `RESUMEN DE ESTUDIO: KANT Y EL PROBLEMA DE LA METAFÍSICA (MARTIN HEIDEGGER)`,
+        `========================================================================`,
+        ``,
+        `Términos estudiados (${appState.studiedTerms.length} / ${GLOSSARY_TERMS.length}):`
+      ];
+
+      if (appState.studiedTerms.length === 0) {
+        lines.push(`- Ningún término marcado todavía.`);
+      } else {
+        appState.studiedTerms.forEach(function (id) {
+          const t = findTerm(id);
+          if (t) lines.push(`- ${t.term}: ${t.definition}`);
+        });
+      }
+
+      lines.push(``);
+      let correct = 0;
+      const answered = Object.keys(appState.quizAnswers).length;
+      QUIZ_QUESTIONS.forEach(function (q) {
+        if (appState.quizAnswers[q.id] === q.correct) correct += 1;
+      });
+      lines.push(`Autoevaluación: ${correct} aciertos de ${QUIZ_QUESTIONS.length} (${answered} respondidas).`);
+
+      const content = lines.join('\n');
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: 'text/plain',
+          encoding: 'UTF-8',
+          filename: 'resumen_kant_heidegger.txt'
+        });
+      }
+    }
+
+    /* Update header glossary count label accurately */
+    function updateGlossaryCountUI() {
+      const statEl = document.getElementById('stat-studied');
+      if (statEl) {
+        statEl.textContent = `${appState.studiedTerms.length} / ${GLOSSARY_TERMS.length}`;
+      }
+      const glosTag = document.querySelector('#glosario .tag');
+      if (glosTag) {
+        glosTag.textContent = `${GLOSSARY_TERMS.length} términos clave`;
+      }
+      const catAll = document.querySelector('#glossary-category option[value="all"]');
+      if (catAll) {
+        catAll.textContent = `Todos los ejes (${GLOSSARY_TERMS.length})`;
+      }
+    }
+
+    /* Bind hypertext terms & initialize app */
+    async function initApp() {
+      document.querySelectorAll('.hyper-term').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          openInlineHyperNote(btn);
+        });
+      });
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            if (Array.isArray(saved.studiedTerms)) appState.studiedTerms = saved.studiedTerms;
+            if (saved.quizAnswers && typeof saved.quizAnswers === 'object') appState.quizAnswers = saved.quizAnswers;
+            if (typeof saved.schematismStep === 'number') appState.schematismStep = saved.schematismStep;
+            if (typeof saved.edition === 'number') appState.edition = saved.edition;
+            if (typeof saved.beingExample === 'number') appState.beingExample = saved.beingExample;
+            if (typeof saved.comparisonTab === 'number') appState.comparisonTab = saved.comparisonTab;
+            if (Array.isArray(saved.openFaqs)) appState.openFaqs = saved.openFaqs;
+          }
+        } catch (err) {
+          /* Start with default state on read failure */
+        }
+      }
+
+      updateGlossaryCountUI();
+      updateSchematismView();
+      setBeingExample(appState.beingExample);
+      setComparison(appState.comparisonTab);
+      renderGlossary();
+      renderFaqs();
+      renderQuiz();
+      updateStats();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>

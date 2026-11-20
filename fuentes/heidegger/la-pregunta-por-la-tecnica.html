@@ -1,0 +1,2157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="atelier">
+  <title>La pregunta por la técnica — Martin Heidegger (1953)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces — Atelier */
+      --background: #fafaf8;
+      --surface-container-low: #ece8e1;
+      --surface-container: #e5e0d8;
+      --surface-container-high: #ddd7cd;
+
+      /* Ink */
+      --on-surface: #111111;
+      --on-surface-variant: #5b5752;
+
+      /* Rules */
+      --outline: #111111;
+      --outline-variant: #d8d3cb;
+
+      /* Accents */
+      --primary: #111111;
+      --on-primary: #fafaf8;
+      --primary-container: #ece8e1;
+      --on-primary-container: #111111;
+      --secondary: #7a5c48;
+      --tertiary: #a89c8c;
+      --error: #9a2b22;
+      --on-error: #fafaf8;
+
+      /* Data series */
+      --data-1: #111111;
+      --data-2: #7a5c48;
+      --data-3: #948a7d;
+      --data-4: #55657a;
+      --data-context: #cfc9bf;
+
+      /* Fonts */
+      --font-headline: 'Bodoni Moda', Georgia, serif;
+      --font-body: 'Jost', sans-serif;
+      --font-label: 'Jost', sans-serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-ink: 1px solid var(--outline);
+      --rule-stone: 1px solid var(--outline-variant);
+      --label-tracking: 0.22em;
+
+      /* Semantic */
+      --positive: #2d5a4a;
+      --warning: #7a5c48;
+      --focus: var(--primary);
+
+      /* Type scale — Narrative */
+      --display-size: clamp(2.65rem, 1.5rem + 4.2vw, 4.75rem);
+      --headline-size: clamp(1.85rem, 1.25rem + 2vw, 2.65rem);
+      --subhead-size: clamp(1.25rem, 1.1rem + 0.55vw, 1.5rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: var(--body-size);
+      line-height: 1.65;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-lg) var(--space-xl) var(--space-3xl);
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      color: var(--on-surface);
+      margin: 0;
+      font-optical-sizing: auto;
+    }
+    .display {
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.01em;
+    }
+    .display em,
+    h2 em,
+    h3 em {
+      font-style: italic;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      line-height: 1.2;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 65ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .lede {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: clamp(1.2rem, 1.08rem + 0.45vw, 1.4rem);
+      line-height: 1.6;
+      color: var(--on-surface);
+      max-width: 58ch;
+    }
+
+    .label {
+      font-family: var(--font-label);
+      font-weight: 400;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface);
+    }
+    .kicker {
+      color: var(--secondary);
+      display: block;
+    }
+    .caption-text {
+      color: var(--on-surface-variant);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+    .greek-term {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-style: normal;
+      color: var(--on-surface);
+    }
+    .german-term {
+      font-style: italic;
+      color: var(--secondary);
+    }
+
+    /* Header & Top Navigation */
+    .site-header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-lg) var(--space-xl) 0;
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md) var(--space-lg);
+      border-bottom: var(--rule-ink);
+      padding-bottom: var(--space-md);
+    }
+    .nav-brand {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-lg);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--on-surface);
+      border-bottom-color: var(--outline);
+    }
+
+    /* Title block — Gallery Margins */
+    .title-block {
+      padding: var(--space-2xl) 0 var(--space-xl);
+      border-bottom: var(--rule-ink);
+    }
+    .title-block .kicker {
+      margin-bottom: var(--space-md);
+    }
+    .title-block .lede {
+      margin-top: var(--space-lg);
+    }
+    .title-meta-row {
+      margin-top: var(--space-xl);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    /* Ruled top items (Atelier Treatment 3) */
+    .ruled-top {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-sm);
+      background: transparent;
+    }
+    .ruled-top .value {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      font-size: clamp(1.65rem, 1.35rem + 1vw, 2.2rem);
+      line-height: 1.15;
+      font-variant-numeric: lining-nums tabular-nums;
+      margin: var(--space-xs) 0;
+    }
+    .ruled-top .note {
+      color: var(--secondary);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+    .divider {
+      border-top: var(--rule-stone);
+    }
+
+    /* Sections */
+    .essay-section {
+      padding-top: var(--space-xl);
+      border-top: var(--rule-ink);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+    }
+    .section-header {
+      display: grid;
+      gap: var(--space-sm);
+      max-width: 68ch;
+    }
+
+    /* Asymmetric Editorial Two-Column Layouts */
+    .asymmetric-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .asymmetric-grid-reverse {
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-stone);
+      padding: var(--space-lg) 0;
+      margin: var(--space-lg) 0;
+    }
+    .pull-quote blockquote {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.3rem, 1.1rem + 0.75vw, 1.75rem);
+      line-height: 1.35;
+      color: var(--on-surface);
+      max-width: 38ch;
+    }
+    .pull-quote cite {
+      display: block;
+      margin-top: var(--space-sm);
+      font-style: normal;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--secondary);
+    }
+
+    /* Exhibition-label captions (Treatment 5) */
+    figure {
+      margin: 0;
+    }
+    figcaption {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-sm);
+      margin-top: var(--space-md);
+      color: var(--on-surface-variant);
+      font-size: 0.94rem;
+      line-height: 1.5;
+    }
+    figcaption .label {
+      display: block;
+      color: var(--on-surface);
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Rare Stone Inset Panel */
+    .stone-plate {
+      background: var(--surface-container-low);
+      padding: var(--space-lg);
+      border-top: var(--rule-ink);
+    }
+
+    /* Interactive Buttons */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-lg);
+      font-family: var(--font-label);
+      font-weight: 400;
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      border-radius: var(--rounded);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--secondary);
+      border-color: var(--secondary);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--on-surface);
+      border: 1px solid var(--outline);
+    }
+    .btn-outline:hover:not(:disabled),
+    .btn-outline[aria-pressed="true"],
+    .btn-outline.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* Station / Path Stepper */
+    .station-tabs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+    .station-btn {
+      text-align: left;
+      min-height: 44px;
+      padding: var(--space-md);
+      background: transparent;
+      border: 0;
+      border-top: var(--rule-stone);
+      cursor: pointer;
+      color: var(--on-surface-variant);
+      font-family: inherit;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .station-btn:hover {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+    }
+    .station-btn[aria-selected="true"] {
+      border-top: 2px solid var(--outline);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+    }
+    .station-btn .label {
+      display: block;
+      margin-bottom: var(--space-xs);
+      color: var(--secondary);
+    }
+    .station-btn strong {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      font-size: 1.15rem;
+      display: block;
+    }
+
+    /* Four Causes Explorer */
+    .causes-interactive {
+      display: grid;
+      grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .causes-diagram-wrap {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+    }
+    .cause-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-width: 460px;
+    }
+    .cause-node {
+      cursor: pointer;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+    .cause-selector-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .cause-pill-btn {
+      text-align: left;
+      padding: var(--space-md);
+      min-height: 44px;
+      background: transparent;
+      border: 1px solid var(--outline-variant);
+      cursor: pointer;
+      font-family: inherit;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .cause-pill-btn:hover {
+      background: var(--surface-container-low);
+    }
+    .cause-pill-btn.is-active {
+      border-color: var(--outline);
+      background: var(--surface-container-low);
+      box-shadow: inset 0 2px 0 var(--outline);
+    }
+    .cause-pill-btn .label {
+      color: var(--secondary);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Comparison Matrix & Epochs */
+    .comparison-pair {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-xl);
+      padding-top: var(--space-md);
+    }
+    .comparison-col {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+    }
+    .comparison-col.modern {
+      border-top-width: 2px;
+    }
+
+    /* Table styling — Atelier: no vertical lines, ink rule above/below header, stone hairlines between rows */
+    .atelier-table-wrap {
+      overflow-x: auto;
+    }
+    .atelier-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.96rem;
+    }
+    .atelier-table thead th {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      font-family: var(--font-label);
+      font-weight: 400;
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface);
+    }
+    .atelier-table tbody td {
+      border-bottom: var(--rule-stone);
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      vertical-align: top;
+      color: var(--on-surface);
+    }
+    .atelier-table tbody tr {
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .atelier-table tbody tr:hover,
+    .atelier-table tbody tr.is-active {
+      background-color: var(--surface-container-low);
+    }
+
+    /* Constellation / Ambiguity Toggle */
+    .constellation-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-xl);
+    }
+    .constellation-panel {
+      border-top: var(--rule-ink);
+      padding: var(--space-lg) 0 var(--space-md);
+      transition: opacity var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+    }
+    .constellation-panel.is-dimmed {
+      opacity: 0.45;
+    }
+
+    /* Glossary Search & Grid */
+    .glossary-controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-lg);
+      align-items: end;
+      padding: var(--space-lg);
+      background: var(--surface-container-low);
+      border-top: var(--rule-ink);
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field-input {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) 0;
+      background: transparent;
+      border: 0;
+      border-bottom: var(--rule-ink);
+      border-radius: var(--rounded);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      color: var(--on-surface);
+    }
+    .field-input::placeholder {
+      color: var(--on-surface-variant);
+    }
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-xl) var(--space-lg);
+    }
+    .glossary-card {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .glossary-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-sm);
+    }
+    .glossary-card h3 {
+      font-family: var(--font-headline);
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+    .bookmark-btn {
+      min-width: 44px;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      background: transparent;
+      border: 1px solid var(--outline-variant);
+      cursor: pointer;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .bookmark-btn:hover {
+      border-color: var(--outline);
+      color: var(--on-surface);
+    }
+    .bookmark-btn[aria-pressed="true"] {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      border-top: var(--rule-ink);
+    }
+    .faq-item {
+      border-bottom: var(--rule-stone);
+    }
+    .faq-trigger {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-lg) 0;
+      background: transparent;
+      border: 0;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-lg);
+      font-family: var(--font-headline);
+      font-weight: 400;
+      font-size: clamp(1.2rem, 1.05rem + 0.4vw, 1.45rem);
+      color: var(--on-surface);
+    }
+    .faq-trigger:hover {
+      color: var(--secondary);
+    }
+    .faq-sign {
+      font-family: var(--font-label);
+      font-size: 1.25rem;
+      color: var(--secondary);
+      flex-shrink: 0;
+    }
+    .faq-panel {
+      padding: 0 0 var(--space-lg);
+      color: var(--on-surface);
+      max-width: 65ch;
+    }
+    .faq-panel[hidden] {
+      display: none;
+    }
+
+    /* Quiz Section */
+    .quiz-shell {
+      background: var(--surface-container-low);
+      border-top: var(--rule-ink);
+      padding: var(--space-xl);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .quiz-progress-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      border-bottom: var(--rule-stone);
+      padding-bottom: var(--space-md);
+    }
+    .quiz-progress-track {
+      width: 100%;
+      height: 2px;
+      background: var(--outline-variant);
+      position: relative;
+    }
+    .quiz-progress-fill {
+      height: 2px;
+      background: var(--primary);
+      width: 0%;
+      transition: width var(--dur-short) var(--ease-out);
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .quiz-option-btn {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-md) var(--space-lg);
+      text-align: left;
+      background: var(--background);
+      border: 1px solid var(--outline-variant);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      color: var(--on-surface);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option-btn:hover:not(:disabled) {
+      border-color: var(--outline);
+      background: var(--surface-container);
+    }
+    .quiz-option-btn.is-correct {
+      border-color: var(--positive);
+      box-shadow: inset 3px 0 0 var(--positive);
+    }
+    .quiz-option-btn.is-wrong {
+      border-color: var(--error);
+      box-shadow: inset 3px 0 0 var(--error);
+    }
+    .quiz-feedback {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+    }
+    .quiz-feedback.is-positive .feedback-status { color: var(--positive); }
+    .quiz-feedback.is-error .feedback-status { color: var(--error); }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-xl);
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: var(--space-xl);
+      color: var(--on-surface-variant);
+      font-size: 0.94rem;
+    }
+
+    /* Utility & reveal */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal-item.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Container & Responsive Breakpoints */
+    .card-wrapper { container-type: inline-size; }
+
+    @container (max-width: 460px) {
+      .cause-selector-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 900px) {
+      .asymmetric-grid,
+      .asymmetric-grid-reverse,
+      .causes-interactive,
+      .comparison-pair,
+      .constellation-grid,
+      .glossary-controls,
+      .site-footer {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .site-header,
+      .page-grid {
+        padding-inline: var(--space-md);
+      }
+      .title-block {
+        padding: var(--space-xl) 0 var(--space-lg);
+      }
+      .quiz-shell {
+        padding: var(--space-lg) var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-item {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav-bar" aria-label="Navegación principal">
+      <a class="nav-brand" href="#inicio">Heidegger · 1953</a>
+      <ul class="nav-links">
+        <li><a href="#desvelamiento">Desvelamiento</a></li>
+        <li><a href="#causalidad">Cuatro causas</a></li>
+        <li><a href="#engranaje">Engranaje</a></li>
+        <li><a href="#peligro-salvador">Peligro y arte</a></li>
+        <li><a href="#glosario">Glosario</a></li>
+        <li><a href="#faq">Preguntas</a></li>
+        <li><a href="#autoevaluacion">Autoevaluación</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-grid">
+
+    <!-- PORTADA / INTRODUCCIÓN -->
+    <section id="inicio" class="title-block">
+      <span class="label kicker">Conferencia de Múnich · 18 de noviembre de 1953 · Ciclo «Las artes en la época técnica»</span>
+      <h1 class="display">La pregunta por la <em>técnica</em></h1>
+      <p class="lede">
+        «El preguntar abre un camino». En su célebre conferencia ante la Academia Bávara de Bellas Artes, Martin Heidegger invita a suspender la visión meramente utilitaria de los artefactos para pensar la técnica como un modo histórico del desvelamiento de la verdad y preparar, así, una relación libre con ella.
+      </p>
+
+      <div class="title-meta-row">
+        <div class="ruled-top">
+          <span class="label">Tesis central</span>
+          <div class="value">No es técnica</div>
+          <div class="note">La esencia de la técnica no es nada técnico; buscarla entre máquinas equivale a buscar la esencia del árbol entre los árboles.</div>
+        </div>
+        <div class="ruled-top">
+          <span class="label">El mayor riesgo</span>
+          <div class="value">Neutralidad</div>
+          <div class="note">Considerar la técnica algo neutral es la peor forma de quedar entregados a ella, pues nos vuelve ciegos ante su esencia.</div>
+        </div>
+        <div class="ruled-top">
+          <span class="label">Épocas del ser</span>
+          <div class="value">4 modos</div>
+          <div class="note">Φύσις griega, ser creado medieval, representación moderna y engranaje (Ge-stell) contemporáneo.</div>
+        </div>
+        <div class="ruled-top">
+          <span class="label">Horizonte crítico</span>
+          <div class="value">Poíesis</div>
+          <div class="note">Donde crece el peligro extremo del solicitar técnico puede surgir lo salvador a través de lo poético y el arte.</div>
+        </div>
+      </div>
+
+      <!-- Explorador del Camino del Pensar -->
+      <div style="margin-top: var(--space-2xl);">
+        <span class="label kicker" style="margin-bottom: var(--space-sm);">Mapa del argumento · Seleccione una estación del camino</span>
+        <div class="station-tabs" role="tablist" aria-label="Estaciones del camino filosófico">
+          <button type="button" class="station-btn" role="tab" aria-selected="true" onclick="selectStation(0)">
+            <span class="label">Estación I</span>
+            <strong>De lo correcto a lo verdadero</strong>
+          </button>
+          <button type="button" class="station-btn" role="tab" aria-selected="false" onclick="selectStation(1)">
+            <span class="label">Estación II</span>
+            <strong>Causalidad y ἀλήθεια</strong>
+          </button>
+          <button type="button" class="station-btn" role="tab" aria-selected="false" onclick="selectStation(2)">
+            <span class="label">Estación III</span>
+            <strong>Provocación y Ge-stell</strong>
+          </button>
+          <button type="button" class="station-btn" role="tab" aria-selected="false" onclick="selectStation(3)">
+            <span class="label">Estación IV</span>
+            <strong>Peligro y poder salvador</strong>
+          </button>
+        </div>
+        <div id="station-detail" class="stone-plate" style="margin-top: var(--space-md);" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 1: DE LA INSTRUMENTALIDAD AL DESVELAMIENTO -->
+    <section id="desvelamiento" class="essay-section reveal-item">
+      <div class="section-header">
+        <span class="label kicker">I · Crítica de la definición corriente</span>
+        <h2>Lo correcto instrumental aún no revela lo <em>verdadero</em></h2>
+      </div>
+
+      <div class="asymmetric-grid">
+        <div>
+          <p>
+            Todo el mundo conoce las dos respuestas habituales a la pregunta por la técnica: la primera sostiene que es <strong>un medio para un fin</strong> (concepción instrumental); la segunda, que es <strong>una actividad humana</strong> (concepción antropológica). Ambas se copertenecen, porque fijar fines y procurarse medios e instrumentos (<em>instrumentum</em>, dispositivo) es obra humana.
+          </p>
+          <p>
+            Heidegger reconoce que esta caracterización es «inquietantemente correcta», válida tanto para un viejo aserradero en la Selva Negra como para un avión a reacción, una estación de radar o una central eléctrica en el Rin. Pero <strong>lo correcto no equivale todavía a lo verdadero</strong>: lo correcto se limita a constatar lo que está delante; lo verdadero acontece solo donde se produce un desvelamiento.
+          </p>
+          <p>
+            Mientras concibamos la técnica como mero medio, todo esfuerzo consistirá en querer «dominarla» y tenerla en nuestras manos —una voluntad de dominio que se torna tanto más urgente cuanto más amenaza la técnica con escapar al control humano.
+          </p>
+        </div>
+
+        <div class="stone-plate">
+          <span class="label kicker" style="margin-bottom: var(--space-sm);">Etimología griega · Τέχνη y Ἀλήθεια</span>
+          <h3 style="margin-bottom: var(--space-md);">La técnica como modo del desvelar</h3>
+          <p class="caption-text" style="margin-bottom: var(--space-md);">
+            Si preguntamos qué es lo instrumental mismo, descubrimos que todo medio y todo fin reposan en la causalidad, y que la causalidad griega pertenece al pro-ducir (<span class="greek-term">ποίησις</span>), el cual descansa en el desvelamiento (<span class="greek-term">ἀλήθεια</span>).
+          </p>
+          <div class="ruled-top" style="margin-bottom: var(--space-md);">
+            <span class="label">1. Τέχνη pertenece a la ποίησις</span>
+            <p class="caption-text" style="margin-top: var(--space-xs);">
+              No designa solo las habilidades manuales del artesano, sino también las bellas artes y el arte refinado. Es un «traer-ahí-delante» que hace pasar algo de lo oculto a lo desoculto.
+            </p>
+          </div>
+          <div class="ruled-top">
+            <span class="label">2. Τέχνη unida a ἐπιστήμη</span>
+            <p class="caption-text" style="margin-top: var(--space-xs);">
+              Hasta la época de Platón, ambas palabras nombran el conocimiento en sentido amplio: estar familiarizado y abierto a algo. En la <em>Ética a Nicómaco</em> (VI, 3–4), Aristóteles precisa que la <span class="greek-term">τέχνη</span> es un modo del <span class="greek-term">ἀληθεύειν</span>: desvela lo que no se pro-duce a sí mismo y puede aparecer de un modo o de otro.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: LA CUÁDRUPLE CAUSALIDAD GRIEGA -->
+    <section id="causalidad" class="essay-section reveal-item">
+      <div class="section-header">
+        <span class="label kicker">II · La copa sacrificial de plata</span>
+        <h2>Cuatro modos solidarios del <em>ser-responsable-de</em></h2>
+        <p class="caption-text">
+          La filosofía posterior tradujo las cuatro causas de Aristóteles bajo el patrón de la <em>causa efficiens</em> (efectuar resultados, derivado del latín <em>cadere</em>, caer). En el pensar griego, en cambio, <span class="greek-term">αἴτιον</span> significa «aquello que es responsable de algo» (<span class="german-term">verschulden</span>) y su juego conjunto es un ocasionar (<span class="german-term">ver-an-lassen</span>) que deja venir a la presencia.
+        </p>
+      </div>
+
+      <div class="causes-interactive card-wrapper">
+        <div class="causes-diagram-wrap">
+          <svg class="cause-svg" viewBox="0 0 420 380" role="img" aria-labelledby="svg-copa-title svg-copa-desc">
+            <title id="svg-copa-title">Esquema de las cuatro causas de la copa sacrificial</title>
+            <desc id="svg-copa-desc">Diagrama interactivo de la copa de plata rodeada por los cuatro modos del ser-responsable-de: materia, forma, delimitación sacrificial y reflexión del platero.</desc>
+
+            <!-- Ejes conectores hacia el centro (alétheia / presencia de la copa) -->
+            <line x1="210" y1="68" x2="210" y2="128" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="3 3" />
+            <line x1="210" y1="252" x2="210" y2="312" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="3 3" />
+            <line x1="88" y1="190" x2="148" y2="190" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="3 3" />
+            <line x1="272" y1="190" x2="332" y2="190" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="3 3" />
+
+            <!-- Círculo central: Poíesis / Advenimiento a la presencia -->
+            <circle cx="210" cy="190" r="64" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1" />
+
+            <!-- Silueta de la copa sacrificial de plata -->
+            <path d="M184 162 L236 162 L226 196 Q210 206 194 196 Z" fill="none" stroke="var(--outline)" stroke-width="1.5" />
+            <line x1="210" y1="201" x2="210" y2="224" stroke="var(--outline)" stroke-width="1.5" />
+            <line x1="192" y1="224" x2="228" y2="224" stroke="var(--outline)" stroke-width="1.5" />
+            <text x="210" y="242" text-anchor="middle" font-family="var(--font-label)" font-size="9" letter-spacing="1.8" fill="var(--secondary)">ΠΟΊΗΣΙΣ · COPA</text>
+
+            <!-- Nodo 1: Materialis (Arriba) -->
+            <g class="cause-node" id="svg-cause-0" onclick="selectCause(0)" tabindex="0" role="button" aria-label="Seleccionar causa material: plata">
+              <rect x="135" y="14" width="150" height="52" fill="var(--background)" stroke="var(--outline)" stroke-width="1" />
+              <text x="210" y="34" text-anchor="middle" font-family="var(--font-label)" font-size="9" letter-spacing="1.6" fill="var(--secondary)">1. ὝΛΗ · MATERIALIS</text>
+              <text x="210" y="53" text-anchor="middle" font-family="var(--font-headline)" font-size="14" fill="var(--on-surface)">La plata</text>
+            </g>
+
+            <!-- Nodo 2: Formalis (Derecha) -->
+            <g class="cause-node" id="svg-cause-1" onclick="selectCause(1)" tabindex="0" role="button" aria-label="Seleccionar causa formal: aspecto de cáliz">
+              <rect x="278" y="164" width="134" height="52" fill="var(--background)" stroke="var(--outline)" stroke-width="1" />
+              <text x="345" y="184" text-anchor="middle" font-family="var(--font-label)" font-size="9" letter-spacing="1.5" fill="var(--secondary)">2. ΕἾΔΟΣ · FORMALIS</text>
+              <text x="345" y="203" text-anchor="middle" font-family="var(--font-headline)" font-size="14" fill="var(--on-surface)">Aspecto de cáliz</text>
+            </g>
+
+            <!-- Nodo 3: Finalis (Abajo) -->
+            <g class="cause-node" id="svg-cause-2" onclick="selectCause(2)" tabindex="0" role="button" aria-label="Seleccionar causa final: consagración sacrificial">
+              <rect x="125" y="314" width="170" height="52" fill="var(--background)" stroke="var(--outline)" stroke-width="1" />
+              <text x="210" y="334" text-anchor="middle" font-family="var(--font-label)" font-size="9" letter-spacing="1.6" fill="var(--secondary)">3. ΤΈΛΟΣ · FINALIS</text>
+              <text x="210" y="353" text-anchor="middle" font-family="var(--font-headline)" font-size="14" fill="var(--on-surface)">Ofrenda sacrificial</text>
+            </g>
+
+            <!-- Nodo 4: Platero / Logos (Izquierda) -->
+            <g class="cause-node" id="svg-cause-3" onclick="selectCause(3)" tabindex="0" role="button" aria-label="Seleccionar el platero y el logos">
+              <rect x="8" y="164" width="134" height="52" fill="var(--background)" stroke="var(--outline)" stroke-width="1" />
+              <text x="75" y="184" text-anchor="middle" font-family="var(--font-label)" font-size="9" letter-spacing="1.5" fill="var(--secondary)">4. ΛΌΓΟΣ · PLATERO</text>
+              <text x="75" y="203" text-anchor="middle" font-family="var(--font-headline)" font-size="14" fill="var(--on-surface)">Reunión reflexiva</text>
+            </g>
+          </svg>
+          <figcaption>
+            <span class="label">Figura 1 · Juego conjunto del ocasionar (ὑποκεῖσθαι)</span>
+            Pulse sobre cualquiera de los cuatro modos para examinar cómo la copa sacrificial está en deuda con cada uno sin reducirse a un mero efecto mecánico.
+          </figcaption>
+        </div>
+
+        <div>
+          <div class="cause-selector-grid">
+            <button type="button" class="cause-pill-btn is-active" onclick="selectCause(0)">
+              <span class="label">Ὕλη · Materia</span>
+              <strong>La plata</strong>
+            </button>
+            <button type="button" class="cause-pill-btn" onclick="selectCause(1)">
+              <span class="label">Εἶδος · Aspecto</span>
+              <strong>Forma de cáliz</strong>
+            </button>
+            <button type="button" class="cause-pill-btn" onclick="selectCause(2)">
+              <span class="label">Τέλος · Límite</span>
+              <strong>Consagración y ofrenda</strong>
+            </button>
+            <button type="button" class="cause-pill-btn" onclick="selectCause(3)">
+              <span class="label">Λέγειν · Reunión</span>
+              <strong>El platero</strong>
+            </button>
+          </div>
+
+          <div id="cause-detail-panel" class="stone-plate" aria-live="polite"></div>
+
+          <div class="pull-quote">
+            <blockquote>«Toda acción de ocasionar aquello que pasa y avanza de lo no presente a la presencia es ποίησις, pro-ducir, traer-ahí-delante».</blockquote>
+            <cite>Platón, Banquete (205b), citado por Heidegger</cite>
+          </div>
+
+          <p class="caption-text">
+            Tanto la <strong>φύσις</strong> —el emerger-desde-sí (<span class="greek-term">ἐν ἑαυτῷ</span>), como el brotar de una flor en la floración— cuanto la obra artesanal y artística —que brota en otro (<span class="greek-term">ἐν ἄλλῳ</span>), en el artesano o el poeta— son modos de la <strong>ποίησις</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: LA TÉCNICA MODERNA COMO PROVOCACIÓN, GE-STELL Y BESTAND -->
+    <section id="engranaje" class="essay-section reveal-item">
+      <div class="section-header">
+        <span class="label kicker">III · El giro de la época contemporánea</span>
+        <h2>Provocación, <em>engranaje</em> y fondo permanente</h2>
+        <p class="lede">
+          La técnica moderna sigue siendo un desvelar, pero ya no se despliega como un pro-ducir (<span class="greek-term">ποίησις</span>) que deja brotar. Su desvelamiento es un <strong>provocar</strong> (<span class="german-term">Herausfordern</span>) que exige a la naturaleza suministrar energía extraíble y almacenable con el mínimo gasto.
+        </p>
+      </div>
+
+      <!-- Comparador interactivo de ejemplos del texto -->
+      <div>
+        <span class="label kicker" style="margin-bottom: var(--space-sm);">Contrastes concretos de la conferencia · Seleccione un caso</span>
+        <div class="btn-row" role="tablist" aria-label="Casos comparativos de Heidegger">
+          <button type="button" class="btn btn-outline is-active" role="tab" aria-selected="true" onclick="selectExample(0)">El río Rin</button>
+          <button type="button" class="btn btn-outline" role="tab" aria-selected="false" onclick="selectExample(1)">El cultivo del campo</button>
+          <button type="button" class="btn btn-outline" role="tab" aria-selected="false" onclick="selectExample(2)">Viento y energía</button>
+          <button type="button" class="btn btn-outline" role="tab" aria-selected="false" onclick="selectExample(3)">Avión y guardabosques</button>
+        </div>
+
+        <div id="example-comparison" class="comparison-pair" aria-live="polite"></div>
+      </div>
+
+      <!-- Ge-stell y Bestand en detalle -->
+      <div class="asymmetric-grid-reverse" style="margin-top: var(--space-lg);">
+        <div class="stone-plate">
+          <span class="label kicker" style="margin-bottom: var(--space-sm);">Arquitectura conceptual · La raíz «stellen»</span>
+          <h3 style="margin-bottom: var(--space-md);">Qué nombra el <em>Ge-stell</em> (engranaje)</h3>
+          <p class="caption-text">
+            Así como <em>cordillera</em> (<span class="german-term">Gebirge</span>) nombra la reunión de las montañas y <em>talante</em> (<span class="german-term">Gemüt</span>) la reunión de los estados de ánimo, Heidegger eleva una palabra ordinaria —<span class="german-term">Gestell</span> (estantería o esqueleto)— a rango ontológico para nombrar la llamada provocadora que reúne al hombre en la tarea de emplazar y solicitar lo real como <strong>fondo permanente</strong> (<span class="german-term">Bestand</span>).
+          </p>
+          <div class="atelier-table-wrap" style="margin-top: var(--space-md);">
+            <table class="atelier-table">
+              <thead>
+                <tr>
+                  <th>Término alemán</th>
+                  <th>Traducción</th>
+                  <th>Sentido en el engranaje</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><em>her-stellen</em></td>
+                  <td>Pro-ducir</td>
+                  <td>Traer-ahí-delante en el sentido griego de la <span class="greek-term">ποίησις</span>.</td>
+                </tr>
+                <tr>
+                  <td><em>dar-stellen</em></td>
+                  <td>Ex-poner</td>
+                  <td>Dejar aparecer la cosa presente en el desocultamiento.</td>
+                </tr>
+                <tr>
+                  <td><em>vor-stellen</em></td>
+                  <td>Re-presentar</td>
+                  <td>Colocar la cosa delante del sujeto como objeto (<span class="german-term">Gegen-stand</span>) calculable.</td>
+                </tr>
+                <tr>
+                  <td><em>be-stellen</em></td>
+                  <td>Solicitar</td>
+                  <td>Exigir que todo esté listo y disponible para un pedido ulterior.</td>
+                </tr>
+                <tr>
+                  <td><em>ver-stellen</em></td>
+                  <td>Encubrir</td>
+                  <td>Velar o distorsionar el acontecer propio del desvelamiento.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <div class="ruled-top" style="margin-bottom: var(--space-xl);">
+            <span class="label">Bestand · Fondo permanente</span>
+            <h3 style="margin: var(--space-xs) 0 var(--space-sm);">La desaparición del objeto</h3>
+            <p>
+              Todo aquello afectado por el desvelamiento provocador deja de contraponerse al sujeto como un objeto (<span class="german-term">Gegenstand</span>) autónomo y pasa a existir como <strong>fondo permanente</strong> (<span class="german-term">Bestand</span>): un circuito autorregulado de reservas disponibles —liberar, transformar, almacenar, distribuir, conmutar— presidido por la dirección y el aseguramiento.
+            </p>
+            <p>
+              ¿Queda reducido el ser humano a mero fondo permanente? Aunque expresiones como «material humano» o el guardabosques subordinado a la industria papelera y a la opinión pública apuntan en esa dirección, el hombre está provocado de un modo más originario —a <em>solicitar</em>— y nunca se convierte en puro <span class="german-term">Bestand</span>, porque el desocultamiento lo interpela.
+            </p>
+          </div>
+
+          <div class="ruled-top">
+            <span class="label">Historia vs. Historiografía</span>
+            <h3 style="margin: var(--space-xs) 0 var(--space-sm);">La física moderna, precursora del engranaje</h3>
+            <p>
+              Según la cronología historiográfica (<span class="german-term">Historie</span>), la física matemática surge en el siglo XVII y la técnica mecanizada en la segunda mitad del siglo XVIII. Pero pensada históricamente (<span class="german-term">Geschichte</span>), <strong>la esencia de la técnica moderna es lo primero</strong>: la física teórica ya emplazaba a la naturaleza como complejo calculable de fuerzas y sistema de información (como observa Werner Heisenberg), preparando el camino del <span class="german-term">Ge-stell</span>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Las 4 Épocas de la Historia del Ser -->
+      <div style="margin-top: var(--space-lg);">
+        <span class="label kicker" style="margin-bottom: var(--space-sm);">Historia del ser (Geschichte) · Cómo aparece el mismo grano en cuatro épocas</span>
+        <div class="atelier-table-wrap">
+          <table class="atelier-table" id="epochs-table">
+            <thead>
+              <tr>
+                <th>Época histórica</th>
+                <th>Modo de desvelamiento</th>
+                <th>Ejemplo del cultivo del grano</th>
+                <th>Relación hombre–mundo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="is-active" onclick="selectEpoch(0)">
+                <td><strong>Época griega</strong></td>
+                <td><span class="greek-term">Φύσις</span></td>
+                <td>Don de Deméter que emerge por sí mismo desde la tierra.</td>
+                <td>Asombro y custodia ante lo que brota desde sí (<span class="greek-term">ποίησις</span>).</td>
+              </tr>
+              <tr onclick="selectEpoch(1)">
+                <td><strong>Época medieval</strong></td>
+                <td>Ser creado</td>
+                <td>Ente creado y regalo de Dios al cuidado del labrador.</td>
+                <td>Orden teológico de la creación (<span class="greek-term">ens creatum</span>).</td>
+              </tr>
+              <tr onclick="selectEpoch(2)">
+                <td><strong>Época moderna</strong></td>
+                <td>Representación (<span class="german-term">Vorstellung</span>)</td>
+                <td>Objeto calculable con valor monetario intercambiable en el mercado.</td>
+                <td>Esquema sujeto–objeto; la razón juzga y mide los entes.</td>
+              </tr>
+              <tr onclick="selectEpoch(3)">
+                <td><strong>Época contemporánea</strong></td>
+                <td>Engranaje (<span class="german-term">Ge-stell</span>)</td>
+                <td>Fruto de ingeniería genética y técnicas de explotación de reservas.</td>
+                <td>Desaparición del objeto en el circuito del fondo permanente (<span class="german-term">Bestand</span>).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="epoch-note" class="caption-text" style="margin-top: var(--space-sm);" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: PELIGRO SUPREMO, LIBERTAD Y LO SALVADOR EN EL ARTE -->
+    <section id="peligro-salvador" class="essay-section reveal-item">
+      <div class="section-header">
+        <span class="label kicker">IV · Destino, ambigüedad y arte</span>
+        <h2>El peligro supremo y el crecimiento de lo <em>salvador</em></h2>
+        <p class="lede">
+          El engranaje es un envío del destino (<span class="german-term">Geschick</span>), pero jamás una fatalidad coactiva (<span class="german-term">Schicksal</span>). Cuando meditamos sobre su esencia entramos en el ámbito de la libertad —no como mero querer humano, sino como el claro (<span class="german-term">Lichtung</span>) que oculta iluminando y nos vuelve oyentes atentos, nunca siervos.
+        </p>
+      </div>
+
+      <!-- Selector de lente: Ambigüedad de la técnica -->
+      <div>
+        <div class="btn-row" style="margin-bottom: var(--space-md);">
+          <span class="label" style="margin-right: var(--space-sm);">Enfocar polo de la constelación:</span>
+          <button type="button" class="btn btn-outline is-active" onclick="setConstellationView('both')">Ambos polos (Constelación)</button>
+          <button type="button" class="btn btn-outline" onclick="setConstellationView('danger')">El peligro extremo</button>
+          <button type="button" class="btn btn-outline" onclick="setConstellationView('saving')">Lo salvador y el arte</button>
+        </div>
+
+        <div class="constellation-grid">
+          <div id="panel-danger" class="constellation-panel">
+            <span class="label kicker">Polo I · La amenaza en la esencia</span>
+            <h3 style="margin: var(--space-xs) 0 var(--space-md);">El peligro extremo del <em>Ge-stell</em></h3>
+            <p>
+              Todo destino del desvelamiento alberga peligro: incluso bajo la causalidad, Dios puede decaer al nivel de mera <em>causa efficiens</em> («el Dios de los filósofos»). Pero bajo el engranaje, el peligro es <strong>supremo</strong> por dos razones:
+            </p>
+            <p>
+              Primero, porque el hombre, al reducirse todo a fondo permanente, camina por el precipicio de ser tomado él mismo como <span class="german-term">Bestand</span> mientras se engaña adoptando la figura de «señor de la tierra», creyendo encontrarse por todas partes solo a sí mismo cuando en verdad no se encuentra en su esencia en ninguna parte.
+            </p>
+            <p>
+              Segundo, porque el emplazar provocador expulsa toda otra forma de desvelamiento —sobre todo la <span class="greek-term">ποίησις</span>— y <strong>oculta el desvelar mismo</strong>, enmascarando el acontecimiento de la verdad (<span class="greek-term">ἀλήθεια</span>).
+            </p>
+          </div>
+
+          <div id="panel-saving" class="constellation-panel">
+            <span class="label kicker">Polo II · Hölderlin y la τέχνη originaria</span>
+            <h3 style="margin: var(--space-xs) 0 var(--space-md);">«Pero donde hay peligro, crece también lo salvador»</h3>
+            <p>
+              «Salvar» (<span class="german-term">retten</span>) no es solo atrapar lo amenazado, sino <strong>reconducir algo a su esencia</strong>. Y «esencia» (<span class="german-term">Wesen</span>) no significa aquí el género inmutable escolástico (como la «arboreidad» o la idea platónica), sino el verbo <span class="german-term">wesen</span> = <span class="german-term">währen</span> (durar desplegándose) y, en eco de Goethe, <strong>otorgar</strong> (<span class="german-term">gewähren</span>).
+            </p>
+            <p>
+              Incluso el destino del engranaje acontece desde un otorgar que necesita al hombre para <strong>custodiar la verdad</strong>. Esta ambigüedad —el paso paralelo del frenesí del solicitar y la contención de lo salvador— es la «constelación, el curso estelar del misterio».
+            </p>
+            <p>
+              ¿Dónde puede cultivarse un desvelar más inicial? En un ámbito emparentado con la técnica pero esencialmente distinto: <strong>el arte</strong>, que en Grecia llevó el modesto nombre de <span class="greek-term">τέχνη</span> y fue un pro-ducir piadoso y dúctil (<span class="greek-term">πρόμος</span>) de lo verdadero en lo bello (<span class="greek-term">τὸ ἐκφανέστατον</span>).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pull-quote">
+        <blockquote>«Cuanto más nos acerquemos al peligro, más claramente comienzan a brillar los caminos que llevan a lo salvador, más inquisitivos llegamos a ser. Pues la proeza del pensamiento consiste en el preguntar».</blockquote>
+        <cite>Martin Heidegger · Cierre de «La pregunta por la técnica» (GA 7, p. 36)</cite>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: GLOSARIO TERMINOLÓGICO INTERACTIVO -->
+    <section id="glosario" class="essay-section reveal-item">
+      <div class="section-header">
+        <span class="label kicker">V · Glosario terminológico comentado</span>
+        <h2>Léxico fundamental alemán, griego y <em>castellano</em></h2>
+        <p class="caption-text">
+          Basado en el glosario de la traducción de Jesús Adrián Escudero. Filtre por ámbito temático, busque por término alemán, griego o castellano, y marque los conceptos clave para su cuaderno de lectura.
+        </p>
+      </div>
+
+      <div class="glossary-controls">
+        <div class="field-group">
+          <label for="glossary-search" class="label">Buscar término o concepto</label>
+          <input id="glossary-search" class="field-input" type="search" placeholder="Ej. Ge-stell, Bestand, ἀλήθεια, otorgar, proeza…" oninput="filterGlossary()">
+        </div>
+
+        <div class="field-group">
+          <span class="label" id="glossary-filter-label">Filtrar por eje</span>
+          <div class="btn-row" role="group" aria-labelledby="glossary-filter-label">
+            <button type="button" class="btn btn-outline is-active" onclick="setGlossaryCategory('todas', this)">Todas</button>
+            <button type="button" class="btn btn-outline" onclick="setGlossaryCategory('desvelamiento', this)">Desvelamiento</button>
+            <button type="button" class="btn btn-outline" onclick="setGlossaryCategory('causalidad', this)">Causalidad</button>
+            <button type="button" class="btn btn-outline" onclick="setGlossaryCategory('engranaje', this)">Engranaje</button>
+            <button type="button" class="btn btn-outline" onclick="setGlossaryCategory('destino', this)">Historia y destino</button>
+            <button type="button" class="btn btn-outline" onclick="setGlossaryCategory('marcados', this)">Marcados (<span id="bookmark-count">0</span>)</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="caption-text" id="glossary-status" aria-live="polite"></div>
+      <div id="glossary-grid" class="glossary-grid"></div>
+    </section>
+
+    <!-- SECCIÓN 6: PREGUNTAS FRECUENTES (FAQ) -->
+    <section id="faq" class="essay-section reveal-item">
+      <div class="section-header">
+        <span class="label kicker">VI · Aclaraciones filosóficas</span>
+        <h2>Preguntas frecuentes sobre la <em>conferencia</em></h2>
+      </div>
+
+      <div class="faq-list" id="faq-list"></div>
+    </section>
+
+    <!-- SECCIÓN 7: CUESTIONARIO DE AUTOEVALUACIÓN -->
+    <section id="autoevaluacion" class="essay-section reveal-item">
+      <div class="section-header">
+        <span class="label kicker">VII · Práctica de comprensión</span>
+        <h2>Cuestionario de <em>autoevaluación</em></h2>
+        <p class="caption-text">
+          Ocho cuestiones diseñadas a partir del texto y el glosario para verificar la comprensión de las distinciones heideggerianas. Sus respuestas y términos marcados se conservan automáticamente entre sesiones.
+        </p>
+      </div>
+
+      <div class="quiz-shell" id="quiz-shell">
+        <div class="quiz-progress-row">
+          <div>
+            <span class="label" id="quiz-counter-label">Cuestión 1 de 8</span>
+            <div class="caption-text" id="quiz-score-label">Aciertos: 0 / 0 respondidas</div>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-outline" onclick="exportStudySummary()">Exportar resumen (.txt)</button>
+            <button type="button" class="btn btn-outline" id="quiz-reset-btn" onclick="resetQuiz(this)">Reiniciar cuestionario</button>
+          </div>
+        </div>
+
+        <div class="quiz-progress-track" aria-hidden="true">
+          <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+        </div>
+
+        <div id="quiz-body"></div>
+      </div>
+    </section>
+
+    <!-- FUENTES Y CRÉDITO -->
+    <footer class="site-footer">
+      <div>
+        <span class="label kicker" style="margin-bottom: var(--space-xs);">Nota sobre las fuentes</span>
+        <p>
+          Todo el contenido, citas, contrastes y definiciones terminológicas de esta base de conocimientos proceden exclusivamente de la conferencia <em>La pregunta por la técnica</em> (<em>Die Frage nach der Technik</em>, 1953/1954) de Martin Heidegger, según la edición castellana traducida y comentada por Jesús Adrián Escudero a partir del tomo 7 de las <em>Obras completas</em> (<em>Vorträge und Aufsätze</em>, GA 7, Vittorio Klostermann, 2000, pp. 5–36), incluyendo el <em>Glosario terminológico comentado</em> y las notas marginales del autor.
+        </p>
+      </div>
+      <div>
+        <span class="label kicker" style="margin-bottom: var(--space-xs);">Referencia de obras citadas por Heidegger</span>
+        <p>
+          Platón: <em>Banquete</em> (205b) y <em>Fedro</em> · Aristóteles: <em>Ética a Nicómaco</em> (VI, cap. 3–4) · Friedrich Hölderlin: <em>Patmos</em> e himno <em>El Rin</em> · Johann Wolfgang von Goethe: <em>Las afinidades electivas</em> · Werner Heisenberg: <em>La imagen de la naturaleza en la física actual</em> (1954).
+        </p>
+      </div>
+    </footer>
+
+  </main>
+
+  <api-shim></api-shim>
+
+  <script>
+    const STATIONS = [
+      {
+        kicker: `Estación I · § Introductorio y definición corriente`,
+        title: `De la visión instrumental a la relación libre`,
+        body: `Heidegger comienza advirtiendo que preguntar abre un camino a través del lenguaje. Si definimos la técnica solo como un medio para un fin y una actividad humana, damos una respuesta «correcta» (richtig), pero no «verdadera» (wahr). La peor servidumbre nace al creer que la técnica es «neutral», pues entonces nos volvemos ciegos ante su esencia y quedamos presos de la voluntad de dominarla.`,
+        terms: `Conceptos clave: Esencia (Wesen) · Dispositivo (Einrichtung / instrumentum) · Lo correcto vs. lo verdadero`
+      },
+      {
+        kicker: `Estación II · Causalidad, ποίησις y ἀλήθεια`,
+        title: `La técnica es un modo del desvelamiento`,
+        body: `Preguntar qué es un medio conduce a las cuatro causas, pensadas en Grecia no como producción mecánica de efectos (causa efficiens), sino como cuatro modos solidarios del «ser-responsable-de» (αἴτιον) que ocasionan —dejan venir a la presencia— dentro del pro-ducir (ποίησις). Así se revela que la τέχνη, unida a la ἐπιστήμη, es un modo del desvelar: acontece en la ἀλήθεια, el desocultamiento de la verdad.`,
+        terms: `Conceptos clave: Αἴτιον (ser responsable de) · Ποίησις (pro-ducir) · Φύσις · Ἀλήθεια (desvelamiento)`
+      },
+      {
+        kicker: `Estación III · La técnica moderna`,
+        title: `Provocar, emplazar y el engranaje (Ge-stell)`,
+        body: `A diferencia de la artesanía o el viejo molino, la técnica moderna desvela mediante un provocar (Herausfordern) que emplaza (stellen) a la naturaleza a entregar energía almacenable y conmutable. Todo queda convertido en «fondo permanente» (Bestand), perdiendo incluso su condición de objeto (Gegenstand). La reunión de este emplazamiento que interpela al hombre es el engranaje (Ge-stell).`,
+        terms: `Conceptos clave: Ge-stell (engranaje) · Bestand (fondo permanente) · Bestellen (solicitar) · Historia vs. historiografía`
+      },
+      {
+        kicker: `Estación IV · Destino, peligro y lo salvador`,
+        title: `Ambigüedad esencial y llamada al arte`,
+        body: `El Ge-stell es un destino (Geschick), nunca una coacción ciega. Alberga el peligro extremo: que el hombre mismo sea tomado como fondo permanente y que se oculte el propio desvelar. Pero «donde hay peligro, crece también lo salvador» (Hölderlin): toda esencia dura porque otorga (gewähren), necesitando al hombre como custodio de la verdad. El arte, antigua τέχνη poética, puede abrir esa mirada.`,
+        terms: `Conceptos clave: Geschick (destino) · Lichtung (claro) · Gewähren (otorgar) · Πρόμος / Frömmigkeit (proeza)`
+      }
+    ];
+
+    const CAUSES = [
+      {
+        label: `1. Causa materialis · ὕλη (hýle)`,
+        title: `La plata: aquello de lo que la copa es deudora`,
+        text: `La plata no es un mero insumo pasivo. En cuanto materia (ὕλη), es corresponsable de la copa sacrificial: la copa está en deuda con la plata y le debe aquello de lo que está hecha.`,
+        contrast: `Lectura moderna: simple materia prima disponible para ser transformada. Lectura griega: corresponsable del advenimiento de la copa.`
+      },
+      {
+        label: `2. Causa formalis · εἶδος (eîdos)`,
+        title: `El aspecto de cáliz y no de anillo o pasador`,
+        text: `Lo que está en deuda con la plata aparece con la figura propia de copa sacrificial. El aspecto (εἶδος) en el que se muestra la plata es el segundo modo corresponsable del cáliz.`,
+        contrast: `Lectura moderna: molde o plano geométrico externo. Lectura griega: el modo luminoso en que la cosa se deja ver como lo que es.`
+      },
+      {
+        label: `3. Causa finalis · τέλος (télos)`,
+        title: `Lo que delimita y confina al ámbito de la ofrenda`,
+        text: `Heidegger corrige la traducción habitual de τέλος por «meta» o «finalidad». El τέλος es lo que da fin en el sentido de delimitar y completar: confina de antemano el cáliz al ámbito sagrado de la consagración y la ofrenda, determinando su materia y forma.`,
+        contrast: `A partir de este límite la cosa no se acaba, sino que empieza a ser lo que será después de su producción.`
+      },
+      {
+        label: `4. El platero · λέγειν / λόγος (no causa efficiens)`,
+        title: `Quien considera, reúne y da su primera emergencia`,
+        text: `La teoría de Aristóteles no conoce la causa efficiens como hacer productor de efectos. El platero es corresponsable porque considera y reúne (λέγειν, que reposa en ἀποφαίνεσθαι, hacer aparecer) los tres modos anteriores, brindándoles la primera emergencia (Ausgang) en la producción del cáliz.`,
+        contrast: `Los cuatro modos pertenecen unitariamente al ocasionar (ver-an-lassen) dentro de la ποίησις.`
+      }
+    ];
+
+    const EXAMPLES = [
+      {
+        leftTitle: `El viejo puente de madera y el himno de Hölderlin`,
+        leftTag: `Ποίησις · Habitar y dejar aparecer`,
+        leftBody: `El viejo puente de madera une una orilla con otra dejando ser al río en su corriente. Asimismo, el poema «El Rin» de Hölderlin nombra al río desde la obra de arte, permitiendo que aparezca en su ser propio.`,
+        rightTitle: `La central hidroeléctrica y el complejo turístico`,
+        rightTag: `Herausfordern · Emplazamiento provocador`,
+        rightBody: `La central hidroeléctrica ha sido emplazada en el Rin, integrando al río en la planta como suministrador de presión hidráulica para las turbinas y la red eléctrica. Incluso como «paisaje», queda reducido a objeto demandado por las visitas organizadas de una agencia de viajes.`
+      },
+      {
+        leftTitle: `El trabajo tradicional del campesino`,
+        leftTag: `Guardar y cuidar`,
+        leftBody: `Cuando cultivar significaba guardar y cuidar, el campesino no provocaba al campo: sembraba el grano confiándolo a las fuerzas naturales de crecimiento y velando por su germinación.`,
+        rightTitle: `Industria mecanizada de la alimentación`,
+        rightTag: `Solicitación de reservas`,
+        rightBody: `La agricultura moderna emplaza a la naturaleza: el aire es requerido para suministrar nitrógeno; el suelo, para extraer minerales; el mineral, para obtener uranio y energía atómica (para fines destructivos o pacíficos).`
+      },
+      {
+        leftTitle: `El viejo molino de viento`,
+        leftTag: `Entrega al soplar del viento`,
+        leftBody: `Las aspas del viejo molino giran con el viento y quedan inmediatamente entregadas a su soplar. No despliegan ni extraen la energía de las corrientes de aire para almacenarla.`,
+        rightTitle: `Cuenca carbonífera y red eléctrica`,
+        rightTag: `Extraer, almacenar, conmutar`,
+        rightBody: `La tierra se desvela como cuenca carbonífera y el suelo como yacimiento. El carbón se almacena para disponer del calor solar acumulado en él, transformarlo en vapor, activar maquinaria y asegurar un flujo constante con mínimo gasto.`
+      },
+      {
+        leftTitle: `La cosa (Ding) y el objeto (Gegenstand)`,
+        leftTag: `Contraposición sujeto–objeto`,
+        leftBody: `Incluso en la representación moderna, una cosa se coloca delante del sujeto como objeto (Gegen-stand) o instrumento autónomo del artesano.`,
+        rightTitle: `El avión comercial y el guardabosques`,
+        rightTag: `In-objetualidad del Bestand`,
+        rightBody: `En la pista, el avión ya no aparece como mero objeto, sino como fondo permanente listo para el despegue y el transporte. Y el guardabosques que mide madera —aunque recorra los mismos senderos que su abuelo— está requerido por la industria de la celulosa, el papel, la prensa y la opinión pública.`
+      }
+    ];
+
+    const EPOCH_NOTES = [
+      `En Grecia, el desvelar se experimenta desde la φύσις: aquello que emerge por sí mismo a la presencia (ἀλήθεια).`,
+      `En la Edad Media, todo ente es comprendido a la luz de la creación divina (ens creatum).`,
+      `En la Modernidad (Descartes, Kant), la realidad se convierte en representación (Vorstellung) colocada ante el tribunal del sujeto.`,
+      `En la época contemporánea, incluso el objeto desaparece en el circuito autorregulado del fondo permanente (Bestand) gobernado por el engranaje (Ge-stell).`
+    ];
+
+    const GLOSSARY = [
+      {
+        term: `Engranaje`,
+        orig: `Ge-stell`,
+        cat: `engranaje`,
+        catLabel: `Engranaje`,
+        desc: `En alemán corriente significa estantería o esqueleto. Heidegger reúne el prefijo colectivo ge- y stellen («emplazar») para nombrar la esencia de la técnica moderna: la llamada provocadora que reúne al hombre para desvelar lo real como fondo permanente en el modo de la solicitación. No es nada técnico ni una máquina.`
+      },
+      {
+        term: `Fondo permanente`,
+        orig: `Bestand`,
+        cat: `engranaje`,
+        catLabel: `Engranaje`,
+        desc: `Término clave que designa el modo de presencia de todo lo afectado por el desvelamiento provocador: reservas almacenables, manipulables y consumibles listas para un pedido ulterior. En el Bestand desaparece incluso el carácter autónomo del objeto (Gegenstand).`
+      },
+      {
+        term: `Desvelamiento / Verdad`,
+        orig: `Entbergung · ἀλήθεια`,
+        cat: `desvelamiento`,
+        catLabel: `Desvelamiento`,
+        desc: `Para traducir la ἀλήθεια griega (alfa privativa + lathe, «estar latente»), Heidegger evita el sentido meramente proposicional de veritas o adecuación y piensa la verdad como desocultamiento: sacar algo de lo oculto a la luz, horizonte previo que posibilita toda representación.`
+      },
+      {
+        term: `Pro-ducir`,
+        orig: `Hervorbringen · ποίησις`,
+        cat: `causalidad`,
+        catLabel: `Causalidad`,
+        desc: `Literalmente «traer-ahí-delante» (her-vor-bringen). Movimiento por el cual algo pasa del ocultamiento al desocultamiento, ya sea por sí mismo (φύσις) o por medio del artesano y el poeta (τέχνη).`
+      },
+      {
+        term: `Emerger-desde-sí`,
+        orig: `φύσις (Phýsis)`,
+        cat: `desvelamiento`,
+        catLabel: `Desvelamiento`,
+        desc: `Es ποίησις en el más alto sentido, pues lleva en sí mismo (ἐν ἑαυτῷ) la posibilidad de surgir a la presencia, como el brotar de las flores en la floración. En la época griega constituye el modo primordial de desvelamiento del ser.`
+      },
+      {
+        term: `Téchne`,
+        orig: `τέχνη`,
+        cat: `desvelamiento`,
+        catLabel: `Desvelamiento`,
+        desc: `Nombra tanto las habilidades del artesano como el arte refinado y las bellas artes. Unido en origen a ἐπιστήμη (conocimiento), pertenece a la ποίησις y es un modo del ἀληθεύειν: su rasgo decisivo no es manipular medios, sino desvelar.`
+      },
+      {
+        term: `Esencia / Desplegar su ser`,
+        orig: `Wesen · wesen`,
+        cat: `destino`,
+        catLabel: `Historia y destino`,
+        desc: `Frente a la esencia escolástica entendida como quidditas o género universal inmutable (como la «arboreidad»), Heidegger recupera el sentido verbal de wesen (= währen, durar, vivir y tejer) y lo vincula con gewähren (otorgar): solo lo otorgado dura.`
+      },
+      {
+        term: `Provocación y emplazar`,
+        orig: `Herausfordern · stellen`,
+        cat: `engranaje`,
+        catLabel: `Engranaje`,
+        desc: `Desafío propio de la técnica moderna que coloca (stellt) a la naturaleza ante la exigencia de liberar energía extraíble, acumulable y regulada bajo máxima utilización y mínimo gasto.`
+      },
+      {
+        term: `Solicitar / Disponible`,
+        orig: `bestellen · bestellbar`,
+        cat: `engranaje`,
+        catLabel: `Engranaje`,
+        desc: `Modo característico del engranaje mediante el cual todo ente es pedido, ordenado y puesto en un lugar de emplazamiento para quedar inmediatamente a disposición de un requerimiento ulterior.`
+      },
+      {
+        term: `Representación y objeto`,
+        orig: `Vorstellung · Gegenstand`,
+        cat: `engranaje`,
+        catLabel: `Engranaje`,
+        desc: `Representar es «colocar algo delante» de un sujeto (Descartes, Kant) como objeto contra-puesto (Gegen-stand) sujeto al cálculo racional. Prepara el camino al Ge-stell, donde finalmente el objeto se disuelve en el fondo permanente.`
+      },
+      {
+        term: `Ser responsable de`,
+        orig: `verschulden · αἴτιον`,
+        cat: `causalidad`,
+        catLabel: `Causalidad`,
+        desc: `Sentido griego originario de lo que los latinos llamaron causa: no «producir un efecto», sino estar en deuda y ser corresponsable de que algo venga a la presencia.`
+      },
+      {
+        term: `Ocasionar`,
+        orig: `ver-an-lassen`,
+        cat: `causalidad`,
+        catLabel: `Causalidad`,
+        desc: `Dejar venir al completo advenimiento aquello que todavía no está presente. Es el rasgo unitario que reúne los cuatro modos del ser-responsable-de dentro del pro-ducir.`
+      },
+      {
+        term: `Destino (envío vs. fatalidad)`,
+        orig: `Geschick vs. Schicksal`,
+        cat: `destino`,
+        catLabel: `Historia y destino`,
+        desc: `Geschick designa el envío (schicken) histórico del ser que reúne y pone al hombre en un camino del desvelar; nunca es fatalidad coactiva (Schicksal), pues abre el espacio de libertad para escuchar e interpelar.`
+      },
+      {
+        term: `Historia vs. historiografía`,
+        orig: `Geschichte vs. Historie`,
+        cat: `destino`,
+        catLabel: `Historia y destino`,
+        desc: `Historie es la ciencia cronológica que ordena hechos pasados como objetos; Geschichte es el acontecer mismo del ser en el que estamos ya destinados. Por ello el Ge-stell es históricamente anterior aunque la técnica mecanizada sea historiográficamente posterior a la física del s. XVII.`
+      },
+      {
+        term: `Otorgar`,
+        orig: `gewähren`,
+        cat: `destino`,
+        catLabel: `Historia y destino`,
+        desc: `Donar o conceder duradero (en resonancia con el fortgewähren de Goethe). Todo destino del desvelamiento acontece desde un otorgar que necesita al hombre para custodiar la verdad; en ese otorgar arraiga lo salvador.`
+      },
+      {
+        term: `Lo iluminado / Claro`,
+        orig: `das Gelichtete · Lichtung`,
+        cat: `desvelamiento`,
+        catLabel: `Desvelamiento`,
+        desc: `Apertura o claro que posibilita la manifestación y el ocultamiento de las cosas. La libertad gobierna este claro que oculta iluminando, mucho antes de reducirse a la voluntad humana.`
+      },
+      {
+        term: `Proeza (piedad del pensar)`,
+        orig: `Frömmigkeit · πρόμος`,
+        cat: `destino`,
+        catLabel: `Historia y destino`,
+        desc: `Traducido habitualmente por «piedad», Escudero opta por «proeza» atendiendo a la equiparación de Heidegger con el griego πρόμος (quien en Homero se adelanta a la fila y se encara con valor; ser dúctil con la custodia de la verdad): el desafío valiente de preguntar.`
+      },
+      {
+        term: `Existencias`,
+        orig: `Vorrat`,
+        cat: `engranaje`,
+        catLabel: `Engranaje`,
+        desc: `Stock o acopio de mercancías y productos disponibles. Heidegger señala que «fondo permanente» (Bestand) expresa algo mucho más esencial y abarcador que la simple noción comercial de existencias.`
+      }
+    ];
+
+    const FAQS = [
+      {
+        q: `¿Está Heidegger «en contra» de la tecnología o propone abandonarla?`,
+        a: `No. Heidegger afirma explícitamente que permanecemos encadenados a la técnica sin libertad tanto si la afirmamos con pasión como si la negamos o la condenamos como «obra del diablo». Su objetivo es preparar una relación libre con ella, lo cual exige comprender su esencia y no limitarse a manejar máquinas ni a huir de ellas.`
+      },
+      {
+        q: `¿Por qué la concepción de la técnica como algo «neutral» es la más peligrosa?`,
+        a: `Porque asumir que la técnica es un instrumento neutral —«bueno o malo según cómo lo use el hombre»— nos mantiene en el plano meramente instrumental y nos vuelve completamente ciegos ante su esencia. Al creer que la dominamos como un medio, ignoramos que el engranaje (Ge-stell) ya determina de antemano el modo en que la realidad y nosotros mismos nos desvelamos.`
+      },
+      {
+        q: `¿Por qué el guardabosques no termina convertido en mero «fondo permanente» (Bestand)?`,
+        a: `Aunque las expresiones «material humano» o la subordinación del guardabosques a la industria maderera, la celulosa, el papel y la opinión pública lo acercan al borde del precipicio, Heidegger subraya que el hombre está provocado de modo más originario que las energías naturales: está provocado al proceso mismo de solicitar. Al participar en el desvelar, sigue interpelado por el desocultamiento y nunca es un mero Bestand.`
+      },
+      {
+        q: `¿En qué sentido la física moderna ya pertenece al engranaje si surgió antes que las máquinas industriales?`,
+        a: `Heidegger distingue la cronología historiográfica (Historie) del acontecer histórico (Geschichte). Historiográficamente la física matemática nace en el siglo XVII y la técnica mecanizada en la segunda mitad del XVIII; pero históricamente la física moderna ya emplaza a la naturaleza como complejo calculable de fuerzas y sistema de información, siendo así la precursora del Ge-stell.`
+      },
+      {
+        q: `¿Qué diferencia hay entre «destino» como Geschick y determinismo fatalista (Schicksal)?`,
+        a: `El destino (Geschick) es el envío que reúne al hombre en un camino del desvelamiento; no es una coacción inevitable e inmodificable (Schicksal). Justamente al experimentar el Ge-stell como un modo del destino y no como una fatalidad ciega, el hombre se sitúa en el ámbito de la libertad y se convierte en «oyente atento, pero no en siervo».`
+      },
+      {
+        q: `¿Por qué el traductor Jesús Adrián Escudero vierte «Frömmigkeit» por «proeza» en la última frase?`,
+        a: `Aunque habitualmente se traduce como «piedad» («Preguntar es la piedad del pensamiento»), el glosario explica que en la era desacralizada de la técnica la devoción ritual desvirtúa el sentido heideggeriano. Heidegger vincula fromm con el griego πρόμος (el que en Homero se adelanta en la batalla y es dúctil ante la verdad): pensar bajo el dominio del engranaje exige coraje y proeza filosófica.`
+      }
+    ];
+
+    const QUIZ = [
+      {
+        prompt: `Según el inicio de la conferencia, ¿cuál es la peor manera de quedar entregados al poder de la técnica?`,
+        options: [
+          `Rechazar por completo los aparatos industriales para volver a la vida artesanal.`,
+          `Considerar la técnica como algo neutral, un mero instrumento cuyo valor depende del uso.`,
+          `Estudiar la historia de las máquinas desde el siglo XVIII en adelante.`,
+          `Aceptar con entusiasmo los avances de la física experimental y la electrónica.`
+        ],
+        correct: 1,
+        explanation: `Heidegger señala en la primera página de la conferencia que considerar la técnica como algo neutral es la peor forma de quedar entregados a ella, pues nos vuelve completamente ciegos ante su esencia.`
+      },
+      {
+        prompt: `En el análisis de la copa sacrificial de plata, ¿qué papel cumple el platero según el pensamiento griego?`,
+        options: [
+          `Actúa como causa efficiens que imprime mecánicamente un efecto sobre la materia pasiva.`,
+          `Reemplaza la función del τέλος al decidir el valor comercial de la copa.`,
+          `Considera y reúne (λέγειν) los otros tres modos del ser-responsable-de, dando a la copa su primera emergencia.`,
+          `Representa el sujeto moderno frente al objeto metálico.`
+        ],
+        correct: 2,
+        explanation: `Aristóteles no conoce una causa efficiens como hacer productor de efectos. El platero es corresponsable mediante el λέγειν (considerar y reunir en el hacer aparecer) la materia, el aspecto y la delimitación sacrificial.`
+      },
+      {
+        prompt: `¿Qué distingue fundamentalmente al viejo molino de viento de la central hidroeléctrica emplazada en el Rin?`,
+        options: [
+          `El molino carece de causalidad eficiente, mientras que la central se rige por las cuatro causas.`,
+          `Las aspas del molino quedan entregadas al soplar del viento sin extraer energía para almacenarla; la central provoca y emplaza al río en su red.`,
+          `El molino pertenece a la representación moderna y la central a la φύσις griega.`,
+          `No hay diferencia esencial: ambos son simples medios fabricados para fines humanos.`
+        ],
+        correct: 1,
+        explanation: `El molino no despliega las energías del aire para acumularlas; en cambio, la central emplaza al Rin a generar presión hidráulica dentro de la cadena de extracción, transformación, almacenamiento y distribución.`
+      },
+      {
+        prompt: `Cuando un avión comercial está en la pista de despegue y se desvela como «fondo permanente» (Bestand), ¿qué ocurre con su carácter de objeto (Gegenstand)?`,
+        options: [
+          `Se consolida como objeto autónomo contrapuesto al sujeto contemplativo.`,
+          `Desaparece en la in-objetualidad del fondo permanente, subordinado por entero a la solicitación del transporte.`,
+          `Retorna a la condición de cosa natural (φύσις) por hallarse al aire libre.`,
+          `Se convierte en una obra de arte poética.`
+        ],
+        correct: 1,
+        explanation: `Aquello que está en el sentido del Bestand ya no se contrapone a nosotros como un objeto autónomo; su posición depende únicamente de estar listo para ser solicitado en cualquier momento.`
+      },
+      {
+        prompt: `¿Qué relación existe entre la física matemática moderna (siglo XVII) y el engranaje (Ge-stell)?`,
+        options: [
+          `La técnica moderna es simplemente ciencia natural aplicada sin vínculo esencial previo.`,
+          `Aunque historiográficamente anterior, la física moderna ya está preparada y dominada por la esencia del engranaje al emplazar la naturaleza como complejo calculable de fuerzas.`,
+          `La física moderna destruyó el engranaje al renunciar a la intuición sensible.`,
+          `Heidegger sostiene que Heisenberg refutó la existencia de la causalidad técnica.`
+        ],
+        correct: 1,
+        explanation: `Calculada historiográficamente (Historie), la física precede a la técnica mecanizada; pero pensada históricamente (Geschichte), la esencia de la técnica —el engranaje— ya imperaba en la física como su precursora.`
+      },
+      {
+        prompt: `¿Por qué el dominio del engranaje representa «el peligro supremo» según Heidegger?`,
+        options: [
+          `Únicamente por el riesgo físico y mortal de las armas atómicas y las máquinas.`,
+          `Porque la técnica posee un carácter intrínsecamente demoniaco imposible de pensar.`,
+          `Porque amenaza al hombre con ser tomado como fondo permanente y, sobre todo, oculta el desvelar mismo (la verdad) expulsando la ποίησις.`,
+          `Porque impide el progreso económico y el desarrollo de la industria alimentaria.`
+        ],
+        correct: 2,
+        explanation: `Heidegger precisa que la amenaza no proviene principalmente de los efectos mortales de las máquinas ni hay nada demoniaco en la técnica; el peligro extremo reside en su esencia, que oculta el acontecimiento mismo del desvelamiento.`
+      },
+      {
+        prompt: `¿Cómo reinterpreta Heidegger la palabra «esencia» (Wesen) para mostrar cómo crece lo salvador dentro del peligro?`,
+        options: [
+          `Como un género universal abstracto e inmutable (quidditas), igual que la «arboreidad».`,
+          `Como una idea platónica separada que flota por encima de todos los aparatos técnicos.`,
+          `En sentido verbal activo: wesen como währen (durar) y gewähren (otorgar), lo que necesita al hombre para custodiar la verdad.`,
+          `Como la utilidad práctica verificable de un dispositivo.`
+        ],
+        correct: 2,
+        explanation: `Apoyándose en el verbo alemán wesen y en el fortgewähren de Goethe, Heidegger concluye que solo lo otorgado dura; incluso el engranaje acontece en un otorgar que reclama al hombre como custodio de la verdad.`
+      },
+      {
+        prompt: `¿Qué ámbito propone Heidegger al final de la conferencia para confrontar decisivamente la esencia de la técnica?`,
+        options: [
+          `Una nueva legislación internacional sobre patentes industriales.`,
+          `El arte, en la medida en que retorne al desvelar poético (ποίησις / τέχνη originaria) sin encerrarse en el mero placer estético.`,
+          `La sustitución de toda filosofía por la historiografía científica.`,
+          `El retorno literal a la agricultura medieval sin herramientas.`
+        ],
+        correct: 1,
+        explanation: `La confrontación debe darse en un ámbito emparentado con la técnica pero fundamentalmente distinto: el arte, siempre que no se reduzca a sector cultural o placer estético y responda al desvelar poético.`
+      }
+    ];
+
+    /* --- Estado persistente --- */
+    let appState = {
+      stationIndex: 0,
+      causeIndex: 0,
+      exampleIndex: 0,
+      epochIndex: 0,
+      constellationView: 'both',
+      glossaryCategory: 'todas',
+      glossaryQuery: '',
+      bookmarks: [],
+      quizCurrent: 0,
+      quizAnswers: {}
+    };
+
+    async function saveAppState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+        } catch (err) {
+          /* Persistencia silenciosa si el host no está activo */
+        }
+      }
+    }
+
+    /* --- Estaciones del camino --- */
+    function selectStation(idx) {
+      appState.stationIndex = idx;
+      const tabs = document.querySelectorAll('.station-btn');
+      tabs.forEach(function (btn, i) {
+        btn.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+      });
+      const panel = document.getElementById('station-detail');
+      const s = STATIONS[idx];
+      if (panel && s) {
+        panel.innerHTML =
+          `<span class="label kicker" style="margin-bottom: var(--space-xs);">${s.kicker}</span>` +
+          `<h3 style="margin-bottom: var(--space-sm);">${s.title}</h3>` +
+          `<p style="margin-bottom: var(--space-md);">${s.body}</p>` +
+          `<div class="divider" style="padding-top: var(--space-sm); font-size: 0.9rem; color: var(--secondary);">${s.terms}</div>`;
+      }
+      saveAppState();
+    }
+
+    /* --- Cuádruple causalidad --- */
+    function selectCause(idx) {
+      appState.causeIndex = idx;
+      const buttons = document.querySelectorAll('.cause-pill-btn');
+      buttons.forEach(function (btn, i) {
+        btn.classList.toggle('is-active', i === idx);
+      });
+      for (let i = 0; i < 4; i++) {
+        const node = document.getElementById('svg-cause-' + i);
+        if (node) {
+          const rect = node.querySelector('rect');
+          if (rect) {
+            rect.setAttribute('fill', i === idx ? 'var(--surface-container-low)' : 'var(--background)');
+            rect.setAttribute('stroke-width', i === idx ? '2' : '1');
+          }
+          node.style.opacity = i === idx ? '1' : '0.72';
+        }
+      }
+      const panel = document.getElementById('cause-detail-panel');
+      const c = CAUSES[idx];
+      if (panel && c) {
+        panel.innerHTML =
+          `<span class="label kicker" style="margin-bottom: var(--space-xs);">${c.label}</span>` +
+          `<h3 style="margin-bottom: var(--space-sm);">${c.title}</h3>` +
+          `<p style="margin-bottom: var(--space-md);">${c.text}</p>` +
+          `<div class="divider" style="padding-top: var(--space-sm); font-size: 0.92rem; color: var(--on-surface-variant);">${c.contrast}</div>`;
+      }
+      saveAppState();
+    }
+
+    /* --- Comparador de ejemplos modernos --- */
+    function selectExample(idx) {
+      appState.exampleIndex = idx;
+      const container = document.getElementById('example-comparison');
+      const tabs = document.querySelectorAll('#engranaje [role="tab"]');
+      tabs.forEach(function (btn, i) {
+        btn.classList.toggle('is-active', i === idx);
+        btn.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+      });
+      const ex = EXAMPLES[idx];
+      if (container && ex) {
+        container.innerHTML =
+          `<div class="comparison-col">` +
+            `<span class="label kicker">${ex.leftTag}</span>` +
+            `<h3 style="margin: var(--space-xs) 0 var(--space-sm);">${ex.leftTitle}</h3>` +
+            `<p>${ex.leftBody}</p>` +
+          `</div>` +
+          `<div class="comparison-col modern">` +
+            `<span class="label kicker">${ex.rightTag}</span>` +
+            `<h3 style="margin: var(--space-xs) 0 var(--space-sm);">${ex.rightTitle}</h3>` +
+            `<p>${ex.rightBody}</p>` +
+          `</div>`;
+      }
+      saveAppState();
+    }
+
+    /* --- Épocas de la historia del ser --- */
+    function selectEpoch(idx) {
+      appState.epochIndex = idx;
+      const rows = document.querySelectorAll('#epochs-table tbody tr');
+      rows.forEach(function (row, i) {
+        row.classList.toggle('is-active', i === idx);
+      });
+      const note = document.getElementById('epoch-note');
+      if (note && EPOCH_NOTES[idx]) {
+        note.textContent = EPOCH_NOTES[idx];
+      }
+      saveAppState();
+    }
+
+    /* --- Constelación peligro / salvador --- */
+    function setConstellationView(view) {
+      appState.constellationView = view;
+      const dangerPanel = document.getElementById('panel-danger');
+      const savingPanel = document.getElementById('panel-saving');
+      const btns = document.querySelectorAll('#peligro-salvador .btn-outline');
+      const order = ['both', 'danger', 'saving'];
+      btns.forEach(function (b, i) {
+        b.classList.toggle('is-active', order[i] === view);
+      });
+      if (dangerPanel && savingPanel) {
+        dangerPanel.classList.toggle('is-dimmed', view === 'saving');
+        savingPanel.classList.toggle('is-dimmed', view === 'danger');
+      }
+      saveAppState();
+    }
+
+    /* --- Glosario interactivo --- */
+    function setGlossaryCategory(cat, btn) {
+      appState.glossaryCategory = cat;
+      const buttons = document.querySelectorAll('#glosario .btn-outline');
+      buttons.forEach(function (b) {
+        b.classList.remove('is-active');
+      });
+      if (btn) btn.classList.add('is-active');
+      renderGlossary();
+      saveAppState();
+    }
+
+    function filterGlossary() {
+      const input = document.getElementById('glossary-search');
+      appState.glossaryQuery = input ? input.value : '';
+      renderGlossary();
+      saveAppState();
+    }
+
+    function toggleBookmark(term) {
+      const idx = appState.bookmarks.indexOf(term);
+      if (idx === -1) {
+        appState.bookmarks.push(term);
+      } else {
+        appState.bookmarks.splice(idx, 1);
+      }
+      renderGlossary();
+      saveAppState();
+    }
+
+    function renderGlossary() {
+      const grid = document.getElementById('glossary-grid');
+      const status = document.getElementById('glossary-status');
+      const countEl = document.getElementById('bookmark-count');
+      if (countEl) countEl.textContent = String(appState.bookmarks.length);
+      if (!grid) return;
+
+      const q = (appState.glossaryQuery || '').trim().toLowerCase();
+      const cat = appState.glossaryCategory;
+
+      const filtered = GLOSSARY.filter(function (item) {
+        if (cat === 'marcados') {
+          if (appState.bookmarks.indexOf(item.term) === -1) return false;
+        } else if (cat !== 'todas' && item.cat !== cat) {
+          return false;
+        }
+        if (!q) return true;
+        const hay = (item.term + ' ' + item.orig + ' ' + item.desc).toLowerCase();
+        return hay.indexOf(q) !== -1;
+      });
+
+      if (status) {
+        status.textContent = `Mostrando ${filtered.length} de ${GLOSSARY.length} entradas terminológicas.`;
+      }
+
+      if (filtered.length === 0) {
+        grid.innerHTML =
+          `<div class="stone-plate" style="grid-column: 1 / -1;">` +
+            `<p style="margin-bottom: var(--space-sm);">No hay términos que coincidan con el filtro actual.</p>` +
+            `<button type="button" class="btn btn-outline" onclick="clearGlossaryFilters()">Mostrar todos los términos</button>` +
+          `</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(function (item) {
+        const isSaved = appState.bookmarks.indexOf(item.term) !== -1;
+        const safeTerm = item.term.replace(/'/g, "\\'");
+        return (
+          `<article class="glossary-card">` +
+            `<div class="glossary-card-head">` +
+              `<div>` +
+                `<span class="label kicker">${item.catLabel} · ${item.orig}</span>` +
+                `<h3>${item.term}</h3>` +
+              `</div>` +
+              `<button type="button" class="bookmark-btn" aria-pressed="${isSaved ? 'true' : 'false'}" onclick="toggleBookmark('${safeTerm}')">` +
+                `${isSaved ? 'Marcado' : 'Marcar'}` +
+              `</button>` +
+            `</div>` +
+            `<p class="caption-text">${item.desc}</p>` +
+          `</article>`
+        );
+      }).join('');
+    }
+
+    function clearGlossaryFilters() {
+      appState.glossaryCategory = 'todas';
+      appState.glossaryQuery = '';
+      const input = document.getElementById('glossary-search');
+      if (input) input.value = '';
+      const buttons = document.querySelectorAll('#glosario .btn-outline');
+      buttons.forEach(function (b, i) {
+        b.classList.toggle('is-active', i === 0);
+      });
+      renderGlossary();
+      saveAppState();
+    }
+
+    /* --- Preguntas Frecuentes --- */
+    function renderFaqs() {
+      const container = document.getElementById('faq-list');
+      if (!container) return;
+      container.innerHTML = FAQS.map(function (item, idx) {
+        return (
+          `<div class="faq-item">` +
+            `<button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-${idx}" onclick="toggleFaq(${idx}, this)">` +
+              `<span>${item.q}</span>` +
+              `<span class="faq-sign" aria-hidden="true">+</span>` +
+            `</button>` +
+            `<div id="faq-panel-${idx}" class="faq-panel" hidden>` +
+              `<p>${item.a}</p>` +
+            `</div>` +
+          `</div>`
+        );
+      }).join('');
+    }
+
+    function toggleFaq(idx, btn) {
+      const panel = document.getElementById('faq-panel-' + idx);
+      if (!panel || !btn) return;
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      panel.hidden = expanded;
+      const sign = btn.querySelector('.faq-sign');
+      if (sign) sign.textContent = expanded ? '+' : '−';
+    }
+
+    /* --- Cuestionario de Autoevaluación --- */
+    function getQuizStats() {
+      let answered = 0;
+      let correct = 0;
+      for (let i = 0; i < QUIZ.length; i++) {
+        const chosen = appState.quizAnswers[i];
+        if (typeof chosen === 'number') {
+          answered++;
+          if (chosen === QUIZ[i].correct) correct++;
+        }
+      }
+      return { answered: answered, correct: correct, total: QUIZ.length };
+    }
+
+    function renderQuiz() {
+      const body = document.getElementById('quiz-body');
+      const counterEl = document.getElementById('quiz-counter-label');
+      const scoreEl = document.getElementById('quiz-score-label');
+      const fillEl = document.getElementById('quiz-progress-fill');
+      if (!body) return;
+
+      const stats = getQuizStats();
+      const idx = Math.max(0, Math.min(appState.quizCurrent, QUIZ.length - 1));
+      const q = QUIZ[idx];
+      const chosen = appState.quizAnswers[idx];
+      const hasAnswered = typeof chosen === 'number';
+
+      if (counterEl) counterEl.textContent = `Cuestión ${idx + 1} de ${QUIZ.length}`;
+      if (scoreEl) scoreEl.textContent = `Aciertos: ${stats.correct} / ${stats.answered} respondidas`;
+      if (fillEl) fillEl.style.width = `${Math.round((stats.answered / QUIZ.length) * 100)}%`;
+
+      const letters = ['A', 'B', 'C', 'D'];
+      const optionsHtml = q.options.map(function (opt, optIdx) {
+        let cls = 'quiz-option-btn';
+        if (hasAnswered) {
+          if (optIdx === q.correct) cls += ' is-correct';
+          else if (optIdx === chosen) cls += ' is-wrong';
+        }
+        return (
+          `<button type="button" class="${cls}" ${hasAnswered ? 'disabled' : ''} onclick="answerQuiz(${idx}, ${optIdx})">` +
+            `<span class="label" style="color: var(--secondary); flex-shrink: 0;">${letters[optIdx]}</span>` +
+            `<span>${opt}</span>` +
+          `</button>`
+        );
+      }).join('');
+
+      let feedbackHtml = '';
+      if (hasAnswered) {
+        const isRight = chosen === q.correct;
+        feedbackHtml =
+          `<div class="quiz-feedback ${isRight ? 'is-positive' : 'is-error'}" aria-live="polite">` +
+            `<span class="label feedback-status" style="display: block; margin-bottom: var(--space-xs);">` +
+              `${isRight ? 'Respuesta correcta' : 'Respuesta imprecisa'}` +
+            `</span>` +
+            `<p>${q.explanation}</p>` +
+          `</div>`;
+      }
+
+      const prevDisabled = idx === 0 ? 'disabled' : '';
+      const nextDisabled = idx === QUIZ.length - 1 ? 'disabled' : '';
+
+      let summaryHtml = '';
+      if (stats.answered === QUIZ.length) {
+        summaryHtml =
+          `<div class="ruled-top" style="margin-top: var(--space-lg);">` +
+            `<span class="label kicker">Evaluación completada</span>` +
+            `<h3 style="margin: var(--space-xs) 0 var(--space-sm);">Resultado final: ${stats.correct} de ${QUIZ.length} aciertos</h3>` +
+            `<p class="caption-text">Puede revisar cualquier cuestión con los botones de navegación, exportar su resumen de estudio o reiniciar el cuestionario.</p>` +
+          `</div>`;
+      }
+
+      body.innerHTML =
+        `<h3 style="margin-bottom: var(--space-md); font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.55rem);">${q.prompt}</h3>` +
+        `<div class="quiz-options">${optionsHtml}</div>` +
+        feedbackHtml +
+        `<div class="btn-row" style="margin-top: var(--space-lg); justify-content: space-between;">` +
+          `<button type="button" class="btn btn-outline" ${prevDisabled} onclick="moveQuiz(-1)">Anterior</button>` +
+          `<button type="button" class="btn btn-primary" ${nextDisabled} onclick="moveQuiz(1)">Siguiente cuestión</button>` +
+        `</div>` +
+        summaryHtml;
+    }
+
+    function answerQuiz(qIdx, optIdx) {
+      appState.quizAnswers[qIdx] = optIdx;
+      renderQuiz();
+      saveAppState();
+    }
+
+    function moveQuiz(delta) {
+      appState.quizCurrent = Math.max(0, Math.min(QUIZ.length - 1, appState.quizCurrent + delta));
+      renderQuiz();
+      saveAppState();
+    }
+
+    function resetQuiz(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = 'Confirmar reinicio';
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = 'Reiniciar cuestionario';
+      appState.quizCurrent = 0;
+      appState.quizAnswers = {};
+      renderQuiz();
+      saveAppState();
+    }
+
+    function exportStudySummary() {
+      const stats = getQuizStats();
+      const lines = [
+        `LA PREGUNTA POR LA TÉCNICA — MARTIN HEIDEGGER (1953)`,
+        `Resumen de estudio y autoevaluación`,
+        `==================================================`,
+        `Resultado en autoevaluación: ${stats.correct} aciertos de ${stats.answered} respondidas (total ${stats.total}).`,
+        ``,
+        `Términos marcados del glosario (${appState.bookmarks.length}):`,
+        appState.bookmarks.length ? appState.bookmarks.map(function (t) { return `- ${t}`; }).join('\n') : `- Ningún término marcado aún.`,
+        ``,
+        `Tesis clave de la conferencia:`,
+        `1. La esencia de la técnica no es nada técnico; considerarla neutral nos ciega ante ella.`,
+        `2. La técnica es un modo del desvelar (ἀλήθεια).`,
+        `3. La técnica moderna provoca y emplaza lo real como fondo permanente (Bestand) bajo el engranaje (Ge-stell).`,
+        `4. Donde crece el peligro extremo del Ge-stell, puede crecer lo salvador a través del otorgar y del arte poético (ποίησις).`
+      ];
+      const content = lines.join('\n');
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: 'text/plain',
+          encoding: 'UTF-8',
+          filename: 'heidegger-pregunta-tecnica-resumen.txt'
+        });
+      }
+    }
+
+    /* --- Teclado accesible para SVG de las 4 causas --- */
+    function initSvgKeyboard() {
+      for (let i = 0; i < 4; i++) {
+        const node = document.getElementById('svg-cause-' + i);
+        if (node) {
+          node.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              selectCause(i);
+            }
+          });
+        }
+      }
+    }
+
+    /* --- Scroll reveal (once per element) --- */
+    function initRevealObserver() {
+      const items = document.querySelectorAll('.reveal-item');
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+      const observer = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      items.forEach(function (el) { observer.observe(el); });
+    }
+
+    /* --- Inicialización --- */
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            if (typeof saved.stationIndex === 'number') appState.stationIndex = saved.stationIndex;
+            if (typeof saved.causeIndex === 'number') appState.causeIndex = saved.causeIndex;
+            if (typeof saved.exampleIndex === 'number') appState.exampleIndex = saved.exampleIndex;
+            if (typeof saved.epochIndex === 'number') appState.epochIndex = saved.epochIndex;
+            if (typeof saved.constellationView === 'string') appState.constellationView = saved.constellationView;
+            if (typeof saved.glossaryCategory === 'string') appState.glossaryCategory = saved.glossaryCategory;
+            if (typeof saved.glossaryQuery === 'string') appState.glossaryQuery = saved.glossaryQuery;
+            if (Array.isArray(saved.bookmarks)) appState.bookmarks = saved.bookmarks;
+            if (typeof saved.quizCurrent === 'number') appState.quizCurrent = saved.quizCurrent;
+            if (saved.quizAnswers && typeof saved.quizAnswers === 'object') appState.quizAnswers = saved.quizAnswers;
+          }
+        } catch (err) {
+          /* Continuar con estado inicial */
+        }
+      }
+
+      const searchEl = document.getElementById('glossary-search');
+      if (searchEl) searchEl.value = appState.glossaryQuery || '';
+
+      const catBtns = document.querySelectorAll('#glosario .btn-outline');
+      const catKeys = ['todas', 'desvelamiento', 'causalidad', 'engranaje', 'destino', 'marcados'];
+      catBtns.forEach(function (b, i) {
+        b.classList.toggle('is-active', catKeys[i] === appState.glossaryCategory);
+      });
+
+      selectStation(appState.stationIndex);
+      selectCause(appState.causeIndex);
+      selectExample(appState.exampleIndex);
+      selectEpoch(appState.epochIndex);
+      setConstellationView(appState.constellationView);
+      renderGlossary();
+      renderFaqs();
+      renderQuiz();
+      initSvgKeyboard();
+      initRevealObserver();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>

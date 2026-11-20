@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>¿Qué es la filosofía? — Dossier interactivo sobre Martin Heidegger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces: warm stone-white paper */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      /* Ink */
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      /* Rules */
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+      --border-control: #c8c4b8;
+
+      /* Accents */
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --secondary-soft: #e8f0f3;
+      --tertiary: #785008;
+      --tag-bg: #f5e6c4;
+      --error: #b42318;
+      --error-soft: #fbeae8;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      /* Fonts */
+      --font-headline: 'Source Serif 4', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      /* Style effects */
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* Semantic */
+      --positive: #2b6e52;
+      --positive-soft: #e7f2ec;
+      --warning: #785008;
+
+      /* Focus */
+      --focus: #1f4e5f;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.5rem, 1.4rem + 3.8vw, 4.25rem);
+      --headline-size: clamp(1.75rem, 1.15rem + 1.8vw, 2.5rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
+      --label-size: 0.75rem;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    :focus-visible {
+      outline: 2.5px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Briefing dossier header & section bars */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.6875rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--badge-radius);
+      display: inline-block;
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--display-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.06;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .section-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--headline-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.12;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .subhead {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      letter-spacing: -0.015em;
+      line-height: 1.25;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-sm);
+    }
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+      line-height: 1.48;
+      color: var(--secondary);
+      margin: var(--space-sm) 0 0;
+      max-width: 68ch;
+    }
+    .prose {
+      max-width: 65ch;
+      margin: 0;
+    }
+    .prose p {
+      margin: 0 0 var(--space-md);
+    }
+    .prose p:last-child {
+      margin-bottom: 0;
+    }
+    .term-inline {
+      font-family: var(--font-headline);
+      font-style: italic;
+      color: var(--on-surface);
+    }
+    .greek {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      color: var(--secondary);
+    }
+
+    /* Key figures strip */
+    .figures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .figure-card .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .figure-card .value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+      line-height: 1.15;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-xs);
+    }
+    .figure-card .caption {
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    /* Quick navigation bar */
+    .dossier-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-xs);
+      margin-top: var(--space-lg);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      border-bottom: var(--card-border);
+    }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: 0 var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--on-surface);
+      text-decoration: none;
+      border-radius: var(--rounded);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:hover {
+      background: var(--surface-container-high);
+      color: var(--secondary);
+    }
+    .nav-link-num {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+    .nav-status {
+      margin-left: auto;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--tertiary);
+      background: var(--tag-bg);
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--rounded);
+      font-weight: 600;
+    }
+
+    /* Asymmetric section grid */
+    .editorial-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+    }
+    .aside-title {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      margin: 0 0 var(--space-sm);
+    }
+    .aside-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .aside-list li {
+      padding-top: var(--space-sm);
+      border-top: var(--card-border);
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+    .aside-list li:first-child {
+      padding-top: 0;
+      border-top: none;
+    }
+    .aside-list strong {
+      color: var(--on-surface);
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    /* Pull quote / source block */
+    .quote-plate {
+      background: var(--surface-container-low);
+      border-left: 3px solid var(--secondary);
+      border-top: var(--card-border);
+      border-right: var(--card-border);
+      border-bottom: var(--card-border);
+      border-radius: 0 var(--rounded-lg) var(--rounded-lg) 0;
+      padding: var(--space-md) var(--space-lg);
+      margin: var(--space-lg) 0;
+    }
+    .quote-plate blockquote {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-size: clamp(1.125rem, 1.02rem + 0.4vw, 1.35rem);
+      line-height: 1.42;
+      color: var(--on-surface);
+    }
+    .quote-plate figcaption {
+      margin-top: var(--space-xs);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: 0 var(--space-md);
+      border-radius: var(--rounded);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background: var(--secondary);
+      border-color: var(--secondary);
+    }
+    .btn-secondary {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--border-control);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-container);
+    }
+    .btn-secondary[aria-pressed="true"],
+    .btn-toggle.active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn[disabled] {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    /* Interactive Attitude Switcher (Section 01) */
+    .interactive-panel {
+      margin-top: var(--space-lg);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .panel-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--card-border);
+      margin-bottom: var(--space-md);
+    }
+    .toggle-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .matrix-4col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .matrix-cell {
+      background: var(--background);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+    .matrix-cell-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      margin-bottom: var(--space-xs);
+      display: block;
+    }
+    .matrix-cell p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Pathway Stepper + SVG Schematic (Section 02) */
+    .pathway-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+    .pathway-svg-wrap {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+    }
+    .pathway-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .step-btn {
+      min-height: 44px;
+      padding: 0.45rem 0.75rem;
+      border-radius: var(--rounded);
+      border: 1px solid var(--border-control);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .step-btn:hover {
+      background: var(--surface-container);
+    }
+    .step-btn[aria-pressed="true"] {
+      background: var(--secondary);
+      color: var(--on-primary);
+      border-color: var(--secondary);
+    }
+    .pathway-detail {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-top: 3px solid var(--secondary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .tag-chip {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--tertiary);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--rounded);
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Section 03 Mood cards */
+    .card-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    /* Section 04 Comparative Table & Side-by-Side Tool */
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+      margin-bottom: var(--space-md);
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      flex: 1 1 220px;
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .text-input, .select-input {
+      min-height: 44px;
+      padding: 0.5rem 0.75rem;
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: 1px solid var(--border-control);
+      border-radius: var(--rounded);
+      font-size: 0.95rem;
+      width: 100%;
+    }
+    .select-input {
+      padding-right: 2rem;
+    }
+    .compare-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .compare-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .compare-card dl {
+      margin: var(--space-sm) 0 0;
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .compare-card dt {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      color: var(--secondary);
+      font-weight: 600;
+    }
+    .compare-card dd {
+      margin: 0.15rem 0 0;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+
+    .table-scroll {
+      width: 100%;
+      overflow-x: auto;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+    }
+    table.dossier-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+      text-align: left;
+    }
+    .dossier-table thead th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      background: var(--surface-container);
+      border-bottom: var(--section-rule);
+      padding: 0.85rem var(--space-md);
+      vertical-align: bottom;
+    }
+    .dossier-table tbody td {
+      padding: 0.9rem var(--space-md);
+      border-bottom: var(--card-border);
+      vertical-align: top;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+    .dossier-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .dossier-table tbody tr:hover {
+      background: var(--background);
+    }
+
+    /* Section 05 Glossary */
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(310px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+    .glossary-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .glossary-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .glossary-term {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .glossary-translit {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      display: block;
+      margin-top: 0.1rem;
+    }
+    .glossary-def {
+      margin: var(--space-xs) 0 0;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+    .glossary-details {
+      border-top: var(--card-border);
+      padding-top: var(--space-sm);
+      margin-top: var(--space-xs);
+    }
+    .glossary-details summary {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--secondary);
+      cursor: pointer;
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+    }
+    .glossary-details p {
+      margin: var(--space-xs) 0 0;
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+      line-height: 1.5;
+    }
+    .empty-state {
+      background: var(--surface-container);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl) var(--space-lg);
+      text-align: left;
+      margin-top: var(--space-md);
+    }
+
+    /* Section 06 FAQ */
+    .faq-list {
+      display: grid;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+    }
+    .faq-item {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+    }
+    .faq-trigger {
+      width: 100%;
+      min-height: 52px;
+      padding: var(--space-md) var(--space-lg);
+      background: transparent;
+      border: none;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      cursor: pointer;
+      color: var(--on-surface);
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.125rem;
+      line-height: 1.3;
+    }
+    .faq-trigger:hover {
+      background: var(--surface-container);
+    }
+    .faq-chevron {
+      flex-shrink: 0;
+      transition: transform var(--dur-short) var(--ease-in-out);
+      color: var(--secondary);
+    }
+    .faq-trigger[aria-expanded="true"] .faq-chevron {
+      transform: rotate(180deg);
+    }
+    .faq-panel {
+      padding: 0 var(--space-lg) var(--space-md);
+      border-top: var(--card-border);
+      color: var(--on-surface);
+    }
+    .faq-panel p {
+      margin: var(--space-md) 0 0;
+      max-width: 68ch;
+      font-size: 0.975rem;
+    }
+
+    /* Section 07 Quiz */
+    .quiz-shell {
+      margin-top: var(--space-lg);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .quiz-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--section-rule);
+      margin-bottom: var(--space-lg);
+    }
+    .quiz-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: center;
+    }
+    .quiz-metric {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+    .quiz-metric strong {
+      color: var(--on-surface);
+      font-size: 0.9375rem;
+    }
+    .quiz-question-card {
+      padding: var(--space-md) 0;
+      border-bottom: var(--card-border);
+    }
+    .quiz-question-card:last-of-type {
+      border-bottom: none;
+    }
+    .quiz-q-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.1875rem;
+      line-height: 1.35;
+      margin: 0 0 var(--space-md);
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .quiz-option-btn {
+      width: 100%;
+      min-height: 46px;
+      padding: 0.65rem var(--space-md);
+      text-align: left;
+      background: var(--background);
+      border: 1px solid var(--border-control);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      line-height: 1.45;
+      font-size: 0.96rem;
+      transition: background-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option-btn:hover:not([disabled]) {
+      background: var(--surface-container);
+    }
+    .quiz-option-btn.selected-correct {
+      background: var(--positive-soft);
+      border-color: var(--positive);
+      box-shadow: inset 3px 0 0 var(--positive);
+    }
+    .quiz-option-btn.selected-wrong {
+      background: var(--error-soft);
+      border-color: var(--error);
+      box-shadow: inset 3px 0 0 var(--error);
+    }
+    .quiz-option-btn.reveal-correct {
+      background: var(--positive-soft);
+      border-color: var(--positive);
+    }
+    .quiz-opt-letter {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      padding-top: 0.18rem;
+      flex-shrink: 0;
+    }
+    .quiz-feedback {
+      margin-top: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+    .quiz-feedback.correct {
+      background: var(--positive-soft);
+      color: var(--on-surface);
+      border-left: 3px solid var(--positive);
+    }
+    .quiz-feedback.wrong {
+      background: var(--error-soft);
+      color: var(--on-surface);
+      border-left: 3px solid var(--error);
+    }
+    .quiz-summary-banner {
+      margin-top: var(--space-lg);
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    /* Footer */
+    .dossier-footer {
+      border-top: var(--section-rule);
+      padding-top: var(--space-lg);
+      color: var(--on-surface-variant);
+      font-size: 0.9375rem;
+    }
+
+    /* Reveal animation */
+    .reveal-section {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+
+    /* Container queries for glossary & compare cards */
+    .card-wrapper { container-type: inline-size; }
+    @container (max-width: 360px) {
+      .glossary-head { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 860px) {
+      .editorial-split,
+      .pathway-layout,
+      .compare-cards {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: minmax(0, 1fr);
+        padding: var(--space-md) var(--space-sm) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .nav-status {
+        margin-left: 0;
+      }
+      .figure-card,
+      .interactive-panel,
+      .quiz-shell,
+      .pathway-detail,
+      .compare-card {
+        padding: var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+    <!-- HEADER / HERO -->
+    <header>
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Dossier filosófico</span>
+          <span class="dossier-meta">Cerisy-la-Salle, agosto de 1955 · Martin Heidegger</span>
+        </div>
+        <span class="dossier-meta">Base de conocimientos interactiva</span>
+      </div>
+
+      <h1 class="title">¿Qué es la filosofía?</h1>
+      <p class="standfirst">
+        Una guía estructurada e interactiva sobre la conferencia de Martin Heidegger acerca del peligro de la era atómica, la esencia griega de la filosofía como co-rresponder (<em>Ent-sprechen</em>) y la disposición afectiva del pensar.
+      </p>
+
+      <div class="figures-grid">
+        <div class="figure-card">
+          <span class="index-num">01 · Contexto del viraje</span>
+          <p class="value">1955</p>
+          <p class="caption">Conferencia pronunciada en Normandía ante la amenaza técnica de destrucción atómica del planeta.</p>
+        </div>
+        <div class="figure-card">
+          <span class="index-num">02 · Procedencia unívoca</span>
+          <p class="value">φιλοσοφία</p>
+          <p class="caption">Tanto el asunto de la filosofía como el preguntar «¿qué es eso?» (<em>τί ἐστιν</em>) son griegos en su origen.</p>
+        </div>
+        <div class="figure-card">
+          <span class="index-num">03 · Naturaleza del pensar</span>
+          <p class="value">Ent-sprechen</p>
+          <p class="caption">La respuesta genuina es co-rrespondencia afectivamente dispuesta (<em>πάθος</em>) a la llamada del ser.</p>
+        </div>
+      </div>
+
+      <nav class="dossier-nav" aria-label="Navegación de secciones">
+        <a class="nav-link" href="#diagnostico"><span class="nav-link-num">01</span> Era atómica y técnica</a>
+        <a class="nav-link" href="#corresponder"><span class="nav-link-num">02</span> Co-rresponder</a>
+        <a class="nav-link" href="#pathos"><span class="nav-link-num">03</span> Pathos y asombro</a>
+        <a class="nav-link" href="#comparativo"><span class="nav-link-num">04</span> Cuadro de temples</a>
+        <a class="nav-link" href="#glosario"><span class="nav-link-num">05</span> Glosario</a>
+        <a class="nav-link" href="#faq"><span class="nav-link-num">06</span> Preguntas frecuentes</a>
+        <a class="nav-link" href="#cuestionario"><span class="nav-link-num">07</span> Autoevaluación</a>
+        <span class="nav-status" id="nav-quiz-badge">Evaluación: 0 / 8</span>
+      </nav>
+    </header>
+
+    <!-- SECTION 01: DIAGNÓSTICO DE LA ERA ATÓMICA Y LA TÉCNICA -->
+    <section id="diagnostico" class="reveal-section" aria-labelledby="h-diagnostico">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">01 · Diagnóstico</span>
+          <span class="dossier-meta">Era atómica, modernidad y serenidad</span>
+        </div>
+        <span class="dossier-meta">El papel del pensar</span>
+      </div>
+
+      <h2 class="section-title" id="h-diagnostico">
+        El engranaje técnico ha reducido el mundo a cálculo y amenaza la cercanía con el ser
+      </h2>
+      <p class="standfirst">
+        ¿Qué puede hacer la filosofía cuando la técnica otorga a la humanidad el poder de destruir totalmente el planeta?
+      </p>
+
+      <div class="editorial-split">
+        <div class="prose">
+          <p>
+            En agosto de 1955, Heidegger sitúa la pregunta por la esencia de la filosofía en el corazón de la <strong>era atómica</strong>. La energía atómica descubierta y liberada por las ciencias se presenta como el poder destinado a regir la historia universal, aunque ninguna ciencia existiría si la filosofía no la hubiese precedido. Sin embargo, el sentido originario de la filosofía se ha pervertido al quedar atrapado en el lenguaje instrumental y calculador de la técnica.
+          </p>
+          <p>
+            Esta voluntad de dominio arranca en los albores de la <strong>modernidad</strong>: la naturaleza sometida a principios mecanicistas (Descartes), interpretada en términos matemáticos (Galileo), ordenada geométricamente (Spinoza) o sujeta a leyes causales universales (Newton y Hobbes). Instalado en un universo sin contingencia —como sentenció Einstein: «Dios no juega a los dados»—, el hombre moderno se siente dominador absoluto de cuanto le rodea.
+          </p>
+          <p>
+            En la época contemporánea, ese control desemboca en un enorme y complejo <strong>engranaje tecnológico</strong> (<span class="term-inline">Gestell</span>): una gigantesca fábrica que produce mercancías y hombres en serie según criterios utilitaristas. En sintonía crítica con Adorno, Horkheimer y Marcuse, Heidegger advierte la colonización tecno-científica del arte, la religión y la cultura —reducida a un fondo disponible de valores administrables y planificables—, junto al embotamiento de la conciencia histórica, la mercantilización de las relaciones y la expansión de los medios de comunicación.
+          </p>
+          <p>
+            El contacto directo con las cosas sencillas se fractura y el asombro cede ante la monotonía y el tedio: ya en sus lecciones sobre Heráclito (1943/44), Heidegger observaba que el vacío se apodera del hombre moderno apenas deja de ir al cine, escuchar la radio, leer el periódico, asistir a un concierto o viajar. Frente a esa servidumbre, si en <span class="term-inline">Contribuciones a la filosofía</span> hablaba del <strong>espanto</strong> ante la maquinación como sacudida inicial, en su pensamiento tardío propone la <strong>serenidad</strong> (<span class="term-inline">Gelassenheit</span>) o desasimiento: una actitud meditativa y silente que libera de la opresión técnica y restablece el lazo con lo cotidiano como «pastor del ser».
+          </p>
+        </div>
+
+        <aside class="aside-box" aria-label="Claves del diagnóstico técnico">
+          <h3 class="aside-title">Mapa del diagnóstico epocal</h3>
+          <ul class="aside-list">
+            <li>
+              <strong>Órbita del viraje (Kehre)</strong>
+              Junto a <em>Carta sobre el «humanismo»</em> (1946), <em>La pregunta por la técnica</em> (1953) y <em>Serenidad</em> (1955), la conferencia repiensa el ser más allá de la metafísica subjetivista.
+            </li>
+            <li>
+              <strong>Doble tarea de la filosofía</strong>
+              Alertar sobre los riesgos de la maquinación técnica totalitaria y restablecer los lazos perdidos con la naturaleza y la realidad inmediata.
+            </li>
+            <li>
+              <strong>Ausencia de lo divino</strong>
+              Heidegger asimila la falta de sintonía entre lo humano y lo divino descrita por Hölderlin y Rilke a la época de la dominación técnica, no para lamentarse con pesimismo, sino para volver a lo digno de ser pensado.
+            </li>
+          </ul>
+        </aside>
+      </div>
+
+      <!-- Interactive Attitude Comparison -->
+      <div class="interactive-panel" aria-labelledby="h-actitudes">
+        <div class="panel-header">
+          <div>
+            <span class="dossier-meta">Comparador interactivo de actitudes</span>
+            <h3 class="subhead" id="h-actitudes" style="margin-top: var(--space-xs); margin-bottom: 0;">
+              Dos modos de habitar la época técnica
+            </h3>
+          </div>
+          <div class="toggle-group" role="group" aria-label="Seleccionar actitud filosófica">
+            <button type="button" class="btn btn-secondary btn-toggle" id="btn-att-tecnica" aria-pressed="true" onclick="setAttitude('tecnica')">
+              Dominio calculador (Gestell)
+            </button>
+            <button type="button" class="btn btn-secondary btn-toggle" id="btn-att-serenidad" aria-pressed="false" onclick="setAttitude('serenidad')">
+              Actitud meditativa (Serenidad)
+            </button>
+          </div>
+        </div>
+        <div class="matrix-4col" id="attitude-matrix" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 02: LA FILOSOFÍA COMO CORRESPONDER (ENT-SPRECHEN) -->
+    <section id="corresponder" class="reveal-section" aria-labelledby="h-corresponder">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">02 · Esencia y lenguaje</span>
+          <span class="dossier-meta">Origen griego, Destruktion y Ent-sprechen</span>
+        </div>
+        <span class="dossier-meta">El camino hacia el ser</span>
+      </div>
+
+      <h2 class="section-title" id="h-corresponder">
+        Filosofar es co-rresponder a la llamada del ser del ente al servicio del lenguaje
+      </h2>
+      <p class="standfirst">
+        Definir la filosofía desde fuera o compilar definiciones historiográficas la convierte en una fórmula vacía; la única respuesta legítima debe filosofar en sí misma.
+      </p>
+
+      <div class="editorial-split">
+        <div class="prose">
+          <p>
+            Cuando preguntamos «¿qué es la filosofía?», corremos el riesgo de quedarnos fuera de ella, mirándola como un objeto externo. El propósito del coloquio es penetrar en ella y dejar que aquello de lo que trata nos afecte directamente (<span class="term-inline">nous touche</span>) en nuestro propio ser. Aunque André Gide advirtió que «con los bellos sentimientos se hace mala literatura», Heidegger rechaza tanto reducir la filosofía a simples emociones «irracionales» como dar por sentado que pertenece exclusivamente a la <span class="term-inline">ratio</span>: la razón misma fue delimitada por la filosofía a lo largo de su historia, y quien la declara irracional sigue midiendo con el rasero de la razón.
+          </p>
+          <p>
+            Para encontrar el camino sin perderse, debemos escuchar la palabra griega <span class="greek">φιλοσοφία</span> en su origen. Decir «filosofía europea occidental» es una tautología, porque la filosofía es griega en su esencia: necesitó exclusivamente del mundo griego para iniciar su despliegue (y aunque en la Edad Media y la modernidad la gobernaran representaciones cristianas, nunca se redujo a un asunto de fe). También nuestra manera de preguntar «¿qué es eso?» (<span class="greek">τί ἐστιν</span>, <span class="term-inline">quid est</span>, <span class="term-inline">quidditas</span>) procede de Sócrates, Platón y Aristóteles.
+          </p>
+          <p>
+            Por ello, esta pregunta no es meramente historiográfica (<span class="term-inline">Historie</span>, ordenación lineal de hechos del pasado enterrado, <span class="term-inline">das Vergangene</span>), sino histórica (<span class="term-inline">Geschichte</span>): en ella se juega nuestro destino colectivo (<span class="term-inline">Geschick</span>) en diálogo libre (<span class="term-inline">délivrer</span>, liberar) con lo sido que aún nos interpela (<span class="term-inline">das Gewesene</span>). En este diálogo opera la <strong>destrucción</strong> (<span class="term-inline">Destruktion</span>): no aniquilar la tradición, sino desmontar los enunciados puramente eruditos para liberar nuestros oídos hacia la llamada del ser del ente.
+          </p>
+          <p>
+            Así llegamos al núcleo: en alemán, «responder» (<span class="term-inline">antworten</span>) remite a <span class="term-inline">ent-sprechen</span> (<strong>co-rresponder</strong>). La respuesta genuina no es una mera réplica informativa (<span class="term-inline">une réponse</span>), sino una <strong>co-rrespondencia</strong> (<span class="term-inline">la correspondance</span>) expresamente asumida y desplegada ante la voz del ser. Este corresponder está al servicio del lenguaje —no al revés— y guarda un parentesco oculto con la <strong>poesía</strong>, aunque entre pensar y poetizar medie un abismo, pues según Hölderlin en <span class="term-inline">Patmos</span>, «habitan sobre montañas muy separadas».
+          </p>
+        </div>
+
+        <aside class="aside-box" aria-label="Del filósofo heraclíteo a Aristóteles">
+          <h3 class="aside-title">De Heráclito a Aristóteles</h3>
+          <ul class="aside-list">
+            <li>
+              <strong>El ἀνὴρ φιλόσοφος (Heráclito)</strong>
+              Originalmente un adjetivo: quien ama lo <em>σοφόν</em> (<em>Ἓν Πάντα</em>, «Uno es Todo», el ente reunido en el ser). Es <em>ὁμολογεῖν</em> y <em>ἀρμονία</em> con el <em>Λόγος</em>.
+            </li>
+            <li>
+              <strong>Por qué no eran «filósofos»</strong>
+              Heráclito y Parménides fueron pensadores «más grandes» porque aún habitaban en armonía originaria con el <em>Λόγος</em>; aún no necesitaban aspirar a él desde la carencia.
+            </li>
+            <li>
+              <strong>El salto a la φιλοσοφία</strong>
+              Frente a la sofística que fabricaba explicaciones para el mercado, la <em>ἀρμονία</em> devino búsqueda (<em>ὄρεξις</em> / <em>Eros</em>) con Sócrates y Platón: «¿qué es el ente?» (<em>τί τὸ ὄν</em>).
+            </li>
+            <li>
+              <strong>La definición aristotélica</strong>
+              Aristóteles precisa el <em>τί τὸ ὄν</em> como entidad (<em>οὐσία</em>: <em>ἰδέα</em> en Platón, <em>ἐνέργεια</em> en Aristóteles) y define la filosofía como <em>ἐπιστήμη θεωρητική</em> de los primeros principios y causas.
+            </li>
+          </ul>
+        </aside>
+      </div>
+
+      <figure class="quote-plate">
+        <blockquote>
+          «La filosofía es la correspondencia expresamente asumida y en desarrollo, que corresponde a la llamada del ser del ente. […] El ser-que-está-siendo se manifiesta de múltiples maneras (Τὸ ὂν λέγεται πολλαχῶς).»
+        </blockquote>
+        <figcaption>Martin Heidegger — ¿Qué es la filosofía? (con referencia final a Aristóteles)</figcaption>
+      </figure>
+
+      <!-- Interactive Pathway Diagram -->
+      <div class="pathway-layout" aria-labelledby="h-camino">
+        <div class="pathway-svg-wrap">
+          <span class="dossier-meta">Esquema interactivo · El camino histórico de la pregunta</span>
+          <h3 class="subhead" id="h-camino" style="margin-top: var(--space-xs);">
+            Cinco estaciones de la correspondencia ser–hombre
+          </h3>
+
+          <div class="pathway-steps" role="group" aria-label="Estaciones del camino filosófico">
+            <button type="button" class="step-btn" id="step-btn-0" aria-pressed="true" onclick="selectPathwayStep(0)">01 · Armonía</button>
+            <button type="button" class="step-btn" id="step-btn-1" aria-pressed="false" onclick="selectPathwayStep(1)">02 · Filosofía</button>
+            <button type="button" class="step-btn" id="step-btn-2" aria-pressed="false" onclick="selectPathwayStep(2)">03 · Certeza</button>
+            <button type="button" class="step-btn" id="step-btn-3" aria-pressed="false" onclick="selectPathwayStep(3)">04 · Técnica</button>
+            <button type="button" class="step-btn" id="step-btn-4" aria-pressed="false" onclick="selectPathwayStep(4)">05 · Serenidad</button>
+          </div>
+
+          <svg viewBox="0 0 620 210" width="100%" role="img" aria-label="Diagrama de las cinco estaciones de la historia del pensar" style="display: block; height: auto; min-height: 180px;">
+            <line x1="56" y1="92" x2="564" y2="92" stroke="var(--outline-variant)" stroke-width="2" />
+            <line id="svg-progress-line" x1="56" y1="92" x2="56" y2="92" stroke="var(--secondary)" stroke-width="3" />
+
+            <!-- Station 0 -->
+            <g class="svg-station" data-step="0" onclick="selectPathwayStep(0)" style="cursor: pointer;">
+              <circle id="svg-dot-0" cx="56" cy="92" r="14" fill="var(--secondary)" stroke="var(--outline)" stroke-width="1.5" />
+              <text x="56" y="96" text-anchor="middle" font-family="Geist Mono, monospace" font-size="11" font-weight="600" fill="var(--on-primary)">01</text>
+              <text x="56" y="130" text-anchor="middle" font-family="Source Serif 4, serif" font-size="13" font-weight="600" fill="var(--on-surface)">Λόγος</text>
+              <text x="56" y="148" text-anchor="middle" font-family="Geist Mono, monospace" font-size="10" fill="var(--on-surface-variant)">Heráclito</text>
+            </g>
+
+            <!-- Station 1 -->
+            <g class="svg-station" data-step="1" onclick="selectPathwayStep(1)" style="cursor: pointer;">
+              <circle id="svg-dot-1" cx="183" cy="92" r="14" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+              <text id="svg-txt-1" x="183" y="96" text-anchor="middle" font-family="Geist Mono, monospace" font-size="11" font-weight="600" fill="var(--on-surface)">02</text>
+              <text x="183" y="130" text-anchor="middle" font-family="Source Serif 4, serif" font-size="13" font-weight="600" fill="var(--on-surface)">Τί τὸ ὄν</text>
+              <text x="183" y="148" text-anchor="middle" font-family="Geist Mono, monospace" font-size="10" fill="var(--on-surface-variant)">Platón / Arist.</text>
+            </g>
+
+            <!-- Station 2 -->
+            <g class="svg-station" data-step="2" onclick="selectPathwayStep(2)" style="cursor: pointer;">
+              <circle id="svg-dot-2" cx="310" cy="92" r="14" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+              <text id="svg-txt-2" x="310" y="96" text-anchor="middle" font-family="Geist Mono, monospace" font-size="11" font-weight="600" fill="var(--on-surface)">03</text>
+              <text x="310" y="130" text-anchor="middle" font-family="Source Serif 4, serif" font-size="13" font-weight="600" fill="var(--on-surface)">Ens certum</text>
+              <text x="310" y="148" text-anchor="middle" font-family="Geist Mono, monospace" font-size="10" fill="var(--on-surface-variant)">Descartes</text>
+            </g>
+
+            <!-- Station 3 -->
+            <g class="svg-station" data-step="3" onclick="selectPathwayStep(3)" style="cursor: pointer;">
+              <circle id="svg-dot-3" cx="437" cy="92" r="14" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+              <text id="svg-txt-3" x="437" y="96" text-anchor="middle" font-family="Geist Mono, monospace" font-size="11" font-weight="600" fill="var(--on-surface)">04</text>
+              <text x="437" y="130" text-anchor="middle" font-family="Source Serif 4, serif" font-size="13" font-weight="600" fill="var(--on-surface)">Gestell</text>
+              <text x="437" y="148" text-anchor="middle" font-family="Geist Mono, monospace" font-size="10" fill="var(--on-surface-variant)">Era atómica</text>
+            </g>
+
+            <!-- Station 4 -->
+            <g class="svg-station" data-step="4" onclick="selectPathwayStep(4)" style="cursor: pointer;">
+              <circle id="svg-dot-4" cx="564" cy="92" r="14" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+              <text id="svg-txt-4" x="564" y="96" text-anchor="middle" font-family="Geist Mono, monospace" font-size="11" font-weight="600" fill="var(--on-surface)">05</text>
+              <text x="564" y="130" text-anchor="middle" font-family="Source Serif 4, serif" font-size="13" font-weight="600" fill="var(--on-surface)">Ereignis</text>
+              <text x="564" y="148" text-anchor="middle" font-family="Geist Mono, monospace" font-size="10" fill="var(--on-surface-variant)">Serenidad</text>
+            </g>
+
+            <text x="56" y="40" font-family="Geist Mono, monospace" font-size="10" fill="var(--tertiary)">ORIGEN GRIEGO</text>
+            <text x="310" y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="10" fill="var(--on-surface-variant)">SUBJETIVIDAD Y CÁLCULO</text>
+            <text x="564" y="40" text-anchor="end" font-family="Geist Mono, monospace" font-size="10" fill="var(--secondary)">ESCUCHA DEL SER</text>
+          </svg>
+        </div>
+
+        <div class="pathway-detail" id="pathway-detail-box" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 03: EL PATHOS Y LA DISPOSICIÓN AFECTIVA -->
+    <section id="pathos" class="reveal-section" aria-labelledby="h-pathos">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">03 · Disposición afectiva</span>
+          <span class="dossier-meta">Πάθος, θαυμάζειν y ἀρχή</span>
+        </div>
+        <span class="dossier-meta">El temple del corresponder</span>
+      </div>
+
+      <h2 class="section-title" id="h-pathos">
+        El asombro (θαυμάζειν) no es un mero impulso inicial: gobierna toda la filosofía desde su ἀρχή
+      </h2>
+      <p class="standfirst">
+        Corresponder al ser significa estar afectivamente dispuesto (<em>être dis-posé</em>); incluso la frialdad matemática de la planificación técnica expresa un estado de ánimo determinado.
+      </p>
+
+      <div class="card-grid-3">
+        <article class="figure-card">
+          <span class="index-num">01 · Qué es el πάθος</span>
+          <h3 class="subhead">Dejarse determinar (πάσχειν)</h3>
+          <p class="caption" style="color: var(--on-surface);">
+            Traducir <em>πάθος</em> por «disposición afectiva» o «estado de ánimo» (<em>Stimmung</em>) evita la psicologización moderna. Emparentado con <em>πάσχειν</em> (soportar, tolerar, dejarse llevar por), nombra estar expuesto e iluminado por la llamada del ser. Toda precisión del decir se funda en esta disposición.
+          </p>
+        </article>
+
+        <article class="figure-card">
+          <span class="index-num">02 · El asombro como ἀρχή</span>
+          <h3 class="subhead">Retroceder y quedar encadenado</h3>
+          <p class="caption" style="color: var(--on-surface);">
+            Platón (<em>Teeteto</em> 155d) y Aristóteles (<em>Metafísica</em> A 2) señalan al asombro (<em>θαυμάζειν</em>) como <em>ἀρχή</em>. La <em>ἀρχή</em> no es como lavarse las manos antes de operar y luego olvidarlo: es aquello que domina sin cesar (<em>ἄρχειν</em>) de cabo a rabo. Al asombrarnos retrocedemos ante el hecho de que el ente sea, y quedamos demorados (<em>être en arrêt</em>) y atraídos por ello.
+          </p>
+        </article>
+
+        <article class="figure-card">
+          <span class="index-num">03 · El temple oculto de la razón</span>
+          <h3 class="subhead">Frialdad del cálculo y evidencia</h3>
+          <p class="caption" style="color: var(--on-surface);">
+            Heidegger desmiente que la razón calculadora carezca de afección. «La frialdad del cálculo y la prosaica sobriedad de la planificación son signos característicos de una disposición anímica». Incluso la razón pretendidamente libre de pasiones está dispuesta a confiar en la evidencia lógico-matemática de sus reglas.
+          </p>
+        </article>
+      </div>
+
+      <figure class="quote-plate">
+        <blockquote>
+          «Es muy característico de un filósofo eso que llamamos el πάθος —el asombro; efectivamente, no hay otro origen de la filosofía que ejerza un dominio mayor que éste.»
+        </blockquote>
+        <figcaption>Platón, Teeteto 155d — citado y traducido por Heidegger en la conferencia</figcaption>
+      </figure>
+    </section>
+
+    <!-- SECTION 04: CUADRO COMPARATIVO DE LOS TEMPLES DE ÁNIMO -->
+    <section id="comparativo" class="reveal-section" aria-labelledby="h-comparativo">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">04 · Matriz histórica</span>
+          <span class="dossier-meta">Temples de ánimo a través de la filosofía</span>
+        </div>
+        <span class="dossier-meta">Comparación epocal</span>
+      </div>
+
+      <h2 class="section-title" id="h-comparativo">
+        Cuadro comparativo de los temples de ánimo en la historia de la filosofía
+      </h2>
+      <p class="standfirst">
+        Según Heidegger, cada época histórica responde a una cristalización epocal del acontecimiento del ser y se halla sostenida por un temple afectivo (<em>Stimmung</em>) específico. Compara dos épocas directamente o explora la matriz completa.
+      </p>
+
+      <!-- Side-by-Side Comparison Controls -->
+      <div class="controls-row">
+        <div class="field-group">
+          <label class="field-label" for="compare-a">Época A para comparar</label>
+          <select id="compare-a" class="select-input" onchange="renderComparison()">
+            <option value="0" selected>1. Pensar presocrático (Heráclito / Parménides)</option>
+            <option value="1">2. Grecia clásica (Sócrates, Platón, Aristóteles)</option>
+            <option value="2">3. Transición medieval (Escolástica)</option>
+            <option value="3">4. Modernidad (Descartes / ciencia moderna)</option>
+            <option value="4">5. Época actual (Era atómica y técnica)</option>
+            <option value="5">6. Pensar meditativo (Heidegger tardío)</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="compare-b">Época B para comparar</label>
+          <select id="compare-b" class="select-input" onchange="renderComparison()">
+            <option value="0">1. Pensar presocrático (Heráclito / Parménides)</option>
+            <option value="1">2. Grecia clásica (Sócrates, Platón, Aristóteles)</option>
+            <option value="2">3. Transición medieval (Escolástica)</option>
+            <option value="3" selected>4. Modernidad (Descartes / ciencia moderna)</option>
+            <option value="4">5. Época actual (Era atómica y técnica)</option>
+            <option value="5">6. Pensar meditativo (Heidegger tardío)</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="table-filter">Filtrar tabla general</label>
+          <select id="table-filter" class="select-input" onchange="renderMoodTable()">
+            <option value="all" selected>Todas las épocas (6)</option>
+            <option value="antiguedad">Grecia antigua y presocrática</option>
+            <option value="modernidad">Edad Media y Modernidad</option>
+            <option value="actual">Era atómica y porvenir</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Side-by-Side Cards -->
+      <div class="compare-cards" id="compare-cards-wrap" aria-live="polite"></div>
+
+      <!-- Full Matrix Table -->
+      <div class="table-scroll">
+        <table class="dossier-table" aria-label="Cuadro comparativo de los temples de ánimo en la historia de la filosofía">
+          <thead>
+            <tr>
+              <th scope="col">Época y figuras</th>
+              <th scope="col">Temple de ánimo (πάθος / Stimmung)</th>
+              <th scope="col">Pregunta o determinación del ente</th>
+              <th scope="col">Relación con el lenguaje y el ser</th>
+            </tr>
+          </thead>
+          <tbody id="mood-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 05: GLOSARIO INTERACTIVO BUSCABLE -->
+    <section id="glosario" class="reveal-section" aria-labelledby="h-glosario">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">05 · Léxico crítico</span>
+          <span class="dossier-meta">Términos griegos, latinos y heideggerianos</span>
+        </div>
+        <span class="dossier-meta" id="glossary-count-meta">18 términos indexados</span>
+      </div>
+
+      <h2 class="section-title" id="h-glosario">
+        Glosario interactivo de conceptos clave
+      </h2>
+      <p class="standfirst">
+        Filtra por tradición lingüística o busca por palabra, transliteración o idea central para consultar las precisiones etimológicas de la conferencia y su aparato de notas.
+      </p>
+
+      <div class="controls-row">
+        <div class="field-group">
+          <label class="field-label" for="glossary-search">Buscar término o concepto</label>
+          <input
+            type="search"
+            id="glossary-search"
+            class="text-input"
+            placeholder="Ej.: asombro, logos, Gestell, Destruktion…"
+            oninput="filterGlossary()"
+          />
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="glossary-cat">Filtrar por tradición</label>
+          <select id="glossary-cat" class="select-input" onchange="filterGlossary()">
+            <option value="all" selected>Todas las tradiciones</option>
+            <option value="griego">Griego originario y clásico</option>
+            <option value="heidegger">Léxico alemán heideggeriano</option>
+            <option value="latin">Tradición latina y modernidad</option>
+          </select>
+        </div>
+
+        <div>
+          <button type="button" class="btn btn-secondary" onclick="resetGlossaryFilters()">
+            Limpiar filtros
+          </button>
+        </div>
+      </div>
+
+      <div class="glossary-grid" id="glossary-grid" aria-live="polite"></div>
+      <div class="empty-state" id="glossary-empty" hidden>
+        <h3 class="subhead">No se encontraron términos coincidentes</h3>
+        <p style="margin: 0 0 var(--space-md); color: var(--on-surface-variant);">
+          Prueba con otra raíz (como «ser», «certeza», «pathos» o «historia») o restablece los filtros activos para ver los 18 conceptos del glosario.
+        </p>
+        <button type="button" class="btn btn-primary" onclick="resetGlossaryFilters()">
+          Mostrar todo el glosario
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION 06: PREGUNTAS FRECUENTES -->
+    <section id="faq" class="reveal-section" aria-labelledby="h-faq">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">06 · Aclaraciones</span>
+          <span class="dossier-meta">Preguntas frecuentes sobre la lectura</span>
+        </div>
+        <span class="dossier-meta">Explicaciones expandibles</span>
+      </div>
+
+      <h2 class="section-title" id="h-faq">
+        Preguntas frecuentes sobre «¿Qué es la filosofía?»
+      </h2>
+      <p class="standfirst">
+        Respuestas directas a las tensiones conceptuales más habituales de la conferencia de 1955.
+      </p>
+
+      <div class="faq-list" id="faq-list"></div>
+    </section>
+
+    <!-- SECTION 07: CUESTIONARIO DE AUTOEVALUACIÓN -->
+    <section id="cuestionario" class="reveal-section" aria-labelledby="h-quiz">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">07 · Autoevaluación</span>
+          <span class="dossier-meta">8 cuestiones sobre la conferencia y el prólogo</span>
+        </div>
+        <span class="dossier-meta">Progreso guardado automáticamente</span>
+      </div>
+
+      <h2 class="section-title" id="h-quiz">
+        Cuestionario interactivo de autoevaluación
+      </h2>
+      <p class="standfirst">
+        Selecciona una respuesta en cada cuestión para recibir retroalimentación inmediata fundamentada en el texto de Heidegger.
+      </p>
+
+      <div class="quiz-shell">
+        <div class="quiz-topbar">
+          <div class="quiz-metrics">
+            <span class="quiz-metric">Respondidas: <strong id="quiz-answered">0 / 8</strong></span>
+            <span class="quiz-metric">Aciertos: <strong id="quiz-score">0</strong></span>
+            <span class="quiz-metric">Porcentaje: <strong id="quiz-percent">0%</strong></span>
+          </div>
+          <button type="button" class="btn btn-secondary" id="btn-reset-quiz" onclick="handleResetQuiz(this)">
+            Reiniciar cuestionario
+          </button>
+        </div>
+
+        <div id="quiz-container"></div>
+
+        <div class="quiz-summary-banner" id="quiz-summary" aria-live="polite">
+          <div>
+            <span class="dossier-meta">Estado de la evaluación</span>
+            <p id="quiz-summary-text" style="margin: var(--space-xs) 0 0; font-weight: 600;">
+              Aún no has respondido ninguna pregunta. Elige una opción arriba para comenzar.
+            </p>
+          </div>
+          <span class="tag-chip" id="quiz-level-chip" style="margin-bottom: 0;">Sin iniciar</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER / SOURCE NOTE -->
+    <footer class="dossier-footer">
+      <p style="margin: 0 0 var(--space-xs); color: var(--on-surface); font-weight: 600;">
+        Nota sobre la fuente y el aparato crítico
+      </p>
+      <p style="margin: 0; max-width: 75ch;">
+        Todo el contenido de este sitio está basado exclusivamente en la conferencia de Martin Heidegger <em>¿Qué es la filosofía?</em> (<em>Was ist das — die Philosophie?</em>), impartida en agosto de 1955 en Cerisy-la-Salle y publicada en 1956, según la edición castellana con traducción, prólogo y notas de Jesús Adrián Escudero.
+      </p>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    // =========================================================================
+    // DATA — Grounded strictly in the source text
+    // =========================================================================
+
+    const ATTITUDE_DATA = {
+      tecnica: {
+        cells: [
+          {
+            label: `Naturaleza y cosas`,
+            text: `La naturaleza se somete a leyes mecanicistas, matemáticas y causales. El mundo se reduce a un engranaje (Gestell) y a una fábrica que produce mercancías y hombres en serie.`
+          },
+          {
+            label: `Cultura y lenguaje`,
+            text: `El lenguaje se degrada a mero instrumento de expresión y cálculo. El arte, la religión y la cultura devienen un fondo disponible de valores administrables y planificables.`
+          },
+          {
+            label: `Experiencia del tiempo`,
+            text: `La sintonía y el asombro originario desaparecen bajo la monotonía, la rutina y el tedio moderno cuando falta el consumo constante de distracciones (cine, radio, viajes).`
+          },
+          {
+            label: `Posición del hombre`,
+            text: `El ser humano se erige en sub-iectum dominador seguro de sí mismo, pero acaba sumido en el destierro, la errancia, el ofuscamiento y la amenaza atómica.`
+          }
+        ]
+      },
+      serenidad: {
+        cells: [
+          {
+            label: `Naturaleza y cosas`,
+            text: `Renuncia a forzar o manipular el ente como utensilio; busca restablecer los lazos perdidos con la naturaleza y pensar en la proximidad de las cosas sencillas cotidianas.`
+          },
+          {
+            label: `Cultura y lenguaje`,
+            text: `El pensar asume que está al servicio del lenguaje (Λόγος) y entra en diálogo oculto con la poesía (Hölderlin, Rilke) para traducir en palabra la llamada del ser.`
+          },
+          {
+            label: `Experiencia del tiempo`,
+            text: `Actitud meditativa, silente y desasida que rompe con la planificación total, recupera el asombro (θαυμάζειν) y se detiene ante el misterio del darse del ser.`
+          },
+          {
+            label: `Posición del hombre`,
+            text: `El hombre deja atrás la arrogancia del sujeto calculador para permanecer alerta y a la escucha como «pastor del ser», acogiendo la mutua copertenencia del Ereignis.`
+          }
+        ]
+      }
+    };
+
+    const PATHWAY_STEPS = [
+      {
+        badge: `Estación 01 · Grecia arcaica`,
+        title: `Armonía originaria con el Λόγος (Heráclito y Parménides)`,
+        desc: `Para Heráclito todavía no existe «φιλοσοφία», sino el adjetivo ἀνὴρ φιλόσοφος: quien ama lo σοφόν (Ἓν Πάντα, «Uno es Todo»). Ese amar significa ὁμολογεῖν (corresponder hablando tal como habla el Λόγος) y permanecer en ἀρμονία. Heráclito y Parménides fueron pensadores «más grandes» porque habitaban esa unión antes de convertirla en búsqueda teórica.`
+      },
+      {
+        badge: `Estación 02 · Grecia clásica`,
+        title: `Nacimiento de la φιλοσοφία y la pregunta τί τὸ ὄν`,
+        desc: `Ante las explicaciones rápidas de la sofística lanzadas al mercado, Sócrates y Platón salvaguardan lo más asombroso: que el ente sea en el ser. La armonía se transforma en aspiración (ὄρεξις) guiada por el Eros. Aristóteles formula la cuestión perenne: τί τὸ ὄν («¿qué es el ente?», es decir, τίς ἡ οὐσία) y concibe la filosofía como ἐπιστήμη θεωρητική de los primeros principios y causas.`
+      },
+      {
+        badge: `Estación 03 · Modernidad`,
+        title: `El giro hacia el ens certum y la egoidad (Descartes)`,
+        desc: `Descartes inaugura otra época con un temple distinto: la duda como asentimiento positivo a la certeza absoluta. La certitudo (que en el medievo equivalía a essentia) pasa a fundarse en la indubitabilidad del cogito (ergo) sum. El ego humano se convierte en sub-iectum por excelencia y el decir exige un clare et distincte percipere.`
+      },
+      {
+        badge: `Estación 04 · Siglo XX`,
+        title: `Era atómica, cálculo frío y engranaje (Gestell)`,
+        desc: `El dominio científico-técnico culmina en la posibilidad de destrucción atómica del planeta. Imperan temples contrapuestos (desesperación, miedo, obsesión ciega) bajo la apariencia de una razón neutral; pero incluso la frialdad del cálculo y la sobriedad planificadora delatan un temple anímico que oculta el ser.`
+      },
+      {
+        badge: `Estación 05 · Pensar por venir`,
+        title: `Co-rresponder (Ent-sprechen), Ereignis y Serenidad`,
+        desc: `A través de una Destruktion positiva que desmonta la mera erudición historiográfica (Historie) para escuchar lo sido (Geschichte), la filosofía vuelve a su esencia: ser una co-rrespondencia afectivamente dispuesta a la llamada del ser, desde la serenidad (Gelassenheit) y en vecindad con la poesía.`
+      }
+    ];
+
+    const MOOD_EPOCHS = [
+      {
+        id: 0,
+        group: `antiguedad`,
+        era: `Pensar presocrático`,
+        thinkers: `Heráclito y Parménides`,
+        mood: `Ἀρμονία (armonía) y ὁμολογεῖν con el Λόγος`,
+        concept: `Ἓν Πάντα («Uno es Todo»): el ser reúne al ente en lo que tiene de ente.`,
+        language: `La lengua griega es Λόγος: lo dicho muestra directamente la cosa misma sin separarse de ella.`
+      },
+      {
+        id: 1,
+        group: `antiguedad`,
+        era: `Filosofía griega clásica`,
+        thinkers: `Sócrates, Platón y Aristóteles`,
+        mood: `Θαυμάζειν (asombro) como πάθος y ἀρχή permanente`,
+        concept: `Τί τὸ ὄν («¿qué es el ente?»), entidad (οὐσία) como ἰδέα (Platón) y ἐνέργεια (Aristóteles); ἐπιστήμη θεωρητική.`,
+        language: `Búsqueda y aspiración (ὄρεξις / Eros) para salvaguardar el carácter asombroso del ente frente a la sofística.`
+      },
+      {
+        id: 2,
+        group: `modernidad`,
+        era: `Transición medieval`,
+        thinkers: `Escolástica cristiana`,
+        mood: `Recepción bajo representaciones de la fe y la revelación`,
+        concept: `La certitudo aún no es certeza subjetiva, sino sinónimo de essentia: la firme delimitación de un ente en lo que es.`,
+        language: `Transmisión de la esencia griega de la filosofía gobernada por categorías cristianas, sin volverse asunto de pura fe.`
+      },
+      {
+        id: 3,
+        group: `modernidad`,
+        era: `Modernidad cartesiana`,
+        thinkers: `Descartes (con Galileo, Spinoza, Hobbes, Newton)`,
+        mood: `La duda como confianza positiva en la certeza absoluta`,
+        concept: `Ens certum basado en el cogito (ergo) sum; el ego deviene sub-iectum; naturaleza matemática y mecanicista.`,
+        language: `El decir queda determinado por el criterio metódico de un clare et distincte percipere.`
+      },
+      {
+        id: 4,
+        group: `actual`,
+        era: `Era atómica y técnica`,
+        thinkers: `Sociedad industrial y tecno-científica contemporánea`,
+        mood: `Frialdad del cálculo, sobriedad planificadora, tedio y angustia (temple fundamental aún oculto)`,
+        concept: `Gestell (engranaje tecnológico): el mundo como fábrica y fondo administrable de valores y mercancías.`,
+        language: `Lenguaje reducido a instrumento utilitario de expresión, información y cálculo lógico-matemático.`
+      },
+      {
+        id: 5,
+        group: `actual`,
+        era: `Pensar meditativo por venir`,
+        thinkers: `Heidegger tardío (en diálogo con Hölderlin y Rilke)`,
+        mood: `Del espanto ante la maquinación a la serenidad (Gelassenheit) y escucha`,
+        concept: `Ereignis (acontecimiento apropiador de mutua copertenencia entre ser y hombre); el hombre como «pastor del ser».`,
+        language: `El pensar co-rresponde (Ent-sprechen) al servicio del lenguaje en vecindad y abismo con la poesía.`
+      }
+    ];
+
+    const GLOSSARY_TERMS = [
+      {
+        term: `Φιλοσοφία`,
+        translit: `Philosophía · Griego`,
+        cat: `griego`,
+        catLabel: `Griego originario`,
+        def: `Camino histórico originario que nace en Grecia cuando el amar lo sofón deja de ser armonía inmediata y se vuelve aspiración expresa (Eros / ὄρεξις) hacia el ser del ente.`,
+        note: `Para Heidegger, la expresión «filosofía europea occidental» es una tautología: la filosofía es griega en su esencia porque precisó exclusivamente del mundo griego para desplegarse.`
+      },
+      {
+        term: `Φιλόσοφος (ἀνὴρ φιλόσοφος)`,
+        translit: `Philósophos · Acuñada por Heráclito`,
+        cat: `griego`,
+        catLabel: `Griego originario`,
+        def: `Originalmente un adjetivo (como amante de la plata o del honor): aquel que ama lo σοφόν, esto es, quien está en sintonía y armonía (ἀρμονία) con el Λόγος.`,
+        note: `En tiempos de Heráclito aún no había «filosofía» como disciplina; Heráclito y Parménides no eran todavía filósofos, sino pensadores «más grandes» por vivir en esa consonancia.`
+      },
+      {
+        term: `Λόγος / Λέγειν`,
+        translit: `Lógos / Légein · Griego`,
+        cat: `griego`,
+        catLabel: `Griego originario`,
+        def: `El ser en tanto que reunión originaria que junta y alberga al ente. La lengua griega es λόγος porque lo dicho en ella muestra directamente la cosa misma delante de nosotros.`,
+        note: `En las notas de traducción se recuerda la equiparación heideggeriana entre λέγειν (griego), legere (latín) y legen (alemán): recoger, reunir y dejarse interpelar por lo desoculto.`
+      },
+      {
+        term: `Ἓν Πάντα`,
+        translit: `Hen Pánta · Heráclito`,
+        cat: `griego`,
+        catLabel: `Griego originario`,
+        def: `«Uno (es) Todo»: interpretación heraclítea de τὸ σοφόν. Significa que la totalidad de los entes (Πάντα τὰ ὄντα) está reunida en el Uno que une todo: todo ente es en el ser.`,
+        note: `Aquí el verbo «es» habla en sentido transitivo, equivalente a «reúne»: el ser reúne al ente en lo que éste tiene de ente.`
+      },
+      {
+        term: `Τί τὸ ὄν / Τί ἐστιν`,
+        translit: `Tí tò ón / Tí estin · Griego`,
+        cat: `griego`,
+        catLabel: `Griego originario`,
+        def: `«¿Qué es el ente?» y «¿qué es eso…?». No sólo el tema de la filosofía, sino la forma misma en que preguntamos por la esencia procede de Sócrates, Platón y Aristóteles.`,
+        note: `Aristóteles advierte en Metafísica Z 1 que esta cuestión indagada desde antiguo, ahora y siempre significa: ¿qué es la entidad (οὐσία) del ente?`
+      },
+      {
+        term: `Οὐσία / Ἰδέα / Ἐνέργεια`,
+        translit: `Ousía / Idéa / Enérgeia · Griego`,
+        cat: `griego`,
+        catLabel: `Griego originario`,
+        def: `La entidad o ser del ente (οὐσία), que recibe interpretaciones distintas a lo largo de la historia: Platón la determina como ἰδέα y Aristóteles como ἐνέργεια.`,
+        note: `En el último párrafo, Heidegger recuerda también la fórmula aristotélica Τὸ ὂν λέγεται πολλαχῶς: «El ser-que-está-siendo se manifiesta de múltiples maneras».`
+      },
+      {
+        term: `Ἐπιστήμη θεωρητική`,
+        translit: `Epistéme theoretiké · Aristóteles`,
+        cat: `griego`,
+        catLabel: `Griego originario`,
+        def: `Modo particular de competencia (de ἐπιστάμενος, experto) que permite contemplar (θεωρεῖν), poner y mantener a la vista los primeros principios y causas (πρῶται ἀρχαὶ καὶ αἰτίαι) del ente.`,
+        note: `Heidegger advierte que traducir ἐπιστήμη por «ciencia» en sentido moderno o idealista alemán induce a error.`
+      },
+      {
+        term: `Πάθος`,
+        translit: `Páthos · De πάσχειν (páschein)`,
+        cat: `griego`,
+        catLabel: `Griego originario`,
+        def: `Disposición o determinación afectiva. Emparentado con πάσχειν (sufrir, tolerar, sobrellevar, dejarse determinar por), designa el quedar expuesto al ser, no una pasión psicológica.`,
+        note: `Sólo comprendiendo el πάθος como disposición anímica (dis-position) nos libramos de la psicología moderna al leer a Platón y Aristóteles.`
+      },
+      {
+        term: `Θαυμάζειν`,
+        translit: `Thaumázein · Asombro`,
+        cat: `griego`,
+        catLabel: `Griego originario`,
+        def: `El asombro filosófico: un retroceder y demorarse (être en arrêt) ante el hecho de que el ente es y es así, quedando al mismo tiempo arrastrado y encadenado por aquello ante lo que retrocede.`,
+        note: `Platón (Teeteto 155d) y Aristóteles (Metafísica A 2) lo identifican como el πάθος propio desde el cual los griegos correspondieron al ser del ente.`
+      },
+      {
+        term: `Ἀρχή`,
+        translit: `Arché · De ἄρχειν`,
+        cat: `griego`,
+        catLabel: `Griego originario`,
+        def: `Origen rector que no queda atrás en el punto de partida, sino que domina sin cesar (ἄρχειν) cada paso de aquello que origina, desde el principio hasta el final.`,
+        note: `El asombro no precede a la filosofía como «lavarse las manos antes de operar»; la sostiene continuamente.`
+      },
+      {
+        term: `Ent-sprechen / Ant-wort`,
+        translit: `Co-rresponder / Res-puesta · Alemán`,
+        cat: `heidegger`,
+        catLabel: `Léxico heideggeriano`,
+        def: `Responder genuinamente saliendo al encuentro y sintonizando con la voz del ser del ente. Ant-wort (con guion) subraya reciprocidad y frente-a-frente, distinto de una mera réplica informativa.`,
+        note: `En francés se vierte como la correspondance frente a une réponse. Es un hablar que está al servicio del lenguaje.`
+      },
+      {
+        term: `Stimmung / Gestimmtheit`,
+        translit: `Estado de ánimo / Disposición afectiva · Alemán`,
+        cat: `heidegger`,
+        catLabel: `Léxico heideggeriano`,
+        def: `Afección fundamental (de la raíz stimmen) en la que el corresponder está fácticamente instalado y templado por la llamada del ser. Cada época histórica posee su Stimmung.`,
+        note: `Enlaza con la Befindlichkeit de Ser y tiempo y se amplía en Contribuciones a la filosofía a la escala de las épocas históricas.`
+      },
+      {
+        term: `Destruktion`,
+        translit: `Destrucción · Ser y tiempo § 6`,
+        cat: `heidegger`,
+        catLabel: `Léxico heideggeriano`,
+        def: `No significa aniquilar ni negar la historia, sino desmontar y arrinconar los enunciados puramente historiográficos para abrir y liberar nuestros oídos a lo que la tradición transmite como ser del ente.`,
+        note: `Permite una apropiación y transformación viva del pasado filosófico en forma de diálogo.`
+      },
+      {
+        term: `Historie vs. Geschichte`,
+        translit: `Historiografía vs. Historia · Alemán`,
+        cat: `heidegger`,
+        catLabel: `Léxico heideggeriano`,
+        def: `Historie es la ordenación cronológica de hechos del pasado irrevocable (das Vergangene); Geschichte (de geschehen, acontecer) es el acontecer mismo del ser que interpela nuestro destino colectivo (Geschick) desde lo sido (das Gewesene).`,
+        note: `La pregunta «¿qué es la filosofía?» no es historiográfica, sino la pregunta histórica de nuestra existencia europeo-occidental.`
+      },
+      {
+        term: `Ereignis`,
+        translit: `Acontecimiento apropiador · Alemán`,
+        cat: `heidegger`,
+        catLabel: `Léxico heideggeriano`,
+        def: `Fenómeno que señala la originaria copertenencia y fusión indisoluble entre el ser y el hombre: el ser posibilita el aparecer de las cosas, pero no hay iluminación del ser sin el hombre.`,
+        note: `Esta donación anónima del ser compromete a quien la recibe sin implicar deuda, apropiándose de nosotros.`
+      },
+      {
+        term: `Gestell`,
+        translit: `Engranaje tecnológico · Alemán`,
+        cat: `heidegger`,
+        catLabel: `Léxico heideggeriano`,
+        def: `Cristalización epocal actual del ser en la sociedad industrial: un enorme complejo tecnológico utilitario que reduce la naturaleza, la cultura y al hombre a fondo administrable, calculable y planificable.`,
+        note: `Es la culminación del proceso de control moderno de la naturaleza que amenaza con el ofuscamiento y la destrucción atómica.`
+      },
+      {
+        term: `Gelassenheit`,
+        translit: `Serenidad o desasimiento · Alemán`,
+        cat: `heidegger`,
+        catLabel: `Léxico heideggeriano`,
+        def: `Actitud meditativa, silente y devota que permite resistirse a la dominación técnica, liberarse de la servidumbre hacia los objetos técnicos y permanecer en la cercanía pura del ser.`,
+        note: `Sustituye en el último Heidegger al estado de ánimo del «espanto» frente a la maquinación.`
+      },
+      {
+        term: `Certitudo / Ens certum`,
+        translit: `Certeza / Ente cierto · Latín`,
+        cat: `latin`,
+        catLabel: `Latín y modernidad`,
+        def: `En la Edad Media, certitudo equivalía a essentia (firme delimitación de un ente). Descartes la metamorfosea en la indubitabilidad del cogito (ergo) sum para el ego convertido en sub-iectum.`,
+        note: `Junto a quidditas (die Washeit, el qué de la cosa), muestra cómo la interpretación del τί cambia en cada época.`
+      }
+    ];
+
+    const FAQ_ITEMS = [
+      {
+        q: `¿Por qué afirma Heidegger que «filosofía europea occidental» es una tautología?`,
+        a: `Porque la palabra griega φιλοσοφία forma parte de la partida de nacimiento de nuestra historia. Para Heidegger, la filosofía es griega en su esencia: necesitó exclusivamente del mundo de los griegos para iniciar su despliegue, y tanto el asunto interrogado (el ser del ente) como el modo mismo de preguntar («¿qué es eso?», τί ἐστιν) proceden de Grecia. De ese curso histórico filosófico emergieron también las ciencias que hoy imprimen su sello en la era atómica.`
+      },
+      {
+        q: `¿Propone Heidegger abandonar la razón y entregar la filosofía a sentimientos irracionales?`,
+        a: `No. Al citar a André Gide («Con los bellos sentimientos se hace mala literatura»), Heidegger rechaza explícitamente diluir la filosofía en sentimentalismo. Lo que cuestiona es la dicotomía «racional / irracional», pues presupone sin examinar qué es la ratio. Cuando habla de estado de ánimo (Stimmung) o πάθος, no alude a emociones psicológicas caprichosas, sino a la disposición afectiva fundamental en que el pensar queda expuesto y sintonizado con la llamada del ser —disposición de la que participa incluso la frialdad del cálculo lógico-matemático.`
+      },
+      {
+        q: `¿Qué diferencia hay entre Historie y Geschichte, y por qué habla de «destrucción»?`,
+        a: `Historie (historiografía) ordena cronológicamente datos y opiniones ya cerradas del pasado (das Vergangene), mientras que Geschichte (historia) es el acontecer vivo del ser que nos interpela desde lo sido (das Gewesene) y compromete nuestro destino colectivo (Geschick). Por eso, Destruktion no significa aniquilar la historia, sino desmontar los enunciados puramente eruditos y doxográficos para liberar nuestros oídos y dialogar con lo que la tradición nos transmite.`
+      },
+      {
+        q: `¿Por qué Heráclito y Parménides «no eran todavía filósofos», sino pensadores «más grandes»?`,
+        a: `La expresión «más grandes» no es un juicio de valor sobre su mérito intelectual, sino que remite a otra dimensión del pensar. Heráclito y Parménides aún vivían en armonía originaria (ἀρμονία / ὁμολογεῖν) con el Λόγος, el Ἓν Πάντα («Uno es Todo»). Sólo después, frente al ataque de la sofística que fabricaba explicaciones rápidas para el mercado, unos pocos tuvieron que aspirar expresamente (ὄρεξις / Eros) a lo σοφόν: así nació la φιλοσοφία con Sócrates y Platón.`
+      },
+      {
+        q: `¿Cuál es la relación entre el pensar filosófico y la poesía?`,
+        a: `Tanto el pensar como la poesía están al servicio del lenguaje de un modo privilegiado, muy distinto de la concepción corriente que reduce el lenguaje a mero instrumento de expresión. Entre ambos reina un parentesco profundamente oculto porque ambos se prodigan en el lenguaje; sin embargo, subsiste al mismo tiempo un abismo entre ellos, pues —como escribe Hölderlin en Patmos— «habitan sobre montañas muy separadas».`
+      },
+      {
+        q: `¿Por qué no basta recopilar todas las definiciones históricas de la filosofía?`,
+        a: `Si reunimos definiciones desde Aristóteles hasta épocas posteriores y abstraemos lo que tienen en común, llegamos a una fórmula general vacía que se acomoda a cualquier filosofía pero nos deja lo más alejados posible de una respuesta genuina. Obtener erudición historiográfica evita lanzarnos a filosofar. Sólo respondemos de verdad cuando entablamos diálogo con los filósofos y co-rrespondemos nosotros mismos al ser del ente.`
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        id: 0,
+        question: `1. Según el diagnóstico de Heidegger y el prólogo de la obra, ¿cuál es el riesgo principal de la época contemporánea marcada por la técnica y la era atómica?`,
+        options: [
+          `Que la filosofía vuelva a quedar subordinada a la teología medieval.`,
+          `Que el mundo quede reducido a un engranaje tecnológico utilitarista (Gestell) que fractura el contacto con las cosas sencillas y amenaza con la destrucción planetaria.`,
+          `Que las ciencias naturales pierdan su rigor matemático frente a la poesía.`,
+          `Que la humanidad abandone por completo las leyes causales de Newton y Descartes.`
+        ],
+        correct: 1,
+        explanation: `Correcto. En la época contemporánea la voluntad de dominio moderna culmina en un engranaje tecnológico (Gestell) que produce mercancías y hombres en serie, coloniza el arte y la cultura, engendra tedio y plantea la posibilidad técnica de una destrucción total del planeta.`
+      },
+      {
+        id: 1,
+        question: `2. ¿Por qué sostiene Heidegger que la expresión «filosofía europea occidental» es en verdad una tautología?`,
+        options: [
+          `Porque la filosofía es griega en su esencia y sólo Europa y Occidente son originariamente «filosóficos» en lo más profundo de su curso histórico.`,
+          `Porque ninguna otra región del mundo ha utilizado nunca el lenguaje instrumental.`,
+          `Porque la filosofía moderna fue fundada en París y Friburgo en el siglo XX.`,
+          `Porque el término «filosofía» fue inventado por Descartes en sus Meditaciones.`
+        ],
+        correct: 0,
+        explanation: `Exacto. La filosofía precisó del mundo griego para iniciar su despliegue, y tanto su tema como su modo de preguntar (τί ἐστιν) pertenecen a esa procedencia unívoca que determina el curso histórico de Occidente.`
+      },
+      {
+        id: 2,
+        question: `3. ¿Qué diferencia establece Heidegger entre Heráclito y Parménides frente a Sócrates, Platón y Aristóteles?`,
+        options: [
+          `Heráclito y Parménides rechazaron el Λόγος, mientras Platón lo descubrió.`,
+          `Heráclito y Parménides fueron sofistas preocupados por explicar asuntos para el mercado.`,
+          `Heráclito y Parménides no eran todavía «filósofos» sino pensadores «más grandes», pues aún vivían en ἀρμονία originaria con el Λόγος antes de que el amar lo σοφόν deviniera aspiración (φιλοσοφία).`,
+          `Aristóteles fue el primero en acuñar el adjetivo ἀνὴρ φιλόσοφος.`
+        ],
+        correct: 2,
+        explanation: `Bien respondido. Heráclito acuñó presumiblemente φιλόσοφος como adjetivo para quien está en armonía con el Ἓν Πάντα; el paso a la «filosofía» como búsqueda (ὄρεξις / Eros) frente a la sofística lo dieron Sócrates y Platón.`
+      },
+      {
+        id: 3,
+        question: `4. ¿Qué significa responder genuinamente a la pregunta «¿qué es la filosofía?» mediante el concepto de Ent-sprechen (co-rresponder)?`,
+        options: [
+          `Redactar una definición enciclopédica neutral que abarque todas las escuelas históricas.`,
+          `Sintonizar y salir al encuentro de la llamada del ser del ente mediante una res-puesta que filosofe en sí misma al servicio del lenguaje.`,
+          `Replicar con argumentos lógico-matemáticos para refutar a los sofistas.`,
+          `Mantenerse por encima de la filosofía para observarla como un objeto científico.`
+        ],
+        correct: 1,
+        explanation: `Así es. Heidegger distingue entre una simple réplica informativa (une réponse) y la co-rrespondencia (Ent-sprechen / la correspondance) expresamente asumida que escucha la voz del ser.`
+      },
+      {
+        id: 4,
+        question: `5. ¿Cómo interpreta Heidegger la noción griega de ἀρχή al afirmar con Platón y Aristóteles que el asombro (θαυμάζειν) es la ἀρχή de la filosofía?`,
+        options: [
+          `Como un impulso psicológico pasajero que desaparece en cuanto comienza el razonamiento lógico.`,
+          `Como un simple requisito preliminar equivalente a lavarse las manos antes de operar.`,
+          `Como aquello de donde procede el filosofar y que lo domina sin cesar (ἄρχειν) desde el principio hasta el final.`,
+          `Como una emoción irracional opuesta al πάθος.`
+        ],
+        correct: 2,
+        explanation: `Correcto. La ἀρχή no se deja atrás en el punto de partida: sostiene y gobierna continuamente cada paso de la filosofía como disposición afectiva en que se abre el ser del ente.`
+      },
+      {
+        id: 5,
+        question: `6. ¿Qué estado de ánimo y qué transformación de la verdad inauguran la filosofía moderna en Descartes?`,
+        options: [
+          `La duda entendida como asentimiento positivo y confianza en la certeza absoluta (ens certum) fundada en el cogito, convirtiendo al ego en sub-iectum.`,
+          `El asombro contemplativo ante las ideas eternas de Platón.`,
+          `La serenidad desasida (Gelassenheit) que renuncia a la evidencia lógica.`,
+          `La identificación medieval de certitudo con essentia.`
+        ],
+        correct: 0,
+        explanation: `Exacto. En la Edad Media certitudo equivalía a essentia; Descartes la transforma en la indubitabilidad del cogito (ergo) sum, haciendo de la confianza en la certeza absoluta el πάθος y la ἀρχή de la modernidad.`
+      },
+      {
+        id: 6,
+        question: `7. ¿Qué sentido tiene el término «destrucción» (Destruktion) en el método de la conferencia?`,
+        options: [
+          `Aniquilar por completo los textos griegos para empezar desde cero sin historia.`,
+          `Negar que exista relación alguna entre el pensamiento y el pasado europeo.`,
+          `Desmontar los enunciados puramente historiográficos (Historie) para liberar nuestros oídos a lo que la tradición transmite en la historia viva (Geschichte) como ser del ente.`,
+          `Sustituir la filosofía por la destrucción atómica.`
+        ],
+        correct: 2,
+        explanation: `Muy bien. Destruir significa desmantelar la acumulación meramente erudita sobre lo pasado irrevocable (das Vergangene) para entrar en diálogo libre con lo sido (das Gewesene).`
+      },
+      {
+        id: 7,
+        question: `8. ¿Qué afirmación refleja fielmente la postura de Heidegger sobre la razón calculadora y los estados de ánimo en el presente?`,
+        options: [
+          `El pensar calculador y la razón lógico-matemática están completamente libres de toda disposición anímica.`,
+          `También la frialdad del cálculo, la prosaica sobriedad de la planificación y la confianza de la razón en sus reglas lógicas son signos de una disposición anímica.`,
+          `El estado de ánimo fundamental de nuestra época ya ha sido plenamente revelado como alegría pura.`,
+          `La poesía y el pensamiento habitan en la misma cima sin distancia alguna entre sí.`
+        ],
+        correct: 1,
+        explanation: `Correcto. Incluso la supuesta neutralidad del cálculo y la planificación técnica expresa un temple afectivo (Stimmung); además, el estado de ánimo fundamental de nuestros días aún permanece oculto, y pensamiento y poesía habitan «sobre montañas muy separadas».`
+      }
+    ];
+
+    // =========================================================================
+    // STATE (Persisted via notebookAppApi)
+    // =========================================================================
+
+    const appState = {
+      attitude: `tecnica`,
+      pathwayStep: 0,
+      compareA: 0,
+      compareB: 3,
+      tableFilter: `all`,
+      glossaryQuery: ``,
+      glossaryCat: `all`,
+      openFaqIndex: 0,
+      quizAnswers: {} // { [questionId]: chosenOptionIndex }
+    };
+
+    async function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        try {
+          await window.notebookAppApi.setAppState({
+            attitude: appState.attitude,
+            pathwayStep: appState.pathwayStep,
+            compareA: appState.compareA,
+            compareB: appState.compareB,
+            tableFilter: appState.tableFilter,
+            glossaryQuery: appState.glossaryQuery,
+            glossaryCat: appState.glossaryCat,
+            openFaqIndex: appState.openFaqIndex,
+            quizAnswers: appState.quizAnswers
+          });
+        } catch (err) {
+          // Graceful no-op in environments without active host storage
+        }
+      }
+    }
+
+    // =========================================================================
+    // SECTION 01: ATTITUDE COMPARATOR
+    // =========================================================================
+
+    function setAttitude(mode) {
+      if (!ATTITUDE_DATA[mode]) return;
+      appState.attitude = mode;
+      renderAttitude();
+      persistState();
+    }
+
+    function renderAttitude() {
+      const btnTec = document.getElementById(`btn-att-tecnica`);
+      const btnSer = document.getElementById(`btn-att-serenidad`);
+      const container = document.getElementById(`attitude-matrix`);
+      if (!container) return;
+
+      if (btnTec) btnTec.setAttribute(`aria-pressed`, appState.attitude === `tecnica` ? `true` : `false`);
+      if (btnSer) btnSer.setAttribute(`aria-pressed`, appState.attitude === `serenidad` ? `true` : `false`);
+
+      const data = ATTITUDE_DATA[appState.attitude];
+      container.innerHTML = data.cells.map(function(cell) {
+        return `<div class="matrix-cell">
+          <span class="matrix-cell-label">${cell.label}</span>
+          <p>${cell.text}</p>
+        </div>`;
+      }).join(``);
+    }
+
+    // =========================================================================
+    // SECTION 02: PATHWAY SVG STEPPER
+    // =========================================================================
+
+    function selectPathwayStep(idx) {
+      if (idx < 0 || idx >= PATHWAY_STEPS.length) return;
+      appState.pathwayStep = idx;
+      renderPathway();
+      persistState();
+    }
+
+    function renderPathway() {
+      const idx = appState.pathwayStep;
+      const coords = [56, 183, 310, 437, 564];
+      const progLine = document.getElementById(`svg-progress-line`);
+      if (progLine) {
+        progLine.setAttribute(`x2`, String(coords[idx]));
+      }
+
+      for (let i = 0; i < PATHWAY_STEPS.length; i++) {
+        const btn = document.getElementById(`step-btn-` + i);
+        if (btn) btn.setAttribute(`aria-pressed`, i === idx ? `true` : `false`);
+
+        const dot = document.getElementById(`svg-dot-` + i);
+        const txt = document.getElementById(`svg-txt-` + i);
+        if (dot) {
+          if (i === idx) {
+            dot.setAttribute(`fill`, `var(--secondary)`);
+          } else if (i < idx) {
+            dot.setAttribute(`fill`, `var(--primary-container)`);
+          } else {
+            dot.setAttribute(`fill`, `var(--surface-container-low)`);
+          }
+        }
+        if (txt) {
+          txt.setAttribute(`fill`, i === idx ? `var(--on-primary)` : `var(--on-surface)`);
+        }
+      }
+
+      const detailBox = document.getElementById(`pathway-detail-box`);
+      if (!detailBox) return;
+      const step = PATHWAY_STEPS[idx];
+      detailBox.innerHTML = `
+        <span class="tag-chip">${step.badge}</span>
+        <h4 class="subhead">${step.title}</h4>
+        <p style="margin: 0; line-height: 1.6;">${step.desc}</p>
+      `;
+    }
+
+    // =========================================================================
+    // SECTION 04: MOOD COMPARISON & TABLE
+    // =========================================================================
+
+    function renderComparison() {
+      const selA = document.getElementById(`compare-a`);
+      const selB = document.getElementById(`compare-b`);
+      if (selA) appState.compareA = parseInt(selA.value, 10) || 0;
+      if (selB) appState.compareB = parseInt(selB.value, 10) || 0;
+
+      const wrap = document.getElementById(`compare-cards-wrap`);
+      if (!wrap) return;
+
+      const epochA = MOOD_EPOCHS[appState.compareA] || MOOD_EPOCHS[0];
+      const epochB = MOOD_EPOCHS[appState.compareB] || MOOD_EPOCHS[3];
+
+      wrap.innerHTML = [
+        { tag: `Época A`, item: epochA },
+        { tag: `Época B`, item: epochB }
+      ].map(function(entry) {
+        return `<article class="compare-card">
+          <span class="tag-chip">${entry.tag} · ${entry.item.thinkers}</span>
+          <h3 class="subhead" style="margin-bottom: var(--space-xs);">${entry.item.era}</h3>
+          <dl>
+            <div>
+              <dt>Temple de ánimo (πάθος / Stimmung)</dt>
+              <dd>${entry.item.mood}</dd>
+            </div>
+            <div>
+              <dt>Interpretación del ente y del ser</dt>
+              <dd>${entry.item.concept}</dd>
+            </div>
+            <div>
+              <dt>Vínculo con el lenguaje</dt>
+              <dd>${entry.item.language}</dd>
+            </div>
+          </dl>
+        </article>`;
+      }).join(``);
+
+      persistState();
+    }
+
+    function renderMoodTable() {
+      const filterEl = document.getElementById(`table-filter`);
+      if (filterEl) appState.tableFilter = filterEl.value;
+
+      const tbody = document.getElementById(`mood-table-body`);
+      if (!tbody) return;
+
+      const rows = MOOD_EPOCHS.filter(function(item) {
+        return appState.tableFilter === `all` || item.group === appState.tableFilter;
+      });
+
+      tbody.innerHTML = rows.map(function(row) {
+        return `<tr>
+          <td><strong>${row.era}</strong><br><span style="color: var(--on-surface-variant); font-size: 0.875rem;">${row.thinkers}</span></td>
+          <td>${row.mood}</td>
+          <td>${row.concept}</td>
+          <td>${row.language}</td>
+        </tr>`;
+      }).join(``);
+
+      persistState();
+    }
+
+    // =========================================================================
+    // SECTION 05: SEARCHABLE GLOSSARY
+    // =========================================================================
+
+    function normalizeText(str) {
+      return str
+        .toLowerCase()
+        .normalize(`NFD`)
+        .replace(/[\u0300-\u036f]/g, ``);
+    }
+
+    function filterGlossary() {
+      const searchEl = document.getElementById(`glossary-search`);
+      const catEl = document.getElementById(`glossary-cat`);
+      if (searchEl) appState.glossaryQuery = searchEl.value;
+      if (catEl) appState.glossaryCat = catEl.value;
+      renderGlossary();
+      persistState();
+    }
+
+    function resetGlossaryFilters() {
+      appState.glossaryQuery = ``;
+      appState.glossaryCat = `all`;
+      const searchEl = document.getElementById(`glossary-search`);
+      const catEl = document.getElementById(`glossary-cat`);
+      if (searchEl) searchEl.value = ``;
+      if (catEl) catEl.value = `all`;
+      renderGlossary();
+      persistState();
+    }
+
+    function renderGlossary() {
+      const grid = document.getElementById(`glossary-grid`);
+      const empty = document.getElementById(`glossary-empty`);
+      const meta = document.getElementById(`glossary-count-meta`);
+      if (!grid || !empty) return;
+
+      const query = normalizeText(appState.glossaryQuery.trim());
+      const cat = appState.glossaryCat;
+
+      const matches = GLOSSARY_TERMS.filter(function(item) {
+        const catMatch = cat === `all` || item.cat === cat;
+        if (!catMatch) return false;
+        if (!query) return true;
+        const haystack = normalizeText(
+          item.term + ` ` + item.translit + ` ` + item.def + ` ` + item.note
+        );
+        return haystack.indexOf(query) !== -1;
+      });
+
+      if (meta) {
+        meta.textContent = matches.length + ` de ` + GLOSSARY_TERMS.length + ` términos mostrados`;
+      }
+
+      if (matches.length === 0) {
+        grid.innerHTML = ``;
+        empty.hidden = false;
+        return;
+      }
+
+      empty.hidden = true;
+      grid.innerHTML = matches.map(function(item) {
+        return `<div class="card-wrapper">
+          <article class="glossary-card">
+            <div>
+              <div class="glossary-head">
+                <h3 class="glossary-term">${item.term}</h3>
+                <span class="tag-chip" style="margin-bottom: 0;">${item.catLabel}</span>
+              </div>
+              <span class="glossary-translit">${item.translit}</span>
+              <p class="glossary-def">${item.def}</p>
+            </div>
+            <details class="glossary-details">
+              <summary>Matiz del texto y notas de traducción</summary>
+              <p>${item.note}</p>
+            </details>
+          </article>
+        </div>`;
+      }).join(``);
+    }
+
+    // =========================================================================
+    // SECTION 06: FAQ ACCORDION
+    // =========================================================================
+
+    function toggleFaq(index) {
+      appState.openFaqIndex = appState.openFaqIndex === index ? -1 : index;
+      renderFaq();
+      persistState();
+    }
+
+    function renderFaq() {
+      const list = document.getElementById(`faq-list`);
+      if (!list) return;
+
+      list.innerHTML = FAQ_ITEMS.map(function(item, idx) {
+        const isOpen = appState.openFaqIndex === idx;
+        return `<div class="faq-item">
+          <button
+            type="button"
+            class="faq-trigger"
+            aria-expanded="${isOpen ? `true` : `false`}"
+            aria-controls="faq-panel-${idx}"
+            onclick="toggleFaq(${idx})"
+          >
+            <span>${item.q}</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="faq-panel-${idx}" class="faq-panel" ${isOpen ? `` : `hidden`}>
+            <p>${item.a}</p>
+          </div>
+        </div>`;
+      }).join(``);
+    }
+
+    // =========================================================================
+    // SECTION 07: INTERACTIVE SELF-ASSESSMENT QUIZ
+    // =========================================================================
+
+    function selectQuizOption(qId, optIndex) {
+      appState.quizAnswers[qId] = optIndex;
+      renderQuiz();
+      persistState();
+    }
+
+    function handleResetQuiz(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Pulsa de nuevo para reiniciar`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reiniciar cuestionario`;
+      appState.quizAnswers = {};
+      renderQuiz();
+      persistState();
+    }
+
+    function renderQuiz() {
+      const container = document.getElementById(`quiz-container`);
+      if (!container) return;
+
+      const letters = [`A`, `B`, `C`, `D`];
+      let answeredCount = 0;
+      let correctCount = 0;
+
+      container.innerHTML = QUIZ_QUESTIONS.map(function(q) {
+        const chosen = appState.quizAnswers.hasOwnProperty(q.id) ? appState.quizAnswers[q.id] : null;
+        const isAnswered = chosen !== null;
+        const isCorrect = isAnswered && chosen === q.correct;
+
+        if (isAnswered) {
+          answeredCount++;
+          if (isCorrect) correctCount++;
+        }
+
+        const optionsHtml = q.options.map(function(optText, idx) {
+          let cls = `quiz-option-btn`;
+          if (isAnswered) {
+            if (idx === chosen && idx === q.correct) {
+              cls += ` selected-correct`;
+            } else if (idx === chosen && idx !== q.correct) {
+              cls += ` selected-wrong`;
+            } else if (idx === q.correct) {
+              cls += ` reveal-correct`;
+            }
+          }
+          return `<button
+            type="button"
+            class="${cls}"
+            onclick="selectQuizOption(${q.id}, ${idx})"
+          >
+            <span class="quiz-opt-letter">${letters[idx]}.</span>
+            <span>${optText}</span>
+          </button>`;
+        }).join(``);
+
+        const feedbackHtml = isAnswered
+          ? `<div class="quiz-feedback ${isCorrect ? `correct` : `wrong`}">
+              <strong>${isCorrect ? `Respuesta correcta:` : `Revisión necesaria:`}</strong> ${q.explanation}
+            </div>`
+          : ``;
+
+        return `<div class="quiz-question-card">
+          <p class="quiz-q-title">${q.question}</p>
+          <div class="quiz-options">${optionsHtml}</div>
+          ${feedbackHtml}
+        </div>`;
+      }).join(``);
+
+      const total = QUIZ_QUESTIONS.length;
+      const pct = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+
+      const elAnswered = document.getElementById(`quiz-answered`);
+      const elScore = document.getElementById(`quiz-score`);
+      const elPct = document.getElementById(`quiz-percent`);
+      const elNavBadge = document.getElementById(`nav-quiz-badge`);
+      const elSummaryText = document.getElementById(`quiz-summary-text`);
+      const elChip = document.getElementById(`quiz-level-chip`);
+
+      if (elAnswered) elAnswered.textContent = answeredCount + ` / ` + total;
+      if (elScore) elScore.textContent = String(correctCount);
+      if (elPct) elPct.textContent = pct + `%`;
+      if (elNavBadge) elNavBadge.textContent = `Evaluación: ` + correctCount + ` / ` + total;
+
+      if (elSummaryText && elChip) {
+        if (answeredCount === 0) {
+          elSummaryText.textContent = `Aún no has respondido ninguna pregunta. Elige una opción arriba para comenzar.`;
+          elChip.textContent = `Sin iniciar`;
+        } else if (answeredCount < total) {
+          elSummaryText.textContent = `Llevas ` + answeredCount + ` de ` + total + ` preguntas respondidas con ` + correctCount + ` aciertos.`;
+          elChip.textContent = `En curso`;
+        } else {
+          if (correctCount >= 7) {
+            elSummaryText.textContent = `Dominio sobresaliente (` + correctCount + `/` + total + `): comprendes con precisión el diagnóstico técnico, la esencia griega de la filosofía y la noción de Ent-sprechen.`;
+            elChip.textContent = `Comprensión sólida`;
+          } else if (correctCount >= 5) {
+            elSummaryText.textContent = `Buen nivel (` + correctCount + `/` + total + `): conviene repasar en el glosario o en el cuadro comparativo los matices sobre πάθος, ἀρχή y Destruktion.`;
+            elChip.textContent = `En progreso`;
+          } else {
+            elSummaryText.textContent = `Resultado inicial (` + correctCount + `/` + total + `): te recomendamos revisar las secciones 01–04 y volver a intentar las cuestiones.`;
+            elChip.textContent = `Repaso sugerido`;
+          }
+        }
+      }
+    }
+
+    // =========================================================================
+    // INITIALIZATION & STATE RESTORATION
+    // =========================================================================
+
+    function syncControlValuesFromState() {
+      const selA = document.getElementById(`compare-a`);
+      const selB = document.getElementById(`compare-b`);
+      const tblFilter = document.getElementById(`table-filter`);
+      const gSearch = document.getElementById(`glossary-search`);
+      const gCat = document.getElementById(`glossary-cat`);
+
+      if (selA) selA.value = String(appState.compareA);
+      if (selB) selB.value = String(appState.compareB);
+      if (tblFilter) tblFilter.value = appState.tableFilter;
+      if (gSearch) gSearch.value = appState.glossaryQuery;
+      if (gCat) gCat.value = appState.glossaryCat;
+    }
+
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            if (typeof saved.attitude === `string` && ATTITUDE_DATA[saved.attitude]) {
+              appState.attitude = saved.attitude;
+            }
+            if (typeof saved.pathwayStep === `number` && saved.pathwayStep >= 0 && saved.pathwayStep < PATHWAY_STEPS.length) {
+              appState.pathwayStep = saved.pathwayStep;
+            }
+            if (typeof saved.compareA === `number`) appState.compareA = saved.compareA;
+            if (typeof saved.compareB === `number`) appState.compareB = saved.compareB;
+            if (typeof saved.tableFilter === `string`) appState.tableFilter = saved.tableFilter;
+            if (typeof saved.glossaryQuery === `string`) appState.glossaryQuery = saved.glossaryQuery;
+            if (typeof saved.glossaryCat === `string`) appState.glossaryCat = saved.glossaryCat;
+            if (typeof saved.openFaqIndex === `number`) appState.openFaqIndex = saved.openFaqIndex;
+            if (saved.quizAnswers && typeof saved.quizAnswers === `object`) {
+              appState.quizAnswers = saved.quizAnswers;
+            }
+          }
+        } catch (err) {
+          // Proceed with default state if retrieval fails
+        }
+      }
+
+      syncControlValuesFromState();
+      renderAttitude();
+      renderPathway();
+      renderComparison();
+      renderMoodTable();
+      renderGlossary();
+      renderFaq();
+      renderQuiz();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    initApp();
+  </script>
+</body>
+</html>

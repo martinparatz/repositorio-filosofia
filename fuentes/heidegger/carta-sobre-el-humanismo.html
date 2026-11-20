@@ -1,0 +1,2730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>Carta sobre el Humanismo — Dossier filosófico interactivo sobre Martin Heidegger</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      /* Ink */
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      /* Rules */
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      /* Accents */
+      --primary: #990f3d;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+      --error-container: #f7e1df;
+
+      /* Data series */
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      /* Fonts */
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* Shared semantic tokens */
+      --positive: #0d7680;
+      --positive-container: #dfeff0;
+      --warning: #9a6312;
+      --focus: #990f3d;
+
+      /* Narrative type scale */
+      --display-size: clamp(2.4rem, 1.4rem + 3.8vw, 4.25rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.6vw, 2.35rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.15rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      font-optical-sizing: auto;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg) var(--space-xl) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.2;
+    }
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 66ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .lede {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: clamp(1.15rem, 1.05rem + 0.45vw, 1.35rem);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 60ch;
+    }
+
+    .label-voice {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+    }
+
+    .pull-quote {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.55rem);
+      line-height: 1.38;
+      color: var(--on-surface);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-md) 0;
+      margin: var(--space-lg) 0;
+      max-width: 58ch;
+    }
+    .pull-quote cite {
+      display: block;
+      font-style: normal;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      margin-top: var(--space-sm);
+    }
+
+    /* Masthead */
+    .masthead-line {
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm) var(--space-lg);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-bottom: var(--space-lg);
+    }
+    .masthead h1 {
+      margin-bottom: var(--space-md);
+    }
+
+    /* Key figures strip */
+    .columns {
+      display: flex;
+      gap: 0;
+      border-top: var(--rule-column);
+      margin-top: var(--space-lg);
+      padding-top: var(--space-md);
+    }
+    .columns > * {
+      flex: 1 1 0;
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .columns > :last-child {
+      padding-right: 0;
+    }
+    .stat-figure {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.35rem, 1.15rem + 0.6vw, 1.75rem);
+      line-height: 1.15;
+      color: var(--on-surface);
+      font-variant-numeric: lining-nums tabular-nums;
+      margin: var(--space-xs) 0;
+    }
+    .stat-note {
+      font-size: 0.92rem;
+      line-height: 1.4;
+      color: var(--on-surface-variant);
+    }
+
+    /* Navigation Index */
+    .nav-bar {
+      border-bottom: var(--rule-ink);
+      padding-bottom: var(--space-md);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .nav-jump {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      text-decoration: none;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface);
+      border: 1px solid transparent;
+      border-bottom: 2px solid var(--outline-variant);
+      background: transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-jump:hover {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .nav-jump.is-active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background: var(--primary-container);
+    }
+    .nav-jump.is-read::after {
+      content: "✓";
+      color: var(--secondary);
+      font-weight: 700;
+    }
+
+    .dossier-status {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: var(--space-xs);
+      min-width: 210px;
+    }
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: var(--surface-container);
+      border: 1px solid var(--outline-variant);
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width var(--dur-short) var(--ease-out);
+    }
+
+    /* Sections */
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-md);
+      scroll-margin-top: var(--space-lg);
+    }
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .section-header-title {
+      flex: 1 1 540px;
+    }
+    .section-header h2 {
+      margin-bottom: var(--space-sm);
+    }
+    .mark-read-btn {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border: 1px solid var(--outline);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .mark-read-btn:hover {
+      background: var(--surface-container-high);
+    }
+    .mark-read-btn[aria-pressed="true"] {
+      background: var(--on-surface);
+      color: var(--background);
+    }
+
+    /* Editorial layout: prose + anchor interactive */
+    .two-col-editorial {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .two-col-wide-visual {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Broadsheet interactive boxes (rare filled panels) */
+    .dossier-panel {
+      background: var(--surface-container-low);
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg);
+    }
+    .dossier-panel-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--primary);
+      color: var(--on-primary);
+      border: 1px solid var(--primary);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary:hover {
+      background: var(--on-primary-container);
+    }
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: 1px solid var(--outline);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-container-high);
+    }
+    .btn-secondary[aria-pressed="true"],
+    .btn-secondary.is-selected {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    /* Interactive 1: Beaufret Questions */
+    .question-tabs {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .question-btn {
+      text-align: left;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--background);
+      border: 1px solid var(--outline);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .question-btn:hover {
+      background: var(--surface-container);
+    }
+    .question-btn[aria-selected="true"] {
+      background: var(--primary-container);
+      border-left: 4px solid var(--primary);
+    }
+    .question-btn .q-kicker {
+      display: block;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+    .question-btn .q-french {
+      display: block;
+      font-style: italic;
+      font-size: 0.98rem;
+      margin-top: var(--space-xs);
+    }
+    .answer-plate {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-md);
+    }
+
+    /* Interactive 2: Misunderstandings Flipper */
+    .misunderstanding-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      margin-top: var(--space-lg);
+    }
+    .mis-card {
+      padding: var(--space-md);
+      border-bottom: var(--rule-column);
+      border-right: var(--rule-column);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-md);
+      background: transparent;
+      transition: background-color var(--dur-short) var(--ease-out);
+    }
+    .mis-card.is-revealed {
+      background: var(--surface-container-low);
+    }
+    .mis-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+    .mis-toggle {
+      align-self: flex-start;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      background: transparent;
+      border: 1px solid var(--outline);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+    }
+    .mis-toggle:hover {
+      background: var(--surface-container);
+    }
+    .mis-card.is-revealed .mis-toggle {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    /* Interactive 3: SVG Schematic */
+    .schematic-container {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-md) 0;
+    }
+    .schematic-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .schematic-svg-wrap {
+      width: 100%;
+      min-height: 290px;
+      border: 1px solid var(--outline-variant);
+      background: var(--background);
+      padding: var(--space-sm);
+    }
+    .schematic-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .svg-node {
+      cursor: pointer;
+    }
+    .svg-node rect, .svg-node circle {
+      transition: fill var(--dur-micro) var(--ease-out), stroke var(--dur-micro) var(--ease-out);
+    }
+    .svg-node:focus-visible {
+      outline: 2px solid var(--primary);
+    }
+    .svg-node.is-active rect,
+    .svg-node.is-active circle {
+      fill: var(--primary-container);
+      stroke: var(--primary);
+      stroke-width: 2.5;
+    }
+    .svg-box {
+      fill: var(--surface-container-low);
+      stroke: var(--outline);
+      stroke-width: 1.5;
+    }
+    .svg-box-clear {
+      fill: var(--background);
+      stroke: var(--secondary);
+      stroke-width: 1.5;
+      stroke-dasharray: 5 4;
+    }
+    .svg-line {
+      stroke: var(--outline);
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .svg-line-accent {
+      stroke: var(--primary);
+      stroke-width: 2;
+      fill: none;
+    }
+    .svg-line-teal {
+      stroke: var(--secondary);
+      stroke-width: 1.75;
+      fill: none;
+    }
+    .svg-text-head {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 13px;
+      fill: var(--on-surface);
+    }
+    .svg-text-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 10.5px;
+      fill: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .svg-text-sub {
+      font-family: var(--font-body);
+      font-size: 11.5px;
+      fill: var(--on-surface-variant);
+    }
+    .schematic-caption {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      background: var(--surface-container-low);
+      border-left: 3px solid var(--primary);
+    }
+
+    /* Interactive 4: Kehre Timeline */
+    .timeline-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      margin: var(--space-lg) 0 var(--space-md);
+    }
+    .timeline-btn {
+      text-align: left;
+      min-height: 68px;
+      padding: var(--space-md);
+      background: transparent;
+      border: 0;
+      border-left: var(--rule-column);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .timeline-btn:first-child { border-left: 0; }
+    .timeline-btn:hover { background: var(--surface-container-low); }
+    .timeline-btn[aria-selected="true"] {
+      background: var(--primary-container);
+      border-top: 3px solid var(--primary);
+    }
+    .timeline-year {
+      display: block;
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--primary);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .timeline-work {
+      display: block;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--on-surface);
+      margin-top: var(--space-xs);
+    }
+    .timeline-detail {
+      padding: var(--space-lg);
+      background: var(--surface-container-low);
+      border-left: 3px solid var(--outline);
+    }
+
+    /* Comparison Table */
+    .compare-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: end;
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--rule-column);
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .control-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+    select.broadsheet-select,
+    input.broadsheet-input {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background: var(--background);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      font-family: var(--font-body);
+      font-size: 1rem;
+    }
+    select.broadsheet-select {
+      padding-right: var(--space-xl);
+    }
+    .table-scroll {
+      width: 100%;
+      overflow-x: auto;
+    }
+    table.broadsheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      text-align: left;
+      font-size: 0.98rem;
+    }
+    table.broadsheet-table th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: var(--space-md) var(--space-sm);
+      border-bottom: var(--rule-ink);
+      vertical-align: bottom;
+      color: var(--on-surface);
+    }
+    table.broadsheet-table td {
+      padding: var(--space-md) var(--space-sm);
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    table.broadsheet-table tr:last-child td {
+      border-bottom: 0;
+    }
+    table.broadsheet-table th.col-highlight,
+    table.broadsheet-table td.col-highlight {
+      background: var(--primary-container);
+      color: var(--on-surface);
+    }
+    table.broadsheet-table th.col-dim,
+    table.broadsheet-table td.col-dim {
+      opacity: 0.42;
+    }
+    .dim-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      color: var(--primary);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Interactive Glossary */
+    .glossary-toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+      margin-bottom: var(--space-md);
+    }
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .glossary-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .glossary-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+    }
+    .glossary-item {
+      text-align: left;
+      padding: var(--space-md);
+      min-height: 76px;
+      background: transparent;
+      border: 0;
+      border-bottom: var(--rule-column);
+      border-right: var(--rule-column);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .glossary-item:hover {
+      background: var(--surface-container-low);
+    }
+    .glossary-item[aria-selected="true"] {
+      background: var(--primary-container);
+      border-left: 3px solid var(--primary);
+    }
+    .glossary-item .g-term {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--on-surface);
+    }
+    .glossary-item .g-orig {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+    }
+    .glossary-item .g-badge {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--secondary);
+    }
+    .glossary-item[aria-selected="true"] .g-badge {
+      color: var(--on-primary-container);
+    }
+    .glossary-detail {
+      position: sticky;
+      top: var(--space-md);
+      background: var(--surface-container-low);
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg);
+    }
+
+    /* Quiz Module */
+    .quiz-shell {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg) 0;
+    }
+    .quiz-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--rule-column);
+      margin-bottom: var(--space-lg);
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin: var(--space-md) 0;
+    }
+    .quiz-option {
+      text-align: left;
+      min-height: 48px;
+      padding: var(--space-md);
+      background: var(--background);
+      border: 1px solid var(--outline);
+      cursor: pointer;
+      display: flex;
+      gap: var(--space-md);
+      align-items: flex-start;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      background: var(--surface-container-low);
+    }
+    .quiz-option:disabled {
+      cursor: default;
+    }
+    .quiz-option.is-correct {
+      background: var(--positive-container);
+      border-color: var(--positive);
+      border-left: 4px solid var(--positive);
+    }
+    .quiz-option.is-wrong {
+      background: var(--error-container);
+      border-color: var(--error);
+      border-left: 4px solid var(--error);
+    }
+    .quiz-letter {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      min-width: 24px;
+      color: var(--primary);
+      padding-top: 2px;
+    }
+    .quiz-feedback {
+      padding: var(--space-md);
+      background: var(--surface-container-low);
+      border-left: 3px solid var(--outline);
+      margin-top: var(--space-md);
+    }
+    .quiz-feedback.is-good {
+      border-left-color: var(--positive);
+    }
+    .quiz-feedback.is-bad {
+      border-left-color: var(--error);
+    }
+    .quiz-nav-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .quiz-dots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .quiz-dot {
+      min-width: 44px;
+      min-height: 44px;
+      background: var(--background);
+      border: 1px solid var(--outline);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      cursor: pointer;
+    }
+    .quiz-dot.is-current {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+    .quiz-dot.is-right {
+      background: var(--positive-container);
+      border-color: var(--positive);
+    }
+    .quiz-dot.is-wrong {
+      background: var(--error-container);
+      border-color: var(--error);
+    }
+
+    /* Footer */
+    footer {
+      border-top: var(--rule-masthead);
+      padding-top: var(--space-lg);
+      color: var(--on-surface-variant);
+      font-size: 0.95rem;
+    }
+
+    /* Container Queries */
+    .card-wrapper { container-type: inline-size; }
+    @container (max-width: 520px) {
+      .glossary-layout,
+      .two-col-editorial,
+      .two-col-wide-visual {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Reveal animation */
+    .reveal-section {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 860px) {
+      .two-col-editorial,
+      .two-col-wide-visual,
+      .glossary-layout,
+      .nav-bar,
+      .glossary-toolbar {
+        grid-template-columns: 1fr;
+      }
+      .dossier-status {
+        align-items: flex-start;
+      }
+      .columns {
+        flex-direction: column;
+        gap: var(--space-md);
+      }
+      .columns > * {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-md) 0 0;
+      }
+      .columns > :first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .glossary-detail {
+        position: static;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-section {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- MASTHEAD -->
+    <header class="masthead">
+      <div class="masthead-line">
+        <span>Dossier Filosófico · Edición de Estudio</span>
+        <span>París – Friburgo · 1946–1947 · Brief über den «Humanismus»</span>
+      </div>
+
+      <h1>Carta sobre el Humanismo</h1>
+      <p class="lede">
+        En el otoño de 1946, ante las ruinas materiales y espirituales de la Segunda Guerra Mundial, Martin Heidegger responde a tres preguntas decisivas de Jean Beaufret. Lejos de rehabilitar el humanismo clásico, la carta propone desmontar la metafísica occidental para pensar al ser humano no como el «señor de lo ente», sino como el «pastor del ser» que habita en la morada del lenguaje.
+      </p>
+
+      <div class="columns" aria-label="Claves de lectura del tratado">
+        <div>
+          <span class="tag">Contexto histórico</span>
+          <div class="stat-figure">1946 / 1947</div>
+          <p class="stat-note">Redactada como carta a Jean Beaufret en París (1946) y publicada en 1947 junto a <em>La doctrina platónica de la verdad</em>.</p>
+        </div>
+        <div>
+          <span class="tag">Giro ontológico</span>
+          <div class="stat-figure">Ex-sistencia</div>
+          <p class="stat-note">No es la <em>existentia</em> (realidad efectiva) de la metafísica, sino el extático estar fuera en el claro de la verdad del ser.</p>
+        </div>
+        <div>
+          <span class="tag">Morada del hombre</span>
+          <div class="stat-figure">Casa del ser</div>
+          <p class="stat-note">El lenguaje no es un mero instrumento comunicativo; pensadores y poetas son los guardianes que custodian su morada.</p>
+        </div>
+        <div>
+          <span class="tag">Ética originaria</span>
+          <div class="stat-figure">Ἦθος = Estancia</div>
+          <p class="stat-note">Siguiendo a Heráclito, el pensar que atiende a la verdad del ser precede a la división escolar entre teoría y praxis.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- NAVEGACIÓN DE MÓDULOS Y PROGRESO -->
+    <nav class="nav-bar" aria-label="Navegación temática del dossier">
+      <div class="nav-links" id="nav-links">
+        <a href="#mod-1" class="nav-jump" data-mod="mod-1">I. Actuar y Beaufret</a>
+        <a href="#mod-2" class="nav-jump" data-mod="mod-2">II. Crítica al humanismo</a>
+        <a href="#mod-3" class="nav-jump" data-mod="mod-3">III. Ex-sistencia y Pastor</a>
+        <a href="#mod-4" class="nav-jump" data-mod="mod-4">IV. Casa del ser</a>
+        <a href="#mod-5" class="nav-jump" data-mod="mod-5">V. Ética originaria</a>
+        <a href="#mod-6" class="nav-jump" data-mod="mod-6">VI. El Viraje (Kehre)</a>
+        <a href="#mod-7" class="nav-jump" data-mod="mod-7">VII. Técnica y alienación</a>
+        <a href="#mod-comparativo" class="nav-jump" data-mod="mod-comparativo">Cuadro comparativo</a>
+        <a href="#mod-glosario" class="nav-jump" data-mod="mod-glosario">Glosario</a>
+        <a href="#mod-cuestionario" class="nav-jump" data-mod="mod-cuestionario">Autoevaluación</a>
+      </div>
+
+      <div class="dossier-status">
+        <span class="label-voice" id="progress-label">Progreso de lectura: 0 / 7 módulos</span>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="stat-note" id="quiz-mini-status">Autoevaluación: sin responder</span>
+      </div>
+    </nav>
+
+    <!-- MÓDULO I -->
+    <section id="mod-1" class="section-open reveal-section">
+      <div class="section-header">
+        <div class="section-header-title">
+          <span class="section-label">Módulo I · Apertura de la Carta</span>
+          <h2>Pensar es «llevar a cabo» la relación del ser con la esencia del hombre</h2>
+        </div>
+        <button type="button" class="mark-read-btn" data-module-btn="mod-1" aria-pressed="false" onclick="toggleModuleRead('mod-1', this)">
+          Marcar módulo leído
+        </button>
+      </div>
+
+      <div class="two-col-editorial">
+        <div>
+          <p>
+            Heidegger inicia su carta advirtiendo que estamos muy lejos de pensar la esencia del actuar de modo decisivo. La cultura moderna sólo concibe la acción como producción de un efecto valorado por su utilidad. Frente a esa reducción técnica, Heidegger recupera el sentido originario de «llevar a cabo» (<em>vollbringen</em>): desplegar algo en la plenitud de su esencia, guiar hacia ella (<em>producere</em>). Como sólo puede llevarse a cabo lo que ya es —y lo que ante todo «es» es el ser—, el pensar no fabrica ni produce la relación entre el ser y el hombre, sino que se limita a ofrecérsela al ser llevándolo al lenguaje.
+          </p>
+          <p>
+            De ahí que el pensar no necesite «tener un efecto» ni justificarse como teoría útil para convertirse en acción: el pensar actúa simplemente en la medida en que piensa. Este actuar es el más simple y el más elevado, porque responde al reclamo del ser: <em>l'engagement par l'Être pour l'Être</em>.
+          </p>
+          <blockquote class="pull-quote">
+            «Desde la Sofística y Platón es la "lógica" la que empieza a sancionar dicha interpretación. Este juicio es comparable al procedimiento que intenta valorar la esencia y facultades de los peces en función de su capacidad para vivir en la tierra seca. Hace mucho tiempo, demasiado, que el pensar se encuentra en dique seco.»
+            <cite>Martin Heidegger · Carta sobre el Humanismo (trad. H. Cortés y A. Leyte)</cite>
+          </blockquote>
+          <p>
+            La interpretación técnica del pensar como <em>τέχνη</em> al servicio del hacer (<em>πρᾶξις</em> y <em>ποίησις</em>) y de la mera teoría (<em>θεωρία</em>) obligó a la filosofía a competir con las ciencias buscando elevarse al rango de ciencia exacta. El rigor del pensar no consiste en la exactitud artificial de los conceptos técnicos, sino en permanecer puro en el elemento de la verdad del ser, dejando reinar lo simple de sus múltiples dimensiones.
+          </p>
+        </div>
+
+        <aside class="dossier-panel" aria-label="Explorador de las tres preguntas de Jean Beaufret">
+          <span class="section-label">Archivo de correspondencia · 1946</span>
+          <h3 class="dossier-panel-title">Las tres preguntas de Jean Beaufret</h3>
+          <p class="stat-note" style="margin-bottom: var(--space-md);">
+            Selecciona cada interrogante de la carta original de Beaufret para examinar cómo Heidegger reorienta el problema desde el pensar del ser.
+          </p>
+
+          <div class="question-tabs" role="tablist" aria-label="Preguntas de Beaufret">
+            <button type="button" class="question-btn" role="tab" aria-selected="true" id="bq-btn-0" onclick="selectBeaufretQuestion(0)">
+              <span class="q-kicker">Pregunta 1 · El sentido del humanismo</span>
+              <span class="q-french">«Comment redonner un sens au mot "Humanisme"?»</span>
+            </button>
+            <button type="button" class="question-btn" role="tab" aria-selected="false" id="bq-btn-1" onclick="selectBeaufretQuestion(1)">
+              <span class="q-kicker">Pregunta 2 · Ontología y ética</span>
+              <span class="q-french">«Préciser le rapport de l'ontologie avec une éthique possible»</span>
+            </button>
+            <button type="button" class="question-btn" role="tab" aria-selected="false" id="bq-btn-2" onclick="selectBeaufretQuestion(2)">
+              <span class="q-kicker">Pregunta 3 · Medida del pensar</span>
+              <span class="q-french">«Sauver l'élément d'aventure sans faire de la philosophie une aventurière»</span>
+            </button>
+          </div>
+
+          <div class="answer-plate" id="bq-display" role="tabpanel" aria-live="polite"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- MÓDULO II -->
+    <section id="mod-2" class="section-open reveal-section">
+      <div class="section-header">
+        <div class="section-header-title">
+          <span class="section-label">Módulo II · Genealogía del Humanismo</span>
+          <h2>Por qué todo humanismo permanece prisionero de la metafísica</h2>
+        </div>
+        <button type="button" class="mark-read-btn" data-module-btn="mod-2" aria-pressed="false" onclick="toggleModuleRead('mod-2', this)">
+          Marcar módulo leído
+        </button>
+      </div>
+
+      <p>
+        Al revisar la historia del término, Heidegger muestra que la <em>humanitas</em> nace en la República romana como un fenómeno específicamente romano: el <em>homo humanus</em> (cultivado mediante la <em>παιδεία</em> helenística, entendida como <em>eruditio e institutio in bonas artes</em>) se opone al <em>homo barbarus</em>. Ese gesto se repite en el Renacimiento italiano (siglos XIV–XV, como <em>renascentia romanitatis</em> frente a la supuesta barbarie de la Escolástica gótica) y en el humanismo alemán del siglo XVIII (Winckelmann, Goethe y Schiller; no así Hölderlin, cuyo pensar poético es más originario).
+      </p>
+      <p>
+        Incluso las corrientes modernas que prescinden del retorno a la Antigüedad —el cristianismo orientado a la <em>salus aeterna</em>, el humanismo social de Marx y el existencialismo de Sartre— coinciden en un punto decisivo: todas determinan la humanidad del hombre desde una interpretación previa de lo ente en su totalidad. Por ello, <strong>todo humanismo se basa en una metafísica o se convierte en fundamento de una</strong>.
+      </p>
+
+      <div class="columns" aria-label="Raíz metafísica del humanismo">
+        <div>
+          <span class="tag">El hombre como animal rationale</span>
+          <div class="stat-figure">Ζῷον λόγον ἔχον</div>
+          <p class="stat-note">La metafísica define al hombre como un ser vivo entre otros dotado de razón. Aunque se le añada espíritu, alma o carácter personal, queda relegado al ámbito de la <em>animalitas</em>.</p>
+        </div>
+        <div>
+          <span class="tag">La inversión de Sartre</span>
+          <div class="stat-figure">Existentia → Essentia</div>
+          <p class="stat-note">Sartre invierte a Platón afirmando que «la existencia precede a la esencia». Pero la inversión de una frase metafísica sigue siendo una frase metafísica presa del olvido del ser.</p>
+        </div>
+        <div>
+          <span class="tag">Oposición de Ser y tiempo</span>
+          <div class="stat-figure">Mayor altura</div>
+          <p class="stat-note">Pensar contra el humanismo no rebaja al hombre ni defiende lo inhumano; señala que los humanismos supremos aún no experimentan la auténtica dignidad humana.</p>
+        </div>
+      </div>
+
+      <div style="margin-top: var(--space-xl);">
+        <span class="section-label">Análisis interactivo · Desmontaje de los seis malentendidos</span>
+        <h3>¿Qué ocurre cuando el pensar se opone a la «lógica» habitual?</h3>
+        <p>
+          Quien lee desde la dictadura de la «lógica» convierte toda crítica a un rótulo positivo en su negación destructiva. Haz clic en cada tarjeta para contrastar la acusación común con la postura filosófica de Heidegger en la <em>Carta</em>.
+        </p>
+
+        <div class="misunderstanding-grid" id="misunderstanding-grid"></div>
+      </div>
+    </section>
+
+    <!-- MÓDULO III -->
+    <section id="mod-3" class="section-open reveal-section">
+      <div class="section-header">
+        <div class="section-header-title">
+          <span class="section-label">Módulo III · Antropología ontológica</span>
+          <h2>La ex-sistencia y el hombre como «pastor del ser»</h2>
+        </div>
+        <button type="button" class="mark-read-btn" data-module-btn="mod-3" aria-pressed="false" onclick="toggleModuleRead('mod-3', this)">
+          Marcar módulo leído
+        </button>
+      </div>
+
+      <div class="two-col-wide-visual">
+        <div>
+          <p>
+            Frente a la <em>existentia</em> metafísica —que designa la realidad efectiva (<em>actualitas</em>) de una idea frente a la mera posibilidad (<em>essentia</em>)—, Heidegger escribe <strong>ex-sistencia</strong> (<em>Ek-sistenz</em>) para nombrar el modo de ser exclusivo del hombre: <strong>estar fuera en el claro del ser</strong> (<em>Lichtung des Seins</em>). Las plantas y los animales están atados a su entorno (<em>Umwelt</em>) y carecen de lenguaje y de mundo; el hombre, en cambio, está expuesto en la apertura del ser.
+          </p>
+          <p>
+            Cuando <em>Ser y tiempo</em> afirma que «la "esencia" del Dasein reside en su existencia» o que «la "substancia" del hombre es la ex-sistencia», no formula una tesis existencialista sobre el sujeto libre, sino que señala que el hombre soporta extáticamente el «aquí» (<em>Da</em>) como claro del ser. El hombre no proyecta el ser desde su subjetividad; su proyecto es siempre un <strong>proyecto arrojado</strong> (<em>geworfener Entwurf</em>). Quien arroja es el ser mismo, destinando al hombre a la guarda y al <strong>cuidado</strong> (<em>Sorge</em>) de su verdad.
+          </p>
+          <blockquote class="pull-quote">
+            «El hombre no es el señor de lo ente. El hombre es el pastor del ser. En este "menos" el hombre no sólo no pierde nada, sino que gana, puesto que llega a la verdad del ser. Gana la esencial pobreza del pastor, cuya dignidad consiste en ser llamado por el propio ser para la guarda de su verdad.»
+            <cite>Martin Heidegger · Carta sobre el Humanismo</cite>
+          </blockquote>
+        </div>
+
+        <div class="schematic-container">
+          <div class="schematic-controls">
+            <button type="button" class="btn-secondary is-selected" id="mode-ser-btn" onclick="setSchematicMode('ser')">
+              Esquema del Ser: Pastor y Claro
+            </button>
+            <button type="button" class="btn-secondary" id="mode-meta-btn" onclick="setSchematicMode('meta')">
+              Esquema Metafísico: Sujeto y Objeto
+            </button>
+          </div>
+
+          <div class="schematic-svg-wrap" id="schematic-svg-wrap">
+            <!-- SVG dinámico insertado por JS -->
+          </div>
+
+          <div class="schematic-caption" id="schematic-caption" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO IV -->
+    <section id="mod-4" class="section-open reveal-section">
+      <div class="section-header">
+        <div class="section-header-title">
+          <span class="section-label">Módulo IV · Filosofía del Lenguaje</span>
+          <h2>El lenguaje como «la casa del ser» y la devastación de la opinión pública</h2>
+        </div>
+        <button type="button" class="mark-read-btn" data-module-btn="mod-4" aria-pressed="false" onclick="toggleModuleRead('mod-4', this)">
+          Marcar módulo leído
+        </button>
+      </div>
+
+      <div class="two-col-editorial">
+        <div>
+          <p>
+            «El lenguaje es la casa del ser. En su morada habita el hombre. Los pensadores y poetas son los guardianes de esa morada.» Heidegger advierte que esta célebre fórmula no es una metáfora ni una transposición de la imagen arquitectónica de la casa hacia el ser; más bien, sólo a partir de la esencia del ser comprenderemos algún día qué significa «casa» y qué significa «morar» (como en el verso de Hölderlin: <em>«Lleno de mérito, mas poéticamente mora el hombre sobre la tierra»</em>).
+          </p>
+          <p>
+            Habitualmente pensamos el lenguaje a imagen del <em>animal rationale</em>: forma fonética o signo escrito (cuerpo), melodía y ritmo (alma) y significado (espíritu). Bajo el dominio de la metafísica de la subjetividad, el lenguaje queda reducido a instrumento de dominación sobre lo ente y cae bajo la <strong>dictadura de la opinión pública</strong> (el «uno» impersonal, <em>das Man</em>, de <em>Ser y tiempo</em> §§ 27 y 35). De este modo, en lugar de albergar al hombre en su verdad, el lenguaje se convierte en la mera «recámara de sus manipulaciones».
+          </p>
+        </div>
+
+        <aside class="dossier-panel">
+          <span class="section-label">La primera ley del pensar</span>
+          <h3 class="dossier-panel-title">¿Cómo rescatar el decir esencial?</h3>
+          <p>
+            Antes de hablar, el hombre debe aprender a existir prescindiendo de los «ismos» y dejarse interpelar por el ser, asumiendo el riesgo de tener poco que decir. Liberar al lenguaje de la gramática occidental exige observar tres exigencias de conveniencia con la historia del ser:
+          </p>
+          <div class="columns" style="margin-top: var(--space-md);">
+            <div>
+              <span class="label-voice" style="color: var(--primary);">1. Rigor</span>
+              <p class="stat-note">Lo riguroso de la reflexión que permanece en el claro sin buscar exactitud técnica.</p>
+            </div>
+            <div>
+              <span class="label-voice" style="color: var(--primary);">2. Cuidado</span>
+              <p class="stat-note">El cuidado del decir: meditar qué debe decirse, en qué medida y en qué instante histórico.</p>
+            </div>
+            <div>
+              <span class="label-voice" style="color: var(--primary);">3. Parquedad</span>
+              <p class="stat-note">La parquedad de palabras y el justo silencio frente a la cháchara precipitada.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- MÓDULO V -->
+    <section id="mod-5" class="section-open reveal-section">
+      <div class="section-header">
+        <div class="section-header-title">
+          <span class="section-label">Módulo V · Ética Originaria</span>
+          <h2>«También aquí están presentes los dioses»: Heráclito y la relectura del <em>ἦθος</em></h2>
+        </div>
+        <button type="button" class="mark-read-btn" data-module-btn="mod-5" aria-pressed="false" onclick="toggleModuleRead('mod-5', this)">
+          Marcar módulo leído
+        </button>
+      </div>
+
+      <div class="two-col-editorial">
+        <div>
+          <p>
+            ¿Por qué Heidegger no escribió una «ética» tras <em>Ser y tiempo</em>? Porque disciplinas como «lógica», «ética» y «física» surgen en la escuela de Platón precisamente cuando el pensar originario toca a su fin y la filosofía se vuelve <em>ἐπιστήμη</em> (ciencia escolar). Antes de esa división, las tragedias de Sófocles custodiaban el <em>ἦθος</em> de modo más inicial que las lecciones éticas de Aristóteles.
+          </p>
+          <p>
+            Heidegger reinterpreta el fragmento 119 de Heráclito: <strong>ἦθος ἀνθρώπῳ δαίμων</strong>. La traducción moderna dice «su carácter es para el hombre su demonio». Pero en griego, <em>ἦθος</em> significa <strong>estancia, lugar donde se mora</strong>: el ámbito abierto en el que aparece lo extraordinario (el <em>δαίμων</em>, el dios). Así, el pensar que piensa la verdad del ser como estancia del hombre ex-sistente es ya en sí mismo la <strong>ética originaria</strong>, previa a toda distinción entre ontología y ética, o entre teoría y praxis.
+          </p>
+          <p>
+            Asimismo, el auténtico <em>νόμος</em> (del griego <em>νέμειν</em>, prescribir) no es una ley fabricada por la razón humana, sino la prescripción escondida en el destino del ser, única capaz de otorgar apoyo y protección (<em>Hut</em>) a la conducta humana.
+          </p>
+        </div>
+
+        <aside class="dossier-panel">
+          <span class="section-label">Aristóteles, De part. anim. A 5, 645a 17</span>
+          <h3 class="dossier-panel-title">El relato de Heráclito junto al horno de panadero</h3>
+          <p>
+            Unos visitantes forasteros viajan para conocer al gran pensador Heráclito. Esperan sorprenderlo en una escena sublime y extraordinaria, sumido en hondas meditaciones que les den material para futuras charlas.
+          </p>
+          <p>
+            Al llegar a su casa, lo encuentran calentándose junto a un simple horno de panadero —ni siquiera horneando, sino pasando frío en el espacio más cotidiano e insignificante—. Decepcionados, se disponen a marcharse. Heráclito lee el desencanto en sus rostros y los invita a entrar con estas palabras:
+          </p>
+          <blockquote class="pull-quote" style="margin: var(--space-md) 0 0;">
+            «Εἶναι γὰρ καὶ ἐνταῦθα θεούς — También aquí están presentes los dioses.»
+            <cite>Heráclito · Relato comentado por Heidegger como definición del ἦθος</cite>
+          </blockquote>
+        </aside>
+      </div>
+    </section>
+
+    <!-- MÓDULO VI -->
+    <section id="mod-6" class="section-open reveal-section">
+      <div class="section-header">
+        <div class="section-header-title">
+          <span class="section-label">Módulo VI · El Viraje (Kehre)</span>
+          <h2>De «Ser y tiempo» a «Tiempo y ser»: el olvido y el «se da»</h2>
+        </div>
+        <button type="button" class="mark-read-btn" data-module-btn="mod-6" aria-pressed="false" onclick="toggleModuleRead('mod-6', this)">
+          Marcar módulo leído
+        </button>
+      </div>
+
+      <p>
+        Al publicar <em>Ser y tiempo</em> (1927), Heidegger retuvo la tercera sección de la primera parte, titulada <em>«Tiempo y ser»</em>. Explica en la <em>Carta</em> que allí se producía un giro total —el famoso <strong>viraje</strong> (<em>Kehre</em>)— que no pudo llevarse a la imprenta porque el pensamiento aún carecía de un decir propio capaz de expresarlo sin recaer en el lenguaje de la metafísica.
+      </p>
+      <p>
+        Heidegger aclara que la <em>Kehre</em> <strong>no es un cambio de punto de vista</strong> ni una renuncia a <em>Ser y tiempo</em>. Al contrario: es la llegada a la dimensión desde la cual se experimentó toda la obra desde el inicio, a saber, la experiencia fundamental del <strong>olvido del ser</strong> (<em>Seinsvergessenheit</em>). Para evitar cosificar el ser como un ente más diciendo «el ser es», la <em>Carta</em> enfatiza la fórmula impersonal <em>es gibt</em> («se da el ser», traducido al francés por <em>il y a l'Être</em>): el «se» que da su verdad en lo abierto es el propio ser en cuanto destino del claro.
+      </p>
+
+      <div aria-label="Cronología interactiva del viraje en el pensamiento de Heidegger">
+        <span class="section-label">Itinerario interactivo · Hitos del pensar (1927–1949)</span>
+        <div class="timeline-strip" role="tablist" aria-label="Hitos del viraje">
+          <button type="button" class="timeline-btn" role="tab" aria-selected="true" id="tl-btn-0" onclick="selectTimelineStep(0)">
+            <span class="timeline-year">1927</span>
+            <span class="timeline-work">Ser y tiempo</span>
+          </button>
+          <button type="button" class="timeline-btn" role="tab" aria-selected="false" id="tl-btn-1" onclick="selectTimelineStep(1)">
+            <span class="timeline-year">1930 / 1943</span>
+            <span class="timeline-work">Esencia de la verdad</span>
+          </button>
+          <button type="button" class="timeline-btn" role="tab" aria-selected="false" id="tl-btn-2" onclick="selectTimelineStep(2)">
+            <span class="timeline-year">1934 – 1936</span>
+            <span class="timeline-work">Hölderlin y Ereignis</span>
+          </button>
+          <button type="button" class="timeline-btn" role="tab" aria-selected="false" id="tl-btn-3" onclick="selectTimelineStep(3)">
+            <span class="timeline-year">1946 – 1947</span>
+            <span class="timeline-work">Carta a Beaufret</span>
+          </button>
+          <button type="button" class="timeline-btn" role="tab" aria-selected="false" id="tl-btn-4" onclick="selectTimelineStep(4)">
+            <span class="timeline-year">1949</span>
+            <span class="timeline-work">Notas 1.ª edición</span>
+          </button>
+        </div>
+        <div class="timeline-detail" id="timeline-detail" role="tabpanel" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- MÓDULO VII -->
+    <section id="mod-7" class="section-open reveal-section">
+      <div class="section-header">
+        <div class="section-header-title">
+          <span class="section-label">Módulo VII · Diagnóstico de la Modernidad</span>
+          <h2>Técnica, desterramiento universal y diálogo con Marx</h2>
+        </div>
+        <button type="button" class="mark-read-btn" data-module-btn="mod-7" aria-pressed="false" onclick="toggleModuleRead('mod-7', this)">
+          Marcar módulo leído
+        </button>
+      </div>
+
+      <div class="two-col-editorial">
+        <div>
+          <p>
+            El olvido del ser —por el cual el hombre sólo atiende a lo ente— tiene una consecuencia epocal: el <strong>desterramiento</strong> (<em>Heimatlosigkeit</em>) del hombre moderno, convertido en destino universal. Nietzsche fue el último en experimentarlo, pero al buscar una salida mediante la inversión de la metafísica consumó precisamente la falta de salidas. Frente a ello, la poesía de Hölderlin (<em>Heimkunft</em>, <em>Andenken</em>) piensa la «patria» no en un sentido nacionalista o egoísta, sino en el sentido de la historia del ser: como la <strong>proximidad al ser</strong> desde la que puede volver a abrirse el espacio de lo sagrado (<em>das Heil</em>).
+          </p>
+          <p>
+            En este horizonte, Heidegger entabla un singular diálogo con el marxismo. Reconoce que lo que Marx denominó <strong>extrañamiento</strong> o alienación (<em>Entfremdung</em>), partiendo de Hegel, hunde sus raíces en el desterramiento del hombre moderno. Al experimentar el extrañamiento, Marx se adentra en una dimensión esencial de la historia, haciendo que la concepción marxista de la historia sea superior a otras corrientes contemporáneas como la fenomenología de Husserl o el existencialismo de Sartre, que ignoran la historicidad del ser.
+          </p>
+        </div>
+
+        <div>
+          <div class="dossier-panel">
+            <span class="section-label">La esencia oculta de la técnica</span>
+            <h3 class="dossier-panel-title">Materialismo, τέχνη y el peligro de la cibernética</h3>
+            <p>
+              Para Heidegger, la esencia del materialismo no consiste en afirmar que «todo es materia», sino en una determinación metafísica donde <strong>todo ente aparece como material de trabajo</strong> y objetivación incondicionada del hombre como subjetividad (anticipada por Hegel).
+            </p>
+            <p>
+              La esencia del materialismo se oculta en la esencia de la <strong>técnica</strong>. Esta no es un mero aparato útil, sino un destino histórico-ontológico que procede de la <em>τέχνη</em> griega como modo del <em>ἀληθεύειν</em> (hacer que se manifieste lo ente). Ninguna metafísica —idealista, materialista o cristiana— ni ningún programa político (ni el nacionalismo ni el internacionalismo, ni el individualismo ni el colectivismo ahistórico) pueden superar el desterramiento, porque todos consolidan la subjetividad absoluta.
+            </p>
+            <p>
+              En las notas de 1949, Heidegger advierte que la recaída del pensar en la metafísica adopta una nueva forma: la disolución total de la filosofía en las ciencias positivas y en la cibernética, integradas en la com-posición (<em>Ge-stell</em>). Sólo el descenso del pensar a la pobreza provisional de la ex-sistencia puede abrir camino frente a ese peligro.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUADRO COMPARATIVO INTERACTIVO -->
+    <section id="mod-comparativo" class="section-open reveal-section">
+      <div class="section-header">
+        <div class="section-header-title">
+          <span class="section-label">Síntesis Estructural</span>
+          <h2>Cuadro comparativo: Humanismo metafísico frente al Pensar del Ser</h2>
+        </div>
+      </div>
+
+      <p>
+        Contrasta cómo conciben al ser humano, el lenguaje, la ética y la alienación las cuatro grandes posiciones filosóficas examinadas en la <em>Carta sobre el Humanismo</em>. Utiliza los selectores para destacar una tradición o enfrentar dos posturas directamente.
+      </p>
+
+      <div class="compare-controls">
+        <div class="control-group">
+          <label for="compare-focus" class="control-label">Resaltar postura principal</label>
+          <select id="compare-focus" class="broadsheet-select" onchange="updateComparisonView()">
+            <option value="all">Vista completa (4 columnas)</option>
+            <option value="heidegger">Pensar del Ser (Heidegger)</option>
+            <option value="sartre">Existencialismo (Sartre)</option>
+            <option value="marx">Humanismo social (Marx)</option>
+            <option value="meta">Humanismo metafísico clásico</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="compare-dim" class="control-label">Filtrar por eje temático</label>
+          <select id="compare-dim" class="broadsheet-select" onchange="updateComparisonView()">
+            <option value="all">Todos los ejes (5 filas)</option>
+            <option value="hombre">Esencia del hombre</option>
+            <option value="ser">Relación con el Ser / Ente</option>
+            <option value="lenguaje">Estatuto del lenguaje</option>
+            <option value="etica">Ética y sentido del actuar</option>
+            <option value="alienacion">Diagnóstico de la alienación</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-scroll">
+        <table class="broadsheet-table" id="comparison-table">
+          <thead>
+            <tr>
+              <th scope="col" style="width: 16%;">Eje de análisis</th>
+              <th scope="col" data-col="meta">Humanismo clásico y metafísica</th>
+              <th scope="col" data-col="sartre">Existencialismo (Sartre)</th>
+              <th scope="col" data-col="marx">Materialismo / Marx</th>
+              <th scope="col" data-col="heidegger">Pensar del Ser (Heidegger)</th>
+            </tr>
+          </thead>
+          <tbody id="comparison-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- GLOSARIO CONCEPTUAL INTERACTIVO -->
+    <section id="mod-glosario" class="section-open reveal-section">
+      <div class="section-header">
+        <div class="section-header-title">
+          <span class="section-label">Léxico Filosófico</span>
+          <h2>Glosario conceptual interactivo</h2>
+        </div>
+      </div>
+
+      <p>
+        Explora los 16 conceptos fundamentales de la <em>Carta</em> con su término original en alemán o griego, su contraste frente al vocabulario metafísico y su anclaje textual. Puedes buscar términos, filtrar por ámbito o marcar los conceptos que ya dominas.
+      </p>
+
+      <div class="glossary-toolbar">
+        <div class="control-group">
+          <label for="glossary-search" class="control-label">Buscar concepto, término alemán o griego</label>
+          <input type="search" id="glossary-search" class="broadsheet-input" placeholder="Ej. ex-sistencia, Kehre, ἦθος, Sartre…" oninput="renderGlossaryList()">
+        </div>
+
+        <div class="control-group">
+          <span class="control-label">Filtrar por ámbito</span>
+          <div class="filter-pills" id="glossary-filters" role="group" aria-label="Categorías del glosario">
+            <button type="button" class="btn-secondary is-selected" data-cat="todos" onclick="setGlossaryCategory('todos', this)">Todos (16)</button>
+            <button type="button" class="btn-secondary" data-cat="ser" onclick="setGlossaryCategory('ser', this)">Ser y Claro</button>
+            <button type="button" class="btn-secondary" data-cat="hombre" onclick="setGlossaryCategory('hombre', this)">Ex-sistencia</button>
+            <button type="button" class="btn-secondary" data-cat="lenguaje" onclick="setGlossaryCategory('lenguaje', this)">Lenguaje y Ética</button>
+            <button type="button" class="btn-secondary" data-cat="critica" onclick="setGlossaryCategory('critica', this)">Técnica e Historia</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-wrapper">
+        <div class="glossary-layout">
+          <div>
+            <div class="glossary-list" id="glossary-list" role="listbox" aria-label="Lista de términos filosóficos"></div>
+            <p class="stat-note" id="glossary-empty" style="display: none; margin-top: var(--space-md);">
+              No hay términos que coincidan con tu búsqueda actual. Prueba limpiar el filtro o escribir otra raíz conceptual.
+            </p>
+          </div>
+
+          <aside class="glossary-detail" id="glossary-detail" aria-live="polite"></aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUESTIONARIO DE AUTOEVALUACIÓN -->
+    <section id="mod-cuestionario" class="section-open reveal-section">
+      <div class="section-header">
+        <div class="section-header-title">
+          <span class="section-label">Verificación de Lectura</span>
+          <h2>Cuestionario de autoevaluación</h2>
+        </div>
+      </div>
+
+      <p>
+        Pon a prueba tu comprensión de los argumentos centrales de Heidegger en la <em>Carta sobre el Humanismo</em>. Cada respuesta incluye una explicación fundamentada en el texto. Tu progreso se guarda automáticamente en la sesión del cuaderno.
+      </p>
+
+      <div class="quiz-shell" id="quiz-shell">
+        <div class="quiz-topbar">
+          <div>
+            <span class="label-voice" id="quiz-progress-text" style="color: var(--primary);">Pregunta 1 de 10</span>
+            <span class="stat-note" id="quiz-score-text" style="margin-left: var(--space-md);">Aciertos: 0 / 0 respondidas</span>
+          </div>
+          <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap;">
+            <button type="button" class="btn-secondary" id="quiz-reset-btn" onclick="handleQuizReset(this)">
+              Reiniciar cuestionario
+            </button>
+          </div>
+        </div>
+
+        <div id="quiz-question-area"></div>
+
+        <div class="quiz-nav-row">
+          <div style="display: flex; gap: var(--space-sm);">
+            <button type="button" class="btn-secondary" id="quiz-prev-btn" onclick="stepQuiz(-1)">Anterior</button>
+            <button type="button" class="btn-primary" id="quiz-next-btn" onclick="stepQuiz(1)">Siguiente</button>
+          </div>
+          <div class="quiz-dots" id="quiz-dots" aria-label="Selector directo de preguntas"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        <strong>Fuente primaria:</strong> Martin Heidegger, <em>Carta sobre el Humanismo</em> (<em>Brief über den «Humanismus»</em>, 1946/1947), traducción española de Helena Cortés y Arturo Leyte, incluyendo las anotaciones de Heidegger a la primera edición de 1949 y las referencias a <em>Ser y tiempo</em> (1927), <em>De la esencia de la verdad</em> (1930/1943) y los comentarios a Hölderlin y Heráclito.
+      </p>
+    </footer>
+
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    /* ============================================================
+       DATOS DEL DOSSIER (100% fundamentados en la fuente)
+       ============================================================ */
+
+    const BEAUFRET_QUESTIONS = [
+      {
+        kicker: `Pregunta 1 · El sentido de la palabra «Humanismo»`,
+        french: `«Comment redonner un sens au mot "Humanisme"?»`,
+        thesis: `Antes de conservar o restaurar el rótulo «humanismo», debemos preguntarnos si es necesario seguir manteniendo los «ismos» y el daño que provocan.`,
+        body: `Heidegger señala que el mercado de la opinión pública exige constantemente nuevos títulos («lógica», «ética», «física», «humanismo»), los cuales aparecen precisamente cuando el pensar originario toca a su fin. Devolverle sentido a la palabra humanismo exigiría experimentar más inicialmente la esencia del hombre —no como animal rationale, sino como ex-sistencia en la verdad del ser—. Pensar un «humanismo» donde lo esencial ya no es el hombre simplemente como tal, sino la verdad del ser, convierte al término en un rótulo paradójico («lucus a non lucendo»). Por eso Heidegger invita a resistir abiertamente el título para despertar una reflexión más originaria.`
+      },
+      {
+        kicker: `Pregunta 2 · Relación entre ontología y ética`,
+        french: `«Ce que je cherche à faire, depuis longtemps déjà, c'est préciser le rapport de l'ontologie avec une éthique possible.»`,
+        thesis: `Tanto «ontología» como «ética» son rótulos escolares obsoletos: el pensar de la verdad del ser es ya en sí mismo la ética originaria.`,
+        body: `La demanda de una ética vinculante se vuelve apremiante en la era de la técnica y las masas. Sin embargo, antes de relacionar ontología y ética hay que preguntar qué son. La ontología tradicional piensa sólo lo ente en su ser, dejando impensada la verdad del ser; y la «ética» nace con Platón cuando el pensar deviene ciencia escolar. Si recuperamos el sentido griego del ἦθος en Heráclito («estancia, lugar donde se mora»), el pensar que piensa la verdad del ser como estancia del hombre ex-sistente es ya la ética originaria, anterior a toda división entre teoría y práctica.`
+      },
+      {
+        kicker: `Pregunta 3 · Medida y ley del pensar`,
+        french: `«Comment sauver l'élément d'aventure que comporte toute recherche sans faire de la philosophie une simple aventurière?»`,
+        thesis: `El pensar no cae en la arbitrariedad porque está vinculado al advenimiento (l'avenant) y a la ley del destino del ser.`,
+        body: `Si el pensar del ser renuncia a apoyarse en lo ente y en los cálculos de la lógica técnica, surge la sospecha de arbitrariedad. Heidegger responde —aludiendo de pasada a la poesía, que según Aristóteles es más verdadera que la indagación de lo ente— que el pensar no es una aventura caprichosa (une aventure), pues es reclamado por el ser mismo en cuanto aquello que adviene. Su primera ley no es la lógica formal, sino la «conveniencia del decir del ser en cuanto destino de la verdad», regida por el rigor de la reflexión, el cuidado del decir y la parquedad de palabras.`
+      }
+    ];
+
+    const MISUNDERSTANDINGS = [
+      {
+        title: `Contra el «humanismo»`,
+        objection: `Quien niega el humanismo sólo puede afirmar la inhumanidad y glorificar la brutalidad bárbara.`,
+        response: `Falso dilema lógico. Se piensa contra el humanismo precisamente porque los humanismos tradicionales, al definir al hombre desde la animalitas, no sitúan la humanitas a suficiente altura ni piensan su dignidad desde la verdad del ser.`,
+        tag: `Dignidad del hombre`
+      },
+      {
+        title: `Contra la «lógica»`,
+        objection: `Hablar contra la lógica equivale a negar el rigor del pensar e instaurar el irracionalismo de los instintos.`,
+        response: `Pensar contra la lógica no defiende lo ilógico, sino que busca repensar la esencia inicial del λόγος, alterada y perdida ya en Platón y Aristóteles. Es la propia «lógica» la que rehúye pensar el fundamento de la ratio.`,
+        tag: `Esencia del λόγος`
+      },
+      {
+        title: `Contra los «valores»`,
+        objection: `Quien critica los valores desprecia los mayores bienes de la humanidad y lo declara todo carente de valor.`,
+        response: `Designar algo como «valor» lo priva de su dignidad propia, reduciéndolo a mero objeto de la estima subjetiva del hombre. Declarar a Dios «valor supremo» es devaluar su esencia; pensar en valores es la mayor blasfemia contra el ser.`,
+        tag: `Subjetivización`
+      },
+      {
+        title: `Ser-en-el-mundo`,
+        objection: `Definir al hombre como «ser-en-el-mundo» lo rebaja a lo meramente terrenal, negando la trascendencia y cayendo en el positivismo.`,
+        response: `En «ser-en-el-mundo», «mundo» no significa lo terrenal frente a lo celestial ni un ámbito de entes, sino la apertura y el claro del ser en el que el hombre ex-siste. No decide ni a favor ni en contra del más allá teológico.`,
+        tag: `Apertura del claro`
+      },
+      {
+        title: `«Muerte de dios»`,
+        objection: `Al remitir a la sentencia de Nietzsche sobre la muerte de dios, esta filosofía enseña necesariamente el ateísmo.`,
+        response: `El pensar de la verdad del ser no puede ser ni teísta ni ateo, no por indiferencia, sino por respeto a sus límites. Sólo desde la verdad del ser puede pensarse lo sagrado, desde lo sagrado la divinidad, y sólo a su luz qué nombra la palabra «dios».`,
+        tag: `Lo sagrado (das Heil)`
+      },
+      {
+        title: `«Destrucción fenomenológica»`,
+        objection: `Hablar de destrucción y negar lo «positivo» consagra un nihilismo irresponsable que predica la mera nada.`,
+        response: `La lógica habitual arroja todo lo que cuestiona sus creencias a la fosa de la negación. Pero el «desistir» (nichten) de la nada pertenece al ser mismo en el dejar ser a lo ente, no es un acto destructivo de la subjetividad.`,
+        tag: `Desistir del ser`
+      }
+    ];
+
+    const SCHEMATIC_DATA = {
+      ser: {
+        nodes: [
+          {
+            id: `ser`,
+            title: `El Ser (Sein / Es gibt)`,
+            role: `Lo más próximo y lo más lejano`,
+            desc: `El ser no es ni dios ni un fundamento del mundo, ni es un ente. Es el claro mismo que se da («es gibt») como destino y llama al hombre. Es la «fuerza callada de lo posible» que quiere y capacita la esencia humana.`
+          },
+          {
+            id: `claro`,
+            title: `El Claro (Lichtung / Das Da)`,
+            role: `La apertura («el mundo»)`,
+            desc: `El espacio abierto donde lo ente puede aparecer como lo ente que es. El hombre soporta el «aquí» (Da) del Dasein como claro del ser mediante un proyecto arrojado por el ser mismo.`
+          },
+          {
+            id: `pastor`,
+            title: `El Hombre (Ex-sistencia / Pastor)`,
+            role: `Guarda y cuidado (Sorge)`,
+            desc: `El hombre no es señor de lo ente, sino «pastor del ser» y «vecino del ser». Su esencia reside en el extático estar dentro (ex-sistencia) de la verdad del ser, ganando la esencial pobreza del pastor.`
+          },
+          {
+            id: `lenguaje`,
+            title: `El Lenguaje (La casa del ser)`,
+            role: `Advenimiento del ser`,
+            desc: `Es la casa del ser y la morada de la ex-sistencia humana. Pensadores y poetas son sus guardianes al llevar al lenguaje la palabra inexpresada del ser.`
+          },
+          {
+            id: `ente`,
+            title: `Lo Ente (Seiendes)`,
+            role: `Lo que aparece a la luz del ser`,
+            desc: `Rocas, animales, obras de arte, máquinas, ángeles o dioses. Sólo aparecen en la luz del ser. El olvido del ser ocurre cuando el hombre se atiene únicamente a lo ente.`
+          }
+        ]
+      },
+      meta: {
+        nodes: [
+          {
+            id: `sujeto`,
+            title: `El Hombre como Subjectum`,
+            role: `Ego cogito / Animal rationale`,
+            desc: `La metafísica piensa al hombre desde la animalitas (organismo + razón) y en la Edad Moderna lo erige en «sujeto» (res cogitans) y señor de lo ente, centro que todo lo representa.`
+          },
+          {
+            id: `objeto`,
+            title: `Lo Ente como Objeto y Valor`,
+            role: `Entramado de causas y efectos`,
+            desc: `Todo ente es reducido a mero objeto de representación, cálculo, estimación valorativa o «material de trabajo» bajo el dominio de la subjetividad y la técnica.`
+          },
+          {
+            id: `olvido`,
+            title: `Olvido del Ser (Seinsvergessenheit)`,
+            role: `La diferencia impensada`,
+            desc: `La metafísica piensa el ser de lo ente (como idea, actualitas, voluntad de poder), pero no piensa el ser como tal ni la verdad del claro. El ser queda oculto.`
+          },
+          {
+            id: `lenguaje-tec`,
+            title: `Lenguaje como Instrumento`,
+            role: `Gramática y opinión pública`,
+            desc: `Sometido a la lógica, la gramática y la dictadura del «uno» (das Man), el lenguaje se reduce a cuerpo fonético-signo al servicio de la comunicación uniforme y la manipulación.`
+          }
+        ]
+      }
+    };
+
+    const TIMELINE_STEPS = [
+      {
+        year: `1927 · Ser y tiempo`,
+        subtitle: `El punto de partida preparatorio y la retención de «Tiempo y ser»`,
+        text: `En páginas clave de Ser y tiempo (pp. 38, 42, 54, 117, 212, 230, 314, 437), Heidegger formula que «el ser es lo transcendens por antonomasia», que «la 'esencia' del Dasein reside en su existencia» y que «sólo mientras el Dasein es, se da el ser». Sin embargo, no se dio a la imprenta la tercera sección de la primera parte («Tiempo y ser»), donde acontecía un giro total: faltaba un decir que no recayera en el lenguaje de la metafísica.`
+      },
+      {
+        year: `1930 / 1943 · De la esencia de la verdad`,
+        subtitle: `Primera visión pública del viraje (Kehre)`,
+        text: `Conferencia pensada y pronunciada en 1930 y publicada en 1943. Permite vislumbrar el pensar del giro entre «Ser y tiempo» y «Tiempo y ser». La Kehre no es un abandono ni un cambio de opinión subjetivo sobre Ser y tiempo, sino el acceso por vez primera a la dimensión desde la que se experimentó aquella obra: el olvido del ser.`
+      },
+      {
+        year: `1934 – 1936 · Diálogo con Hölderlin y Ereignis`,
+        subtitle: `La palabra conductora: acontecimiento propio (Ereignis)`,
+        text: `En los discursos sobre las elegías e himnos de Hölderlin («Heimkunft» en 1934, el verso «poéticamente mora el hombre» en 1936 y «Andenken»), la proximidad al ser es nombrada como «patria» frente al desterramiento moderno. Desde 1936, «Ereignis» (acontecimiento propio) se convierte en la palabra conductora de su pensar para decir sencillamente la verdad del ser.`
+      },
+      {
+        year: `1946 – 1947 · Carta sobre el Humanismo`,
+        subtitle: `Exposición ante la posguerra europea`,
+        text: `Escrita a Jean Beaufret en 1946 y publicada en 1947 como apéndice a «La doctrina platónica de la verdad». Heidegger reconoce que la carta habla todavía de modo consciente en el lenguaje de la metafísica, manteniendo el «otro lenguaje» en segundo plano mientras desmonta los humanismos de Roma, el cristianismo, Marx y Sartre.`
+      },
+      {
+        year: `1949 · Notas a la primera edición`,
+        subtitle: `El peligro de la cibernética y el Ge-stell`,
+        text: `En las notas marginales de 1949, Heidegger precisa que el peligro hacia el que se ve empujada Europa ha salido más a la luz: la total disolución de la filosofía en las ciencias positivas, cuya unidad se despliega en la cibernética. La ciencia forma parte de la com-posición (Ge-stell) que todavía desplaza al acontecimiento propio.`
+      }
+    ];
+
+    const COMPARISON_ROWS = [
+      {
+        id: `hombre`,
+        dim: `Esencia del hombre`,
+        meta: `<strong>Animal rationale</strong> (traducción metafísica de ζῷον λόγον ἔχον): un ente vivo entre otros dotado de razón, alma, espíritu o carácter de persona.`,
+        sartre: `<strong>Sujeto libre sin esencia previa</strong>: «la existencia precede a la esencia» y estamos «en un plano donde solamente hay hombres».`,
+        marx: `<strong>Hombre «social» y «natural»</strong>: su naturaleza se realiza en la sociedad que asegura alimento, vestido, reproducción y sustento económico.`,
+        heidegger: `<strong>Ex-sistencia</strong>: estar en el claro del ser. El hombre no es el señor de lo ente, sino el «pastor del ser» y «vecino del ser».`
+      },
+      {
+        id: `ser`,
+        dim: `Relación con el Ser / Ente`,
+        meta: `Piensa a lo ente en su ser (como idea, actualitas, res cogitans), pero <strong>olvida el ser como tal</strong> y la diferencia ontológica.`,
+        sartre: `Invierte la jerarquía platónica entre <em>existentia</em> y <em>essentia</em>, pero queda atrapado en la misma distinción metafísica.`,
+        marx: `Todo ente aparece bajo una determinación metafísica oculta como <strong>«material de trabajo»</strong> y objeto de producción.`,
+        heidegger: `El propio ser es la relación («se da el ser», <em>es gibt</em>). Arroja al hombre en el cuidado (<em>Sorge</em>) para guardar la verdad del claro.`
+      },
+      {
+        id: `lenguaje`,
+        dim: `Estatuto del lenguaje`,
+        meta: `Sometido a la «lógica» y la «gramática»; pensado como unidad de signo fonético (cuerpo), ritmo (alma) y significado (espíritu).`,
+        sartre: `Medio de expresión y proyecto del sujeto en la situación humana (<em>l'engagement dans l'action</em>).`,
+        marx: `Instrumento histórico ligado a la praxis social y a la transformación productiva de lo ente.`,
+        heidegger: `<strong>La casa del ser</strong> y morada de la ex-sistencia. Pensadores y poetas son sus guardianes; exige silencio y parquedad.`
+      },
+      {
+        id: `etica`,
+        dim: `Ética y sentido del actuar`,
+        meta: `El actuar se mide como técnica (τέχνη) y producción de efectos útiles; la ética es una disciplina escolar fundada tras Platón.`,
+        sartre: `Construcción de valores y compromiso activo del sujeto humano como legislador de sentido.`,
+        marx: `Praxis transformadora de las condiciones materiales y sociales de existencia humana.`,
+        heidegger: `Actuar es «llevar a cabo» (<em>vollbringen</em>). La <strong>ética originaria</strong> es el ἦθος (morar en la proximidad del ser), anterior a teoría y praxis.`
+      },
+      {
+        id: `alienacion`,
+        dim: `Diagnóstico de la alienación`,
+        meta: `Ignora el desterramiento porque reduce lo sagrado a causas primeras o «valores supremos» de estimación subjetiva.`,
+        sartre: `No reconoce la esencialidad de lo histórico en el ser, permaneciendo dentro del subjetivismo moderno.`,
+        marx: `Reconoce en el <strong>extrañamiento</strong> (<em>Entfremdung</em>) una dimensión esencial de la historia, superior a Husserl y Sartre.`,
+        heidegger: `El extrañamiento hunde sus raíces en el <strong>desterramiento</strong> (<em>Heimatlosigkeit</em>), destino del olvido del ser y de la esencia de la técnica.`
+      }
+    ];
+
+    const GLOSSARY_TERMS = [
+      {
+        id: `ser`,
+        term: `Ser (Sein / Es gibt)`,
+        orig: `Sein · «es gibt» / «il y a»`,
+        cat: `ser`,
+        catLabel: `Ser y Claro`,
+        def: `El ser no es dios ni un fundamento del mundo ni un ente más. Está esencialmente más lejos que todo ente (porque es el claro mismo) y más próximo al hombre que cualquier ente. Para evitar tratarlo como un ente que «es», Heidegger dice «se da el ser» (es gibt): el ser se destina dando su verdad en lo abierto.`,
+        quote: `«Pero el ser, ¿qué es el ser? El ser "es" él mismo. Esto es lo que tiene que aprender a experimentar y a decir el pensar futuro.»`
+      },
+      {
+        id: `ente`,
+        term: `Lo ente (Seiendes)`,
+        orig: `Das Seiende · ὄν`,
+        cat: `ser`,
+        catLabel: `Ser y Claro`,
+        def: `Todo aquello que «es» algo particular: una roca, un animal, una obra de arte, una máquina, un ángel o dios. El hombre corriente y la metafísica se atienen siempre a lo ente como lo real o lo calculable, olvidando la luz del ser que permite que lo ente aparezca.`,
+        quote: `«Cuando el pensar representa a lo ente como ente, a lo que se refiere es al ser. Pero lo que está pensando de verdad es sólo lo ente como tal y jamás el ser como tal.»`
+      },
+      {
+        id: `claro`,
+        term: `Claro del ser (Lichtung)`,
+        orig: `Lichtung des Seins · Das Da`,
+        cat: `ser`,
+        catLabel: `Ser y Claro`,
+        def: `El espacio abierto o despejado en el que todo lo ente puede hacerse presente y mostrarse. Constituye el «aquí» (Da) del Dasein y el auténtico significado de «mundo» en la expresión «ser-en-el-mundo». La metafísica percibe lo que aparece en el claro, pero oculta el claro mismo.`,
+        quote: `«A estar en el claro del ser es a lo que yo llamo la ex-sistencia del hombre. Sólo el hombre tiene ese modo de ser.»`
+      },
+      {
+        id: `exsistencia`,
+        term: `Ex-sistencia (Ek-sistenz)`,
+        orig: `Ek-sistenz · Hinaus-stehen`,
+        cat: `hombre`,
+        catLabel: `Ex-sistencia`,
+        def: `No coincide con el término metafísico existentia (realidad efectiva o actualitas frente a essentia). Designa el estar fuera extáticamente dentro de la verdad del ser. Es la «substancia» o esencia histórica exclusiva del ser humano, por la que se distingue radicalmente de plantas y animales atados a su entorno.`,
+        quote: `«Pensada extáticamente, la ex-sistencia no coincide ni en contenido ni en forma con la existentia.»`
+      },
+      {
+        id: `pastor`,
+        term: `Pastor del ser`,
+        orig: `Hirt des Seins · Vecino del ser`,
+        cat: `hombre`,
+        catLabel: `Ex-sistencia`,
+        def: `Figura que reemplaza al sujeto moderno dominador. El hombre no es el «señor de lo ente», sino el guardián llamado por el propio ser para cuidar su verdad. En ese aparente «menos» frente al subjetivismo gana la esencial pobreza del pastor y habita en la vecindad del ser.`,
+        quote: `«El hombre no es el señor de lo ente. El hombre es el pastor del ser.»`
+      },
+      {
+        id: `arrojo`,
+        term: `Arrojo y Proyecto arrojado`,
+        orig: `Geworfenheit · Wurf · Entwurf`,
+        cat: `hombre`,
+        catLabel: `Ex-sistencia`,
+        def: `El proyecto (Entwurf) de la comprensión del ser no es una fabricación de la subjetividad humana. Quien arroja en ese proyectar es el ser mismo en su destino, arrojando al hombre hacia la ex-sistencia del «aquí» para que asuma su guarda.`,
+        quote: `«El que arroja en ese proyectar no es el hombre, sino el ser mismo, que destina al hombre a la ex-sistencia del ser-aquí.»`
+      },
+      {
+        id: `cuidado`,
+        term: `Cuidado (Sorge)`,
+        orig: `Sorge`,
+        cat: `hombre`,
+        catLabel: `Ex-sistencia`,
+        def: `No es una mera preocupación psicológica o moral, sino el rasgo fundamental del Dasein ex-sistente que soporta el «aquí» en cuanto claro del ser, guardando su verdad frente a la caída en lo ente.`,
+        quote: `«El hombre es el pastor del ser. Esto es lo único que pretende pensar Ser y tiempo cuando experimenta la existencia extática como "cuidado".»`
+      },
+      {
+        id: `casa`,
+        term: `La casa del ser`,
+        orig: `Haus des Seins`,
+        cat: `lenguaje`,
+        catLabel: `Lenguaje y Ética`,
+        def: `El lenguaje pensado desde la historia del ser. No es un instrumento comunicativo ni una metáfora espacial; es la morada establecida por el propio ser en la que habita la esencia ex-sistente del hombre, custodiada por pensadores y poetas.`,
+        quote: `«El lenguaje es la casa del ser. En su morada habita el hombre. Los pensadores y poetas son los guardianes de esa morada.»`
+      },
+      {
+        id: `ethos`,
+        term: `Ética originaria (Ἦθος)`,
+        orig: `Ἦθος ἀνθρώπῳ δαίμων`,
+        cat: `lenguaje`,
+        catLabel: `Lenguaje y Ética`,
+        def: `Relectura del fragmento 119 de Heráclito: ἦθος no significa «carácter», sino «estancia» ordinaria donde mora el hombre como espacio abierto para la presencia del dios (lo extraordinario). El pensar de la verdad del ser es ya esta ética originaria, anterior a teoría y praxis.`,
+        quote: `«La estancia (ordinaria) es para el hombre el espacio abierto para la presentación del dios (de lo extraordinario).»`
+      },
+      {
+        id: `vollbringen`,
+        term: `Llevar a cabo (Vollbringen)`,
+        orig: `Vollbringen · Producere`,
+        cat: `lenguaje`,
+        catLabel: `Lenguaje y Ética`,
+        def: `Verdadera esencia del actuar frente al utilitarismo técnico. Significa desplegar algo en la plenitud de su esencia y guiar hacia ella. El pensar lleva a cabo la relación del ser con el hombre al ofrecerle al ser su decir en el lenguaje.`,
+        quote: `«La esencia del actuar es el llevar a cabo. Llevar a cabo significa desplegar algo en la plenitud de su esencia.»`
+      },
+      {
+        id: `uno`,
+        term: `El «uno» y la opinión pública`,
+        orig: `Das Man`,
+        cat: `lenguaje`,
+        catLabel: `Lenguaje y Ética`,
+        def: `Concepto de Ser y tiempo (§§ 27 y 35) que no es mera sociología ni moralina existencial: señala cómo, bajo el dominio metafísico de la subjetividad, el lenguaje cae en medio de comunicación uniforme y la dictadura pública decide qué es comprensible o desechable.`,
+        quote: `«Así es como cae el lenguaje bajo la dictadura de la opinión pública. Ésta decide de antemano qué es comprensible.»`
+      },
+      {
+        id: `kehre`,
+        term: `El Viraje (Kehre)`,
+        orig: `Die Kehre`,
+        cat: `ser`,
+        catLabel: `Ser y Claro`,
+        def: `Giro decisivo previsto entre «Ser y tiempo» y la sección inédita «Tiempo y ser». No supone cambiar de opinión ni abandonar el primer proyecto, sino acceder por fin a la dimensión desde la que Ser y tiempo fue pensado: el olvido del ser.`,
+        quote: `«Dicho giro no consiste en un cambio del punto de vista de Ser y tiempo, sino que en él es donde ese pensar llega a su dimensión.»`
+      },
+      {
+        id: `ereignis`,
+        term: `Acontecimiento propio (Ereignis)`,
+        orig: `Ereignis`,
+        cat: `ser`,
+        catLabel: `Ser y Claro`,
+        def: `Según las notas de 1949, es desde 1936 la palabra conductora del pensar de Heidegger. Nombra el modo en que el ser y el hombre se pertenecen mutuamente: el pensar pertenece al ser como acontecimiento propio suyo, escuchándolo y des-diciéndolo.`,
+        quote: `«"Ereignis" [acontecimiento propio] es desde 1936 la palabra conductora de mi pensar.»`
+      },
+      {
+        id: `tecnica`,
+        term: `Técnica (Τέχνη) y Ge-stell`,
+        orig: `Τέχνη · Ἀληθεύειν · Ge-stell`,
+        cat: `critica`,
+        catLabel: `Técnica e Historia`,
+        def: `La técnica no es un simple utensilio moderno; es un destino de la historia del ser en su olvido. Procede de la τέχνη griega como modo del ἀληθεύειν (desocultar lo ente) y se vincula con la esencia oculta del materialismo y la disolución cibernética de la filosofía.`,
+        quote: `«En su esencia, la técnica es un destino, dentro de la historia del ser, de esa verdad del ser que reside en el olvido.»`
+      },
+      {
+        id: `desterramiento`,
+        term: `Desterramiento (Heimatlosigkeit)`,
+        orig: `Heimatlosigkeit · Entfremdung`,
+        cat: `critica`,
+        catLabel: `Técnica e Historia`,
+        def: `Apatricidad universal del hombre moderno causada por el abandono del ser de lo ente. Heidegger vincula explícitamente aquí el «extrañamiento» (Entfremdung) diagnosticado por Marx como un síntoma enraizado en este desterramiento ontológico.`,
+        quote: `«Eso que, partiendo de Hegel, Marx reconoció como extrañamiento del hombre hunde sus raíces en el desterramiento del hombre moderno.»`
+      },
+      {
+        id: `salvo`,
+        term: `Lo salvo, el mal y el desistir`,
+        orig: `Das Heil · Unheil · Nichten`,
+        cat: `critica`,
+        catLabel: `Técnica e Historia`,
+        def: `En la proximidad al ser se abre la dimensión de lo sagrado y lo salvo (das Heil), única donde puede aparecer lo divino. Con lo salvo comparece el mal como ferocidad (no mera falta moral) y el «desistir» (nichten) como esencia de la nada en el ser mismo.`,
+        quote: `«Tal vez lo característico de esta era mundial sea precisamente que se ha cerrado a la dimensión de lo salvo. Tal vez sea éste el único mal.»`
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        prompt: `1. ¿Qué significa para Heidegger la esencia del actuar como «llevar a cabo» (vollbringen) al inicio de la Carta?`,
+        options: [
+          `Producir un efecto práctico mensurable según su utilidad técnica o social.`,
+          `Desplegar algo en la plenitud de su esencia, guiando hacia ella; el pensar lleva a cabo la relación del ser con el hombre al llevarla al lenguaje.`,
+          `Someter el pensamiento teórico a la praxis política y moral para transformar el mundo.`,
+          `Construir un sistema científico riguroso capaz de competir con las ciencias naturales.`
+        ],
+        correct: 1,
+        rationale: `Frente a la visión utilitarista del actuar como producción de efectos, Heidegger define «llevar a cabo» (vollbringen) como desplegar algo en su esencia (producere). El pensar actúa al pensar, ofreciendo al ser la relación que éste ya ha dado al llevarla al lenguaje.`
+      },
+      {
+        prompt: `2. ¿Por qué afirma Heidegger que todo humanismo histórico (romano, renacentista, cristiano, marxista o sartreano) sigue siendo metafísico?`,
+        options: [
+          `Porque todos ellos defienden la inmortalidad del alma y la existencia de un Dios creador.`,
+          `Porque todos exigen el retorno erudito a las escuelas filosóficas de la Grecia tardía.`,
+          `Porque todos determinan la esencia del hombre desde una interpretación previa de lo ente en su totalidad, sin preguntar por la verdad del ser.`,
+          `Porque todos reducen la cultura occidental a un mero estilo de vida o ideología partidista.`
+        ],
+        correct: 2,
+        rationale: `Todo humanismo presupone la esencia más universal del hombre (generalmente como animal rationale) a partir de una interpretación previa de lo ente, olvidando preguntar por el ser mismo y por la relación del ser con el ser humano.`
+      },
+      {
+        prompt: `3. ¿Cuál es la crítica específica de Heidegger a la famosa tesis existencialista de Jean-Paul Sartre («la existencia precede a la esencia»)?`,
+        options: [
+          `Que Sartre niega la libertad humana y reduce al individuo a un organismo biológico.`,
+          `Que Sartre invierte la proposición metafísica platónica (essentia precede a existentia), y la inversión de una frase metafísica sigue siendo una frase metafísica.`,
+          `Que Sartre confunde la historia del espíritu de Hegel con el materialismo histórico de Marx.`,
+          `Que Sartre ignora la importancia de las tragedias griegas de Sófocles en la formación de la ética.`
+        ],
+        correct: 1,
+        rationale: `Sartre toma existentia y essentia en el sentido tradicional de la metafísica desde Platón e invierte su orden. Con esa inversión permanece detenido junto con la metafísica en el olvido de la verdad del ser, a diferencia de la ex-sistencia pensada en Ser y tiempo.`
+      },
+      {
+        prompt: `4. ¿Qué distingue a la «ex-sistencia» (Ek-sistenz) del hombre frente a la animalitas y a la existentia tradicional?`,
+        options: [
+          `La ex-sistencia es la mera realidad efectiva (actualitas) de un organismo dotado de razón.`,
+          `La ex-sistencia es el extático estar fuera en el claro de la verdad del ser, guardando el «aquí» (Da) en cuanto proyecto arrojado por el ser.`,
+          `La ex-sistencia es la facultad psicológica de experimentar vivencias subjetivas profundas.`,
+          `La ex-sistencia consiste en que el hombre crea el ser a través de su voluntad de poder.`
+        ],
+        correct: 1,
+        rationale: `Existentia significa actualitas (realidad efectiva frente a mera posibilidad). Ex-sistencia significa estar fuera extáticamente en el claro del ser. A diferencia de plantas y animales, atados a su entorno, sólo el hombre ex-siste en el mundo.`
+      },
+      {
+        prompt: `5. Al afirmar que «el hombre es el pastor del ser» y que gana «la esencial pobreza del pastor», ¿qué rechaza Heidegger?`,
+        options: [
+          `Rechaza toda forma de lenguaje poético y de cuidado por la naturaleza.`,
+          `Rechaza que el hombre sea el «señor de lo ente» y la substancia subjetiva que somete a lo ente bajo la objetividad.`,
+          `Rechaza la posibilidad de que los seres humanos vivan en sociedad y trabajen juntos.`,
+          `Rechaza cualquier diferencia entre el cuerpo humano y el organismo de un animal.`
+        ],
+        correct: 1,
+        rationale: `El hombre es menos respecto al hombre concebido desde la subjetividad dominadora (señor de lo ente), pero es más que el animal rationale: gana la dignidad de ser llamado por el propio ser para guardar su verdad como vecino del ser.`
+      },
+      {
+        prompt: `6. ¿Qué denuncia Heidegger cuando critica la conversión del lenguaje en «recámara de nuestras manipulaciones»?`,
+        options: [
+          `Que la poesía moderna ha abandonado la métrica clásica en favor del verso libre.`,
+          `Que, bajo el dominio de la subjetividad y la dictadura de la opinión pública («el uno»), el lenguaje queda reducido a instrumento de comunicación uniforme y dominio sobre lo ente.`,
+          `Que las traducciones del alemán al francés resultan lingüísticamente imposibles.`,
+          `Que la ciencia lingüística debe sustituir a la filosofía como disciplina rigurosa.`
+        ],
+        correct: 1,
+        rationale: `La decadencia del lenguaje es consecuencia de que, bajo la metafísica moderna de la subjetividad y el «uno» impersonal (das Man), el lenguaje cae fuera de su elemento como «casa del ser» y se vuelve mero medio técnico de objetivación.`
+      },
+      {
+        prompt: `7. ¿Por qué sostiene Heidegger que «pensar en valores es la mayor blasfemia que se pueda pensar contra el ser»?`,
+        options: [
+          `Porque la cultura, el arte y la dignidad humana carecen por completo de importancia.`,
+          `Porque designar algo como «valor» —incluso declarar a Dios «valor supremo»— es una subjetivización que reduce lo valorado a mero objeto de la estima humana.`,
+          `Porque sólo las ciencias matemáticas y físicas pueden establecer criterios objetivos.`,
+          `Porque los valores pertenecen exclusivamente a la tradición cristiana medieval.`
+        ],
+        correct: 1,
+        rationale: `Todo valorar es una subjetivización, incluso cuando valora positivamente: no deja ser a lo ente, sino que lo hace valer únicamente como objeto del quehacer estimativo del sujeto humano.`
+      },
+      {
+        prompt: `8. En el análisis del fragmento 119 de Heráclito (ἦθος ἀνθρώπῳ δαίμων) y la anécdota del horno, ¿cómo define Heidegger la «ética originaria»?`,
+        options: [
+          `Como un código de normas morales racionales construido por el sujeto para regular la técnica.`,
+          `Como el pensar que piensa la verdad del ser en cuanto estancia (ἦθος) ordinaria del hombre abierta a la presencia de lo extraordinario.`,
+          `Como una rama derivada de la ontología platónica y de las lecciones escolares de Aristóteles.`,
+          `Como la renuncia completa a toda regla o prescripción (νόμος) en la vida cotidiana.`
+        ],
+        correct: 1,
+        rationale: `Ἦθος significa estancia, lugar habitual donde se mora (como junto al horno de panadero donde «también están presentes los dioses»). El pensar de la verdad del ser es ya en sí mismo ética originaria, anterior a teoría y praxis.`
+      },
+      {
+        prompt: `9. ¿Qué es realmente el «viraje» (Kehre) según las aclaraciones de Heidegger en la Carta?`,
+        options: [
+          `Un abandono de las tesis centrales de Ser y tiempo tras comprobar que habían desembocado en un callejón sin salida.`,
+          `Una conversión religiosa tardía hacia el teísmo cristiano tradicional.`,
+          `No un cambio de punto de vista, sino la llegada a la dimensión desde la que se experimentó Ser y tiempo: el olvido del ser.`,
+          `La sustitución definitiva de la filosofía por la poesía lírica y la filología griega.`
+        ],
+        correct: 2,
+        rationale: `La tercera sección «Tiempo y ser» no se publicó en 1927 por falta de un lenguaje libre de la metafísica. La Kehre no cambia de punto de vista respecto a Ser y tiempo, sino que alcanza su horizonte originario: el olvido del ser.`
+      },
+      {
+        prompt: `10. ¿Por qué afirma Heidegger que la concepción marxista de la historia es superior a las de Husserl y Sartre, aunque siga dentro de la metafísica?`,
+        options: [
+          `Porque el marxismo demuestra científicamente que toda la realidad física está compuesta de materia atómica.`,
+          `Porque Marx, al experimentar el extrañamiento (Entfremdung), se adentra en una dimensión esencial de la historia cuya raíz es el desterramiento moderno, aunque piense lo ente como material de trabajo.`,
+          `Porque el colectivismo marxista logra superar definitivamente el subjetivismo de la Edad Moderna.`,
+          `Porque Marx fue el único pensador del siglo XIX que leyó y comentó los himnos de Hölderlin.`
+        ],
+        correct: 1,
+        rationale: `Mientras Husserl y Sartre no reconocen la esencialidad de lo histórico en el ser, Marx toca en el extrañamiento la raíz histórica del desterramiento (Heimatlosigkeit). No obstante, la esencia del materialismo y de la técnica permanece anclada en la metafísica de la subjetividad y el trabajo.`
+      }
+    ];
+
+    /* ============================================================
+       ESTADO DE LA APLICACIÓN (persistido con notebookAppApi)
+       ============================================================ */
+
+    const MODULE_IDS = [`mod-1`, `mod-2`, `mod-3`, `mod-4`, `mod-5`, `mod-6`, `mod-7`];
+
+    let appState = {
+      readModules: [],
+      beaufretIndex: 0,
+      revealedMisunderstandings: [],
+      schematicMode: `ser`,
+      schematicNodeId: `ser`,
+      timelineIndex: 0,
+      compareFocus: `all`,
+      compareDim: `all`,
+      glossaryCategory: `todos`,
+      glossarySelectedId: `ser`,
+      masteredTerms: [],
+      quizCurrent: 0,
+      quizAnswers: {}
+    };
+
+    async function saveAppState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (err) {
+        // Silencioso si el shim no está disponible en vista local
+      }
+    }
+
+    async function loadAppState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+          const loaded = await window.notebookAppApi.getAppState();
+          if (loaded && typeof loaded === `object`) {
+            appState = Object.assign({}, appState, loaded);
+            if (!Array.isArray(appState.readModules)) appState.readModules = [];
+            if (!Array.isArray(appState.revealedMisunderstandings)) appState.revealedMisunderstandings = [];
+            if (!Array.isArray(appState.masteredTerms)) appState.masteredTerms = [];
+            if (!appState.quizAnswers || typeof appState.quizAnswers !== `object`) appState.quizAnswers = {};
+          }
+        }
+      } catch (err) {
+        // Usar estado por defecto
+      }
+    }
+
+    /* ============================================================
+       MÓDULO I: PREGUNTAS DE BEAUFRET
+       ============================================================ */
+
+    function selectBeaufretQuestion(idx) {
+      appState.beaufretIndex = idx;
+      renderBeaufretQuestion();
+      saveAppState();
+    }
+
+    function renderBeaufretQuestion() {
+      const idx = appState.beaufretIndex || 0;
+      const item = BEAUFRET_QUESTIONS[idx] || BEAUFRET_QUESTIONS[0];
+      for (let i = 0; i < BEAUFRET_QUESTIONS.length; i++) {
+        const btn = document.getElementById(`bq-btn-${i}`);
+        if (btn) btn.setAttribute(`aria-selected`, i === idx ? `true` : `false`);
+      }
+      const box = document.getElementById(`bq-display`);
+      if (!box) return;
+      box.innerHTML = `
+        <span class="tag">${item.kicker}</span>
+        <p style="font-family: var(--font-headline); font-weight: 700; margin: var(--space-xs) 0 var(--space-sm); color: var(--on-surface);">
+          ${item.thesis}
+        </p>
+        <p style="font-size: 0.98rem; color: var(--on-surface-variant);">${item.body}</p>
+      `;
+    }
+
+    /* ============================================================
+       MÓDULO II: SEIS MALENTENDIDOS
+       ============================================================ */
+
+    function toggleMisunderstanding(idx) {
+      const pos = appState.revealedMisunderstandings.indexOf(idx);
+      if (pos === -1) {
+        appState.revealedMisunderstandings.push(idx);
+      } else {
+        appState.revealedMisunderstandings.splice(pos, 1);
+      }
+      renderMisunderstandings();
+      saveAppState();
+    }
+
+    function renderMisunderstandings() {
+      const grid = document.getElementById(`misunderstanding-grid`);
+      if (!grid) return;
+      grid.innerHTML = MISUNDERSTANDINGS.map((item, idx) => {
+        const isRev = appState.revealedMisunderstandings.includes(idx);
+        return `
+          <article class="mis-card ${isRev ? `is-revealed` : ``}">
+            <div>
+              <div class="mis-header">
+                <span class="tag">${item.tag}</span>
+              </div>
+              <h4 style="margin: var(--space-xs) 0 var(--space-sm); font-size: 1.15rem;">${item.title}</h4>
+              ${isRev
+                ? `<p style="font-size: 0.96rem; color: var(--on-surface);"><strong style="color: var(--primary);">Desde la verdad del ser:</strong> ${item.response}</p>`
+                : `<p style="font-size: 0.96rem; color: var(--on-surface-variant);"><strong>Objeción de la «lógica»:</strong> ${item.objection}</p>`
+              }
+            </div>
+            <button type="button" class="mis-toggle" aria-pressed="${isRev ? `true` : `false`}" onclick="toggleMisunderstanding(${idx})">
+              ${isRev ? `Ver objeción habitual` : `Revelar respuesta de Heidegger`}
+            </button>
+          </article>
+        `;
+      }).join(``);
+    }
+
+    /* ============================================================
+       MÓDULO III: ESQUEMA CONCEPTUAL SVG INTERACTIVO
+       ============================================================ */
+
+    function setSchematicMode(mode) {
+      appState.schematicMode = mode;
+      const nodes = SCHEMATIC_DATA[mode].nodes;
+      appState.schematicNodeId = nodes[0].id;
+      renderSchematic();
+      saveAppState();
+    }
+
+    function selectSchematicNode(nodeId) {
+      appState.schematicNodeId = nodeId;
+      renderSchematic();
+      saveAppState();
+    }
+
+    function renderSchematic() {
+      const mode = appState.schematicMode === `meta` ? `meta` : `ser`;
+      const serBtn = document.getElementById(`mode-ser-btn`);
+      const metaBtn = document.getElementById(`mode-meta-btn`);
+      if (serBtn) serBtn.classList.toggle(`is-selected`, mode === `ser`);
+      if (metaBtn) metaBtn.classList.toggle(`is-selected`, mode === `meta`);
+
+      const wrap = document.getElementById(`schematic-svg-wrap`);
+      const caption = document.getElementById(`schematic-caption`);
+      if (!wrap || !caption) return;
+
+      const nodes = SCHEMATIC_DATA[mode].nodes;
+      let activeNode = nodes.find((n) => n.id === appState.schematicNodeId);
+      if (!activeNode) {
+        activeNode = nodes[0];
+        appState.schematicNodeId = activeNode.id;
+      }
+
+      if (mode === `ser`) {
+        wrap.innerHTML = `
+          <svg class="schematic-svg" viewBox="0 0 560 320" role="img" aria-label="Esquema interactivo de la relación extática entre el Ser, el Claro, el Pastor y el Lenguaje">
+            <defs>
+              <marker id="arrow-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--outline)"></path>
+              </marker>
+              <marker id="arrow-claret" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--primary)"></path>
+              </marker>
+            </defs>
+
+            <!-- Claro del ser (marco punteado central) -->
+            <g class="svg-node ${activeNode.id === `claro` ? `is-active` : ``}" tabindex="0" role="button" aria-label="El Claro del ser" onclick="selectSchematicNode('claro')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectSchematicNode('claro');}">
+              <rect x="40" y="78" width="480" height="170" class="svg-box-clear"></rect>
+              <text x="54" y="98" class="svg-text-label" style="fill: var(--secondary);">El Claro del Ser (Lichtung / Das Da = «Mundo»)</text>
+            </g>
+
+            <!-- Líneas de relación -->
+            <line x1="280" y1="62" x2="280" y2="112" class="svg-line-accent" marker-end="url(#arrow-claret)"></line>
+            <line x1="185" y1="158" x2="230" y2="158" class="svg-line-accent" marker-end="url(#arrow-claret)"></line>
+            <line x1="330" y1="158" x2="375" y2="158" class="svg-line" marker-end="url(#arrow-ink)"></line>
+            <line x1="280" y1="202" x2="280" y2="256" class="svg-line-teal" marker-end="url(#arrow-ink)"></line>
+
+            <!-- Nodo: El Ser -->
+            <g class="svg-node ${activeNode.id === `ser` ? `is-active` : ``}" tabindex="0" role="button" aria-label="El Ser" onclick="selectSchematicNode('ser')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectSchematicNode('ser');}">
+              <rect x="170" y="12" width="220" height="50" class="svg-box"></rect>
+              <text x="280" y="34" text-anchor="middle" class="svg-text-head">EL SER (Es gibt)</text>
+              <text x="280" y="51" text-anchor="middle" class="svg-text-sub">Arroja y destina su verdad</text>
+            </g>
+
+            <!-- Nodo: El Pastor del Ser -->
+            <g class="svg-node ${activeNode.id === `pastor` ? `is-active` : ``}" tabindex="0" role="button" aria-label="El Hombre como Pastor del Ser" onclick="selectSchematicNode('pastor')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectSchematicNode('pastor');}">
+              <rect x="195" y="116" width="170" height="84" class="svg-box"></rect>
+              <text x="280" y="140" text-anchor="middle" class="svg-text-label">Ex-sistencia</text>
+              <text x="280" y="160" text-anchor="middle" class="svg-text-head">Pastor del Ser</text>
+              <text x="280" y="180" text-anchor="middle" class="svg-text-sub">Cuidado (Sorge) · Guarda</text>
+            </g>
+
+            <!-- Nodo: Lenguaje -->
+            <g class="svg-node ${activeNode.id === `lenguaje` ? `is-active` : ``}" tabindex="0" role="button" aria-label="El Lenguaje como casa del ser" onclick="selectSchematicNode('lenguaje')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectSchematicNode('lenguaje');}">
+              <rect x="52" y="124" width="130" height="68" class="svg-box"></rect>
+              <text x="117" y="148" text-anchor="middle" class="svg-text-label">Morada</text>
+              <text x="117" y="166" text-anchor="middle" class="svg-text-head">Casa del Ser</text>
+              <text x="117" y="182" text-anchor="middle" class="svg-text-sub">Lenguaje</text>
+            </g>
+
+            <!-- Nodo: Lo Ente -->
+            <g class="svg-node ${activeNode.id === `ente` ? `is-active` : ``}" tabindex="0" role="button" aria-label="Lo Ente" onclick="selectSchematicNode('ente')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectSchematicNode('ente');}">
+              <rect x="378" y="124" width="130" height="68" class="svg-box"></rect>
+              <text x="443" y="148" text-anchor="middle" class="svg-text-label">Aparece aquí</text>
+              <text x="443" y="166" text-anchor="middle" class="svg-text-head">Lo Ente</text>
+              <text x="443" y="182" text-anchor="middle" class="svg-text-sub">A la luz del ser</text>
+            </g>
+
+            <text x="280" y="276" text-anchor="middle" class="svg-text-sub">Haz clic en cualquier elemento del esquema para inspeccionar su definición textual</text>
+          </svg>
+        `;
+      } else {
+        wrap.innerHTML = `
+          <svg class="schematic-svg" viewBox="0 0 560 300" role="img" aria-label="Esquema metafísico tradicional: Sujeto dominador y olvido del ser">
+            <defs>
+              <marker id="arrow-meta" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--outline)"></path>
+              </marker>
+            </defs>
+
+            <!-- Relación sujeto-objeto -->
+            <line x1="210" y1="88" x2="342" y2="88" class="svg-line" marker-end="url(#arrow-meta)"></line>
+            <text x="276" y="78" text-anchor="middle" class="svg-text-sub">Calcula / Valora / Domina</text>
+            <line x1="125" y1="132" x2="125" y2="180" class="svg-line" marker-end="url(#arrow-meta)"></line>
+
+            <!-- Nodo: Sujeto -->
+            <g class="svg-node ${activeNode.id === `sujeto` ? `is-active` : ``}" tabindex="0" role="button" aria-label="El hombre como sujeto" onclick="selectSchematicNode('sujeto')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectSchematicNode('sujeto');}">
+              <rect x="35" y="46" width="175" height="84" class="svg-box"></rect>
+              <text x="122" y="70" text-anchor="middle" class="svg-text-label">Ego cogito</text>
+              <text x="122" y="90" text-anchor="middle" class="svg-text-head">Sujeto / Animal</text>
+              <text x="122" y="110" text-anchor="middle" class="svg-text-sub">Señor de lo ente</text>
+            </g>
+
+            <!-- Nodo: Objeto -->
+            <g class="svg-node ${activeNode.id === `objeto` ? `is-active` : ``}" tabindex="0" role="button" aria-label="Lo ente como objeto" onclick="selectSchematicNode('objeto')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectSchematicNode('objeto');}">
+              <rect x="348" y="46" width="175" height="84" class="svg-box"></rect>
+              <text x="435" y="70" text-anchor="middle" class="svg-text-label">Material de trabajo</text>
+              <text x="435" y="90" text-anchor="middle" class="svg-text-head">Objeto / Valor</text>
+              <text x="435" y="110" text-anchor="middle" class="svg-text-sub">Causa y efecto</text>
+            </g>
+
+            <!-- Nodo: Lenguaje técnico -->
+            <g class="svg-node ${activeNode.id === `lenguaje-tec` ? `is-active` : ``}" tabindex="0" role="button" aria-label="Lenguaje como instrumento" onclick="selectSchematicNode('lenguaje-tec')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectSchematicNode('lenguaje-tec');}">
+              <rect x="35" y="186" width="215" height="66" class="svg-box"></rect>
+              <text x="142" y="210" text-anchor="middle" class="svg-text-label">Opinión pública</text>
+              <text x="142" y="230" text-anchor="middle" class="svg-text-head">Lenguaje instrumental</text>
+            </g>
+
+            <!-- Nodo: Olvido del ser -->
+            <g class="svg-node ${activeNode.id === `olvido` ? `is-active` : ``}" tabindex="0" role="button" aria-label="Olvido del ser" onclick="selectSchematicNode('olvido')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectSchematicNode('olvido');}">
+              <rect x="290" y="186" width="233" height="66" class="svg-box-clear"></rect>
+              <text x="406" y="210" text-anchor="middle" class="svg-text-label" style="fill: var(--primary);">Diferencia oculta</text>
+              <text x="406" y="230" text-anchor="middle" class="svg-text-head">Olvido del Ser</text>
+            </g>
+
+            <text x="280" y="282" text-anchor="middle" class="svg-text-sub">Haz clic en cualquier elemento del esquema para inspeccionar su crítica</text>
+          </svg>
+        `;
+      }
+
+      caption.innerHTML = `
+        <span class="tag">${activeNode.role}</span>
+        <h4 style="margin: var(--space-xs) 0; font-size: 1.1rem;">${activeNode.title}</h4>
+        <p style="font-size: 0.96rem; margin: 0;">${activeNode.desc}</p>
+      `;
+    }
+
+    /* ============================================================
+       MÓDULO VI: LÍNEA DE TIEMPO DEL VIRAJE (KEHRE)
+       ============================================================ */
+
+    function selectTimelineStep(idx) {
+      appState.timelineIndex = idx;
+      renderTimeline();
+      saveAppState();
+    }
+
+    function renderTimeline() {
+      const idx = appState.timelineIndex || 0;
+      const step = TIMELINE_STEPS[idx] || TIMELINE_STEPS[0];
+      for (let i = 0; i < TIMELINE_STEPS.length; i++) {
+        const btn = document.getElementById(`tl-btn-${i}`);
+        if (btn) btn.setAttribute(`aria-selected`, i === idx ? `true` : `false`);
+      }
+      const box = document.getElementById(`timeline-detail`);
+      if (!box) return;
+      box.innerHTML = `
+        <span class="section-label">${step.year}</span>
+        <h3 style="margin-bottom: var(--space-sm);">${step.subtitle}</h3>
+        <p>${step.text}</p>
+      `;
+    }
+
+    /* ============================================================
+       CUADRO COMPARATIVO INTERACTIVO
+       ============================================================ */
+
+    function updateComparisonView() {
+      const focusEl = document.getElementById(`compare-focus`);
+      const dimEl = document.getElementById(`compare-dim`);
+      if (focusEl) appState.compareFocus = focusEl.value;
+      if (dimEl) appState.compareDim = dimEl.value;
+      renderComparisonTable();
+      saveAppState();
+    }
+
+    function renderComparisonTable() {
+      const focus = appState.compareFocus || `all`;
+      const dim = appState.compareDim || `all`;
+
+      const focusEl = document.getElementById(`compare-focus`);
+      const dimEl = document.getElementById(`compare-dim`);
+      if (focusEl) focusEl.value = focus;
+      if (dimEl) dimEl.value = dim;
+
+      const table = document.getElementById(`comparison-table`);
+      const tbody = document.getElementById(`comparison-tbody`);
+      if (!table || !tbody) return;
+
+      const ths = table.querySelectorAll(`thead th[data-col]`);
+      ths.forEach((th) => {
+        const col = th.getAttribute(`data-col`);
+        th.classList.toggle(`col-highlight`, focus !== `all` && col === focus);
+        th.classList.toggle(`col-dim`, focus !== `all` && col !== focus);
+      });
+
+      const rows = dim === `all`
+        ? COMPARISON_ROWS
+        : COMPARISON_ROWS.filter((r) => r.id === dim);
+
+      const cols = [`meta`, `sartre`, `marx`, `heidegger`];
+
+      tbody.innerHTML = rows.map((row) => {
+        const cells = cols.map((col) => {
+          const cls = focus === `all`
+            ? ``
+            : (col === focus ? `col-highlight` : `col-dim`);
+          return `<td class="${cls}">${row[col]}</td>`;
+        }).join(``);
+        return `
+          <tr>
+            <td><span class="dim-title">${row.dim}</span></td>
+            ${cells}
+          </tr>
+        `;
+      }).join(``);
+    }
+
+    /* ============================================================
+       GLOSARIO CONCEPTUAL INTERACTIVO
+       ============================================================ */
+
+    function setGlossaryCategory(cat, btn) {
+      appState.glossaryCategory = cat;
+      const container = document.getElementById(`glossary-filters`);
+      if (container) {
+        container.querySelectorAll(`button`).forEach((b) => {
+          b.classList.toggle(`is-selected`, b === btn);
+        });
+      }
+      renderGlossaryList();
+      saveAppState();
+    }
+
+    function selectGlossaryTerm(id) {
+      appState.glossarySelectedId = id;
+      renderGlossaryList();
+      renderGlossaryDetail();
+      saveAppState();
+    }
+
+    function toggleMasteredTerm(id) {
+      const idx = appState.masteredTerms.indexOf(id);
+      if (idx === -1) {
+        appState.masteredTerms.push(id);
+      } else {
+        appState.masteredTerms.splice(idx, 1);
+      }
+      renderGlossaryList();
+      renderGlossaryDetail();
+      saveAppState();
+    }
+
+    function renderGlossaryList() {
+      const searchEl = document.getElementById(`glossary-search`);
+      const listEl = document.getElementById(`glossary-list`);
+      const emptyEl = document.getElementById(`glossary-empty`);
+      if (!listEl) return;
+
+      const query = searchEl ? searchEl.value.trim().toLowerCase() : ``;
+      const cat = appState.glossaryCategory || `todos`;
+
+      const filtered = GLOSSARY_TERMS.filter((t) => {
+        const catOk = cat === `todos` || t.cat === cat;
+        if (!catOk) return false;
+        if (!query) return true;
+        return (
+          t.term.toLowerCase().includes(query) ||
+          t.orig.toLowerCase().includes(query) ||
+          t.def.toLowerCase().includes(query)
+        );
+      });
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = ``;
+        if (emptyEl) emptyEl.style.display = `block`;
+        return;
+      }
+
+      if (emptyEl) emptyEl.style.display = `none`;
+
+      if (!filtered.some((t) => t.id === appState.glossarySelectedId)) {
+        appState.glossarySelectedId = filtered[0].id;
+      }
+
+      listEl.innerHTML = filtered.map((t) => {
+        const isSel = t.id === appState.glossarySelectedId;
+        const isMastered = appState.masteredTerms.includes(t.id);
+        return `
+          <button type="button" class="glossary-item" role="option" aria-selected="${isSel ? `true` : `false`}" onclick="selectGlossaryTerm('${t.id}')">
+            <div>
+              <span class="g-term">${t.term}</span>
+              <span class="g-orig" style="display: block;">${t.orig}</span>
+            </div>
+            <span class="g-badge">${isMastered ? `Dominado ✓` : t.catLabel}</span>
+          </button>
+        `;
+      }).join(``);
+
+      renderGlossaryDetail();
+    }
+
+    function renderGlossaryDetail() {
+      const detailEl = document.getElementById(`glossary-detail`);
+      if (!detailEl) return;
+
+      const term = GLOSSARY_TERMS.find((t) => t.id === appState.glossarySelectedId) || GLOSSARY_TERMS[0];
+      const isMastered = appState.masteredTerms.includes(term.id);
+
+      detailEl.innerHTML = `
+        <span class="section-label">${term.catLabel} · ${appState.masteredTerms.length} / ${GLOSSARY_TERMS.length} dominados</span>
+        <h3 style="margin-bottom: var(--space-xs);">${term.term}</h3>
+        <p style="font-style: italic; color: var(--on-surface-variant); margin-bottom: var(--space-md);">${term.orig}</p>
+        <p style="margin-bottom: var(--space-md);">${term.def}</p>
+        <blockquote class="pull-quote" style="font-size: 1.05rem; margin: var(--space-md) 0;">
+          ${term.quote}
+        </blockquote>
+        <button type="button" class="mark-read-btn" aria-pressed="${isMastered ? `true` : `false`}" onclick="toggleMasteredTerm('${term.id}')">
+          ${isMastered ? `Concepto dominado ✓` : `Marcar concepto como dominado`}
+        </button>
+      `;
+    }
+
+    /* ============================================================
+       CUESTIONARIO DE AUTOEVALUACIÓN
+       ============================================================ */
+
+    function answerQuiz(qIdx, optIdx) {
+      if (typeof appState.quizAnswers[qIdx] === `number`) return;
+      appState.quizAnswers[qIdx] = optIdx;
+      renderQuiz();
+      updateProgressUI();
+      saveAppState();
+    }
+
+    function jumpQuiz(qIdx) {
+      appState.quizCurrent = qIdx;
+      renderQuiz();
+      saveAppState();
+    }
+
+    function stepQuiz(delta) {
+      const next = appState.quizCurrent + delta;
+      if (next < 0 || next >= QUIZ_QUESTIONS.length) return;
+      appState.quizCurrent = next;
+      renderQuiz();
+      saveAppState();
+    }
+
+    function handleQuizReset(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Pulsa otra vez para reiniciar`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reiniciar cuestionario`;
+      appState.quizAnswers = {};
+      appState.quizCurrent = 0;
+      renderQuiz();
+      updateProgressUI();
+      saveAppState();
+    }
+
+    function renderQuiz() {
+      const qIdx = appState.quizCurrent || 0;
+      const q = QUIZ_QUESTIONS[qIdx] || QUIZ_QUESTIONS[0];
+      const chosen = appState.quizAnswers[qIdx];
+      const hasAnswered = typeof chosen === `number`;
+
+      const answeredCount = Object.keys(appState.quizAnswers).length;
+      let correctCount = 0;
+      for (const k in appState.quizAnswers) {
+        const idxNum = Number(k);
+        if (QUIZ_QUESTIONS[idxNum] && appState.quizAnswers[k] === QUIZ_QUESTIONS[idxNum].correct) {
+          correctCount++;
+        }
+      }
+
+      const progText = document.getElementById(`quiz-progress-text`);
+      const scoreText = document.getElementById(`quiz-score-text`);
+      if (progText) progText.textContent = `Pregunta ${qIdx + 1} de ${QUIZ_QUESTIONS.length}`;
+      if (scoreText) scoreText.textContent = `Aciertos: ${correctCount} / ${answeredCount} respondidas`;
+
+      const area = document.getElementById(`quiz-question-area`);
+      if (area) {
+        const letters = [`A`, `B`, `C`, `D`];
+        const optionsHtml = q.options.map((optText, i) => {
+          let cls = `quiz-option`;
+          if (hasAnswered) {
+            if (i === q.correct) cls += ` is-correct`;
+            else if (i === chosen) cls += ` is-wrong`;
+          }
+          return `
+            <button type="button" class="${cls}" ${hasAnswered ? `disabled` : ``} onclick="answerQuiz(${qIdx}, ${i})">
+              <span class="quiz-letter">${letters[i]}</span>
+              <span>${optText}</span>
+            </button>
+          `;
+        }).join(``);
+
+        let feedbackHtml = ``;
+        if (hasAnswered) {
+          const isRight = chosen === q.correct;
+          feedbackHtml = `
+            <div class="quiz-feedback ${isRight ? `is-good` : `is-bad`}" role="status">
+              <span class="label-voice" style="color: ${isRight ? `var(--positive)` : `var(--error)`}; display: block; margin-bottom: var(--space-xs);">
+                ${isRight ? `Respuesta correcta` : `Respuesta incorrecta`}
+              </span>
+              <p style="margin: 0; font-size: 0.98rem;">${q.rationale}</p>
+            </div>
+          `;
+        }
+
+        area.innerHTML = `
+          <h3 style="margin-bottom: var(--space-md);">${q.prompt}</h3>
+          <div class="quiz-options">${optionsHtml}</div>
+          ${feedbackHtml}
+        `;
+      }
+
+      const prevBtn = document.getElementById(`quiz-prev-btn`);
+      const nextBtn = document.getElementById(`quiz-next-btn`);
+      if (prevBtn) prevBtn.disabled = qIdx === 0;
+      if (nextBtn) nextBtn.disabled = qIdx === QUIZ_QUESTIONS.length - 1;
+
+      const dotsEl = document.getElementById(`quiz-dots`);
+      if (dotsEl) {
+        dotsEl.innerHTML = QUIZ_QUESTIONS.map((item, idx) => {
+          const ans = appState.quizAnswers[idx];
+          let cls = `quiz-dot`;
+          if (idx === qIdx) cls += ` is-current`;
+          if (typeof ans === `number`) {
+            cls += ans === item.correct ? ` is-right` : ` is-wrong`;
+          }
+          return `<button type="button" class="${cls}" aria-label="Ir a la pregunta ${idx + 1}" onclick="jumpQuiz(${idx})">${idx + 1}</button>`;
+        }).join(``);
+      }
+    }
+
+    /* ============================================================
+       PROGRESO DE LECTURA Y NAVEGACIÓN
+       ============================================================ */
+
+    function toggleModuleRead(modId, btn) {
+      const pos = appState.readModules.indexOf(modId);
+      if (pos === -1) {
+        appState.readModules.push(modId);
+      } else {
+        appState.readModules.splice(pos, 1);
+      }
+      updateProgressUI();
+      saveAppState();
+    }
+
+    function updateProgressUI() {
+      const readCount = appState.readModules.length;
+      const pct = Math.round((readCount / MODULE_IDS.length) * 100);
+
+      const labelEl = document.getElementById(`progress-label`);
+      const fillEl = document.getElementById(`progress-fill`);
+      if (labelEl) labelEl.textContent = `Progreso de lectura: ${readCount} / ${MODULE_IDS.length} módulos`;
+      if (fillEl) fillEl.style.width = `${pct}%`;
+
+      MODULE_IDS.forEach((id) => {
+        const isRead = appState.readModules.includes(id);
+        const btn = document.querySelector(`[data-module-btn="${id}"]`);
+        if (btn) {
+          btn.setAttribute(`aria-pressed`, isRead ? `true` : `false`);
+          btn.textContent = isRead ? `Módulo completado ✓` : `Marcar módulo leído`;
+        }
+        const navLink = document.querySelector(`.nav-jump[data-mod="${id}"]`);
+        if (navLink) navLink.classList.toggle(`is-read`, isRead);
+      });
+
+      const miniQuiz = document.getElementById(`quiz-mini-status`);
+      if (miniQuiz) {
+        const answeredCount = Object.keys(appState.quizAnswers).length;
+        if (answeredCount === 0) {
+          miniQuiz.textContent = `Autoevaluación: sin responder`;
+        } else {
+          let right = 0;
+          for (const k in appState.quizAnswers) {
+            if (QUIZ_QUESTIONS[Number(k)] && appState.quizAnswers[k] === QUIZ_QUESTIONS[Number(k)].correct) right++;
+          }
+          miniQuiz.textContent = `Autoevaluación: ${right}/${answeredCount} aciertos`;
+        }
+      }
+    }
+
+    function initScrollObservers() {
+      const sections = document.querySelectorAll(`.reveal-section`);
+      if (`IntersectionObserver` in window) {
+        const revealObs = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add(`is-visible`);
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08 });
+
+        sections.forEach((sec) => revealObs.observe(sec));
+
+        const navObs = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && entry.target.id) {
+              document.querySelectorAll(`.nav-jump`).forEach((a) => {
+                a.classList.toggle(`is-active`, a.getAttribute(`data-mod`) === entry.target.id);
+              });
+            }
+          });
+        }, { rootMargin: `-20% 0px -65% 0px` });
+
+        document.querySelectorAll(`section[id]`).forEach((sec) => navObs.observe(sec));
+      } else {
+        sections.forEach((sec) => sec.classList.add(`is-visible`));
+      }
+    }
+
+    /* ============================================================
+       INICIALIZACIÓN PRINCIPAL
+       ============================================================ */
+
+    async function initApp() {
+      await loadAppState();
+
+      // Sincronizar filtros del glosario si venía guardado
+      const filterWrap = document.getElementById(`glossary-filters`);
+      if (filterWrap) {
+        filterWrap.querySelectorAll(`button`).forEach((b) => {
+          b.classList.toggle(`is-selected`, b.getAttribute(`data-cat`) === appState.glossaryCategory);
+        });
+      }
+
+      renderBeaufretQuestion();
+      renderMisunderstandings();
+      renderSchematic();
+      renderTimeline();
+      renderComparisonTable();
+      renderGlossaryList();
+      renderQuiz();
+      updateProgressUI();
+      initScrollObservers();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>
