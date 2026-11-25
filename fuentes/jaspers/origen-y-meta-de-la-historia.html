@@ -1,0 +1,2258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>Origen y meta de la historia — Karl Jaspers | Base de conocimientos interactiva</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Estilo Briefing: papel piedra cálido y tinta editorial */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --on-secondary: #ffffff;
+      --tertiary: #785008;
+      --error: #b42318;
+      --on-error: #ffffff;
+
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      /* Tokens auxiliares armonizados (cero hex fuera de :root) */
+      --tag-amber-bg: #f5e6c4;
+      --secondary-tint: #eaf1f4;
+      --positive-tint: #e8f3ee;
+      --error-tint: #fdeceb;
+      --button-secondary-border: #c8c4b8;
+      --surface-hover-dark: #2f3237;
+
+      --font-headline: 'Source Serif 4', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --secondary-btn-border: 1px solid var(--button-secondary-border);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* 2. Tokens compartidos */
+      --positive: #2b6e52;
+      --warning: #785008;
+      --focus: #1f4e5f;
+
+      /* Escala tipográfica narrativa */
+      --display-size: clamp(2.35rem, 1.4rem + 3.6vw, 4.1rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.8vw, 2.35rem);
+      --subhead-size: clamp(1.15rem, 1.05rem + 0.45vw, 1.4rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.1rem);
+      --label-size: 0.75rem;
+
+      /* Escala de espaciado (base 4pt) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Movimiento */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Reset base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      position: static !important;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1160px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .page-grid * {
+      min-width: 0;
+    }
+
+    /* Enlaces y foco accesible */
+    a {
+      color: var(--secondary);
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+
+    a:hover {
+      color: var(--on-surface);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    /* Barras de dossier y tipografía editorial */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .dossier-pill {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      display: inline-block;
+    }
+
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      color: var(--on-surface);
+      letter-spacing: var(--heading-tracking);
+      margin: 0;
+    }
+
+    h1 {
+      font-size: var(--display-size);
+      line-height: 1.07;
+    }
+
+    h2 {
+      font-size: var(--headline-size);
+      line-height: 1.13;
+      margin-bottom: var(--space-md);
+    }
+
+    h3 {
+      font-size: var(--subhead-size);
+      line-height: 1.24;
+      margin-bottom: var(--space-sm);
+    }
+
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 66ch;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      line-height: 1.42;
+      color: var(--secondary);
+      margin-top: var(--space-md);
+      margin-bottom: var(--space-md);
+      max-width: 62ch;
+    }
+
+    .prose-lead {
+      color: var(--on-surface-variant);
+      font-size: var(--body-size);
+      max-width: 65ch;
+      margin-bottom: var(--space-lg);
+    }
+
+    /* Botones */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border: 1px solid var(--primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--surface-hover-dark);
+      color: var(--on-primary);
+    }
+
+    .btn-secondary {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      border: var(--secondary-btn-border);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--surface-container);
+      color: var(--on-surface);
+    }
+
+    .btn-secondary[aria-pressed="true"] {
+      background-color: var(--secondary);
+      color: var(--on-secondary);
+      border-color: var(--secondary);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* Navegación por anclas */
+    .toc-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+      padding-top: var(--space-md);
+      border-top: var(--card-border);
+    }
+
+    .toc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+    }
+
+    .toc-link:hover {
+      background-color: var(--surface-container);
+      box-shadow: inset 0 -2px 0 var(--secondary);
+    }
+
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Tarjetas de cifras clave */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .card-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    .figure-card {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+
+    .figure-card-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+    }
+
+    .figure-card .value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.6rem, 1.25rem + 1vw, 2.1rem);
+      line-height: 1.15;
+      color: var(--on-surface);
+      font-variant-numeric: lining-nums tabular-nums;
+      margin-bottom: var(--space-sm);
+    }
+
+    .figure-card-desc {
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Etiquetas e insignias */
+    .tag {
+      display: inline-block;
+      background-color: var(--tag-amber-bg);
+      color: var(--tertiary);
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+    }
+
+    .tag-petrol {
+      background-color: var(--secondary-tint);
+      color: var(--secondary);
+    }
+
+    /* Caja de metodología / nota lateral */
+    .aside-box {
+      background-color: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-lg);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+    }
+
+    .aside-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Sección 02: Esquema ascendente interactivo */
+    .timeline-shell {
+      container-type: inline-size;
+    }
+
+    .timeline-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    @container (max-width: 720px) {
+      .timeline-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .strata-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .strata-direction {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--secondary);
+      padding: var(--space-xs) 0;
+    }
+
+    .stratum-btn {
+      width: 100%;
+      text-align: left;
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: center;
+      min-height: 60px;
+      transition: background-color var(--dur-short) var(--ease-out),
+                  box-shadow var(--dur-short) var(--ease-out);
+    }
+
+    .stratum-btn:hover {
+      background-color: var(--surface-container);
+    }
+
+    .stratum-btn[aria-pressed="true"] {
+      background-color: var(--secondary-tint);
+      box-shadow: inset 4px 0 0 var(--secondary), 0 0 0 1px var(--secondary);
+    }
+
+    .stratum-btn.is-axis {
+      border-left: 4px solid var(--primary-container);
+    }
+
+    .stratum-btn.is-axis[aria-pressed="true"] {
+      box-shadow: inset 4px 0 0 var(--primary-container), 0 0 0 1px var(--secondary);
+    }
+
+    .stratum-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.0625rem;
+      color: var(--on-surface);
+      display: block;
+    }
+
+    .stratum-sub {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      display: block;
+      margin-top: var(--space-xs);
+    }
+
+    .detail-panel {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-top: 3px solid var(--secondary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .detail-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+
+    .detail-list {
+      margin: 0;
+      padding-left: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .detail-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding-top: var(--space-md);
+      border-top: var(--card-border);
+    }
+
+    /* Sección 03: Matriz comparativa */
+    .matrix-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .comparison-card {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .comparison-card.is-pole-a {
+      border-top: 3px solid var(--data-1);
+    }
+
+    .comparison-card.is-pole-b {
+      border-top: 3px solid var(--data-2);
+    }
+
+    .criteria-table-wrap {
+      overflow-x: auto;
+      margin-top: var(--space-lg);
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+    }
+
+    table.briefing-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+
+    table.briefing-table thead th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface);
+      padding: var(--space-md);
+      border-bottom: var(--section-rule);
+      background-color: var(--surface-container);
+    }
+
+    table.briefing-table tbody td {
+      padding: var(--space-md);
+      border-bottom: var(--card-border);
+      vertical-align: top;
+    }
+
+    table.briefing-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Sección 04: Ciencia, técnica y metas */
+    .quote-band {
+      background-color: var(--surface-container);
+      border-left: 4px solid var(--primary-container);
+      padding: var(--space-lg) var(--space-xl);
+      border-radius: 0 var(--rounded-lg) var(--rounded-lg) 0;
+      margin-top: var(--space-lg);
+    }
+
+    .quote-band blockquote {
+      margin: 0 0 var(--space-sm) 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: var(--subhead-size);
+      line-height: 1.45;
+      color: var(--on-surface);
+    }
+
+    .goals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    /* Sección 05: Base de conocimientos buscable */
+    .kb-controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+      background-color: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-lg);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface);
+    }
+
+    .field-input, .field-select {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: var(--secondary-btn-border);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      font-size: 0.9375rem;
+      width: 100%;
+    }
+
+    .field-select {
+      padding-right: var(--space-xl);
+    }
+
+    .kb-status {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+    }
+
+    .kb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .kb-card {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      transition: box-shadow var(--dur-short) var(--ease-out);
+    }
+
+    .kb-card.is-highlighted {
+      box-shadow: 0 0 0 2px var(--secondary);
+    }
+
+    .kb-relations {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      margin-top: auto;
+      padding-top: var(--space-sm);
+      border-top: var(--card-border);
+    }
+
+    .rel-chip {
+      min-height: 36px;
+      padding: var(--space-xs) var(--space-sm);
+      background-color: var(--surface-container);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      color: var(--secondary);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .rel-chip:hover {
+      background-color: var(--secondary-tint);
+    }
+
+    .empty-state {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-md);
+    }
+
+    /* Sección 06: FAQ y Cuestionario */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .faq-item {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+    }
+
+    .faq-trigger {
+      width: 100%;
+      min-height: 52px;
+      padding: var(--space-md) var(--space-lg);
+      background-color: transparent;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      color: var(--on-surface);
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .faq-trigger:hover {
+      background-color: var(--surface-container);
+    }
+
+    .faq-icon {
+      flex-shrink: 0;
+      transition: transform var(--dur-short) var(--ease-in-out);
+      color: var(--secondary);
+    }
+
+    .faq-trigger[aria-expanded="true"] .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-panel {
+      padding: 0 var(--space-lg) var(--space-lg);
+      color: var(--on-surface-variant);
+      border-top: var(--card-border);
+      padding-top: var(--space-md);
+    }
+
+    .faq-panel[hidden] {
+      display: none;
+    }
+
+    /* Cuestionario */
+    .quiz-shell {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-top: 3px solid var(--outline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+    }
+
+    .quiz-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding-bottom: var(--space-md);
+      margin-bottom: var(--space-lg);
+      border-bottom: var(--card-border);
+    }
+
+    .quiz-score-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+    }
+
+    .quiz-questions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xl);
+    }
+
+    .quiz-q {
+      padding-bottom: var(--space-lg);
+      border-bottom: var(--card-border);
+    }
+
+    .quiz-q:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .quiz-option {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--background);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      text-align: left;
+      cursor: pointer;
+      color: var(--on-surface);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .quiz-option:hover:not(:disabled) {
+      background-color: var(--surface-container);
+    }
+
+    .quiz-option.is-correct {
+      background-color: var(--positive-tint);
+      box-shadow: inset 4px 0 0 var(--positive);
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+
+    .quiz-option.is-wrong {
+      background-color: var(--error-tint);
+      box-shadow: inset 4px 0 0 var(--error);
+      color: var(--on-surface);
+    }
+
+    .quiz-feedback {
+      margin-top: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.9rem;
+    }
+
+    .quiz-feedback.is-correct {
+      background-color: var(--positive-tint);
+      color: var(--positive);
+    }
+
+    .quiz-feedback.is-wrong {
+      background-color: var(--error-tint);
+      color: var(--error);
+    }
+
+    /* Footer y CTA */
+    .cta-footer {
+      background-color: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-xl);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .inline-status {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--positive);
+      font-weight: 600;
+    }
+
+    .sources-note {
+      padding-top: var(--space-md);
+      border-top: var(--card-border);
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Animaciones suaves de entrada */
+    .reveal-section {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out),
+                  transform var(--dur-long) var(--ease-out);
+    }
+
+    .reveal-section.is-pending {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    /* Adaptación móvil */
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+
+      .aside-grid,
+      .comparison-grid,
+      .kb-controls {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-panel,
+      .quiz-shell,
+      .cta-footer {
+        padding: var(--space-lg);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- ENCABEZADO / PORTADA -->
+    <header>
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Dossier filosófico</span>
+          <span class="dossier-meta">Karl Jaspers · 1949 · Trad. Fernando Vela (1951)</span>
+        </div>
+        <span class="dossier-meta">Base de conocimientos</span>
+      </div>
+
+      <h1>Origen y meta de la historia</h1>
+      <p class="standfirst">
+        Comprender la historia universal es comprendernos a nosotros mismos: guía estructurada e interactiva sobre la filosofía de la historia de Karl Jaspers.
+      </p>
+      <p class="prose-lead">
+        Publicado originalmente en 1949 bajo el título <em>Vom Ursprung und Ziel der Geschichte</em>, este texto se propone situar al ser humano en el fluir del tiempo. Para lograrlo, aboga por no mirar únicamente al pasado, sino pensar también en el futuro y precisar cómo se articula la existencia individual en esa totalidad que cambia con la conciencia de cada época.
+      </p>
+
+      <!-- Cifras e indicadores clave -->
+      <div class="card-grid" aria-label="Cifras clave de la obra">
+        <article class="figure-card">
+          <div class="figure-card-label">01 · Historia transmitida</div>
+          <div class="value">~6.000 años</div>
+          <p class="figure-card-desc">Duración aproximada de la historia humana conocida frente a las inmensas épocas previas del cosmos y la Tierra.</p>
+        </article>
+        <article class="figure-card">
+          <div class="figure-card-label">02 · El Tiempo-Eje</div>
+          <div class="value">800–200 a. C.</div>
+          <p class="figure-card-desc">Proceso espiritual simultáneo en China, India y Occidente, centrado en torno al año 500 a. C.</p>
+        </article>
+        <article class="figure-card">
+          <div class="figure-card-label">03 · Técnica moderna</div>
+          <div class="value">&gt;150 años</div>
+          <p class="figure-card-desc">Acelerado proceso técnico gestado tras la época de los descubrimientos iniciada hace cuatro siglos.</p>
+        </article>
+        <article class="figure-card">
+          <div class="figure-card-label">04 · Estructura textual</div>
+          <div class="value">3 partes</div>
+          <p class="figure-card-desc">Historia universal (pasado), Presente y futuro (ciencia y técnica) y El sentido de la historia (trascendencia).</p>
+        </article>
+      </div>
+
+      <!-- Navegación limpia de secciones -->
+      <nav class="toc-nav" aria-label="Navegación de secciones">
+        <a class="toc-link" href="#arquitectura"><span class="index-num">01</span> Arquitectura y autor</a>
+        <a class="toc-link" href="#esquema"><span class="index-num">02</span> Esquema del Tiempo-Eje</a>
+        <a class="toc-link" href="#comparativas"><span class="index-num">03</span> Comparativas</a>
+        <a class="toc-link" href="#presente"><span class="index-num">04</span> Ciencia y presente</a>
+        <a class="toc-link" href="#conocimientos"><span class="index-num">05</span> Base de conceptos</a>
+        <a class="toc-link" href="#faq-quiz"><span class="index-num">06</span> FAQ y autoevaluación</a>
+      </nav>
+    </header>
+
+    <main class="page-grid" style="padding: 0; max-width: 100%; overflow: visible;">
+
+      <!-- SECCIÓN 01: ARQUITECTURA DE LA OBRA Y AUTOR -->
+      <section id="arquitectura" class="reveal-section">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">01 · Estructura</span>
+            <span class="dossier-meta">Plan de la obra y método filosófico</span>
+          </div>
+          <span class="dossier-meta">Prólogo e Introducción</span>
+        </div>
+
+        <h2>El presente como bisagra entre la historia universal y el eterno origen</h2>
+        <p>
+          Solo la totalidad de la historia humana suministra los módulos para entender el sentido del acontecer actual. Jaspers organiza su meditación en tres momentos inseparables: el pasado actualizado en nosotros, el futuro latente que nos interpela y la apertura trascendente que sostiene todo el proceso.
+        </p>
+
+        <div class="card-grid-3" style="margin-top: var(--space-lg); margin-bottom: var(--space-xl);">
+          <article class="figure-card">
+            <div class="figure-card-label"><span class="index-num">I.</span> Primera parte</div>
+            <h3>Historia universal</h3>
+            <p class="figure-card-desc">
+              El presente está henchido del fondo histórico que en nosotros se actualiza. Examina la estructura de la historia hasta nuestros días, la tesis empírica del tiempo-eje y el contraste entre Oriente y Occidente.
+            </p>
+          </article>
+          <article class="figure-card">
+            <div class="figure-card-label"><span class="index-num">II.</span> Segunda parte</div>
+            <h3>Presente y futuro</h3>
+            <p class="figure-card-desc">
+              El presente está penetrado por el futuro latente cuyas tendencias hacemos nuestras en adhesión u oposición. Analiza lo absolutamente nuevo: ciencia moderna, técnica, trabajo y situación mundial.
+            </p>
+          </article>
+          <article class="figure-card">
+            <div class="figure-card-label"><span class="index-num">III.</span> Tercera parte</div>
+            <h3>El sentido de la historia</h3>
+            <p class="figure-card-desc">
+              El presente hinca su ancla en el eterno origen. Procura arribar mediante la historia más allá de la historia, hacia lo trascendente que nos envuelve, aunque el pensamiento nunca pueda agotarlo.
+            </p>
+          </article>
+        </div>
+
+        <div class="aside-box aside-grid">
+          <div>
+            <span class="tag">Tesis epistemológica</span>
+            <h3 style="margin-top: var(--space-sm);">La fe en el origen y la ausencia de «punto arquimédico»</h3>
+            <p>
+              Jaspers parte de la convicción filosófica —como un artículo de fe— de que la humanidad posee un <strong>origen único</strong> y una <strong>meta final</strong>. Sin embargo, no conocemos en absoluto ni ese origen ni esa meta de forma objetiva. Nunca puede existir para nosotros un «punto arquimédico» situado fuera de la historia desde el cual contemplarla por completo.
+            </p>
+            <p>
+              Únicamente los entrevemos mediante símbolos equívocos entre los que se mueve nuestra existencia: la «creación del hombre» señala el origen, y el «eterno reino de los espíritus» simboliza la meta.
+            </p>
+          </div>
+          <div>
+            <span class="tag tag-petrol">Biografía del autor</span>
+            <h3 style="margin-top: var(--space-sm);">Karl Theodor Jaspers</h3>
+            <p class="figure-card-desc" style="color: var(--on-surface); margin-bottom: var(--space-sm);">
+              <strong>Oldenburg, Alemania, 1883 – Basilea, Suiza, 1969.</strong>
+            </p>
+            <p class="figure-card-desc">
+              Filósofo alemán reconocido como uno de los «constructores» del existencialismo. Su obra, compuesta por más de treinta libros, influyó profundamente en la teología, la psiquiatría y la filosofía del siglo XX.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 02: EL TIEMPO-EJE Y ESQUEMA INTERACTIVO -->
+      <section id="esquema" class="reveal-section">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">02 · El Tiempo-Eje</span>
+            <span class="dossier-meta">Esquema interactivo de la historia universal</span>
+          </div>
+          <span class="dossier-meta">Lectura ascendente</span>
+        </div>
+
+        <h2>El corte espiritual del 800–200 a. C. y la estructura ascendente de la historia</h2>
+        <p>
+          Si existe un eje de la historia universal, sostiene Jaspers, debe hallarse empíricamente como un hecho válido para todos los hombres sin depender de una fe religiosa concreta. Ese eje se sitúa hacia el año <strong>500 a. C.</strong>, dentro de un proceso espiritual acontecido entre el <strong>800 y el 200 a. C.</strong> en tres focos simultáneos: <strong>China, India y Occidente</strong>.
+        </p>
+
+        <div class="timeline-shell" style="margin-top: var(--space-lg);">
+          <div class="timeline-layout">
+            <!-- Columna izquierda: Estratos de arriba abajo (indicando lectura de abajo arriba) -->
+            <div>
+              <div class="strata-direction">
+                <span>Cima: futuro latente</span>
+                <span>↑ Leer de abajo arriba</span>
+              </div>
+              <div class="strata-stack" id="strata-list" role="group" aria-label="Estratos del esquema de la historia universal">
+                <!-- Generado por JS -->
+              </div>
+              <div class="strata-direction" style="margin-top: var(--space-xs);">
+                <span>Base: origen biológico y espiritual</span>
+                <span>Nivel 01 → 06</span>
+              </div>
+            </div>
+
+            <!-- Columna derecha: Panel de detalle del estrato seleccionado -->
+            <div class="detail-panel" id="stratum-detail" aria-live="polite">
+              <!-- Rellenado dinámicamente -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 03: COMPARATIVAS ESTRUCTURALES -->
+      <section id="comparativas" class="reveal-section">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">03 · Comparativas</span>
+            <span class="dossier-meta">Ejes de contraste histórico y político</span>
+          </div>
+          <span class="dossier-meta">Capítulos 5, 7 y Segunda Parte</span>
+        </div>
+
+        <h2>Tensiones que configuran la historia humana</h2>
+        <p>
+          La obra contrasta polos históricos, culturales y políticos para evitar visiones simplistas o monocausales. Selecciona un eje de comparación para examinar las diferencias documentadas por Jaspers.
+        </p>
+
+        <div class="matrix-controls" role="group" aria-label="Selector de comparativa">
+          <button type="button" class="btn btn-secondary" data-comp="oriente-occidente" onclick="selectComparison('oriente-occidente')" aria-pressed="true">
+            Oriente vs. Occidente
+          </button>
+          <button type="button" class="btn btn-secondary" data-comp="imperio-ordenacion" onclick="selectComparison('imperio-ordenacion')" aria-pressed="false">
+            Imperio mundial vs. Ordenación mundial
+          </button>
+          <button type="button" class="btn btn-secondary" data-comp="democracia-planificacion" onclick="selectComparison('democracia-planificacion')" aria-pressed="false">
+            Democracia vs. Planificación total
+          </button>
+          <button type="button" class="btn btn-secondary" data-comp="cerrada-abierta" onclick="selectComparison('cerrada-abierta')" aria-pressed="false">
+            Historia cerrada vs. Historia abierta
+          </button>
+        </div>
+
+        <div id="comparison-stage" aria-live="polite">
+          <!-- Renderizado por JS -->
+        </div>
+      </section>
+
+      <!-- SECCIÓN 04: PRESENTE Y FUTURO (CIENCIA, TÉCNICA Y CRISIS) -->
+      <section id="presente" class="reveal-section">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">04 · Presente y futuro</span>
+            <span class="dossier-meta">Ciencia moderna, técnica y situación mundial</span>
+          </div>
+          <span class="dossier-meta">Segunda y Tercera Parte</span>
+        </div>
+
+        <h2>Lo absolutamente nuevo: el planeta unificado y la amenaza técnica</h2>
+        <p>
+          A diferencia del tiempo-eje, nuestra época no es una repetición espiritual, sino un proceso radicalmente distinto. Por primera vez, la historia ha dejado de ser meramente europea para convertirse en la <strong>historia única de toda la humanidad sobre la Tierra</strong>.
+        </p>
+
+        <div class="card-grid-3" style="margin-top: var(--space-lg);">
+          <article class="figure-card">
+            <span class="tag">Ciencia moderna</span>
+            <h3 style="margin-top: var(--space-sm);">Entrega total a todo objeto</h3>
+            <p class="figure-card-desc">
+              La ciencia moderna se aplica con amplitud pluridimensional a lo fortuito, lo deforme y lo bien conformado: nada puede pasarse por alto. Intenta construir el «cosmos de las ciencias» en busca de conexión universal, aunque la unidad efectiva de todas las ciencias no exista.
+            </p>
+          </article>
+
+          <article class="figure-card">
+            <span class="tag tag-petrol">Trabajo y técnica</span>
+            <h3 style="margin-top: var(--space-sm);">Vínculo humano y límites</h3>
+            <p class="figure-card-desc">
+              El trabajo transforma el mundo natural en mundo humano y exige organización. La técnica (motor Diésel, radio, energía atómica) depende de hombres prestos a servirla: si sobrepasa el límite vital humano, los hombres se rebelan y la maquinaria resulta perturbada o modificada.
+            </p>
+          </article>
+
+          <article class="figure-card">
+            <span class="tag">Masas y socialismo</span>
+            <h3 style="margin-top: var(--space-sm);">Libertad o abismo doctrinario</h3>
+            <p class="figure-card-desc">
+              El camino conduce a las masas; la educación del pueblo puede orientarlas hacia una «nobleza espiritual» sin privilegios hereditarios. El socialismo busca en su origen libertad y justicia mediante consenso gradual, pero destruye la historia si se torna fanático, violento y doctrinario.
+            </p>
+          </article>
+        </div>
+
+        <div class="aside-box" style="margin-top: var(--space-xl);">
+          <div class="dossier-bar-left" style="margin-bottom: var(--space-sm);">
+            <span class="tag">Riesgo global</span>
+            <span class="dossier-meta">Energía atómica y clarividencia histórica</span>
+          </div>
+          <h3>La bomba atómica y la pregunta por las «novae» cósmicas</h3>
+          <p>
+            Jaspers advierte que no existe un límite seguro para contener una explosión de nuevos elementos y materia terrestre: el globo entero podría estallar de forma deliberada o indeliberada, apareciendo como una pasajera «nova» en el espacio cósmico.
+          </p>
+          <p>
+            De ahí su célebre interrogante: si nuestra historia apenas dura unos 6.000 años tras inmensas épocas cósmicas, ¿por qué no recibimos comunicaciones de seres racionales más avanzados técnicamente en el universo? Acaso porque todo gran desarrollo técnico haya conducido a esos seres a aniquilar la vida en sus planetas mediante la bomba atómica. Frente a este trasfondo de angustia reprimida, destaca el valor de la clarividencia ante lo ya presente, como los pronósticos de <strong>Burke</strong> sobre la Revolución francesa, los bosquejos de <strong>Burckhardt</strong>, la profecía del nihilismo en <strong>Nietzsche</strong> o el diagnóstico de <strong>Tocqueville</strong> sobre el ascenso de rusos y angloamericanos.
+          </p>
+        </div>
+
+        <h3 style="margin-top: var(--space-xl);">Las cuatro metas parciales de la historia (y por qué ninguna es la meta final)</h3>
+        <p class="prose-lead" style="margin-bottom: var(--space-md);">
+          Todas estas metas son alcanzables dentro de ciertos límites en cada presente —y se pierden y reconquistan constantemente—, pero ninguna clausura la historia total. Creer en una meta final ilusoria en el futuro haría olvidar el presente, que no debe ser dilapidado.
+        </p>
+
+        <div class="goals-grid">
+          <article class="figure-card">
+            <div class="figure-card-label"><span class="index-num">01</span> Orden empírico</div>
+            <h4 style="font-size: 1.05rem; margin-bottom: var(--space-xs);">Unidad mediante el derecho</h4>
+            <p class="figure-card-desc">Vida conjunta sobre la Tierra en una unidad real que libere de la necesidad y abra margen a la creación espiritual.</p>
+          </article>
+          <article class="figure-card">
+            <div class="figure-card-label"><span class="index-num">02</span> Conciencia cívica</div>
+            <h4 style="font-size: 1.05rem; margin-bottom: var(--space-xs);">Libertad política y auténtica</h4>
+            <p class="figure-card-desc">La libertad política como condición externa de la existencia que deja espacio a las posibilidades de la auténtica libertad.</p>
+          </article>
+          <article class="figure-card">
+            <div class="figure-card-label"><span class="index-num">03</span> Cimas del espíritu</div>
+            <h4 style="font-size: 1.05rem; margin-bottom: var(--space-xs);">Tipo superior de hombre</h4>
+            <p class="figure-card-desc">Momentos radiantes en que el hombre, ante situaciones-límites, formula preguntas radicales y halla respuestas fecundas.</p>
+          </article>
+          <article class="figure-card">
+            <div class="figure-card-label"><span class="index-num">04</span> Trascendencia</div>
+            <h4 style="font-size: 1.05rem; margin-bottom: var(--space-xs);">Revelación del Ser</h4>
+            <p class="figure-card-desc">Descubrimiento del Ser en su profundidad y revelación simbólica de la divinidad en la historia.</p>
+          </article>
+        </div>
+
+        <div class="quote-band">
+          <blockquote>
+            «Lo histórico es lo que se frustra y, sin embargo, lo eterno en el tiempo.»
+          </blockquote>
+          <span class="dossier-meta">Karl Jaspers · Tercera parte: El sentido de la historia</span>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 05: BASE DE CONOCIMIENTOS BUSCABLE -->
+      <section id="conocimientos" class="reveal-section">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">05 · Base de conocimientos</span>
+            <span class="dossier-meta">Glosario buscable y mapa de relaciones</span>
+          </div>
+          <span class="dossier-meta">14 conceptos nucleares</span>
+        </div>
+
+        <h2>Explora conceptos, hechos y conexiones entre ideas</h2>
+        <p>
+          Busca cualquier término, pensador o concepto de la obra, fíltralo por ámbito temático o pulsa sobre las etiquetas de relación en cada ficha para seguir el hilo filosófico de Jaspers.
+        </p>
+
+        <div class="kb-controls">
+          <div class="field-group">
+            <label class="field-label" for="kb-search">Buscar concepto, autor o hecho</label>
+            <input
+              type="search"
+              id="kb-search"
+              class="field-input"
+              placeholder="Ej.: Tiempo-Eje, técnica, Portmann, nihilismo…"
+              oninput="filterKnowledgeBase()"
+            >
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="kb-category">Filtrar por parte temática</label>
+            <select id="kb-category" class="field-select" onchange="filterKnowledgeBase()">
+              <option value="all">Todas las categorías</option>
+              <option value="Historia universal">Historia universal</option>
+              <option value="Ciencia y técnica">Ciencia y técnica</option>
+              <option value="Política y futuro">Política y futuro</option>
+              <option value="Sentido y trascendencia">Sentido y trascendencia</option>
+            </select>
+          </div>
+
+          <button type="button" class="btn btn-secondary" onclick="resetKnowledgeFilters()">
+            Limpiar filtros
+          </button>
+        </div>
+
+        <div class="kb-status">
+          <span id="kb-count" aria-live="polite">Mostrando 14 de 14 conceptos</span>
+          <span>Haz clic en un concepto relacionado para navegar entre ideas</span>
+        </div>
+
+        <div id="kb-results" class="kb-grid">
+          <!-- Renderizado por JS -->
+        </div>
+      </section>
+
+      <!-- SECCIÓN 06: PREGUNTAS FRECUENTES Y CUESTIONARIO -->
+      <section id="faq-quiz" class="reveal-section">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">06 · Consulta y evaluación</span>
+            <span class="dossier-meta">Preguntas frecuentes y cuestionario interactivo</span>
+          </div>
+          <span class="dossier-meta">Repaso guiado</span>
+        </div>
+
+        <h2>Preguntas frecuentes sobre la filosofía de Jaspers</h2>
+        <p class="prose-lead">
+          Respuestas concisas y fundamentadas en el texto ante las dudas habituales que suscita <em>Origen y meta de la historia</em>.
+        </p>
+
+        <div class="faq-list" id="faq-container">
+          <!-- Renderizado por JS -->
+        </div>
+
+        <div class="quiz-shell" id="quiz-container">
+          <div class="quiz-header">
+            <div>
+              <span class="tag">Autoevaluación</span>
+              <h3 style="margin-top: var(--space-xs); margin-bottom: 0;">Cuestionario de comprensión filosófica</h3>
+            </div>
+            <div class="quiz-score-box">
+              <span id="quiz-progress">0 / 6 respondidas</span>
+              <span id="quiz-score">Aciertos: 0</span>
+              <button type="button" class="btn btn-secondary" id="quiz-reset-btn" onclick="resetQuiz(this)">
+                Reiniciar cuestionario
+              </button>
+            </div>
+          </div>
+
+          <div class="quiz-questions" id="quiz-questions">
+            <!-- Renderizado por JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- CIERRE / LLAMADA A LA ACCIÓN Y FUENTES -->
+      <footer class="cta-footer">
+        <div>
+          <span class="dossier-pill">Conclusión práctica</span>
+          <h2 style="margin-top: var(--space-sm);">¿Dónde quiere estar cada cual y para qué quiere actuar?</h2>
+          <p>
+            Ante la perspectiva de un planeta convertido en unidad y todavía abierto a una larga historia futura, la pregunta filosófica deja de ser abstracta: interpela directamente la responsabilidad individual en nuestro presente.
+          </p>
+        </div>
+
+        <div class="cta-actions">
+          <a href="#esquema" class="btn btn-primary">Revisar el esquema del Tiempo-Eje</a>
+          <a href="#conocimientos" class="btn btn-secondary">Consultar base de conceptos</a>
+          <button type="button" class="btn btn-secondary" onclick="copyStudySummary()">
+            Copiar síntesis estructurada
+          </button>
+          <span id="copy-status" class="inline-status" aria-live="polite"></span>
+        </div>
+
+        <div class="sources-note">
+          <strong>Fuente única utilizada:</strong> Karl Jaspers, <em>Origen y meta de la historia</em> (título original: <em>Vom Ursprung und Ziel der Geschichte</em>, 1949; traducción al español de Fernando Vela publicada por primera vez en <em>Revista de Occidente</em> en 1951; edición digital Titivillus). Todos los datos, ejemplos y conceptos de este sitio web proceden exclusivamente de los pasajes de dicha obra.
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    // =========================================================================
+    // DATOS ESTRUCTURADOS (con literales backtick para máxima seguridad)
+    // =========================================================================
+
+    const STRATA_DATA = [
+      {
+        id: `nivel-6`,
+        level: `Nivel 06 · Cima`,
+        title: `Encrucijada planetaria del futuro`,
+        period: `Después de la Segunda Guerra Mundial`,
+        isAxis: false,
+        tag: `Futuro latente`,
+        summary: `Por primera vez, la historia se ha vuelto una historia única de toda la humanidad sobre la Tierra, unificada por las comunicaciones y marcada por la tensión entre violencia totalitaria y ordenación jurídica.`,
+        facts: [
+          `La Segunda Guerra Mundial fue la primera guerra verdaderamente mundial (Asia Oriental resultó tan decisiva como Europa), a diferencia de la Primera Guerra Mundial, todavía europea.`,
+          `El planeta es hoy «más pequeño» que en otro tiempo el Imperio romano gracias a la técnica de las comunicaciones.`,
+          `La disyuntiva futura oscila entre un Imperio mundial impuesto por la fuerza o una Ordenación mundial negociada por el derecho.`
+        ],
+        role: `Cúspide abierta del esquema: el futuro no está cerrado ni garantizado; depende de decisiones humanas ante el riesgo de la energía atómica.`
+      },
+      {
+        id: `nivel-5`,
+        level: `Nivel 05`,
+        title: `Ciencia moderna y técnica`,
+        period: `Últimos 400 años · Aceleración >150 años`,
+        isAxis: false,
+        tag: `Lo absolutamente nuevo`,
+        summary: `Surge una transformación sin precedentes en la historia conocida: la ciencia moderna investiga todo lo experimentable y la técnica industrial reorganiza el trabajo y la sociedad de masas.`,
+        facts: [
+          `La evolución hacia este momento arranca hace unos cuatrocientos años con la época de los descubrimientos; el proceso técnico intenso apenas supera el siglo y medio.`,
+          `Ejemplos de saltos inventivos citados: el motor Diésel, la radio y la energía atómica.`,
+          `No es una repetición del tiempo-eje, sino un proceso distinto hasta la raíz.`
+        ],
+        role: `Crea las condiciones materiales de la unidad real de la humanidad, pero también expone al planeta a una posible autodestrucción.`
+      },
+      {
+        id: `nivel-4`,
+        level: `Nivel 04`,
+        title: `Imperios universales y Renacimientos`,
+        period: `Posterior al 200 a. C. hasta la modernidad`,
+        isAxis: false,
+        tag: `Fijación y retorno`,
+        summary: `Al perder fuerza creadora el tiempo-eje, la libertad derivó en anarquía y surgieron grandes Imperios universales que fijaron doctrinas buscando estabilidad eterna, aunque todos acabaron disolviéndose.`,
+        facts: [
+          `Cada nuevo despertar espiritual en China, la India y Occidente adopta la forma de un «Renacimiento» que retorna nostálgicamente al tiempo-eje.`,
+          `Pueblos exteriores ingresan a la historia por contacto con los centros axiales: germánicos y eslavos en Occidente; japoneses, malayos y siameses en Oriente.`,
+          `Desde entonces persiste una tensión hacia el espíritu ausente en las culturas más antiguas.`
+        ],
+        role: `Muestra cómo la historia posterior vive espiritualmente de lo pensado y creado durante el tiempo-eje.`
+      },
+      {
+        id: `nivel-3`,
+        level: `Nivel 03 · Eje central`,
+        title: `El Tiempo-Eje`,
+        period: `800–200 a. C. (centro hacia el 500 a. C.)`,
+        isAxis: true,
+        tag: `Corte más profundo`,
+        summary: `Fase intermedia entre dos épocas de grandes imperios; un «intervalo de libertad» y un «respiro en la más clara conciencia» donde germinó lo que el hombre puede ser desde entonces.`,
+        facts: [
+          `Aconteció con asombroso sincronismo en tres regiones limitadas: China, India y Occidente (cuenca del Mediterráneo y Asia anterior).`,
+          `El hombre se eleva a la conciencia de la totalidad del Ser, de sí mismo y de sus límites; formula preguntas radicales y busca liberación y salvación.`,
+          `Transición de una edad mítica ingenua a la crítica del mito; experiencia de lo incondicionado y la trascendencia.`
+        ],
+        role: `Constituye el marco común de evidencia histórica empírica para toda la humanidad y otorga unidad estructural a la historia universal.`
+      },
+      {
+        id: `nivel-2`,
+        level: `Nivel 02`,
+        title: `Grandes culturas primitivas`,
+        period: `Milenios anteriores al Tiempo-Eje`,
+        isAxis: false,
+        tag: `Culturas antiguas`,
+        summary: `Civilizaciones milenarias en Asia anterior, Egipto y las viejas zonas culturales. Poseen relatos ricos en sucesos, pero carecen todavía de la tensión espiritual radical nacida en el tiempo-eje.`,
+        facts: [
+          `La sucesión de hundimientos y restauraciones imperiales carecía del problematismo espiritual posterior.`,
+          `Al llegar el tiempo-eje, estas grandes culturas anteriores pierden su configuración propia y los pueblos que las sostenían quedan absorbidos por el nuevo movimiento.`
+        ],
+        role: `Preparación histórica previa; frente al eje, todo lo anterior aparece como antecedente que queda asimilado o desplazado.`
+      },
+      {
+        id: `nivel-1`,
+        level: `Nivel 01 · Base`,
+        title: `Edad Prometeica y prehistoria`,
+        period: `Antes de los ~6.000 años de historia`,
+        isAxis: false,
+        tag: `Origen humano`,
+        summary: `Antes de la historia transmitida, el hombre conquistó su mundo mediante las herramientas, el fuego y el lenguaje. Quienes quedan al margen del tiempo-eje permanecen como «pueblos primitivos» ahistóricos.`,
+        facts: [
+          `La realidad biológica del ser humano no se separa de la espiritual: el hombre es distinto desde su origen mismo y no un mero producto de «domesticación» (Portmann).`,
+          `Los pueblos prehistóricos remanentes o bien ingresan en la historia al contactar con centros axiales, o bien se extinguen.`
+        ],
+        role: `Ancla el comienzo humano en la unidad de la constitución biológica y espiritual, previa a la memoria escrita.`
+      }
+    ];
+
+    const COMPARISONS_DATA = {
+      'oriente-occidente': {
+        title: `Oriente y Occidente (Tierras de la mañana y de la tarde)`,
+        subtitle: `Contraste entre la sucesión histórica occidental y la continuidad asiática, y la cuestión de la libertad política.`,
+        poleA: {
+          label: `Occidente`,
+          heading: `Movimiento histórico y libertad política`,
+          points: [
+            `Sucesión de culturas distintas: viejas culturas del Asia anterior y Egipto, después grecorromana, y más tarde germano-romana, cambiando centros geográficos y pueblos.`,
+            `La libertad política es un fenómeno específicamente occidental, inseparable de nuestra idea del ser humano.`,
+            `Desde Tácito y Longinos en la Roma del siglo I ante el despotismo cesarista, se asoció la vida espiritual con la libertad política.`
+          ]
+        },
+        poleB: {
+          label: `Oriente (India y China)`,
+          heading: `Persistencia del fondo único y vida anímica`,
+          points: [
+            `Al este del Indo y del Hindukusch (citando a lord Elphinstone en Hegel) aparece una continuidad que emerge siempre del mismo fondo tras las catástrofes.`,
+            `La libertad se manifestó como algo casual y personal, sin un principio institucional continuo en un pueblo.`,
+            `La historia demuestra que, aun sin libertad política institucional, fue posible una gran vivacidad espiritual, creación y profunda vida anímica.`
+          ]
+        },
+        rows: [
+          { criterion: `Raíz compartida`, a: `Participa plenamente en el Tiempo-Eje y vive de sucesivos Renacimientos.`, b: `Participa plenamente en el Tiempo-Eje (China e India) y retorna a él en Renacimientos.` },
+          { criterion: `Frontera cultural clásica`, a: `Hasta el Indo, el europeo todavía podía sentirse en un ámbito afín.`, b: `La separación cultural más profunda se ha trazado entre Persia y la India.` },
+          { criterion: `Cuestión universal hoy`, a: `Si la libertad política occidental podrá realizarse para educar a toda la humanidad.`, b: `Integración planetaria que preserva la multiplicidad espiritual de la tradición.` }
+        ]
+      },
+      'imperio-ordenacion': {
+        title: `Imperio mundial u Ordenación mundial`,
+        subtitle: `Las dos vías posibles hacia la unidad unitaria del planeta ante el fin de las soberanías aisladas.`,
+        poleA: {
+          label: `Imperio mundial`,
+          heading: `Unidad impuesta por la violencia`,
+          points: [
+            `Procedimiento desesperado de la fuerza, análogo a la frase de Bismarck sobre unir por «la sangre y el hierro».`,
+            `Conduce a regímenes totalitarios y a una verdad de fe también totalitaria y excluyente.`,
+            `Al individuo solo le queda como último refugio la independencia interior, la intimidad referida a la trascendencia y el filosofar libre.`
+          ]
+        },
+        poleB: {
+          label: `Ordenación mundial`,
+          heading: `Unidad negociada mediante el derecho`,
+          points: [
+            `Nace cuando madura la mutua inteligencia y comprensión entre los pueblos.`,
+            `Se alcanza por la renuncia voluntaria de una parte esencial de la soberanía particular en favor de la soberanía del conjunto.`,
+            `Ejemplo histórico citado: los Estados del Norte de América constituyendo una Unión en el siglo XVIII.`
+          ]
+        },
+        rows: [
+          { criterion: `Base de cohesión`, a: `Terror político, opresión social y monopolio doctrinal.`, b: `Orden jurídico encaminado a la paz mundial y a liberar de la necesidad.` },
+          { criterion: `Estatus de la meta`, a: `Pretende instaurar un dominio definitivo que anula la historia.`, b: `No es la meta final absoluta, sino el medio empírico para todas las posibilidades humanas.` },
+          { criterion: `Espacio para el espíritu`, a: `Sofocado públicamente; solo sobrevive en la intimidad de individuos.`, b: `Deja amplio margen a la creatividad del alma y del espíritu humanos.` }
+        ]
+      },
+      'democracia-planificacion': {
+        title: `Democracia y Estado de derecho vs. Planificación total`,
+        subtitle: `Cómo organizar el aparato técnico y la sociedad de masas sin destruir la iniciativa ni la justicia.`,
+        poleA: {
+          label: `Democracia y Estado de derecho`,
+          heading: `Lucha legal por la justicia y libre competencia`,
+          points: [
+            `Democracia significa que cada cual llegue a valer según su capacidad y sus merecimientos.`,
+            `Estado de derecho implica transformar la seguridad legal según la experiencia sin violencia, mediante formas jurídicas.`,
+            `La organización que exige el aparato técnico no es inconciliable en principio con la libre competencia y la libertad humana.`
+          ]
+        },
+        poleB: {
+          label: `Planificación total`,
+          heading: `Supresión del libre agón e indolencia`,
+          points: [
+            `Anula los estímulos humanos en la lucha de competencia y trata de sustituirlos por pugnas artificiales de rendimiento.`,
+            `Suprime el principio del «libre agón»: el juez ya está instituido y la decisión no surge del que sabe de la cosa.`,
+            `Se prefieren propiedades ajenas al asunto, limitando la iniciativa hasta desembocar en la fatiga sin esperanza.`
+          ]
+        },
+        rows: [
+          { criterion: `Coste personal`, a: `Exige renuncias personales, moderación y paciencia ante sus imperfecciones.`, b: `Promete eficacia total a costa de suprimir la autonomía del juicio.` },
+          { criterion: `Desenlace vital`, a: `Permite abrirse camino mediante la propia obra dentro de la ley.`, b: `Encamina al conjunto hacia la indolencia y la fatiga sin esperanza.` },
+          { criterion: `Papel del socialismo`, a: `Válido cuando aspira por consenso gradual y sin violencia a liberar y ordenar la existencia.`, b: `Peligroso cuando se vuelve fanático, violento y busca una realización total inmediata.` }
+        ]
+      },
+      'cerrada-abierta': {
+        title: `Concepciones cerradas vs. Historia universal abierta`,
+        subtitle: `Por qué Jaspers rechaza los sistemas que pretenden conocer de antemano el principio y el fin de toda la historia.`,
+        poleA: {
+          label: `Construcciones cerradas`,
+          heading: `Saber total por revelación o razón`,
+          points: [
+            `Desde los profetas judaicos y San Agustín hasta Joachim de Fiore y Bossuet, secularizadas luego desde Lessing y Herder hasta Hegel.`,
+            `Presentan la historia como una serie de actos cerrados: creación, expulsión del Paraíso, profetas, redención y Juicio Final.`,
+            `Cierran la historia pretendiendo descubrir objetivamente su principio y su fin.`
+          ]
+        },
+        poleB: {
+          label: `Esquema abierto de Jaspers`,
+          heading: `Unidad por evidencia empírica y símbolos`,
+          points: [
+            `Reconoce la historia como abierta e inabarcable en su totalidad, sin «punto arquimédico» fuera de ella.`,
+            `Funda la unidad en un hecho empírico común —el Tiempo-Eje hacia el 500 a. C.— reconocido solidariamente sin exigir un dogma exclusivo.`,
+            `Origen y meta no son saber objetivo, sino símbolos entre los que se mueve nuestra existencia.`
+          ]
+        },
+        rows: [
+          { criterion: `Pueblos periféricos`, a: `Descartan la mayor masa de pueblos y culturas como meramente casuales o indiferentes.`, b: `Integran todos los rasgos en un marco solidario que respeta la multiplicidad.` },
+          { criterion: `Lugar del presente`, a: `Sitúan la propia época como punto más bajo o cima definitiva de una evolución cerrada.`, b: `Devuelven al presente su responsabilidad irrenunciable frente al futuro abierto.` },
+          { criterion: `Verdad de la creencia`, a: `Tienden a tomar una forma histórica como única verdad exclusiva.`, b: `La verdad de la creencia estriba en la multiplicidad comunicada de sus formas.` }
+        ]
+      }
+    };
+
+    const KNOWLEDGE_BASE = [
+      {
+        id: `kb-tiempo-eje`,
+        title: `Tiempo-Eje (800–200 a. C.)`,
+        category: `Historia universal`,
+        summary: `Eje empírico de la historia universal situado hacia el 500 a. C. en China, India y Occidente. Representó un intervalo de libertad entre grandes imperios donde el hombre cobró conciencia del Ser, de sí mismo y de sus límites.`,
+        fact: `Hecho clave: en las tres regiones se formularon preguntas radicales y se superó la edad mítica ingenua con sincronismo asombroso.`,
+        relations: [`kb-renacimientos`, `kb-pueblos-primitivos`, `kb-oriente-occidente`]
+      },
+      {
+        id: `kb-origen-meta`,
+        title: `Origen y meta (Símbolos)`,
+        category: `Sentido y trascendencia`,
+        summary: `La humanidad tiene un origen único y una meta final por convicción de fe filosófica, pero no los conocemos objetivamente. Solo se vislumbran mediante símbolos equívocos que se corresponden entre sí.`,
+        fact: `Símbolos citados: la «creación del hombre» como origen y el «eterno reino de los espíritus» como meta.`,
+        relations: [`kb-punto-arquimedico`, `kb-creencia-nihilismo`]
+      },
+      {
+        id: `kb-punto-arquimedico`,
+        title: `Ausencia de punto arquimédico`,
+        category: `Sentido y trascendencia`,
+        summary: `Nunca podemos situarnos fuera de la historia para observarla como un objeto cerrado y completo. Siempre estamos dentro de ella, buscando la trascendencia desde nuestra propia existencia histórica.`,
+        fact: `Crítica asociada: rechaza las filosofías cerradas de San Agustín a Hegel por pretender saber la totalidad de principio a fin.`,
+        relations: [`kb-origen-meta`, `kb-creencia-nihilismo`]
+      },
+      {
+        id: `kb-renacimientos`,
+        title: `Renacimientos históricos`,
+        category: `Historia universal`,
+        summary: `De lo pensado y creado en el Tiempo-Eje ha vivido la humanidad hasta hoy. Cada vez que una cultura se remonta y despierta espiritualmente, retorna nostálgicamente a aquel comienzo.`,
+        fact: `Ámbito: fenómeno siempre repetido en China, la India y Occidente que produce una exaltación del espíritu.`,
+        relations: [`kb-tiempo-eje`, `kb-oriente-occidente`]
+      },
+      {
+        id: `kb-pueblos-primitivos`,
+        title: `Pueblos primitivos e ingreso histórico`,
+        category: `Historia universal`,
+        summary: `Los pueblos ajenos al Tiempo-Eje permanecen en vida ahistórica como prehistoria remanente hasta que entran en contacto con algún centro de irradiación axial o se extinguen.`,
+        fact: `Ejemplos de ingreso: germánicos y eslavos en Occidente; japoneses, malayos y siameses en Oriente.`,
+        relations: [`kb-tiempo-eje`, `kb-unidad-humana`]
+      },
+      {
+        id: `kb-unidad-humana`,
+        title: `Unidad biológica y espiritual`,
+        category: `Historia universal`,
+        summary: `En el ser humano la realidad biológica no se separa de la espiritual. No fue primero una especie zoológica a la que se sumó el espíritu, ni un mero producto de domesticación animal (citando a Portmann).`,
+        fact: `Indicios de unidad: constitución humana común, faja geográfica China-Mediterráneo y convergencia planetaria actual.`,
+        relations: [`kb-pueblos-primitivos`, `kb-origen-meta`]
+      },
+      {
+        id: `kb-oriente-occidente`,
+        title: `Oriente y Occidente`,
+        category: `Historia universal`,
+        summary: `Mientras Occidente muestra sucesión de culturas (Asia anterior/Egipto, grecorromana, germano-romana) y libertad política institucional, Asia al este del Indo aparece como continuidad de un fondo único.`,
+        fact: `Referencia: lord Elphinstone (citado por Hegel) sitúa la gran frontera cultural entre Persia y la India.`,
+        relations: [`kb-tiempo-eje`, `kb-democracia`]
+      },
+      {
+        id: `kb-ciencia-moderna`,
+        title: `Ciencia moderna`,
+        category: `Ciencia y técnica`,
+        summary: `Entrega a todo lo experimentable —lo fortuito, lo deforme y lo bien conformado— movida por una conciencia segura de sí misma. Busca el cosmos de las ciencias, aunque la unidad real entre ellas no exista.`,
+        fact: `Rasgo clave: nada puede ser pasado por alto; insatisfacción ante todo conocimiento aislado y singular.`,
+        relations: [`kb-trabajo-tecnica`, `kb-riesgo-atomico`]
+      },
+      {
+        id: `kb-trabajo-tecnica`,
+        title: `Trabajo y técnica moderna`,
+        category: `Ciencia y técnica`,
+        summary: `El trabajo transforma la Naturaleza en mundo humano y exige organización. La técnica (acelerada desde hace más de siglo y medio) está ligada a la disposición de los hombres y podría hallar límites inventivos o humanos.`,
+        fact: `Ejemplos citados: motor Diésel, radio y energía atómica; riesgo de convertir toda la Tierra en único campo de aprovechamiento.`,
+        relations: [`kb-ciencia-moderna`, `kb-riesgo-atomico`, `kb-democracia`]
+      },
+      {
+        id: `kb-imperio-ordenacion`,
+        title: `Imperio mundial vs. Ordenación mundial`,
+        category: `Política y futuro`,
+        summary: `La unidad real del planeta unificado por las comunicaciones puede lograrse mediante violencia totalitaria («por la sangre y el hierro», Bismarck) o mediante ordenación jurídica negociada.`,
+        fact: `Modelo positivo citado: la Unión de los Estados del Norte de América en el siglo XVIII mediante cesión parcial de soberanía.`,
+        relations: [`kb-democracia`, `kb-socialismo-masas`, `kb-creencia-nihilismo`]
+      },
+      {
+        id: `kb-democracia`,
+        title: `Democracia, derecho y libre agón`,
+        category: `Política y futuro`,
+        summary: `Democracia es que cada cual valga según su capacidad y méritos; Estado de derecho es asegurar la lucha legal sin violencia. La planificación total destruye el «libre agón» y conduce a la fatiga sin esperanza.`,
+        fact: `Referencia clásica: Tácito y Longinos en el siglo I advirtieron que la pérdida de libertad política dañaba la vida espiritual.`,
+        relations: [`kb-imperio-ordenacion`, `kb-oriente-occidente`, `kb-socialismo-masas`]
+      },
+      {
+        id: `kb-socialismo-masas`,
+        title: `Socialismo y nobleza espiritual de las masas`,
+        category: `Política y futuro`,
+        summary: `El mundo actual está determinado por las masas; la educación puede llevarlas hacia una «nobleza espiritual» sin privilegios hereditarios. El socialismo encarna el afán de ordenar la existencia, pero fracasa si se vuelve fanático.`,
+        fact: `Advertencia: querer una realización total inmediata y violenta precipitaría a la humanidad en el abismo donde cesa la historia.`,
+        relations: [`kb-democracia`, `kb-imperio-ordenacion`]
+      },
+      {
+        id: `kb-riesgo-atomico`,
+        title: `Energía atómica y las «novae» cósmicas`,
+        category: `Ciencia y técnica`,
+        summary: `La bomba atómica introduce la posibilidad de aniquilar la vida terrestre provocando una pasajera «nova» en el cosmos. Jaspers se pregunta si esa autodestrucción explica el silencio de otros seres racionales en el universo.`,
+        fact: `Contexto temporal: contraste entre 6.000 años de historia y las inmensas épocas cósmicas precedentes.`,
+        relations: [`kb-trabajo-tecnica`, `kb-imperio-ordenacion`]
+      },
+      {
+        id: `kb-creencia-nihilismo`,
+        title: `Creencia, nihilismo y filosofar`,
+        category: `Sentido y trascendencia`,
+        summary: `Creencia es «lo Envolvente» que enlaza al hombre con el origen del Ser, expresada en múltiples formas históricas sin exclusividad violenta. Su único enemigo radical es el nihilismo; ante el totalitarismo, filosofar es refugio.`,
+        fact: `Paradoja de la trascendencia: si la trascendencia pareciese el espacio de la nada, esa nada puede convertirse súbitamente en plenitud.`,
+        relations: [`kb-origen-meta`, `kb-punto-arquimedico`, `kb-imperio-ordenacion`]
+      }
+    ];
+
+    const FAQ_DATA = [
+      {
+        q: `¿Por qué sostiene Jaspers que el Tiempo-Eje vale incluso para creyentes de distintas religiones y para no creyentes?`,
+        a: `Porque no se apoya en una revelación dogmática particular, sino en una intuición empírica histórica verificable en tres regiones distintas (China, India y Occidente) hacia el año 500 a. C. Ofrece así un marco común de evidencia histórica solidaria para todos los pueblos sin exigir adhesión a una sola fe.`
+      },
+      {
+        q: `¿Qué distingue a la «historia» propiamente dicha del simple acontecer repetitivo?`,
+        a: `En el mero acontecer natural las materias, formas y leyes generales no hacen más que repetirse. En cambio, es historia el acontecer singular, peculiar, insustituible y perecedero en el tiempo que, a través del tiempo y en su abolición, comprende en sí lo eterno: «lo que se frustra y, sin embargo, lo eterno en el tiempo».`
+      },
+      {
+        q: `¿Por qué el hombre no puede reducirse a una especie zoológica domesticada por la cultura?`,
+        a: `Jaspers señala que la realidad biológica y la realidad espiritual del ser humano son inseparables. No hubo primero un animal biológico al que un día se agregó el espíritu. Citando las investigaciones de Portmann, descarta que el hombre sea un mero producto biológico de la domesticación; ya dentro de lo biológico, en su origen, es distinto de toda otra vida.`
+      },
+      {
+        q: `¿Cómo podría la técnica moderna encontrar un límite en su desarrollo?`,
+        a: `Por dos vías: primero, un límite inventivo cuando todo lo asequible al hombre haya sido aprovechado (aunque aún quedaría la intensificación cuantitativa sobre toda la superficie terrestre); segundo, un límite antropológico, pues la técnica depende del trabajo humano. Cuando el ser humano ya no puede seguir viviendo o ve en riesgo su vida, se rebela y perturba, destruye o modifica la maquinaria técnica.`
+      },
+      {
+        q: `¿Por qué las cuatro metas históricas (derecho, libertad, tipo superior de hombre, revelación del Ser) no cierran la historia?`,
+        a: `Porque todas ellas se alcanzan parcialmente dentro de ciertos límites en cada presente, pero se pierden y han de reconquistarse constantemente en cada generación. Ninguna constituye una meta futura total y definitiva; confiar en utopías finales cerradas nos desvía del deber de no dilapidar el presente.`
+      },
+      {
+        q: `¿Qué esperanza queda para el individuo si llegara a imponerse un Imperio mundial totalitario?`,
+        a: `Conservar la corriente del filosofar, por débil que sea: mantener la independencia tanto respecto del Estado como de las Iglesias, cultivar la más profunda intimidad referida a la trascendencia y sostener la libertad del espíritu estimulada por el diálogo con la gran tradición, como ya ha ocurrido desde el tiempo-eje en los malos tiempos de transición.`
+      }
+    ];
+
+    const QUIZ_DATA = [
+      {
+        id: `q1`,
+        question: `¿En qué franja cronológica y regiones sitúa Karl Jaspers el Tiempo-Eje de la historia universal?`,
+        options: [
+          `Entre el 3000 y el 2000 a. C., únicamente en Egipto y Mesopotamia`,
+          `Entre el 800 y el 200 a. C. (centrado hacia el 500 a. C.), simultáneamente en China, la India y Occidente`,
+          `En el siglo I d. C., con la expansión del Imperio romano`,
+          `Hace cuatrocientos años, coincidiendo con los descubrimientos geográficos`
+        ],
+        correct: 1,
+        explanation: `Jaspers sitúa el Tiempo-Eje entre los años 800 y 200 a. C., con su centro hacia el 500 a. C., aconteciendo simultáneamente en China, India y Occidente.`
+      },
+      {
+        id: `q2`,
+        question: `¿Cómo debe leerse el esquema de la historia universal propuesto por Jaspers en su obra?`,
+        options: [
+          `De arriba abajo, desde el presente hacia los orígenes biológicos`,
+          `En forma circular sin dirección definida`,
+          `De abajo arriba, ascendiendo desde el origen hasta las perspectivas del futuro`,
+          `Exclusivamente desde la historia europea hacia el resto del mundo`
+        ],
+        correct: 2,
+        explanation: `El propio autor indica explícitamente al presentar su esquema general de la historia universal que «debe ser leído de abajo arriba».`
+      },
+      {
+        id: `q3`,
+        question: `Según la Segunda Parte, ¿qué guerra marcó por primera vez la entrada en escena de todo el globo como una historia verdaderamente mundial?`,
+        options: [
+          `La Primera Guerra Mundial, por la intervención inicial de América`,
+          `Las guerras de los Imperios universales posteriores al tiempo-eje`,
+          `La Segunda Guerra Mundial, donde el Asia Oriental tuvo tanto peso como Europa`,
+          `Las campañas de independencia de los Estados del Norte de América`
+        ],
+        correct: 2,
+        explanation: `Jaspers distingue entre la Primera Guerra Mundial (todavía esencialmente europea, tras la cual América volvió a retraerse) y la Segunda Guerra Mundial, primera guerra verdaderamente mundial.`
+      },
+      {
+        id: `q4`,
+        question: `¿Qué ejemplo histórico cita Jaspers como modelo posible para alcanzar una «Ordenación mundial» negociada sin recurrir a la violencia imperial?`,
+        options: [
+          `La unificación de Alemania «por la sangre y el hierro» según Bismarck`,
+          `La constitución de la Unión de los Estados del Norte de América en el siglo XVIII mediante cesión parcial de soberanía`,
+          `La planificación total centralizada de la economía técnica`,
+          `La monarquía cesarista de la Roma del siglo I`
+        ],
+        correct: 1,
+        explanation: `Frente al procedimiento violento de Bismarck, Jaspers cita cómo los Estados del Norte de América en el siglo XVIII renunciaron a parte de su soberanía particular en favor de la soberanía del conjunto.`
+      },
+      {
+        id: `q5`,
+        question: `¿Qué defecto comparten las filosofías cerradas de la historia desde San Agustín hasta Hegel según la crítica de Jaspers?`,
+        options: [
+          `Ignoran por completo el concepto de tiempo cronológico`,
+          `Creen poseer un saber objetivo del principio y el fin, dejando de lado grandes masas de pueblos y culturas como indiferentes`,
+          `Rechazan la idea de que la humanidad tenga un origen`,
+          `Sostienen que la técnica moderna destruirá inmediatamente el planeta`
+        ],
+        correct: 1,
+        explanation: `Las construcciones teológicas y racionalistas cierran la historia pretendiendo saber su principio y fin, y descartan gran parte de la realidad humana y cultural como mero azar indiferente.`
+      },
+      {
+        id: `q6`,
+        question: `En la Tercera Parte, ¿cuál identifica Jaspers como el verdadero enemigo de toda creencia histórica?`,
+        options: [
+          `La multiplicidad de formas históricas de la fe`,
+          `El nihilismo`,
+          `La filosofía como diálogo con la tradición`,
+          `El Estado de derecho`
+        ],
+        correct: 1,
+        explanation: `Ninguna forma histórica de la creencia puede erigirse en verdad exclusiva sin volverse intolerante y falsa; entre los creyentes hay un fondo común, y el enemigo radical que acecha en todo hombre es el nihilismo.`
+      }
+    ];
+
+    // =========================================================================
+    // ESTADO E INTERACCIONES
+    // =========================================================================
+
+    let activeStratumId = `nivel-3`;
+    let activeComparisonKey = `oriente-occidente`;
+    let quizAnswers = {};
+
+    // Inicialización segura al cargar el DOM
+    document.addEventListener(`DOMContentLoaded`, function () {
+      renderStrataList();
+      renderStratumDetail(activeStratumId);
+      renderComparison(activeComparisonKey);
+      renderKnowledgeBase(KNOWLEDGE_BASE, null);
+      renderFaq();
+      renderQuiz();
+      setupRevealObserver();
+    });
+
+    // ----- SECCIÓN 02: ESQUEMA VERTICAL ASCENDENTE -----
+    function renderStrataList() {
+      const container = document.getElementById(`strata-list`);
+      if (!container) return;
+
+      container.innerHTML = STRATA_DATA.map(function (item) {
+        const pressed = item.id === activeStratumId ? `true` : `false`;
+        const axisClass = item.isAxis ? ` is-axis` : ``;
+        return `
+          <button
+            type="button"
+            class="stratum-btn${axisClass}"
+            data-stratum="${item.id}"
+            aria-pressed="${pressed}"
+            onclick="selectStratum('${item.id}')"
+          >
+            <span class="index-num">${item.level}</span>
+            <span>
+              <span class="stratum-title">${item.title}</span>
+              <span class="stratum-sub">${item.period}</span>
+            </span>
+            <span class="tag${item.isAxis ? `` : ` tag-petrol`}">${item.tag}</span>
+          </button>
+        `;
+      }).join(``);
+    }
+
+    function selectStratum(id) {
+      activeStratumId = id;
+      const buttons = document.querySelectorAll(`.stratum-btn`);
+      buttons.forEach(function (btn) {
+        btn.setAttribute(`aria-pressed`, btn.dataset.stratum === id ? `true` : `false`);
+      });
+      renderStratumDetail(id);
+    }
+
+    function stepStratum(delta) {
+      const idx = STRATA_DATA.findIndex(function (s) { return s.id === activeStratumId; });
+      if (idx === -1) return;
+      // Nota: STRATA_DATA está ordenado visualmente de Nivel 06 (idx 0) a Nivel 01 (idx 5).
+      // Avanzar ascendentemente (Nivel 01 -> 06) implica decrementar índice; retroceder implica incrementarlo.
+      const nextIdx = idx - delta;
+      if (nextIdx >= 0 && nextIdx < STRATA_DATA.length) {
+        selectStratum(STRATA_DATA[nextIdx].id);
+      }
+    }
+
+    function renderStratumDetail(id) {
+      const panel = document.getElementById(`stratum-detail`);
+      if (!panel) return;
+      const item = STRATA_DATA.find(function (s) { return s.id === id; });
+      if (!item) return;
+
+      const idx = STRATA_DATA.findIndex(function (s) { return s.id === id; });
+      const canAscend = idx > 0;
+      const canDescend = idx < STRATA_DATA.length - 1;
+
+      const factsHtml = item.facts.map(function (f) {
+        return `<li>${f}</li>`;
+      }).join(``);
+
+      panel.innerHTML = `
+        <div class="detail-meta-row">
+          <span class="dossier-pill">${item.level}</span>
+          <span class="dossier-meta">${item.period}</span>
+        </div>
+        <h3>${item.title}</h3>
+        <p>${item.summary}</p>
+        <div>
+          <div class="figure-card-label" style="margin-bottom: var(--space-xs);">Evidencias y rasgos en la obra</div>
+          <ul class="detail-list">${factsHtml}</ul>
+        </div>
+        <div class="aside-box" style="padding: var(--space-md);">
+          <div class="figure-card-label" style="margin-bottom: var(--space-xs);">Función en la estructura universal</div>
+          <p style="margin: 0; font-size: 0.9375rem;">${item.role}</p>
+        </div>
+        <div class="detail-controls">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            onclick="stepStratum(-1)"
+            ${canDescend ? `` : `disabled`}
+          >
+            ↓ Nivel anterior (hacia el origen)
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            onclick="stepStratum(1)"
+            ${canAscend ? `` : `disabled`}
+          >
+            ↑ Siguiente nivel (hacia el futuro)
+          </button>
+        </div>
+      `;
+    }
+
+    // ----- SECCIÓN 03: MATRIZ COMPARATIVA -----
+    function selectComparison(key) {
+      activeComparisonKey = key;
+      const buttons = document.querySelectorAll(`[data-comp]`);
+      buttons.forEach(function (btn) {
+        btn.setAttribute(`aria-pressed`, btn.dataset.comp === key ? `true` : `false`);
+      });
+      renderComparison(key);
+    }
+
+    function renderComparison(key) {
+      const stage = document.getElementById(`comparison-stage`);
+      if (!stage) return;
+      const data = COMPARISONS_DATA[key];
+      if (!data) return;
+
+      const poleAPoints = data.poleA.points.map(function (pt) { return `<li>${pt}</li>`; }).join(``);
+      const poleBPoints = data.poleB.points.map(function (pt) { return `<li>${pt}</li>`; }).join(``);
+      const rowsHtml = data.rows.map(function (r) {
+        return `
+          <tr>
+            <td><strong>${r.criterion}</strong></td>
+            <td>${r.a}</td>
+            <td>${r.b}</td>
+          </tr>
+        `;
+      }).join(``);
+
+      stage.innerHTML = `
+        <div style="margin-bottom: var(--space-md);">
+          <h3 style="margin-bottom: var(--space-xs);">${data.title}</h3>
+          <p class="prose-lead" style="margin-bottom: 0;">${data.subtitle}</p>
+        </div>
+        <div class="comparison-grid">
+          <article class="comparison-card is-pole-a">
+            <span class="tag tag-petrol">${data.poleA.label}</span>
+            <h4 style="font-size: 1.15rem;">${data.poleA.heading}</h4>
+            <ul class="detail-list">${poleAPoints}</ul>
+          </article>
+          <article class="comparison-card is-pole-b">
+            <span class="tag">${data.poleB.label}</span>
+            <h4 style="font-size: 1.15rem;">${data.poleB.heading}</h4>
+            <ul class="detail-list">${poleBPoints}</ul>
+          </article>
+        </div>
+        <div class="criteria-table-wrap">
+          <table class="briefing-table">
+            <thead>
+              <tr>
+                <th>Eje de análisis</th>
+                <th>${data.poleA.label}</th>
+                <th>${data.poleB.label}</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rowsHtml}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    // ----- SECCIÓN 05: BASE DE CONOCIMIENTOS BUSCABLE -----
+    function filterKnowledgeBase(highlightId) {
+      const searchEl = document.getElementById(`kb-search`);
+      const catEl = document.getElementById(`kb-category`);
+      const query = searchEl ? searchEl.value.trim().toLowerCase() : ``;
+      const category = catEl ? catEl.value : `all`;
+
+      const filtered = KNOWLEDGE_BASE.filter(function (entry) {
+        const matchesCat = category === `all` || entry.category === category;
+        const haystack = `${entry.title} ${entry.category} ${entry.summary} ${entry.fact}`.toLowerCase();
+        const matchesQuery = !query || haystack.indexOf(query) !== -1;
+        return matchesCat && matchesQuery;
+      });
+
+      renderKnowledgeBase(filtered, highlightId || null);
+    }
+
+    function resetKnowledgeFilters() {
+      const searchEl = document.getElementById(`kb-search`);
+      const catEl = document.getElementById(`kb-category`);
+      if (searchEl) searchEl.value = ``;
+      if (catEl) catEl.value = `all`;
+      renderKnowledgeBase(KNOWLEDGE_BASE, null);
+    }
+
+    function jumpToConcept(conceptId) {
+      const searchEl = document.getElementById(`kb-search`);
+      const catEl = document.getElementById(`kb-category`);
+      if (searchEl) searchEl.value = ``;
+      if (catEl) catEl.value = `all`;
+      renderKnowledgeBase(KNOWLEDGE_BASE, conceptId);
+      const target = document.getElementById(conceptId);
+      if (target) {
+        target.scrollIntoView({ behavior: `smooth`, block: `center` });
+      }
+    }
+
+    function renderKnowledgeBase(entries, highlightId) {
+      const container = document.getElementById(`kb-results`);
+      const countEl = document.getElementById(`kb-count`);
+      if (countEl) {
+        countEl.textContent = `Mostrando ${entries.length} de ${KNOWLEDGE_BASE.length} conceptos`;
+      }
+      if (!container) return;
+
+      if (entries.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <span class="tag">Sin coincidencias</span>
+            <h3>No hay conceptos que coincidan con tu búsqueda actual</h3>
+            <p class="figure-card-desc">
+              El término buscado o la combinación con la categoría seleccionada no arroja entradas en la obra analizada. Restablece los filtros para volver al índice completo.
+            </p>
+            <button type="button" class="btn btn-primary" onclick="resetKnowledgeFilters()">
+              Mostrar los 14 conceptos
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = entries.map(function (entry) {
+        const isHighlighted = highlightId && entry.id === highlightId ? ` is-highlighted` : ``;
+        const relButtons = entry.relations.map(function (relId) {
+          const relObj = KNOWLEDGE_BASE.find(function (k) { return k.id === relId; });
+          const label = relObj ? relObj.title : relId;
+          return `
+            <button type="button" class="rel-chip" onclick="jumpToConcept('${relId}')">
+              → ${label}
+            </button>
+          `;
+        }).join(``);
+
+        return `
+          <article class="kb-card${isHighlighted}" id="${entry.id}">
+            <div>
+              <span class="tag tag-petrol">${entry.category}</span>
+            </div>
+            <h3 style="margin-bottom: var(--space-xs);">${entry.title}</h3>
+            <p style="font-size: 0.9375rem; margin-bottom: var(--space-xs);">${entry.summary}</p>
+            <p class="figure-card-desc" style="color: var(--on-surface); font-size: 0.875rem;">
+              <strong>Dato de la fuente:</strong> ${entry.fact}
+            </p>
+            <div class="kb-relations" aria-label="Conceptos relacionados">
+              ${relButtons}
+            </div>
+          </article>
+        `;
+      }).join(``);
+    }
+
+    // ----- SECCIÓN 06A: PREGUNTAS FRECUENTES (FAQ) -----
+    function renderFaq() {
+      const container = document.getElementById(`faq-container`);
+      if (!container) return;
+
+      container.innerHTML = FAQ_DATA.map(function (item, index) {
+        const panelId = `faq-panel-${index}`;
+        const isFirst = index === 0;
+        return `
+          <div class="faq-item">
+            <button
+              type="button"
+              class="faq-trigger"
+              aria-expanded="${isFirst ? `true` : `false`}"
+              aria-controls="${panelId}"
+              onclick="toggleFaq(this, '${panelId}')"
+            >
+              <span>${item.q}</span>
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div id="${panelId}" class="faq-panel"${isFirst ? `` : ` hidden`}>
+              <p style="margin: 0; max-width: 72ch;">${item.a}</p>
+            </div>
+          </div>
+        `;
+      }).join(``);
+    }
+
+    function toggleFaq(btn, panelId) {
+      const panel = document.getElementById(panelId);
+      if (!btn || !panel) return;
+      const expanded = btn.getAttribute(`aria-expanded`) === `true`;
+      btn.setAttribute(`aria-expanded`, expanded ? `false` : `true`);
+      panel.hidden = expanded;
+    }
+
+    // ----- SECCIÓN 06B: CUESTIONARIO DE COMPRENSIÓN -----
+    function renderQuiz() {
+      const container = document.getElementById(`quiz-questions`);
+      if (!container) return;
+
+      container.innerHTML = QUIZ_DATA.map(function (q, qIndex) {
+        const chosen = quizAnswers[q.id];
+        const hasAnswered = typeof chosen === `number`;
+        const isCorrect = hasAnswered && chosen === q.correct;
+
+        const optionsHtml = q.options.map(function (optText, optIndex) {
+          let stateClass = ``;
+          if (hasAnswered) {
+            if (optIndex === q.correct) {
+              stateClass = ` is-correct`;
+            } else if (optIndex === chosen) {
+              stateClass = ` is-wrong`;
+            }
+          }
+          const letter = String.fromCharCode(65 + optIndex);
+          return `
+            <button
+              type="button"
+              class="quiz-option${stateClass}"
+              onclick="answerQuiz('${q.id}', ${optIndex})"
+              ${hasAnswered ? `disabled` : ``}
+            >
+              <span class="index-num">${letter}.</span>
+              <span>${optText}</span>
+            </button>
+          `;
+        }).join(``);
+
+        const feedbackHtml = hasAnswered ? `
+          <div class="quiz-feedback ${isCorrect ? `is-correct` : `is-wrong`}">
+            <strong>${isCorrect ? `Correcto:` : `Revisión necesaria:`}</strong> ${q.explanation}
+          </div>
+        ` : ``;
+
+        return `
+          <div class="quiz-q">
+            <div class="figure-card-label"><span class="index-num">Pregunta 0${qIndex + 1}</span></div>
+            <h4 style="font-size: 1.08rem; margin-top: var(--space-xs);">${q.question}</h4>
+            <div class="quiz-options">
+              ${optionsHtml}
+            </div>
+            ${feedbackHtml}
+          </div>
+        `;
+      }).join(``);
+
+      updateQuizStats();
+    }
+
+    function answerQuiz(questionId, optionIndex) {
+      if (typeof quizAnswers[questionId] === `number`) return;
+      quizAnswers[questionId] = optionIndex;
+
+      // Desarmar confirmación de reinicio si estaba armada
+      const resetBtn = document.getElementById(`quiz-reset-btn`);
+      if (resetBtn) {
+        resetBtn.dataset.armed = `false`;
+        resetBtn.textContent = `Reiniciar cuestionario`;
+      }
+
+      renderQuiz();
+    }
+
+    function updateQuizStats() {
+      const answeredCount = Object.keys(quizAnswers).length;
+      let correctCount = 0;
+      QUIZ_DATA.forEach(function (q) {
+        if (quizAnswers[q.id] === q.correct) correctCount += 1;
+      });
+
+      const progressEl = document.getElementById(`quiz-progress`);
+      const scoreEl = document.getElementById(`quiz-score`);
+      if (progressEl) progressEl.textContent = `${answeredCount} / ${QUIZ_DATA.length} respondidas`;
+      if (scoreEl) scoreEl.textContent = `Aciertos: ${correctCount}`;
+    }
+
+    function resetQuiz(btn) {
+      if (!btn) return;
+      const hasAny = Object.keys(quizAnswers).length > 0;
+      if (hasAny && btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Pulsa de nuevo para confirmar reinicio`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reiniciar cuestionario`;
+      quizAnswers = {};
+      renderQuiz();
+    }
+
+    // ----- UTILIDADES DE CIERRE Y ANIMACIÓN -----
+    function copyStudySummary() {
+      const statusEl = document.getElementById(`copy-status`);
+      const summaryText = [
+        `ORIGEN Y META DE LA HISTORIA — KARL JASPERS (1949)`,
+        `1. Tesis central: La humanidad posee un origen único y una meta final entrevisibles solo mediante símbolos; no hay un «punto arquimédico» fuera de la historia.`,
+        `2. Tiempo-Eje (800–200 a. C., centro ca. 500 a. C.): Corte espiritual simultáneo en China, India y Occidente que da unidad empírica a la historia universal.`,
+        `3. Presente y futuro: Ciencia moderna, técnica (>150 años) y comunicaciones han creado una historia única planetaria (~6.000 años de historia conocida).`,
+        `4. Encrucijada política: Imperio mundial violento vs. Ordenación mundial jurídica y negociada.`,
+        `5. Sentido: Las metas parciales se realizan en el presente; frente al nihilismo y la amenaza totalitaria, el filosofar libre sigue siendo refugio del individuo.`
+      ].join(`\n`);
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(summaryText).then(function () {
+          if (statusEl) statusEl.textContent = `Síntesis copiada al portapapeles.`;
+        }).catch(function () {
+          if (statusEl) statusEl.textContent = `No fue posible acceder al portapapeles en este entorno.`;
+        });
+      } else {
+        if (statusEl) statusEl.textContent = `Portapapeles no disponible en este navegador.`;
+      }
+    }
+
+    function setupRevealObserver() {
+      if (!(`IntersectionObserver` in window)) return;
+      const sections = document.querySelectorAll(`.reveal-section`);
+      sections.forEach(function (sec) {
+        sec.classList.add(`is-pending`);
+      });
+
+      const observer = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove(`is-pending`);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      sections.forEach(function (sec) {
+        observer.observe(sec);
+      });
+    }
+  </script>
+</body>
+</html>

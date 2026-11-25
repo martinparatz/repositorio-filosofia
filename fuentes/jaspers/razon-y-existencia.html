@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>Razón y existencia — Base de conocimientos sobre Karl Jaspers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      /* Ink */
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      /* Rules */
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      /* Accents */
+      --primary: #990f3d;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      /* Data series, in order of use */
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      /* Fonts */
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* Semantic */
+      --positive: #0d7680;
+      --warning: #9a6312;
+      --focus: #990f3d;
+
+      /* Type scale -- Narrative */
+      --display-size: clamp(2.5rem, 1.5rem + 3.8vw, 4.25rem);
+      --headline-size: clamp(1.75rem, 1.25rem + 1.8vw, 2.5rem);
+      --subhead-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.15rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      font-optical-sizing: auto;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-lg) var(--space-lg) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+      text-align: left;
+    }
+    h1 {
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.2;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 66ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .lede {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: clamp(1.1875rem, 1.08rem + 0.45vw, 1.375rem);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 58ch;
+      margin-top: var(--space-md);
+    }
+
+    .label,
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .section-label {
+      color: var(--primary);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+    }
+    /* Inside filled panels, teal drops below 4.5:1; switch to claret */
+    .panel-tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      display: inline-block;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+      transition: text-decoration-thickness var(--dur-micro) var(--ease-out);
+    }
+    a:hover { text-decoration-thickness: 2px; }
+
+    /* Masthead & Navigation */
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-bottom: var(--space-xl);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .masthead-line {
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-md);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .masthead-meta {
+      color: var(--on-surface-variant);
+    }
+    .nav-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-lg);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-list a {
+      color: var(--on-surface);
+      text-decoration: none;
+      padding: var(--space-xs) 0;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-list a:hover,
+    .nav-list a.is-current {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* Hairline columns */
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-column);
+      border-bottom: var(--rule-column);
+      padding-block: var(--space-md);
+    }
+    .columns > * {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .columns > :last-child {
+      padding-right: 0;
+    }
+    .figure-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .figure-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.6rem);
+      line-height: 1.15;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      display: block;
+    }
+    .figure-note {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+      margin-top: var(--space-xs);
+      display: block;
+    }
+
+    /* Lecture overview strip */
+    .lecture-map {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-column);
+      padding-top: var(--space-md);
+    }
+    .lecture-item {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .lecture-item:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .lecture-item:last-child {
+      padding-right: 0;
+    }
+    .lecture-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.25;
+      color: var(--on-surface);
+    }
+    .lecture-desc {
+      font-size: 0.875rem;
+      line-height: 1.45;
+      color: var(--on-surface-variant);
+    }
+
+    /* Section structure */
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-md);
+      display: grid;
+      gap: var(--space-xl);
+    }
+    .section-header {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .editorial-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .editorial-split-even {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Pull quotes */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+      margin-block: var(--space-md);
+      max-width: 58ch;
+    }
+    .pull-quote blockquote {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.65rem);
+      line-height: 1.32;
+      color: var(--on-surface);
+    }
+    .pull-quote cite {
+      display: block;
+      margin-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+
+    /* Interactive panels (rare newsprint fill reserved for interactive objects) */
+    .interactive-box {
+      background: var(--surface-container-low);
+      border: 1px solid var(--outline);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .interactive-box-head {
+      border-bottom: var(--rule-column);
+      padding-bottom: var(--space-sm);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      background: var(--background);
+      color: var(--on-surface);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: left;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover {
+      background: var(--surface-container);
+    }
+    .btn.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+    }
+    .btn-secondary {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-container-high);
+    }
+
+    /* Ruled comparison columns */
+    .compare-columns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+    }
+    .compare-col {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+    }
+    .compare-col:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .compare-col:last-child {
+      padding-right: 0;
+    }
+
+    /* Broadsheet Tables */
+    .table-wrap {
+      overflow-x: auto;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.96875rem;
+    }
+    th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--rule-ink);
+      vertical-align: bottom;
+    }
+    th:first-child, td:first-child { padding-left: 0; }
+    th:last-child, td:last-child { padding-right: 0; }
+    td {
+      padding: var(--space-md);
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    tr:last-child td { border-bottom: 0; }
+    tr.is-highlighted {
+      background: var(--primary-container);
+    }
+    tr.is-highlighted td:first-child {
+      color: var(--on-primary-container);
+      font-weight: 600;
+    }
+
+    /* SVG Diagram for Das Umgreifende */
+    .umgreifende-stage {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .svg-frame {
+      background: var(--background);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+    }
+    .umg-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .umg-ring {
+      fill: transparent;
+      stroke: var(--outline-variant);
+      stroke-width: 1.25;
+      transition: stroke var(--dur-short) var(--ease-out);
+    }
+    .umg-node-shape {
+      fill: var(--background);
+      stroke: var(--outline);
+      stroke-width: 1.5;
+      cursor: pointer;
+      transition: fill var(--dur-micro) var(--ease-out), stroke var(--dur-micro) var(--ease-out), stroke-width var(--dur-micro) var(--ease-out);
+    }
+    .umg-node:hover .umg-node-shape {
+      fill: var(--surface-container-low);
+      stroke: var(--primary);
+    }
+    .umg-node.is-selected .umg-node-shape {
+      fill: var(--primary-container);
+      stroke: var(--primary);
+      stroke-width: 2.5;
+    }
+    .umg-node-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 13px;
+      fill: var(--on-surface);
+      pointer-events: none;
+    }
+    .umg-node-sub {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      fill: var(--on-surface-variant);
+      pointer-events: none;
+    }
+    .umg-node.is-selected .umg-node-sub {
+      fill: var(--on-primary-container);
+    }
+    .umg-connector {
+      stroke: var(--data-context);
+      stroke-width: 1.25;
+      stroke-dasharray: 3 3;
+      fill: none;
+    }
+    .umg-connector.is-active {
+      stroke: var(--primary);
+      stroke-width: 2;
+      stroke-dasharray: none;
+    }
+    .umg-group-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      fill: var(--primary);
+    }
+
+    /* Polarity meters */
+    .meter-list {
+      display: grid;
+      gap: var(--space-md);
+      margin-top: var(--space-sm);
+    }
+    .meter-row {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .meter-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .meter-track {
+      height: 10px;
+      background: var(--surface-container-high);
+      border: 1px solid var(--outline);
+      position: relative;
+      overflow: hidden;
+    }
+    .meter-fill {
+      height: 100%;
+      background: var(--primary);
+      transition: width var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+    }
+    .meter-fill.is-secondary { background: var(--secondary); }
+    .meter-fill.is-tertiary { background: var(--tertiary); }
+
+    /* FAQ Accordion */
+    .faq-list {
+      border-top: var(--rule-ink);
+    }
+    .faq-item {
+      border-bottom: var(--rule-column);
+    }
+    .faq-item:last-child {
+      border-bottom: var(--rule-ink);
+    }
+    .faq-trigger {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      padding: var(--space-md) 0;
+      min-height: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      text-align: left;
+      cursor: pointer;
+      color: var(--on-surface);
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+      line-height: 1.3;
+    }
+    .faq-trigger:hover {
+      color: var(--primary);
+    }
+    .faq-icon {
+      flex-shrink: 0;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--primary);
+      width: 24px;
+      text-align: center;
+    }
+    .faq-panel {
+      padding: 0 0 var(--space-lg) 0;
+      color: var(--on-surface);
+      max-width: 68ch;
+    }
+    .faq-panel[hidden] {
+      display: none;
+    }
+
+    /* Glossary & Inputs */
+    .input-group {
+      display: grid;
+      gap: var(--space-xs);
+      max-width: 380px;
+    }
+    .input-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .text-input {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--on-surface);
+      background: var(--background);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      width: 100%;
+    }
+    .text-input:focus {
+      border-color: var(--primary);
+    }
+
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 var(--space-xl);
+      border-top: var(--rule-ink);
+    }
+    .glossary-entry {
+      border-bottom: var(--rule-column);
+      padding-block: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+    }
+    .glossary-term-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+    .glossary-term {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: var(--on-surface);
+    }
+    .glossary-empty {
+      padding-block: var(--space-lg);
+      color: var(--on-surface-variant);
+      border-bottom: var(--rule-column);
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--rule-section);
+      padding-top: var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-md);
+      color: var(--on-surface-variant);
+      font-size: 0.9375rem;
+    }
+
+    /* Subtle reveal animation */
+    .reveal {
+      opacity: 0;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-md);
+      }
+      .columns > * {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-sm) 0 0 0;
+      }
+      .columns > :nth-child(1),
+      .columns > :nth-child(2) {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .lecture-map {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+      }
+      .lecture-item {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-sm) 0 0 0;
+      }
+      .lecture-item:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .editorial-split,
+      .editorial-split-even,
+      .compare-columns,
+      .glossary-grid {
+        grid-template-columns: 1fr;
+      }
+      .compare-col {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-md) 0;
+      }
+      .compare-col:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-md) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .columns {
+        grid-template-columns: 1fr;
+      }
+      .columns > :nth-child(2) {
+        border-top: var(--rule-column);
+        padding-top: var(--space-sm);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- MASTHEAD & INICIO -->
+    <header class="masthead" id="inicio">
+      <div class="masthead-line">
+        <span class="masthead-meta">Archivo Filosófico · Karl Jaspers · Groningen, 1935</span>
+        <nav aria-label="Navegación principal">
+          <ul class="nav-list">
+            <li><a href="#inicio" class="is-current">Inicio</a></li>
+            <li><a href="#crisis">Crisis y Excepción</a></li>
+            <li><a href="#abarcador">Lo Abarcador</a></li>
+            <li><a href="#polaridad">Razón y Existencia</a></li>
+            <li><a href="#comunicabilidad">Comunicabilidad</a></li>
+            <li><a href="#faq">FAQ y Glosario</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div>
+        <h1>Razón y existencia: el pensamiento de lo abarcador</h1>
+        <p class="lede">
+          Base de conocimientos interactiva sobre las cinco lecciones que Karl Jaspers pronunció en la Universidad de Groningen en la primavera de 1935 (<em>Vernunft und Existenz</em>). Un recorrido por la quiebra del idealismo sistemático, las figuras de excepción de Kierkegaard y Nietzsche, los modos de <em>das Umgreifende</em> y la verdad entendida como comunicación existencial.
+        </p>
+      </div>
+
+      <div class="columns" aria-label="Datos fundamentales de la obra">
+        <div>
+          <span class="figure-label">Edición original</span>
+          <span class="figure-value">1935</span>
+          <span class="figure-note">Aula-Voordrachten, Universidad de Groningen (J. B. Wolters)</span>
+        </div>
+        <div>
+          <span class="figure-label">Giro conceptual</span>
+          <span class="figure-value">Das Umgreifende</span>
+          <span class="figure-note">Lo abarcador o envolvente-fundamentante frente al mero objeto</span>
+        </div>
+        <div>
+          <span class="figure-label">Eje histórico</span>
+          <span class="figure-value">2 excepciones</span>
+          <span class="figure-note">Kierkegaard y Nietzsche, pensadores sin influjo mutuo directo</span>
+        </div>
+        <div>
+          <span class="figure-label">Criterio de verdad</span>
+          <span class="figure-value">Comunicación</span>
+          <span class="figure-note">Pugna amorosa entre individuos históricos insustituibles</span>
+        </div>
+      </div>
+
+      <div aria-label="Estructura de las cinco lecciones de la obra">
+        <span class="section-label">Arquitectura de la obra</span>
+        <div class="lecture-map">
+          <div class="lecture-item">
+            <span class="tag">Lección 1.ª</span>
+            <a href="#crisis" class="lecture-title">Origen de la situación filosófica actual</a>
+            <span class="lecture-desc">Razón frente a no-razón y el significado histórico de Kierkegaard y Nietzsche.</span>
+          </div>
+          <div class="lecture-item">
+            <span class="tag">Lección 2.ª</span>
+            <a href="#abarcador" class="lecture-title">Lo abarcador</a>
+            <span class="lecture-desc">Ser-ahí, conciencia absoluta, espíritu, existencia posible, mundo y trascendencia.</span>
+          </div>
+          <div class="lecture-item">
+            <span class="tag">Lección 3.ª</span>
+            <a href="#comunicabilidad" class="lecture-title">La verdad como comunicabilidad</a>
+            <span class="lecture-desc">El ser-hombre en comunidad y la pugna amorosa sin voluntad de poder.</span>
+          </div>
+          <div class="lecture-item">
+            <span class="tag">Lección 4.ª</span>
+            <a href="#polaridad" class="lecture-title">Preeminencia y límites del pensar racional</a>
+            <span class="lecture-desc">La polaridad inseparable entre la claridad racional y la hondura existencial.</span>
+          </div>
+          <div class="lecture-item">
+            <span class="tag">Lección 5.ª</span>
+            <a href="#faq" class="lecture-title">Posibilidades de un filosofar actual</a>
+            <span class="lecture-desc">Filosofar mirando a la excepción y una nueva lógica del esclarecimiento.</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECCIÓN 1: CRISIS Y EXCEPCIÓN -->
+    <section class="section-open reveal" id="crisis" aria-labelledby="crisis-heading">
+      <div class="section-header">
+        <span class="section-label">Lección 1.ª · Situación histórica</span>
+        <h2 id="crisis-heading">La crisis de la razón occidental y las figuras de excepción</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            Lo razonable no es pensable ni comparece en la realidad sin su contrario: lo no razonable o irracional. Para el saber, lo irracional reside en lo impenetrable de cada <em>hic et nunc</em> (aquí y ahora), en el residuo de la materia que no agota la forma racional, en la facticidad del ser-ahí sujeto a leyes empíricas y en los contenidos de fe de la revelación religiosa. Incluso las filosofías que intentan disolver todo ser en pura racionalidad retienen, contra su voluntad, un resto irracional como <em>factum</em> primigenio o casualidad.
+          </p>
+          <p>
+            Desde Parménides y Heráclito hasta Hegel, la filosofía occidental pareció descansar en una unidad continua donde la razón nunca era puesta en tela de juicio radicalmente en su totalidad. Sin embargo, bajo la superficie de los estudios históricos y las doctrinas académicas —convertidas en mero saber desligado de la vida—, se consumó en el hombre occidental un fenómeno silencioso y descomunal: la desintegración de todas las autoridades, la desilusión frente a la confianza desmedida en la razón y la disolución de los vínculos tradicionales.
+          </p>
+          <p>
+            Quienes advirtieron esta fatalidad antes que nadie fueron <strong>Søren Kierkegaard</strong> y <strong>Friedrich Nietzsche</strong>. Sin haber ejercido influencia uno sobre otro —Kierkegaard murió en 1855 y Nietzsche nunca leyó una línea suya, aunque en carta a Georg Brandes del 19 de febrero de 1888 proyectaba estudiar «el problema psicológico de Kierkegaard»—, ambos encarnan la misma necesidad espiritual de su siglo y sacuden la filosofía hasta obligarnos a preguntar: <em>¿y ahora, qué?</em>
+          </p>
+        </div>
+
+        <aside class="interactive-box" aria-labelledby="epoch-explorer-title">
+          <div class="interactive-box-head">
+            <div>
+              <span class="panel-tag">Recorrido histórico</span>
+              <h3 id="epoch-explorer-title">Razón y no-razón en la historia</h3>
+            </div>
+          </div>
+          <div class="btn-row" role="tablist" aria-label="Épocas filosóficas">
+            <button type="button" class="btn is-active" role="tab" aria-selected="true" data-epoch="grecia" onclick="selectEpoch('grecia', this)">Grecia</button>
+            <button type="button" class="btn" role="tab" aria-selected="false" data-epoch="cristianismo" onclick="selectEpoch('cristianismo', this)">Cristianismo</button>
+            <button type="button" class="btn" role="tab" aria-selected="false" data-epoch="iluminismo" onclick="selectEpoch('iluminismo', this)">Siglos XVII–XVIII</button>
+            <button type="button" class="btn" role="tab" aria-selected="false" data-epoch="idealismo" onclick="selectEpoch('idealismo', this)">Idealismo alemán</button>
+          </div>
+          <div id="epoch-detail" aria-live="polite"></div>
+        </aside>
+      </div>
+
+      <!-- Comparador Kierkegaard y Nietzsche -->
+      <div class="interactive-box" aria-labelledby="kn-title">
+        <div class="interactive-box-head">
+          <div>
+            <span class="panel-tag">Comparación estructural</span>
+            <h3 id="kn-title">Lo común en el pensamiento y la existencia de Kierkegaard y Nietzsche</h3>
+          </div>
+          <span class="figure-note" style="margin-top:0;">Selecciona un eje para contrastar sus posiciones</span>
+        </div>
+
+        <div class="btn-row" role="tablist" aria-label="Ejes comparativos entre Kierkegaard y Nietzsche">
+          <button type="button" class="btn is-active" role="tab" aria-selected="true" data-kn="razon" onclick="selectKNAxis('razon', this)">1. Razón, ciencia y sistema</button>
+          <button type="button" class="btn" role="tab" aria-selected="false" data-kn="mascara" onclick="selectKNAxis('mascara', this)">2. Interpretación y máscara</button>
+          <button type="button" class="btn" role="tab" aria-selected="false" data-kn="epoca" onclick="selectKNAxis('epoca', this)">3. Diagnóstico de la época</button>
+          <button type="button" class="btn" role="tab" aria-selected="false" data-kn="reflexion" onclick="selectKNAxis('reflexion', this)">4. Reflexión infinita y origen</button>
+          <button type="button" class="btn" role="tab" aria-selected="false" data-kn="excepcion" onclick="selectKNAxis('excepcion', this)">5. Conciencia de excepción</button>
+        </div>
+
+        <div id="kn-detail" class="compare-columns" aria-live="polite"></div>
+      </div>
+
+      <div class="pull-quote">
+        <blockquote>«La tarea es esta: filosofamos no siendo una excepción, con la mirada fija en la excepción.»</blockquote>
+        <cite>Karl Jaspers · Razón y existencia, Lección 5.ª</cite>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: LO ABARCADOR -->
+    <section class="section-open reveal" id="abarcador" aria-labelledby="abarcador-heading">
+      <div class="section-header">
+        <span class="section-label">Lección 2.ª · El giro filosófico</span>
+        <h2 id="abarcador-heading">Lo abarcador (<em>Das Umgreifende</em>): más allá del ser objetivado</h2>
+      </div>
+
+      <div>
+        <p>
+          En sus lecciones de 1935, Jaspers sustituye la pregunta metafísica habitual por el ser —siempre tentada a identificar la realidad con objetos particulares y saberes fijados— por la interrogación acerca de <strong>lo abarcador</strong> o <strong>lo circunvalante</strong> (<em>das Umgreifende</em>). Lo abarcador no se vuelve jamás visible como un horizonte más junto a otros, sino que es aquello sobre cuyo fondo se perfila todo nuevo horizonte. Al trazar el límite de nuestro conocimiento de objetos, esta idea libera al ser humano de confundir la realidad viva con lo meramente «sabido».
+        </p>
+        <p>
+          Reflexivamente, lo abarcador se desdobla en dos vertientes —el ser que somos nosotros mismos y el ser mismo que todo lo es— articuladas por un vínculo dinámico que impide el anquilosamiento: la razón. Explora cada dimensión en el esquema inferior.
+        </p>
+      </div>
+
+      <div class="editorial-split">
+        <div class="umgreifende-stage">
+          <div class="svg-frame">
+            <svg class="umg-svg" viewBox="0 0 640 430" role="img" aria-label="Esquema interactivo de las maneras de Lo Abarcador según Karl Jaspers">
+              <!-- Outer boundary of Das Umgreifende -->
+              <rect class="umg-ring" x="12" y="12" width="616" height="406" />
+              <text class="umg-group-label" x="28" y="34">DAS UMGREIFENDE · EL HORIZONTE DE TODOS LOS HORIZONTES</text>
+
+              <!-- Group 1: El ser que somos nosotros -->
+              <rect class="umg-ring" x="28" y="50" width="286" height="352" />
+              <text class="umg-group-label" x="42" y="72">EL SER QUE SOMOS NOSOTROS</text>
+
+              <!-- Group 2: El ser mismo que todo lo es -->
+              <rect class="umg-ring" x="330" y="50" width="282" height="240" />
+              <text class="umg-group-label" x="344" y="72">EL SER MISMO QUE TODO LO ES</text>
+
+              <!-- Connectors -->
+              <line id="conn-dasein" class="umg-connector" x1="296" y1="114" x2="352" y2="124" />
+              <line id="conn-conciencia" class="umg-connector" x1="296" y1="186" x2="352" y2="132" />
+              <line id="conn-espiritu" class="umg-connector" x1="296" y1="258" x2="352" y2="146" />
+              <line id="conn-existencia" class="umg-connector" x1="296" y1="336" x2="352" y2="230" />
+              <line id="conn-razon-left" class="umg-connector" x1="330" y1="348" x2="296" y2="348" />
+              <line id="conn-razon-top" class="umg-connector" x1="471" y1="312" x2="471" y2="270" />
+
+              <!-- Node: Ser-ahí -->
+              <g class="umg-node is-selected" data-umg="dasein" onclick="selectUmgreifende('dasein')" tabindex="0" role="button" aria-label="Seleccionar Ser-ahí (Dasein)">
+                <rect class="umg-node-shape" x="44" y="88" width="252" height="54" />
+                <text class="umg-node-title" x="58" y="112">1. Ser-ahí (Dasein)</text>
+                <text class="umg-node-sub" x="58" y="129">Realidad vital empírica</text>
+              </g>
+
+              <!-- Node: Conciencia absoluta -->
+              <g class="umg-node" data-umg="conciencia" onclick="selectUmgreifende('conciencia')" tabindex="0" role="button" aria-label="Seleccionar Conciencia en general o absoluta">
+                <rect class="umg-node-shape" x="44" y="160" width="252" height="54" />
+                <text class="umg-node-title" x="58" y="184">2. Conciencia absoluta</text>
+                <text class="umg-node-sub" x="58" y="201">Validez universal objetiva</text>
+              </g>
+
+              <!-- Node: Espíritu -->
+              <g class="umg-node" data-umg="espiritu" onclick="selectUmgreifende('espiritu')" tabindex="0" role="button" aria-label="Seleccionar Espíritu">
+                <rect class="umg-node-shape" x="44" y="232" width="252" height="54" />
+                <text class="umg-node-title" x="58" y="256">3. Espíritu (Geist)</text>
+                <text class="umg-node-sub" x="58" y="273">Todo conexo movido por ideas</text>
+              </g>
+
+              <!-- Node: Existencia posible -->
+              <g class="umg-node" data-umg="existencia" onclick="selectUmgreifende('existencia')" tabindex="0" role="button" aria-label="Seleccionar Existencia posible">
+                <rect class="umg-node-shape" x="44" y="308" width="252" height="76" />
+                <text class="umg-node-title" x="58" y="334">4. Existencia posible</text>
+                <text class="umg-node-sub" x="58" y="352">Centro del filosofar · Historicidad</text>
+                <text class="umg-node-sub" x="58" y="368">Origen del ser-uno-mismo</text>
+              </g>
+
+              <!-- Node: Mundo -->
+              <g class="umg-node" data-umg="mundo" onclick="selectUmgreifende('mundo')" tabindex="0" role="button" aria-label="Seleccionar Mundo">
+                <rect class="umg-node-shape" x="348" y="92" width="246" height="72" />
+                <text class="umg-node-title" x="362" y="122">5. Mundo</text>
+                <text class="umg-node-sub" x="362" y="142">Otreidad del ser objetivo</text>
+              </g>
+
+              <!-- Node: Trascendencia -->
+              <g class="umg-node" data-umg="trascendencia" onclick="selectUmgreifende('trascendencia')" tabindex="0" role="button" aria-label="Seleccionar Trascendencia">
+                <rect class="umg-node-shape" x="348" y="188" width="246" height="82" />
+                <text class="umg-node-title" x="362" y="218">6. Trascendencia</text>
+                <text class="umg-node-sub" x="362" y="237">El ser que permanece incógnito</text>
+                <text class="umg-node-sub" x="362" y="253">Presente solo a la existencia</text>
+              </g>
+
+              <!-- Node: Razón -->
+              <g class="umg-node" data-umg="razon" onclick="selectUmgreifende('razon')" tabindex="0" role="button" aria-label="Seleccionar Razón como vínculo">
+                <rect class="umg-node-shape" x="330" y="312" width="282" height="90" />
+                <text class="umg-node-title" x="346" y="342">7. Razón (el vínculo)</text>
+                <text class="umg-node-sub" x="346" y="360">No es un modo más, sino el nexo</text>
+                <text class="umg-node-sub" x="346" y="376">y la inquietud de todos los modos</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="btn-row" aria-label="Selector rápido de las dimensiones de Lo Abarcador">
+            <button type="button" class="btn is-active" data-umg-btn="dasein" onclick="selectUmgreifende('dasein')">Ser-ahí</button>
+            <button type="button" class="btn" data-umg-btn="conciencia" onclick="selectUmgreifende('conciencia')">Conciencia absoluta</button>
+            <button type="button" class="btn" data-umg-btn="espiritu" onclick="selectUmgreifende('espiritu')">Espíritu</button>
+            <button type="button" class="btn" data-umg-btn="existencia" onclick="selectUmgreifende('existencia')">Existencia posible</button>
+            <button type="button" class="btn" data-umg-btn="mundo" onclick="selectUmgreifende('mundo')">Mundo</button>
+            <button type="button" class="btn" data-umg-btn="trascendencia" onclick="selectUmgreifende('trascendencia')">Trascendencia</button>
+            <button type="button" class="btn" data-umg-btn="razon" onclick="selectUmgreifende('razon')">Razón</button>
+          </div>
+        </div>
+
+        <aside class="interactive-box" id="umgreifende-detail" aria-live="polite"></aside>
+      </div>
+
+      <div class="pull-quote">
+        <blockquote>«Quien ha pensado lo más profundo, ama lo más vívido.»</blockquote>
+        <cite>Friedrich Hölderlin · Citado por Karl Jaspers al cierre de la Lección 2.ª</cite>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: POLARIDAD RAZÓN Y EXISTENCIA -->
+    <section class="section-open reveal" id="polaridad" aria-labelledby="polaridad-heading">
+      <div class="section-header">
+        <span class="section-label">Lecciones 2.ª y 4.ª · Dinámica interior</span>
+        <h2 id="polaridad-heading">Razón y Existencia: dos polos que se producen mutuamente</h2>
+      </div>
+
+      <div class="editorial-split-even">
+        <div>
+          <p>
+            Jaspers elige la fórmula «razón y existencia» no para designar una antítesis ni una identidad estática, sino una interconexión viva. La palabra <strong>razón</strong> lleva consigo la amplitud, claridad y veracidad kantianas; la palabra <strong>existencia</strong>, elevada por Kierkegaard a su máxima hondura, alude a lo que se sustrae a todo saber definido.
+          </p>
+          <p>
+            Ambos son los grandes polos de nuestro ser. No luchan entre sí por la victoria ni por aniquilarse: cada cual no es sino por virtud del otro. La razón aporta la inquietud que aguijonea a la existencia; la existencia aporta el arraigo histórico y sustancial sin el cual la razón degenera en mero juego intelectual. Allí donde la razón busca la transparencia absoluta, choca finalmente contra lo absolutamente opaco: ese impacto —el fracaso o naufragio ante la trascendencia— solo se vuelve verdad lúcida para la razón más clara.
+          </p>
+        </div>
+
+        <div class="interactive-box" aria-labelledby="polarity-sim-title">
+          <div class="interactive-box-head">
+            <div>
+              <span class="panel-tag">Simulador conceptual</span>
+              <h3 id="polarity-sim-title">¿Qué ocurre cuando un polo se aísla?</h3>
+            </div>
+          </div>
+
+          <div class="btn-row" role="tablist" aria-label="Estados de la polaridad entre razón, existencia y trascendencia">
+            <button type="button" class="btn is-active" role="tab" aria-selected="true" data-pol="equilibrio" onclick="selectPolarity('equilibrio', this)">Tensión fértil</button>
+            <button type="button" class="btn" role="tab" aria-selected="false" data-pol="sin_existencia" onclick="selectPolarity('sin_existencia', this)">Razón sin Existencia</button>
+            <button type="button" class="btn" role="tab" aria-selected="false" data-pol="sin_razon" onclick="selectPolarity('sin_razon', this)">Existencia sin Razón</button>
+            <button type="button" class="btn" role="tab" aria-selected="false" data-pol="sin_trascendencia" onclick="selectPolarity('sin_trascendencia', this)">Sin Trascendencia</button>
+          </div>
+
+          <div id="polarity-readout" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div>
+        <span class="tag">Fórmulas paradójicas del esclarecimiento existencial</span>
+        <div class="compare-columns" style="margin-top: var(--space-sm);">
+          <div class="compare-col">
+            <span class="figure-label">1. Acción y fracaso</span>
+            <p>«Solamente actúo realizando de verdad, en virtud de la posible existencia, si incorporo conscientemente el fracaso a mi acción.»</p>
+          </div>
+          <div class="compare-col">
+            <span class="figure-label">2. Razón y sinrazón</span>
+            <p>«Propiamente racional soy solamente si toda mi razón se funda de hecho y a sabiendas en la sinrazón.»</p>
+          </div>
+          <div class="compare-col">
+            <span class="figure-label">3. Fe y duda</span>
+            <p>«Creo solamente por dudar de si creo.»</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: VERDAD COMO COMUNICABILIDAD -->
+    <section class="section-open reveal" id="comunicabilidad" aria-labelledby="com-heading">
+      <div class="section-header">
+        <span class="section-label">Lección 3.ª · Comunidad y verdad</span>
+        <h2 id="com-heading">La verdad como comunicabilidad: sin el otro no llego a ser yo mismo</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            Jaspers parte de un fenómeno primigenio de nuestra condición humana: somos lo que somos solamente en virtud de la comunidad de un mutuo y consciente hacernos inteligibles. Ningún hombre por sí solo y como mero individuo sería hombre. De ahí que la verdad sea inseparable de la comunicabilidad: si desprendemos la verdad de la comunicación, aquella se petrifica despojada de su esencia.
+          </p>
+          <p>
+            Porque nuestra existencia se da en el tiempo, la verdad no es dogmática ni acabada, sino comunicativa y <em>en vías de ser</em>. Afirmar una verdad como posesión definitiva equivale a provocar la ruptura <em>de facto</em> de la comunicación. Ahora bien, la verdad tampoco es de una sola especie: su sentido cambia según la manera de lo abarcador en la cual nos comunicamos.
+          </p>
+        </div>
+
+        <aside class="interactive-box" aria-labelledby="comm-focus-title">
+          <div class="interactive-box-head">
+            <div>
+              <span class="panel-tag">Niveles de comunicación</span>
+              <h3 id="comm-focus-title">Filtrar por plano de lo abarcador</h3>
+            </div>
+          </div>
+          <div class="btn-row" role="tablist" aria-label="Modos de comunicación">
+            <button type="button" class="btn is-active" role="tab" aria-selected="true" data-comm="todos" onclick="selectCommunication('todos', this)">Vista general</button>
+            <button type="button" class="btn" role="tab" aria-selected="false" data-comm="dasein" onclick="selectCommunication('dasein', this)">Ser-ahí</button>
+            <button type="button" class="btn" role="tab" aria-selected="false" data-comm="conciencia" onclick="selectCommunication('conciencia', this)">Conciencia absoluta</button>
+            <button type="button" class="btn" role="tab" aria-selected="false" data-comm="espiritu" onclick="selectCommunication('espiritu', this)">Espíritu</button>
+            <button type="button" class="btn" role="tab" aria-selected="false" data-comm="existencia" onclick="selectCommunication('existencia', this)">Existencia y Razón</button>
+          </div>
+          <div id="comm-note" aria-live="polite"></div>
+        </aside>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Modo de lo abarcador</th>
+              <th>Quién comunica</th>
+              <th>Sentido de la verdad</th>
+              <th>Dinámica y límite</th>
+            </tr>
+          </thead>
+          <tbody id="comm-table-body">
+            <tr data-comm-row="dasein">
+              <td>Ser-ahí (<em>Dasein</em>)</td>
+              <td>Individuo empírico y vital</td>
+              <td>Utilidad práctica, acuerdo para opinar y querer en común</td>
+              <td>Convive con la lucha por el poder, la superioridad y el aniquilamiento del rival.</td>
+            </tr>
+            <tr data-comm-row="conciencia">
+              <td>Conciencia absoluta</td>
+              <td>Puntos racionales idénticos e intercambiables</td>
+              <td>Validez universal objetiva y demostrable</td>
+              <td>Cualquier sujeto puede sostener lo mismo arbitrariamente; prescinde de la singularidad histórica.</td>
+            </tr>
+            <tr data-comm-row="espiritu">
+              <td>Espíritu (<em>Geist</em>)</td>
+              <td>Miembro de una totalidad histórica o cultural</td>
+              <td>Coherencia orgánica animada por ideas</td>
+              <td>Riesgo de refugiarse en una idea abarcadora olvidando el carácter de rotura del ser.</td>
+            </tr>
+            <tr data-comm-row="existencia" class="is-highlighted">
+              <td>Existencia y Razón</td>
+              <td>Individuos históricos insustituibles</td>
+              <td>Verdad existencial en devenir, inseparable del ser-uno-mismo</td>
+              <td><strong>Pugna amorosa</strong> sin voluntad de poder: todo adelanto propio exige que el otro adelante; abierta a la trascendencia.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pull-quote">
+        <blockquote>«Ser uno mismo y ser verdad no es otra cosa que estar incondicionalmente en comunicación. Aquí, en esta profundidad, el guardarse sería precisamente perderse.»</blockquote>
+        <cite>Karl Jaspers · Razón y existencia, Lección 3.ª</cite>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: FAQ Y GLOSARIO -->
+    <section class="section-open reveal" id="faq" aria-labelledby="faq-heading">
+      <div class="section-header">
+        <span class="section-label">Lección 5.ª · Consulta rápida</span>
+        <h2 id="faq-heading">Preguntas frecuentes filosóficas y glosario esencial</h2>
+      </div>
+
+      <div>
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:var(--space-md); margin-bottom:var(--space-md);">
+          <h3>Preguntas frecuentes</h3>
+          <button type="button" class="btn btn-secondary" id="faq-toggle-all" onclick="toggleAllFaqs()">Expandir todas</button>
+        </div>
+
+        <div class="faq-list" id="faq-container">
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="true" aria-controls="faq-ans-1" id="faq-btn-1" onclick="toggleFaq(1)">
+              <span>1. ¿Por qué afirma Jaspers que lo razonable es impensable sin lo no razonable?</span>
+              <span class="faq-icon" aria-hidden="true">−</span>
+            </button>
+            <div class="faq-panel" id="faq-ans-1" role="region" aria-labelledby="faq-btn-1">
+              <p>
+                Porque tanto en el pensamiento como en la realidad efectiva, la razón siempre opera frente a un límite opaco: el «aquí y ahora» concreto (<em>hic et nunc</em>), la materia que la forma lógica no agota, las leyes fácticas del mundo y los contenidos de fe. Incluso los sistemas que pretenden reducir todo el ser a pura racionalidad dejan atrás un residuo irreductible bajo el nombre de materia indiferente, ocasión o casualidad. Hasta la obstinación más radical contra la razón conserva un mínimo de racionalidad al articularse filosóficamente.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-2" id="faq-btn-2" onclick="toggleFaq(2)">
+              <span>2. ¿Por qué Kierkegaard y Nietzsche rechazan el «sistema» filosófico tradicional?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-ans-2" role="region" aria-labelledby="faq-btn-2" hidden>
+              <p>
+                Ambos ven en el sistema cerrado una distracción respecto de la realidad existente. Kierkegaard sostiene que el ser-ahí podrá ser un sistema para Dios, nunca para un espíritu existente: quien construye un sistema filosófico edifica un castillo conceptual mientras habita en el galpón contiguo, divorciado de lo que piensa. Nietzsche, por su parte, juzga la tentativa hegeliana como una «versión gótica del titánico asalto al cielo» y declara que la voluntad de sistema delata una falta de rectitud intelectual.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-3" id="faq-btn-3" onclick="toggleFaq(3)">
+              <span>3. Si no debemos imitar a Kierkegaard ni a Nietzsche, ¿qué función cumplen para nosotros?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-ans-3" role="region" aria-labelledby="faq-btn-3" hidden>
+              <p>
+                Ellos mismos rechazaron ser modelos: Kierkegaard se consideró un «conejillo de Indias para el ser-ahí» y Nietzsche advirtió «¡no me sigas a mí, sino a ti!». Sus respuestas finales —el cristianismo paradójico fuera del mundo en uno, o la lejanía indefinida del eterno retorno en el otro— no son las nuestras. Su verdad para nosotros reside en su cuestionamiento incesante, que impide recaer en una autosatisfacción ingenua. Nuestra tarea es filosofar sin ser una excepción, pero con la mirada fija en la excepción.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-4" id="faq-btn-4" onclick="toggleFaq(4)">
+              <span>4. ¿En qué se distinguen el ser-ahí (<em>Dasein</em>) y la existencia (<em>Existenz</em>)?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-ans-4" role="region" aria-labelledby="faq-btn-4" hidden>
+              <p>
+                El <em>ser-ahí</em> es nuestra realidad vital empírica en el mundo, investigable parcialmente por la física, la biología y la psicología en cuanto cuerpo, vida y alma objetivados. La <em>existencia</em>, en cambio, jamás puede convertirse en objeto de ciencia ni en figura empírica: es la experiencia indefinible de la libertad, la posibilidad del ser-uno-mismo y la decisión histórica irreductible ante situaciones límite como el azar, el sufrimiento, el conflicto, la culpabilidad y la muerte.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-5" id="faq-btn-5" onclick="toggleFaq(5)">
+              <span>5. ¿Qué significa que la comunicación existencial sea una «pugna amorosa»?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-ans-5" role="region" aria-labelledby="faq-btn-5" hidden>
+              <p>
+                A diferencia de la lucha vital del ser-ahí —donde se compite por poder, superioridad y aniquilamiento— y de la mera coincidencia impersonal de la conciencia absoluta, la comunicación existencial ocurre entre individuos insustituibles que luchan por la verdad y el esclarecimiento sin voluntad de poder. En esa pugna amorosa, ningún avance es individual si no implica el avance del otro, y toda pérdida del otro constituye una pérdida para uno mismo.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-6" id="faq-btn-6" onclick="toggleFaq(6)">
+              <span>6. ¿Cómo puede alguien comprometerse con su verdad absoluta sin volverse dogmático?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-ans-6" role="region" aria-labelledby="faq-btn-6" hidden>
+              <p>
+                Jaspers explica que, como la trascendencia no puede poseerse cual objeto idéntico para todos, toda verdad absoluta en el mundo es histórica: absoluta únicamente para esta existencia concreta y, precisamente por ello, sin validez universal coercitiva. La suprema exigencia de veracidad consiste en jugarse el todo por el todo en la propia verdad histórica mientras se reconoce al mismo tiempo la verdad del otro —que no es verdad para uno mismo—, manteniendo abierta la voluntad ilimitada de comunicación.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-7" id="faq-btn-7" onclick="toggleFaq(7)">
+              <span>7. ¿Por qué el «fracaso» o naufragio es inseparable de la autenticidad existencial?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-ans-7" role="region" aria-labelledby="faq-btn-7" hidden>
+              <p>
+                Porque la razón tiende por esencia hacia la transparencia total, y solo llevando ese impulso racional hasta su límite extremo logra sufrir con verdad el impacto de lo absolutamente opaco. Al estrellarse contra la finitud y las situaciones límite, la existencia no se diluye en ilusión ni en evasión, sino que reconoce la trascendencia como el poder por el cual llega a ser propiamente sí misma.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Glosario interactivo -->
+      <div style="display:grid; gap:var(--space-md);">
+        <h3>Glosario de conceptos clave</h3>
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:end; gap:var(--space-md);">
+          <div class="input-group" style="flex:1 1 280px;">
+            <label for="glossary-search" class="input-label">Filtrar conceptos filosóficos de la obra</label>
+            <input type="search" id="glossary-search" class="text-input" placeholder="Ej. Umgreifende, máscara, Dasein…" oninput="filterGlossary()">
+          </div>
+          <div class="btn-row" role="group" aria-label="Filtrar glosario por categoría">
+            <button type="button" class="btn is-active" data-gcat="todos" onclick="setGlossaryCategory('todos', this)">Todos</button>
+            <button type="button" class="btn" data-gcat="abarcador" onclick="setGlossaryCategory('abarcador', this)">Lo abarcador</button>
+            <button type="button" class="btn" data-gcat="metodo" onclick="setGlossaryCategory('metodo', this)">Método y crisis</button>
+            <button type="button" class="btn" data-gcat="comunicacion" onclick="setGlossaryCategory('comunicacion', this)">Comunicación</button>
+          </div>
+        </div>
+
+        <div id="glossary-list" class="glossary-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div>
+        <strong>Fuente primaria:</strong> Karl Jaspers, <em>Razón y existencia</em> (<em>Vernunft und Existenz</em>, cinco lecciones pronunciadas en la Universidad de Groningen en la primavera de 1935; traducción al español de Haraldo Kahnemann sobre la 3.ª edición, edición digital Titivillus).
+      </div>
+      <div>
+        <a href="#inicio">Volver al inicio ↑</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Datos grounded estrictamente en las fuentes provistas (sin comas finales)
+    const EPOCH_DATA = {
+      grecia: {
+        label: `Antigüedad griega`,
+        title: `Claridad olímpica rodeada por el límite`,
+        summary: `En la mitología griega, la claridad de los dioses estaba rodeada por la majestuosa incomprensibilidad de la Moira como límite de su saber y poder. En la filosofía, lo inaccesible a la razón comparece con gravedad junto a la estructura del pensar.`,
+        examples: [
+          `Sócrates: escuchaba la voz consejera del Daimonion no comprendido, que le disuadía antes de actuar.`,
+          `Platón: distingue la enajenación como enfermedad (menos que la razón) de la enajenación divina por la que poetas, amantes y filósofos alcanzan la visión del ser.`,
+          `Aristóteles: reconoce la suerte frente al cálculo y menciona a los «alogoi», hombres con un principio mejor que la razón discursiva.`
+        ],
+        oppositions: `Oposiciones estructurales: ser / apariencia (Parménides), ente / vacío (Demócrito), ser / no-ser (Platón), forma / materia (Aristóteles).`
+      },
+      cristianismo: {
+        label: `Cristianismo`,
+        title: `Contraste interior entre razón y fe`,
+        summary: `El conflicto entre razón y no-razón pasa al interior del hombre individual como tensión entre razón y fe. Lo inaccesible deja de verse como mera extrañeza o ciega casualidad para entenderse universalmente como providencia y revelación de lo superior.`,
+        examples: [
+          `Los pensamientos fundamentales de la fe no captables racionalmente solo pueden expresarse mediante antinomias contrarias a la razón.`,
+          `Toda univocidad puramente racional en la interpretación de la fe degenera en herejía.`
+        ],
+        oppositions: `Lo irracional ya no es desorden ciego, sino providencia.`
+      },
+      iluminismo: {
+        label: `Siglos XVII y XVIII`,
+        title: `Racionalismo, Ilustración y sus contragolpes`,
+        summary: `Con Descartes y sus continuadores surge una fundamentación radical de la razón en sí sola, que desemboca en la actitud iluminista: el conocimiento racional universalmente válido y empírico bastaría para constituir correctamente el mundo y la vida humana.`,
+        examples: [
+          `Pascal frente a Descartes: percibe los límites de la racionalidad desde la plena posesión de ella.`,
+          `Vico frente a Descartes, Hobbes y Grocio: rescata aquello que posibilita y liga primigeniamente la razón.`,
+          `Bayle frente a Locke, Leibniz y Spinoza: evidencia las aporías de la razón autónoma.`
+        ],
+        oppositions: `Un filosofar consumido en una gran antítesis entre pensadores irreconciliables.`
+      },
+      idealismo: {
+        label: `Idealismo alemán`,
+        title: `Más que mera razón y el fin de una unidad`,
+        summary: `Los filósofos del idealismo alemán intentaron conciliar la antítesis al ver en la razón algo más que la mera razón instrumental. Sin embargo, tras ese último apogeo, la tradición occidental entra en ruptura.`,
+        examples: [
+          `Kant: crea un nuevo punto de partida al distinguir la amplitud, claridad y veracidad propias de la razón.`,
+          `Hegel, Fichte y Schelling: llevan la razón sistemática a una construcción fantástica totalizadora que pronto se desmorona.`
+        ],
+        oppositions: `Después de Hegel, todas las doctrinas pasadas corren el riesgo de convertirse en mero saber histórico desligado de la vida.`
+      }
+    };
+
+    const KN_DATA = {
+      razon: {
+        axis: `1. Razón, ciencia y sistema`,
+        axisDesc: `Ponen la razón en tela de juicio desde la profundidad existencial —no por odio a la razón ni por escepticismo dogmático, pues ambos buscan la verdad— y atacan al erudito ingenuo y al sistema cerrado.`,
+        kierkegaard: `Asombrado ante los doctos profesores que explican toda la naturaleza sin comprenderse a sí mismos ni alcanzar el punto crítico donde hay algo incomprensible. Para él, el ser-ahí puede ser sistema para Dios, nunca para un espíritu existente: el filósofo sistemático edifica un castillo pero habita en el galpón contiguo.`,
+        nietzsche: `Despliega un análisis destructor del tipo de sabio cuyo obrar carece de sentido propio y cree captar el ser con un saber fútil. Quiere dudar mejor que Descartes, ve en el sistema hegeliano una «versión gótica del titánico asalto al cielo» y declara que la voluntad de sistema es una falta de rectitud.`
+      },
+      mascara: {
+        axis: `2. Interpretación, máscara y lector`,
+        axisDesc: `Conciben el saber como interpretación infinita y recurren deliberadamente al ocultamiento y la comunicación indirecta, apelando a lectores capaces de producir la verdad desde sí mismos.`,
+        kierkegaard: `Lo sucedido permanece siempre abierto a nueva comprensión; nadie penetra absolutamente su conciencia. Quiere volver a leer los textos primigenios de la existencia y cita a Lichtenberg: «Tales obras son espejos; si el que se mira en ellas es un mono, lo que reflejan no podrá ser un apóstol».`,
+        nietzsche: `El ser-ahí admite infinitas interpretaciones; busca liberar el texto original («homo natura») de los retoques pintados encima. Exige una rectitud que se cuestiona a sí misma y advierte que comprenderle es una distinción que hay que merecer, imposible ante una mentalidad rastrera.`
+      },
+      epoca: {
+        axis: `3. Diagnóstico de la época y la «Nada»`,
+        axisDesc: `No son representantes positivos de su tiempo, sino su conciencia crítica más aguda: perciben un cambio cuasisubstancial en el ser del hombre y divisan la «Nada» inminente sin quererla.`,
+        kierkegaard: `Denuncia a toda la Cristiandad real de su tiempo como un «monstruoso embuste» ajeno al Nuevo Testamento: o se admite honestamente la miseria de que ya no nace un cristiano verdadero, o sobrevendrá un quebranto universal.`,
+        nietzsche: `Resume el hecho histórico de la época en una sentencia: «Dios ha muerto». Registra el ateísmo no solo como pérdida, sino como la gran ocasión para querer la jerarquía y el valor del hombre mediante su «gran política» de largos alcances.`
+      },
+      reflexion: {
+        axis: `4. Reflexión infinita y sostén trascendente`,
+        axisDesc: `Superan la modernidad apurándola hasta el fin mediante tres movimientos: reflexión ilimitada, retorno a los orígenes y sostén en un Dios desconocido.`,
+        kierkegaard: `Advierte el carácter doble de la reflexión infinita (puede volverse «veneno de reflexión» y «palabrerío dialéctico» o condición de existencia auténtica en el «mar de la reflexión» donde todas las boyas son dialécticas). A los 25 años confiesa haber venerado al «Dios desconocido».`,
+        nietzsche: `No rehúye la reflexión ni se refugia en una inmediatez ingenua; atraviesa el vacío hasta el fondo para exigir nuevo ser (eterno retorno) y con 20 años compone su primer poema «Al Dios desconocido».`
+      },
+      excepcion: {
+        axis: `5. Autocomprensión como «excepción»`,
+        axisDesc: `Viven en soledad radical —sin cargo oficial ni matrimonio—, se saben irrepetibles pero rechazan servir de modelo universal, y se sienten puro espíritu despojado de la vida ordinaria.`,
+        kierkegaard: `Se entiende como «conejillo de Indias para el ser-ahí» y hombre de ensayo en una crisis; dice estar corporalmente despojado de lo que haría un hombre entero, con una melancolía al borde de la demencia que le inutiliza para servir bajo otro.`,
+        nietzsche: `Habla «a favor de la excepción, supuesto que nunca quiera llegar a ser la regla» y exige al filósofo amparar la regla («¡no me sigas a mí, sino a ti!»). Canta su condena solar a no poder amar en el «Canto de la Noche» del Zaratustra: «Luz soy; ¡ojalá fuera noche!…».`
+      }
+    };
+
+    const UMG_DATA = {
+      dasein: {
+        group: `El ser que somos nosotros`,
+        title: `1. Ser-ahí (Dasein)`,
+        definition: `Nuestra realidad empírica y vital en el tiempo. Conocemos cuerpo, vida y alma como objetos particulares de la física, la biología o la psicología, pero el ser-ahí abarcador que somos los atraviesa sin quedar agotado por ninguna ciencia particular.`,
+        truth: `Verdad pragmática, vital y comunitaria orientada a la conservación, el acuerdo práctico y la acción en el mundo.`,
+        danger: `Confundir la vitalidad del ser-ahí con la existencia auténtica o quedar atrapado en una facticidad ciega y sin sentido.`
+      },
+      conciencia: {
+        group: `El ser que somos nosotros`,
+        title: `2. Conciencia en general (Conciencia absoluta)`,
+        definition: `El lugar donde se opera toda validez universal, objetiva y racional del ser para nosotros. Soy conciencia únicamente en cuanto capto la otreidad del ser objetivo en el mundo bajo cuyas condiciones soy-ahí.`,
+        truth: `Verdad científica y lógica universalmente válida, idéntica para cualquier sujeto pensante intercambiable.`,
+        danger: `Creer que todo el ser coincide con lo cognoscible objetivamente, o enredarse en un intelecto vacío desconectado de la historicidad.`
+      },
+      espiritu: {
+        group: `El ser que somos nosotros`,
+        title: `3. Espíritu (Geist)`,
+        definition: `El todo único y conexo de la conciencia animada por las ideas (cultura, Estado, comunidad espiritual). El espíritu quiere captar todo lo individual en virtud de lo universal, reconociéndolo como miembro de un todo transparente.`,
+        truth: `Totalidad de sentido en movimiento dialéctico, accesible a la mirada histórica retrospectiva.`,
+        danger: `Hacer desaparecer al individuo concreto y su interioridad más íntima dentro de una totalidad grandiosa o sistema cerrado.`
+      },
+      existencia: {
+        group: `El ser que somos nosotros · Centro del filosofar`,
+        title: `4. Existencia posible (Mögliche Existenz)`,
+        definition: `No es la amplitud de un horizonte, sino el origen como condición del ser-uno-mismo y de la libertad. Nunca se vuelve objeto de ciencia; se manifiesta en la estrechez del ser-ahí concreto como historicidad y decisión no deducible de reglas universales.`,
+        truth: `Paradoja de la unión entre temporalidad y eternidad; certeza personal irrepetible que se esclarece en la comunicación y frente a situaciones límite.`,
+        danger: `Aislarse en obstinación muda contra la razón o confundir la existencia con mera vitalidad psicológica.`
+      },
+      mundo: {
+        group: `El ser mismo que todo lo es`,
+        title: `5. Mundo`,
+        definition: `La otreidad del ser objetivo en el cual y por medio del cual somos-ahí. Es el ámbito abierto a la investigación empírica y técnica que jamás se cierra como un objeto único terminado.`,
+        truth: `Orientación científica y objetiva del mundo, siempre parcial e inacabada.`,
+        danger: `Absolutizar el mundo como si fuera la totalidad del ser, olvidando el límite desde donde todo hacer e investigar se vuelve cuestionable.`
+      },
+      trascendencia: {
+        group: `El ser mismo que todo lo es`,
+        title: `6. Trascendencia`,
+        definition: `El ser propiamente dicho que no se muestra a ninguna experiencia investigadora, ni siquiera indirectamente; permanece incógnito. Únicamente en virtud de la existencia posible se hace presente como la realidad por la cual llego a ser yo mismo.`,
+        truth: `No es un saber objetivo ni una cosa en el mundo; se percibe en la fe existencial y en el naufragio lúcido de la razón ante lo opaco.`,
+        danger: `Sin existencia, se disuelve en indiferencia vacía o en superstición y miedo; además, jamás debe confundirse con la naturaleza.`
+      },
+      razon: {
+        group: `Vínculo de todas las maneras`,
+        title: `7. Razón (el nexo omnipenetrante)`,
+        definition: `No es una nueva manera de lo abarcador que se sume a las demás, sino el vínculo, la constante exigencia y el impulso ilimitado que las conecta, las mueve y las saca de todo anquilosamiento dogmático.`,
+        truth: `Claridad, veracidad y voluntad ilimitada de comunicación que lleva cada modo al máximo de su posibilidad hasta tocar el límite.`,
+        danger: `Quemar etapas intentando captar la trascendencia directamente sin atravesar la disciplina del saber, o desligarse de la existencia.`
+      }
+    };
+
+    const POLARITY_DATA = {
+      equilibrio: {
+        title: `Tensión fértil entre Razón, Existencia y Trascendencia`,
+        clarity: 94,
+        history: 92,
+        transcendence: 90,
+        diagnosis: `Razón y existencia se producen mutuamente: la claridad racional aguijonea a la existencia con preguntas incesantes, mientras la existencia otorga substancia histórica y realidad a la razón. Ante lo absolutamente opaco, la razón experimenta con verdad el naufragio ante la trascendencia.`,
+        maxim: `«Toda auténtica realización no llega a ser un todo sino en virtud de ellas, aunque nunca alcancen a fundirse en un todo definitivo.»`
+      },
+      sin_existencia: {
+        title: `Razón sin Existencia (racionalismo desligado)`,
+        clarity: 88,
+        history: 18,
+        transcendence: 22,
+        diagnosis: `La razón se enreda en un pensar que, pese a su riqueza formal, resulta arbitrario: un movimiento meramente intelectual de la conciencia absoluta o una dialéctica vacía del espíritu. Al deslizarse por lo universal sin raíces históricas, deja de ser verdadera razón.`,
+        maxim: `«La existencia no debe perderse en la razón en aras de una transparencia que se confunde a sí misma con la realidad substancial.»`
+      },
+      sin_razon: {
+        title: `Existencia sin Razón (obstinación cerrada)`,
+        clarity: 15,
+        history: 68,
+        transcendence: 30,
+        diagnosis: `Faltando el aguijón interrogante de la razón, la existencia cae en un estado inactivo y letárgico, cual si no estuviera ahí, o bien se encierra en una obstinación desesperada que resiste toda evidencia y rompe la comunicación.`,
+        maxim: `«La razón no debe perderse en la existencia en aras de una obstinación que se encierra en sí misma resistiendo desesperada la evidencia.»`
+      },
+      sin_trascendencia: {
+        title: `Existencia sin Trascendencia (inmanencia estéril)`,
+        clarity: 50,
+        history: 55,
+        transcendence: 8,
+        diagnosis: `Dado que la existencia no se ha creado a sí misma, depende de la trascendencia para llegar a ser origen independiente en el mundo. Sin esa apertura, la existencia degenera en obstinación estéril, demoníaca y falta de amor.`,
+        maxim: `«Sin existencia el sentido de la trascendencia se disolvería en nada; sin la trascendencia, la existencia es obstinación estéril, demoníaca y falta de amor.»`
+      }
+    };
+
+    const COMM_NOTES = {
+      todos: {
+        title: `Panorama completo de la verdad comunicativa`,
+        body: `La comunicación existencial no destruye las capas inferiores (ser-ahí, conciencia absoluta, espíritu): las salvaguarda como el «cuerpo del fenómeno», pero las atraviesa y supera constantemente en la pugna amorosa entre seres históricos.`
+      },
+      dasein: {
+        title: `Plano 1 · Comunicación de ser-ahí a ser-ahí`,
+        body: `Busca cómo entenderse prácticamente con el otro para opinar y querer lo mismo en comunidad; sin embargo, en el mero plano vital coexiste permanentemente con la lucha por el poder, la superioridad y el aniquilamiento.`
+      },
+      conciencia: {
+        title: `Plano 2 · Comunicación en la conciencia absoluta`,
+        body: `Se produce entre puntos racionales idénticos respecto de verdades objetivas válidas para cualquiera. Es indispensable para la ciencia, pero el sujeto concreto queda sustituible y ausente en su singularidad.`
+      },
+      espiritu: {
+        title: `Plano 3 · Comunicación en la idea del espíritu`,
+        body: `Une a los individuos como miembros de un todo histórico o cultural animado por una idea abarcadora. Su límite aparece cuando se toma ese refugio espiritual por la totalidad cerrada, ocultando la fractura del ser.`
+      },
+      existencia: {
+        title: `Plano 4 · Comunicación existencial por medio de la razón`,
+        body: `Tiene lugar entre individuos insustituibles en una situación histórica irrepetible. La comunicación parece engendrar a los propios seres que se comunican, como si hubiesen estado unidos eternamente, en una pugna amorosa sin voluntad de poder.`
+      }
+    };
+
+    const GLOSSARY_ITEMS = [
+      {
+        term: `Lo abarcador (Das Umgreifende)`,
+        category: `abarcador`,
+        catLabel: `Lo abarcador`,
+        desc: `También traducido como lo circunvalante o lo envolvente-fundamentante. No es un objeto ni un horizonte visible, sino el fondo último sobre el cual se perfila todo nuevo horizonte.`
+      },
+      {
+        term: `Ser-ahí (Dasein)`,
+        category: `abarcador`,
+        catLabel: `Lo abarcador`,
+        desc: `La realidad empírica y vital que somos en el tiempo; se explora parcialmente en cuanto cuerpo, vida y alma como objetos, pero como modo abarcador los precede y atraviesa.`
+      },
+      {
+        term: `Conciencia absoluta`,
+        category: `abarcador`,
+        catLabel: `Lo abarcador`,
+        desc: `Conciencia en general donde rige toda validez universal objetiva y científica; capta el mundo objetivo pero no alcanza el fondo singular de la existencia.`
+      },
+      {
+        term: `Espíritu (Geist)`,
+        category: `abarcador`,
+        catLabel: `Lo abarcador`,
+        desc: `El movimiento conexo de la conciencia animada por las ideas que aspira a comprender lo particular como miembro de una totalidad histórica transparente.`
+      },
+      {
+        term: `Existencia posible (Existenz)`,
+        category: `abarcador`,
+        catLabel: `Lo abarcador`,
+        desc: `El centro del filosofar: origen oculto del ser-uno-mismo, experiencia indefinible de la libertad e historicidad irrepetible abierta a la trascendencia.`
+      },
+      {
+        term: `Trascendencia`,
+        category: `abarcador`,
+        catLabel: `Lo abarcador`,
+        desc: `El ser mismo que permanece incógnito y no se muestra a ninguna investigación empírica; solo se hace realidad presente para la existencia posible.`
+      },
+      {
+        term: `Razón (como vínculo)`,
+        category: `comunicacion`,
+        catLabel: `Comunicación`,
+        desc: `No es un modo separado de lo abarcador, sino el nexo omnipenetrante y la inquietud constante que enlaza todos los modos e impulsa a la máxima claridad y comunicación.`
+      },
+      {
+        term: `Pugna amorosa`,
+        category: `comunicacion`,
+        catLabel: `Comunicación`,
+        desc: `Lucha existencial sin voluntad de poder entre individuos insustituibles, donde el progreso de uno depende del progreso del otro y la verdad nace en el vínculo.`
+      },
+      {
+        term: `Comunicación indirecta y máscara`,
+        category: `metodo`,
+        catLabel: `Método y crisis`,
+        desc: `Estrategia de Kierkegaard y Nietzsche frente a una verdad temporal no objetivable: la verdad no puede entregarse como dogma directo, sino suscitarse en el lector que responde desde sí.`
+      },
+      {
+        term: `Situaciones límite`,
+        category: `metodo`,
+        catLabel: `Método y crisis`,
+        desc: `Experiencias insuperables —azar, sufrimiento, conflicto, culpabilidad y muerte— ante las cuales la existencia despierta a su libertad y a lo envolvente-fundamentante.`
+      }
+    ];
+
+    let activeGlossaryCat = `todos`;
+
+    function selectEpoch(key, btn) {
+      const data = EPOCH_DATA[key];
+      const box = document.getElementById('epoch-detail');
+      if (!data || !box) return;
+
+      const tabs = document.querySelectorAll('[data-epoch]');
+      tabs.forEach(function (t) {
+        const isTarget = t === btn;
+        t.classList.toggle('is-active', isTarget);
+        t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+      });
+
+      const listHtml = data.examples.map(function (item) {
+        return `<li>${item}</li>`;
+      }).join('');
+
+      box.innerHTML = `
+        <span class="figure-label">${data.label}</span>
+        <h4 style="margin-bottom: var(--space-xs);">${data.title}</h4>
+        <p>${data.summary}</p>
+        <ul style="margin: var(--space-sm) 0; padding-left: var(--space-lg);">${listHtml}</ul>
+        <p class="figure-note" style="margin-top: var(--space-xs);"><strong>Síntesis:</strong> ${data.oppositions}</p>
+      `;
+    }
+
+    function selectKNAxis(key, btn) {
+      const data = KN_DATA[key];
+      const box = document.getElementById('kn-detail');
+      if (!data || !box) return;
+
+      const tabs = document.querySelectorAll('[data-kn]');
+      tabs.forEach(function (t) {
+        const isTarget = t === btn;
+        t.classList.toggle('is-active', isTarget);
+        t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+      });
+
+      box.innerHTML = `
+        <div class="compare-col">
+          <span class="figure-label">Eje compartido</span>
+          <h4>${data.axis}</h4>
+          <p>${data.axisDesc}</p>
+        </div>
+        <div class="compare-col">
+          <span class="figure-label">Søren Kierkegaard (1813–1855)</span>
+          <p>${data.kierkegaard}</p>
+        </div>
+        <div class="compare-col">
+          <span class="figure-label">Friedrich Nietzsche (1844–1900)</span>
+          <p>${data.nietzsche}</p>
+        </div>
+      `;
+    }
+
+    function selectUmgreifende(key) {
+      const data = UMG_DATA[key];
+      const box = document.getElementById('umgreifende-detail');
+      if (!data || !box) return;
+
+      document.querySelectorAll('.umg-node').forEach(function (node) {
+        node.classList.toggle('is-selected', node.getAttribute('data-umg') === key);
+      });
+
+      document.querySelectorAll('[data-umg-btn]').forEach(function (btn) {
+        btn.classList.toggle('is-active', btn.getAttribute('data-umg-btn') === key);
+      });
+
+      document.querySelectorAll('.umg-connector').forEach(function (line) {
+        line.classList.remove('is-active');
+      });
+
+      const connMap = {
+        dasein: ['conn-dasein'],
+        conciencia: ['conn-conciencia'],
+        espiritu: ['conn-espiritu'],
+        existencia: ['conn-existencia', 'conn-razon-left'],
+        mundo: ['conn-dasein', 'conn-conciencia', 'conn-espiritu'],
+        trascendencia: ['conn-existencia', 'conn-razon-top'],
+        razon: ['conn-razon-left', 'conn-razon-top']
+      };
+      (connMap[key] || []).forEach(function (id) {
+        const line = document.getElementById(id);
+        if (line) line.classList.add('is-active');
+      });
+
+      box.innerHTML = `
+        <div class="interactive-box-head">
+          <div>
+            <span class="panel-tag">${data.group}</span>
+            <h3>${data.title}</h3>
+          </div>
+        </div>
+        <div>
+          <span class="figure-label">Definición en Jaspers</span>
+          <p>${data.definition}</p>
+        </div>
+        <div style="border-top: var(--rule-column); padding-top: var(--space-sm);">
+          <span class="figure-label">Sentido de verdad que posibilita</span>
+          <p>${data.truth}</p>
+        </div>
+        <div style="border-top: var(--rule-column); padding-top: var(--space-sm);">
+          <span class="figure-label">Límite o peligro de absolutización</span>
+          <p>${data.danger}</p>
+        </div>
+      `;
+    }
+
+    function selectPolarity(key, btn) {
+      const data = POLARITY_DATA[key];
+      const box = document.getElementById('polarity-readout');
+      if (!data || !box) return;
+
+      document.querySelectorAll('[data-pol]').forEach(function (t) {
+        const isTarget = t === btn;
+        t.classList.toggle('is-active', isTarget);
+        t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+      });
+
+      box.innerHTML = `
+        <h4 style="margin-bottom: var(--space-xs);">${data.title}</h4>
+        <p>${data.diagnosis}</p>
+        <div class="meter-list">
+          <div class="meter-row">
+            <div class="meter-head"><span>Claridad racional</span><span>${data.clarity}%</span></div>
+            <div class="meter-track"><div class="meter-fill" style="width:${data.clarity}%;"></div></div>
+          </div>
+          <div class="meter-row">
+            <div class="meter-head"><span>Arraigo histórico-existencial</span><span>${data.history}%</span></div>
+            <div class="meter-track"><div class="meter-fill is-secondary" style="width:${data.history}%;"></div></div>
+          </div>
+          <div class="meter-row">
+            <div class="meter-head"><span>Apertura a la trascendencia</span><span>${data.transcendence}%</span></div>
+            <div class="meter-track"><div class="meter-fill is-tertiary" style="width:${data.transcendence}%;"></div></div>
+          </div>
+        </div>
+        <p style="margin-top: var(--space-md); border-top: var(--rule-column); padding-top: var(--space-sm); font-style: italic;">
+          ${data.maxim}
+        </p>
+      `;
+    }
+
+    function selectCommunication(key, btn) {
+      const note = COMM_NOTES[key];
+      const noteBox = document.getElementById('comm-note');
+      if (!note || !noteBox) return;
+
+      document.querySelectorAll('[data-comm]').forEach(function (t) {
+        const isTarget = t === btn;
+        t.classList.toggle('is-active', isTarget);
+        t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+      });
+
+      noteBox.innerHTML = `
+        <h4 style="margin-bottom: var(--space-xs);">${note.title}</h4>
+        <p>${note.body}</p>
+      `;
+
+      document.querySelectorAll('[data-comm-row]').forEach(function (row) {
+        const rowKey = row.getAttribute('data-comm-row');
+        if (key === 'todos') {
+          row.classList.toggle('is-highlighted', rowKey === 'existencia');
+        } else {
+          row.classList.toggle('is-highlighted', rowKey === key);
+        }
+      });
+    }
+
+    function toggleFaq(index) {
+      const btn = document.getElementById('faq-btn-' + index);
+      const panel = document.getElementById('faq-ans-' + index);
+      if (!btn || !panel) return;
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      panel.hidden = expanded;
+      const icon = btn.querySelector('.faq-icon');
+      if (icon) icon.textContent = expanded ? '+' : '−';
+      syncFaqToggleAllLabel();
+    }
+
+    function toggleAllFaqs() {
+      const triggers = document.querySelectorAll('.faq-trigger');
+      let anyClosed = false;
+      triggers.forEach(function (t) {
+        if (t.getAttribute('aria-expanded') !== 'true') anyClosed = true;
+      });
+      triggers.forEach(function (t, i) {
+        const idx = i + 1;
+        const panel = document.getElementById('faq-ans-' + idx);
+        const icon = t.querySelector('.faq-icon');
+        t.setAttribute('aria-expanded', anyClosed ? 'true' : 'false');
+        if (panel) panel.hidden = !anyClosed;
+        if (icon) icon.textContent = anyClosed ? '−' : '+';
+      });
+      syncFaqToggleAllLabel();
+    }
+
+    function syncFaqToggleAllLabel() {
+      const btn = document.getElementById('faq-toggle-all');
+      if (!btn) return;
+      const triggers = document.querySelectorAll('.faq-trigger');
+      let allOpen = true;
+      triggers.forEach(function (t) {
+        if (t.getAttribute('aria-expanded') !== 'true') allOpen = false;
+      });
+      btn.textContent = allOpen ? `Contraer todas` : `Expandir todas`;
+    }
+
+    function setGlossaryCategory(cat, btn) {
+      activeGlossaryCat = cat;
+      document.querySelectorAll('[data-gcat]').forEach(function (b) {
+        b.classList.toggle('is-active', b === btn);
+      });
+      filterGlossary();
+    }
+
+    function filterGlossary() {
+      const input = document.getElementById('glossary-search');
+      const list = document.getElementById('glossary-list');
+      if (!list) return;
+      const query = input ? input.value.trim().toLowerCase() : '';
+
+      const matches = GLOSSARY_ITEMS.filter(function (item) {
+        const catOk = activeGlossaryCat === 'todos' || item.category === activeGlossaryCat;
+        const textOk = !query || item.term.toLowerCase().indexOf(query) !== -1 || item.desc.toLowerCase().indexOf(query) !== -1;
+        return catOk && textOk;
+      });
+
+      if (matches.length === 0) {
+        list.innerHTML = `<div class="glossary-empty" style="grid-column: 1 / -1;">No hay términos que coincidan con «${query}». Prueba con otra palabra clave o selecciona «Todos».</div>`;
+        return;
+      }
+
+      list.innerHTML = matches.map(function (item) {
+        return `
+          <div class="glossary-entry">
+            <div class="glossary-term-row">
+              <span class="glossary-term">${item.term}</span>
+              <span class="tag">${item.catLabel}</span>
+            </div>
+            <p>${item.desc}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Inicialización y accesibilidad por teclado para nodos SVG
+    document.addEventListener('DOMContentLoaded', function () {
+      const firstEpoch = document.querySelector('[data-epoch="grecia"]');
+      if (firstEpoch) selectEpoch('grecia', firstEpoch);
+
+      const firstKN = document.querySelector('[data-kn="razon"]');
+      if (firstKN) selectKNAxis('razon', firstKN);
+
+      selectUmgreifende('dasein');
+
+      const firstPol = document.querySelector('[data-pol="equilibrio"]');
+      if (firstPol) selectPolarity('equilibrio', firstPol);
+
+      const firstComm = document.querySelector('[data-comm="todos"]');
+      if (firstComm) selectCommunication('todos', firstComm);
+
+      filterGlossary();
+
+      document.querySelectorAll('.umg-node').forEach(function (node) {
+        node.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const key = node.getAttribute('data-umg');
+            if (key) selectUmgreifende(key);
+          }
+        });
+      });
+
+      // Reveal on scroll
+      const revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08 });
+        revealEls.forEach(function (el) { observer.observe(el); });
+      } else {
+        revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+      }
+
+      // Active navigation highlight
+      const navLinks = document.querySelectorAll('.nav-list a');
+      navLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          navLinks.forEach(function (l) { l.classList.remove('is-current'); });
+          link.classList.add('is-current');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

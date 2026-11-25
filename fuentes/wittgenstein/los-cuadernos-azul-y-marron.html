@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>Los Cuadernos azul y marrón — Ludwig Wittgenstein (1933–1935)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Briefing style tokens */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --tertiary: #785008;
+      --error: #b42318;
+      --on-error: #ffffff;
+
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      --font-headline: 'Source Serif 4', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* 3. Shared & semantic tokens */
+      --positive: #2b6e52;
+      --positive-container: #e8f3ee;
+      --warning: #785008;
+      --warning-container: #f5e6c4;
+      --error-container: #fbeae8;
+      --secondary-container: #e6eff2;
+      --brown-ink: #6e3528;
+      --brown-container: #f6ebe8;
+      --focus: #1f4e5f;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.25rem, 1.4rem + 3.2vw, 3.6rem);
+      --headline-size: clamp(1.625rem, 1.2rem + 1.5vw, 2.25rem);
+      --subhead-size: clamp(1.1875rem, 1.05rem + 0.5vw, 1.4rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.09375rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.1vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-lg) var(--space-lg) var(--space-3xl);
+      max-width: 1160px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Typography helpers */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-size: var(--display-size);
+      line-height: 1.07;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      line-height: 1.14;
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      line-height: 1.24;
+    }
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 68ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    /* Briefing Dossier Treatments */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm) var(--space-md);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.6875rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: 0.22rem 0.55rem;
+      border-radius: var(--badge-radius);
+      display: inline-block;
+    }
+    .dossier-pill.pill-blue {
+      background: var(--secondary-container);
+      color: var(--secondary);
+    }
+    .dossier-pill.pill-brown {
+      background: var(--brown-container);
+      color: var(--brown-ink);
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+      line-height: 1.48;
+      color: var(--secondary);
+      margin-top: var(--space-sm);
+      max-width: 64ch;
+    }
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      letter-spacing: 0.04em;
+    }
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+    }
+
+    /* Navigation inside masthead */
+    .masthead {
+      padding-top: var(--space-sm);
+    }
+    .nav-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--outline-variant);
+    }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      min-height: 44px;
+      padding: 0.4rem 0.75rem;
+      background: var(--surface-container-low);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:hover {
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .nav-link .index-num {
+      font-size: 0.75rem;
+    }
+
+    /* Progress strip */
+    .progress-strip {
+      margin-top: var(--space-md);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md) var(--space-xl);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+    .progress-stat strong {
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+
+    /* Layout grids */
+    .split-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+
+    /* Timeline / Key Figures */
+    .kpi-value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+      font-variant-numeric: lining-nums tabular-nums;
+      line-height: 1.15;
+      color: var(--on-surface);
+      margin: var(--space-xs) 0;
+    }
+    .kpi-caption {
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+      line-height: 1.45;
+    }
+
+    /* Pull quote */
+    .quote-block {
+      border-left: 3px solid var(--secondary);
+      padding: var(--space-sm) var(--space-md);
+      margin: var(--space-md) 0;
+      background: var(--surface-container-low);
+    }
+    .quote-block blockquote {
+      margin: 0 0 var(--space-xs);
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.08rem;
+      line-height: 1.5;
+      color: var(--on-surface);
+    }
+    .quote-block cite {
+      font-family: var(--font-label);
+      font-style: normal;
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      min-height: 44px;
+      padding: 0.55rem 1rem;
+      border-radius: var(--rounded);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background: var(--secondary);
+      border-color: var(--secondary);
+    }
+    .btn-secondary {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--outline-variant);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .btn-secondary.is-active,
+    .btn-tab.is-active {
+      background: var(--secondary);
+      color: var(--on-primary);
+      border-color: var(--secondary);
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    /* Craving for generality cards */
+    .source-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .source-card h3 {
+      font-size: 1.08rem;
+    }
+
+    /* Grammatical confusion detector */
+    .detector-shell {
+      container-type: inline-size;
+    }
+    .detector-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+      gap: var(--space-lg);
+      align-items: stretch;
+    }
+    @container (max-width: 720px) {
+      .detector-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    .case-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .case-btn {
+      text-align: left;
+      width: 100%;
+      justify-content: flex-start;
+      padding: 0.7rem 0.9rem;
+      line-height: 1.35;
+    }
+    .diagnosis-panel {
+      background: var(--background);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .lens-toggle {
+      display: inline-flex;
+      gap: var(--space-xs);
+      background: var(--surface-container);
+      padding: var(--space-xs);
+      border-radius: var(--rounded);
+      align-self: flex-start;
+    }
+    .lens-toggle .btn {
+      min-height: 38px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.85rem;
+    }
+    .lens-box {
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border-left: 4px solid var(--secondary);
+      background: var(--surface-container-low);
+    }
+    .lens-box.is-trap {
+      border-left-color: var(--error);
+      background: var(--error-container);
+    }
+    .lens-box.is-therapy {
+      border-left-color: var(--positive);
+      background: var(--positive-container);
+    }
+
+    /* Contrast distinctions table / grid */
+    .distinction-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+    }
+    .distinction-table th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container);
+      border-bottom: var(--section-rule);
+      color: var(--on-surface);
+    }
+    .distinction-table td {
+      padding: var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+      vertical-align: top;
+    }
+    .distinction-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    /* Primitive Language Games Explorer */
+    .game-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .stage-visual {
+      background: var(--background);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .agent-dialogue {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .agent-box {
+      background: var(--surface-container-low);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+    .agent-role {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      color: var(--secondary);
+      font-weight: 600;
+      margin-bottom: var(--space-xs);
+    }
+    .speech-bubble {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: var(--on-surface);
+      min-height: 2.2rem;
+    }
+    .swatch-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .color-chip {
+      width: 24px;
+      height: 24px;
+      border-radius: 2px;
+      border: 1px solid var(--outline);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .input-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface-variant);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .text-input, .select-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 0.5rem 0.75rem;
+      background: var(--surface-container-low);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      font-size: 0.95rem;
+    }
+    .select-input {
+      padding-right: 2.2rem;
+    }
+    .log-feed {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      max-height: 230px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .log-entry {
+      background: var(--surface-container-low);
+      border-left: 3px solid var(--secondary);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+    }
+
+    /* Conceptual Comparator (Azul vs Marrón vs Investigaciones) */
+    .tri-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .tri-col {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-top: 3px solid var(--secondary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .tri-col.col-marron {
+      border-top-color: var(--tertiary);
+    }
+    .tri-col.col-inv {
+      border-top-color: var(--data-4);
+    }
+    .tri-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    /* Quiz */
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      justify-content: flex-start;
+      padding: 0.8rem 1rem;
+      background: var(--surface-container-low);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      min-height: 48px;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .quiz-option.is-correct {
+      background: var(--positive-container);
+      border-color: var(--positive);
+      color: var(--on-surface);
+    }
+    .quiz-option.is-wrong {
+      background: var(--error-container);
+      border-color: var(--error);
+      color: var(--on-surface);
+    }
+    .quiz-feedback {
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border-left: 4px solid var(--secondary);
+      background: var(--surface-container);
+    }
+    .quiz-feedback.fb-ok {
+      border-left-color: var(--positive);
+      background: var(--positive-container);
+    }
+    .quiz-feedback.fb-err {
+      border-left-color: var(--error);
+      background: var(--error-container);
+    }
+
+    /* Glossary */
+    .glossary-controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+    }
+    .glossary-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .glossary-item {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+    }
+    .glossary-trigger {
+      width: 100%;
+      min-height: 52px;
+      padding: var(--space-md);
+      background: transparent;
+      border: 0;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      color: var(--on-surface);
+    }
+    .glossary-trigger:hover {
+      background: var(--surface-container);
+    }
+    .glossary-body {
+      padding: 0 var(--space-md) var(--space-md);
+      border-top: 1px solid var(--outline-variant);
+      padding-top: var(--space-sm);
+      font-size: 0.94rem;
+    }
+    .glossary-body[hidden] { display: none; }
+    .tag-chip {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--badge-radius);
+      background: var(--warning-container);
+      color: var(--tertiary);
+      font-weight: 600;
+    }
+
+    /* SVG Diagram box */
+    .diagram-wrap {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+    }
+    .diagram-wrap svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Section back-to-top */
+    .section-footer {
+      margin-top: var(--space-md);
+      display: flex;
+      justify-content: flex-end;
+    }
+    .back-link {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.4rem 0.6rem;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      border-top: var(--section-rule);
+      padding-top: var(--space-lg);
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Responsive mobile */
+    @media (max-width: 780px) {
+      .split-layout,
+      .two-col-grid,
+      .game-stage,
+      .tri-grid,
+      .glossary-controls {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-md) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .agent-dialogue {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .figure-card {
+        padding: var(--space-md);
+      }
+      .distinction-table, .distinction-table thead, .distinction-table tbody, .distinction-table tr, .distinction-table th, .distinction-table td {
+        display: block;
+        width: 100%;
+      }
+      .distinction-table thead { display: none; }
+      .distinction-table tr {
+        border-bottom: var(--section-rule);
+        padding: var(--space-sm) 0;
+      }
+      .distinction-table td {
+        border-bottom: 0;
+        padding: var(--space-xs) var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid" id="top">
+
+    <!-- MASTHEAD & NAVEGACIÓN -->
+    <header class="masthead">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Dossier Filosófico</span>
+          <span class="dossier-meta">Cambridge · 1933–1935 · Edición Rush Rhees (1958)</span>
+        </div>
+        <span class="dossier-meta">Base de conocimiento interactiva</span>
+      </div>
+
+      <h1>Los Cuadernos azul y marrón de Ludwig Wittgenstein</h1>
+      <p class="standfirst">
+        Cómo dos ciclos de dictados en Cambridge desmontaron la búsqueda metafísica de «esencias ocultas» y fundaron la filosofía del lenguaje como uso, adiestramiento y juegos de lenguaje.
+      </p>
+
+      <nav class="nav-strip" aria-label="Navegación principal del dossier">
+        <a class="nav-link" href="#transicion"><span class="index-num">01</span> Periodo de transición</a>
+        <a class="nav-link" href="#cuaderno-azul"><span class="index-num">02</span> Cuaderno Azul</a>
+        <a class="nav-link" href="#cuaderno-marron"><span class="index-num">03</span> Cuaderno Marrón y Juegos</a>
+        <a class="nav-link" href="#comparador"><span class="index-num">04</span> Comparador conceptual</a>
+        <a class="nav-link" href="#autoevaluacion"><span class="index-num">05</span> Autoevaluación</a>
+        <a class="nav-link" href="#glosario"><span class="index-num">06</span> Glosario gramatical</a>
+      </nav>
+
+      <div class="progress-strip" aria-live="polite">
+        <span class="progress-stat">Juegos explorados: <strong id="stat-games">0 / 4</strong></span>
+        <span class="progress-stat">Autoevaluación: <strong id="stat-quiz">0 / 6 respondidas</strong></span>
+        <span class="progress-stat">Conceptos revisados: <strong id="stat-glossary">0 / 12</strong></span>
+      </div>
+    </header>
+
+    <!-- SECCIÓN 01: INTRODUCCIÓN AL PERIODO DE TRANSICIÓN -->
+    <section id="transicion" aria-labelledby="h-transicion">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">01 · Contexto histórico</span>
+          <span class="dossier-meta">De la lógica del Tractatus a la terapia gramatical</span>
+        </div>
+      </div>
+
+      <h2 id="h-transicion">El taller de transición (1933–1935): de las notas de clase a las Investigaciones</h2>
+
+      <div class="split-layout" style="margin-top: var(--space-lg);">
+        <div>
+          <p>
+            Entre 1933 y 1935, tras su regreso a Cambridge, Ludwig Wittgenstein dictó a sus alumnos dos series de notas que circularon en copias mimeografiadas y mecanografiadas mucho antes de llegar a la imprenta. Lejos de ser tratados sistemáticos cerrados, el <em>Cuaderno azul</em> y el <em>Cuaderno marrón</em> constituyen el laboratorio vivo donde Wittgenstein abandona la imagen del lenguaje como cálculo lógico exacto y ensaya por primera vez nociones decisivas como <strong>juegos de lenguaje</strong>, <strong>aires de familia</strong> y <strong>significado como uso</strong>.
+          </p>
+          <p>
+            Rush Rhees los publicó por primera vez en 1958 como <em>Preliminary Studies for the «Philosophical Investigations»</em>. Tal como relata en su prefacio, los nombres no provienen de un título doctrinal, sino del color de las cubiertas con las que se encuadernaron las copias en Cambridge.
+          </p>
+
+          <div class="quote-block">
+            <blockquote>«Di algunas conferencias en Cambridge y dicté algunas notas a mis alumnos para que pudiesen tener algo que llevarse a casa, si no en los cerebros, por lo menos en las manos.»</blockquote>
+            <cite>Carta de Ludwig Wittgenstein a Bertrand Russell adjuntando el Cuaderno azul</cite>
+          </div>
+        </div>
+
+        <aside class="aside-box" aria-label="Datos editoriales clave">
+          <p class="index-num" style="margin-bottom: var(--space-xs);">Nota crítica de Rush Rhees</p>
+          <p style="font-size: 0.94rem;">
+            Mientras el <em>Cuaderno azul</em> era estrictamente un apoyo para oyentes de sus clases, Wittgenstein concibió el <em>Cuaderno marrón</em> como borrador publicable e intentó reescribirlo en alemán hasta agosto de 1936. Al llegar a la discusión sobre la acción voluntaria, tachó el proyecto con gruesos trazos: <em>«Todo este intento de revisión, desde el comienzo hasta este punto, carece de valor»</em>, iniciando entonces lo que sería la primera parte de las <em>Investigaciones filosóficas</em>.
+          </p>
+        </aside>
+      </div>
+
+      <div class="card-grid" style="margin-top: var(--space-xl);">
+        <article class="figure-card">
+          <span class="index-num">1933–1934</span>
+          <div class="kpi-value" style="color: var(--secondary);">Cuaderno Azul</div>
+          <p class="kpi-caption">Dictado a la clase de Cambridge y reproducido a multicopista (con correcciones posteriores del ejemplar de Piero Sraffa). Diagnóstico del «espasmo mental» y el ansia de generalidad.</p>
+        </article>
+        <article class="figure-card">
+          <span class="index-num">1934–1935</span>
+          <div class="kpi-value" style="color: var(--tertiary);">Cuaderno Marrón</div>
+          <p class="kpi-caption">Dictado a Francis Skinner y Alice Ambrose en solo tres copias mecanografiadas. Introduce 73 juegos de lenguaje primitivos como «sistemas de comunicación humana» completos.</p>
+        </article>
+        <article class="figure-card">
+          <span class="index-num">AGOSTO 1936</span>
+          <div class="kpi-value" style="color: var(--data-4);">Giro en alemán</div>
+          <p class="kpi-caption">Wittgenstein abandona la revisión alemana del <em>Marrón</em> en la página 170 (acción voluntaria) y redacta el núcleo de la Parte I de las <em>Investigaciones filosóficas</em>.</p>
+        </article>
+        <article class="figure-card">
+          <span class="index-num">MARZO 1958</span>
+          <div class="kpi-value">Edición Rhees</div>
+          <p class="kpi-caption">Publicación póstuma conjunta bajo el título <em>Preliminary Studies</em>, revelando la evolución interna del método wittgensteiniano.</p>
+        </article>
+      </div>
+
+      <div class="section-footer">
+        <a class="back-link" href="#top">Volver al índice ↑</a>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 02: EL CUADERNO AZUL -->
+    <section id="cuaderno-azul" aria-labelledby="h-azul">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill pill-blue">02 · Cuaderno Azul (1933–1934)</span>
+          <span class="dossier-meta">Crítica a la metafísica · Significado como uso · Entidades privadas</span>
+        </div>
+      </div>
+
+      <h2 id="h-azul">El «espasmo mental», el ansia de generalidad y la disolución de la mente privada</h2>
+
+      <p style="margin-top: var(--space-md);">
+        El <em>Cuaderno azul</em> arranca con una estrategia radical: en lugar de preguntar directamente <em>«¿qué es el significado de una palabra?»</em> —una pregunta que paraliza el pensamiento—, Wittgenstein propone preguntar <strong>«¿qué es una explicación del significado de una palabra?»</strong>. Así se evita caer en una de las grandes trampas del lenguaje: creer que a todo sustantivo («significado», «tiempo», «longitud», «pensamiento») debe corresponderle un objeto material o etéreo que podamos señalar.
+      </p>
+
+      <div class="two-col-grid" style="margin-top: var(--space-lg);">
+        <article class="figure-card">
+          <span class="index-num">02.A · CRÍTICA A LA DEFINICIÓN OSTENSIVA</span>
+          <h3 style="margin-top: var(--space-xs);">«Esto es tove»: por qué señalar no basta</h3>
+          <p style="margin-top: var(--space-sm);">
+            La definición verbal solo remite de unas palabras a otras, pero la definición ostensiva (señalar un objeto y pronunciar un nombre) tampoco fija el significado por sí sola. Si señalo un lápiz y digo <em>«esto es tove»</em>, el oyente puede interpretar legítimamente: «esto es un lápiz», «es redondo», «es madera», «es uno» o «es duro».
+          </p>
+          <p>
+            Incluso la definición ostensiva presupone comprender qué <em>papel gramatical</em> ocupa la palabra en el juego (objeto, color, número, material). No es lo mismo atribuir una cualidad (<em>«esto es rojo»</em>) que instaurar una regla de denominación (<em>«esto es llamado ‘rojo’»</em>).
+          </p>
+        </article>
+
+        <article class="figure-card">
+          <span class="index-num">02.B · SIGNIFICADO COMO USO Y CRÍTICA A LO PRIVADO</span>
+          <h3 style="margin-top: var(--space-xs);">La vida del signo está en su uso, no en un medio etéreo</h3>
+          <p style="margin-top: var(--space-sm);">
+            Frege reprochaba al formalismo reducir la matemática a «rayas muertas» sobre papel. Muchos concluyen entonces que hace falta añadir a los signos inorgánicos un proceso mental oculto (comprender, significar, proyectar imágenes en la mente —concebida como el «protoplasma» misterioso de una ameba—).
+          </p>
+          <p>
+            Wittgenstein replica con una regla práctica: <strong>sustituye la imagen mental privada por un objeto externo</strong> (una tabla de muestras de «azul prusia» en el bolsillo o un dibujo pintado). Al perder su carácter oculto, la imagen deja de parecer mágica y se revela como <em>otro signo más</em> que también necesita uso. <strong>Pensar es esencialmente operar con signos</strong> (con la mano que escribe o la boca que habla) dentro de un sistema lingüístico.
+          </p>
+        </article>
+      </div>
+
+      <!-- Esquema SVG comparativo: Mito del medio mental vs Uso -->
+      <div class="diagram-wrap" style="margin-top: var(--space-lg);">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+          <h3>Anatomía de una confusión: del «signo muerto + sombra mental» al «signo vivo en su uso»</h3>
+          <span class="dossier-meta">Esquema gramatical · Cuaderno Azul</span>
+        </div>
+        <svg viewBox="0 0 880 260" role="img" aria-labelledby="svg-title-azul">
+          <title id="svg-title-azul">Comparación entre la concepción mentalista del significado y la concepción del significado como uso</title>
+          <!-- Fila superior: Modelo metafísico / mentalista -->
+          <rect x="16" y="16" width="848" height="104" rx="6" fill="var(--error-container)" stroke="var(--error)" stroke-width="1.2"/>
+          <text x="34" y="42" font-family="var(--font-label)" font-size="12" font-weight="600" fill="var(--error)">TRAMPA METAFÍSICA · DUALISMO SIGNO / MENTE</text>
+
+          <rect x="34" y="56" width="165" height="48" rx="4" fill="var(--surface-container-low)" stroke="var(--outline-variant)"/>
+          <text x="116" y="77" text-anchor="middle" font-family="var(--font-body)" font-size="13" font-weight="600" fill="var(--on-surface)">Signo «muerto»</text>
+          <text x="116" y="95" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">«Flor roja» / flecha</text>
+
+          <line x1="205" y1="80" x2="255" y2="80" stroke="var(--error)" stroke-width="2"/>
+          <polygon points="255,75 266,80 255,85" fill="var(--error)"/>
+
+          <rect x="272" y="56" width="245" height="48" rx="4" fill="var(--surface-container-low)" stroke="var(--error)" stroke-dasharray="4 3"/>
+          <text x="394" y="77" text-anchor="middle" font-family="var(--font-body)" font-size="13" font-weight="600" fill="var(--error)">«Sombra» o medio oculto</text>
+          <text x="394" y="95" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">Imagen mental / interpretación infinita</text>
+
+          <line x1="523" y1="80" x2="573" y2="80" stroke="var(--error)" stroke-width="2"/>
+          <polygon points="573,75 584,80 573,85" fill="var(--error)"/>
+
+          <rect x="590" y="56" width="256" height="48" rx="4" fill="var(--surface-container-low)" stroke="var(--outline-variant)"/>
+          <text x="718" y="77" text-anchor="middle" font-family="var(--font-body)" font-size="13" font-weight="600" fill="var(--on-surface)">Regreso al infinito</text>
+          <text x="718" y="95" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">La sombra exige otra interpretación</text>
+
+          <!-- Fila inferior: Terapia wittgensteiniana -->
+          <rect x="16" y="138" width="848" height="104" rx="6" fill="var(--positive-container)" stroke="var(--positive)" stroke-width="1.2"/>
+          <text x="34" y="164" font-family="var(--font-label)" font-size="12" font-weight="600" fill="var(--positive)">TERAPIA GRAMATICAL · EL USO DA VIDA AL SIGNO</text>
+
+          <rect x="34" y="178" width="195" height="48" rx="4" fill="var(--surface-container-low)" stroke="var(--outline-variant)"/>
+          <text x="131" y="199" text-anchor="middle" font-family="var(--font-body)" font-size="13" font-weight="600" fill="var(--on-surface)">Operar con signos</text>
+          <text x="131" y="217" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">Tabla, palabra, gesto, muestra</text>
+
+          <line x1="235" y1="202" x2="285" y2="202" stroke="var(--positive)" stroke-width="2"/>
+          <polygon points="285,197 296,202 285,207" fill="var(--positive)"/>
+
+          <rect x="302" y="178" width="250" height="48" rx="4" fill="var(--surface-container-low)" stroke="var(--positive)"/>
+          <text x="427" y="199" text-anchor="middle" font-family="var(--font-body)" font-size="13" font-weight="600" fill="var(--positive)">Sistema del juego de lenguaje</text>
+          <text x="427" y="217" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">Práctica pública y reglas compartidas</text>
+
+          <line x1="558" y1="202" x2="608" y2="202" stroke="var(--positive)" stroke-width="2"/>
+          <polygon points="608,197 619,202 608,207" fill="var(--positive)"/>
+
+          <rect x="625" y="178" width="221" height="48" rx="4" fill="var(--surface-container-low)" stroke="var(--outline-variant)"/>
+          <text x="735" y="199" text-anchor="middle" font-family="var(--font-body)" font-size="13" font-weight="600" fill="var(--on-surface)">Acción y comprensión</text>
+          <text x="735" y="217" text-anchor="middle" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">Coger la flor / entregar la losa</text>
+        </svg>
+      </div>
+
+      <!-- Las 4 fuentes del ansia de generalidad -->
+      <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md);">Las cuatro raíces del «ansia de generalidad» y el desprecio por el caso particular</h3>
+      <div class="card-grid">
+        <article class="source-card">
+          <span class="index-num">RAÍZ A · ESENCIALISMO</span>
+          <h3>Buscar una propiedad común única</h3>
+          <p style="font-size: 0.93rem;">Suponer que todos los «juegos» o «deseos» comparten un ingrediente oculto (como el alcohol en cerveza y vino). En realidad muestran <strong>aires de familia</strong>: una red de semejanzas superpuestas, sin rasgo único universal.</p>
+        </article>
+        <article class="source-card">
+          <span class="index-num">RAÍZ B · IMAGEN COMPUESTA</span>
+          <h3>La supuesta «imagen general»</h3>
+          <p style="font-size: 0.93rem;">Creer que entender «hoja» exige poseer una fotografía compuesta al estilo de Galton con solo lo común a todas las hojas, confundiendo así el portador de un nombre con su significado.</p>
+        </article>
+        <article class="source-card">
+          <span class="index-num">RAÍZ C · ESTADOS MENTALES</span>
+          <h3>Confundir mecanismo y vivencia</h3>
+          <p style="font-size: 0.93rem;">Mezclar un estado hipotético de un «mecanismo psíquico» inconsciente con un estado de conciencia directo (como tener dolor de muelas).</p>
+        </article>
+        <article class="source-card">
+          <span class="index-num">RAÍZ D · CIENTIFICISMO</span>
+          <h3>Imitar el método de la ciencia</h3>
+          <p style="font-size: 0.93rem;">Querer reducir los fenómenos a pocas leyes generales y responder preguntas conceptuales como si fueran empíricas. Para Wittgenstein, esta es <em>«la verdadera fuente de la metafísica»</em>; la filosofía es <strong>puramente descriptiva</strong>.</p>
+        </article>
+      </div>
+
+      <!-- Distinciones gramaticales: Causa vs Razón y Criterio vs Síntoma -->
+      <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md);">Dos bisturíes gramaticales del Cuaderno Azul</h3>
+      <table class="distinction-table">
+        <thead>
+          <tr>
+            <th>Eje gramatical</th>
+            <th>Polo normativo / gramatical</th>
+            <th>Polo empírico / hipotético</th>
+            <th>Confusión que disuelve</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Criterio vs. Síntoma</strong><br><span class="dossier-meta">Ejemplo: la angina</span></td>
+            <td><strong>Criterio definidor:</strong> fenómeno que define la palabra por convención (hallar cierto bacilo en sangre define «angina»; enunciado tautológico).</td>
+            <td><strong>Síntoma:</strong> fenómeno que la experiencia muestra correlacionado con el criterio (tener la garganta inflamada es una hipótesis empírica).</td>
+            <td>Evita exigir definiciones estrictas donde el uso médico y cotidiano alternan síntomas y criterios sin reglas rígidas.</td>
+          </tr>
+          <tr>
+            <td><strong>Razón / Motivo vs. Causa</strong><br><span class="dossier-meta">Ejemplo: pintar rojo</span></td>
+            <td><strong>Razón / Motivo:</strong> mostrar un camino o cálculo que justifica la acción (copiar la muestra etiquetada «rojo» o dar justificación <em>post hoc</em>). El motivo se <em>conoce</em>.</td>
+            <td><strong>Causa:</strong> hipótesis sobre regularidades previas (el entrenamiento antiguo provocó que hoy me venga el color rojo a la mente). La causa se <em>conjetura</em>.</td>
+            <td>La ambigüedad del «¿por qué?» hace creer que un motivo es una «causa vista desde el interior» y que toda acción exige una cadena infinita de razones.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Widget interactivo: Detector de Confusiones Gramaticales -->
+      <div class="figure-card detector-shell" style="margin-top: var(--space-xl);">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--space-sm); margin-bottom: var(--space-md);">
+          <div>
+            <span class="index-num">LABORATORIO INTERACTIVO · CUADERNO AZUL</span>
+            <h3 style="margin-top: var(--space-xs);">Detector de confusiones gramaticales</h3>
+          </div>
+          <span class="dossier-meta">Selecciona un enigma y alterna la lente</span>
+        </div>
+
+        <div class="detector-grid">
+          <div class="case-list" role="tablist" aria-label="Casos filosóficos del Cuaderno azul">
+            <button type="button" class="btn btn-secondary case-btn is-active" onclick="selectCase(0)" id="case-btn-0">1. «¿Cómo puede medirse el tiempo si el pasado ya no existe?» (San Agustín)</button>
+            <button type="button" class="btn btn-secondary case-btn" onclick="selectCase(1)" id="case-btn-1">2. «¿Cómo puedo pensar que King’s College arde si no arde?»</button>
+            <button type="button" class="btn btn-secondary case-btn" onclick="selectCase(2)" id="case-btn-2">3. «Siento mi imagen visual dos pulgadas detrás de la nariz»</button>
+            <button type="button" class="btn btn-secondary case-btn" onclick="selectCase(3)" id="case-btn-3">4. «El adivino siente en su mano agua a tres pies bajo tierra»</button>
+            <button type="button" class="btn btn-secondary case-btn" onclick="selectCase(4)" id="case-btn-4">5. «El suelo de madera no es sólido porque consta de electrones»</button>
+          </div>
+
+          <div class="diagnosis-panel" id="diagnosis-panel" aria-live="polite">
+            <div class="lens-toggle" role="group" aria-label="Modo de lectura">
+              <button type="button" class="btn btn-secondary is-active" id="lens-trap-btn" onclick="setCaseLens('trap')">Trampa metafísica</button>
+              <button type="button" class="btn btn-secondary" id="lens-therapy-btn" onclick="setCaseLens('therapy')">Terapia gramatical</button>
+            </div>
+            <div id="case-output"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-footer">
+        <a class="back-link" href="#top">Volver al índice ↑</a>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 03: EL CUADERNO MARRÓN Y JUEGOS DE LENGUAJE -->
+    <section id="cuaderno-marron" aria-labelledby="h-marron">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill pill-brown">03 · Cuaderno Marrón (1934–1935)</span>
+          <span class="dossier-meta">Adiestramiento · Crítica al modelo agustiniano · Juegos primitivos</span>
+        </div>
+      </div>
+
+      <h2 id="h-marron">Juegos de lenguaje completos, adiestramiento y ruptura con San Agustín</h2>
+
+      <div class="two-col-grid" style="margin-top: var(--space-md);">
+        <div>
+          <h3>Crítica al modelo agustiniano del aprendizaje</h3>
+          <p style="margin-top: var(--space-xs);">
+            Como destaca Rush Rhees, Wittgenstein critica la imagen de San Agustín según la cual el niño aprende su lengua materna <em>«como si llegase a un país extraño y no comprendiese el lenguaje del país; es decir, como si él tuviese ya un lenguaje, sólo que no éste»</em>. Ese modelo reduce todo el lenguaje a etiquetas de objetos y supone una traducción interna previa.
+          </p>
+          <p>
+            En el <em>Cuaderno marrón</em>, aprender un juego de lenguaje es anterior a cualquier explicación de significados: requiere <strong>adiestramiento</strong> (<em>training</em>, comparable al entrenamiento práctico compartido), no definiciones verbales. Comprender no es un acto mental uniforme, sino tan diverso como los juegos mismos.
+          </p>
+        </div>
+
+        <div>
+          <h3>El juego del albañil y su peón como sistema completo</h3>
+          <p style="margin-top: var(--space-xs);">
+            A diferencia del <em>Cuaderno azul</em>, el <em>Cuaderno marrón</em> rechaza que los juegos primitivos sean fragmentos incompletos de un lenguaje desarrollado. Son <strong>lenguajes completos en sí mismos</strong> (<em>Systeme menschlicher Verständigung</em> — sistemas de comunicación humana).
+          </p>
+          <p>
+            Cuando un albañil grita <em>«¡Ladrillo!»</em> y su peón le alcanza un ladrillo, no estamos ante una frase elíptica («Tráeme un ladrillo») traducida mentalmente. Incluso la palabra «ladrillo» no funciona ahí como en nuestro español desarrollado: su sentido se agota en la acción coordinada de la obra.
+          </p>
+        </div>
+      </div>
+
+      <!-- Explorador Interactivo de Juegos de Lenguaje Primitivos -->
+      <div class="figure-card" style="margin-top: var(--space-xl);">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--space-sm); margin-bottom: var(--space-md);">
+          <div>
+            <span class="index-num">EXPLORADOR INTERACTIVO · CUADERNO MARRÓN Y AZUL</span>
+            <h3 style="margin-top: var(--space-xs);">Simulador de juegos de lenguaje primitivos</h3>
+          </div>
+          <span class="dossier-meta" id="game-badge">Juego 1 de 4</span>
+        </div>
+
+        <div class="btn-row" role="tablist" aria-label="Selector de juegos de lenguaje" style="margin-bottom: var(--space-lg);">
+          <button type="button" class="btn btn-secondary btn-tab is-active" id="g-tab-0" onclick="selectGame(0)">1. Albañil y peón</button>
+          <button type="button" class="btn btn-secondary btn-tab" id="g-tab-1" onclick="selectGame(1)">2. Frutería y tabla de muestras</button>
+          <button type="button" class="btn btn-secondary btn-tab" id="g-tab-2" onclick="selectGame(2)">3. Flecha y reinterpretación</button>
+          <button type="button" class="btn btn-secondary btn-tab" id="g-tab-3" onclick="selectGame(3)">4. Ambigüedad («Banco»)</button>
+        </div>
+
+        <div class="game-stage">
+          <!-- Escenario interactivo -->
+          <div class="stage-visual">
+            <div id="game-prompt-area"></div>
+            <div id="game-shop-controls" hidden style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-sm); align-items: end;">
+              <div>
+                <label class="input-label" for="shop-count">Cantidad</label>
+                <select id="shop-count" class="select-input" onchange="triggerShopMove()">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6" selected>6</option>
+                </select>
+              </div>
+              <div>
+                <label class="input-label" for="shop-item">Etiqueta / Objeto</label>
+                <select id="shop-item" class="select-input" onchange="triggerShopMove()">
+                  <option value="manzanas">manzanas</option>
+                  <option value="peras">peras</option>
+                  <option value="ladrillos amarillos">ladrillos amarillos</option>
+                </select>
+              </div>
+              <button type="button" class="btn btn-primary" onclick="triggerShopMove()">Entregar nota</button>
+            </div>
+
+            <div class="agent-dialogue">
+              <div class="agent-box">
+                <div class="agent-role" id="agent-a-role">Emisor (Albañil)</div>
+                <div class="speech-bubble" id="agent-a-speech">«¡Losa!»</div>
+              </div>
+              <div class="agent-box">
+                <div class="agent-role" id="agent-b-role">Receptor (Peón adiestrado)</div>
+                <div class="speech-bubble" id="agent-b-speech">Entrega la losa de piedra</div>
+              </div>
+            </div>
+
+            <div class="aside-box" id="game-insight" style="margin-top: 0;"></div>
+          </div>
+
+          <!-- Bitácora y análisis comparativo -->
+          <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+            <div class="control-group">
+              <label class="input-label" for="game-perspective-select">Contrastar perspectiva sobre este movimiento</label>
+              <select class="select-input" id="game-perspective-select" onchange="updateGamePerspective(this.value)">
+                <option value="wittgenstein">Lectura del Cuaderno Marrón (Uso y adiestramiento)</option>
+                <option value="agustin">Ilusión agustiniana / mentalista (Qué buscaría un metafísico)</option>
+              </select>
+            </div>
+
+            <div class="figure-card" style="padding: var(--space-md); background: var(--surface-container-low);" id="game-perspective-box"></div>
+
+            <div>
+              <span class="input-label">Registro de jugadas ejecutadas</span>
+              <div class="log-feed" id="game-log" aria-live="polite">
+                <div class="log-entry">Selecciona una orden o parámetro a la izquierda para observar la coordinación pública del signo.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-footer">
+        <a class="back-link" href="#top">Volver al índice ↑</a>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 04: COMPARADOR CONCEPTUAL -->
+    <section id="comparador" aria-labelledby="h-comparador">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">04 · Evolución doctrinal</span>
+          <span class="dossier-meta">Prefacio de Rush Rhees · Giro 1933–1953</span>
+        </div>
+      </div>
+
+      <h2 id="h-comparador">Comparador conceptual: Cuaderno Azul vs. Cuaderno Marrón vs. Investigaciones</h2>
+      <p style="margin-top: var(--space-md);">
+        Lejos de repetir una doctrina fija, Wittgenstein revisó constantemente su propio método entre 1933 y las <em>Investigaciones filosóficas</em>. Selecciona un eje temático para contrastar cómo maduró cada noción según los propios textos y el análisis de Rush Rhees.
+      </p>
+
+      <div class="figure-card" style="margin-top: var(--space-lg);">
+        <div class="btn-row" role="tablist" aria-label="Ejes de comparación conceptual" style="margin-bottom: var(--space-lg);">
+          <button type="button" class="btn btn-secondary btn-tab is-active" id="cmp-btn-0" onclick="selectComparison(0)">Juegos de lenguaje</button>
+          <button type="button" class="btn btn-secondary btn-tab" id="cmp-btn-1" onclick="selectComparison(1)">Aprendizaje y comprensión</button>
+          <button type="button" class="btn btn-secondary btn-tab" id="cmp-btn-2" onclick="selectComparison(2)">Lenguaje y cálculo / reglas</button>
+          <button type="button" class="btn btn-secondary btn-tab" id="cmp-btn-3" onclick="selectComparison(3)">Origen de la metafísica</button>
+          <button type="button" class="btn btn-secondary btn-tab" id="cmp-btn-4" onclick="selectComparison(4)">Método filosófico</button>
+        </div>
+
+        <div class="tri-grid" id="comparison-grid" aria-live="polite"></div>
+
+        <div class="aside-box" id="comparison-delta" style="margin-top: var(--space-lg);"></div>
+      </div>
+
+      <div class="section-footer">
+        <a class="back-link" href="#top">Volver al índice ↑</a>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 05: CUESTIONARIO DE AUTOEVALUACIÓN GRAMATICAL -->
+    <section id="autoevaluacion" aria-labelledby="h-quiz">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">05 · Autoevaluación gramatical</span>
+          <span class="dossier-meta">6 diagnósticos prácticos · Feedback inmediato</span>
+        </div>
+      </div>
+
+      <h2 id="h-quiz">¿Cae tu respuesta en una trampa metafísica o aplica la terapia gramatical?</h2>
+      <p style="margin-top: var(--space-md);">
+        Pon a prueba tu comprensión de las distinciones trabajadas en <em>Los Cuadernos azul y marrón</em>. Tu progreso se guarda automáticamente en esta sesión.
+      </p>
+
+      <div class="figure-card" style="margin-top: var(--space-lg);">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md); border-bottom: 1px solid var(--outline-variant); padding-bottom: var(--space-md); margin-bottom: var(--space-lg);">
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-xs);" id="quiz-nav-dots" role="tablist" aria-label="Navegación de preguntas"></div>
+          <div class="btn-row">
+            <span class="dossier-meta" id="quiz-score-badge">Aciertos: 0 / 6</span>
+            <button type="button" class="btn btn-secondary" id="quiz-reset-btn" onclick="resetQuiz(this)">Reiniciar test</button>
+          </div>
+        </div>
+
+        <div id="quiz-stage" aria-live="polite"></div>
+      </div>
+
+      <div class="section-footer">
+        <a class="back-link" href="#top">Volver al índice ↑</a>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 06: GLOSARIO INTERACTIVO -->
+    <section id="glosario" aria-labelledby="h-glosario">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">06 · Diccionario conceptual</span>
+          <span class="dossier-meta">12 términos esenciales · Desplegable y filtrable</span>
+        </div>
+      </div>
+
+      <h2 id="h-glosario">Glosario gramatical de los Cuadernos azul y marrón</h2>
+      <p style="margin-top: var(--space-md);">
+        Consulta y despliega cada concepto clave para revisar su definición rigurosa, su origen textual y el ejemplo concreto con el que Wittgenstein disuelve el embrujo del lenguaje.
+      </p>
+
+      <div class="figure-card" style="margin-top: var(--space-lg);">
+        <div class="glossary-controls">
+          <div>
+            <label class="input-label" for="glossary-search">Buscar concepto o ejemplo</label>
+            <input type="search" id="glossary-search" class="text-input" placeholder="Ej. tove, albañil, adiestramiento, bacilo…" oninput="filterGlossary()">
+          </div>
+          <div>
+            <label class="input-label" for="glossary-filter">Filtrar por obra o eje</label>
+            <select id="glossary-filter" class="select-input" onchange="filterGlossary()">
+              <option value="all">Todos los conceptos (12)</option>
+              <option value="azul">Cuaderno Azul (1933–34)</option>
+              <option value="marron">Cuaderno Marrón (1934–35)</option>
+              <option value="metodo">Método y Gramática</option>
+            </select>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-secondary" onclick="toggleAllGlossary(true)">Expandir todo</button>
+            <button type="button" class="btn btn-secondary" onclick="toggleAllGlossary(false)">Contraer todo</button>
+          </div>
+        </div>
+
+        <div class="glossary-list" id="glossary-list"></div>
+      </div>
+
+      <div class="section-footer">
+        <a class="back-link" href="#top">Volver al índice ↑</a>
+      </div>
+    </section>
+
+    <!-- FOOTER DE FUENTES -->
+    <footer>
+      <p>
+        <strong>Fuentes y atribución:</strong> Basado en <em>Los Cuadernos azul y marrón</em> (<em>The Blue and Brown Books</em>, dictados en Cambridge 1933–1935) de Ludwig Wittgenstein, edición e introducción de Rush Rhees (<em>Preliminary Studies for the «Philosophical Investigations»</em>, marzo de 1958), traducción al español de Francisco Gracia Guillén.
+      </p>
+    </footer>
+
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    // =========================================================================
+    // DATA DEFINITIONS (All strings use template literals for defensive safety)
+    // =========================================================================
+
+    const CASES = [
+      {
+        title: `La paradoja de San Agustín sobre medir el tiempo`,
+        quote: `«¿Cómo es posible medir el tiempo? El pasado ya no es, el futuro aún no ha llegado y el presente carece de extensión.»`,
+        trapTitle: `Conflicto por analogía espacial oculta`,
+        trapText: `San Agustín asimila la gramática de «medir el tiempo» a la de «medir una longitud física sobre una banda móvil que pasa frente a nosotros», donde solo vemos un minúsculo punto presente. Como el sustantivo «tiempo» parece nombrar una sustancia misteriosa y fugaz, nos sentimos incapaces de «mirar dentro» de ella.`,
+        therapyTitle: `Comparar usos de la palabra «medida»`,
+        therapyText: `No faltan nuevos datos científicos sobre el tiempo; todos los hechos están a la vista. La perplejidad nace del uso del sustantivo «tiempo» (al punto de imaginarlo como una deidad, igual que podríamos crear una deidad de la negación). Comparando la gramática de «medir» en el espacio y en el tiempo, el enigma desaparece.`
+      },
+      {
+        title: `Pensar lo que no sucede («King’s College está ardiendo»)`,
+        quote: `«Si pienso que el King’s College está ardiendo cuando en realidad no arde, ¿cómo puedo pensar un hecho que no existe?»`,
+        trapTitle: `Inventar una «sombra» del hecho`,
+        trapText: `Confundimos «pensar que P» con «colgar a un ladrón que no existe». Como el hecho no existe, postulamos una entidad intermedia etérea —una «sombra» o «proposición mental» parecida al hecho— que debe servir de retrato exacto dentro de la mente.`,
+        therapyTitle: `La frase misma representa sin «similaridad»`,
+        therapyText: `No puedo colgar a un ladrón inexistente, pero sí puedo buscarlo. Una representación correcta no tiene por qué ser una «copia por similaridad» (una proyección plana del hemisferio no se parece a un retrato). La propia frase «King’s College está ardiendo» basta, conectada al edificio y al fuego mediante definiciones ostensivas.`
+      },
+      {
+        title: `Localizar el campo visual detrás de la nariz`,
+        quote: `«Puedo asegurarle que siento que la imagen visual está dos pulgadas detrás del caballete de mi nariz.»`,
+        trapTitle: `Tomar una metáfora espacial por dato sensorial`,
+        trapText: `Como decimos «veo la imagen del árbol a la derecha de la torre en mi campo visual», preguntamos «¿y dónde está el campo visual?», suponiendo que la palabra «lugar» se usa del mismo modo que dentro de una habitación o dentro del cráneo.`,
+        therapyTitle: `Falta explicar la gramática de la combinación`,
+        therapyText: `No acusamos a esa persona de mentir ni de decir tonterías, sino de combinar palabras conocidas («sentir», «dos pulgadas detrás») en un contexto cuya gramática aún no ha sido explicada. Solo tendría sentido si definiéramos un criterio experimental (por ejemplo, correlacionar una sonda en el cerebro con zonas ciegas de la visión).`
+      },
+      {
+        title: `El adivino de agua y los «tres pies bajo tierra»`,
+        quote: `«Cuando sostengo la varilla, siento en mi mano que el agua corre a tres pies bajo tierra.»`,
+        trapTitle: `Suponer que entender las partes garantiza el todo`,
+        trapText: `El adivino argumenta: «Usted sabe lo que significa ‘yo siento’ y sabe lo que significa ‘tres pies bajo tierra’, luego sabe lo que digo». Creemos que basta entender palabras aisladas para que su nueva combinación posea sentido automático.`,
+        therapyTitle: `Diferenciar correlación causal de uso aprendido`,
+        therapyText: `Entendemos «tres pies» al medir con una vara o estimar a ojo. Para dar sentido a «sentir en la mano tres pies», el adivino debe explicar cómo aprendió esa correlación: o bien excavó asociando una tensión táctil con mediciones reales, o usa las palabras «tres pies» cuando siente tensión y la experiencia confirma la coincidencia.`
+      },
+      {
+        title: `El suelo de madera frente a la física de los electrones`,
+        quote: `«Los divulgadores dicen que el suelo no es sólido porque consta de partículas separadas casi por vacío.»`,
+        trapTitle: `Uso metafísico de palabras sin su antítesis`,
+        trapText: `El filósofo queda perplejo y cree que nada en la realidad es sólido ni estable, o que toda nuestra experiencia está en «flujo constante» y «vaguedad absoluta».`,
+        therapyTitle: `Devolver las palabras a su contraste ordinario`,
+        therapyText: `En el uso correcto, un suelo deja de ser sólido si la madera está carcomida, no por estar hecho de electrones (la estructura atómica explica precisamente qué es la solidez). Usar «vaguedad» o «flujo» sin antítesis («claridad», «estabilidad») es un mal uso metafísico del lenguaje.`
+      }
+    ];
+
+    const GAMES = [
+      {
+        title: `Juego 1: El albañil y su peón (Cuaderno Marrón)`,
+        badge: `Juego 1 de 4`,
+        agentARole: `Albañil (Emisor)`,
+        agentBRole: `Peón (Receptor adiestrado)`,
+        controlsType: `buttons`,
+        options: [
+          { cmd: `«¡Losa!»`, react: `Coge la losa rectangular y la entrega al albañil.`, note: `Orden directa de construcción.` },
+          { cmd: `«¡Pilar!»`, react: `Levanta el pilar vertical y lo coloca en el andamio.`, note: `No hay verbo implícito ni definición verbal previa.` },
+          { cmd: `«¡Ladrillo!»`, react: `Pasa un ladrillo al albañil al oír el sonido.`, note: `En este lenguaje primitivo, «ladrillo» es una señal completa, no una abreviatura elíptica de «tráeme un ladrillo».` },
+          { cmd: `«¡Viga!»`, react: `Trae la viga larga siguiendo la rutina de obra.`, note: `La comprensión se muestra en el obrar, no en recitar reglas.` }
+        ],
+        wittgensteinView: `<strong>Lenguaje completo, no fragmento:</strong> En el <em>Cuaderno marrón</em>, este juego funciona como un sistema de comunicación humana autónomo (<em>Systeme menschlicher Verständigung</em>). El peón ha sido <strong>adiestrado</strong> para reaccionar al grito. No necesita traducir mentalmente «¡Ladrillo!» por «Por favor, alcánzame un ladrillo», porque en este juego no existe esa gramática desarrollada.`,
+        agustinView: `<strong>Ilusión agustiniana:</strong> Un lector agustiniano imaginaría que «Ladrillo» es un nombre propio que el peón asocia con un objeto y luego completa en su mente con la orden oculta «Tráeme un…». Para Wittgenstein, postular esa frase silenciosa duplica el problema sin explicar nada.`
+      },
+      {
+        title: `Juego 2: La frutería y la tabla de muestras (Cuaderno Azul)`,
+        badge: `Juego 2 de 4`,
+        agentARole: `Comprador con nota`,
+        agentBRole: `Frutero con tabla y estantes`,
+        controlsType: `shop`,
+        items: [`manzanas`, `peras`, `ladrillos amarillos`],
+        counts: [1, 2, 3, 4, 5, 6],
+        wittgensteinView: `<strong>Sustituir la mente por papel y muestras:</strong> El frutero compara la palabra escrita con la etiqueta del estante, recita la serie numérica del 1 al <em>n</em> y coloca una pieza en la bolsa por cada número. Si le piden «azul prusia» o «amarillo», consulta un muestrario físico en lugar de evocar una imagen mental oculta. Ahí está «la vida del signo»: en la operación pública.`,
+        agustinView: `<strong>Ilusión mentalista:</strong> Creer que al oír «seis manzanas» o «bola amarilla», el agente debe primero conjurar en su «pantalla mental» una imagen privada de la manzana o del amarillo para compararla con la realidad antes de mover la mano.`
+      },
+      {
+        title: `Juego 3: La flecha y el regreso de la interpretación (Cuaderno Azul)`,
+        badge: `Juego 3 de 4`,
+        agentARole: `Emisor de dirección`,
+        agentBRole: `Caminante`,
+        controlsType: `arrow`,
+        wittgensteinView: `<strong>La interpretación se detiene en la práctica:</strong> Cualquier signo (una flecha que apunta a la derecha) puede reinterpretarse añadiendo otro símbolo (una segunda flecha en sentido opuesto para engañar al enemigo). Pero ninguna cadena de flechas «en la mente» es la interpretación última por esencia: simplemente dejamos de añadir signos y actuamos conforme a la convención aprendida.`,
+        agustinView: `<strong>Ilusión del significado como flecha última:</strong> Pensar que la flecha dibujada en papel está «muerta» porque puede malinterpretarse, y que el verdadero significado reside en una «flecha mental» inmaterial incapaz de ser reinterpretada.`
+      },
+      {
+        title: `Juego 4: Palabra ambigua («Banco») y ceguera para el significado`,
+        badge: `Juego 4 de 4`,
+        agentARole: `Hablante en contexto`,
+        agentBRole: `Oyente / Respuesta situada`,
+        controlsType: `bank`,
+        contexts: [
+          { label: `Contexto financiero (Banco Minero)`, cmd: `«Voy al banco a ingresar los ahorros»`, react: `Se dirige a la sucursal bancaria con la cartilla.`, note: `El contexto práctico determina qué juego se juega.` },
+          { label: `Contexto parque (Banco de madera)`, cmd: `«Siéntate en el banco a descansar»`, react: `Toma asiento en el banco de madera del jardín.`, note: `No hace falta experimentar una «chispa mental» distinta al oír la palabra.` },
+          { label: `Caso límite: «ciego para el significado»`, cmd: `«Diga la palabra ‘banco’ aislada y piense en un sentido»`, react: `Reacciona bien en conversaciones reales, pero halla absurda la pregunta aislada.`, note: `Planteado en las Investigaciones y comentado por Rhees en el Prefacio.` }
+        ],
+        wittgensteinView: `<strong>Uso vs. vivencia aislada:</strong> Como señala Rush Rhees en el Prefacio, alguien podría reaccionar correctamente con palabras ante situaciones reales sin experimentar una «percepción interna del significado» cuando se pronuncia una palabra suelta como «banco». El sentido pertenece a la interrelación social con otras personas.`,
+        agustinView: `<strong>Ilusión de la vivencia concomitante:</strong> Suponer que decir una frase con sentido consiste en ejecutar dos procesos paralelos: articular sonidos con la boca mientras la mente proyecta en silencio un «aparte teatral» que fija el sentido.`
+      }
+    ];
+
+    const COMPARISONS = [
+      {
+        topic: `Estatuto de los juegos de lenguaje`,
+        azul: `<strong>Formas primitivas escalables:</strong> En la pág. 20, los presenta como formas sencillas donde desaparece la niebla mental, sugiriendo que podemos <em>«construir las formas complicadas a partir de las primitivas mediante la adición gradual de formas nuevas»</em>.`,
+        marron: `<strong>Lenguajes completos autónomos:</strong> Corrige ese enfoque (pág. 92): no son «partes incompletas de un lenguaje», sino <em>Systeme menschlicher Verständigung</em> completos en sí mismos. «Ladrillo» no significa ahí lo mismo que en nuestro lenguaje.`,
+        investigaciones: `<strong>Objetos de comparación (§64–65):</strong> Los juegos no analizan elementos ocultos del «Lenguaje», sino que funcionan como modelos para iluminar similitudes y diferencias, conduciendo a la «magna cuestión» de qué hace de algo un lenguaje.`,
+        delta: `<strong>Giro clave según Rush Rhees:</strong> En un diario de comienzos de 1934, Wittgenstein ya advierte que construir el lenguaje desarrollado a partir de juegos simples <em>«solo lleva a injusticias (Nicod y Russell)»</em>; los juegos deben irradiar su efecto esclarecedor por contraste.`
+      },
+      {
+        topic: `Aprendizaje y comprensión`,
+        azul: `<strong>Explicación y notación:</strong> Habla aún de llegar a comprender lo que la gente quiere decir mediante explicaciones de palabras y compara imaginar juegos con imaginar «diferentes notaciones», sin separar del todo hablar y dominar una notación.`,
+        marron: `<strong>Adiestramiento anterior a la explicación:</strong> Insiste en que aprender un juego es anterior a explicar significados: exige <em>entrenamiento / adiestramiento</em>. Además, «comprender» no es una única cosa, sino tan diversa como los juegos mismos.`,
+        investigaciones: `<strong>Crítica explícita a San Agustín (§32):</strong> Saber hablar no equivale a poder definir qué significa lo que se dice. Critica concebir al niño como alguien que ya posee un lenguaje interno y solo traduce palabras extranjeras.`,
+        delta: `<strong>Giro clave:</strong> Desaparece la correlación simple entre «comprender» y «explicar». El adiestramiento práctico en una comunidad reemplaza a la traducción mental.`
+      },
+      {
+        topic: `Lenguaje, lógica y reglas`,
+        azul: `<strong>Cálculos y lenguaje ordinario:</strong> Reconoce (pág. 30) que no usamos el lenguaje según reglas estrictas, pero aún habla a veces de «los cálculos del lenguaje» y afirma (pág. 33) que <em>«el lenguaje ordinario está perfectamente»</em>.`,
+        marron: `<strong>Ruptura con la unidad del cálculo:</strong> Muestra que el lenguaje no tiene la unidad lógica de un cálculo ni su tipo de inteligibilidad. Explora el significado de «poder decirse» frente a la rigidez formal.`,
+        investigaciones: `<strong>Seguir una regla y práctica pública:</strong> Desarrolla a fondo qué es «seguir una regla» (no es una interpretación privada, sino una costumbre o institución) y cuestiona la «tendencia a sublimar la lógica de nuestro lenguaje» (§38).`,
+        delta: `<strong>Giro clave:</strong> En el <em>Azul</em>, la noción de «seguir una regla» todavía estaba mezclada con la de «seguir una notación»; en las <em>Investigaciones</em> se convierte en el eje central.`
+      },
+      {
+        topic: `Raíz de la confusión metafísica`,
+        azul: `<strong>Ansia de generalidad y cientificismo:</strong> Atribuye la metafísica (pág. 22) a que los filósofos imitan el método reductor de la ciencia y buscan leyes generales o cosas correspondientes a sustantivos.`,
+        marron: `<strong>Exposición indirecta sin diagnóstico único:</strong> Expone secuencias de juegos de lenguaje para hacer visibles aspectos cegados del uso, sin centrarse aún en explicar por qué los filósofos caen sistemáticamente en el error.`,
+        investigaciones: `<strong>Embrujo gramatical y sublimación lógica:</strong> Indaga por qué la gente siente la tentación de buscar una esencia última del lenguaje, la «gramática lógicamente correcta» y el análisis de «lo simple y lo complejo».`,
+        delta: `<strong>Giro clave:</strong> Como subraya Rhees, el scientism del <em>Azul</em> no explicaba del todo por qué surgen problemas sobre un lenguaje ideal; las <em>Investigaciones</em> lo vinculan con la propia gramática.`
+      },
+      {
+        topic: `Método de exposición filosófica`,
+        azul: `<strong>Disolución terapéutica directa:</strong> «La filosofía es puramente descriptiva» y «una lucha contra la fascinación que ejercen sobre nosotros las formas de expresión». Inventa casos incluso absurdos para romper analogías engañosas.`,
+        marron: `<strong>Series progresivas de casos:</strong> Encadena juegos numerados de complejidad creciente (órdenes simples, numerales, demostrativos, comparaciones con la realidad, acciones voluntarias).`,
+        investigaciones: `<strong>Álbum de observaciones y «ver como»:</strong> Abandona el tratado lineal (tras desechar la revisión del <em>Marrón</em> en 1936) por párrafos breves y dialógicos, culminando en el análisis de «ver algo como algo» y la ceguera para el significado.`,
+        delta: `<strong>Giro clave:</strong> Wittgenstein pasa de dictar notas continuas para alumnos (<em>Azul</em>) a intentar un libro sistemático (<em>Marrón</em>), para finalmente descubrir que la forma adecuada de su filosofía era el diálogo fragmentario de las <em>Investigaciones</em>.`
+      }
+    ];
+
+    const QUIZ = [
+      {
+        q: `1. Según el inicio del Cuaderno azul, ¿por qué preguntas como «¿qué es el significado?» o «¿qué es el tiempo?» nos producen un «espasmo mental»?`,
+        options: [
+          `Porque la ciencia empírica aún no ha descubierto la estructura atómica del pensamiento.`,
+          `Porque la existencia de un sustantivo nos hace buscar erróneamente una cosa u objeto que le corresponda.`,
+          `Porque los conceptos filosóficos pertenecen a una esfera inmaterial inaccesible al lenguaje ordinario.`
+        ],
+        correct: 1,
+        explanation: `Correcto. Wittgenstein diagnostica una gran fuente de confusión filosófica: «un sustantivo nos hace buscar una cosa que le corresponda». Preguntar «¿qué es una explicación de significado?» disuelve el espasmo.`
+      },
+      {
+        q: `2. Si señalo un lápiz y digo «esto es tove», ¿qué demuestra este experimento mental sobre la definición ostensiva?`,
+        options: [
+          `Que la definición ostensiva fija el significado de modo inmediato y sin ambigüedad alguna.`,
+          `Que toda palabra puede definirse ostensivamente, incluidas «uno», «número» y «no».`,
+          `Que la definición ostensiva puede malinterpretarse («madera», «redondo», «duro», «lápiz») si no se comprende ya el juego o papel gramatical.`
+        ],
+        correct: 2,
+        explanation: `Exacto. La definición ostensiva misma necesita ser comprendida según el contexto de uso; de lo contrario admite múltiples interpretaciones distintas.`
+      },
+      {
+        q: `3. ¿Cómo aplica Wittgenstein la distinción entre «criterio» y «síntoma» al caso médico de la angina?`,
+        options: [
+          `Hallar el bacilo en sangre es el criterio definidor (tautología gramatical), mientras que la garganta inflamada es un síntoma (hipótesis empírica).`,
+          `La garganta inflamada es el criterio absoluto y el bacilo es un síntoma subjetivo del paciente.`,
+          `Tanto el criterio como el síntoma son reglas matemáticas estrictas que los médicos aplican como un cálculo exacto.`
+        ],
+        correct: 0,
+        explanation: `Correcto. Un criterio definidor fija el uso de la palabra por convención (tautología), mientras que un síntoma es un fenómeno que la experiencia asocia regularmente con él (hipótesis).`
+      },
+      {
+        q: `4. Al pintar una mancha roja siguiendo una orden, ¿en qué se distingue dar una «razón» de dar una «causa»?`,
+        options: [
+          `La razón es una causa inconsciente vista desde el interior por introspección.`,
+          `La razón muestra un camino o justificación conforme a reglas (se conoce); la causa es una hipótesis sobre condicionamientos previos (se conjetura).`,
+          `No existe diferencia gramatical: «¿por qué?» pregunta siempre por un mecanismo causal en el cerebro.`
+        ],
+        correct: 1,
+        explanation: `Exacto. Wittgenstein advierte que el doble uso de «¿por qué?» nos induce a confundir motivo/razón (como mostrar una operación de cálculo) con causa (una hipótesis empírica).`
+      },
+      {
+        q: `5. Frente a Frege, quien decía que las rayas matemáticas sin sentido estarían «muertas», ¿qué responde Wittgenstein que constituye la «vida del signo»?`,
+        options: [
+          `Una imagen mental privada que acompaña en paralelo a cada palabra pronunciada.`,
+          `Un proceso protoplásmico exclusivo del medio oculto de la conciencia.`,
+          `El uso del signo dentro del sistema del lenguaje al que pertenece.`
+        ],
+        correct: 2,
+        explanation: `Correcto. «Si tuviésemos que designar algo que sea la vida del signo, tendríamos que decir que era su uso.» Cualquier imagen acompañante sería simplemente otro signo más.`
+      },
+      {
+        q: `6. En el Cuaderno marrón, ¿por qué rechaza Wittgenstein el modelo de aprendizaje de San Agustín al describir el juego del albañil y su peón?`,
+        options: [
+          `Porque aprender un juego de lenguaje requiere adiestramiento práctico en un sistema completo, no traducir etiquetas a un lenguaje interno previo.`,
+          `Porque el albañil en realidad usa frases elípticas completas («Tráeme un ladrillo») dentro de su cabeza.`,
+          `Porque los juegos primitivos son fragmentos defectuosos que carecen de significado real hasta añadirles lógica matemática.`
+        ],
+        correct: 0,
+        explanation: `Exacto. En el Cuaderno marrón, los juegos de lenguaje son sistemas completos de comunicación humana aprendidos por adiestramiento antes de toda explicación verbal.`
+      }
+    ];
+
+    const GLOSSARY = [
+      {
+        term: `Adiestramiento (Abrichtung)`,
+        cat: `marron`,
+        catLabel: `Cuaderno Marrón`,
+        summary: `Entrenamiento práctico anterior a toda explicación verbal mediante el cual se aprende a participar en un juego de lenguaje.`,
+        detail: `Wittgenstein insiste en el <em>Cuaderno marrón</em> en que aprender a hablar no consiste en recibir definiciones de palabras, sino en un adiestramiento comparable en ciertos aspectos al entrenamiento de conductas coordinadas. El peón reacciona a «¡Losa!» tras ser entrenado en la obra, sin mediar traducciones mentales.`
+      },
+      {
+        term: `Aires de familia (Parecido de familia)`,
+        cat: `azul`,
+        catLabel: `Cuaderno Azul`,
+        summary: `Red de semejanzas superpuestas que enlaza los casos de un concepto general, sin ninguna esencia común a todos ellos.`,
+        detail: `Frente al ansia de buscar un rasgo único común a todos los «juegos» o casos de «esperar a alguien», Wittgenstein propone el modelo de una familia: unos miembros comparten la nariz, otros las cejas y otros el modo de andar, sin que exista un único rasgo idéntico presente en todos.`
+      },
+      {
+        term: `Ansia de generalidad`,
+        cat: `azul`,
+        catLabel: `Cuaderno Azul`,
+        summary: `Tendencia filosófica a buscar esencias universales y reducir el lenguaje a leyes simples imitando a la ciencia natural.`,
+        detail: `Equivale a una «actitud despectiva hacia el caso particular». Procede de cuatro fuentes: el esencialismo, la idea de una imagen general compuesta (Galton), la confusión entre mecanismo psíquico y vivencia, y la obsesión por el método unificador de la ciencia. Para Wittgenstein, es la verdadera fuente de la metafísica.`
+      },
+      {
+        term: `Causa vs. Razón (y Motivo)`,
+        cat: `azul`,
+        catLabel: `Cuaderno Azul`,
+        summary: `Distinción gramatical entre explicar un fenómeno por hipótesis empírica (causa) y justificar una acción mostrando un camino o regla (razón).`,
+        detail: `Conocemos nuestros motivos y razones sin necesidad de múltiples experimentos; en cambio, las causas se conjeturan por regularidades observadas. Confundir ambos sentidos de «¿por qué?» lleva al mito de creer que un motivo es una «causa vista desde el interior».`
+      },
+      {
+        term: `Criterio vs. Síntoma`,
+        cat: `azul`,
+        catLabel: `Cuaderno Azul`,
+        summary: `El criterio define el concepto por convención gramatical; el síntoma coincide empíricamente con él.`,
+        detail: `Encontrar un bacilo específico en la sangre funciona como criterio definidor de la «angina» (tautología), mientras que la inflamación de garganta es un síntoma (hipótesis). En el habla cotidiana la frontera fluctúa porque no seguimos reglas rígidas de cálculo.`
+      },
+      {
+        term: `Definición ostensiva`,
+        cat: `azul`,
+        catLabel: `Cuaderno Azul`,
+        summary: `Explicación del significado señalando un objeto y pronunciando una palabra («esto es llamado ‘tove’»).`,
+        detail: `Aunque parece conectar directamente el lenguaje con la realidad, toda definición ostensiva puede malinterpretarse si quien escucha desconoce a qué categoría pertenece el término (objeto, color, número, material). No basta por sí sola para fijar el uso.`
+      },
+      {
+        term: `Espasmo mental`,
+        cat: `azul`,
+        catLabel: `Cuaderno Azul`,
+        summary: `Parálisis intelectual provocada por preguntas sustantivadas como «¿qué es el tiempo?» o «¿qué es el significado?».`,
+        detail: `Sentimos que debemos señalar alguna cosa para responder, pero no encontramos ningún objeto material. Se supera reformulando la pregunta en clave operativa: «¿cómo medimos el tiempo?» o «¿qué es una explicación del significado?».`
+      },
+      {
+        term: `Gramática superficial vs. Gramática profunda`,
+        cat: `metodo`,
+        catLabel: `Método y Gramática`,
+        summary: `Contraste entre el parecido sintáctico externo de dos expresiones y las diferencias reales de su funcionamiento en el uso.`,
+        detail: `En el <em>Cuaderno azul</em> Wittgenstein advierte que palabras con «gramáticas <em>prima facie</em> análogas» (como «pensar» junto a «escribir» y «hablar», o «yo le espero» junto a «yo le disparo») nos empujan a buscar un objeto oculto del pensamiento. Examinar su gramática profunda —su papel real en distintos contextos— disuelve el espejismo.`
+      },
+      {
+        term: `Juegos de lenguaje (Sprachspiele)`,
+        cat: `marron`,
+        catLabel: `Cuaderno Marrón`,
+        summary: `Formas de usar signos entretejidas con acciones y reacciones humanas, estudiadas para disolver la niebla del lenguaje complejo.`,
+        detail: `En el <em>Cuaderno azul</em> aparecen como formas primitivas transparentes; en el <em>Cuaderno marrón</em> se precisan como «sistemas completos de comunicación humana» (como el albañil y su peón), no como fragmentos incompletos del lenguaje desarrollado.`
+      },
+      {
+        term: `Modelo agustiniano del lenguaje`,
+        cat: `metodo`,
+        catLabel: `Método y Gramática`,
+        summary: `Concepción según la cual todas las palabras son nombres y el niño aprende a hablar traduciendo etiquetas a un lenguaje mental previo.`,
+        detail: `Como señala Rush Rhees en el Prefacio, Wittgenstein critica en las <em>Investigaciones</em> (§32) la descripción de San Agustín por suponer que el niño ya posee un lenguaje antes de aprender el suyo. La teoría de los «nombres lógicamente propios» sublima esa misma tendencia.`
+      },
+      {
+        term: `Regla (y seguir una regla)`,
+        cat: `metodo`,
+        catLabel: `Método y Gramática`,
+        summary: `Pauta práctica de uso de signos; debe distinguirse entre actuar meramente acorde con una regla y usar la expresión de la regla en el cálculo.`,
+        detail: `La serie 1, 4, 9, 16 concuerda con infinitas reglas matemáticas posibles; la regla está «implicada» cuando una tabla o fórmula forma parte efectiva de la operación. Además, en el uso ordinario rara vez operamos conforme a reglas estrictas como en un cálculo formal.`
+      },
+      {
+        term: `Significado como uso`,
+        cat: `azul`,
+        catLabel: `Cuaderno Azul`,
+        summary: `Tesis central según la cual «la vida del signo» no radica en una imagen mental privada, sino en su empleo dentro de un sistema lingüístico.`,
+        detail: `Comprender una frase significa comprender un lenguaje. El significado no es una entidad oculta ni una «sombra» coexistente con la palabra, sino el conjunto de prácticas públicas y explicaciones que rigen su aplicación.`
+      }
+    ];
+
+    // =========================================================================
+    // STATE MANAGEMENT (Persisted via window.notebookAppApi)
+    // =========================================================================
+    const appState = {
+      activeCase: 0,
+      caseLens: 'trap',
+      activeGame: 0,
+      gamePerspective: 'wittgenstein',
+      exploredGames: [],
+      activeComparison: 0,
+      quizIndex: 0,
+      quizAnswers: {},
+      glossaryOpen: [],
+      glossaryReviewed: []
+    };
+
+    async function persistState() {
+      updateStatsUI();
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+        try {
+          await window.notebookAppApi.setAppState({
+            exploredGames: appState.exploredGames,
+            quizAnswers: appState.quizAnswers,
+            quizIndex: appState.quizIndex,
+            glossaryReviewed: appState.glossaryReviewed,
+            activeComparison: appState.activeComparison,
+            activeGame: appState.activeGame
+          });
+        } catch (err) {
+          // Graceful fallback if sandbox rejects write
+        }
+      }
+    }
+
+    function updateStatsUI() {
+      const gamesEl = document.getElementById('stat-games');
+      const quizEl = document.getElementById('stat-quiz');
+      const glossaryEl = document.getElementById('stat-glossary');
+
+      if (gamesEl) gamesEl.textContent = `${appState.exploredGames.length} / ${GAMES.length}`;
+      const answeredCount = Object.keys(appState.quizAnswers).length;
+      if (quizEl) quizEl.textContent = `${answeredCount} / ${QUIZ.length} respondidas`;
+      if (glossaryEl) glossaryEl.textContent = `${appState.glossaryReviewed.length} / ${GLOSSARY.length}`;
+    }
+
+    // =========================================================================
+    // 1. GRAMMATICAL CONFUSION DETECTOR
+    // =========================================================================
+    function selectCase(idx) {
+      appState.activeCase = idx;
+      for (let i = 0; i < CASES.length; i++) {
+        const btn = document.getElementById(`case-btn-${i}`);
+        if (btn) btn.classList.toggle('is-active', i === idx);
+      }
+      renderCase();
+    }
+
+    function setCaseLens(lens) {
+      appState.caseLens = lens;
+      const trapBtn = document.getElementById('lens-trap-btn');
+      const therapyBtn = document.getElementById('lens-therapy-btn');
+      if (trapBtn) trapBtn.classList.toggle('is-active', lens === 'trap');
+      if (therapyBtn) therapyBtn.classList.toggle('is-active', lens === 'therapy');
+      renderCase();
+    }
+
+    function renderCase() {
+      const out = document.getElementById('case-output');
+      if (!out) return;
+      const c = CASES[appState.activeCase];
+      const isTrap = appState.caseLens === 'trap';
+      out.innerHTML = `
+        <h4 style="margin-bottom: var(--space-xs); font-size: 1.15rem;">${c.title}</h4>
+        <p style="font-family: var(--font-headline); font-style: italic; color: var(--on-surface-variant); margin-bottom: var(--space-md);">${c.quote}</p>
+        <div class="lens-box ${isTrap ? 'is-trap' : 'is-therapy'}">
+          <p class="index-num" style="margin-bottom: var(--space-xs); color: ${isTrap ? 'var(--error)' : 'var(--positive)'};">
+            ${isTrap ? 'DIAGNÓSTICO DEL EMBROLLO' : 'DISOLUCIÓN GRAMATICAL'}
+          </p>
+          <p style="font-weight: 600; margin-bottom: var(--space-xs);">${isTrap ? c.trapTitle : c.therapyTitle}</p>
+          <p style="font-size: 0.95rem;">${isTrap ? c.trapText : c.therapyText}</p>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 2. PRIMITIVE LANGUAGE GAMES EXPLORER
+    // =========================================================================
+    function markGameExplored(idx) {
+      if (!appState.exploredGames.includes(idx)) {
+        appState.exploredGames.push(idx);
+        persistState();
+      }
+    }
+
+    function selectGame(idx) {
+      appState.activeGame = idx;
+      for (let i = 0; i < GAMES.length; i++) {
+        const tab = document.getElementById(`g-tab-${i}`);
+        if (tab) tab.classList.toggle('is-active', i === idx);
+      }
+      renderGameStage();
+      markGameExplored(idx);
+    }
+
+    function renderGameStage() {
+      const g = GAMES[appState.activeGame];
+      const badge = document.getElementById('game-badge');
+      const roleA = document.getElementById('agent-a-role');
+      const roleB = document.getElementById('agent-b-role');
+      const promptArea = document.getElementById('game-prompt-area');
+      const shopControls = document.getElementById('game-shop-controls');
+      const speechA = document.getElementById('agent-a-speech');
+      const speechB = document.getElementById('agent-b-speech');
+      const insight = document.getElementById('game-insight');
+
+      if (!promptArea || !shopControls || !speechA || !speechB || !insight) return;
+      if (badge) badge.textContent = g.badge;
+      if (roleA) roleA.textContent = g.agentARole;
+      if (roleB) roleB.textContent = g.agentBRole;
+
+      if (g.controlsType === 'shop') {
+        promptArea.hidden = true;
+        promptArea.style.display = 'none';
+        shopControls.hidden = false;
+        shopControls.style.display = 'grid';
+        triggerShopMove(true);
+      } else {
+        shopControls.hidden = true;
+        shopControls.style.display = 'none';
+        promptArea.hidden = false;
+        promptArea.style.display = 'block';
+        if (g.controlsType === 'buttons') {
+          promptArea.innerHTML = `
+            <span class="input-label">Emite una orden del juego primitivo</span>
+            <div class="btn-row">
+              ${g.options.map((o, idx) => `<button type="button" class="btn btn-secondary" onclick="triggerBuilderMove(${idx})">${o.cmd}</button>`).join('')}
+            </div>
+          `;
+          triggerBuilderMove(0, true);
+        } else if (g.controlsType === 'arrow') {
+          promptArea.innerHTML = `
+            <span class="input-label">Manipula el símbolo y la regla de interpretación</span>
+            <div class="btn-row">
+              <button type="button" class="btn btn-secondary" onclick="triggerArrowMove(false)">Solo flecha → (uso normal)</button>
+              <button type="button" class="btn btn-secondary" onclick="triggerArrowMove(true)">Añadir símbolo de inversión (←)</button>
+            </div>
+          `;
+          triggerArrowMove(false, true);
+        } else if (g.controlsType === 'bank') {
+          promptArea.innerHTML = `
+            <span class="input-label">Elige el contexto pragmático de «banco»</span>
+            <div class="btn-row">
+              ${g.contexts.map((c, idx) => `<button type="button" class="btn btn-secondary" onclick="triggerBankMove(${idx})">${c.label}</button>`).join('')}
+            </div>
+          `;
+          triggerBankMove(0, true);
+        }
+      }
+
+      updateGamePerspective(appState.gamePerspective);
+    }
+
+    function appendGameLog(text) {
+      const log = document.getElementById('game-log');
+      if (!log) return;
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.innerHTML = text;
+      log.prepend(entry);
+      while (log.children.length > 6) {
+        log.removeChild(log.lastElementChild);
+      }
+    }
+
+    function triggerBuilderMove(idx, silent) {
+      const g = GAMES[0];
+      const opt = g.options[idx];
+      if (!opt) return;
+      const sA = document.getElementById('agent-a-speech');
+      const sB = document.getElementById('agent-b-speech');
+      const ins = document.getElementById('game-insight');
+      if (sA) sA.textContent = opt.cmd;
+      if (sB) sB.textContent = opt.react;
+      if (ins) ins.innerHTML = `<p style="font-size: 0.92rem;"><strong>Observación:</strong> ${opt.note}</p>`;
+      if (!silent) {
+        markGameExplored(0);
+        appendGameLog(`<strong>Albañil:</strong> ${opt.cmd} → <em>${opt.react}</em>`);
+      }
+    }
+
+    function triggerShopMove(silent) {
+      const countEl = document.getElementById('shop-count');
+      const itemEl = document.getElementById('shop-item');
+      const count = countEl ? Number(countEl.value) : 6;
+      const item = itemEl ? itemEl.value : `manzanas`;
+      const sA = document.getElementById('agent-a-speech');
+      const sB = document.getElementById('agent-b-speech');
+      const ins = document.getElementById('game-insight');
+      const seq = Array.from({ length: count }, (_, i) => i + 1).join(', ');
+      if (sA) sA.textContent = `Nota escrita: «${count} ${item}»`;
+      if (sB) sB.textContent = `Compara etiqueta «${item}» y cuenta: ${seq}`;
+      if (ins) {
+        ins.innerHTML = `<p style="font-size: 0.92rem;"><strong>Observación:</strong> Todo el proceso sucede con signos visibles (papel, etiqueta, conteo en voz alta). No necesitamos postular un proceso mental secreto detrás de los números.</p>`;
+      }
+      if (!silent) {
+        markGameExplored(1);
+        appendGameLog(`<strong>Frutería:</strong> Nota «${count} ${item}» → conteo público (${seq}).`);
+      }
+    }
+
+    function triggerArrowMove(inverted, silent) {
+      const sA = document.getElementById('agent-a-speech');
+      const sB = document.getElementById('agent-b-speech');
+      const ins = document.getElementById('game-insight');
+      if (sA) sA.textContent = inverted ? `Señal: → + clave secreta [←]` : `Señal: →`;
+      if (sB) sB.textContent = inverted ? `Marcha hacia la IZQUIERDA (siguiendo la clave)` : `Marcha hacia la DERECHA (uso habitual)`;
+      if (ins) {
+        ins.innerHTML = `<p style="font-size: 0.92rem;"><strong>Observación:</strong> ${inverted ? `Añadir una interpretación consiste simplemente en añadir otro signo más; pero toda cadena de signos tiene un último nivel donde simplemente actuamos.` : `En la práctica cotidiana obedecemos la flecha sin intercalar un símbolo mental intermedio.`}</p>`;
+      }
+      if (!silent) {
+        markGameExplored(2);
+        appendGameLog(`<strong>Flecha:</strong> ${inverted ? `Con clave de inversión [←] → marcha izquierda.` : `Sin clave añadida → marcha derecha.`}`);
+      }
+    }
+
+    function triggerBankMove(idx, silent) {
+      const g = GAMES[3];
+      const ctx = g.contexts[idx];
+      if (!ctx) return;
+      const sA = document.getElementById('agent-a-speech');
+      const sB = document.getElementById('agent-b-speech');
+      const ins = document.getElementById('game-insight');
+      if (sA) sA.textContent = ctx.cmd;
+      if (sB) sB.textContent = ctx.react;
+      if (ins) ins.innerHTML = `<p style="font-size: 0.92rem;"><strong>Observación:</strong> ${ctx.note}</p>`;
+      if (!silent) {
+        markGameExplored(3);
+        appendGameLog(`<strong>${ctx.label}:</strong> ${ctx.cmd}`);
+      }
+    }
+
+    function updateGamePerspective(val) {
+      appState.gamePerspective = val;
+      const box = document.getElementById('game-perspective-box');
+      if (!box) return;
+      const g = GAMES[appState.activeGame];
+      const isWitt = val === 'wittgenstein';
+      box.style.borderLeft = `4px solid ${isWitt ? 'var(--positive)' : 'var(--warning)'}`;
+      box.innerHTML = `<p style="font-size: 0.93rem;">${isWitt ? g.wittgensteinView : g.agustinView}</p>`;
+    }
+
+    // =========================================================================
+    // 3. CONCEPTUAL COMPARATOR
+    // =========================================================================
+    function selectComparison(idx) {
+      appState.activeComparison = idx;
+      for (let i = 0; i < COMPARISONS.length; i++) {
+        const btn = document.getElementById(`cmp-btn-${i}`);
+        if (btn) btn.classList.toggle('is-active', i === idx);
+      }
+      renderComparison();
+      persistState();
+    }
+
+    function renderComparison() {
+      const grid = document.getElementById('comparison-grid');
+      const delta = document.getElementById('comparison-delta');
+      if (!grid || !delta) return;
+      const item = COMPARISONS[appState.activeComparison];
+      grid.innerHTML = `
+        <article class="tri-col">
+          <span class="index-num">1933–1934</span>
+          <div class="tri-title" style="color: var(--secondary);">Cuaderno Azul</div>
+          <p style="font-size: 0.94rem;">${item.azul}</p>
+        </article>
+        <article class="tri-col col-marron">
+          <span class="index-num" style="color: var(--tertiary);">1934–1935</span>
+          <div class="tri-title" style="color: var(--tertiary);">Cuaderno Marrón</div>
+          <p style="font-size: 0.94rem;">${item.marron}</p>
+        </article>
+        <article class="tri-col col-inv">
+          <span class="index-num" style="color: var(--data-4);">1936–1953</span>
+          <div class="tri-title" style="color: var(--data-4);">Investigaciones Filosóficas</div>
+          <p style="font-size: 0.94rem;">${item.investigaciones}</p>
+        </article>
+      `;
+      delta.innerHTML = `<p style="font-size: 0.94rem;">${item.delta}</p>`;
+    }
+
+    // =========================================================================
+    // 4. GRAMMATICAL SELF-ASSESSMENT QUIZ
+    // =========================================================================
+    function selectQuizQuestion(idx) {
+      appState.quizIndex = idx;
+      renderQuiz();
+      persistState();
+    }
+
+    function answerQuiz(optIdx) {
+      const qIdx = appState.quizIndex;
+      if (appState.quizAnswers[qIdx] !== undefined) return;
+      appState.quizAnswers[qIdx] = optIdx;
+      renderQuiz();
+      persistState();
+    }
+
+    function resetQuiz(btn) {
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = `Confirmar reinicio`;
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = `Reiniciar test`;
+      appState.quizAnswers = {};
+      appState.quizIndex = 0;
+      renderQuiz();
+      persistState();
+    }
+
+    function renderQuiz() {
+      const dots = document.getElementById('quiz-nav-dots');
+      const stage = document.getElementById('quiz-stage');
+      const scoreBadge = document.getElementById('quiz-score-badge');
+      if (!dots || !stage) return;
+
+      let score = 0;
+      QUIZ.forEach((q, idx) => {
+        if (appState.quizAnswers[idx] === q.correct) score++;
+      });
+      if (scoreBadge) scoreBadge.textContent = `Aciertos: ${score} / ${QUIZ.length}`;
+
+      dots.innerHTML = QUIZ.map((q, idx) => {
+        const ans = appState.quizAnswers[idx];
+        let label = `P${idx + 1}`;
+        if (ans !== undefined) {
+          label += ans === q.correct ? ` · OK` : ` · X`;
+        }
+        const active = idx === appState.quizIndex ? `is-active` : ``;
+        return `<button type="button" class="btn btn-secondary ${active}" style="min-height: 40px; padding: 0.35rem 0.7rem; font-size: 0.82rem;" onclick="selectQuizQuestion(${idx})">${label}</button>`;
+      }).join('');
+
+      const cur = QUIZ[appState.quizIndex];
+      const userAns = appState.quizAnswers[appState.quizIndex];
+      const answered = userAns !== undefined;
+
+      const optionsHtml = cur.options.map((opt, idx) => {
+        let cls = '';
+        if (answered) {
+          if (idx === cur.correct) cls = 'is-correct';
+          else if (idx === userAns) cls = 'is-wrong';
+        }
+        return `
+          <button type="button" class="quiz-option ${cls}" ${answered ? 'disabled' : ''} onclick="answerQuiz(${idx})">
+            <span class="index-num" style="margin-top: 2px;">${String.fromCharCode(65 + idx)}.</span>
+            <span>${opt}</span>
+          </button>
+        `;
+      }).join('');
+
+      const feedbackHtml = answered ? `
+        <div class="quiz-feedback ${userAns === cur.correct ? 'fb-ok' : 'fb-err'}" style="margin-top: var(--space-md);">
+          <p style="font-weight: 700; margin-bottom: var(--space-xs);">${userAns === cur.correct ? 'Diagnóstico acertado' : 'Trampa gramatical detectada'}</p>
+          <p style="font-size: 0.94rem;">${cur.explanation}</p>
+        </div>
+      ` : '';
+
+      const nextIdx = appState.quizIndex + 1 < QUIZ.length ? appState.quizIndex + 1 : 0;
+
+      stage.innerHTML = `
+        <h3 style="margin-bottom: var(--space-md);">${cur.q}</h3>
+        <div style="display: flex; flex-direction: column; gap: var(--space-sm);">
+          ${optionsHtml}
+        </div>
+        ${feedbackHtml}
+        <div class="btn-row" style="margin-top: var(--space-lg); justify-content: space-between;">
+          <span class="dossier-meta">Pregunta ${appState.quizIndex + 1} de ${QUIZ.length}</span>
+          <button type="button" class="btn btn-primary" onclick="selectQuizQuestion(${nextIdx})">
+            ${appState.quizIndex + 1 < QUIZ.length ? 'Siguiente pregunta →' : 'Volver a la primera'}
+          </button>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 5. EXPANDABLE INTERACTIVE GLOSSARY
+    // =========================================================================
+    function filterGlossary() {
+      renderGlossary();
+    }
+
+    function toggleGlossaryItem(idx) {
+      const pos = appState.glossaryOpen.indexOf(idx);
+      if (pos >= 0) {
+        appState.glossaryOpen.splice(pos, 1);
+      } else {
+        appState.glossaryOpen.push(idx);
+        if (!appState.glossaryReviewed.includes(idx)) {
+          appState.glossaryReviewed.push(idx);
+          persistState();
+        }
+      }
+      renderGlossary();
+    }
+
+    function toggleAllGlossary(openAll) {
+      if (openAll) {
+        appState.glossaryOpen = GLOSSARY.map((_, i) => i);
+        appState.glossaryReviewed = GLOSSARY.map((_, i) => i);
+        persistState();
+      } else {
+        appState.glossaryOpen = [];
+      }
+      renderGlossary();
+    }
+
+    function renderGlossary() {
+      const list = document.getElementById('glossary-list');
+      const searchEl = document.getElementById('glossary-search');
+      const filterEl = document.getElementById('glossary-filter');
+      if (!list) return;
+
+      const query = searchEl ? searchEl.value.trim().toLowerCase() : '';
+      const cat = filterEl ? filterEl.value : 'all';
+
+      const matches = GLOSSARY.map((item, idx) => ({ item, idx })).filter(({ item }) => {
+        const catOk = cat === 'all' || item.cat === cat;
+        const textOk = !query || item.term.toLowerCase().includes(query) || item.summary.toLowerCase().includes(query) || item.detail.toLowerCase().includes(query);
+        return catOk && textOk;
+      });
+
+      if (matches.length === 0) {
+        list.innerHTML = `
+          <div class="aside-box" style="grid-column: 1 / -1;">
+            <p><strong>No hay términos que coincidan con «${query}».</strong> Prueba con otra búsqueda o restablece el filtro.</p>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = matches.map(({ item, idx }) => {
+        const isOpen = appState.glossaryOpen.includes(idx);
+        return `
+          <article class="glossary-item">
+            <button type="button" class="glossary-trigger" aria-expanded="${isOpen}" onclick="toggleGlossaryItem(${idx})">
+              <div>
+                <span class="tag-chip" style="margin-bottom: var(--space-xs);">${item.catLabel}</span>
+                <div style="font-family: var(--font-headline); font-weight: 600; font-size: 1.08rem;">${item.term}</div>
+                <div style="font-size: 0.88rem; color: var(--on-surface-variant); margin-top: 2px;">${item.summary}</div>
+              </div>
+              <span class="index-num" aria-hidden="true">${isOpen ? '−' : '+'}</span>
+            </button>
+            <div class="glossary-body" ${isOpen ? '' : 'hidden'}>
+              <p>${item.detail}</p>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // =========================================================================
+    // INITIALIZATION
+    // =========================================================================
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            if (Array.isArray(saved.exploredGames)) appState.exploredGames = saved.exploredGames;
+            if (saved.quizAnswers && typeof saved.quizAnswers === 'object') appState.quizAnswers = saved.quizAnswers;
+            if (typeof saved.quizIndex === 'number') appState.quizIndex = saved.quizIndex;
+            if (Array.isArray(saved.glossaryReviewed)) appState.glossaryReviewed = saved.glossaryReviewed;
+            if (typeof saved.activeComparison === 'number') appState.activeComparison = saved.activeComparison;
+            if (typeof saved.activeGame === 'number') appState.activeGame = saved.activeGame;
+          }
+        } catch (err) {
+          // Proceed with default state
+        }
+      }
+
+      renderCase();
+      selectGame(appState.activeGame);
+      selectComparison(appState.activeComparison);
+      renderQuiz();
+      renderGlossary();
+      updateStatsUI();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>

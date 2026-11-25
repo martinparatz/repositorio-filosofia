@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>El problema de la culpa — Karl Jaspers | Base de Conocimientos Filosófica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces: warm stone-white paper */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      /* Ink */
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      /* Rules */
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+      --input-border: #c8c4b8;
+
+      /* Accents */
+      --primary: #17181a;
+      --primary-hover: #2f3136;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --secondary-soft: #e9f1f4;
+      --tertiary: #785008;
+      --tertiary-container: #f5e6c4;
+      --error: #b42318;
+      --error-soft: #fbeae9;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      /* Fonts */
+      --font-headline: 'Source Serif 4', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      /* Style effects */
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* Shared semantic & focus tokens */
+      --positive: #2b6e52;
+      --positive-soft: #e7f3ed;
+      --warning: #785008;
+      --warning-soft: #f5e6c4;
+      --focus: #1f4e5f;
+
+      /* Narrative type scale */
+      --display-size: clamp(2.35rem, 1.4rem + 3.4vw, 3.85rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.6vw, 2.35rem);
+      --subhead-size: clamp(1.1875rem, 1.05rem + 0.5vw, 1.4rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.09375rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    a {
+      color: var(--secondary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color var(--dur-micro) var(--ease-out);
+    }
+    a:hover { color: var(--on-surface); }
+
+    :focus-visible {
+      outline: 2.5px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-lg) var(--space-lg) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Briefing dossier bars & typography */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.6875rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      display: inline-block;
+      line-height: 1.2;
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .hero-title {
+      font-size: var(--display-size);
+      line-height: 1.07;
+      max-width: 24ch;
+    }
+    .section-title {
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      margin-bottom: var(--space-xs);
+    }
+    .subhead-title {
+      font-size: var(--subhead-size);
+      line-height: 1.22;
+    }
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+      line-height: 1.48;
+      color: var(--secondary);
+      margin-top: var(--space-md);
+      max-width: 66ch;
+    }
+    .prose {
+      max-width: 65ch;
+      margin: 0;
+    }
+    .prose + .prose {
+      margin-top: var(--space-md);
+    }
+
+    /* Navigation strip */
+    .site-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-sm) 0;
+      margin-top: var(--space-lg);
+      border-top: var(--card-border);
+      border-bottom: var(--card-border);
+    }
+    .nav-link {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      color: var(--on-surface-variant);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:hover {
+      background-color: var(--surface-container);
+      color: var(--on-surface);
+    }
+    .nav-link.is-active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    /* Hero KPI cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .figure-card .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .figure-card .value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+      line-height: 1.15;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      margin-bottom: var(--space-xs);
+    }
+    .figure-card .caption {
+      font-size: 0.9rem;
+      line-height: 1.45;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    /* Aside / methodology callout */
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .quote-block {
+      border-left: 3px solid var(--secondary);
+      padding: var(--space-sm) var(--space-md);
+      margin: var(--space-md) 0 0;
+      background: var(--surface-container);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+    }
+    .quote-block blockquote {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.0625rem;
+      line-height: 1.55;
+      color: var(--on-surface);
+    }
+    .quote-block cite {
+      display: block;
+      margin-top: var(--space-xs);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Two-column asymmetric layout */
+    .split-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-lg);
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+    .split-grid-equal {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+
+    /* Buttons and interactive chips */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+    .btn-secondary {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--input-border);
+    }
+    .btn-secondary:hover {
+      background-color: var(--surface-container-high);
+    }
+    .btn-secondary[aria-pressed="true"],
+    .btn-tab[aria-selected="true"] {
+      background-color: var(--secondary);
+      color: var(--on-primary);
+      border-color: var(--secondary);
+    }
+
+    /* Timeline interactive */
+    .timeline-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+      align-items: start;
+    }
+    .timeline-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .timeline-btn {
+      display: grid;
+      grid-template-columns: 6.5rem minmax(0, 1fr);
+      gap: var(--space-sm);
+      align-items: baseline;
+      text-align: left;
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .timeline-btn:hover {
+      background: var(--surface-container);
+    }
+    .timeline-btn.is-selected {
+      background: var(--secondary-soft);
+      box-shadow: inset 4px 0 0 var(--secondary);
+    }
+    .timeline-year {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--secondary);
+    }
+    .timeline-label {
+      font-weight: 600;
+      font-size: 0.9375rem;
+    }
+    .timeline-detail {
+      position: sticky;
+      top: var(--space-lg);
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      background: var(--tertiary-container);
+      color: var(--tertiary);
+    }
+    .tag-petrol {
+      background: var(--secondary-soft);
+      color: var(--secondary);
+    }
+    .tag-positive {
+      background: var(--positive-soft);
+      color: var(--positive);
+    }
+    .tag-error {
+      background: var(--error-soft);
+      color: var(--error);
+    }
+
+    /* 4 Guilt Typology selector */
+    .typology-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+    }
+    .typology-card-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+      text-align: left;
+      padding: var(--space-md);
+      min-height: 44px;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      cursor: pointer;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+    .typology-card-btn:hover {
+      background: var(--surface-container);
+      transform: translateY(-1px);
+    }
+    .typology-card-btn[aria-pressed="true"] {
+      background: var(--surface-container-low);
+      box-shadow: inset 0 4px 0 var(--secondary), 0 0 0 1px var(--secondary);
+    }
+    .typology-card-btn .index-num {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--secondary);
+    }
+    .typology-card-btn .typology-name {
+      font-family: var(--font-headline);
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .typology-card-btn .typology-judge {
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
+    }
+
+    .typology-inspector {
+      margin-top: var(--space-md);
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .meta-kv-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: var(--card-border);
+    }
+    .meta-kv-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+      display: block;
+    }
+    .meta-kv-val {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    /* Table */
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: var(--space-lg);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+    thead th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface);
+      padding: var(--space-md);
+      border-bottom: var(--section-rule);
+      background: var(--surface-container-low);
+    }
+    tbody td {
+      padding: var(--space-md);
+      border-bottom: var(--card-border);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+    tbody tr.is-highlighted {
+      background: var(--secondary-soft);
+    }
+
+    /* Causal SVG diagram & mode toggle */
+    .diagram-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+      align-items: start;
+    }
+    .diagram-svg-box {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+    }
+    .diagram-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .svg-node {
+      cursor: pointer;
+      transition: opacity var(--dur-micro) var(--ease-out);
+    }
+    .svg-node:hover .node-rect {
+      stroke: var(--secondary);
+      stroke-width: 2.5;
+    }
+    .svg-node.is-active .node-rect {
+      fill: var(--secondary-soft);
+      stroke: var(--secondary);
+      stroke-width: 2.5;
+    }
+    .svg-node.is-sophistic .node-rect {
+      fill: var(--error-soft);
+      stroke: var(--error);
+    }
+
+    /* Case analyzer */
+    .analyzer-box {
+      margin-top: var(--space-xl);
+    }
+    .case-selector-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .case-btn {
+      text-align: left;
+      padding: var(--space-md);
+      min-height: 44px;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .case-btn:hover { background: var(--surface-container); }
+    .case-btn.is-active {
+      background: var(--secondary-soft);
+      box-shadow: inset 4px 0 0 var(--secondary);
+    }
+    .option-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .feedback-banner {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border-left: 4px solid var(--secondary);
+      background: var(--surface-container);
+    }
+    .feedback-banner.is-correct {
+      border-left-color: var(--positive);
+      background: var(--positive-soft);
+    }
+    .feedback-banner.is-partial {
+      border-left-color: var(--warning);
+      background: var(--warning-soft);
+    }
+
+    /* Antinomies / Democracy cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+    .axis-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .versus-pair {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-sm);
+      padding: var(--space-sm) 0;
+      border-top: var(--card-border);
+      border-bottom: var(--card-border);
+    }
+    .versus-positive {
+      color: var(--secondary);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .versus-negative {
+      color: var(--error);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* Knowledge base search & filter */
+    .kb-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      flex: 1 1 260px;
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface-variant);
+    }
+    .text-input {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      border: 1px solid var(--input-border);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      width: 100%;
+    }
+    .text-input:focus {
+      border-color: var(--secondary);
+    }
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .kb-count {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      margin-top: var(--space-md);
+    }
+    .kb-empty {
+      padding: var(--space-xl);
+      text-align: left;
+      background: var(--surface-container);
+      border-radius: var(--rounded-lg);
+      margin-top: var(--space-md);
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+    }
+    .faq-item {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+    }
+    .faq-trigger {
+      width: 100%;
+      min-height: 52px;
+      padding: var(--space-md) var(--space-lg);
+      background: transparent;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      color: var(--on-surface);
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.125rem;
+      line-height: 1.3;
+    }
+    .faq-trigger:hover {
+      background: var(--surface-container);
+    }
+    .faq-icon {
+      flex-shrink: 0;
+      transition: transform var(--dur-short) var(--ease-in-out);
+      color: var(--secondary);
+    }
+    .faq-trigger[aria-expanded="true"] .faq-icon {
+      transform: rotate(180deg);
+    }
+    .faq-panel {
+      padding: 0 var(--space-lg) var(--space-lg);
+      color: var(--on-surface);
+      border-top: var(--card-border);
+      padding-top: var(--space-md);
+    }
+    .faq-panel[hidden] {
+      display: none;
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--section-rule);
+      padding-top: var(--space-lg);
+      margin-top: var(--space-xl);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      color: var(--on-surface-variant);
+      font-size: 0.92rem;
+    }
+
+    /* Reveal animation */
+    .reveal-section {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal-section.will-animate {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    .reveal-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .typology-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .typology-inspector,
+      .diagram-panel,
+      .split-grid,
+      .split-grid-equal,
+      .timeline-layout,
+      .site-footer {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .timeline-detail {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .typology-grid,
+      .meta-kv-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .timeline-btn {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .nav-link {
+        padding: var(--space-xs) var(--space-sm);
+        font-size: 0.72rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- HEADER / INICIO -->
+    <header id="inicio">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Dossier Filosófico</span>
+          <span class="dossier-meta">Karl Jaspers · Universidad de Heidelberg · Invierno 1945–1946</span>
+        </div>
+        <span class="dossier-meta">Título original: Die Schuldfrage</span>
+      </div>
+
+      <h1 class="hero-title">El problema de la culpa: responsabilidad individual, democracia y crítica al mesianismo político</h1>
+      <p class="standfirst">
+        Base de conocimientos interactiva sobre las lecciones dictadas por Karl Jaspers en Heidelberg tras la caída del nacionalsocialismo: una anatomía de las cuatro culpas, el rechazo frontal a la «culpa colectiva» y el imperativo ético de reconstruir la libertad desde el individuo.
+      </p>
+
+      <nav class="site-nav" aria-label="Navegación de secciones">
+        <a class="nav-link is-active" href="#inicio">Inicio</a>
+        <a class="nav-link" href="#contexto">01 · Contexto y Política</a>
+        <a class="nav-link" href="#culpas">02 · Las 4 Culpas</a>
+        <a class="nav-link" href="#relaciones">03 · Relaciones y Casos</a>
+        <a class="nav-link" href="#democracia">04 · Ética y Democracia</a>
+        <a class="nav-link" href="#conocimiento">05 · Base de Conocimientos</a>
+        <a class="nav-link" href="#faq">06 · Preguntas Frecuentes</a>
+      </nav>
+
+      <div class="kpi-grid" aria-label="Cifras y tesis centrales">
+        <div class="figure-card">
+          <span class="index-num">01 / ORIGEN</span>
+          <div class="value">1945–1946</div>
+          <p class="caption">Lecciones de enero y febrero en Heidelberg, publicadas ese año en Zúrich y Heidelberg.</p>
+        </div>
+        <div class="figure-card">
+          <span class="index-num">02 / TAXONOMÍA</span>
+          <div class="value">4 Culpas</div>
+          <p class="caption">Criminal, política, moral y metafísica: esferas distintas pero interconectadas.</p>
+        </div>
+        <div class="figure-card">
+          <span class="index-num">03 / CRITERIO</span>
+          <div class="value">0 Colectivos</div>
+          <p class="caption">«Un pueblo no puede ser convertido en un individuo»; rechazo a toda sustancialización holística.</p>
+        </div>
+        <div class="figure-card">
+          <span class="index-num">04 / HORIZONTE</span>
+          <div class="value">Umkehr</div>
+          <p class="caption">Conversión interna desde la conciencia individual: «¡Atrévete a ser responsable!».</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECCIÓN 01: CONTEXTO HISTÓRICO Y FILOSOFÍA-POLÍTICA -->
+    <section id="contexto" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Sección 01</span>
+          <span class="dossier-meta">Situación límite · Filosofía y política</span>
+        </div>
+        <span class="dossier-meta">Trayectoria 1931–1969</span>
+      </div>
+      <h2 class="section-title">No hay filosofía sin consecuencias políticas: la situación límite de 1933–1945</h2>
+      <p class="prose">
+        Hasta 1933, Karl Jaspers se consideraba una persona «apolítica». La dictadura nacionalsocialista —que lo excluyó de la administración universitaria, le prohibió enseñar en 1937 y publicar en 1938— lo confrontó con «la pérdida de la garantía jurídica en el propio Estado». Esa situación límite reveló que una política sin filosofía de la razón es «ciega», y una filosofía ajena a lo político resulta «vacía».
+      </p>
+
+      <div class="timeline-layout">
+        <div class="timeline-list" role="tablist" aria-label="Cronología histórica de Karl Jaspers">
+          <button type="button" class="timeline-btn is-selected" data-year="1931" onclick="selectTimeline('1931', this)">
+            <span class="timeline-year">1930–1931</span>
+            <span class="timeline-label">Sorpresa electoral y silencio previo</span>
+          </button>
+          <button type="button" class="timeline-btn" data-year="1933" onclick="selectTimeline('1933', this)">
+            <span class="timeline-year">1933–1935</span>
+            <span class="timeline-label">Exclusión y curso sobre el mal radical</span>
+          </button>
+          <button type="button" class="timeline-btn" data-year="1937" onclick="selectTimeline('1937', this)">
+            <span class="timeline-year">1937–1938</span>
+            <span class="timeline-label">Prohibición de enseñar y publicar</span>
+          </button>
+          <button type="button" class="timeline-btn" data-year="1945" onclick="selectTimeline('1945', this)">
+            <span class="timeline-year">Abril 1945</span>
+            <span class="timeline-label">Inminente deportación y liberación</span>
+          </button>
+          <button type="button" class="timeline-btn" data-year="1946" onclick="selectTimeline('1946', this)">
+            <span class="timeline-year">1945–1946</span>
+            <span class="timeline-label">Lecciones y publicación de Die Schuldfrage</span>
+          </button>
+          <button type="button" class="timeline-btn" data-year="1956" onclick="selectTimeline('1956', this)">
+            <span class="timeline-year">1956–1969</span>
+            <span class="timeline-label">Era atómica, cosmopolitismo y legado</span>
+          </button>
+        </div>
+
+        <div class="figure-card timeline-detail" id="timeline-detail" aria-live="polite">
+          <!-- Rellenado dinámicamente -->
+        </div>
+      </div>
+
+      <!-- Dos tipos de políticos y diálogo filósofo-estadista -->
+      <div class="split-grid-equal">
+        <article class="figure-card">
+          <span class="tag tag-error">Contramodelo</span>
+          <h3 class="subhead-title" style="margin-top: var(--space-sm);">El «simple político»</h3>
+          <p style="margin-top: var(--space-sm); margin-bottom: 0;">
+            Sigue al líder de prestigio público aun contra sus convicciones y se conforma con «el entendimiento sin la razón». Renuncia a su criterio propio para imitar lo que cree que otros quieren, comportándose como un maximizador situacional de beneficios que elude toda responsabilidad moral.
+          </p>
+        </article>
+        <article class="figure-card">
+          <span class="tag tag-positive">Ideal ético-político</span>
+          <h3 class="subhead-title" style="margin-top: var(--space-sm);">El «político razonable»</h3>
+          <p style="margin-top: var(--space-sm); margin-bottom: 0;">
+            Subordina la acción política a un <em>ethos</em> suprapolítico que prohíbe manipular a la ciudadanía. No encarna un liderazgo carismático o decisionista, sino la convergencia de «pensar profundo y obrar concreto», en diálogo libre con el filósofo: «El hombre de Estado tiene que poder callar; el filósofo debe hablar sin restricciones».
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 02: LAS CUATRO TIPOLOGÍAS DE CULPA -->
+    <section id="culpas" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Sección 02</span>
+          <span class="dossier-meta">Esquema de las distinciones · Análisis comparativo</span>
+        </div>
+        <span class="dossier-meta">Selecciona cada concepto</span>
+      </div>
+      <h2 class="section-title">Cuatro conceptos de culpa para evitar el parloteo indiferenciado</h2>
+      <p class="prose">
+        Mezclar todas las responsabilidades en un único plano conduce a juicios groseros como los de «un mal juez». Jaspers separa cuatro categorías irreductibles —penal, política, moral y metafísica— precisando quién acusa, ante qué instancia se responde y qué forma adopta la reparación.
+      </p>
+
+      <div class="typology-grid" role="group" aria-label="Selector de las cuatro tipologías de culpa">
+        <button type="button" class="typology-card-btn" data-guilt="criminal" aria-pressed="true" onclick="selectGuilt('criminal', this)">
+          <span class="index-num">01 / PENAL</span>
+          <span class="typology-name">Culpa criminal</span>
+          <span class="typology-judge">Instancia: El tribunal</span>
+        </button>
+        <button type="button" class="typology-card-btn" data-guilt="politica" aria-pressed="false" onclick="selectGuilt('politica', this)">
+          <span class="index-num">02 / ESTATAL</span>
+          <span class="typology-name">Culpa política</span>
+          <span class="typology-judge">Instancia: El vencedor</span>
+        </button>
+        <button type="button" class="typology-card-btn" data-guilt="moral" aria-pressed="false" onclick="selectGuilt('moral', this)">
+          <span class="index-num">03 / ÉTICA</span>
+          <span class="typology-name">Culpa moral</span>
+          <span class="typology-judge">Instancia: La conciencia</span>
+        </button>
+        <button type="button" class="typology-card-btn" data-guilt="metafisica" aria-pressed="false" onclick="selectGuilt('metafisica', this)">
+          <span class="index-num">04 / EXISTENCIAL</span>
+          <span class="typology-name">Culpa metafísica</span>
+          <span class="typology-judge">Instancia: Solo ante Dios</span>
+        </button>
+      </div>
+
+      <div class="typology-inspector">
+        <div class="figure-card" id="guilt-detail-panel" aria-live="polite">
+          <!-- Rellenado dinámicamente -->
+        </div>
+        <aside class="aside-box" id="guilt-quote-panel" aria-live="polite">
+          <!-- Rellenado dinámicamente -->
+        </aside>
+      </div>
+
+      <div class="table-wrap">
+        <table aria-label="Cuadro comparativo de las cuatro tipologías de culpa">
+          <thead>
+            <tr>
+              <th>Tipología</th>
+              <th>Fundamento</th>
+              <th>Instancia de juicio</th>
+              <th>Sujeto y alcance</th>
+              <th>Cierre o expiación</th>
+            </tr>
+          </thead>
+          <tbody id="guilt-table-body">
+            <tr data-row="criminal" class="is-highlighted">
+              <td><strong>1. Criminal</strong></td>
+              <td>Acciones demostrables que violan leyes inequívocas.</td>
+              <td>Tribunal formal (el juez).</td>
+              <td>Solo individuos concretos; jamás un pueblo o colectivo.</td>
+              <td>Castigo legal: se cumple y concluye.</td>
+            </tr>
+            <tr data-row="politica">
+              <td><strong>2. Política</strong></td>
+              <td>Actos de gobernantes y tolerancia ciudadana del orden estatal.</td>
+              <td>Fuerza y voluntad del vencedor.</td>
+              <td>Corresponsabilidad ciudadana (no culpa penal ni moral individual por crímenes estatales).</td>
+              <td>Reparaciones materiales; limitada y concluida por tratado de paz.</td>
+            </tr>
+            <tr data-row="moral">
+              <td><strong>3. Moral</strong></td>
+              <td>Faltas individuales, cómoda adaptación, negligencia y obediencia acrítica.</td>
+              <td>Propia conciencia y disputa amistosa entre solidarios.</td>
+              <td>Cada individuo ante sí mismo; nadie externo puede censurar moralmente como juez.</td>
+              <td>Arrepentimiento y conversión interna (<em>Umkehr</em>); dura toda la vida.</td>
+            </tr>
+            <tr data-row="metafisica">
+              <td><strong>4. Metafísica</strong></td>
+              <td>Lesión de la solidaridad absoluta con el ser humano como tal.</td>
+              <td>Solo ante Dios (revelación existencial).</td>
+              <td>Quien sobrevive en presencia de crímenes e injusticias contra otros.</td>
+              <td>No se expía jamás; humildad profunda y deber de merecer la vida salvada.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 03: RELACIONES CAUSALES, USO SOFÍSTICO Y ANALIZADOR DE CASOS -->
+    <section id="relaciones" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Sección 03</span>
+          <span class="dossier-meta">Dinámica sistémica · Evasión sofística · Práctica</span>
+        </div>
+        <span class="dossier-meta">Interactivo</span>
+      </div>
+      <h2 class="section-title">Cómo se encadenan las cuatro culpas y el truco sofístico para eludirlas</h2>
+      <p class="prose">
+        Jaspers advierte que separar los cuatro conceptos se convierte en un error si se olvida hasta qué punto están conectados. Pequeñas faltas morales cotidianas alimentan la atmósfera pública donde prospera la culpa política y, finalmente, el crimen de Estado. A la inversa, usar estas distinciones como compartimentos estancos permite librarse falsamente de toda responsabilidad.
+      </p>
+
+      <div class="option-row" role="group" aria-label="Modo de lectura del diagrama">
+        <button type="button" class="btn btn-secondary" id="mode-causal-btn" aria-pressed="true" onclick="setDiagramMode('causal')">
+          Ver cadena de causalidad ética
+        </button>
+        <button type="button" class="btn btn-secondary" id="mode-sophistic-btn" aria-pressed="false" onclick="setDiagramMode('sophistic')">
+          Ver uso sofístico (excusas evasivas)
+        </button>
+      </div>
+
+      <div class="diagram-panel">
+        <div class="diagram-svg-box">
+          <svg class="diagram-svg" viewBox="0 0 640 370" role="img" aria-label="Diagrama interactivo de las relaciones entre los cuatro tipos de culpa">
+            <defs>
+              <marker id="arrow-petrol" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--secondary)" />
+              </marker>
+            </defs>
+
+            <!-- Base: Metafísica -->
+            <g class="svg-node" id="node-metafisica" onclick="selectDiagramNode('metafisica')">
+              <rect class="node-rect" x="30" y="272" width="580" height="72" rx="6" fill="var(--surface-container)" stroke="var(--outline-variant)" stroke-width="1.5" />
+              <text x="50" y="299" font-family="var(--font-label)" font-size="11" font-weight="600" fill="var(--secondary)">04 · BASE EXISTENCIAL</text>
+              <text x="50" y="322" font-family="var(--font-headline)" font-size="18" font-weight="600" fill="var(--on-surface)">Culpa Metafísica — Quiebra de la solidaridad absoluta humana</text>
+            </g>
+
+            <!-- Flecha Metafísica -> Moral -->
+            <line x1="160" y1="272" x2="160" y2="232" stroke="var(--secondary)" stroke-width="2" marker-end="url(#arrow-petrol)" />
+
+            <!-- Nodo Moral -->
+            <g class="svg-node is-active" id="node-moral" onclick="selectDiagramNode('moral')">
+              <rect class="node-rect" x="30" y="152" width="265" height="78" rx="6" fill="var(--secondary-soft)" stroke="var(--secondary)" stroke-width="2.5" />
+              <text x="48" y="177" font-family="var(--font-label)" font-size="11" font-weight="600" fill="var(--secondary)">03 · RAÍZ COTIDIANA</text>
+              <text x="48" y="199" font-family="var(--font-headline)" font-size="17" font-weight="600" fill="var(--on-surface)">Culpa Moral</text>
+              <text x="48" y="218" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">Adaptación, silencio, negligencia</text>
+            </g>
+
+            <!-- Flecha Moral -> Política -->
+            <line x1="295" y1="191" x2="345" y2="191" stroke="var(--secondary)" stroke-width="2" marker-end="url(#arrow-petrol)" />
+
+            <!-- Nodo Política -->
+            <g class="svg-node" id="node-politica" onclick="selectDiagramNode('politica')">
+              <rect class="node-rect" x="350" y="152" width="260" height="78" rx="6" fill="var(--surface-container-low)" stroke="var(--outline-variant)" stroke-width="1.5" />
+              <text x="368" y="177" font-family="var(--font-label)" font-size="11" font-weight="600" fill="var(--secondary)">02 · ATMÓSFERA PÚBLICA</text>
+              <text x="368" y="199" font-family="var(--font-headline)" font-size="17" font-weight="600" fill="var(--on-surface)">Culpa Política</text>
+              <text x="368" y="218" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">Sometimiento y omisión cívica</text>
+            </g>
+
+            <!-- Flecha Política -> Criminal -->
+            <line x1="480" y1="152" x2="480" y2="112" stroke="var(--secondary)" stroke-width="2" marker-end="url(#arrow-petrol)" />
+
+            <!-- Nodo Criminal -->
+            <g class="svg-node" id="node-criminal" onclick="selectDiagramNode('criminal')">
+              <rect class="node-rect" x="180" y="26" width="430" height="82" rx="6" fill="var(--surface-container-low)" stroke="var(--outline-variant)" stroke-width="1.5" />
+              <text x="200" y="52" font-family="var(--font-label)" font-size="11" font-weight="600" fill="var(--secondary)">01 · DESENLACE JURÍDICO</text>
+              <text x="200" y="75" font-family="var(--font-headline)" font-size="18" font-weight="600" fill="var(--on-surface)">Culpa Criminal — Crímenes concretos del Estado y sus ejecutores</text>
+              <text x="200" y="95" font-family="var(--font-body)" font-size="12" fill="var(--on-surface-variant)">Responsabilidad personal e imprescriptible del autor</text>
+            </g>
+
+            <!-- Etiqueta de interacción -->
+            <text x="30" y="48" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">HAZ CLIC EN CADA</text>
+            <text x="30" y="64" font-family="var(--font-label)" font-size="11" fill="var(--on-surface-variant)">NODO PARA EXPLORAR</text>
+          </svg>
+        </div>
+
+        <div class="figure-card" id="diagram-explanation" aria-live="polite">
+          <!-- Rellenado dinámicamente -->
+        </div>
+      </div>
+
+      <!-- Analizador interactivo de casos -->
+      <div class="figure-card analyzer-box">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">Ejercicio Práctico</span>
+            <span class="dossier-meta">Analizador de responsabilidad jaspersiano</span>
+          </div>
+          <span class="dossier-meta" id="case-counter">Caso 1 de 6</span>
+        </div>
+        <h3 class="subhead-title">¿Qué tipo de culpa o trampa argumental opera en cada situación?</h3>
+        <p style="margin-top: var(--space-xs); color: var(--on-surface-variant);">
+          Elige un escenario basado en las lecciones de Heidelberg, selecciona tu diagnóstico y comprueba la respuesta fundamentada en Karl Jaspers.
+        </p>
+
+        <div class="case-selector-list" id="case-list" role="group" aria-label="Casos prácticos">
+          <!-- Botones generados por JS -->
+        </div>
+
+        <div class="aside-box" style="margin-top: var(--space-md);">
+          <span class="meta-kv-label">Escenario seleccionado</span>
+          <p id="active-case-text" style="font-weight: 600; margin: var(--space-xs) 0 0;"></p>
+          <div class="option-row" id="case-options" role="group" aria-label="Opciones de diagnóstico">
+            <button type="button" class="btn btn-secondary" onclick="checkCaseAnswer('criminal')">Culpa criminal (individual)</button>
+            <button type="button" class="btn btn-secondary" onclick="checkCaseAnswer('politica')">Culpa política (corresponsabilidad)</button>
+            <button type="button" class="btn btn-secondary" onclick="checkCaseAnswer('moral')">Culpa moral (conciencia)</button>
+            <button type="button" class="btn btn-secondary" onclick="checkCaseAnswer('metafisica')">Culpa metafísica (solidaridad)</button>
+            <button type="button" class="btn btn-secondary" onclick="checkCaseAnswer('sofistica')">Evasión sofística / abdicación</button>
+          </div>
+          <div id="case-feedback" class="feedback-banner" hidden aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 04: RESPONSABILIDAD ÉTICA, DEMOCRACIA Y RECHAZO AL MESIANISMO -->
+    <section id="democracia" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Sección 04</span>
+          <span class="dossier-meta">Ética individual · Antimesianismo · Cosmopolitismo</span>
+        </div>
+        <span class="dossier-meta">De la dictadura a la democracia</span>
+      </div>
+      <h2 class="section-title">Responsabilidad individual frente a la democracia y rechazo del mesianismo político</h2>
+      <p class="prose">
+        Para Jaspers, toda transición de la dictadura a la democracia exige destruir los mitos que anulan la autonomía humana: el Estado como ser «sagrado y suprahumano», la obediencia jerárquica ciega y cualquier mesianismo o ley fatal de la historia. «Todo depende del individuo».
+      </p>
+
+      <div class="card-grid">
+        <article class="figure-card axis-card">
+          <div>
+            <span class="index-num">EJE 01 / AUTONOMÍA</span>
+            <h3 class="subhead-title" style="margin-top: var(--space-xs);">Contra la abdicación de elección</h3>
+            <p style="margin-top: var(--space-sm);">
+              En las jerarquías se invoca la obediencia debida para descargar la culpa en el Estado. Jaspers recuerda que la obediencia tiene un límite infranqueable: los crímenes del Estado son siempre crímenes de personas concretas.
+            </p>
+          </div>
+          <div class="versus-pair">
+            <span class="versus-positive">Asunción de responsabilidad personal</span>
+            <span class="versus-negative">vs. Abdicación de decisión y obediencia ciega</span>
+          </div>
+        </article>
+
+        <article class="figure-card axis-card">
+          <div>
+            <span class="index-num">EJE 02 / ANTIMESIANISMO</span>
+            <h3 class="subhead-title" style="margin-top: var(--space-xs);">La democracia como «idea regulativa»</h3>
+            <p style="margin-top: var(--space-sm);">
+              Siguiendo a Kant, Jaspers sostiene que «la democracia es una idea» imposible de realizar plenamente porque responde a la conciencia de la imperfección humana. Esa lucidez protege contra el dogmatismo y el perfeccionismo totalitario.
+            </p>
+          </div>
+          <div class="versus-pair">
+            <span class="versus-positive">Control y cambio periódico de gobernantes</span>
+            <span class="versus-negative">vs. Mesianismo político y ley fatal de la historia</span>
+          </div>
+        </article>
+
+        <article class="figure-card axis-card">
+          <div>
+            <span class="index-num">EJE 03 / INDIVIDUALISMO ÉTICO</span>
+            <h3 class="subhead-title" style="margin-top: var(--space-xs);">Crítica a la sustancialización holística</h3>
+            <p style="margin-top: var(--space-sm);">
+              «No existe un pueblo como un todo». Lenguaje, cultura, ciudadanía y destino se entrecruzan sin coincidir. Juzgar categóricamente a una nación entera degrada al ser humano en cuanto individuo.
+            </p>
+          </div>
+          <div class="versus-pair">
+            <span class="versus-positive">Evaluación de la conciencia individual</span>
+            <span class="versus-negative">vs. Colectivismo holístico y culpa de pueblo</span>
+          </div>
+        </article>
+
+        <article class="figure-card axis-card">
+          <div>
+            <span class="index-num">EJE 04 / CULTURA POLÍTICA</span>
+            <h3 class="subhead-title" style="margin-top: var(--space-xs);">Democracia «desde abajo» y reformas</h3>
+            <p style="margin-top: var(--space-sm);">
+              Jaspers desconfiaba de una Constitución impuesta desde arriba a una población con «mentalidad de súbdito». Propuso educación cívica, democracia de base y reformas paulatinas —no violencia revolucionaria— para erradicar el tutelaje.
+            </p>
+          </div>
+          <div class="versus-pair">
+            <span class="versus-positive">Conversión interna (Umkehr) y vigilia moral</span>
+            <span class="versus-negative">vs. Indiferencia prudencial y mentalidad de súbdito</span>
+          </div>
+        </article>
+
+        <article class="figure-card axis-card">
+          <div>
+            <span class="index-num">EJE 05 / COSMOPOLITISMO</span>
+            <h3 class="subhead-title" style="margin-top: var(--space-xs);">Límites de la soberanía y era atómica</h3>
+            <p style="margin-top: var(--space-sm);">
+              Ante la amenaza atómica (1956), Jaspers exige superar el «estado de naturaleza» internacional: limitar la soberanía absoluta y abolir la no intervención, «el velo para permitir el delito», creando una federación de Estados basada en los derechos humanos.
+            </p>
+          </div>
+          <div class="versus-pair">
+            <span class="versus-positive">Solidaridad universal y derecho tratado</span>
+            <span class="versus-negative">vs. Lealtad parroquial y soberanía criminal</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="quote-block" style="margin-top: var(--space-lg);">
+        <blockquote>
+          «No hay ninguna ley natural y ninguna ley de la historia que determine en su totalidad la marcha de las cosas. El futuro es una cuestión de la responsabilidad de las decisiones y actos de las personas y, en última instancia, de cada individuo de los miles de millones de personas. Todo depende del individuo.»
+        </blockquote>
+        <cite>Karl Jaspers — Autobiografía filosófica, citado en el estudio introductorio</cite>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 05: BASE DE CONOCIMIENTOS ESTRUCTURADA -->
+    <section id="conocimiento" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Sección 05</span>
+          <span class="dossier-meta">Archivo conceptual · Glosario y figuras</span>
+        </div>
+        <span class="dossier-meta">12 entradas verificadas</span>
+      </div>
+      <h2 class="section-title">Base de conocimientos estructurada: conceptos, interlocutores y obras</h2>
+      <p class="prose">
+        Consulta y filtra las nociones filosóficas, los autores de referencia y las categorías políticas articuladas en <em>El problema de la culpa</em> y su estudio introductorio.
+      </p>
+
+      <div class="kb-controls">
+        <div class="field-group">
+          <label for="kb-search" class="field-label">Buscar término, autor o concepto</label>
+          <input type="search" id="kb-search" class="text-input" placeholder="Ej.: Umkehr, Kant, no intervención, Arendt…" oninput="filterKnowledgeBase()">
+        </div>
+        <div>
+          <span class="field-label" style="display: block; margin-bottom: var(--space-xs);">Filtrar por categoría</span>
+          <div class="filter-pills" role="group" aria-label="Categorías de la base de conocimientos">
+            <button type="button" class="btn btn-secondary" data-cat="todos" aria-pressed="true" onclick="setKbCategory('todos', this)">Todos</button>
+            <button type="button" class="btn btn-secondary" data-cat="concepto" aria-pressed="false" onclick="setKbCategory('concepto', this)">Conceptos clave</button>
+            <button type="button" class="btn btn-secondary" data-cat="politica" aria-pressed="false" onclick="setKbCategory('politica', this)">Política y derecho</button>
+            <button type="button" class="btn btn-secondary" data-cat="autor" aria-pressed="false" onclick="setKbCategory('autor', this)">Interlocutores</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="kb-count" id="kb-count" aria-live="polite">Mostrando 12 de 12 entradas</div>
+      <div class="card-grid" id="kb-grid">
+        <!-- Rellenado dinámicamente -->
+      </div>
+      <div class="kb-empty" id="kb-empty" hidden>
+        <p style="margin: 0 0 var(--space-sm); font-weight: 600;">No hay entradas que coincidan con tu búsqueda.</p>
+        <p style="margin: 0 0 var(--space-md); color: var(--on-surface-variant);">Prueba con otro término o restablece los filtros para ver todo el archivo conceptual.</p>
+        <button type="button" class="btn btn-primary" onclick="resetKnowledgeBase()">Mostrar todas las entradas</button>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 06: PREGUNTAS FRECUENTES -->
+    <section id="faq" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Sección 06</span>
+          <span class="dossier-meta">Preguntas frecuentes · Aclaraciones críticas</span>
+        </div>
+        <span class="dossier-meta">7 cuestiones clave</span>
+      </div>
+      <h2 class="section-title">Preguntas frecuentes sobre la tesis de Karl Jaspers</h2>
+      <p class="prose">
+        Respuestas directas a las objeciones habituales y malentendidos sobre la culpa alemana, la purificación moral y el alcance de la responsabilidad política.
+      </p>
+
+      <div class="faq-list" id="faq-list">
+        <!-- Generado dinámicamente con botones accesibles -->
+      </div>
+    </section>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="site-footer">
+      <div>
+        <strong style="color: var(--on-surface);">Fuentes utilizadas</strong>
+        <p style="margin: var(--space-xs) 0 0;">
+          Todo el contenido, citas y categorías de esta base de conocimientos provienen exclusivamente de <em>El problema de la culpa</em> (<em>Die Schuldfrage. Von der politischen Haftung Deutschlands</em>, Heidelberg / Zúrich, 1946; traducción de Román Gutiérrez Cuñango, 1998) de Karl Jaspers y del estudio introductorio <em>Filosofía, política y moral en Karl Jaspers</em> de Ernesto Garzón Valdés.
+        </p>
+      </div>
+      <div>
+        <strong style="color: var(--on-surface);">Sobre la estructura</strong>
+        <p style="margin: var(--space-xs) 0 0;">
+          Recurso interactivo de consulta filosófica: incluye cronología de Heidelberg, taxonomía de las cuatro culpas, diagrama causal y sofístico, analizador de seis casos éticos, glosario filtrable y preguntas frecuentes.
+        </p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Datos estrictamente fundamentados en las fuentes proporcionadas
+    const TIMELINE_DATA = {
+      '1931': {
+        badge: `1930–1931 · ANTECEDENTES`,
+        title: `Sorpresa ante el ascenso electoral nazi y publicación de Filosofía`,
+        body: `En septiembre de 1930, tras concluir el manuscrito de «Ambiente espiritual de nuestro tiempo» (Die geistige Situation der Zeit, publicado en 1931 como volumen 1.000 de la Colección Göschen), Jaspers queda sorprendido y asustado por el primer éxito electoral nacionalsocialista. Retuvo el texto un año para dar prioridad a su «Filosofía» en tres tomos (1931), reconociendo posteriormente que hasta entonces casi no conocía el nacionalsocialismo y había mantenido una postura «apolítica».`,
+        quote: `«Ni durante la Primera Guerra Mundial ni después hablé de cuestiones políticas en mis clases o escritos. […] En los años veinte vi el manifiesto fracaso de lo militar.»`
+      },
+      '1933': {
+        badge: `1933–1935 · RUPTURA Y KANT`,
+        title: `Exclusión universitaria, testimonio de Curtius y el «mal radical»`,
+        body: `En 1933 Jaspers es excluido de la administración universitaria. Ese mismo año, Ludwig Curtius lo describe como uno de los pocos —y acaso el único— que podía llamarse «la conciencia moral de Alemania». Frente a la adhesión de Martin Heidegger al régimen, en 1935 Jaspers dicta un curso sobre el problema del mal radical en Kant para esclarecer cómo había sido posible la aceptación mayoritaria de la dominación nacionalsocialista.`,
+        quote: `«En este decenio (1933–1945) me comenzó a dominar una intelección: no hay filosofía sin consecuencias políticas.»`
+      },
+      '1937': {
+        badge: `1937–1938 · SILENCIAMIENTO`,
+        title: `Prohibición de ejercer la docencia y de publicar sus escritos`,
+        body: `En 1937 el régimen le prohíbe enseñar y en 1938 le prohíbe publicar. Jaspers y su esposa experimentan durante años la amenaza constante sobre su existencia física sin posibilidad de defensa legal dentro de su propio país.`,
+        quote: `«La experiencia fundamental fue (entonces) la pérdida de la garantía jurídica en el propio Estado.»`
+      },
+      '1945': {
+        badge: `ABRIL DE 1945 · SITUACIÓN LÍMITE`,
+        title: `Deportación fijada para el 14 de abril y liberación el 1 de abril`,
+        body: `El transporte de Karl Jaspers y su esposa hacia un campo de concentración estaba fijado para el 14 de abril de 1945. Dos semanas antes, el 1 de abril, las tropas norteamericanas ocupan Heidelberg, salvándoles la vida frente al propio Estado alemán nacionalsocialista que pretendía destruirlos.`,
+        quote: `«Un alemán no puede olvidar que él y su mujer deben la vida a los norteamericanos contra los alemanes que en nombre del Estado alemán nacionalsocialista querían destruirlos.»`
+      },
+      '1946': {
+        badge: `INVIERNO 1945–1946 · DIE SCHULDFRAGE`,
+        title: `Curso en la Universidad de Heidelberg y publicación del libro`,
+        body: `Durante enero y febrero del semestre de invierno de 1945–1946, Jaspers dicta en Heidelberg su curso sobre «la cuestión de la culpa y la responsabilidad política de Alemania». Pocos meses después se edita simultáneamente en Zúrich y Heidelberg. Es su cuarto escrito político-filosófico tras el fin de la guerra, orientado a despejar la niebla de la autoinculpación lacrimógena y la autoexcusación obstinada mediante la razón.`,
+        quote: `«Casi el mundo entero acusa a Alemania y a los alemanes… En Alemania hay personas que reconocen la culpa; hay muchos que se consideran libres de culpa, pero declaran culpables a otros.»`
+      },
+      '1956': {
+        badge: `1956–1969 · HORIZONTE COSMOPOLITA`,
+        title: `La era atómica como nueva situación límite y premios europeos`,
+        body: `En octubre de 1956 pronuncia la conferencia radiada «La bomba atómica y el futuro de la humanidad», advirtiendo que el peligro nuclear coloca a toda la especie ante una disyuntiva fatal: destrucción masiva o dictadura mundial, salvo que la razón instaure una comunidad internacional de Estados democráticos que limite la soberanía criminal. En 1962 redacta un Epílogo a «El problema de la culpa». Recibe los premios Goethe (1947), FDDB de la Paz (1958) y Erasmus (1959). Muere en Basilea el 20 de febrero de 1969.`,
+        quote: `«El principio de no intervención en los asuntos internos de los Estados es el velo para permitir el delito.»`
+      }
+    };
+
+    const GUILT_DATA = {
+      criminal: {
+        pill: `01 · CULPA CRIMINAL (PENAL)`,
+        title: `Violación objetiva de leyes inequívocas`,
+        summary: `Los crímenes consisten en acciones demostrables objetivamente que infringen leyes vigentes e inequívocas. Solo puede imputarse a personas individuales concretas por sus actos u omisiones; jamás a un pueblo como entidad colectiva.`,
+        instance: `El tribunal (el juez), mediante proceso formal que verifica los hechos.`,
+        subject: `Exclusivamente individuos determinados, nunca entes colectivos.`,
+        consequence: `Castigo legal (pena) ejecutado conforme a derecho.`,
+        expiation: `El castigo se cumple y, una vez cumplido, concluye jurídicamente.`,
+        quote: `«Los crímenes del Estado son siempre, al mismo tiempo, crímenes de determinadas personas individuales. Nunca cesa la responsabilidad personal.»`,
+        cite: `Karl Jaspers — El problema de la culpa`
+      },
+      politica: {
+        pill: `02 · CULPA POLÍTICA (RESPONSABILIDAD ESTATAL)`,
+        title: `Corresponsabilidad ciudadana por las acciones del Estado`,
+        summary: `Se origina en los actos de los gobernantes y en la condición de ciudadano de un Estado bajo cuyo orden se vive. Incurre en ella quien promueve o tolera «una atmósfera de sometimiento» al dictador o deja de luchar por el poder puesto al servicio del derecho. Implica responder por las consecuencias estatales (e incluso asumir la herencia política de los padres), pero no convierte a cada ciudadano en culpable penal o moral de los crímenes nazis.`,
+        instance: `La fuerza y la voluntad del vencedor (instancia política externa).`,
+        subject: `Todos los ciudadanos del Estado por las consecuencias de las acciones estatales.`,
+        consequence: `Reparaciones, pérdida de poder político y limitación de medios materiales.`,
+        expiation: `Queda limitada y concluida jurídicamente mediante un tratado de paz.`,
+        quote: `«La culpa política implica responsabilidad de todos los ciudadanos por las consecuencias de las acciones estatales, pero no culpa criminal y moral de cada ciudadano con respecto a los crímenes que hayan sido cometidos en nombre del Estado.»`,
+        cite: `Karl Jaspers — Esquema de las distinciones`
+      },
+      moral: {
+        pill: `03 · CULPA MORAL (ÉTICA INDIVIDUAL)`,
+        title: `Fracaso de la conciencia y pequeña complicidad cotidiana`,
+        summary: `Abarca las acciones y omisiones que vulneran exigencias éticas personales: desde la obediencia que abdica del juicio propio hasta «pequeños pero numerosos actos de negligencia, de cómoda adaptación, de fútil justificación de lo injusto» que construyen la atmósfera pública propicia al mal. Nadie desde fuera puede erigirse en juez moral de otro.`,
+        instance: `La propia conciencia individual y la «disputa amistosa entre hombres solidarios».`,
+        subject: `Cada individuo en su soledad interior o en cercanía solidaria («como si se tratara de sí mismo»).`,
+        consequence: `Arrepentimiento, penitencia y conversión interna (Umkehr).`,
+        expiation: `No se borra ni se expía nunca del todo: es un proceso que dura toda la vida.`,
+        quote: `«Solo se puede atribuir culpa moral a uno mismo, no a otro o, en todo caso, solo a otro en la solidaridad de una disputa amistosa.»`,
+        cite: `Karl Jaspers — Esquema de las distinciones`
+      },
+      metafisica: {
+        pill: `04 · CULPA METAFÍSICA (SOLIDARIDAD ABSOLUTA)`,
+        title: `Lesión de la solidaridad con el ser humano como tal`,
+        summary: `Es la más radical de las cuatro categorías. Surge cuando se cometen injusticias y crímenes en nuestra presencia y sobrevivimos mientras el otro es asesinado, sin haber arriesgado la vida de modo incondicional —aunque ese sacrificio hubiera sido inútil—. No parte de una norma jurídica ni de un deber moral prudencial, sino de la exigencia incondicional de solidaridad humana universal.`,
+        instance: `Solo ante Dios (o revelación existencial íntima, poética o filosófica).`,
+        subject: `Todo superviviente que presenció el exterminio o la injusticia extrema sin inmolarse.`,
+        consequence: `Humildad profunda, vergüenza existencial y voluntad de «merecer la vida salvada».`,
+        expiation: `Inextinguible e inexpiable; liberarse por completo de ella exigiría ser ángeles.`,
+        quote: `«Cuando nuestros amigos judíos fueron deportados, no salimos a la calle, no hemos gritado hasta que nos mataran. Preferimos seguir viviendo con el débil aunque también correcto argumento de que nuestra muerte no hubiera servido de nada. Que vivimos es nuestra culpa.»`,
+        cite: `Karl Jaspers — Sobre la culpa metafísica`
+      }
+    };
+
+    const DIAGRAM_CONTENT = {
+      causal: {
+        metafisica: {
+          tag: `NODO 04 · ORIGEN EXISTENCIAL`,
+          title: `La culpa metafísica como trasfondo humano`,
+          text: `Jaspers señala que si los seres humanos pudiéramos librarnos de la culpa metafísica «seríamos ángeles y los otros tres conceptos de culpa ya no tendrían objeto». Ella recuerda la vulnerabilidad moral de nuestra solidaridad: el punto donde la exigencia ética ordinaria se apaga y queda una demanda inextinguible.`
+        },
+        moral: {
+          tag: `NODO 03 · CULTIVO DEL MAL`,
+          title: `Las faltas morales preparan la atmósfera política`,
+          text: `Las pequeñas negligencias, la cómoda adaptación, el miedo y la fútil justificación de lo injusto forman la «atmósfera pública que propaga la confusión». Sin esa base moral degradada en la vida cotidiana, la dictadura no podría consolidar su maquinaria política.`
+        },
+        politica: {
+          tag: `NODO 02 · PODER Y DERECHO`,
+          title: `De la atmósfera de sometimiento al delito estatal`,
+          text: `Forma parte del destino humano vivir en relaciones de poder. Dejar de luchar por un poder puesto al servicio del derecho y los derechos humanos constituye «una culpa política de primer orden y al mismo tiempo una culpa moral». Cuando el poder no se autolimita, imperan la violencia y el terror.`
+        },
+        criminal: {
+          tag: `NODO 01 · CRIMEN DE ESTADO`,
+          title: `La cristalización penal en ejecutores individuales`,
+          text: `Allí donde el poder destruye el derecho y el ethos, emergen los crímenes objetivos del Estado. Sin embargo, su ejecución recae siempre en personas individuales concretas que deben responder ante los tribunales sin poder escudarse en la soberanía estatal.`
+        }
+      },
+      sophistic: {
+        metafisica: {
+          tag: `EXACTITUD SOFÍSTICA 04`,
+          title: `«La culpa metafísica es capricho de un filósofo»`,
+          text: `Quien usa sofísticamente la distinción razona así: «Como nadie puede atribuírmela desde fuera y yo no la percibo, no existe tal cosa; es un pensamiento caprichoso de filósofo y puedo dejarlo como está». Así se neutraliza toda transformación existencial.`
+        },
+        moral: {
+          tag: `EXACTITUD SOFÍSTICA 03`,
+          title: `«Mi conciencia ya se arreglará amigablemente conmigo»`,
+          text: `El sofista escucha que solo la propia conciencia es instancia judicial en lo moral y concluye: «Los demás no pueden hacerme ningún reproche; no es para tanto —borrón y cuenta nueva». Convierte la intimidad moral en autoindulgencia.`
+        },
+        politica: {
+          tag: `EXACTITUD SOFÍSTICA 02`,
+          title: `«Solo limita mis medios materiales; no me afecta»`,
+          text: `El sofista acepta la responsabilidad política como un trámite externo meramente tributario o material («limita solo mis bienes, yo mismo no me encuentro afectado en mi interior»), evadiendo el examen de su complicidad ciudadana con la tiranía.`
+        },
+        criminal: {
+          tag: `EXACTITUD SOFÍSTICA 01`,
+          title: `«Afecta solo a unos pocos; a mí no me incumbe»`,
+          text: `Al no haber cometido asesinatos ni delitos penales directos, el sujeto da el asunto por zanjado («no es cosa mía»). Jaspers advierte que «este desovillar de los conceptos de culpa se puede convertir en un truco mediante el cual uno se libre de la culpa».`
+        }
+      }
+    };
+
+    const CASES_DATA = [
+      {
+        id: 0,
+        shortTitle: `01 · El subordinado que obedece órdenes criminales`,
+        text: `Un funcionario o militar participa en deportaciones o ejecuciones alegando que solo cumplía órdenes jerárquicas de un Estado suprahumano.`,
+        answer: `criminal`,
+        explanation: `Es culpa criminal (y moral) individual. Jaspers y el estudio introductorio subrayan que el deber de obediencia jerárquica tiene un límite claro: «Los crímenes del Estado son siempre, al mismo tiempo, crímenes de determinadas personas individuales. Nunca cesa la responsabilidad personal».`
+      },
+      {
+        id: 1,
+        shortTitle: `02 · El ciudadano cómodo ante la pérdida de libertades`,
+        text: `Un profesional no comete delitos ni simpatiza abiertamente con la violencia, pero calla, se adapta cómodamente y justifica pequeñas injusticias cotidianas para conservar su tranquilidad.`,
+        answer: `moral`,
+        explanation: `Es culpa moral (y alimenta la culpa política). Jaspers señala expresamente la «comisión de pequeños pero numerosos actos de negligencia, de cómoda adaptación, de fútil justificación de lo injusto» que crean la atmósfera pública que hace posible la maldad.`
+      },
+      {
+        id: 2,
+        shortTitle: `03 · El ciudadano que responde por reparaciones estatales`,
+        text: `Un ciudadano común alemán que no ejecutó crímenes nazis debe soportar tras 1945 las consecuencias económicas, territoriales y políticas de la derrota de su Estado.`,
+        answer: `politica`,
+        explanation: `Es culpa (o responsabilidad) política. Todos los ciudadanos responden políticamente por las consecuencias de las acciones del Estado bajo el cual viven, incluso sin haber cometido culpa criminal ni moral por los crímenes concretos. Esta responsabilidad concluye con un tratado de paz.`
+      },
+      {
+        id: 3,
+        shortTitle: `04 · El superviviente ante la deportación de sus vecinos`,
+        text: `Un ciudadano presencia cómo deportan a sus amigos o vecinos perseguidos y decide no salir a gritar ni hacerse matar porque sabe racionalmente que su muerte inútil no los salvaría.`,
+        answer: `metafisica`,
+        explanation: `Es culpa metafísica. Aunque el argumento prudencial sea correcto, la solidaridad absoluta con el ser humano resulta lesionada: «Que vivimos es nuestra culpa. Sabemos ante Dios lo que nos humilla profundamente». No la juzga un tribunal ni otro hombre.`
+      },
+      {
+        id: 4,
+        shortTitle: `05 · «No cometí delitos, luego el problema no va conmigo»`,
+        text: `Un vecino dice: «La culpa criminal es solo de unos pocos jerarcas; la política solo me cuesta impuestos; mi conciencia ya me perdona; lo metafísico son inventos filosóficos».`,
+        answer: `sofistica`,
+        explanation: `Es un uso sofístico de las distinciones. Jaspers alerta directamente contra este truco mental que convierte el análisis de las cuatro culpas en un escudo para eludir toda reflexión y evitar la conversión interna (Umkehr).`
+      },
+      {
+        id: 5,
+        shortTitle: `06 · El «simple político» oportunista de posguerra`,
+        text: `Un dirigente político evita expresar opiniones propias, sigue al líder de turno con prestigio público y actúa únicamente como maximizador de beneficios del momento.`,
+        answer: `sofistica`,
+        explanation: `Encarna la abdicación del juicio propio y el perfil del «simple político» («entendimiento sin la razón»). Aunque aquí hay una falla moral y política grave, representa ante todo la renuncia a la responsabilidad autónoma que amenaza con perpetuar la mentalidad de súbdito en la nueva democracia.`
+      }
+    ];
+
+    const KB_ENTRIES = [
+      {
+        id: `kb-1`,
+        category: `concepto`,
+        catLabel: `Concepto clave`,
+        title: `Umkehr (Conversión interna)`,
+        desc: `Transformación profunda desde el fondo de la conciencia individual que Jaspers propone al pueblo alemán como única salida moral auténtica frente a la derrota y el horror. Se resume en el imperativo: «¡Atrévete a ser responsable!».`
+      },
+      {
+        id: `kb-2`,
+        category: `concepto`,
+        catLabel: `Concepto clave`,
+        title: `Rechazo de la «culpa colectiva»`,
+        desc: `Tesis central de Die Schuldfrage: declarar culpable penal o moralmente a todo un pueblo incurre en un error categorial («falsa sustancialización»). «No existe un pueblo como un todo… El dictamen categorial acerca de un pueblo es siempre injusto y degrada al hombre como individuo».`
+      },
+      {
+        id: `kb-3`,
+        category: `concepto`,
+        catLabel: `Concepto clave`,
+        title: `Situación límite (Nacionalsocialismo y Era Atómica)`,
+        desc: `Acontecimiento extremo que confronta al ser humano con la destrucción de la garantía jurídica o de la existencia misma de la especie. Tanto el terror nazi (1933–1945) como la bomba atómica (1956) obligan a vincular la filosofía con la acción política razonable.`
+      },
+      {
+        id: `kb-4`,
+        category: `politica`,
+        catLabel: `Política y derecho`,
+        title: `La democracia como «idea regulativa»`,
+        desc: `En sintonía con Kant, Jaspers sostiene que la democracia «en ninguna parte puede ser realizada plenamente» y «responde a la conciencia de la imperfección del hombre». Esta conciencia inmuniza frente al dogmatismo fundamentalista y al mesianismo político.`
+      },
+      {
+        id: `kb-5`,
+        category: `politica`,
+        catLabel: `Política y derecho`,
+        title: `Control y cambio de los gobernantes`,
+        desc: `Principio operativo del Estado libre formulado por Jaspers: «En un Estado libre rige el control y el cambio de todas las personas». A través del sufragio y la vigilancia cívica se evita la eternización del poder y toda dictadura.`
+      },
+      {
+        id: `kb-6`,
+        category: `politica`,
+        catLabel: `Política y derecho`,
+        title: `Crítica al principio de no intervención`,
+        desc: `En su conferencia de 1956, Jaspers denuncia la no intervención como «el velo para permitir el delito» y a la soberanía absoluta como pretensión de poder ser criminal impunemente. Propone una federación de Estados democráticos fundada en los derechos humanos.`
+      },
+      {
+        id: `kb-7`,
+        category: `politica`,
+        catLabel: `Política y derecho`,
+        title: `Simple político vs. Político razonable`,
+        desc: `Mientras el «simple político» imita la opinión ajena por oportunismo («entendimiento sin razón»), el «político razonable» subordina su oficio a lo suprapolítico, rechaza manipular a las masas y une el pensar profundo con el obrar concreto.`
+      },
+      {
+        id: `kb-8`,
+        category: `concepto`,
+        catLabel: `Concepto clave`,
+        title: `Disputa amistosa entre solidarios`,
+        desc: `Único espacio legítimo de comunicación sobre la culpa moral. Nadie puede juzgar moralmente desde arriba o desde fuera como juez; solo cabe dialogar «en la ligazón interna, como si se tratara de sí mismo», en una comunicación libre entre iguales.`
+      },
+      {
+        id: `kb-9`,
+        category: `autor`,
+        catLabel: `Interlocutor`,
+        title: `Immanuel Kant (Mal radical y Paz perpetua)`,
+        desc: `Referente filosófico mayor de Jaspers junto con Max Weber. De Kant toma la exigencia de superar el «tutelaje autoimpuesto», el estudio del «mal radical» (curso de 1935), el diálogo libre entre reyes y filósofos sin fundirse en un poder único, y la federación cosmopolita de repúblicas.`
+      },
+      {
+        id: `kb-10`,
+        category: `autor`,
+        catLabel: `Interlocutor`,
+        title: `Martin Heidegger (Contraste ético-político)`,
+        desc: `Citado en la introducción por su actitud complaciente ante el nacionalsocialismo (su fascinación por las «maravillosas manos» de Hitler), en marcado contraste con la integridad crítica de Jaspers y su defensa de la razón frente al mito irracional.`
+      },
+      {
+        id: `kb-11`,
+        category: `autor`,
+        catLabel: `Interlocutor`,
+        title: `Hannah Arendt y Karl Popper`,
+        desc: `Jaspers comparte con Arendt el análisis de la complicidad ciudadana activa o pasiva bajo las dictaduras; y coincide con la crítica de Popper al historicismo al defender reformas institucionales paulatinas y democracia de base frente a la violencia revolucionaria.`
+      },
+      {
+        id: `kb-12`,
+        category: `autor`,
+        catLabel: `Interlocutor`,
+        title: `Gilbert Ryle y Ernesto Garzón Valdés`,
+        desc: `Garzón Valdés (autor del estudio introductorio) vincula el individualismo metodológico de Jaspers con la noción de «error categorial» de Gilbert Ryle: es erróneo atribuir capacidades de decisión y acción moral a entes colectivos como si fueran personas.`
+      }
+    ];
+
+    const FAQ_DATA = [
+      {
+        q: `¿Por qué rechaza Karl Jaspers la idea de «culpa colectiva» de todo un pueblo?`,
+        a: `Porque un pueblo no es una entidad empírica homogénea ni un individuo moral. Lenguaje, ciudadanía, cultura y destino no coinciden mecánicamente. Atribuir culpa criminal o moral a un ente colectivo supone una «falsa sustancialización» (un error categorial) que resulta siempre injusta y degrada al ser humano en cuanto individuo responsable.`
+      },
+      {
+        q: `Si no hay culpa colectiva, ¿queda exculpado el ciudadano común que no cometió crímenes?`,
+        a: `No. Queda libre de culpa criminal si no violó leyes penales, pero sigue alcanzado por la culpa política (corresponsabilidad por las consecuencias de las acciones del Estado bajo el cual vivió y toleró) y debe examinarse ante su propia conciencia por su posible culpa moral (pasividad, cómoda adaptación, silencio o justificación de lo injusto) y culpa metafísica.`
+      },
+      {
+        q: `¿Cuál es la diferencia exacta entre la culpa moral y la culpa metafísica?`,
+        a: `La culpa moral concierne a las acciones u omisiones individuales frente a deberes éticos concretos (como obedecer órdenes injustas o adaptarse al mal), y su instancia es la propia conciencia y la disputa amistosa entre solidarios. La culpa metafísica es más radical: surge cuando se lesiona la solidaridad absoluta con el ser humano al sobrevivir mientras otros son asesinados ante nosotros, incluso si protestar hubiera sido un sacrificio inútil. Su instancia es solo ante Dios.`
+      },
+      {
+        q: `¿Cómo pueden las distinciones de Jaspers convertirse en un truco «sofístico»?`,
+        a: `Cuando alguien fragmenta los cuatro conceptos para descartarlos uno por uno: dice que lo criminal no le afecta porque solo atañe a pocos; que lo político solo toca sus bienes materiales; que lo moral queda entre él y su indulgente conciencia; y que lo metafísico es un capricho filosófico. Así se evade el núcleo del problema: el examen interior guiado por la razón.`
+      },
+      {
+        q: `¿Cuándo termina o se expía cada tipo de culpa?`,
+        a: `El castigo criminal concluye cuando se cumple la pena impuesta por el tribunal; la responsabilidad política queda limitada y cerrada jurídicamente mediante un tratado de paz. En cambio, la culpa moral y la culpa metafísica no se expían ni se borran nunca en cuanto a su esencia: constituyen para el afectado un proceso de transformación que dura toda la vida.`
+      },
+      {
+        q: `¿Por qué desconfiaba Jaspers de una democracia impuesta «desde arriba» tras 1945?`,
+        a: `Temía que la mentalidad de súbdito cultivada durante doce años bajo Hitler sobreviviera intacta bajo instituciones formales operadas por políticos oportunistas. Por ello insistía en educar a la ciudadanía para pensar por sí misma y construir una democracia «desde abajo», con reformas paulatinas, participación cívica y control periódico de todos los gobernantes.`
+      },
+      {
+        q: `¿Qué propone Jaspers frente al mesianismo político y el peligro atómico?`,
+        a: `Rechaza toda supuesta «ley natural» o «ley de la historia» que exima de responsabilidad a las personas («Todo depende del individuo»). Entiende la democracia como una idea regulativa que asume la imperfección humana contra cualquier fundamentalismo. Y ante la era atómica (1956), aboga por limitar la soberanía estatal y eliminar la no intervención para construir un orden cosmopolita basado en el derecho y los derechos humanos.`
+      }
+    ];
+
+    let activeDiagramNode = 'moral';
+    let activeDiagramMode = 'causal';
+    let activeCaseIndex = 0;
+    let activeKbCategory = 'todos';
+
+    function selectTimeline(year, btnEl) {
+      const data = TIMELINE_DATA[year];
+      const detail = document.getElementById('timeline-detail');
+      if (!data || !detail) return;
+
+      const allBtns = document.querySelectorAll('.timeline-btn');
+      allBtns.forEach(function(b) {
+        b.classList.remove('is-selected');
+      });
+      if (btnEl) btnEl.classList.add('is-selected');
+
+      detail.innerHTML = `
+        <span class="tag tag-petrol">${data.badge}</span>
+        <h3 class="subhead-title" style="margin-top: var(--space-sm);">${data.title}</h3>
+        <p style="margin-top: var(--space-sm); margin-bottom: 0;">${data.body}</p>
+        <div class="quote-block">
+          <blockquote>${data.quote}</blockquote>
+          <cite>Fuente: Karl Jaspers / Estudio introductorio</cite>
+        </div>
+      `;
+    }
+
+    function selectGuilt(type, btnEl) {
+      const g = GUILT_DATA[type];
+      const panel = document.getElementById('guilt-detail-panel');
+      const quotePanel = document.getElementById('guilt-quote-panel');
+      if (!g || !panel || !quotePanel) return;
+
+      const allBtns = document.querySelectorAll('.typology-card-btn');
+      allBtns.forEach(function(b) {
+        b.setAttribute('aria-pressed', 'false');
+      });
+      if (btnEl) btnEl.setAttribute('aria-pressed', 'true');
+
+      const rows = document.querySelectorAll('#guilt-table-body tr');
+      rows.forEach(function(r) {
+        if (r.dataset.row === type) {
+          r.classList.add('is-highlighted');
+        } else {
+          r.classList.remove('is-highlighted');
+        }
+      });
+
+      panel.innerHTML = `
+        <span class="tag tag-petrol">${g.pill}</span>
+        <h3 class="subhead-title" style="margin-top: var(--space-sm);">${g.title}</h3>
+        <p style="margin-top: var(--space-sm); margin-bottom: 0;">${g.summary}</p>
+        <div class="meta-kv-grid">
+          <div>
+            <span class="meta-kv-label">Instancia que juzga</span>
+            <p class="meta-kv-val">${g.instance}</p>
+          </div>
+          <div>
+            <span class="meta-kv-label">Sujeto responsable</span>
+            <p class="meta-kv-val">${g.subject}</p>
+          </div>
+          <div>
+            <span class="meta-kv-label">Consecuencia</span>
+            <p class="meta-kv-val">${g.consequence}</p>
+          </div>
+          <div>
+            <span class="meta-kv-label">Expiación o cierre</span>
+            <p class="meta-kv-val">${g.expiation}</p>
+          </div>
+        </div>
+      `;
+
+      quotePanel.innerHTML = `
+        <span class="meta-kv-label">Cita textual de la fuente</span>
+        <blockquote style="margin: var(--space-xs) 0 0; font-family: var(--font-headline); font-style: italic; font-size: 1.08rem; line-height: 1.55;">
+          ${g.quote}
+        </blockquote>
+        <p style="margin: var(--space-sm) 0 0; font-family: var(--font-label); font-size: var(--label-size); text-transform: uppercase; letter-spacing: 0.05em; color: var(--on-surface-variant);">
+          ${g.cite}
+        </p>
+      `;
+    }
+
+    function updateDiagramView() {
+      const nodes = ['criminal', 'politica', 'moral', 'metafisica'];
+      nodes.forEach(function(n) {
+        const el = document.getElementById('node-' + n);
+        if (!el) return;
+        el.classList.remove('is-active', 'is-sophistic');
+        if (n === activeDiagramNode) {
+          el.classList.add(activeDiagramMode === 'sophistic' ? 'is-sophistic' : 'is-active');
+        }
+      });
+
+      const exp = document.getElementById('diagram-explanation');
+      const info = DIAGRAM_CONTENT[activeDiagramMode] && DIAGRAM_CONTENT[activeDiagramMode][activeDiagramNode];
+      if (!exp || !info) return;
+
+      const tagClass = activeDiagramMode === 'sophistic' ? 'tag tag-error' : 'tag tag-petrol';
+      exp.innerHTML = `
+        <span class="${tagClass}">${info.tag}</span>
+        <h3 class="subhead-title" style="margin-top: var(--space-sm);">${info.title}</h3>
+        <p style="margin-top: var(--space-sm); margin-bottom: 0;">${info.text}</p>
+        <p style="margin-top: var(--space-md); margin-bottom: 0; font-family: var(--font-label); font-size: var(--label-size); color: var(--on-surface-variant); text-transform: uppercase;">
+          Modo actual: ${activeDiagramMode === 'causal' ? 'Encadenamiento ético-político' : 'Trampa de evasión sofística'}
+        </p>
+      `;
+    }
+
+    function setDiagramMode(mode) {
+      activeDiagramMode = mode;
+      const causalBtn = document.getElementById('mode-causal-btn');
+      const sophBtn = document.getElementById('mode-sophistic-btn');
+      if (causalBtn) causalBtn.setAttribute('aria-pressed', mode === 'causal' ? 'true' : 'false');
+      if (sophBtn) sophBtn.setAttribute('aria-pressed', mode === 'sophistic' ? 'true' : 'false');
+      updateDiagramView();
+    }
+
+    function selectDiagramNode(nodeId) {
+      activeDiagramNode = nodeId;
+      updateDiagramView();
+    }
+
+    function renderCaseSelector() {
+      const container = document.getElementById('case-list');
+      if (!container) return;
+      container.innerHTML = CASES_DATA.map(function(c, idx) {
+        const activeClass = idx === activeCaseIndex ? ' is-active' : '';
+        return `
+          <button type="button" class="case-btn${activeClass}" onclick="selectCase(${idx})">
+            <span class="index-num" style="font-family: var(--font-label); font-size: var(--label-size); color: var(--secondary); font-weight: 600;">ESCENARIO 0${idx + 1}</span>
+            <span style="font-weight: 600; font-size: 0.94rem;">${c.shortTitle.replace(/^0\d\s·\s/, '')}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectCase(idx) {
+      activeCaseIndex = idx;
+      const item = CASES_DATA[idx];
+      const textEl = document.getElementById('active-case-text');
+      const counterEl = document.getElementById('case-counter');
+      const feedbackEl = document.getElementById('case-feedback');
+
+      renderCaseSelector();
+      if (textEl && item) textEl.textContent = item.text;
+      if (counterEl) counterEl.textContent = `Caso ${idx + 1} de ${CASES_DATA.length}`;
+      if (feedbackEl) {
+        feedbackEl.hidden = true;
+        feedbackEl.className = 'feedback-banner';
+        feedbackEl.innerHTML = '';
+      }
+    }
+
+    function checkCaseAnswer(choice) {
+      const item = CASES_DATA[activeCaseIndex];
+      const feedbackEl = document.getElementById('case-feedback');
+      if (!item || !feedbackEl) return;
+
+      const isCorrect = choice === item.answer;
+      feedbackEl.hidden = false;
+      feedbackEl.className = isCorrect ? 'feedback-banner is-correct' : 'feedback-banner is-partial';
+
+      const statusLine = isCorrect
+        ? `Diagnóstico preciso según Jaspers:`
+        : `Matiz relevante — la categoría central en el análisis de Jaspers es distinta:`;
+
+      feedbackEl.innerHTML = `
+        <strong style="display: block; margin-bottom: var(--space-xs);">${statusLine}</strong>
+        <p style="margin: 0;">${item.explanation}</p>
+      `;
+    }
+
+    function filterKnowledgeBase() {
+      const input = document.getElementById('kb-search');
+      const grid = document.getElementById('kb-grid');
+      const countEl = document.getElementById('kb-count');
+      const emptyEl = document.getElementById('kb-empty');
+      if (!grid || !countEl || !emptyEl) return;
+
+      const query = input ? input.value.trim().toLowerCase() : '';
+      const filtered = KB_ENTRIES.filter(function(entry) {
+        const matchCat = activeKbCategory === 'todos' || entry.category === activeKbCategory;
+        const haystack = (entry.title + ' ' + entry.desc + ' ' + entry.catLabel).toLowerCase();
+        const matchQuery = !query || haystack.indexOf(query) !== -1;
+        return matchCat && matchQuery;
+      });
+
+      countEl.textContent = `Mostrando ${filtered.length} de ${KB_ENTRIES.length} entradas`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyEl.hidden = false;
+        return;
+      }
+
+      emptyEl.hidden = true;
+      grid.innerHTML = filtered.map(function(entry) {
+        return `
+          <article class="figure-card">
+            <span class="tag">${entry.catLabel}</span>
+            <h3 class="subhead-title" style="margin-top: var(--space-sm);">${entry.title}</h3>
+            <p style="margin-top: var(--space-sm); margin-bottom: 0;">${entry.desc}</p>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function setKbCategory(cat, btnEl) {
+      activeKbCategory = cat;
+      const buttons = document.querySelectorAll('.filter-pills button');
+      buttons.forEach(function(b) {
+        b.setAttribute('aria-pressed', 'false');
+      });
+      if (btnEl) btnEl.setAttribute('aria-pressed', 'true');
+      filterKnowledgeBase();
+    }
+
+    function resetKnowledgeBase() {
+      const input = document.getElementById('kb-search');
+      if (input) input.value = '';
+      const allBtn = document.querySelector('.filter-pills button[data-cat="todos"]');
+      setKbCategory('todos', allBtn);
+    }
+
+    function renderFaq() {
+      const list = document.getElementById('faq-list');
+      if (!list) return;
+      list.innerHTML = FAQ_DATA.map(function(item, idx) {
+        const expanded = idx === 0 ? 'true' : 'false';
+        const hiddenAttr = idx === 0 ? '' : ' hidden';
+        return `
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="${expanded}" aria-controls="faq-panel-${idx}" onclick="toggleFaq(${idx}, this)">
+              <span>${item.q}</span>
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="faq-panel" id="faq-panel-${idx}"${hiddenAttr}>
+              <p style="margin: 0;">${item.a}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleFaq(idx, btnEl) {
+      const panel = document.getElementById('faq-panel-' + idx);
+      if (!panel || !btnEl) return;
+      const isOpen = btnEl.getAttribute('aria-expanded') === 'true';
+      btnEl.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      panel.hidden = isOpen;
+    }
+
+    function initRevealObserver() {
+      const sections = document.querySelectorAll('.reveal-section');
+      if (!('IntersectionObserver' in window)) return;
+      const observer = new IntersectionObserver(function(entries, obs) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            entry.target.classList.remove('will-animate');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      sections.forEach(function(sec) {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top > window.innerHeight * 0.92) {
+          sec.classList.add('will-animate');
+          observer.observe(sec);
+        }
+      });
+    }
+
+    function initActiveNavHighlight() {
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+          navLinks.forEach(function(l) {
+            l.classList.remove('is-active');
+          });
+          link.classList.add('is-active');
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const firstTimelineBtn = document.querySelector('.timeline-btn[data-year="1931"]');
+      selectTimeline('1931', firstTimelineBtn);
+
+      const firstGuiltBtn = document.querySelector('.typology-card-btn[data-guilt="criminal"]');
+      selectGuilt('criminal', firstGuiltBtn);
+
+      updateDiagramView();
+      selectCase(0);
+      filterKnowledgeBase();
+      renderFaq();
+      initRevealObserver();
+      initActiveNavHighlight();
+    });
+  </script>
+</body>
+</html>

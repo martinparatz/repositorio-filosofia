@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="artifact-type" content="narrative">
+<meta name="design-style" content="briefing">
+<title>Conferencia sobre ética — Base de conocimientos de Ludwig Wittgenstein</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+
+  /* 1. Briefing tokens */
+  --background: #faf9f5;
+  --surface-container-low: #ffffff;
+  --surface-container: #f1efe8;
+  --surface-container-high: #e6e2d6;
+
+  --on-surface: #17181a;
+  --on-surface-variant: #56585c;
+
+  --outline: #17181a;
+  --outline-variant: #dedad0;
+
+  --primary: #17181a;
+  --on-primary: #faf9f5;
+  --primary-container: #f2b705;
+  --on-primary-container: #17181a;
+  --secondary: #1f4e5f;
+  --secondary-soft: #e7eff2;
+  --tertiary: #785008;
+  --tertiary-soft: #f5e6c4;
+  --error: #b42318;
+  --error-soft: #fcebe9;
+  --on-error: #ffffff;
+
+  --data-1: #1f4e5f;
+  --data-2: #d99000;
+  --data-3: #2b6e52;
+  --data-4: #b84a39;
+  --data-context: #c4bfb2;
+
+  --font-headline: 'Source Serif 4', serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-label: 'Geist Mono', monospace;
+
+  --rounded: 0.25rem;
+  --rounded-lg: 0.375rem;
+  --rounded-full: 0.25rem;
+
+  --section-rule: 1.5px solid var(--outline);
+  --card-border: 1px solid var(--outline-variant);
+  --badge-radius: 2px;
+  --heading-tracking: -0.02em;
+  --label-tracking: 0.08em;
+
+  /* 3. Shared tokens */
+  --positive: #2b6e52;
+  --positive-soft: #e6f2ec;
+  --warning: #785008;
+  --focus: #1f4e5f;
+
+  /* Type scale (Narrative) */
+  --display-size: clamp(2.35rem, 1.4rem + 3.4vw, 3.85rem);
+  --headline-size: clamp(1.625rem, 1.2rem + 1.6vw, 2.35rem);
+  --subhead-size: clamp(1.15rem, 1.05rem + 0.45vw, 1.375rem);
+  --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+  --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+  /* Spacing scale (4pt base) */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 5.5rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+}
+
+/* Base reset */
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  overflow-x: clip;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  line-height: 1.62;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+header { position: static !important; }
+
+.page-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-xl);
+  padding: var(--space-lg);
+  max-width: 1120px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.page-grid * { min-width: 0; }
+
+/* Focus accessibility */
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Typography utilities */
+h1, h2, h3, h4 {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  color: var(--on-surface);
+  margin: 0;
+  letter-spacing: var(--heading-tracking);
+}
+p {
+  margin: 0 0 var(--space-md) 0;
+  max-width: 65ch;
+}
+p:last-child {
+  margin-bottom: 0;
+}
+
+/* Dossier section bars & pills */
+.dossier-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm) var(--space-md);
+  border-bottom: var(--section-rule);
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+.dossier-pill {
+  display: inline-block;
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--label-size);
+  letter-spacing: var(--label-tracking);
+  text-transform: uppercase;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--badge-radius);
+  line-height: 1.2;
+}
+.dossier-meta {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  color: var(--on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.index-num {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: var(--label-size);
+  color: var(--secondary);
+  background-color: var(--surface-container);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--badge-radius);
+  letter-spacing: 0.06em;
+}
+
+/* Header / Masthead */
+.hero-header {
+  padding-top: var(--space-md);
+  padding-bottom: var(--space-lg);
+  border-bottom: var(--card-border);
+}
+.title {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: var(--display-size);
+  line-height: 1.07;
+  letter-spacing: var(--heading-tracking);
+  color: var(--on-surface);
+  max-width: 22ch;
+}
+.standfirst {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--subhead-size);
+  line-height: 1.45;
+  color: var(--secondary);
+  margin-top: var(--space-md);
+  max-width: 62ch;
+}
+
+/* Anchor Navigation */
+.toc-nav {
+  margin-top: var(--space-lg);
+  padding: var(--space-md);
+  background-color: var(--surface-container);
+  border-top: var(--section-rule);
+  border-radius: var(--rounded);
+}
+.toc-label {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+  color: var(--on-surface-variant);
+  margin-bottom: var(--space-sm);
+  display: block;
+}
+.toc-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.toc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: 44px;
+  padding: var(--space-xs) var(--space-md);
+  background-color: var(--surface-container-low);
+  border: var(--card-border);
+  border-radius: var(--rounded);
+  color: var(--on-surface);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+}
+.toc-link:hover {
+  background-color: var(--surface-container-high);
+  border-color: var(--outline);
+  color: var(--secondary);
+}
+.toc-link-num {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  color: var(--secondary);
+}
+
+/* Key Figures Row */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+.figure-card {
+  background-color: var(--surface-container-low);
+  border: var(--card-border);
+  border-radius: var(--rounded-lg);
+  padding: var(--space-md) var(--space-lg);
+}
+.figure-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+.figure-card .value {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 1.55rem;
+  line-height: 1.15;
+  color: var(--on-surface);
+  font-variant-numeric: lining-nums tabular-nums;
+  margin-bottom: var(--space-xs);
+}
+.figure-card .caption {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--on-surface-variant);
+  margin: 0;
+}
+
+/* Section Layout */
+.content-section {
+  padding-top: var(--space-lg);
+}
+.section-heading {
+  font-size: var(--headline-size);
+  line-height: 1.12;
+  margin-bottom: var(--space-xs);
+}
+.section-deck {
+  font-weight: 600;
+  color: var(--secondary);
+  font-size: 1.0625rem;
+  line-height: 1.48;
+  margin-bottom: var(--space-lg);
+  max-width: 64ch;
+}
+
+/* Asymmetric editorial split */
+.editorial-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: var(--space-xl);
+  align-items: start;
+}
+.editorial-split-wide {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+/* Aside / Callout Box */
+.aside-box {
+  background-color: var(--surface-container);
+  border-top: var(--section-rule);
+  border-radius: var(--rounded);
+  padding: var(--space-lg);
+}
+.aside-title {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+  color: var(--secondary);
+  margin-bottom: var(--space-sm);
+}
+
+/* Quote Block */
+.quote-block {
+  border-left: 3px solid var(--secondary);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--surface-container);
+  margin: var(--space-md) 0;
+}
+.quote-text {
+  font-family: var(--font-headline);
+  font-style: italic;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: var(--on-surface);
+  margin-bottom: var(--space-xs);
+}
+.quote-cite {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  color: var(--on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Tags & Chips */
+.tag-chip {
+  display: inline-block;
+  background-color: var(--tertiary-soft);
+  color: var(--tertiary);
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--rounded);
+}
+.tag-chip-petrol {
+  background-color: var(--secondary-soft);
+  color: var(--secondary);
+}
+.tag-chip-positive {
+  background-color: var(--positive-soft);
+  color: var(--positive);
+}
+.tag-chip-error {
+  background-color: var(--error-soft);
+  color: var(--error);
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border: 1px solid var(--primary);
+  border-radius: var(--rounded);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+.btn-primary:hover {
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+}
+.btn-primary:active {
+  transform: translateY(1px);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--surface-container-low);
+  color: var(--on-surface);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--rounded);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+}
+.btn-secondary:hover {
+  background-color: var(--surface-container);
+  border-color: var(--outline);
+}
+.btn-secondary.is-active {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+}
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Interactive 1: Galton Composite Portrait */
+.galton-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.galton-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  background-color: var(--surface-container-low);
+  border: var(--card-border);
+  border-radius: var(--rounded);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--on-surface);
+  cursor: pointer;
+  transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+}
+.galton-btn:hover {
+  background-color: var(--surface-container);
+  border-color: var(--outline);
+}
+.galton-btn.is-active {
+  background-color: var(--secondary-soft);
+  border-color: var(--secondary);
+  font-weight: 600;
+}
+.galton-lens {
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  background-color: var(--surface-container);
+  border-radius: var(--rounded);
+  border-left: 3px solid var(--data-2);
+}
+
+/* Timeline list */
+.timeline-list {
+  list-style: none;
+  margin: var(--space-md) 0 0 0;
+  padding: 0;
+  border-top: var(--card-border);
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 118px minmax(0, 1fr);
+  gap: var(--space-md);
+  padding: var(--space-sm) 0;
+  border-bottom: var(--card-border);
+  align-items: baseline;
+}
+.timeline-date {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 600;
+  color: var(--secondary);
+}
+
+/* Interactive 2: Value Comparator */
+.selector-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+}
+.compare-col {
+  background-color: var(--surface-container-low);
+  border: var(--card-border);
+  border-radius: var(--rounded-lg);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.compare-col-rel {
+  border-top: 3px solid var(--data-1);
+}
+.compare-col-abs {
+  border-top: 3px solid var(--data-2);
+}
+.dialogue-box {
+  background-color: var(--surface-container);
+  padding: var(--space-md);
+  border-radius: var(--rounded);
+  font-size: 0.9375rem;
+}
+.dialogue-line {
+  margin-bottom: var(--space-xs);
+}
+.dialogue-line:last-child {
+  margin-bottom: 0;
+}
+
+/* Interactive 3: Teacup Metaphor Simulator */
+.teacup-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: var(--space-lg);
+  align-items: center;
+}
+.svg-frame {
+  background-color: var(--surface-container);
+  border-radius: var(--rounded);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 290px;
+}
+.teacup-svg {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+}
+.meter-bar-track {
+  width: 100%;
+  height: 12px;
+  background-color: var(--surface-container-high);
+  border-radius: var(--rounded);
+  overflow: hidden;
+  margin-top: var(--space-xs);
+}
+.meter-bar-fill {
+  height: 100%;
+  background-color: var(--data-1);
+  transition: width var(--dur-long) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+}
+.meter-bar-fill.is-overflow {
+  background-color: var(--data-4);
+}
+
+/* Interactive 4: Experiences & Lion Head Experiment */
+.card-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+.step-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+.step-panel {
+  background-color: var(--surface-container);
+  border-radius: var(--rounded);
+  padding: var(--space-lg);
+  border-left: 3px solid var(--secondary);
+}
+
+/* Comparison Table */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  background-color: var(--surface-container-low);
+  border: var(--card-border);
+  border-radius: var(--rounded-lg);
+}
+.briefing-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9375rem;
+}
+.briefing-table thead th {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--on-surface);
+  padding: var(--space-md);
+  border-bottom: var(--section-rule);
+  background-color: var(--surface-container);
+}
+.briefing-table tbody td {
+  padding: var(--space-md);
+  border-bottom: var(--card-border);
+  vertical-align: top;
+}
+.briefing-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Interactive 5: Searchable Knowledge Base */
+.search-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-md);
+  align-items: end;
+  margin-bottom: var(--space-md);
+}
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.field-label {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+  color: var(--on-surface);
+}
+.text-input {
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--on-surface);
+  background-color: var(--surface-container-low);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--rounded);
+  width: 100%;
+}
+.text-input:focus {
+  border-color: var(--outline);
+}
+.kb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-md);
+}
+.kb-card {
+  background-color: var(--surface-container-low);
+  border: var(--card-border);
+  border-radius: var(--rounded-lg);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.kb-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+}
+.kb-detail {
+  margin-top: var(--space-xs);
+  padding-top: var(--space-sm);
+  border-top: var(--card-border);
+  font-size: 0.9125rem;
+  color: var(--on-surface-variant);
+}
+.kb-detail[hidden] {
+  display: none;
+}
+.empty-state {
+  padding: var(--space-xl);
+  text-align: left;
+  background-color: var(--surface-container);
+  border-radius: var(--rounded-lg);
+  border: var(--card-border);
+}
+
+/* Interactive 6: FAQ Accordion */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.faq-item {
+  background-color: var(--surface-container-low);
+  border: var(--card-border);
+  border-radius: var(--rounded-lg);
+  overflow: hidden;
+}
+.faq-trigger {
+  width: 100%;
+  min-height: 52px;
+  padding: var(--space-md) var(--space-lg);
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  text-align: left;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: var(--on-surface);
+  cursor: pointer;
+  transition: background-color var(--dur-micro) var(--ease-out);
+}
+.faq-trigger:hover {
+  background-color: var(--surface-container);
+}
+.faq-icon {
+  flex-shrink: 0;
+  font-family: var(--font-label);
+  font-size: 1.1rem;
+  color: var(--secondary);
+  transition: transform var(--dur-short) var(--ease-in-out);
+}
+.faq-trigger[aria-expanded="true"] .faq-icon {
+  transform: rotate(45deg);
+}
+.faq-panel {
+  padding: 0 var(--space-lg) var(--space-lg) var(--space-lg);
+  color: var(--on-surface-variant);
+  border-top: var(--card-border);
+  padding-top: var(--space-md);
+}
+.faq-panel[hidden] {
+  display: none;
+}
+
+/* Interactive 7: Quiz */
+.quiz-shell {
+  background-color: var(--surface-container-low);
+  border: var(--card-border);
+  border-radius: var(--rounded-lg);
+  padding: var(--space-lg);
+}
+.quiz-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  padding-bottom: var(--space-md);
+  border-bottom: var(--card-border);
+  margin-bottom: var(--space-lg);
+}
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin: var(--space-md) 0;
+}
+.quiz-opt {
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  background-color: var(--background);
+  border: var(--card-border);
+  border-radius: var(--rounded);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--on-surface);
+  cursor: pointer;
+  transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+}
+.quiz-opt:hover:not(:disabled) {
+  background-color: var(--surface-container);
+  border-color: var(--outline);
+}
+.quiz-opt.is-correct {
+  background-color: var(--positive-soft);
+  border-color: var(--positive);
+  color: var(--on-surface);
+  font-weight: 600;
+}
+.quiz-opt.is-wrong {
+  background-color: var(--error-soft);
+  border-color: var(--error);
+  color: var(--on-surface);
+}
+.quiz-feedback {
+  padding: var(--space-md);
+  border-radius: var(--rounded);
+  margin-bottom: var(--space-md);
+  font-size: 0.9375rem;
+}
+.quiz-feedback.is-positive {
+  background-color: var(--positive-soft);
+  border-left: 3px solid var(--positive);
+}
+.quiz-feedback.is-negative {
+  background-color: var(--error-soft);
+  border-left: 3px solid var(--error);
+}
+.quiz-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+/* Container queries for adaptive cards */
+.card-wrapper { container-type: inline-size; }
+@container (max-width: 560px) {
+  .comparison-grid { grid-template-columns: 1fr; }
+  .teacup-stage { grid-template-columns: 1fr; }
+}
+
+/* Footer */
+.dossier-footer {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-2xl);
+  border-top: var(--section-rule);
+  color: var(--on-surface-variant);
+  font-size: 0.9rem;
+}
+
+/* Scroll reveal utility */
+.reveal-block {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+}
+.reveal-block.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile breakpoint */
+@media (max-width: 640px) {
+  .page-grid {
+    padding: var(--space-md);
+    gap: var(--space-lg);
+  }
+  .editorial-split,
+  .editorial-split-wide,
+  .comparison-grid,
+  .teacup-stage,
+  .search-controls {
+    grid-template-columns: 1fr;
+  }
+  .timeline-item {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal-block {
+    opacity: 1;
+    transform: none;
+  }
+}
+</style>
+</head>
+<body>
+<div class="page-grid">
+
+  <!-- HEADER / PORTADA DEL DOSSIER -->
+  <header class="hero-header">
+    <div class="dossier-bar">
+      <span class="dossier-pill">Base de conocimientos · Filosofía</span>
+      <span class="dossier-meta">Ludwig Wittgenstein · Cambridge, 2 de enero de 1930 · «The Heretics»</span>
+    </div>
+    <h1 class="title">Conferencia sobre ética: los límites del lenguaje y lo que realmente importa</h1>
+    <p class="standfirst">
+      Guía estructurada e interactiva de la única conferencia pública escrita por Ludwig Wittgenstein, acompañada de las claves de su <em>Tractatus</em>, las notas taquigráficas de Friedrich Waismann, el análisis de Rush Rhees y la introducción de Manuel Cruz.
+    </p>
+
+    <div class="metrics-grid">
+      <article class="figure-card">
+        <div class="figure-card-head">
+          <span class="index-num">01</span>
+          <span class="tag-chip tag-chip-petrol">Contexto</span>
+        </div>
+        <div class="value">2 de enero de 1930</div>
+        <p class="caption">Lectura ante la sociedad «The Heretics» en Cambridge; primera publicación póstuma en enero de 1965 en <em>The Philosophical Review</em>.</p>
+      </article>
+      <article class="figure-card">
+        <div class="figure-card-head">
+          <span class="index-num">02</span>
+          <span class="tag-chip">Distinción</span>
+        </div>
+        <div class="value">2 sentidos de valor</div>
+        <p class="caption">Sentido trivial o relativo (reducible a enunciados de hechos) frente al sentido ético o absoluto (incondicionado e indecible).</p>
+      </article>
+      <article class="figure-card">
+        <div class="figure-card-head">
+          <span class="index-num">03</span>
+          <span class="tag-chip tag-chip-petrol">Vivencias</span>
+        </div>
+        <div class="value">3 experiencias límite</div>
+        <p class="caption">El asombro ante la existencia del mundo, sentirse absolutamente seguro y sentirse culpable, expresadas mediante símiles.</p>
+      </article>
+    </div>
+
+    <nav class="toc-nav" aria-label="Navegación por las secciones del sitio">
+      <span class="toc-label">Mapa conceptual del sitio</span>
+      <ul class="toc-list">
+        <li><a class="toc-link" href="#contexto"><span class="toc-link-num">01</span> Contexto y objeto</a></li>
+        <li><a class="toc-link" href="#valor"><span class="toc-link-num">02</span> Relativo vs. absoluto</a></li>
+        <li><a class="toc-link" href="#taza"><span class="toc-link-num">03</span> La taza de té</a></li>
+        <li><a class="toc-link" href="#vivencias"><span class="toc-link-num">04</span> Vivencias y milagro</a></li>
+        <li><a class="toc-link" href="#logica"><span class="toc-link-num">05</span> Ética, lógica y lenguaje</a></li>
+        <li><a class="toc-link" href="#explorador"><span class="toc-link-num">06</span> Buscador de conceptos</a></li>
+        <li><a class="toc-link" href="#faq"><span class="toc-link-num">07</span> Preguntas frecuentes</a></li>
+        <li><a class="toc-link" href="#cuestionario"><span class="toc-link-num">08</span> Autoevaluación</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- SECCIÓN 01: CONTEXTO Y OBJETO DE LA ÉTICA -->
+    <section id="contexto" class="content-section reveal-block">
+      <div class="dossier-bar">
+        <span class="index-num">01</span>
+        <span class="dossier-meta">Apertura de la conferencia · El retrato compuesto de Galton</span>
+      </div>
+      <h2 class="section-heading">La ética no es divulgación científica: busca mostrar lo que hace valiosa la vida</h2>
+      <p class="section-deck">Antes de definir la ética, Wittgenstein advierte tres obstáculos para comunicar su pensamiento y propone mirar una gama de sinónimos superpuestos.</p>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            Al aceptar la invitación de «The Heretics», Wittgenstein descarta hablar de lógica técnica —que exigiría todo un curso— y rechaza ofrecer una conferencia de divulgación científica, a la que acusa de alimentar la «curiosidad superficial» de la gente moderna haciéndoles creer que entienden algo que en realidad no entienden. Elige hablar de ética porque le interesa profundamente comunicarlo y desea ayudar al oyente a aclarar sus propias ideas, aunque esté en total desacuerdo.
+          </p>
+          <p>
+            Adopta provisionalmente la definición de G. E. Moore en <em>Principia Ethica</em> —«la ética es la investigación general sobre lo bueno»—, pero la amplía para abarcar la parte más genuina de la <strong>estética</strong>. Para delimitar el terreno sin encerrarlo en una fórmula rígida, recurre al método fotográfico de Francis Galton: superponer distintos rostros en una sola placa hasta revelar los rasgos típicos compartidos.
+          </p>
+
+          <aside class="aside-box">
+            <div class="aside-title">Tres advertencias preliminares al auditorio</div>
+            <p><strong>1. El idioma:</strong> El inglés no es su lengua materna y teme carecer de elegancia y precisión.</p>
+            <p><strong>2. Las expectativas:</strong> No se trata de ciencia ni de una receta práctica para conducir a los hombres al bien.</p>
+            <p><strong>3. El recorrido:</strong> En toda larga conferencia filosófica, el oyente suele preguntarse «¿a dónde demonios quiere llegar?» o «¿cómo va a llegar allí?» antes de ver el camino completo.</p>
+          </aside>
+        </div>
+
+        <div class="figure-card">
+          <div class="figure-card-head">
+            <span class="tag-chip">Interactivo · Efecto Galton</span>
+            <span class="dossier-meta">5 sinónimos de ética</span>
+          </div>
+          <p class="caption" style="margin-bottom: var(--space-md);">Selecciona cada formulación propuesta por Wittgenstein para observar cómo convergen en un mismo rasgo característico:</p>
+          <div class="galton-stack" role="group" aria-label="Sinónimos de ética propuestos por Wittgenstein">
+            <button type="button" class="galton-btn is-active" onclick="selectGalton(0, this)">
+              <span>«La investigación sobre lo bueno» (Moore)</span>
+              <span class="index-num">01</span>
+            </button>
+            <button type="button" class="galton-btn" onclick="selectGalton(1, this)">
+              <span>«Lo valioso o lo que realmente importa»</span>
+              <span class="index-num">02</span>
+            </button>
+            <button type="button" class="galton-btn" onclick="selectGalton(2, this)">
+              <span>«El significado de la vida»</span>
+              <span class="index-num">03</span>
+            </button>
+            <button type="button" class="galton-btn" onclick="selectGalton(3, this)">
+              <span>«Aquello que hace que la vida merezca vivirse»</span>
+              <span class="index-num">04</span>
+            </button>
+            <button type="button" class="galton-btn" onclick="selectGalton(4, this)">
+              <span>«La manera correcta de vivir»</span>
+              <span class="index-num">05</span>
+            </button>
+          </div>
+          <div id="galton-output" class="galton-lens" aria-live="polite">
+            <span class="tag-chip tag-chip-petrol" id="galton-tag">Rasgo 01 · Punto de partida</span>
+            <p id="galton-text" style="margin-top: var(--space-sm); font-size: 0.9375rem;">
+              Toma la fórmula de Moore en <em>Principia Ethica</em> y la ensancha para incluir también el núcleo más auténtico de la estética: ambos ámbitos comparten la búsqueda del valor incondicionado.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="figure-card" style="margin-top: var(--space-lg);">
+        <div class="figure-card-head">
+          <span class="tag-chip tag-chip-petrol">Cronología documental</span>
+          <span class="dossier-meta">Textos y diálogos de la fuente</span>
+        </div>
+        <ul class="timeline-list">
+          <li class="timeline-item">
+            <span class="timeline-date">1914–1916</span>
+            <span><strong>Diario filosófico:</strong> Wittgenstein anota que «la vida feliz es buena», que «el yo no es un objeto» sino un límite del mundo y que el portador de la ética es el sujeto.</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-date">1922</span>
+            <span><strong>Tractatus Logico-Philosophicus:</strong> Única obra publicada en vida. Sostiene que «no puede haber proposiciones de ética» (6.42) y concluye que «de lo que no se puede hablar, lo mejor es callarse».</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-date">30 dic 1929</span>
+            <span><strong>Conversación en casa de Schlick (Waismann):</strong> Vincula el asombro ante la existencia con el impulso humano de «arremeter contra los límites del lenguaje», comparándolo con Kierkegaard.</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-date">2 ene 1930</span>
+            <span><strong>Conferencia sobre ética (Cambridge):</strong> Pronunciada ante «The Heretics». Expone la distinción relativo/absoluto, la metáfora de la taza de té y sus vivencias límite.</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-date">17 dic 1930</span>
+            <span><strong>Sobre la ética de Schlick (Waismann):</strong> Reivindica «lo bueno es lo que Dios manda» frente al racionalismo, niega valor explicativo a las teorías éticas y subraya haber hablado en primera persona.</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-date">1942–1945</span>
+            <span><strong>Discusiones con Rush Rhees:</strong> Examina dilemas morales situados (el investigador del cáncer y su esposa) y adopta un «método antropológico» atento a los distintos juegos y costumbres humanas.</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-date">Ene 1965</span>
+            <span><strong>Publicación póstuma:</strong> El manuscrito sin título de la conferencia aparece por primera vez en <em>The Philosophical Review</em> junto con las notas de Waismann.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 02: VALOR RELATIVO VS. VALOR ABSOLUTO -->
+    <section id="valor" class="content-section reveal-block">
+      <div class="dossier-bar">
+        <span class="index-num">02</span>
+        <span class="dossier-meta">Núcleo argumental · Juicios de hecho frente a juicios éticos</span>
+      </div>
+      <h2 class="section-heading">Todo juicio de valor relativo es un enunciado de hechos disfrazado; ningún hecho implica un deber absoluto</h2>
+      <p class="section-deck">La misma palabra —«bueno», «correcto», «importante»— opera en dos registros incompatibles. Explora los casos clásicos con los que Wittgenstein demuestra el abismo entre ambos.</p>
+
+      <div class="card-wrapper">
+        <div class="selector-row" role="group" aria-label="Casos comparativos de Wittgenstein">
+          <button type="button" class="btn-secondary is-active" onclick="selectCase(0, this)">Tenis vs. Mentira escandalosa</button>
+          <button type="button" class="btn-secondary" onclick="selectCase(1, this)">La carretera hacia Granchester</button>
+          <button type="button" class="btn-secondary" onclick="selectCase(2, this)">Silla, pianista y corredor</button>
+          <button type="button" class="btn-secondary" onclick="selectCase(3, this)">El gran libro del mundo y el asesinato</button>
+        </div>
+
+        <div class="comparison-grid" id="case-display" aria-live="polite">
+          <article class="compare-col compare-col-rel">
+            <span class="tag-chip tag-chip-petrol">Sentido trivial o relativo</span>
+            <h3 id="rel-title" style="font-size: 1.35rem;">El mal jugador de tenis</h3>
+            <p id="rel-desc">El calificativo depende de si el sujeto desea cumplir una meta o estándar opcional.</p>
+            <div class="dialogue-box" id="rel-dialogue">
+              <div class="dialogue-line"><strong>Observador:</strong> «Juega usted bastante mal».</div>
+              <div class="dialogue-line"><strong>Respuesta:</strong> «Lo sé, estoy jugando mal, pero no quiero hacerlo mejor».</div>
+              <div class="dialogue-line"><strong>Conclusión válida:</strong> «Ah, entonces, de acuerdo».</div>
+            </div>
+            <p id="rel-reduction" class="caption" style="margin-top: auto; padding-top: var(--space-sm);">
+              <strong>Traducción a hechos:</strong> Describe únicamente la destreza observada respecto a las reglas del tenis.
+            </p>
+          </article>
+
+          <article class="compare-col compare-col-abs">
+            <span class="tag-chip">Sentido ético o absoluto</span>
+            <h3 id="abs-title" style="font-size: 1.35rem;">La mentira escandalosa</h3>
+            <p id="abs-desc">Exige una obligación incondicionada que no desaparece aunque el sujeto carezca de interés.</p>
+            <div class="dialogue-box" id="abs-dialogue">
+              <div class="dialogue-line"><strong>Interlocutor:</strong> «Se está usted comportando como un animal».</div>
+              <div class="dialogue-line"><strong>Respuesta:</strong> «Sé que mi conducta es mala, pero no quiero comportarme mejor».</div>
+              <div class="dialogue-line"><strong>Respuesta ética:</strong> «Bien, usted debería desear comportarse mejor».</div>
+            </div>
+            <p id="abs-reduction" class="caption" style="margin-top: auto; padding-top: var(--space-sm);">
+              <strong>Límite lógico:</strong> Ningún estado de cosas descriptible posee el poder coactivo de un juez absoluto al que todo el mundo obedecería por necesidad lógica.
+            </p>
+          </article>
+        </div>
+      </div>
+
+      <div class="quote-block" style="margin-top: var(--space-lg);">
+        <div class="quote-text">«Si en nuestro libro del mundo leemos la descripción de un asesinato con todos los detalles físicos y psicológicos, la mera descripción de estos hechos no encerrará nada que podamos denominar una proposición ética. El asesinato estará en el mismo nivel que cualquier otro acontecimiento como, por ejemplo, la caida de una piedra».</div>
+        <div class="quote-cite">Ludwig Wittgenstein — Conferencia sobre ética (1930)</div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 03: LA METÁFORA DE LA TAZA DE TÉ -->
+    <section id="taza" class="content-section reveal-block">
+      <div class="dossier-bar">
+        <span class="index-num">03</span>
+        <span class="dossier-meta">Límite proposicional · Metáfora central</span>
+      </div>
+      <h2 class="section-heading">La metáfora de la taza de té: el lenguaje solo puede contener hechos naturales</h2>
+      <p class="section-deck">Nuestras palabras funcionan como recipientes con una capacidad estricta. Si intentamos verter en ellas un sentido sobrenatural o absoluto, el contenido desborda en forma de sinsentido.</p>
+
+      <div class="figure-card card-wrapper">
+        <div class="teacup-stage">
+          <div class="svg-frame">
+            <svg class="teacup-svg" viewBox="0 0 280 230" role="img" aria-label="Esquema ilustrativo de la metáfora de la taza de té de Wittgenstein">
+              <!-- Plato -->
+              <ellipse cx="135" cy="196" rx="95" ry="14" fill="var(--surface-container-high)" stroke="var(--outline)" stroke-width="2"/>
+              <!-- Asa -->
+              <path d="M 205 95 C 248 95, 248 158, 198 158" fill="none" stroke="var(--outline)" stroke-width="8" stroke-linecap="round"/>
+              <path d="M 205 95 C 248 95, 248 158, 198 158" fill="none" stroke="var(--surface-container-low)" stroke-width="3" stroke-linecap="round"/>
+              <!-- Cuerpo de la taza (clip visual) -->
+              <path id="cup-body" d="M 65 78 L 205 78 L 190 175 C 187 188, 83 188, 80 175 Z" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="2.5"/>
+              <!-- Líquido interno dinámico -->
+              <path id="cup-liquid" d="M 74 125 L 196 125 L 188 175 C 185 186, 85 186, 82 175 Z" fill="var(--data-1)" opacity="0.88"/>
+              <!-- Derrame (visible cuando hay desbordamiento absoluto) -->
+              <g id="cup-overflow" style="opacity: 0; transition: opacity 220ms ease;">
+                <path d="M 65 78 C 52 84, 52 135, 58 188" fill="none" stroke="var(--data-4)" stroke-width="4" stroke-linecap="round"/>
+                <path d="M 205 78 C 218 86, 214 140, 206 188" fill="none" stroke="var(--data-4)" stroke-width="4" stroke-linecap="round"/>
+                <ellipse cx="135" cy="195" rx="76" ry="7" fill="var(--data-4)" opacity="0.35"/>
+                <text x="135" y="42" text-anchor="middle" fill="var(--data-4)" font-family="Geist Mono, monospace" font-size="11" font-weight="600">DESBORDA LOS LÍMITES DEL LENGUAJE</text>
+              </g>
+              <!-- Etiqueta de capacidad -->
+              <text x="135" y="102" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Geist Mono, monospace" font-size="10">CAPACIDAD NATURAL: 1 TAZA</text>
+              <text id="cup-level-label" x="135" y="156" text-anchor="middle" fill="var(--on-primary)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700">Hechos descriptibles</text>
+            </svg>
+          </div>
+
+          <div>
+            <span class="tag-chip tag-chip-petrol" id="cup-status-tag">Experimento de capacidad lingüística</span>
+            <h3 id="cup-title" style="font-size: 1.45rem; margin-top: var(--space-sm); margin-bottom: var(--space-sm);">Enunciados de hechos y valor relativo</h3>
+            <p id="cup-explanation">
+              Cuando afirmamos «esta silla sirve para sentarse» o «es un buen corredor porque recorre 10 km en 35 minutos», vertemos hechos naturales en el recipiente del lenguaje. El volumen encaja exactamente en la taza.
+            </p>
+
+            <div style="margin: var(--space-md) 0;">
+              <div style="display: flex; justify-content: space-between; font-family: var(--font-label); font-size: var(--label-size);">
+                <span>CONTENIDO PRETENDIDO</span>
+                <span id="cup-volume-text">0.75 tazas (sentido natural)</span>
+              </div>
+              <div class="meter-bar-track" aria-hidden="true">
+                <div id="cup-meter-fill" class="meter-bar-fill" style="width: 75%;"></div>
+              </div>
+            </div>
+
+            <div class="selector-row" style="margin-bottom: 0;" role="group" aria-label="Elegir tipo de enunciado para verter en la taza">
+              <button type="button" class="btn-secondary is-active" onclick="setTeacupMode('hecho', this)">1. Hecho físico o psicológico</button>
+              <button type="button" class="btn-secondary" onclick="setTeacupMode('relativo', this)">2. Valor relativo (tenis / carretera)</button>
+              <button type="button" class="btn-secondary" onclick="setTeacupMode('absoluto', this)">3. Valor absoluto («El libro de ética»)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="aside-box" style="margin-top: var(--space-lg);">
+        <div class="aside-title">La explosión de todos los demás libros</div>
+        <p>
+          «Si un hombre pudiera escribir un libro de ética que realmente fuera un libro de ética, este libro destruiría, como una explosión, todos los demás libros del mundo». No porque la ética sea un juego de palabras engañoso, advierte Manuel Cruz en su introducción, sino porque el lenguaje proposicional no es su lugar natural: el recipiente de una taza de té solo acoge el volumen de una taza, por más que intentemos verter un litro entero de significación sobrenatural.
+        </p>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 04: LAS VIVENCIAS PARADIGMÁTICAS Y EL MILAGRO -->
+    <section id="vivencias" class="content-section reveal-block">
+      <div class="dossier-bar">
+        <span class="index-num">04</span>
+        <span class="dossier-meta">Experiencias par excellence · Símiles y paradoja del milagro</span>
+      </div>
+      <h2 class="section-heading">Las vivencias de asombro y seguridad absoluta: por qué su esencia es la falta de sentido</h2>
+      <p class="section-deck">Como quien explica la psicología del placer evocando un paseo bajo el sol de verano, Wittgenstein recurre a tres vivencias personales y muestra cómo el lenguaje fracasa al intentar nombrarlas.</p>
+
+      <div class="card-grid-3">
+        <article class="figure-card">
+          <div class="figure-card-head">
+            <span class="index-num">01</span>
+            <span class="tag-chip tag-chip-petrol">Vivencia par excellence</span>
+          </div>
+          <h3 style="font-size: 1.25rem; margin-bottom: var(--space-xs);">Asombro ante la existencia</h3>
+          <p class="caption" style="color: var(--on-surface); margin-bottom: var(--space-sm);">«Qué extraordinario que el mundo exista».</p>
+          <p style="font-size: 0.92rem; color: var(--on-surface-variant);">
+            Solo tiene sentido asombrarse de lo que podría ser de otro modo (un perro gigante o una casa que creíamos demolida). No podemos representarnos el mundo <em>no siendo</em>; asombrarse de una tautología («que el cielo sea o no sea azul») carece de sentido lógico.
+          </p>
+          <div class="kb-detail" style="margin-top: auto;">
+            <strong>Símil religioso asociado:</strong> «Dios ha creado el mundo».
+          </div>
+        </article>
+
+        <article class="figure-card">
+          <div class="figure-card-head">
+            <span class="index-num">02</span>
+            <span class="tag-chip tag-chip-petrol">Estado anímico</span>
+          </div>
+          <h3 style="font-size: 1.25rem; margin-bottom: var(--space-xs);">Seguridad absoluta</h3>
+          <p class="caption" style="color: var(--on-surface); margin-bottom: var(--space-sm);">«Estoy seguro, pase lo que pase, nada puede dañarme».</p>
+          <p style="font-size: 0.92rem; color: var(--on-surface-variant);">
+            En la vida ordinaria, estar seguro significa que es físicamente imposible que algo nos ocurra (estar en una habitación a salvo de un autobús, o inmunizado tras haber tenido tos ferina). Añadir «pase lo que pase» destruye la referencia empírica de la palabra.
+          </p>
+          <div class="kb-detail" style="margin-top: auto;">
+            <strong>Símil religioso asociado:</strong> «Sentirse seguro en las manos de Dios».
+          </div>
+        </article>
+
+        <article class="figure-card">
+          <div class="figure-card-head">
+            <span class="index-num">03</span>
+            <span class="tag-chip tag-chip-petrol">Conciencia moral</span>
+          </div>
+          <h3 style="font-size: 1.25rem; margin-bottom: var(--space-xs);">Sentirse culpable</h3>
+          <p class="caption" style="color: var(--on-surface); margin-bottom: var(--space-sm);">La vivencia de una condena que excede las consecuencias.</p>
+          <p style="font-size: 0.92rem; color: var(--on-surface-variant);">
+            Igual que las otras dos vivencias, en cuanto ocurre en un lugar y dura un tiempo, es un hecho psicológico descriptible. Pero pretender que ese hecho posee un valor absoluto o sobrenatural engendra una paradoja.
+          </p>
+          <div class="kb-detail" style="margin-top: auto;">
+            <strong>Símil religioso asociado:</strong> «Dios condena nuestra conducta».
+          </div>
+        </article>
+      </div>
+
+      <!-- Interactivo 4: Experimento de la cabeza de león -->
+      <div class="figure-card">
+        <div class="figure-card-head">
+          <span class="tag-chip">Experimento mental paso a paso</span>
+          <span class="dossier-meta">El milagro y la jaula del lenguaje</span>
+        </div>
+        <h3 style="font-size: 1.35rem; margin-bottom: var(--space-xs);">La paradoja del milagro: ¿qué pasa si a uno de ustedes le crece una cabeza de león?</h3>
+        <p class="caption" style="margin-bottom: var(--space-md);">Recorre los tres momentos del razonamiento con el que Wittgenstein distingue el milagro relativo (científico) del milagro absoluto (ético):</p>
+
+        <div class="step-controls" role="group" aria-label="Pasos del argumento del milagro">
+          <button type="button" class="btn-secondary is-active" onclick="setMiracleStep(0, this)">Paso 1 · El suceso insólito</button>
+          <button type="button" class="btn-secondary" onclick="setMiracleStep(1, this)">Paso 2 · La mirada científica</button>
+          <button type="button" class="btn-secondary" onclick="setMiracleStep(2, this)">Paso 3 · El fogonazo final</button>
+        </div>
+
+        <div id="miracle-panel" class="step-panel" aria-live="polite">
+          <span class="tag-chip tag-chip-petrol" id="miracle-badge">Paso 1 de 3 · Sentido cotidiano de milagro</span>
+          <h4 id="miracle-heading" style="font-size: 1.2rem; margin: var(--space-sm) 0 var(--space-xs) 0;">Un acontecimiento jamás visto</h4>
+          <p id="miracle-body">
+            Imaginemos que a uno de los asistentes le crece de repente una cabeza de león y empieza a rugir. En la vida cotidiana diríamos que ha ocurrido algo extraordinario, un milagro en sentido relativo: un hecho de tal naturaleza que nunca hemos visto nada parecido.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 05: ÉTICA, LÓGICA, VOLUNTAD Y LENGUAJE -->
+    <section id="logica" class="content-section reveal-block">
+      <div class="dossier-bar">
+        <span class="index-num">05</span>
+        <span class="dossier-meta">Tractatus, Waismann y Rush Rhees · Estructura filosófica</span>
+      </div>
+      <h2 class="section-heading">Ética, lógica y lenguaje: lo que puede mostrarse frente a lo que debe vivirse</h2>
+      <p class="section-deck">Tanto la necesidad lógica como el valor absoluto quedan fuera del mundo de los hechos contingentes, pero su relación con el lenguaje es radicalmente distinta.</p>
+
+      <div class="table-wrap" style="margin-bottom: var(--space-lg);">
+        <table class="briefing-table">
+          <thead>
+            <tr>
+              <th>Dimensión</th>
+              <th>Hechos del mundo (Ciencia)</th>
+              <th>Necesidad lógica (Tractatus)</th>
+              <th>Valor absoluto (Ética)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Relación con lo contingente</strong></td>
+              <td>Describe lo que ocurre y es accidental; todo podría haber sido de otro modo.</td>
+              <td>Queda fuera de los hechos; «la lógica del mundo anterior a toda verdad y falsedad».</td>
+              <td>«Si hay un valor que tenga valor, debe quedar fuera de la esfera de lo que ocurre» (6.41).</td>
+            </tr>
+            <tr>
+              <td><strong>¿Se puede decir?</strong></td>
+              <td>Sí, mediante proposiciones con sentido natural y verificable.</td>
+              <td>No se describe como un hecho, sino que se muestra en el simbolismo (notación V-F).</td>
+              <td>No hay proposiciones de ética (6.42); todo intento de expresarlo en el lenguaje produce sinsentido.</td>
+            </tr>
+            <tr>
+              <td><strong>¿Cabe «¿Verdadero o falso?»?</strong></td>
+              <td>Sí, puede corroborarse o falsarse empíricamente.</td>
+              <td>Son tautologías o contradicciones (reglas de la gramática de las proposiciones).</td>
+              <td>Carece de sentido preguntar si un juicio ético absoluto es verdadero o falso en sentido científico.</td>
+            </tr>
+            <tr>
+              <td><strong>Ante «¿Y qué si no lo hago?»</strong></td>
+              <td>Respuesta causal (ej. «si no fijas el listón antes de perforar, fallará»).</td>
+              <td>No hay alternativa lógica (si los lados del triángulo son iguales, los ángulos de la base deben serlo).</td>
+              <td>No hay coacción empírica ni prueba lógica; apela al compromiso del sujeto («hablar en primera persona»).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="editorial-split-wide">
+        <article class="figure-card">
+          <div class="figure-card-head">
+            <span class="tag-chip tag-chip-petrol">Diario filosófico &amp; Manuel Cruz</span>
+            <span class="dossier-meta">El sujeto y la voluntad</span>
+          </div>
+          <h3 style="font-size: 1.3rem; margin-bottom: var(--space-sm);">El yo como límite del mundo y la veracidad</h3>
+          <p>
+            En el <em>Diario filosófico</em> (1914–1916) y en el <em>Tractatus</em>, Wittgenstein sostiene que «el sujeto no pertenece al mundo, sino que es un límite del mundo» (5.632) y que «bueno y malo solo irrumpen en virtud del sujeto». Como la voluntad no mantiene conexión lógica con los hechos —no puede dirigir el mundo—, solo puede transformar los <strong>límites</strong> del mundo según la actitud vital: «La vida feliz es buena, la infeliz mala».
+          </p>
+          <p>
+            Manuel Cruz sintetiza este desplazamiento señalando que, mientras los juicios de hecho se miden por la <em>verdad</em> objetiva, los juicios de valor ponen en juego al sujeto bajo el criterio de la <strong>veracidad</strong>: dar un paso adelante y hablar en primera persona. Incluso la muerte no es un hecho de la vida, y el suicidio queda vetado en su argumento porque supone tratarse a uno mismo como un objeto más del mundo cuando «el yo no es un objeto».
+          </p>
+        </article>
+
+        <article class="figure-card">
+          <div class="figure-card-head">
+            <span class="tag-chip">Waismann (1929–1930) &amp; Rhees (1942–1945)</span>
+            <span class="dossier-meta">Diálogos posteriores</span>
+          </div>
+          <h3 style="font-size: 1.3rem; margin-bottom: var(--space-sm);">De la teología de Schlick al dilema del investigador</h3>
+          <p>
+            En sus conversaciones con Moritz Schlick y Friedrich Waismann, Wittgenstein rechaza cualquier teoría ética: «Si para explicar a otro la esencia de lo ético necesitara una teoría, entonces lo ético no tendría valor». Por eso considera más profunda la tesis «lo bueno es lo que Dios manda» —que corta todo intento racionalista de justificación— y afirma que el lenguaje religioso es parte de la conducta religiosa, no una doctrina en prosa.
+          </p>
+          <p>
+            Años después, ante Rush Rhees, aplica un «método antropológico» centrado en situaciones reales. Frente a preguntas abstractas como si Bruto obró noblemente al asesinar a César o si un hombre tiene derecho a dejarse matar por la verdad, calla porque desconoce su estado anímico; en cambio, discute con seriedad el dilema de quien debe elegir entre abandonar a su esposa o dejar la investigación contra el cáncer, concluyendo que allí operan distintos sistemas éticos (cristiano, nietzscheano) sin un árbitro externo común.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 06: BASE DE CONOCIMIENTOS BUSCABLE -->
+    <section id="explorador" class="content-section reveal-block">
+      <div class="dossier-bar">
+        <span class="index-num">06</span>
+        <span class="dossier-meta">Archivo conceptual · Filtrado en tiempo real</span>
+      </div>
+      <h2 class="section-heading">Base de conocimientos estructurada: conceptos, metáforas y citas</h2>
+      <p class="section-deck">Busca por palabra clave o filtra por eje temático para revisar las definiciones, ejemplos y fuentes exactas del volumen.</p>
+
+      <div class="figure-card" style="margin-bottom: var(--space-lg);">
+        <div class="search-controls">
+          <div class="field-group">
+            <label class="field-label" for="kb-search">Buscar concepto, ejemplo o cita</label>
+            <input type="search" id="kb-search" class="text-input" oninput="filterKnowledge()" placeholder="Ej.: taza, Galton, Schlick, asesinato, voluntad, primera persona">
+          </div>
+          <div>
+            <button type="button" class="btn-secondary" onclick="resetKnowledgeFilters()">Limpiar filtros</button>
+          </div>
+        </div>
+
+        <div class="selector-row" style="margin-bottom: 0;" role="group" aria-label="Filtrar por categoría filosófica">
+          <button type="button" class="btn-secondary is-active" onclick="setKnowledgeCategory('todos', this)">Todos (12)</button>
+          <button type="button" class="btn-secondary" onclick="setKnowledgeCategory('valor', this)">Valor y hechos</button>
+          <button type="button" class="btn-secondary" onclick="setKnowledgeCategory('lenguaje', this)">Lenguaje y límites</button>
+          <button type="button" class="btn-secondary" onclick="setKnowledgeCategory('vivencias', this)">Vivencias y símiles</button>
+          <button type="button" class="btn-secondary" onclick="setKnowledgeCategory('dialogos', this)">Sujeto y diálogos</button>
+        </div>
+      </div>
+
+      <div id="kb-results-meta" class="dossier-meta" style="margin-bottom: var(--space-md);" aria-live="polite">
+        Mostrando 12 de 12 conceptos registrados
+      </div>
+
+      <div id="kb-grid" class="kb-grid"></div>
+    </section>
+
+    <!-- SECCIÓN 07: PREGUNTAS FRECUENTES -->
+    <section id="faq" class="content-section reveal-block">
+      <div class="dossier-bar">
+        <span class="index-num">07</span>
+        <span class="dossier-meta">Preguntas frecuentes · Aclaraciones sobre los límites del lenguaje</span>
+      </div>
+      <h2 class="section-heading">Preguntas frecuentes sobre el intento de sobrepasar los límites del lenguaje</h2>
+      <p class="section-deck">Respuestas directas a las objeciones e interrogantes más comunes al leer la conferencia y sus comentarios adjuntos.</p>
+
+      <div class="faq-list" id="faq-container">
+        <article class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>1. Si las expresiones éticas carecen de sentido, ¿significa que la ética es absurda o ridícula?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-panel" hidden>
+            <p>No. Wittgenstein concluye su conferencia afirmando que, aunque el intento de ir más allá del lenguaje significativo es «perfecta y absolutamente desesperanzado», la ética constituye un testimonio de una tendencia profunda del espíritu humano que él respeta profundamente y que «por nada del mundo ridiculizaría». En las conversaciones con Waismann añade: «me descubro ante ella».</p>
+          </div>
+        </article>
+
+        <article class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>2. ¿No podría un análisis lógico más refinado descubrir el significado oculto de las frases éticas?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-panel" hidden>
+            <p>Wittgenstein rechaza expresamente esta objeción como «un fogonazo»: asegura que rechazaría de entrada (<em>ab initio</em>) cualquier descripción significativa que alguien sugiriera precisamente <strong>por razón de su significación</strong>. Si algo pudiera describirse como un hecho o explicarse mediante una teoría psicológica o lógica, dejaría de ser valor absoluto. Su falta de sentido es su mismísima esencia.</p>
+          </div>
+        </article>
+
+        <article class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>3. ¿Por qué los símiles religiosos («en las manos de Dios») tampoco sirven para describir los hechos éticos?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-panel" hidden>
+            <p>Todo símil debe ser símil de algo: si describimos un hecho mediante una alegoría, debemos poder abandonar la alegoría y enunciar el hecho directamente sin su ayuda. En el caso ético y religioso, cuando retiramos el símil no queda ningún hecho detrás. Ante Waismann precisa además que los discursos religiosos no son ni figurativos ni verdaderos o falsos como la ciencia, sino parte de la conducta religiosa misma.</p>
+          </div>
+        </article>
+
+        <article class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>4. ¿En qué se diferencia una falta ética de jugar mal al tenis o tomar una carretera equivocada?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-panel" hidden>
+            <p>Jugar bien al tenis o tomar la carretera correcta hacia Granchester son juicios relativos a un fin opcional: si respondes «no quiero jugar mejor» o «no tengo prisa por llegar», la discusión termina con «ah, entonces, de acuerdo». En cambio, ante una mentira escandalosa, decir «no quiero comportarme mejor» no cierra el asunto: la respuesta ética exige «usted debería desear comportarse mejor».</p>
+          </div>
+        </article>
+
+        <article class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>5. ¿Ha demostrado la ciencia que no existen milagros ni problemas éticos reales?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-panel" hidden>
+            <p>Es absurdo afirmar que la ciencia haya probado que no hay milagros; lo que ocurre es que el modo científico de mirar un acontecimiento —incluso si a alguien le creciera una cabeza de león— consiste en investigarlo e integrarlo en un sistema de leyes naturales. Del mismo modo, en el <em>Tractatus</em> (6.52) sostiene que aunque todas las cuestiones científicas posibles se respondieran, el problema de nuestra vida ni siquiera habría sido rozado.</p>
+          </div>
+        </article>
+
+        <article class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>6. ¿Es posible enseñar la ética o decidir objetivamente qué sistema ético es el correcto?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-panel" hidden>
+            <p>Wittgenstein sostiene ante Waismann que lo ético no se puede enseñar ni fundamentar en una teoría. Y en las discusiones recogidas por Rush Rhees (1945) explica que afirmar «la ética cristiana es la correcta» (frente a la de Nietzsche, por ejemplo) no es como elegir entre dos teorías físicas contrastables con la realidad, sino formular ya un juicio de valor y adoptar esa forma de vida. Solo cabe dar un paso adelante y hablar en primera persona.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 08: AUTOEVALUACIÓN INTERACTIVA -->
+    <section id="cuestionario" class="content-section reveal-block">
+      <div class="dossier-bar">
+        <span class="index-num">08</span>
+        <span class="dossier-meta">Comprobación de lectura · 6 preguntas fundamentadas</span>
+      </div>
+      <h2 class="section-heading">Autoevaluación de comprensión filosófica</h2>
+      <p class="section-deck">Pon a prueba tu dominio de las distinciones y metáforas de la <em>Conferencia sobre ética</em> y sus comentarios.</p>
+
+      <div class="quiz-shell" id="quiz-container">
+        <div class="quiz-header">
+          <div>
+            <span class="tag-chip tag-chip-petrol" id="quiz-progress-label">Pregunta 1 de 6</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: var(--space-md);">
+            <span class="dossier-meta" id="quiz-score-label">Aciertos: 0 / 6</span>
+            <button type="button" class="btn-secondary" id="quiz-reset-btn" onclick="resetQuiz(this)">Reiniciar cuestionario</button>
+          </div>
+        </div>
+
+        <h3 id="quiz-question" style="font-size: 1.3rem; line-height: 1.3;"></h3>
+        <div id="quiz-options" class="quiz-options" role="group" aria-label="Opciones de respuesta"></div>
+        <div id="quiz-feedback" class="quiz-feedback" hidden aria-live="polite"></div>
+
+        <div class="quiz-actions">
+          <span class="dossier-meta" id="quiz-source-hint"></span>
+          <button type="button" class="btn-primary" id="quiz-next-btn" onclick="nextQuizQuestion()" disabled>Siguiente pregunta</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="dossier-footer">
+    <p>
+      <strong>Fuentes utilizadas:</strong> Todo el contenido y los ejemplos proceden exclusivamente de <em>Conferencia sobre ética</em> (Ludwig Wittgenstein, pronunciada el 2 de enero de 1930 en Cambridge y publicada en <em>The Philosophical Review</em> en enero de 1965; traducción de Fina Birulés), la introducción «De lo que no se puede hacer, lo mejor es hablar» de Manuel Cruz, las <em>Notas acerca de las conversaciones con Wittgenstein</em> transcritas por Friedrich Waismann (1929–1930) y el estudio <em>Acerca de la concepción wittgensteiniana de la ética</em> de Rush Rhees, junto con las referencias internas al <em>Tractatus Logico-Philosophicus</em> y al <em>Diario filosófico</em> (1914–1916).
+    </p>
+  </footer>
+
+</div>
+
+<script>
+// 1. Datos para el efecto Galton (Sección 01)
+const galtonData = [
+  {
+    tag: `Rasgo 01 · Punto de partida`,
+    text: `Toma la fórmula de Moore en Principia Ethica («la investigación general sobre lo bueno») y la ensancha para incluir también el núcleo más auténtico de la estética: ambos ámbitos comparten la búsqueda del valor incondicionado.`
+  },
+  {
+    tag: `Rasgo 02 · Lo que realmente importa`,
+    text: `Desplaza el foco desde las propiedades de los objetos cotidianos hacia aquello que no puede reducirse a utilidad instrumental o capricho pasajero.`
+  },
+  {
+    tag: `Rasgo 03 · El sentido del conjunto`,
+    text: `Conecta directamente con el Tractatus (6.52) y el Diario filosófico: el sentido de la vida coincide con el sentido del mundo como totalidad, más allá de las respuestas de la ciencia.`
+  },
+  {
+    tag: `Rasgo 04 · El criterio vital`,
+    text: `Apunta a la autenticidad de la existencia («la vida feliz es buena, la infeliz mala»): no un estado pasivo, sino la armonía entre la voluntad y lo que acontece.`
+  },
+  {
+    tag: `Rasgo 05 · Superposición final`,
+    text: `Al superponer las cinco expresiones como en una placa fotográfica de Galton, se revela el rasgo común: todas se usan en dos sentidos opuestos, el trivial (relativo) y el ético (absoluto).`
+  }
+];
+
+function selectGalton(idx, btn) {
+  const buttons = document.querySelectorAll('.galton-btn');
+  buttons.forEach(function(b) { b.classList.remove('is-active'); });
+  if (btn) btn.classList.add('is-active');
+  const item = galtonData[idx];
+  const tagEl = document.getElementById('galton-tag');
+  const textEl = document.getElementById('galton-text');
+  if (item && tagEl && textEl) {
+    tagEl.textContent = item.tag;
+    textEl.textContent = item.text;
+  }
+}
+
+// 2. Datos para el comparador Relativo vs. Absoluto (Sección 02)
+const comparisonCases = [
+  {
+    relTitle: `El mal jugador de tenis`,
+    relDesc: `El calificativo depende de si el sujeto desea cumplir una meta o estándar opcional.`,
+    relDialogue: [
+      `<strong>Observador:</strong> «Juega usted bastante mal».`,
+      `<strong>Respuesta:</strong> «Lo sé, estoy jugando mal, pero no quiero hacerlo mejor».`,
+      `<strong>Conclusión válida:</strong> «Ah, entonces, de acuerdo».`
+    ],
+    relReduction: `<strong>Traducción a hechos:</strong> Describe únicamente la destreza observada respecto a las reglas del tenis.`,
+    absTitle: `La mentira escandalosa`,
+    absDesc: `Exige una obligación incondicionada que no desaparece aunque el sujeto carezca de interés.`,
+    absDialogue: [
+      `<strong>Interlocutor:</strong> «Se está usted comportando como un animal».`,
+      `<strong>Respuesta:</strong> «Sé que mi conducta es mala, pero no quiero comportarme mejor».`,
+      `<strong>Respuesta ética:</strong> «Bien, usted debería desear comportarse mejor».`
+    ],
+    absReduction: `<strong>Límite lógico:</strong> Ningún estado de cosas descriptible posee el poder coactivo de un juez absoluto al que todo el mundo obedecería por necesidad lógica.`
+  },
+  {
+    relTitle: `La carretera correcta hacia Granchester`,
+    relDesc: `«Correcta» solo tiene significado en relación con un objetivo previamente fijado.`,
+    relDialogue: [
+      `<strong>Enunciado aparente:</strong> «Ésta es la carretera correcta hacia Granchester».`,
+      `<strong>Traducción exacta:</strong> «Ésta es la carretera que debes tomar si quieres llegar a Granchester en el menor tiempo posible».`,
+      `<strong>Estatus:</strong> Mero enunciado geográfico y práctico sobre distancias y tiempos.`
+    ],
+    relReduction: `<strong>Traducción a hechos:</strong> Desaparece toda apariencia de juicio de valor al explicitar la meta arbitraria.`,
+    absTitle: `La carretera absolutamente correcta`,
+    absDesc: `Pretendería ser válida independientemente de cualquier deseo o motivo predeterminado.`,
+    absDialogue: [
+      `<strong>Definición hipotética:</strong> Sería la carretera que, al verla, todo el mundo debería tomar por necesidad lógica.`,
+      `<strong>Consecuencia si no se toma:</strong> Avergonzarse de no hacerlo, sin importar gustos ni metas.`,
+      `<strong>Veredicto de Wittgenstein:</strong> «En mi opinión, tal estado de cosas es una quimera».`
+    ],
+    absReduction: `<strong>Límite lógico:</strong> Ningún hecho o camino posee intrínsecamente un poder coactivo universal.`
+  },
+  {
+    relTitle: `Silla, pianista y corredor`,
+    relDesc: `La palabra «bueno» significa simplemente que algo satisface un estándar predeterminado.`,
+    relDialogue: [
+      `<strong>Buena silla:</strong> Sirve adecuadamente para el propósito para el que fue diseñada.`,
+      `<strong>Buen pianista:</strong> Toca piezas de cierto grado de dificultad con un grado medible de habilidad.`,
+      `<strong>Buen corredor:</strong> Recorre cierto número de kilómetros en cierto número de minutos.`
+    ],
+    relReduction: `<strong>Traducción a hechos:</strong> También decir «es importante no resfriarme» equivale a describir trastornos concretos en la salud.`,
+    absTitle: `«Una buena persona» o «una vida valiosa»`,
+    absDesc: `Aunque parecen analogías de los usos anteriores, no apuntan a ningún estándar técnico medible.`,
+    absDialogue: [
+      `<strong>Uso aparente:</strong> «La vida de este hombre era valiosa» suena parecido a «esta joya es valiosa».`,
+      `<strong>Diferencia real:</strong> No se tasa en dinero ni en eficacia funcional.`,
+      `<strong>Ilusión gramatical:</strong> Parece un símil, pero al retirar el símil no queda ningún hecho cuantificable.`
+    ],
+    absReduction: `<strong>Límite lógico:</strong> El valor ético no es una propiedad descriptible de las cosas del mundo.`
+  },
+  {
+    relTitle: `El gran libro de una persona omnisciente`,
+    relDesc: `Contendría todos los movimientos de los cuerpos y todos los estados mentales de la historia.`,
+    relDialogue: [
+      `<strong>Contenido:</strong> Todas las proposiciones verdaderas y todos los juicios de valor relativo.`,
+      `<strong>Nivelación total:</strong> Todos los hechos descritos están exactamente al mismo nivel.`,
+      `<strong>Aclaración sobre Hamlet:</strong> «Nada hay bueno ni malo, si el pensamiento no lo hace tal» no salva la ética como hecho mental.`
+    ],
+    relReduction: `<strong>Traducción a hechos:</strong> Mientras entendamos un estado mental como un hecho descriptible, no es ni bueno ni malo éticamente.`,
+    absTitle: `La descripción total de un asesinato`,
+    absDesc: `Ni la brutalidad física ni el dolor ajeno convierten un relato fáctico en una proposición ética.`,
+    absDialogue: [
+      `<strong>En el libro del mundo:</strong> Aparece el asesinato con todos sus detalles físicos y psicológicos.`,
+      `<strong>Emociones suscitadas:</strong> El dolor o la rabia de otros ante el crimen también son simples hechos.`,
+      `<strong>Conclusión radical:</strong> El asesinato está al mismo nivel descriptivo que la caída de una piedra.`
+    ],
+    absReduction: `<strong>Límite lógico:</strong> Ninguna proposición fáctica es sublime o trivial en sentido absoluto.`
+  }
+];
+
+function selectCase(idx, btn) {
+  const container = document.getElementById('valor');
+  if (container) {
+    const btns = container.querySelectorAll('.selector-row .btn-secondary');
+    btns.forEach(function(b) { b.classList.remove('is-active'); });
+  }
+  if (btn) btn.classList.add('is-active');
+  const c = comparisonCases[idx];
+  if (!c) return;
+
+  const relTitle = document.getElementById('rel-title');
+  const relDesc = document.getElementById('rel-desc');
+  const relDialogue = document.getElementById('rel-dialogue');
+  const relReduction = document.getElementById('rel-reduction');
+  const absTitle = document.getElementById('abs-title');
+  const absDesc = document.getElementById('abs-desc');
+  const absDialogue = document.getElementById('abs-dialogue');
+  const absReduction = document.getElementById('abs-reduction');
+
+  if (relTitle) relTitle.textContent = c.relTitle;
+  if (relDesc) relDesc.textContent = c.relDesc;
+  if (relDialogue) {
+    relDialogue.innerHTML = c.relDialogue.map(function(line) {
+      return `<div class="dialogue-line">${line}</div>`;
+    }).join('');
+  }
+  if (relReduction) relReduction.innerHTML = c.relReduction;
+
+  if (absTitle) absTitle.textContent = c.absTitle;
+  if (absDesc) absDesc.textContent = c.absDesc;
+  if (absDialogue) {
+    absDialogue.innerHTML = c.absDialogue.map(function(line) {
+      return `<div class="dialogue-line">${line}</div>`;
+    }).join('');
+  }
+  if (absReduction) absReduction.innerHTML = c.absReduction;
+}
+
+// 3. Simulador de la metáfora de la taza de té (Sección 03)
+const teacupModes = {
+  hecho: {
+    tag: `Capacidad respetada · Sentido natural`,
+    tagClass: `tag-chip tag-chip-petrol`,
+    title: `Hecho físico o psicológico descriptible`,
+    explanation: `Al describir un suceso natural («el agua hierve», «siento rabia» o incluso los detalles físicos de un crimen), las palabras operan en su medio propio. El volumen cabe sin dificultad en el recipiente.`,
+    volumeLabel: `0.60 tazas (sentido natural)`,
+    meterWidth: `60%`,
+    overflow: false,
+    liquidPath: `M 76 135 L 194 135 L 188 175 C 185 186, 85 186, 82 175 Z`,
+    liquidColor: `var(--data-1)`,
+    cupLabel: `Hechos naturales`
+  },
+  relativo: {
+    tag: `Capacidad respetada · Fin predeterminado`,
+    tagClass: `tag-chip tag-chip-positive`,
+    title: `Juicio de valor relativo («buen jugador de tenis»)`,
+    explanation: `Aunque emplea palabras como «bueno» o «correcto», el enunciado se reduce a un hecho verificable respecto a una meta acordada. Sigue dentro de los límites de la taza.`,
+    volumeLabel: `0.90 tazas (equivalente fáctico)`,
+    meterWidth: `90%`,
+    overflow: false,
+    liquidPath: `M 70 106 L 200 106 L 188 175 C 185 186, 85 186, 82 175 Z`,
+    liquidColor: `var(--data-3)`,
+    cupLabel: `Valor relativo`
+  },
+  absoluto: {
+    tag: `Desbordamiento · Sinsentido esencial`,
+    tagClass: `tag-chip tag-chip-error`,
+    title: `Valor absoluto («El libro de ética»)`,
+    explanation: `Al intentar verter un litro de significación ética sobrenatural en una taza diseñada solo para una taza de hechos, el lenguaje desborda. Todo lo que digamos sobre lo absolutamente bueno resulta a priori un sinsentido que choca contra las paredes de nuestra jaula.`,
+    volumeLabel: `1.00+ litros (desborda el recipiente)`,
+    meterWidth: `100%`,
+    overflow: true,
+    liquidPath: `M 65 78 L 205 78 L 190 175 C 187 188, 83 188, 80 175 Z`,
+    liquidColor: `var(--data-4)`,
+    cupLabel: `¡Desbordamiento!`
+  }
+};
+
+function setTeacupMode(mode, btn) {
+  const section = document.getElementById('taza');
+  if (section) {
+    const btns = section.querySelectorAll('.selector-row .btn-secondary');
+    btns.forEach(function(b) { b.classList.remove('is-active'); });
+  }
+  if (btn) btn.classList.add('is-active');
+
+  const m = teacupModes[mode];
+  if (!m) return;
+
+  const statusTag = document.getElementById('cup-status-tag');
+  const titleEl = document.getElementById('cup-title');
+  const expEl = document.getElementById('cup-explanation');
+  const volEl = document.getElementById('cup-volume-text');
+  const meterEl = document.getElementById('cup-meter-fill');
+  const liquidEl = document.getElementById('cup-liquid');
+  const overflowEl = document.getElementById('cup-overflow');
+  const labelEl = document.getElementById('cup-level-label');
+
+  if (statusTag) {
+    statusTag.textContent = m.tag;
+    statusTag.className = m.tagClass;
+  }
+  if (titleEl) titleEl.textContent = m.title;
+  if (expEl) expEl.textContent = m.explanation;
+  if (volEl) volEl.textContent = m.volumeLabel;
+  if (meterEl) {
+    meterEl.style.width = m.meterWidth;
+    if (m.overflow) {
+      meterEl.classList.add('is-overflow');
+    } else {
+      meterEl.classList.remove('is-overflow');
+    }
+  }
+  if (liquidEl) {
+    liquidEl.setAttribute('d', m.liquidPath);
+    liquidEl.setAttribute('fill', m.liquidColor);
+  }
+  if (overflowEl) {
+    overflowEl.style.opacity = m.overflow ? `1` : `0`;
+  }
+  if (labelEl) labelEl.textContent = m.cupLabel;
+}
+
+// 4. Experimento mental del milagro (Sección 04)
+const miracleSteps = [
+  {
+    badge: `Paso 1 de 3 · Sentido cotidiano de milagro`,
+    heading: `Un acontecimiento jamás visto`,
+    body: `Imaginemos que a uno de los asistentes le crece de repente una cabeza de león y empieza a rugir. En la vida cotidiana diríamos que ha ocurrido algo extraordinario, un milagro en sentido relativo: un hecho de tal naturaleza que nunca hemos visto nada parecido.`
+  },
+  {
+    badge: `Paso 2 de 3 · El modo científico de mirar`,
+    heading: `Llamar al médico y disolver el milagro`,
+    body: `Tan pronto como nos repusiéramos de la sorpresa, buscaríamos un médico para investigar científicamente el caso (y le practicaríamos una vivisección si no causara sufrimiento). En cuanto miramos así el suceso, todo lo milagroso desaparece: pasa a ser un mero hecho aún no integrado en un sistema científico.`
+  },
+  {
+    badge: `Paso 3 de 3 · El fogonazo final`,
+    heading: `La existencia del lenguaje mismo y la jaula`,
+    body: `Si trasladamos el milagro de lo dicho por el lenguaje a «la existencia del lenguaje mismo», seguimos sin poder expresarlo en proposiciones. Pero entonces llega la claridad como un fogonazo: las expresiones éticas no carecen de sentido por torpeza lógica, sino porque su esencia es ir más allá del mundo y «arremeter contra las paredes de nuestra jaula».`
+  }
+];
+
+function setMiracleStep(idx, btn) {
+  const section = document.getElementById('vivencias');
+  if (section) {
+    const btns = section.querySelectorAll('.step-controls .btn-secondary');
+    btns.forEach(function(b) { b.classList.remove('is-active'); });
+  }
+  if (btn) btn.classList.add('is-active');
+
+  const s = miracleSteps[idx];
+  if (!s) return;
+  const badge = document.getElementById('miracle-badge');
+  const heading = document.getElementById('miracle-heading');
+  const body = document.getElementById('miracle-body');
+  if (badge) badge.textContent = s.badge;
+  if (heading) heading.textContent = s.heading;
+  if (body) body.textContent = s.body;
+}
+
+// 5. Base de conocimientos buscable (Sección 06)
+const knowledgeItems = [
+  {
+    id: `kb-1`,
+    category: `valor`,
+    catLabel: `Valor y hechos`,
+    title: `Valor relativo vs. Valor absoluto`,
+    source: `Conferencia sobre ética`,
+    summary: `El valor relativo depende de un estándar o propósito previo (una buena silla, un buen corredor); el valor absoluto pretende obligar incondicionalmente, al margen de gustos o metas.`,
+    detail: `Ejemplo de la conferencia: mientras decir «juega usted mal al tenis» admite la réplica «no quiero jugar mejor», ante una mentira escandalosa el interlocutor replica «usted debería desear comportarse mejor».`
+  },
+  {
+    id: `kb-2`,
+    category: `valor`,
+    catLabel: `Valor y hechos`,
+    title: `El gran libro del mundo`,
+    source: `Conferencia sobre ética`,
+    summary: `Si una persona omnisciente escribiera todos los hechos físicos y mentales del universo, ese libro no contendría ni una sola proposición ética.`,
+    detail: `Incluso la descripción minuciosa de un asesinato, junto con el dolor y la rabia que provoca en otros, estaría al mismo nivel descriptivo que la caída de una piedra.`
+  },
+  {
+    id: `kb-3`,
+    category: `lenguaje`,
+    catLabel: `Lenguaje y límites`,
+    title: `Metáfora de la taza de té`,
+    source: `Conferencia sobre ética`,
+    summary: `Las palabras científicas son recipientes que solo contienen sentido natural; intentar meter ética en ellas es como querer verter un litro de agua en una taza de té.`,
+    detail: `Un hipotético libro de ética que realmente lo fuera «destruiría, como una explosión, todos los demás libros del mundo».`
+  },
+  {
+    id: `kb-4`,
+    category: `lenguaje`,
+    catLabel: `Lenguaje y límites`,
+    title: `Arremeter contra los límites del lenguaje`,
+    source: `Conferencia y notas de Waismann (30-12-1929)`,
+    summary: `Escribir o hablar de ética o religión es arremeter desesperanzadamente contra las paredes de nuestra jaula lingüística.`,
+    detail: `En conversación con Schlick, Wittgenstein compara este impulso humano con lo que Søren Kierkegaard describió como «arremeter contra la paradoja».`
+  },
+  {
+    id: `kb-5`,
+    category: `lenguaje`,
+    catLabel: `Lenguaje y límites`,
+    title: `El retrato compuesto de Galton`,
+    source: `Conferencia sobre ética`,
+    summary: `Enumeración de cinco expresiones sinónimas de ética para superponerlas como fotografías en una misma placa y mostrar sus rasgos compartidos.`,
+    detail: `Combina la definición de Moore («lo bueno») con la estética, «lo que realmente importa», «el significado de la vida», «lo que hace que merezca vivirse» y «la manera correcta de vivir».`
+  },
+  {
+    id: `kb-6`,
+    category: `vivencias`,
+    catLabel: `Vivencias y símiles`,
+    title: `Asombro ante la existencia del mundo`,
+    source: `Conferencia sobre ética`,
+    summary: `Experiencia par excellence de Wittgenstein: asombrarse no de cómo es el mundo (cielo azul), sino de que exista.`,
+    detail: `Es un mal uso del lenguaje porque no podemos imaginar el mundo no existiendo; equivale a asombrarse de una tautología, pero apunta hacia lo místico (Tractatus 6.44).`
+  },
+  {
+    id: `kb-7`,
+    category: `vivencias`,
+    catLabel: `Vivencias y símiles`,
+    title: `Vivencia de seguridad absoluta`,
+    source: `Conferencia sobre ética`,
+    summary: `Estado anímico en el que decimos «pase lo que pase, nada puede dañarme», destruyendo el sentido físico ordinario de estar seguro.`,
+    detail: `En el uso normal, estar seguro implica imposibilidad física (no ser atropellado en la habitación o no contraer de nuevo la tos ferina). Manuel Cruz la vincula con no perderse a sí mismo y aceptar el destino.`
+  },
+  {
+    id: `kb-8`,
+    category: `vivencias`,
+    catLabel: `Vivencias y símiles`,
+    title: `Fallo de los símiles religiosos`,
+    source: `Conferencia sobre ética y Waismann`,
+    summary: `Expresiones como «Dios creó el mundo», «en manos de Dios» o «Dios condena» parecen alegorías, pero al retirar el símil no queda ningún hecho detrás.`,
+    detail: `Para Waismann (17-12-1930), Wittgenstein añade que el habla religiosa tampoco es figurativa ni teórica: es parte integrante de la conducta religiosa misma.`
+  },
+  {
+    id: `kb-9`,
+    category: `vivencias`,
+    catLabel: `Vivencias y símiles`,
+    title: `El milagro y la cabeza de león`,
+    source: `Conferencia sobre ética`,
+    summary: `La ciencia no «refuta» los milagros; simplemente examina cualquier fenómeno insólito bajo leyes naturales, disolviendo su carácter milagroso.`,
+    detail: `El milagro absoluto consiste en «ver el mundo como un milagro», cuya única expresión —aunque no sea proposición— sería la existencia del lenguaje mismo.`
+  },
+  {
+    id: `kb-10`,
+    category: `dialogos`,
+    catLabel: `Sujeto y diálogos`,
+    title: `El sujeto como límite y la voluntad`,
+    source: `Diario filosófico y Tractatus (5.632, 6.43)`,
+    summary: `El sujeto no es un objeto dentro del mundo sino su límite; la voluntad no cambia los hechos, sino los límites del mundo como un todo.`,
+    detail: `De aquí deriva «la vida feliz es buena, la infeliz mala» y el rechazo al suicidio, porque quitarse la vida implica tratarse erróneamente como un objeto más del mundo.`
+  },
+  {
+    id: `kb-11`,
+    category: `dialogos`,
+    catLabel: `Sujeto y diálogos`,
+    title: `Ética teológica y primera persona`,
+    source: `Notas de Waismann (17-12-1930)`,
+    summary: `Wittgenstein defiende «lo bueno es lo que Dios manda» por encima del racionalismo porque cierra la puerta a cualquier explicación causal del bien.`,
+    detail: `Rechaza toda teoría ética aunque fuera verdadera y justifica el giro final de su conferencia: aquí solo cabe presentarse como individuo y hablar en primera persona.`
+  },
+  {
+    id: `kb-12`,
+    category: `dialogos`,
+    catLabel: `Sujeto y diálogos`,
+    title: `Método antropológico y el dilema del cáncer`,
+    source: `Rush Rhees (1942–1945)`,
+    summary: `En su etapa posterior, Wittgenstein analiza casos concretos (dejar a la esposa o dejar la investigación del cáncer) sin buscar una única ética pura.`,
+    detail: `Los sistemas éticos (como el cristiano o el de Nietzsche) no compiten como hipótesis físicas verificables; las razones éticas deben entenderse en las circunstancias de cada juego de lenguaje.`
+  }
+];
+
+let currentCategory = 'todos';
+
+function setKnowledgeCategory(cat, btn) {
+  currentCategory = cat;
+  const section = document.getElementById('explorador');
+  if (section) {
+    const btns = section.querySelectorAll('.selector-row .btn-secondary');
+    btns.forEach(function(b) { b.classList.remove('is-active'); });
+  }
+  if (btn) btn.classList.add('is-active');
+  filterKnowledge();
+}
+
+function resetKnowledgeFilters() {
+  const input = document.getElementById('kb-search');
+  if (input) input.value = ``;
+  currentCategory = 'todos';
+  const section = document.getElementById('explorador');
+  if (section) {
+    const btns = section.querySelectorAll('.selector-row .btn-secondary');
+    btns.forEach(function(b, index) {
+      if (index === 0) {
+        b.classList.add('is-active');
+      } else {
+        b.classList.remove('is-active');
+      }
+    });
+  }
+  filterKnowledge();
+}
+
+function toggleKbDetail(id, btn) {
+  const detail = document.getElementById(`detail-${id}`);
+  if (!detail || !btn) return;
+  const isHidden = detail.hasAttribute('hidden');
+  if (isHidden) {
+    detail.removeAttribute('hidden');
+    btn.textContent = `Ocultar ejemplo y fuente`;
+    btn.setAttribute('aria-expanded', 'true');
+  } else {
+    detail.setAttribute('hidden', '');
+    btn.textContent = `Ver ejemplo y detalle`;
+    btn.setAttribute('aria-expanded', 'false');
+  }
+}
+
+function filterKnowledge() {
+  const input = document.getElementById('kb-search');
+  const grid = document.getElementById('kb-grid');
+  const meta = document.getElementById('kb-results-meta');
+  if (!grid || !meta) return;
+
+  const query = input ? input.value.trim().toLowerCase() : ``;
+  const filtered = knowledgeItems.filter(function(item) {
+    const matchCat = currentCategory === 'todos' || item.category === currentCategory;
+    if (!matchCat) return false;
+    if (!query) return true;
+    const haystack = `${item.title} ${item.summary} ${item.detail} ${item.source} ${item.catLabel}`.toLowerCase();
+    return haystack.indexOf(query) !== -1;
+  });
+
+  meta.textContent = `Mostrando ${filtered.length} de ${knowledgeItems.length} conceptos registrados`;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <h3 style="font-size: 1.2rem; margin-bottom: var(--space-xs);">Sin coincidencias en el archivo</h3>
+        <p class="caption" style="margin-bottom: var(--space-md);">No se encontraron conceptos para «${query}» dentro de la categoría seleccionada. Prueba con otro término (por ejemplo, «milagro», «Moore» o «símil») o restablece los filtros.</p>
+        <button type="button" class="btn-primary" onclick="resetKnowledgeFilters()">Mostrar los 12 conceptos</button>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(function(item) {
+    return `
+      <article class="kb-card">
+        <div class="kb-card-top">
+          <span class="tag-chip tag-chip-petrol">${item.catLabel}</span>
+          <span class="dossier-meta">${item.source}</span>
+        </div>
+        <h3 style="font-size: 1.25rem;">${item.title}</h3>
+        <p style="font-size: 0.9375rem; color: var(--on-surface-variant);">${item.summary}</p>
+        <div id="detail-${item.id}" class="kb-detail" hidden>
+          ${item.detail}
+        </div>
+        <div style="margin-top: auto; padding-top: var(--space-xs);">
+          <button type="button" class="btn-secondary" aria-expanded="false" onclick="toggleKbDetail('${item.id}', this)">Ver ejemplo y detalle</button>
+        </div>
+      </article>
+    `;
+  }).join('');
+}
+
+// 6. Acordeón FAQ (Sección 07)
+function toggleFaq(btn) {
+  if (!btn) return;
+  const panel = btn.nextElementSibling;
+  if (!panel) return;
+  const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+  if (isExpanded) {
+    panel.setAttribute('hidden', '');
+  } else {
+    panel.removeAttribute('hidden');
+  }
+}
+
+// 7. Cuestionario interactivo (Sección 08)
+const quizQuestions = [
+  {
+    question: `¿Por qué utiliza Wittgenstein la analogía del retrato compuesto de Francis Galton al inicio de la conferencia?`,
+    options: [
+      `Para demostrar que la ética puede estudiarse mediante estadísticas psicológicas.`,
+      `Para mostrar los rasgos característicos de la ética superponiendo varias expresiones sinónimas.`,
+      `Para refutar por completo la definición de lo bueno propuesta por G. E. Moore.`
+    ],
+    correct: 1,
+    source: `Conferencia sobre ética · Parte inicial`,
+    explanation: `Wittgenstein enumera expresiones como «lo valioso», «el significado de la vida» o «la manera correcta de vivir» para lograr el efecto de Galton: que el oyente perciba los rasgos comunes de la ética.`
+  },
+  {
+    question: `En el «gran libro del mundo» escrito por una persona omnisciente, ¿cómo figuraría la descripción completa de un asesinato?`,
+    options: [
+      `Como el único hecho que implica lógicamente una proposición ética absoluta.`,
+      `Al mismo nivel descriptivo que cualquier otro acontecimiento, como la caída de una piedra.`,
+      `Excluida del libro, porque los estados mentales de dolor y rabia no son hechos descriptibles.`
+    ],
+    correct: 1,
+    source: `Conferencia sobre ética · Hechos y valores`,
+    explanation: `Toda descripción física y psicológica —incluida la rabia o el dolor que suscite— sigue siendo una colección de hechos situados en el mismo plano que la caída de una piedra.`
+  },
+  {
+    question: `¿Qué ilustra exactamente la metáfora de la taza de té en la conferencia?`,
+    options: [
+      `Que la ética es un juego de palabras engañoso que debemos sustituir por la lógica simbólica.`,
+      `Que nuestras palabras solo pueden acoger significado natural (hechos) y no un volumen sobrenatural.`,
+      `Que con suficiente entrenamiento lingüístico podremos verter un litro de ética en una proposición.`
+    ],
+    correct: 1,
+    source: `Conferencia sobre ética · Capacidad proposicional`,
+    explanation: `Una taza de té solo contiene el volumen propio de una taza por más que vertamos un litro en ella; del mismo modo, el lenguaje proposicional solo expresa hechos naturales.`
+  },
+  {
+    question: `Según Wittgenstein, ¿por qué carece de sentido decir «me asombro ante la existencia del mundo»?`,
+    options: [
+      `Porque el mundo es demasiado complejo para comprenderlo sin una teoría científica.`,
+      `Porque solo tiene sentido asombrarse de algo que podemos imaginar no siendo como es.`,
+      `Porque las emociones personales no tienen ninguna relación con la filosofía.`
+    ],
+    correct: 1,
+    source: `Conferencia sobre ética · Vivencias límite`,
+    explanation: `Podemos asombrarnos del tamaño inusual de un perro o de que el cielo esté azul en vez de nublado, pero no podemos representarnos el mundo no existiendo; asombrarse de ello equivale a asombrarse de una tautología.`
+  },
+  {
+    question: `¿Cuál es la diferencia fundamental entre necesidad lógica y valor absoluto según el Tractatus y Rush Rhees?`,
+    options: [
+      `La necesidad lógica se muestra en el simbolismo (notación V-F), mientras que el valor absoluto no admite «¿Es verdadero o falso?».`,
+      `La necesidad lógica es un hecho empírico más de la física, mientras que el valor absoluto es una regla gramatical.`,
+      `Ambos pueden demostrarse por igual mediante experimentos científicos y sociológicos.`
+    ],
+    correct: 0,
+    source: `Rush Rhees · Acerca de la concepción wittgensteiniana de la ética`,
+    explanation: `Las tautologías muestran su necesidad lógica en la notación V-F como reglas gramaticales, pero en los juicios de valor absoluto preguntar si están corroborados como predicciones científicas carece de sentido.`
+  },
+  {
+    question: `¿Por qué Wittgenstein considera en 1930 (ante Waismann) que «lo bueno es lo que Dios manda» es la concepción teológica más profunda?`,
+    options: [
+      `Porque permite construir una demostración racional de las leyes morales.`,
+      `Porque corta de raíz toda explicación racionalista del «porqué» algo es bueno.`,
+      `Porque convierte la religión en una rama empírica de la sociología.`
+    ],
+    correct: 1,
+    source: `Friedrich Waismann · Notas del 17 de diciembre de 1930`,
+    explanation: `A diferencia de la visión racionalista («Dios quiere lo bueno porque es bueno»), la primera fórmula deja claro que la esencia de lo bueno no tiene nada que ver con los hechos ni puede fundamentarse mediante proposiciones.`
+  }
+];
+
+let quizIndex = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function renderQuizQuestion() {
+  const qEl = document.getElementById('quiz-question');
+  const optsEl = document.getElementById('quiz-options');
+  const progEl = document.getElementById('quiz-progress-label');
+  const scoreEl = document.getElementById('quiz-score-label');
+  const fbEl = document.getElementById('quiz-feedback');
+  const nextBtn = document.getElementById('quiz-next-btn');
+  const hintEl = document.getElementById('quiz-source-hint');
+
+  if (!qEl || !optsEl || !progEl || !scoreEl || !fbEl || !nextBtn || !hintEl) return;
+
+  if (quizIndex >= quizQuestions.length) {
+    progEl.textContent = `Cuestionario completado`;
+    scoreEl.textContent = `Resultado final: ${quizScore} / ${quizQuestions.length}`;
+    qEl.textContent = `Has completado la autoevaluación con ${quizScore} de ${quizQuestions.length} respuestas correctas.`;
+    optsEl.innerHTML = ``;
+    fbEl.removeAttribute('hidden');
+    fbEl.className = quizScore >= 4 ? `quiz-feedback is-positive` : `quiz-feedback is-negative`;
+    fbEl.innerHTML = quizScore >= 5
+      ? `<strong>Dominio sólido de la fuente.</strong> Distingues con precisión el valor relativo del absoluto, el alcance de la metáfora de la taza de té y la razón por la que el sinsentido forma parte de la esencia de las expresiones éticas.`
+      : `<strong>Repaso recomendado.</strong> Puedes revisar el comparador de la Sección 02 o el buscador de conceptos de la Sección 06 y volver a intentarlo cuando quieras.`;
+    hintEl.textContent = `Pulsa «Reiniciar cuestionario» para empezar de nuevo.`;
+    nextBtn.disabled = true;
+    nextBtn.textContent = `Finalizado`;
+    return;
+  }
+
+  const current = quizQuestions[quizIndex];
+  quizAnswered = false;
+  progEl.textContent = `Pregunta ${quizIndex + 1} de ${quizQuestions.length}`;
+  scoreEl.textContent = `Aciertos: ${quizScore} / ${quizQuestions.length}`;
+  qEl.textContent = current.question;
+  hintEl.textContent = `Referencia: ${current.source}`;
+  fbEl.setAttribute('hidden', '');
+  fbEl.textContent = ``;
+  nextBtn.disabled = true;
+  nextBtn.textContent = quizIndex === quizQuestions.length - 1 ? `Ver resultado final` : `Siguiente pregunta`;
+
+  optsEl.innerHTML = current.options.map(function(opt, idx) {
+    return `<button type="button" class="quiz-opt" onclick="answerQuiz(${idx}, this)">${opt}</button>`;
+  }).join('');
+}
+
+function answerQuiz(chosenIdx, btn) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const current = quizQuestions[quizIndex];
+  const optsEl = document.getElementById('quiz-options');
+  const fbEl = document.getElementById('quiz-feedback');
+  const nextBtn = document.getElementById('quiz-next-btn');
+  const scoreEl = document.getElementById('quiz-score-label');
+  if (!current || !optsEl || !fbEl || !nextBtn || !scoreEl) return;
+
+  const buttons = optsEl.querySelectorAll('.quiz-opt');
+  buttons.forEach(function(b, idx) {
+    b.disabled = true;
+    if (idx === current.correct) {
+      b.classList.add('is-correct');
+    } else if (idx === chosenIdx) {
+      b.classList.add('is-wrong');
+    }
+  });
+
+  const isCorrect = chosenIdx === current.correct;
+  if (isCorrect) quizScore += 1;
+  scoreEl.textContent = `Aciertos: ${quizScore} / ${quizQuestions.length}`;
+
+  fbEl.removeAttribute('hidden');
+  fbEl.className = isCorrect ? `quiz-feedback is-positive` : `quiz-feedback is-negative`;
+  fbEl.innerHTML = `<strong>${isCorrect ? 'Correcto.' : 'Incorrecto.'}</strong> ${current.explanation}`;
+  nextBtn.disabled = false;
+}
+
+function nextQuizQuestion() {
+  if (!quizAnswered) return;
+  quizIndex += 1;
+  renderQuizQuestion();
+}
+
+function resetQuiz(btn) {
+  if (!btn) return;
+  if (btn.dataset.armed !== 'true') {
+    btn.dataset.armed = 'true';
+    btn.textContent = 'Pulsa de nuevo para confirmar';
+    return;
+  }
+  btn.dataset.armed = 'false';
+  btn.textContent = 'Reiniciar cuestionario';
+  quizIndex = 0;
+  quizScore = 0;
+  quizAnswered = false;
+  renderQuizQuestion();
+}
+
+// Inicialización y animaciones de entrada (IntersectionObserver)
+(function init() {
+  filterKnowledge();
+  renderQuizQuestion();
+
+  const reveals = document.querySelectorAll('.reveal-block');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(function(el) { observer.observe(el); });
+  } else {
+    reveals.forEach(function(el) { el.classList.add('is-visible'); });
+  }
+})();
+</script>
+</body>
+</html>

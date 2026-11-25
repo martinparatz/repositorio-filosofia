@@ -1,0 +1,2352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>Tractatus Logico-Philosophicus — Base de Conocimientos Interactiva</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces: warm stone-white paper */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      /* Ink */
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      /* Rules */
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+      --border-button: #c8c4b8;
+
+      /* Accents */
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --secondary-container: #e7eff2;
+      --tertiary: #785008;
+      --tertiary-container: #f5e6c4;
+      --error: #b42318;
+      --on-error: #ffffff;
+      --error-container: #fceae8;
+
+      /* Data series */
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      /* Semantic */
+      --positive: #2b6e52;
+      --positive-container: #e6f2ec;
+      --warning: #785008;
+      --warning-container: #f5e6c4;
+      --focus: #1f4e5f;
+
+      /* Fonts */
+      --font-headline: 'Source Serif 4', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      /* Style effects */
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.25rem, 1.35rem + 3.2vw, 3.65rem);
+      --headline-size: clamp(1.625rem, 1.2rem + 1.6vw, 2.25rem);
+      --subhead-size: clamp(1.1875rem, 1.05rem + 0.45vw, 1.375rem);
+      --body-size: clamp(1rem, 0.96rem + 0.18vw, 1.0625rem);
+      --label-size: 0.75rem;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    :focus-visible {
+      outline: 2.5px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Briefing Dossier Treatments */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.6875rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      display: inline-block;
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--display-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.07;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .section-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--headline-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.12;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .card-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+      line-height: 1.48;
+      color: var(--secondary);
+      margin: var(--space-sm) 0 0;
+      max-width: 68ch;
+    }
+    .prose {
+      max-width: 65ch;
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .prose + .prose {
+      margin-top: var(--space-md);
+    }
+
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      letter-spacing: 0.06em;
+    }
+
+    /* Hero & Navigation */
+    .hero-block {
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .toc-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--outline-variant);
+    }
+    .toc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .toc-link:hover {
+      background: var(--surface-container);
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+    .toc-link .index-num {
+      font-size: var(--label-size);
+    }
+
+    /* Key Figures Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .figure-card .label-mono {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      display: block;
+    }
+    .figure-card .value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.75rem, 1.35rem + 1.2vw, 2.35rem);
+      line-height: 1.1;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      margin: var(--space-xs) 0;
+    }
+    .figure-card .caption {
+      font-size: 0.875rem;
+      line-height: 1.45;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    /* Aside / Callout */
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-lg);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+    }
+    .quote-block {
+      background: var(--surface-container);
+      border-left: 3px solid var(--secondary);
+      padding: var(--space-md) var(--space-lg);
+      margin: var(--space-md) 0;
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+    }
+    .quote-block blockquote {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-size: 1.125rem;
+      line-height: 1.5;
+      color: var(--on-surface);
+    }
+    .quote-block cite {
+      display: block;
+      margin-top: var(--space-xs);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Section Layouts (asymmetric pairs) */
+    .section-block {
+      display: grid;
+      gap: var(--space-lg);
+      scroll-margin-top: var(--space-lg);
+    }
+    .split-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .split-grid-reverse {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border-button);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover {
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .btn[aria-pressed="true"],
+    .btn.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-secondary[aria-pressed="true"],
+    .btn-secondary.is-active {
+      background: var(--secondary);
+      color: var(--on-primary);
+      border-color: var(--secondary);
+    }
+    .btn-sm {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      font-size: 0.8125rem;
+    }
+
+    /* Tags / Chips */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      padding: 0.1875rem 0.5rem;
+      border-radius: var(--rounded);
+      background: var(--tertiary-container);
+      color: var(--tertiary);
+      letter-spacing: 0.04em;
+    }
+    .tag-teal {
+      background: var(--secondary-container);
+      color: var(--secondary);
+    }
+    .tag-positive {
+      background: var(--positive-container);
+      color: var(--positive);
+    }
+    .tag-error {
+      background: var(--error-container);
+      color: var(--error);
+    }
+
+    /* Section 0: Genealogy vs Discursive Order */
+    .order-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .order-item {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+    }
+    .order-item-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .prop-code {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Section 1: Ontology Strata & Combinatorics */
+    .strata-stack {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .strata-btn {
+      width: 100%;
+      text-align: left;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      min-height: 44px;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: center;
+      transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .strata-btn:hover {
+      background: var(--surface-container);
+    }
+    .strata-btn[aria-pressed="true"] {
+      background: var(--secondary-container);
+      border-color: var(--secondary);
+      box-shadow: inset 3px 0 0 var(--secondary);
+    }
+    .strata-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.0625rem;
+      color: var(--on-surface);
+      display: block;
+    }
+    .strata-sub {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      display: block;
+    }
+    .strata-detail {
+      margin-top: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: var(--card-border);
+    }
+
+    .states-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .state-toggle {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--card-border);
+      background: var(--background);
+      cursor: pointer;
+      text-align: left;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .state-toggle[aria-pressed="true"] {
+      background: var(--positive-container);
+      border-color: var(--positive);
+    }
+    .state-toggle[aria-pressed="false"] {
+      background: var(--surface-container);
+      border-color: var(--outline-variant);
+    }
+    .world-matrix {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-xs);
+      margin-top: var(--space-md);
+    }
+    .world-cell {
+      padding: var(--space-sm);
+      border-radius: var(--rounded);
+      border: var(--card-border);
+      background: var(--background);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-align: center;
+    }
+    .world-cell.is-actual {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--outline);
+      font-weight: 600;
+    }
+
+    /* Section 2: Picture Theory SVG Lab */
+    .picture-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+    .stage-panel {
+      background: var(--background);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .stage-svg {
+      width: 100%;
+      height: 180px;
+      display: block;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+    }
+    .verdict-banner {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--card-border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .verdict-banner.is-true {
+      background: var(--positive-container);
+      border-color: var(--positive);
+    }
+    .verdict-banner.is-false {
+      background: var(--warning-container);
+      border-color: var(--tertiary);
+    }
+    .verdict-banner.is-nonsense {
+      background: var(--error-container);
+      border-color: var(--error);
+    }
+
+    /* Section 3: Truth Table Lab */
+    .truth-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .truth-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface-container-low);
+      font-family: var(--font-label);
+      font-variant-numeric: tabular-nums;
+    }
+    .truth-table th {
+      text-align: center;
+      padding: var(--space-sm);
+      border-top: var(--section-rule);
+      border-bottom: var(--section-rule);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      letter-spacing: 0.05em;
+    }
+    .truth-table td {
+      text-align: center;
+      padding: var(--space-sm);
+      border-bottom: var(--card-border);
+      font-size: 0.9375rem;
+    }
+    .truth-toggle-btn {
+      min-width: 56px;
+      min-height: 44px;
+      border-radius: var(--rounded);
+      border: 1px solid var(--border-button);
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .truth-toggle-btn.val-v {
+      background: var(--secondary);
+      color: var(--on-primary);
+      border-color: var(--secondary);
+    }
+    .truth-toggle-btn.val-f {
+      background: var(--surface-container);
+      color: var(--on-surface);
+      border-color: var(--border-button);
+    }
+    .logical-space-box {
+      background: var(--background);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .space-quadrants {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xs);
+    }
+    .quadrant {
+      padding: var(--space-md) var(--space-sm);
+      border-radius: var(--rounded);
+      border: var(--card-border);
+      text-align: center;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      transition: background-color var(--dur-short) var(--ease-out), opacity var(--dur-short) var(--ease-out);
+    }
+    .quadrant.is-open {
+      background: var(--secondary-container);
+      border-color: var(--secondary);
+      color: var(--secondary);
+      font-weight: 600;
+    }
+    .quadrant.is-closed {
+      background: var(--surface-container);
+      color: var(--on-surface-variant);
+      opacity: 0.65;
+      text-decoration: line-through;
+    }
+
+    /* Section 4: Tripartición y Clasificador Decir vs Mostrar */
+    .triad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .classifier-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .classifier-progress {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      border-bottom: var(--card-border);
+      padding-bottom: var(--space-sm);
+    }
+    .classifier-feedback {
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--card-border);
+      display: none;
+    }
+    .classifier-feedback.is-visible {
+      display: block;
+    }
+    .classifier-feedback.is-correct {
+      background: var(--positive-container);
+      border-color: var(--positive);
+    }
+    .classifier-feedback.is-incorrect {
+      background: var(--error-container);
+      border-color: var(--error);
+    }
+
+    /* Section 5: Escalera & Límites */
+    .ladder-steps {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .ladder-step-btn {
+      width: 100%;
+      text-align: left;
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--card-border);
+      background: var(--surface-container-low);
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: start;
+      min-height: 44px;
+    }
+    .ladder-step-btn:hover {
+      background: var(--surface-container);
+    }
+    .ladder-step-btn[aria-pressed="true"] {
+      background: var(--surface-container);
+      border-color: var(--outline);
+      box-shadow: inset 3px 0 0 var(--primary-container);
+    }
+
+    /* Section 6: Proposition Explorer */
+    .explorer-controls {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .field-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+    .text-input {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border: 1px solid var(--border-button);
+      border-radius: var(--rounded);
+      background: var(--background);
+      color: var(--on-surface);
+      font-size: 0.9375rem;
+    }
+    .prop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .prop-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+      transition: border-color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+    }
+    .prop-card.is-highlighted {
+      border-color: var(--secondary);
+      background: var(--secondary-container);
+    }
+    .prop-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      border-bottom: var(--card-border);
+      padding-bottom: var(--space-xs);
+    }
+    .prop-quote {
+      font-family: var(--font-headline);
+      font-size: 1.0625rem;
+      line-height: 1.45;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .prop-gloss {
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+    .prop-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      margin-top: var(--space-xs);
+    }
+    .prop-jump-btn {
+      min-height: 36px;
+      padding: 0.25rem 0.5rem;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      border-radius: var(--rounded);
+      border: var(--card-border);
+      background: var(--surface-container);
+      color: var(--secondary);
+      cursor: pointer;
+    }
+    .prop-jump-btn:hover {
+      background: var(--secondary);
+      color: var(--on-primary);
+    }
+
+    /* Footer Sources */
+    .sources-footer {
+      border-top: var(--section-rule);
+      padding-top: var(--space-lg);
+      color: var(--on-surface-variant);
+      font-size: 0.875rem;
+      line-height: 1.55;
+    }
+
+    /* SVG Styling via CSS Tokens */
+    .svg-ink { stroke: var(--outline); fill: none; }
+    .svg-ink-fill { fill: var(--outline); }
+    .svg-teal { stroke: var(--data-1); fill: none; }
+    .svg-teal-fill { fill: var(--data-1); }
+    .svg-gold-fill { fill: var(--primary-container); stroke: var(--outline); }
+    .svg-muted { stroke: var(--data-context); fill: none; }
+    .svg-text {
+      font-family: var(--font-label);
+      font-size: 12px;
+      fill: var(--on-surface);
+    }
+    .svg-text-serif {
+      font-family: var(--font-headline);
+      font-size: 14px;
+      fill: var(--on-surface);
+    }
+    .svg-text-muted {
+      font-family: var(--font-label);
+      font-size: 11px;
+      fill: var(--on-surface-variant);
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+
+    @media (max-width: 900px) {
+      .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .split-grid,
+      .split-grid-reverse,
+      .truth-layout { grid-template-columns: minmax(0, 1fr); }
+      .triad-grid { grid-template-columns: minmax(0, 1fr); }
+      .picture-stage { grid-template-columns: minmax(0, 1fr); }
+      .explorer-controls { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-sm) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .metrics-grid { grid-template-columns: minmax(0, 1fr); }
+      .world-matrix { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid">
+
+    <!-- HEADER & ARCHITECTURE OVERVIEW -->
+    <header class="hero-block">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Base de conocimiento</span>
+          <span class="dossier-meta">Ludwig Wittgenstein · Viena 1918 / Londres 1922</span>
+        </div>
+        <span class="dossier-meta">Sistema decimal 1–7</span>
+      </div>
+
+      <div>
+        <h1 class="title">Tractatus Logico-Philosophicus: la arquitectura lógica del mundo, el lenguaje y el silencio</h1>
+        <p class="standfirst">
+          Escrito en las trincheras de la Primera Guerra Mundial y ultimado en cautiverio en Monte Cassino, el único libro que Wittgenstein publicó en vida intenta disolver todos los problemas filosóficos trazando, desde dentro del lenguaje, la frontera entre lo decible y lo inexpresable.
+        </p>
+      </div>
+
+      <!-- 4 Key Figures -->
+      <div class="metrics-grid" aria-label="Cifras estructurales de la obra">
+        <div class="figure-card">
+          <span class="label-mono">Proposiciones cardinales</span>
+          <div class="value">7</div>
+          <p class="caption">Aforismos maestros ordenados por una jerarquía decimal de peso lógico, desde el «1» hasta el silencio del «7».</p>
+        </div>
+        <div class="figure-card">
+          <span class="label-mono">Culminación del manuscrito</span>
+          <div class="value">1918</div>
+          <p class="caption">Finalizado en agosto en Monte Cassino; editado en alemán en 1921 y en edición bilingüe inglesa en 1922.</p>
+        </div>
+        <div class="figure-card">
+          <span class="label-mono">Partes según el autor</span>
+          <div class="value">2</div>
+          <p class="caption">Lo escrito en el tratado y «todo aquello que no he escrito», que Wittgenstein declaró la parte ética esencial.</p>
+        </div>
+        <div class="figure-card">
+          <span class="label-mono">«Objetos lógicos» reales</span>
+          <div class="value">0</div>
+          <p class="caption">Tesis capital (4.0312): constantes como «no» o «o» no designan cosas; son meras operaciones veritativas.</p>
+        </div>
+      </div>
+
+      <!-- TOC Navigation -->
+      <nav class="toc-nav" aria-label="Índice de secciones">
+        <a class="toc-link" href="#ontologia"><span class="index-num">01</span> Ontología (1–2)</a>
+        <a class="toc-link" href="#pictorica"><span class="index-num">02</span> Teoría pictórica (2.1–4)</a>
+        <a class="toc-link" href="#logica"><span class="index-num">03</span> Lógica y verdad (4.2–6)</a>
+        <a class="toc-link" href="#limites"><span class="index-num">04</span> Decir y mostrar (4.1–6.53)</a>
+        <a class="toc-link" href="#mistico"><span class="index-num">05</span> Ética y silencio (6.4–7)</a>
+        <a class="toc-link" href="#explorador"><span class="index-num">06</span> Explorador decimal</a>
+      </nav>
+
+      <!-- Dual Reading Order Switcher (Genealogical vs Discursive from Intro 3A & 3B) -->
+      <div class="aside-box">
+        <div class="dossier-bar" style="margin-bottom: var(--space-sm);">
+          <div class="dossier-bar-left">
+            <span class="index-num">CLAVE DE LECTURA</span>
+            <strong style="font-size: 0.9375rem;">Doble recorrido de la obra: orden del texto frente a génesis intelectual</strong>
+          </div>
+          <div class="btn-row" role="group" aria-label="Seleccionar recorrido de lectura">
+            <button type="button" class="btn btn-sm" id="btn-order-discursive" aria-pressed="true" onclick="setReadingOrder('discursive')">Orden discursivo (1 → 7)</button>
+            <button type="button" class="btn btn-sm" id="btn-order-genealogic" aria-pressed="false" onclick="setReadingOrder('genealogic')">Génesis intelectual (3 → 1 → 7)</button>
+          </div>
+        </div>
+        <p class="prose" id="order-summary" style="max-width: 78ch; font-size: 0.9375rem;">
+          En la lectura discursiva —la secuencia impresa del libro—, Wittgenstein parte de la metafísica atomista del mundo para fundamentar la figuración, el análisis lógico del lenguaje y su aplicación a la ciencia, culminando en los límites ético-místicos.
+        </p>
+        <div class="order-list" id="order-cards"></div>
+      </div>
+    </header>
+
+    <!-- SECTION 01: ONTOLOGICAL STRUCTURE -->
+    <section id="ontologia" class="section-block">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">01 · Ontología</span>
+          <span class="dossier-meta">Proposiciones 1 – 2.063</span>
+        </div>
+        <span class="dossier-meta">Atomismo lógico</span>
+      </div>
+
+      <h2 class="section-title">El mundo es la totalidad de los hechos, no de las cosas</h2>
+
+      <div class="split-grid">
+        <div>
+          <p class="prose">
+            El <em>Tractatus</em> abre con una inversión radical de la metafísica tradicional: el mundo no es un inventario de sustancias aisladas («cosas»), sino <strong>«todo lo que es el caso»</strong> (1), es decir, la totalidad de los <strong>hechos</strong> (1.1). Un hecho consiste en el darse efectivo de <strong>estados de cosas</strong> (2), y cada estado de cosas es una combinación directa de <strong>objetos simples</strong> entrelazados como «los eslabones de una cadena» (2.01, 2.03).
+          </p>
+          <div class="quote-block">
+            <blockquote>«Los objetos forman la sustancia del mundo. Por eso no pueden ser compuestos. […] El objeto es lo fijo, persistente; la configuración es lo cambiante, inestable.»</blockquote>
+            <cite>Proposiciones 2.021 y 2.0271</cite>
+          </div>
+          <p class="prose">
+            Para que cualquier enunciado tenga un sentido preciso, debe existir una base última indivisible: los objetos simples e incoloros (2.02, 2.0232). Cada objeto lleva inscrita en su naturaleza interna la posibilidad de combinarse con otros dentro de un <strong>espacio lógico</strong> (2.0121, 2.013). Conocer todos los objetos equivale a conocer de antemano todos los estados de cosas posibles (2.0124). Además, los estados de cosas son lógicamente independientes entre sí: que uno exista no obliga a que otro exista o deje de existir (2.061–2.062).
+          </p>
+        </div>
+
+        <!-- Interactive Ontology Strata + Combinatorics -->
+        <div class="figure-card">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+            <h3 class="card-title">Anatomía ontológica y combinatoria del espacio lógico</h3>
+            <span class="tag tag-teal">Interactivo</span>
+          </div>
+          <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin: 0 0 var(--space-md);">
+            Selecciona cada estrato para inspeccionar su definición exacta en el tratado, o manipula los estados de cosas inferiores para comprobar cómo generan mundos posibles.
+          </p>
+
+          <div class="strata-stack" role="group" aria-label="Estratos ontológicos">
+            <button type="button" class="strata-btn" id="strata-0" aria-pressed="true" onclick="selectStratum(0)">
+              <span class="prop-code">1 – 1.21</span>
+              <span><span class="strata-title">El Mundo y el Espacio Lógico</span><span class="strata-sub">Totalidad de los hechos en el espacio de lo posible</span></span>
+              <span class="index-num">Nivel IV</span>
+            </button>
+            <button type="button" class="strata-btn" id="strata-1" aria-pressed="false" onclick="selectStratum(1)">
+              <span class="prop-code">2 · 2.06</span>
+              <span><span class="strata-title">Hechos (Positivos y Negativos)</span><span class="strata-sub">Darse y no darse efectivos de estados de cosas</span></span>
+              <span class="index-num">Nivel III</span>
+            </button>
+            <button type="button" class="strata-btn" id="strata-2" aria-pressed="false" onclick="selectStratum(2)">
+              <span class="prop-code">2.01 · 2.03</span>
+              <span><span class="strata-title">Estados de cosas (Sachverhalte)</span><span class="strata-sub">Conexión inmediata de objetos como eslabones</span></span>
+              <span class="index-num">Nivel II</span>
+            </button>
+            <button type="button" class="strata-btn" id="strata-3" aria-pressed="false" onclick="selectStratum(3)">
+              <span class="prop-code">2.02 – 2.027</span>
+              <span><span class="strata-title">Objetos simples (Sustancia)</span><span class="strata-sub">Lo persistente, incoloro y forma fija de todo mundo</span></span>
+              <span class="index-num">Nivel I</span>
+            </button>
+          </div>
+
+          <div class="strata-detail" id="strata-detail"></div>
+
+          <!-- Combinatorial Simulator (4.27) -->
+          <div style="margin-top: var(--space-lg); padding-top: var(--space-md); border-top: var(--section-rule);">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: var(--space-xs);">
+              <span class="field-label">Combinatoria de estados de cosas independientes (2.061 · 4.27)</span>
+              <span class="prop-code" id="comb-count-label">2² = 4 mundos posibles</span>
+            </div>
+            <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin: var(--space-xs) 0 0;">
+              Activa o desactiva cada estado de cosas para fijar «lo que es el caso» (hecho positivo) frente a «lo que no es el caso» (hecho negativo).
+            </p>
+            <div class="states-grid">
+              <button type="button" class="state-toggle" id="state-p-btn" aria-pressed="true" onclick="toggleOntoState('p')">
+                <span class="prop-code">Estado E₁ (p)</span>
+                <span id="state-p-status" style="font-size: 0.875rem; font-weight: 600;">Se da efectivamente (V)</span>
+              </button>
+              <button type="button" class="state-toggle" id="state-q-btn" aria-pressed="false" onclick="toggleOntoState('q')">
+                <span class="prop-code">Estado E₂ (q)</span>
+                <span id="state-q-status" style="font-size: 0.875rem; font-weight: 600;">No se da efectivamente (F)</span>
+              </button>
+            </div>
+            <div class="world-matrix" id="world-matrix" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 02: PICTURE THEORY OF LANGUAGE -->
+    <section id="pictorica" class="section-block">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">02 · Teoría pictórica</span>
+          <span class="dossier-meta">Proposiciones 2.1 – 4.0641</span>
+        </div>
+        <span class="dossier-meta">Isomorfismo lógico</span>
+      </div>
+
+      <h2 class="section-title">La proposición es un modelo de la realidad, no una lista de nombres</h2>
+
+      <div class="split-grid-reverse">
+        <!-- Interactive Picture Theory Projection Simulator -->
+        <div class="figure-card">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: var(--space-sm);">
+            <h3 class="card-title">Laboratorio de figuración lógica (2.15 · 3.1432 · 4.0141)</h3>
+            <span class="tag tag-teal">Simulador</span>
+          </div>
+          <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin: var(--space-xs) 0 var(--space-md);">
+            Elige un ejemplo del <em>Tractatus</em> y altera la configuración del mundo o el sentido de la proposición para observar cuándo hay verdad, falsedad con sentido o absurdo por falta de coordinación.
+          </p>
+
+          <div class="btn-row" role="group" aria-label="Escenarios de teoría pictórica">
+            <button type="button" class="btn btn-sm" id="pic-preset-spatial" aria-pressed="true" onclick="setPicturePreset('spatial')">Objetos espaciales (3.1431)</button>
+            <button type="button" class="btn btn-sm" id="pic-preset-music" aria-pressed="false" onclick="setPicturePreset('music')">Partitura y disco (4.014)</button>
+            <button type="button" class="btn btn-sm" id="pic-preset-socrates" aria-pressed="false" onclick="setPicturePreset('nonsense')">Signo sin significado (5.4733)</button>
+          </div>
+
+          <div class="picture-stage">
+            <div class="stage-panel">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="field-label">1. Realidad (Estado de cosas)</span>
+                <span class="prop-code">Objetos + Estructura</span>
+              </div>
+              <svg id="svg-reality" class="stage-svg" viewBox="0 0 300 180" role="img" aria-label="Diagrama de objetos en la realidad"></svg>
+              <button type="button" class="btn btn-sm btn-secondary" id="btn-flip-reality" onclick="flipRealityState()" aria-pressed="false">Invertir disposición real</button>
+            </div>
+
+            <div class="stage-panel">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="field-label">2. Figura (Proposición / Modelo)</span>
+                <span class="prop-code">Nombres + Sintaxis</span>
+              </div>
+              <svg id="svg-proposition" class="stage-svg" viewBox="0 0 300 180" role="img" aria-label="Diagrama de elementos en la proposición"></svg>
+              <button type="button" class="btn btn-sm" id="btn-flip-prop" onclick="flipPropNegation()" aria-pressed="false">Aplicar negación (~p)</button>
+            </div>
+          </div>
+
+          <div class="verdict-banner is-true" id="picture-verdict" aria-live="polite"></div>
+        </div>
+
+        <div>
+          <p class="prose">
+            ¿Cómo puede una secuencia de palabras o sonidos hablarnos del mundo? Wittgenstein responde: <strong>«Nos hacemos figuras de los hechos»</strong> (2.1). Una proposición funciona como un modelo dinámico o un patrón de medida aplicado a la realidad (2.12, 2.1512). Para que sea figura, sus elementos —los <strong>nombres</strong>— deben ocupar el lugar de los objetos (3.22), y la manera en que se relacionan en la proposición debe compartir con el mundo una misma <strong>forma lógica de figuración</strong> (2.18, 2.2).
+          </p>
+          <p class="prose">
+            Por eso una proposición no es un «nombre compuesto», como creía Frege (3.143), ni un mero conglomerado de palabras sueltas (3.141). Solo los <strong>hechos</strong> pueden expresar un sentido: que el signo <em>«a»</em> esté en cierta relación espacial o sintáctica con <em>«b»</em> dice que el objeto <em>a</em> está en esa relación con <em>b</em> (3.1432). Los nombres semejan puntos; las proposiciones, flechas con sentido (3.144).
+          </p>
+          <div class="quote-block">
+            <blockquote>«El disco gramofónico, el pensamiento musical, la notación musical, las ondas sonoras, están todos entre sí en esa relación interna figurativa que se da entre lenguaje y mundo. A todos ellos les es común la factura lógica.»</blockquote>
+            <cite>Proposición 4.014</cite>
+          </div>
+          <p class="prose">
+            De aquí se sigue una consecuencia decisiva: <strong>comprender una proposición no requiere saber si es verdadera</strong> (4.024). Basta entender sus partes integrantes para proyectar el estado de cosas posible que describe. Solo al compararla con la realidad (2.223, 4.05) determinamos si concuerda (verdad) o discrepa (falsedad). Una proposición falsa sigue teniendo pleno sentido; solo carece de sentido cuando alguno de sus signos no ha recibido significado alguno (5.4733).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 03: LOGIC & TRUTH FUNCTIONS -->
+    <section id="logica" class="section-block">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">03 · Lógica y verdad</span>
+          <span class="dossier-meta">Proposiciones 4.2 – 6</span>
+        </div>
+        <span class="dossier-meta">Tablas veritativas y forma general</span>
+      </div>
+
+      <h2 class="section-title">No hay objetos lógicos: toda proposición es función veritativa de las elementales</h2>
+
+      <p class="prose">
+        En el corazón técnico del <em>Tractatus</em>, Wittgenstein critica a Frege y a Russell: palabras como «no» (<code>~</code>), «o» (<code>v</code>), «y» (<code>.</code>) o «si… entonces» (<code>⊃</code>) <strong>no representan objeto ni relación alguna en el mundo</strong> (4.0312, 5.4). Son meros signos de puntuación u operaciones que combinan proposiciones elementales (5.4611). Toda proposición molecular es una <strong>función de verdad</strong> de las elementales (5), y todas ellas pueden generarse aplicando repetidamente una única operación de negación conjunta, <code>N(ξ)</code>, resumida en la fórmula general de la proposición: <code>[p, ξ, N(ξ)]</code> (6).
+      </p>
+
+      <!-- Interactive Truth Table & Logical Space Lab (4.31, 4.442, 4.463) -->
+      <div class="figure-card">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+          <h3 class="card-title">Mesa interactiva de condiciones veritativas y espacio lógico (4.31 · 4.442 · 4.463)</h3>
+          <span class="tag">L₂ = 16 funciones</span>
+        </div>
+        <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin: 0 0 var(--space-md);">
+          Elige una función clásica o pulsa directamente sobre las casillas <strong>V / F</strong> de la última columna para construir cualquiera de las 16 condiciones veritativas posibles de <em>p</em> y <em>q</em>.
+        </p>
+
+        <div class="btn-row" role="group" aria-label="Funciones veritativas predefinidas" style="margin-bottom: var(--space-md);">
+          <button type="button" class="btn btn-sm" id="tt-preset-imp" aria-pressed="true" onclick="applyTruthPreset('imp')">Implicación p ⊃ q (VVFV)</button>
+          <button type="button" class="btn btn-sm" id="tt-preset-and" aria-pressed="false" onclick="applyTruthPreset('and')">Conjunción p . q (VFFF)</button>
+          <button type="button" class="btn btn-sm" id="tt-preset-nor" aria-pressed="false" onclick="applyTruthPreset('nor')">Negación N(p, q) (FFFV)</button>
+          <button type="button" class="btn btn-sm" id="tt-preset-taut" aria-pressed="false" onclick="applyTruthPreset('taut')">Tautología (VVVV)</button>
+          <button type="button" class="btn btn-sm" id="tt-preset-cont" aria-pressed="false" onclick="applyTruthPreset('cont')">Contradicción (FFFF)</button>
+        </div>
+
+        <div class="truth-layout">
+          <div>
+            <table class="truth-table" aria-label="Tabla de verdad interactiva según notación del Tractatus 4.31">
+              <thead>
+                <tr>
+                  <th scope="col">Mundo</th>
+                  <th scope="col">p</th>
+                  <th scope="col">q</th>
+                  <th scope="col">Resultado (pulsar V/F)</th>
+                </tr>
+              </thead>
+              <tbody id="truth-table-body"></tbody>
+            </table>
+          </div>
+
+          <div class="logical-space-box">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-sm);">
+              <span class="field-label">Notación del Tractatus (4.442)</span>
+              <span class="prop-code" id="tt-notation" style="font-size: 1rem;">(VVFV)(p, q)</span>
+            </div>
+
+            <div class="space-quadrants" id="tt-quadrants" aria-label="Espacio lógico permitido a los hechos"></div>
+
+            <div id="tt-diagnosis" style="padding-top: var(--space-xs);"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 04: SAYING VS SHOWING & LIMITS OF LANGUAGE -->
+    <section id="limites" class="section-block">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">04 · Decir y mostrar</span>
+          <span class="dossier-meta">Proposiciones 4.11 – 4.128 · 6.1 – 6.53</span>
+        </div>
+        <span class="dossier-meta">Crítica del lenguaje</span>
+      </div>
+
+      <h2 class="section-title">«Lo que puede ser mostrado, no puede ser dicho»</h2>
+
+      <p class="prose">
+        En una carta de agosto de 1919 a Bertrand Russell, Wittgenstein confesó que el punto cardinal de toda la obra no era el tecnicismo lógico, sino la distinción entre <strong>lo que puede decirse</strong> mediante proposiciones (<em>gesagt</em>) y <strong>lo que solo puede mostrarse</strong> (<em>gezeigt</em>). Una proposición puede figurar cualquier hecho del mundo, pero <strong>no puede figurar la forma lógica misma que hace posible esa figuración</strong> (4.12): para hacerlo, tendría que salir fuera de la lógica y fuera del mundo.
+      </p>
+
+      <!-- Tripartition of Propositions -->
+      <div class="triad-grid">
+        <div class="figure-card" style="border-top: 3px solid var(--data-1);">
+          <span class="tag tag-teal">1. Con sentido (Decible)</span>
+          <h3 class="card-title" style="margin-top: var(--space-sm);">Ciencia natural</h3>
+          <p class="prop-gloss" style="margin-top: var(--space-xs);">
+            La totalidad de las proposiciones verdaderas constituye la ciencia natural entera (4.11). Son figuras bipolares: describen estados de cosas contingentes que pueden ser verdaderos o falsos al compararlos con la experiencia.
+          </p>
+        </div>
+        <div class="figure-card" style="border-top: 3px solid var(--data-2);">
+          <span class="tag">2. Carentes de sentido (Sin información)</span>
+          <h3 class="card-title" style="margin-top: var(--space-sm);">Lógica y matemática</h3>
+          <p class="prop-gloss" style="margin-top: var(--space-xs);">
+            Las proposiciones lógicas son <strong>tautologías</strong> (6.1) y las matemáticas, <strong>ecuaciones</strong> o pseudoproposiciones (6.2). No dicen nada sobre los hechos (4.461), pero no son absurdas (4.4611): muestran el armazón formal del mundo (6.124).
+          </p>
+        </div>
+        <div class="figure-card" style="border-top: 3px solid var(--data-4);">
+          <span class="tag tag-error">3. Absurdas (Sinsentidos)</span>
+          <h3 class="card-title" style="margin-top: var(--space-sm);">Metafísica tradicional y ética teórica</h3>
+          <p class="prop-gloss" style="margin-top: var(--space-xs);">
+            No son proposiciones falsas, sino <strong>absurdas</strong> (4.003): intentan decir lo que solo se muestra (conceptos formales como «objeto» o «número», 4.1272) o usan términos sin significado asignado («Sócrates es idéntico», 5.4733).
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Classifier: Decir vs Mostrar vs Absurdo -->
+      <div class="classifier-card">
+        <div class="classifier-progress">
+          <div>
+            <span class="field-label">Taller de análisis lógico (4.112 · 6.53)</span>
+            <h3 class="card-title">Clasifica cada enunciado según el criterio del Tractatus</h3>
+          </div>
+          <div style="display: flex; align-items: center; gap: var(--space-sm);">
+            <span class="prop-code" id="clf-score">Aciertos: 0 / 0</span>
+            <span class="tag tag-teal" id="clf-counter">1 de 8</span>
+          </div>
+        </div>
+
+        <div id="clf-prompt-area">
+          <p class="prop-quote" id="clf-statement" style="font-size: 1.25rem; margin-bottom: var(--space-xs);"></p>
+          <p class="prop-gloss" id="clf-context"></p>
+        </div>
+
+        <div class="btn-row" role="group" aria-label="Opciones de clasificación">
+          <button type="button" class="btn" id="clf-btn-sinnvoll" onclick="answerClassifier('sinnvoll')">Con sentido (Se dice)</button>
+          <button type="button" class="btn" id="clf-btn-sinnlos" onclick="answerClassifier('sinnlos')">Tautología / Ecuación (Muestra forma)</button>
+          <button type="button" class="btn" id="clf-btn-unsinnig" onclick="answerClassifier('unsinnig')">Absurdo (Viola límites del lenguaje)</button>
+        </div>
+
+        <div class="classifier-feedback" id="clf-feedback" aria-live="polite"></div>
+
+        <div class="btn-row" style="justify-content: space-between; border-top: var(--card-border); padding-top: var(--space-sm);">
+          <button type="button" class="btn btn-sm" id="clf-prev-btn" onclick="stepClassifier(-1)">Anterior</button>
+          <button type="button" class="btn btn-sm btn-secondary" id="clf-next-btn" onclick="stepClassifier(1)">Siguiente enunciado</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 05: ETHICAL-MYSTICAL MEANING & THE LADDER -->
+    <section id="mistico" class="section-block">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">05 · Lo ético-místico</span>
+          <span class="dossier-meta">Proposiciones 6.3 – 7</span>
+        </div>
+        <span class="dossier-meta">Límites del mundo y silencio</span>
+      </div>
+
+      <h2 class="section-title">«Los límites de mi lenguaje significan los límites de mi mundo»</h2>
+
+      <div class="split-grid">
+        <div>
+          <p class="prose">
+            Tras fundamentar la lógica, la matemática y la ciencia natural (entendida como descripción sistemática mediante andamios lógicos apriorísticos, sin necesidad causal oculta, 5.1361 y 6.3), el <em>Tractatus</em> da un giro abrupto en la proposición <strong>6.4</strong>: <strong>«Todas las proposiciones valen lo mismo»</strong>. Dentro del mundo todo es contingente y accidental; por ello, si existe algún valor o sentido último, tiene que residir <em>fuera</em> de todo acaecer y ser-así (6.41).
+          </p>
+          <div class="quote-block">
+            <blockquote>«Mi obra se compone de dos partes: de la que aquí aparece, y de todo aquello que no he escrito. Y precisamente esta segunda parte es la importante. Mi libro, en efecto, delimita por dentro lo ético…»</blockquote>
+            <cite>Carta de Ludwig Wittgenstein a Ludwig von Ficker, 1919</cite>
+          </div>
+          <p class="prose">
+            Aun cuando todas las cuestiones científicas posibles hallaran respuesta, «sentimos que todavía no se han rozado siquiera nuestros problemas vitales» (6.52). La ética y la estética no se dejan formular en proposiciones (6.42); pertenecen a <strong>lo místico</strong>: no <em>cómo</em> sea el mundo, sino <em>que</em> el mundo exista (6.44), contemplado como un todo limitado (6.45). Frente a ello, el escepticismo es absurdo (6.51): donde no puede formularse pregunta lógica, tampoco cabe respuesta.
+          </p>
+        </div>
+
+        <!-- Visual + Interactive Ladder (6.54 -> 7) -->
+        <div class="figure-card">
+          <h3 class="card-title" style="margin-bottom: var(--space-sm);">La frontera interior y la escalera de Wittgenstein (6.54 – 7)</h3>
+
+          <!-- SVG Diagram: Inside vs Outside the Limit -->
+          <svg viewBox="0 0 460 220" style="width: 100%; height: auto; display: block; background: var(--background); border: var(--card-border); border-radius: var(--rounded); margin-bottom: var(--space-md);" role="img" aria-label="Diagrama de los límites del lenguaje, la lógica y lo místico">
+            <title>Delimitación desde dentro: lo decible frente a lo místico</title>
+            <!-- Outer Mystical Zone -->
+            <rect x="8" y="8" width="444" height="204" rx="4" fill="var(--surface-container)" stroke="var(--outline-variant)" stroke-width="1"/>
+            <text x="230" y="30" text-anchor="middle" class="svg-text-muted">MÁS ALLÁ DEL LÍMITE · LO MÍSTICO (ÉTICA, ESTÉTICA, SENTIDO)</text>
+            <text x="230" y="198" text-anchor="middle" class="svg-text-muted">Prop. 7: «De lo que no se puede hablar hay que callar.»</text>
+
+            <!-- Inner Logic/Language Circle (Delimited from within) -->
+            <rect x="28" y="44" width="404" height="132" rx="4" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="2" stroke-dasharray="6 3"/>
+            <text x="230" y="66" text-anchor="middle" class="svg-text" style="font-weight: 600;">LÍMITES DE MI LENGUAJE = MI MUNDO (5.6)</text>
+
+            <!-- Science core -->
+            <rect x="42" y="82" width="184" height="76" rx="3" fill="var(--secondary-container)" stroke="var(--data-1)" stroke-width="1.5"/>
+            <text x="134" y="104" text-anchor="middle" class="svg-text" style="font-weight: 600;">CIENCIA NATURAL (4.11)</text>
+            <text x="134" y="124" text-anchor="middle" class="svg-text-muted">Con sentido (decible)</text>
+            <text x="134" y="142" text-anchor="middle" class="svg-text-muted">El «cómo» del mundo (V/F)</text>
+
+            <!-- Logic scaffolding -->
+            <rect x="236" y="82" width="182" height="76" rx="3" fill="var(--tertiary-container)" stroke="var(--data-2)" stroke-width="1.5"/>
+            <text x="327" y="104" text-anchor="middle" class="svg-text" style="font-weight: 600;">LÓGICA Y MAT. (6.1–6.2)</text>
+            <text x="327" y="124" text-anchor="middle" class="svg-text-muted">Tautologías / ecuaciones</text>
+            <text x="327" y="142" text-anchor="middle" class="svg-text-muted">Muestran el armazón</text>
+          </svg>
+
+          <!-- Interactive 4-Step Ladder -->
+          <span class="field-label">Recorre los 4 peldaños de la paradoja final (4.003 → 7)</span>
+          <div class="ladder-steps" style="margin-top: var(--space-xs);">
+            <button type="button" class="ladder-step-btn" id="ladder-0" aria-pressed="true" onclick="selectLadderStep(0)">
+              <span class="prop-code">1 · 4.003</span>
+              <span><strong>El lenguaje ordinario disfraza el pensamiento:</strong> surgen pseudoproblemas filosóficos al confundir la gramática aparente con la forma lógica real.</span>
+            </button>
+            <button type="button" class="ladder-step-btn" id="ladder-1" aria-pressed="false" onclick="selectLadderStep(1)">
+              <span class="prop-code">2 · 4.112</span>
+              <span><strong>La filosofía como actividad clarificadora:</strong> no produce «proposiciones filosóficas», sino que aclara el lenguaje científico y delimita lo pensable desde dentro (4.114).</span>
+            </button>
+            <button type="button" class="ladder-step-btn" id="ladder-2" aria-pressed="false" onclick="selectLadderStep(2)">
+              <span class="prop-code">3 · 6.54</span>
+              <span><strong>Arrojar la escalera:</strong> quien comprende al autor reconoce finalmente que las propias proposiciones del <em>Tractatus</em> son absurdas tras haber subido por ellas para ver el mundo correctamente.</span>
+            </button>
+            <button type="button" class="ladder-step-btn" id="ladder-3" aria-pressed="false" onclick="selectLadderStep(3)">
+              <span class="prop-code">4 · 7</span>
+              <span><strong>El silencio respetuoso:</strong> «De lo que no se puede hablar hay que callar.» Tras trazar el límite, lo ético y lo místico quedan intactos en la muda expresividad del silencio.</span>
+            </button>
+          </div>
+          <div class="aside-box" id="ladder-note" style="margin-top: var(--space-sm); padding: var(--space-md);"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 06: INTERACTIVE PROPOSITION EXPLORER -->
+    <section id="explorador" class="section-block">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">06 · Explorador decimal</span>
+          <span class="dossier-meta">Índice de proposiciones clave</span>
+        </div>
+        <span class="dossier-meta" id="prop-count-badge">26 proposiciones</span>
+      </div>
+
+      <h2 class="section-title">Explora las proposiciones fundamentales y su sistema decimal</h2>
+
+      <p class="prose">
+        Wittgenstein introdujo la numeración decimal como herramienta imprescindible para compensar la extrema brevedad de su estilo: el número <code>n.1</code> comenta a <code>n</code>, <code>n.01</code> matiza más finamente, y las relaciones internas entre proposiciones tejen el sistema completo. Busca por número o término, filtra por bloque temático o salta entre proposiciones conectadas.
+      </p>
+
+      <div class="explorer-controls">
+        <div class="field-group">
+          <label for="prop-search" class="field-label">Buscar por número, cita o concepto</label>
+          <input type="search" id="prop-search" class="text-input" placeholder="Ej.: 4.1212, tautología, figura, hecho, silencio…" oninput="filterPropositions()">
+        </div>
+        <div class="field-group">
+          <span class="field-label">Filtrar por núcleo temático</span>
+          <div class="btn-row" role="group" aria-label="Filtrar proposiciones por tema">
+            <button type="button" class="btn btn-sm" id="filter-all" aria-pressed="true" onclick="setPropTheme('all')">Todas</button>
+            <button type="button" class="btn btn-sm" id="filter-ontologia" aria-pressed="false" onclick="setPropTheme('ontologia')">Ontología (1–2)</button>
+            <button type="button" class="btn btn-sm" id="filter-pictorica" aria-pressed="false" onclick="setPropTheme('pictorica')">Figura (2.1–3)</button>
+            <button type="button" class="btn btn-sm" id="filter-logica" aria-pressed="false" onclick="setPropTheme('logica')">Lógica (3–5)</button>
+            <button type="button" class="btn btn-sm" id="filter-ciencia" aria-pressed="false" onclick="setPropTheme('ciencia')">Ciencia (6–6.3)</button>
+            <button type="button" class="btn btn-sm" id="filter-mistico" aria-pressed="false" onclick="setPropTheme('mistico')">Ética y silencio (6.4–7)</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prop-grid" id="prop-explorer-grid" aria-live="polite"></div>
+    </section>
+
+    <!-- SOURCES FOOTER -->
+    <footer class="sources-footer">
+      <strong style="color: var(--on-surface);">Fuentes y créditos editoriales:</strong> Base de conocimientos elaborada íntegramente a partir del texto del <em>Tractatus logico-philosophicus</em> de Ludwig Wittgenstein (1921/1922) en la traducción al español e introducción crítica de Jacobo Muñoz e Isidoro Reguera (1986), junto con las cartas documentadas de Wittgenstein a Bertrand Russell, Paul Engelmann y Ludwig von Ficker y el prólogo de Bertrand Russell citados en dicha edición.
+    </footer>
+
+  </main>
+
+  <script>
+    // =========================================================================
+    // DATA: READING ORDERS (Intro 3A & 3B)
+    // =========================================================================
+    const READING_ORDERS = {
+      discursive: {
+        summary: `En la lectura discursiva —la secuencia impresa del libro—, Wittgenstein parte de la metafísica atomista del mundo para fundamentar la figuración, el análisis lógico del lenguaje y su aplicación a la ciencia, culminando en los límites ético-místicos.`,
+        items: [
+          { code: `1 – 2.1`, title: `Metafísica atomista`, desc: `El mundo como totalidad de hechos, estados de cosas y objetos simples.` },
+          { code: `2.1 – 3.1`, title: `Epistemología de la figura`, desc: `La figura lógica de los hechos es el pensamiento (modelo de la realidad).` },
+          { code: `3.1 – 6.1`, title: `Análisis lógico del lenguaje`, desc: `Proposiciones elementales, eliminación de constantes lógicas y forma general [p, ξ, N(ξ)].` },
+          { code: `6 – 7`, title: `Ciencia, límites y silencio`, desc: `Tautologías lógicas, ecuaciones matemáticas, legalidad científica, lo místico y el silencio final.` }
+        ]
+      },
+      genealogic: {
+        summary: `Según reconstruye la introducción de Muñoz y Reguera, genéticamente Wittgenstein partió del análisis lógico de la proposición (núcleo originario), derivó de ahí la ontología necesaria del mundo y desembocó en la conciencia de sus límites: lo místico.`,
+        items: [
+          { code: `3 – 6.4`, title: `1. Núcleo lógico originario`, desc: `Investigación sobre la proposición, las tablas de verdad y los lenguajes lógico, matemático y científico.` },
+          { code: `4.11 – 4.12`, title: `2. Función de la filosofía`, desc: `La filosofía como actividad crítica clarificadora del lenguaje, no como doctrina.` },
+          { code: `1 – 3.1`, title: `3. Polo ontológico y figura`, desc: `Exigencia de objetos simples y hechos para que el lenguaje analizado pueda representar con precisión.` },
+          { code: `6.4 – 7`, title: `4. Derivación mística`, desc: `Al cerrarse el círculo lógico, el análisis toma conciencia de su propio encierro y señala lo indecible.` }
+        ]
+      }
+    };
+
+    // =========================================================================
+    // DATA: ONTOLOGY STRATA (Section 01)
+    // =========================================================================
+    const ONTOLOGY_STRATA = [
+      {
+        code: `1 – 1.21`,
+        title: `El Mundo y el Espacio Lógico`,
+        quote: `«1. El mundo es todo lo que es el caso. 1.1 El mundo es la totalidad de los hechos, no de las cosas. 1.13 Los hechos en el espacio lógico son el mundo.»`,
+        explanation: `El mundo no es una suma inerte de objetos, sino todo aquello que efectivamente ocurre dentro del entramado de todas las posibilidades lógicas. Si conocemos todos los hechos, queda determinado tanto lo que es el caso como todo lo que no es el caso (1.12).`
+      },
+      {
+        code: `2 · 2.06`,
+        title: `Hechos positivos y negativos`,
+        quote: `«2. Lo que es el caso, el hecho, es el darse efectivo de estados de cosas. 2.06 El darse y no darse efectivos de estados de cosas es la realidad.»`,
+        explanation: `Wittgenstein distingue entre un hecho positivo (un estado de cosas que existe efectivamente) y un hecho negativo (un estado de cosas posible que no se da). La realidad total abarca ambos aspectos, y los hechos son independientes entre sí (2.061).`
+      },
+      {
+        code: `2.01 – 2.034`,
+        title: `Estados de cosas (Sachverhalte)`,
+        quote: `«2.01 El estado de cosas es una conexión de objetos (cosas). 2.03 En el estado de cosas los objetos están unidos entre sí como los eslabones de una cadena.»`,
+        explanation: `Los objetos no necesitan un «pegamento» externo para unirse: encajan directamente por su propia forma lógica. La manera en que se interrelacionan constituye la estructura del estado de cosas, cuya posibilidad es su forma (2.032–2.033).`
+      },
+      {
+        code: `2.02 – 2.0272`,
+        title: `Objetos simples (Sustancia del mundo)`,
+        quote: `«2.021 Los objetos forman la sustancia del mundo. Por eso no pueden ser compuestos. 2.0232 Dicho sea incidentalmente, los objetos son incoloros.»`,
+        explanation: `Si no hubiera objetos simples y persistentes, el sentido de una proposición dependería de que otra fuera verdadera y sería imposible trazar figura alguna del mundo (2.0211–2.0212). Las propiedades materiales (como el color) surgen solo de la configuración de objetos.`
+      }
+    ];
+
+    // =========================================================================
+    // DATA: PICTURE THEORY PRESETS (Section 02)
+    // =========================================================================
+    const PICTURE_PRESETS = {
+      spatial: {
+        name: `Objetos espaciales (3.1431)`,
+        realityTitle: `Mesa (a) y Silla (b) en el espacio`,
+        propTitle: `Signo proposicional «a está a la izquierda de b»`,
+        canNegate: true,
+        supportsRealityFlip: true
+      },
+      music: {
+        name: `Partitura y disco gramofónico (4.014)`,
+        realityTitle: `Onda sonora de la sinfonía (Re → Fa♯)`,
+        propTitle: `Notación musical en pentagrama`,
+        canNegate: true,
+        supportsRealityFlip: true
+      },
+      nonsense: {
+        name: `Signo sin significado (5.4733)`,
+        realityTitle: `Individuo Sócrates (sin propiedad «idéntico»)`,
+        propTitle: `Pseudoproposición «Sócrates es idéntico»`,
+        canNegate: false,
+        supportsRealityFlip: false
+      }
+    };
+
+    // =========================================================================
+    // DATA: CLASSIFIER STATEMENTS (Section 04)
+    // =========================================================================
+    const CLASSIFIER_ITEMS = [
+      {
+        statement: `«Llueve o no llueve.»`,
+        context: `Ejemplo literal citado por Wittgenstein en la proposición 4.461.`,
+        answer: `sinnlos`,
+        ref: `4.461 · 4.4611`,
+        explain: `Es una tautología: verdadera en toda circunstancia, pero «nada sé sobre el tiempo si sé que llueve o no llueve». Carece de sentido (no informa sobre hechos), aunque no es absurda: pertenece al simbolismo lógico y muestra su estructura.`
+      },
+      {
+        statement: `«La mancha en el campo visual es roja.»`,
+        context: `Proposición empírica contingente (cf. 2.0131 y 4.11).`,
+        answer: `sinnvoll`,
+        ref: `2.0131 · 4.11 · 4.25`,
+        explain: `Es una proposición con sentido perteneciente al ámbito de la ciencia o descripción empírica. Es bipolar: sabemos qué sería el caso si es verdadera y qué si es falsa, y debemos compararla con la realidad para decidirlo.`
+      },
+      {
+        statement: `«Hay 100 objetos en el mundo.»`,
+        context: `Intento de usar «objeto» como concepto propio en lugar de variable (4.1272).`,
+        answer: `unsinnig`,
+        ref: `4.1272`,
+        explain: `Es una pseudoproposición absurda. «Objeto», «hecho», «función» y «número» son conceptos formales que solo se muestran mediante variables («x»). Decir «hay 100 objetos» es tan absurdo como hablar del número total de objetos.`
+      },
+      {
+        statement: `«Sócrates es idéntico.»`,
+        context: `Ejemplo explícito de Wittgenstein en la proposición 5.473 y 5.4733.`,
+        answer: `unsinnig`,
+        ref: `5.473 · 5.4733`,
+        explain: `Es absurda porque no hemos asignado ningún significado como adjetivo a la palabra «idéntico». Toda proposición posible está lógicamente bien formada; si carece de sentido es por no haber dado significado a una parte integrante.`
+      },
+      {
+        statement: `«2 × 2 = 4»`,
+        context: `Ecuación aritmética analizada en las proposiciones 6.2 – 6.233.`,
+        answer: `sinnlos`,
+        ref: `6.2 · 6.232`,
+        explain: `La matemática es un método lógico y sus proposiciones son ecuaciones, es decir, pseudoproposiciones carentes de sentido empírico que muestran la sustituibilidad de dos expresiones equivalentes sin decir nada sobre hechos.`
+      },
+      {
+        statement: `«¿Es lo bueno más o menos idéntico que lo bello?»`,
+        context: `Ejemplo irónico de Wittgenstein sobre interrogantes metafísicos (4.003).`,
+        answer: `unsinnig`,
+        ref: `4.003`,
+        explain: `No es una pregunta falsa, sino absurda: nace de no comprender la lógica de nuestro lenguaje. La filosofía debe constatar su condición de sinsentido en lugar de intentar responderla.`
+      },
+      {
+        statement: `«El objeto a aparece en la proposición “fa” y en “ga”.»`,
+        context: `Sobre lo que ocurre dentro de dos proposiciones bien formadas (4.1211).`,
+        answer: `sinnlos`,
+        ref: `4.121 · 4.1211 · 4.1212`,
+        explain: `Que ambas proposiciones hablen del mismo objeto o se contradigan entre sí es una propiedad interna que no puede enunciarse como un hecho más: se muestra directamente en su estructura simbólica.`
+      },
+      {
+        statement: `«El sentido último del mundo reside en la voluntad moral dentro del mundo.»`,
+        context: `Afirmación teórica sobre el valor ético absoluto (cf. 6.41 – 6.421).`,
+        answer: `unsinnig`,
+        ref: `6.41 · 6.42`,
+        explain: `Para el Tractatus es imposible formular proposiciones éticas con sentido. Todo en el mundo es accidental y «todas las proposiciones valen lo mismo» (6.4); el valor último está fuera del mundo y solo pertenece a lo inexpresable.`
+      }
+    ];
+
+    // =========================================================================
+    // DATA: LADDER NOTES (Section 05)
+    // =========================================================================
+    const LADDER_NOTES = [
+      `<strong>Peldaño 1 · Diagnóstico del error filosófico:</strong> El lenguaje cotidiano es parte del organismo humano y disfraza la forma lógica del pensamiento (4.002). De ahí nacen los problemas metafísicos tradicionales, que no son falsos sino absurdos (4.003).`,
+      `<strong>Peldaño 2 · La filosofía como clínica del lenguaje:</strong> El resultado de la filosofía no son «proposiciones filosóficas», sino clarificar las proposiciones existentes (4.112), usando únicamente el lenguaje de la ciencia natural y mostrando a quien pretende decir lo indecible que sus signos carecen de significado (6.53).`,
+      `<strong>Peldaño 3 · Autocomprensión paradójica:</strong> Según los propios criterios del Tractatus, sus proposiciones no describen hechos ni son tautologías. Sin embargo, cumplen una función propedéutica: sirven como una escalera que debe arrojarse tras haber subido por ella (6.54).`,
+      `<strong>Peldaño 4 · El cierre definitivo:</strong> Tras recorrer la escalera y alcanzar la visión correcta del mundo, cesa el parloteo metafísico. Lo ético, lo estético y lo místico no se niegan: se protegen en el silencio del último aforismo (7).`
+    ];
+
+    // =========================================================================
+    // DATA: KEY PROPOSITIONS EXPLORER (Section 06)
+    // =========================================================================
+    const KEY_PROPOSITIONS = [
+      {
+        num: `1`,
+        theme: `ontologia`,
+        level: `Proposición cardinal`,
+        quote: `«El mundo es todo lo que es el caso.»`,
+        gloss: `Abre el tratado definiendo el mundo no como una colección de cosas aisladas, sino como aquello que efectivamente ocurre.`,
+        related: [`1.1`, `2`, `7`]
+      },
+      {
+        num: `1.1`,
+        theme: `ontologia`,
+        level: `Comentario directo`,
+        quote: `«El mundo es la totalidad de los hechos, no de las cosas.»`,
+        gloss: `Funda la ontología de hechos: un catálogo de objetos sin sus relaciones reales no describe el mundo.`,
+        related: [`1`, `1.13`, `2.01`]
+      },
+      {
+        num: `1.13`,
+        theme: `ontologia`,
+        level: `Subcomentario`,
+        quote: `«Los hechos en el espacio lógico son el mundo.»`,
+        gloss: `Introduce el «espacio lógico»: el marco de todas las posibilidades estructurales dentro del cual unos hechos se dan y otros no.`,
+        related: [`1.1`, `2.013`, `3.4`]
+      },
+      {
+        num: `2`,
+        theme: `ontologia`,
+        level: `Proposición cardinal`,
+        quote: `«Lo que es el caso, el hecho, es el darse efectivo de estados de cosas.»`,
+        gloss: `Precisa qué es un hecho: la existencia efectiva de una configuración de objetos.`,
+        related: [`1`, `2.01`, `2.06`]
+      },
+      {
+        num: `2.01`,
+        theme: `ontologia`,
+        level: `Comentario directo`,
+        quote: `«El estado de cosas es una conexión de objetos (cosas).»`,
+        gloss: `Los objetos encajan entre sí directamente, como eslabones de una cadena (2.03), formando combinaciones elementales.`,
+        related: [`2`, `2.02`, `2.061`]
+      },
+      {
+        num: `2.02`,
+        theme: `ontologia`,
+        level: `Comentario directo`,
+        quote: `«El objeto es simple.»`,
+        gloss: `Los objetos forman la sustancia fija e inalterable del mundo (2.021, 2.027); sin simplicidad última, la precisión del sentido sería imposible (3.23).`,
+        related: [`2.01`, `3.202`, `3.23`]
+      },
+      {
+        num: `2.06`,
+        theme: `ontologia`,
+        level: `Comentario directo`,
+        quote: `«El darse y no darse efectivos de estados de cosas es la realidad.»`,
+        gloss: `Incluye tanto los hechos positivos como los negativos dentro de la realidad total.`,
+        related: [`2`, `2.061`, `4.1`]
+      },
+      {
+        num: `2.061`,
+        theme: `ontologia`,
+        level: `Subcomentario`,
+        quote: `«Los estados de cosas son independientes unos de otros.»`,
+        gloss: `De la existencia de un estado de cosas no puede deducirse lógicamente otro (2.062). Base de la crítica a la causalidad como necesidad (5.136).`,
+        related: [`2.06`, `4.211`, `5.1361`]
+      },
+      {
+        num: `2.1`,
+        theme: `pictorica`,
+        level: `Comentario directo`,
+        quote: `«Nos hacemos figuras de los hechos.»`,
+        gloss: `Inicio de la teoría pictórica: pensar y hablar consisten en construir modelos lógicos de estados de cosas posibles.`,
+        related: [`2.12`, `2.18`, `3`]
+      },
+      {
+        num: `2.12`,
+        theme: `pictorica`,
+        level: `Comentario directo`,
+        quote: `«La figura es un modelo de la realidad.»`,
+        gloss: `Sus elementos representan objetos (2.131) y sus relaciones representan las relaciones entre las cosas (2.15).`,
+        related: [`2.1`, `2.18`, `4.01`]
+      },
+      {
+        num: `2.18`,
+        theme: `pictorica`,
+        level: `Comentario directo`,
+        quote: `«Lo que cualquier figura, sea cual fuere su forma, ha de tener en común con la realidad para poder siquiera —correcta o falsamente— figurarla, es la forma lógica, esto es, la forma de la realidad.»`,
+        gloss: `El isomorfismo lógico es la condición trascendental de toda representación: ninguna figura puede situarse fuera de su forma de representación (2.172).`,
+        related: [`2.1`, `4.014`, `4.12`]
+      },
+      {
+        num: `3`,
+        theme: `pictorica`,
+        level: `Proposición cardinal`,
+        quote: `«La figura lógica de los hechos es el pensamiento.»`,
+        gloss: `Enlaza epistemología y lógica: lo que es pensable es también lógicamente posible (3.02); nada ilógico puede pensarse (3.03).`,
+        related: [`2.18`, `3.1`, `4`]
+      },
+      {
+        num: `3.1`,
+        theme: `logica`,
+        level: `Comentario directo`,
+        quote: `«En la proposición se expresa sensoperceptivamente el pensamiento.»`,
+        gloss: `Convierte el problema mentalista del conocimiento en análisis observable del signo proposicional (3.12).`,
+        related: [`3`, `3.1432`, `4`]
+      },
+      {
+        num: `3.1432`,
+        theme: `logica`,
+        level: `Subcomentario`,
+        quote: `«No: “El signo complejo ‘aRb’ dice que a está en la relación R con b” sino: Que “a” está en cierta relación con “b” dice que aRb.»`,
+        gloss: `Prueba clave de que la proposición es un hecho articulado y no un conjunto inerte de nombres.`,
+        related: [`3.1`, `4.014`, `4.0312`]
+      },
+      {
+        num: `3.3`,
+        theme: `logica`,
+        level: `Comentario directo`,
+        quote: `«Sólo la proposición tiene sentido; sólo en la trama de la proposición tiene un nombre significado.»`,
+        gloss: `Principio de contextualidad heredado y radicalizado desde Frege: los nombres sueltos nombran, pero solo las proposiciones dicen.`,
+        related: [`2.02`, `3.202`, `4.024`]
+      },
+      {
+        num: `4`,
+        theme: `logica`,
+        level: `Proposición cardinal`,
+        quote: `«El pensamiento es la proposición con sentido.»`,
+        gloss: `Identifica el pensamiento analizable con la proposición articulada, disolviendo el psicologismo (4.1121).`,
+        related: [`3`, `4.003`, `4.112`]
+      },
+      {
+        num: `4.003`,
+        theme: `logica`,
+        level: `Subcomentario`,
+        quote: `«La mayor parte de las proposiciones e interrogantes que se han escrito sobre cuestiones filosóficas no son falsas, sino absurdas.»`,
+        gloss: `Los problemas tradicionales nacen de no comprender la lógica de nuestro lenguaje; toda filosofía es «crítica lingüística» (4.0031).`,
+        related: [`4`, `4.112`, `6.53`]
+      },
+      {
+        num: `4.014`,
+        theme: `pictorica`,
+        level: `Subcomentario`,
+        quote: `«El disco gramofónico, el pensamiento musical, la notación musical, las ondas sonoras, están todos entre sí en esa relación interna figurativa que se da entre lenguaje y mundo.»`,
+        gloss: `Ejemplo célebre de la ley de proyección matemática (4.0141) que traduce estructuras equivalentes entre medios distintos.`,
+        related: [`2.18`, `3.1432`, `4.01`]
+      },
+      {
+        num: `4.0312`,
+        theme: `logica`,
+        level: `Subcomentario`,
+        quote: `«Mi idea fundamental es que las “constantes lógicas” no representan nada. Que la lógica de los hechos no puede representarse.»`,
+        gloss: `La tesis que Wittgenstein llamó su «idea fundamental» (Grundgedanke): niega que haya objetos lógicos al estilo de Frege o Russell.`,
+        related: [`4.441`, `5.4`, `6`]
+      },
+      {
+        num: `4.112`,
+        theme: `limites`,
+        level: `Subcomentario`,
+        quote: `«La filosofía no es una doctrina, sino una actividad. Una obra filosófica consta esencialmente de aclaraciones.»`,
+        gloss: `Redefine la tarea filosófica: delimitar desde dentro lo pensable (4.114) sin competir con la ciencia natural (4.111).`,
+        related: [`4.003`, `4.1212`, `6.53`]
+      },
+      {
+        num: `4.1212`,
+        theme: `limites`,
+        level: `Subcomentario`,
+        quote: `«Lo que puede ser mostrado, no puede ser dicho.»`,
+        gloss: `Aforismo central de la distinción decir/mostrar: la forma lógica se refleja en la proposición (4.121), pero no puede ser enunciada por ella.`,
+        related: [`2.18`, `4.112`, `5.6`]
+      },
+      {
+        num: `4.461`,
+        theme: `logica`,
+        level: `Subcomentario`,
+        quote: `«La proposición muestra lo que dice; la tautología y la contradicción, que no dicen nada.»`,
+        gloss: `Las tautologías son ciertas en todo mundo y las contradicciones en ninguno; ambas carecen de sentido fáctico, aunque pertenecen al simbolismo (4.4611).`,
+        related: [`4.441`, `5`, `6.1`]
+      },
+      {
+        num: `5`,
+        theme: `logica`,
+        level: `Proposición cardinal`,
+        quote: `«La proposición es una función veritativa de las proposiciones elementales.»`,
+        gloss: `Toda proposición compleja obtiene su valor de verdad exclusivamente de los valores de verdad de sus componentes elementales.`,
+        related: [`4.461`, `5.502`, `6`]
+      },
+      {
+        num: `5.1361`,
+        theme: `logica`,
+        level: `Subcomentario`,
+        quote: `«No podemos inferir los acaecimientos del futuro a partir de los actuales. La creencia en el nexo causal es la superstición.»`,
+        gloss: `Consecuencia directa de 2.061: solo existe necesidad lógica, nunca necesidad causal oculta entre hechos independientes.`,
+        related: [`2.061`, `6.3`]
+      },
+      {
+        num: `5.6`,
+        theme: `limites`,
+        level: `Comentario directo`,
+        quote: `«Los límites de mi lenguaje significan los límites de mi mundo.»`,
+        gloss: `Conecta lógica y sujeto metafísico límite («el yo», 5.641): la lógica llena el mundo; sus límites coinciden.`,
+        related: [`4.1212`, `6`, `6.45`]
+      },
+      {
+        num: `6`,
+        theme: `ciencia`,
+        level: `Proposición cardinal`,
+        quote: `«La forma general de la función de verdad es: [p, ξ, N(ξ)]. Ésta es la forma general de la proposición.»`,
+        gloss: `Culminación formal del análisis lógico: toda proposición posible surge por aplicación sucesiva de la negación conjunta N(ξ) sobre proposiciones elementales.`,
+        related: [`4.0312`, `5`, `6.1`]
+      },
+      {
+        num: `6.1`,
+        theme: `ciencia`,
+        level: `Comentario directo`,
+        quote: `«Las proposiciones de la lógica son tautologías.»`,
+        gloss: `La lógica es trascendental (6.13): sin decir nada empírico, sus tautologías muestran el armazón del mundo y del lenguaje (6.124).`,
+        related: [`4.461`, `6`, `6.2`]
+      },
+      {
+        num: `6.2`,
+        theme: `ciencia`,
+        level: `Comentario directo`,
+        quote: `«La matemática es un método lógico. Las proposiciones de la matemática son ecuaciones, es decir, pseudoproposiciones.»`,
+        gloss: `Extiende el logicismo: la matemática no describe objetos platónicos ni requiere intuición extralingüística (6.233).`,
+        related: [`6.1`, `6.3`]
+      },
+      {
+        num: `6.3`,
+        theme: `ciencia`,
+        level: `Comentario directo`,
+        quote: `«La investigación de la lógica significa la investigación de toda legaliformidad. Y fuera de la lógica todo es casualidad.»`,
+        gloss: `Las «leyes» científicas (como la conservación o causalidad) no son leyes de lo real sino formas apriorísticas de nuestra red descriptiva (6.32, 6.341).`,
+        related: [`5.1361`, `6.1`, `6.4`]
+      },
+      {
+        num: `6.4`,
+        theme: `mistico`,
+        level: `Comentario directo`,
+        quote: `«Todas las proposiciones valen lo mismo.»`,
+        gloss: `Quiebre hacia la ética: en el plano de los hechos contingentes no hay jerarquía de valor; el sentido último del mundo debe estar fuera del mundo (6.41).`,
+        related: [`6.3`, `6.52`, `6.54`]
+      },
+      {
+        num: `6.53`,
+        theme: `mistico`,
+        level: `Subcomentario`,
+        quote: `El método estricto de la filosofía: no decir nada salvo lo que puede decirse (ciencia natural) y demostrar al metafísico que sus términos carecen de significado.`,
+        gloss: `Cierra la metodología filosófica: aunque deje insatisfecho al interlocutor, es el único proceder riguroso posible.`,
+        related: [`4.003`, `4.112`, `6.54`]
+      },
+      {
+        num: `6.54`,
+        theme: `mistico`,
+        level: `Subcomentario`,
+        quote: `Balance final (la escalera): quien comprende al autor reconoce al final del recorrido que las proposiciones del Tractatus son absurdas y debe superarlas para ver el mundo correctamente.`,
+        gloss: `Asume conscientemente la paradoja del libro como vía propedéutica que se anula a sí misma al alcanzar claridad.`,
+        related: [`4.112`, `6.4`, `7`]
+      },
+      {
+        num: `7`,
+        theme: `mistico`,
+        level: `Proposición cardinal final`,
+        quote: `«De lo que no se puede hablar hay que callar.»`,
+        gloss: `Sin subproposiciones. Sella la frontera inviolable de lo ético, lo estético y lo místico mediante la muda expresividad del silencio.`,
+        related: [`1`, `4.1212`, `6.54`]
+      }
+    ];
+
+    // =========================================================================
+    // STATE
+    // =========================================================================
+    let currentOrder = `discursive`;
+    let currentStratum = 0;
+    let ontoState = { p: true, q: false };
+
+    let picPreset = `spatial`;
+    let picRealityFlipped = false;
+    let picPropNegated = false;
+
+    let truthOutputs = [`V`, `V`, `F`, `V`]; // default: p -> q (VVFV)
+
+    let clfIndex = 0;
+    let clfAnswers = {}; // index -> { chosen, isCorrect }
+
+    let currentLadderStep = 0;
+    let propThemeFilter = `all`;
+    let highlightedPropNum = null;
+
+    // =========================================================================
+    // SECTION 0: READING ORDER
+    // =========================================================================
+    function setReadingOrder(orderKey) {
+      currentOrder = orderKey;
+      const btnD = document.getElementById(`btn-order-discursive`);
+      const btnG = document.getElementById(`btn-order-genealogic`);
+      if (btnD) btnD.setAttribute(`aria-pressed`, orderKey === `discursive` ? `true` : `false`);
+      if (btnG) btnG.setAttribute(`aria-pressed`, orderKey === `genealogic` ? `true` : `false`);
+
+      const data = READING_ORDERS[orderKey];
+      const summaryEl = document.getElementById(`order-summary`);
+      const cardsEl = document.getElementById(`order-cards`);
+      if (!data || !summaryEl || !cardsEl) return;
+
+      summaryEl.textContent = data.summary;
+      cardsEl.innerHTML = data.items.map(function (item) {
+        return `<div class="order-item">
+          <div class="order-item-head">
+            <strong style="font-size: 0.9375rem;">${item.title}</strong>
+            <span class="prop-code">${item.code}</span>
+          </div>
+          <span style="font-size: 0.875rem; color: var(--on-surface-variant); line-height: 1.45;">${item.desc}</span>
+        </div>`;
+      }).join(``);
+    }
+
+    // =========================================================================
+    // SECTION 01: ONTOLOGY & COMBINATORICS
+    // =========================================================================
+    function selectStratum(idx) {
+      currentStratum = idx;
+      for (let i = 0; i < ONTOLOGY_STRATA.length; i++) {
+        const b = document.getElementById(`strata-${i}`);
+        if (b) b.setAttribute(`aria-pressed`, i === idx ? `true` : `false`);
+      }
+      const detail = document.getElementById(`strata-detail`);
+      const item = ONTOLOGY_STRATA[idx];
+      if (!detail || !item) return;
+
+      detail.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-sm);">
+          <strong style="font-family: var(--font-headline); font-size: 1.125rem;">${item.title}</strong>
+          <span class="prop-code">${item.code}</span>
+        </div>
+        <p style="font-family: var(--font-headline); font-style: italic; margin: var(--space-xs) 0; color: var(--secondary);">${item.quote}</p>
+        <p style="font-size: 0.9375rem; margin: 0; color: var(--on-surface);">${item.explanation}</p>
+      `;
+    }
+
+    function toggleOntoState(key) {
+      ontoState[key] = !ontoState[key];
+      const btn = document.getElementById(`state-${key}-btn`);
+      const status = document.getElementById(`state-${key}-status`);
+      const isTrue = ontoState[key];
+      if (btn) btn.setAttribute(`aria-pressed`, isTrue ? `true` : `false`);
+      if (status) {
+        status.textContent = isTrue ? `Se da efectivamente (V)` : `No se da efectivamente (F)`;
+      }
+      renderWorldMatrix();
+    }
+
+    function renderWorldMatrix() {
+      const container = document.getElementById(`world-matrix`);
+      if (!container) return;
+      const combos = [
+        { p: true, q: true, label: `E₁: V · E₂: V` },
+        { p: true, q: false, label: `E₁: V · E₂: F` },
+        { p: false, q: true, label: `E₁: F · E₂: V` },
+        { p: false, q: false, label: `E₁: F · E₂: F` }
+      ];
+      container.innerHTML = combos.map(function (c, i) {
+        const isActual = (c.p === ontoState.p && c.q === ontoState.q);
+        return `<div class="world-cell ${isActual ? `is-actual` : ``}">
+          <div>Mundo M${i + 1}</div>
+          <div style="margin-top: var(--space-xs);">${c.label}</div>
+          <div style="margin-top: var(--space-xs); font-size: 0.7rem; text-transform: uppercase;">${isActual ? `Es el caso` : `Posible`}</div>
+        </div>`;
+      }).join(``);
+    }
+
+    // =========================================================================
+    // SECTION 02: PICTURE THEORY LAB
+    // =========================================================================
+    function setPicturePreset(presetKey) {
+      picPreset = presetKey;
+      picRealityFlipped = false;
+      picPropNegated = false;
+
+      [`spatial`, `music`, `nonsense`].forEach(function (k) {
+        const b = document.getElementById(`pic-preset-${k === `nonsense` ? `socrates` : k}`);
+        if (b) b.setAttribute(`aria-pressed`, k === presetKey ? `true` : `false`);
+      });
+
+      const preset = PICTURE_PRESETS[presetKey];
+      const btnFlipR = document.getElementById(`btn-flip-reality`);
+      const btnFlipP = document.getElementById(`btn-flip-prop`);
+      if (btnFlipR) {
+        btnFlipR.disabled = !preset.supportsRealityFlip;
+        btnFlipR.setAttribute(`aria-pressed`, `false`);
+      }
+      if (btnFlipP) {
+        btnFlipP.disabled = !preset.canNegate;
+        btnFlipP.setAttribute(`aria-pressed`, `false`);
+      }
+      renderPictureTheory();
+    }
+
+    function flipRealityState() {
+      const preset = PICTURE_PRESETS[picPreset];
+      if (!preset || !preset.supportsRealityFlip) return;
+      picRealityFlipped = !picRealityFlipped;
+      const b = document.getElementById(`btn-flip-reality`);
+      if (b) b.setAttribute(`aria-pressed`, picRealityFlipped ? `true` : `false`);
+      renderPictureTheory();
+    }
+
+    function flipPropNegation() {
+      const preset = PICTURE_PRESETS[picPreset];
+      if (!preset || !preset.canNegate) return;
+      picPropNegated = !picPropNegated;
+      const b = document.getElementById(`btn-flip-prop`);
+      if (b) b.setAttribute(`aria-pressed`, picPropNegated ? `true` : `false`);
+      renderPictureTheory();
+    }
+
+    function renderPictureTheory() {
+      const svgR = document.getElementById(`svg-reality`);
+      const svgP = document.getElementById(`svg-proposition`);
+      const verdict = document.getElementById(`picture-verdict`);
+      if (!svgR || !svgP || !verdict) return;
+
+      if (picPreset === `spatial`) {
+        const aLeftOfB = !picRealityFlipped;
+        const ax = aLeftOfB ? 75 : 225;
+        const bx = aLeftOfB ? 225 : 75;
+
+        svgR.innerHTML = `
+          <line x1="30" y1="138" x2="270" y2="138" class="svg-muted" stroke-width="1.5"/>
+          <rect x="${ax - 28}" y="78" width="56" height="60" rx="2" class="svg-gold-fill" stroke-width="1.5"/>
+          <text x="${ax}" y="112" text-anchor="middle" class="svg-text" style="font-weight:600;">Mesa</text>
+          <circle cx="${bx}" cy="108" r="26" fill="var(--secondary-container)" stroke="var(--data-1)" stroke-width="1.5"/>
+          <text x="${bx}" y="112" text-anchor="middle" class="svg-text" style="font-weight:600;">Silla</text>
+          <text x="150" y="34" text-anchor="middle" class="svg-text-muted">${aLeftOfB ? `Hecho: Mesa a la izquierda de Silla` : `Hecho: Silla a la izquierda de Mesa`}</text>
+        `;
+
+        const propText = picPropNegated ? `~ (a R b) : «La mesa NO está a la izq.»` : `a R b : «La mesa está a la izquierda»`;
+        svgP.innerHTML = `
+          <rect x="28" y="64" width="68" height="44" rx="3" fill="var(--tertiary-container)" stroke="var(--outline)" stroke-width="1.5"/>
+          <text x="62" y="90" text-anchor="middle" class="svg-text" style="font-weight:600;">"a"</text>
+          <line x1="96" y1="86" x2="204" y2="86" stroke="${picPropNegated ? `var(--data-4)` : `var(--data-1)`}" stroke-width="2" stroke-dasharray="${picPropNegated ? `5 4` : `none`}"/>
+          <text x="150" y="76" text-anchor="middle" class="svg-text-muted">${picPropNegated ? `~R (invertida)` : `R (a izq. de)`}</text>
+          <rect x="204" y="64" width="68" height="44" rx="3" fill="var(--secondary-container)" stroke="var(--data-1)" stroke-width="1.5"/>
+          <text x="238" y="90" text-anchor="middle" class="svg-text" style="font-weight:600;">"b"</text>
+          <text x="150" y="148" text-anchor="middle" class="svg-text">${propText}</text>
+        `;
+
+        const isTrue = (aLeftOfB && !picPropNegated) || (!aLeftOfB && picPropNegated);
+        verdict.className = `verdict-banner ${isTrue ? `is-true` : `is-false`}`;
+        verdict.innerHTML = `
+          <div>
+            <strong>${isTrue ? `Proposición VERDADERA (2.222)` : `Proposición FALSA, pero CON SENTIDO (4.024)`}</strong>
+            <div style="font-size: 0.875rem; margin-top: 2px;">
+              ${isTrue
+                ? `La estructura de la figura concuerda con la configuración real de los objetos en el estado de cosas.`
+                : `Comprendemos exactamente qué estado de cosas proyecta la proposición; simplemente los hechos reales no concuerdan con ella.`}
+            </div>
+          </div>
+          <span class="tag ${isTrue ? `tag-positive` : ``}">${isTrue ? `Acuerdo (V)` : `Desacuerdo (F)`}</span>
+        `;
+      } else if (picPreset === `music`) {
+        const waveUp = !picRealityFlipped;
+        const pathD = waveUp
+          ? `M 35 110 Q 75 55, 115 110 T 195 110 T 265 75`
+          : `M 35 75 Q 75 130, 115 75 T 195 75 T 265 115`;
+        svgR.innerHTML = `
+          <line x1="25" y1="95" x2="275" y2="95" class="svg-muted" stroke-width="1"/>
+          <path d="${pathD}" stroke="var(--data-1)" stroke-width="2.5" fill="none"/>
+          <text x="150" y="34" text-anchor="middle" class="svg-text-muted">${waveUp ? `Onda sonora: intervalo ascendente` : `Onda sonora: intervalo descendente`}</text>
+        `;
+
+        const noteY1 = picPropNegated ? 68 : 112;
+        const noteY2 = picPropNegated ? 112 : 68;
+        svgP.innerHTML = `
+          <line x1="30" y1="68" x2="270" y2="68" class="svg-muted" stroke-width="1"/>
+          <line x1="30" y1="90" x2="270" y2="90" class="svg-muted" stroke-width="1"/>
+          <line x1="30" y1="112" x2="270" y2="112" class="svg-muted" stroke-width="1"/>
+          <circle cx="95" cy="${noteY1}" r="9" class="svg-gold-fill" stroke-width="1.5"/>
+          <circle cx="205" cy="${noteY2}" r="9" class="svg-teal-fill"/>
+          <line x1="104" y1="${noteY1}" x2="196" y2="${noteY2}" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="150" y="34" text-anchor="middle" class="svg-text-muted">${picPropNegated ? `Partitura (~): intervalo descendente` : `Partitura: intervalo ascendente`}</text>
+          <text x="150" y="150" text-anchor="middle" class="svg-text">Ley de proyección común (4.0141)</text>
+        `;
+
+        const isTrue = (waveUp && !picPropNegated) || (!waveUp && picPropNegated);
+        verdict.className = `verdict-banner ${isTrue ? `is-true` : `is-false`}`;
+        verdict.innerHTML = `
+          <div>
+            <strong>${isTrue ? `Proyección isomórfica CONCORDANTE` : `Proyección válida, ejecución DISCORDANTE`}</strong>
+            <div style="font-size: 0.875rem; margin-top: 2px;">
+              ${isTrue
+                ? `Las ondas sonoras, el surco del disco y la partitura comparten la misma multiplicidad matemática (4.04).`
+                : `La partitura sigue siendo una figura inteligible de un sonido posible, aunque la interpretación sonora real sea opuesta.`}
+            </div>
+          </div>
+          <span class="tag ${isTrue ? `tag-positive` : ``}">${isTrue ? `Concordancia` : `Discrepancia`}</span>
+        `;
+      } else {
+        svgR.innerHTML = `
+          <circle cx="150" cy="88" r="32" class="svg-gold-fill" stroke-width="1.5"/>
+          <text x="150" y="92" text-anchor="middle" class="svg-text" style="font-weight:600;">Sócrates</text>
+          <text x="150" y="150" text-anchor="middle" class="svg-text-muted">No existe una propiedad llamada «idéntico»</text>
+        `;
+
+        svgP.innerHTML = `
+          <rect x="36" y="64" width="90" height="44" rx="3" fill="var(--tertiary-container)" stroke="var(--outline)" stroke-width="1.5"/>
+          <text x="81" y="90" text-anchor="middle" class="svg-text">Sócrates</text>
+          <rect x="152" y="64" width="112" height="44" rx="3" fill="var(--error-container)" stroke="var(--error)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="208" y="90" text-anchor="middle" class="svg-text" style="fill: var(--error);">es idéntico (?)</text>
+          <text x="150" y="150" text-anchor="middle" class="svg-text-muted">Tentáculo sin coordinación (2.1515)</text>
+        `;
+
+        verdict.className = `verdict-banner is-nonsense`;
+        verdict.innerHTML = `
+          <div>
+            <strong>ABSURDO / SINSENTIDO (5.473 · 5.4733)</strong>
+            <div style="font-size: 0.875rem; margin-top: 2px;">
+              La proposición no es falsa: no dice nada porque no hemos dado a la palabra «idéntico» ningún significado como adjetivo (confusión entre signo de igualdad y predicado).
+            </div>
+          </div>
+          <span class="tag tag-error">Sin sentido (Unsinnig)</span>
+        `;
+      }
+    }
+
+    // =========================================================================
+    // SECTION 03: TRUTH TABLE & LOGICAL SPACE LAB
+    // =========================================================================
+    const TRUTH_ROWS = [
+      { p: `V`, q: `V`, label: `p=V, q=V` },
+      { p: `F`, q: `V`, label: `p=F, q=V` },
+      { p: `V`, q: `F`, label: `p=V, q=F` },
+      { p: `F`, q: `F`, label: `p=F, q=F` }
+    ];
+
+    const TRUTH_PRESETS = {
+      imp: [`V`, `V`, `F`, `V`],
+      and: [`V`, `F`, `F`, `F`],
+      nor: [`F`, `F`, `F`, `V`],
+      taut: [`V`, `V`, `V`, `V`],
+      cont: [`F`, `F`, `F`, `F`]
+    };
+
+    function applyTruthPreset(presetKey) {
+      const arr = TRUTH_PRESETS[presetKey];
+      if (!arr) return;
+      truthOutputs = arr.slice();
+      [`imp`, `and`, `nor`, `taut`, `cont`].forEach(function (k) {
+        const b = document.getElementById(`tt-preset-${k}`);
+        if (b) b.setAttribute(`aria-pressed`, k === presetKey ? `true` : `false`);
+      });
+      renderTruthLab();
+    }
+
+    function toggleTruthRow(rowIdx) {
+      truthOutputs[rowIdx] = truthOutputs[rowIdx] === `V` ? `F` : `V`;
+      // Clear preset active highlights if custom
+      [`imp`, `and`, `nor`, `taut`, `cont`].forEach(function (k) {
+        const b = document.getElementById(`tt-preset-${k}`);
+        if (b) {
+          const matches = TRUTH_PRESETS[k].join(``) === truthOutputs.join(``);
+          b.setAttribute(`aria-pressed`, matches ? `true` : `false`);
+        }
+      });
+      renderTruthLab();
+    }
+
+    function renderTruthLab() {
+      const tbody = document.getElementById(`truth-table-body`);
+      const notationEl = document.getElementById(`tt-notation`);
+      const quadEl = document.getElementById(`tt-quadrants`);
+      const diagEl = document.getElementById(`tt-diagnosis`);
+      if (!tbody || !notationEl || !quadEl || !diagEl) return;
+
+      tbody.innerHTML = TRUTH_ROWS.map(function (row, idx) {
+        const val = truthOutputs[idx];
+        return `<tr>
+          <td style="color: var(--on-surface-variant);">M${idx + 1}</td>
+          <td>${row.p}</td>
+          <td>${row.q}</td>
+          <td>
+            <button type="button" class="truth-toggle-btn ${val === `V` ? `val-v` : `val-f`}" onclick="toggleTruthRow(${idx})" aria-label="Alternar fila ${idx + 1} entre Verdadero y Falso">
+              ${val}
+            </button>
+          </td>
+        </tr>`;
+      }).join(``);
+
+      const code = truthOutputs.join(``);
+      notationEl.textContent = `(${code})(p, q)`;
+
+      quadEl.innerHTML = TRUTH_ROWS.map(function (row, idx) {
+        const isOpen = truthOutputs[idx] === `V`;
+        return `<div class="quadrant ${isOpen ? `is-open` : `is-closed`}">
+          <div>${row.label}</div>
+          <div style="margin-top: var(--space-xs); font-size: 0.7rem;">${isOpen ? `Permitido` : `Excluido`}</div>
+        </div>`;
+      }).join(``);
+
+      const vCount = truthOutputs.filter(function (v) { return v === `V`; }).length;
+      if (vCount === 4) {
+        diagEl.innerHTML = `<span class="tag">Tautología (4.46 · 6.1)</span>
+          <p style="font-size: 0.875rem; margin: var(--space-xs) 0 0;">Verdad <strong>cierta</strong> (4.464). Deja libre todo el espacio lógico: permite cualquier estado de cosas y por ello <strong>no dice nada</strong> sobre la realidad.</p>`;
+      } else if (vCount === 0) {
+        diagEl.innerHTML = `<span class="tag tag-error">Contradicción (4.46 · 4.463)</span>
+          <p style="font-size: 0.875rem; margin: var(--space-xs) 0 0;">Verdad <strong>imposible</strong> (4.464). Llena por completo el espacio lógico sin dejar un solo punto a la realidad; tampoco dice nada.</p>`;
+      } else {
+        diagEl.innerHTML = `<span class="tag tag-teal">Proposición con sentido (4.463 · 4.464)</span>
+          <p style="font-size: 0.875rem; margin: var(--space-xs) 0 0;">Verdad <strong>posible</strong>. Acota un espacio de juego concreto dejando abiertos ${vCount} de 4 mundos posibles y excluyendo ${4 - vCount}. Así describe la realidad en orden al sí o al no (4.023).</p>`;
+      }
+    }
+
+    // =========================================================================
+    // SECTION 04: CLASSIFIER (DECIR VS MOSTRAR VS ABSURDO)
+    // =========================================================================
+    function renderClassifier() {
+      const item = CLASSIFIER_ITEMS[clfIndex];
+      const stmtEl = document.getElementById(`clf-statement`);
+      const ctxEl = document.getElementById(`clf-context`);
+      const cntEl = document.getElementById(`clf-counter`);
+      const scoreEl = document.getElementById(`clf-score`);
+      const fbEl = document.getElementById(`clf-feedback`);
+      const prevBtn = document.getElementById(`clf-prev-btn`);
+      const nextBtn = document.getElementById(`clf-next-btn`);
+
+      if (!item || !stmtEl || !ctxEl || !cntEl || !scoreEl || !fbEl) return;
+
+      stmtEl.textContent = item.statement;
+      ctxEl.textContent = item.context;
+      cntEl.textContent = `${clfIndex + 1} de ${CLASSIFIER_ITEMS.length}`;
+
+      const answeredList = Object.values(clfAnswers);
+      const correctCount = answeredList.filter(function (a) { return a.isCorrect; }).length;
+      scoreEl.textContent = `Aciertos: ${correctCount} / ${answeredList.length}`;
+
+      const existing = clfAnswers[clfIndex];
+      [`sinnvoll`, `sinnlos`, `unsinnig`].forEach(function (opt) {
+        const b = document.getElementById(`clf-btn-${opt}`);
+        if (b) {
+          b.setAttribute(`aria-pressed`, existing && existing.chosen === opt ? `true` : `false`);
+        }
+      });
+
+      if (existing) {
+        fbEl.className = `classifier-feedback is-visible ${existing.isCorrect ? `is-correct` : `is-incorrect`}`;
+        fbEl.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-sm); margin-bottom: var(--space-xs);">
+            <strong>${existing.isCorrect ? `Correcto` : `Revisa el criterio lógico`}</strong>
+            <span class="prop-code">Ref. ${item.ref}</span>
+          </div>
+          <p style="font-size: 0.875rem; margin: 0;">${item.explain}</p>
+        `;
+      } else {
+        fbEl.className = `classifier-feedback`;
+        fbEl.innerHTML = ``;
+      }
+
+      if (prevBtn) prevBtn.disabled = (clfIndex === 0);
+      if (nextBtn) nextBtn.disabled = (clfIndex === CLASSIFIER_ITEMS.length - 1);
+    }
+
+    function answerClassifier(choice) {
+      const item = CLASSIFIER_ITEMS[clfIndex];
+      if (!item) return;
+      clfAnswers[clfIndex] = {
+        chosen: choice,
+        isCorrect: choice === item.answer
+      };
+      renderClassifier();
+    }
+
+    function stepClassifier(delta) {
+      const nextIdx = clfIndex + delta;
+      if (nextIdx < 0 || nextIdx >= CLASSIFIER_ITEMS.length) return;
+      clfIndex = nextIdx;
+      renderClassifier();
+    }
+
+    // =========================================================================
+    // SECTION 05: LADDER STEPPER (6.54 -> 7)
+    // =========================================================================
+    function selectLadderStep(idx) {
+      currentLadderStep = idx;
+      for (let i = 0; i < LADDER_NOTES.length; i++) {
+        const b = document.getElementById(`ladder-${i}`);
+        if (b) b.setAttribute(`aria-pressed`, i === idx ? `true` : `false`);
+      }
+      const noteEl = document.getElementById(`ladder-note`);
+      if (noteEl) {
+        noteEl.innerHTML = `<p style="font-size: 0.9375rem; margin: 0;">${LADDER_NOTES[idx]}</p>`;
+      }
+    }
+
+    // =========================================================================
+    // SECTION 06: PROPOSITION EXPLORER
+    // =========================================================================
+    function setPropTheme(themeKey) {
+      propThemeFilter = themeKey;
+      [`all`, `ontologia`, `pictorica`, `logica`, `ciencia`, `mistico`].forEach(function (k) {
+        const b = document.getElementById(`filter-${k}`);
+        if (b) b.setAttribute(`aria-pressed`, k === themeKey ? `true` : `false`);
+      });
+      highlightedPropNum = null;
+      filterPropositions();
+    }
+
+    function jumpToProposition(propNum) {
+      propThemeFilter = `all`;
+      [`all`, `ontologia`, `pictorica`, `logica`, `ciencia`, `mistico`].forEach(function (k) {
+        const b = document.getElementById(`filter-${k}`);
+        if (b) b.setAttribute(`aria-pressed`, k === `all` ? `true` : `false`);
+      });
+      const searchEl = document.getElementById(`prop-search`);
+      if (searchEl) searchEl.value = ``;
+      highlightedPropNum = propNum;
+      filterPropositions();
+      const target = document.getElementById(`prop-card-${propNum}`);
+      if (target) {
+        target.scrollIntoView({ behavior: `smooth`, block: `center` });
+      }
+    }
+
+    function filterPropositions() {
+      const searchEl = document.getElementById(`prop-search`);
+      const gridEl = document.getElementById(`prop-explorer-grid`);
+      const countBadge = document.getElementById(`prop-count-badge`);
+      if (!gridEl || !countBadge) return;
+
+      const query = searchEl ? searchEl.value.trim().toLowerCase() : ``;
+
+      const filtered = KEY_PROPOSITIONS.filter(function (p) {
+        const matchesTheme = (propThemeFilter === `all`) ||
+          (propThemeFilter === `logica` && (p.theme === `logica` || p.theme === `limites`)) ||
+          (p.theme === propThemeFilter);
+        if (!matchesTheme) return false;
+        if (!query) return true;
+        return p.num.toLowerCase().includes(query) ||
+          p.quote.toLowerCase().includes(query) ||
+          p.gloss.toLowerCase().includes(query) ||
+          p.level.toLowerCase().includes(query);
+      });
+
+      countBadge.textContent = `${filtered.length} ${filtered.length === 1 ? `proposición` : `proposiciones`}`;
+
+      if (filtered.length === 0) {
+        gridEl.innerHTML = `<div class="figure-card" style="grid-column: 1 / -1;">
+          <p style="margin: 0 0 var(--space-sm); font-weight: 600;">Ninguna proposición coincide con «${query}» en este filtro.</p>
+          <p style="margin: 0 0 var(--space-md); font-size: 0.875rem; color: var(--on-surface-variant);">Limpia la búsqueda o cambia a «Todas» para recorrer las 33 proposiciones clave incluidas.</p>
+          <button type="button" class="btn btn-sm" onclick="resetExplorerFilters()">Restablecer filtros</button>
+        </div>`;
+        return;
+      }
+
+      gridEl.innerHTML = filtered.map(function (p) {
+        const isHi = highlightedPropNum === p.num;
+        const relatedBtns = p.related.map(function (rel) {
+          return `<button type="button" class="prop-jump-btn" onclick="jumpToProposition('${rel}')" aria-label="Ir a la proposición ${rel}">→ ${rel}</button>`;
+        }).join(``);
+
+        return `<article id="prop-card-${p.num}" class="prop-card ${isHi ? `is-highlighted` : ``}">
+          <div class="prop-card-header">
+            <span class="prop-code" style="font-size: 1rem;">${p.num}</span>
+            <span class="tag tag-teal">${p.level}</span>
+          </div>
+          <p class="prop-quote">${p.quote}</p>
+          <p class="prop-gloss">${p.gloss}</p>
+          <div class="prop-links" aria-label="Proposiciones relacionadas">
+            <span class="field-label" style="align-self: center; margin-right: var(--space-xs);">Conexiones:</span>
+            ${relatedBtns}
+          </div>
+        </article>`;
+      }).join(``);
+    }
+
+    function resetExplorerFilters() {
+      const searchEl = document.getElementById(`prop-search`);
+      if (searchEl) searchEl.value = ``;
+      setPropTheme(`all`);
+    }
+
+    // =========================================================================
+    // INITIALIZATION
+    // =========================================================================
+    document.addEventListener(`DOMContentLoaded`, function () {
+      setReadingOrder(`discursive`);
+      selectStratum(0);
+      renderWorldMatrix();
+      setPicturePreset(`spatial`);
+      renderTruthLab();
+      renderClassifier();
+      selectLadderStep(0);
+      filterPropositions();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="broadsheet">
+  <title>Observaciones a «La Rama Dorada» de Frazer — Guía conceptual sobre Wittgenstein</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #f7f3eb;
+      --surface-container-low: #efe8da;
+      --surface-container: #e6ddcc;
+      --surface-container-high: #ddd2be;
+
+      /* Ink */
+      --on-surface: #1a1817;
+      --on-surface-variant: #4d4845;
+
+      /* Rules */
+      --outline: #33302e;
+      --outline-variant: #cdc3b2;
+
+      /* Accents */
+      --primary: #990f3d;
+      --primary-hover: #750b2e;
+      --on-primary: #ffffff;
+      --primary-container: #f4dce2;
+      --on-primary-container: #6b0a2a;
+      --secondary: #0d7680;
+      --tertiary: #0f5499;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #990f3d;
+      --data-2: #0d7680;
+      --data-3: #0f5499;
+      --data-4: #9a6312;
+      --data-context: #bfb5a4;
+
+      /* Fonts */
+      --font-headline: 'Bitter', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-label: 'Source Sans 3', sans-serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --rule-masthead: 3px double var(--on-surface);
+      --rule-ink: 1px solid var(--on-surface);
+      --rule-section: 2px solid var(--outline);
+      --rule-column: 1px solid var(--outline-variant);
+
+      /* Shared tokens */
+      --positive: #196844;
+      --positive-container: #e0efe7;
+      --warning: #7d4e09;
+      --focus: var(--primary);
+
+      /* Narrative type scale */
+      --display-size: clamp(2.5rem, 1.4rem + 3.8vw, 4.25rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.8vw, 2.35rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.15rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      font-optical-sizing: auto;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      position: static !important;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg) var(--space-lg) var(--space-2xl);
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    .page-grid * {
+      min-width: 0;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    h1 {
+      font-weight: 800;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.18;
+    }
+
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 66ch;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    .lede {
+      font-size: clamp(1.1875rem, 1.1rem + 0.35vw, 1.375rem);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 58ch;
+      margin-top: var(--space-md);
+    }
+
+    .run-in {
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+
+    .label-voice {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .tag {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: transparent;
+      padding: 0;
+      display: inline-block;
+    }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Masthead */
+    .masthead-line {
+      border-bottom: var(--rule-masthead);
+      padding-bottom: var(--space-sm);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm) var(--space-lg);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+
+    .masthead {
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+
+    .edition-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-xs) var(--space-md);
+      padding-top: var(--space-md);
+      margin-top: var(--space-lg);
+      border-top: var(--rule-column);
+    }
+
+    .edition-nav a {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      text-decoration: none;
+      padding: var(--space-sm) 0;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+
+    .edition-nav a:hover,
+    .edition-nav a.is-active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* Key figures strip */
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      padding-block: var(--space-md);
+      border-bottom: var(--rule-column);
+    }
+
+    .columns > * {
+      border-left: var(--rule-column);
+      padding: var(--space-xs) var(--space-lg);
+      background: transparent;
+    }
+
+    .columns > :first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    .columns > :last-child {
+      padding-right: 0;
+    }
+
+    .stat-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    .stat-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.35rem, 1.15rem + 0.8vw, 1.75rem);
+      line-height: 1.1;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      display: block;
+    }
+
+    .stat-note {
+      font-size: 0.9375rem;
+      line-height: 1.4;
+      color: var(--on-surface-variant);
+      margin-top: var(--space-xs);
+      display: block;
+    }
+
+    /* Sections */
+    .section-open {
+      border-top: var(--rule-section);
+      padding-top: var(--space-md);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-lg);
+    }
+
+    .section-header {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .section-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    /* Asymmetric 2-col editorial splits */
+    .editorial-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .editorial-split-wide {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .side-ruled {
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+    }
+
+    /* Pull quotes */
+    .pull-quote {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-md);
+      margin-block: var(--space-md);
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+      line-height: 1.38;
+      color: var(--on-surface);
+    }
+
+    .pull-quote cite {
+      display: block;
+      margin-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    /* Rare filled newsprint panel */
+    .newsprint-panel {
+      background-color: var(--surface-container-low);
+      border-top: var(--rule-section);
+      border-bottom: var(--rule-ink);
+      padding: var(--space-lg);
+    }
+
+    .newsprint-box {
+      background-color: var(--surface-container);
+      border: 1px solid var(--outline-variant);
+      padding: var(--space-lg);
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-radius: var(--rounded);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      border: 1px solid transparent;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), outline-color var(--dur-micro) var(--ease-out);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--outline-variant);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--surface-container-high);
+    }
+
+    .btn-secondary.is-active,
+    .btn-tab.is-active {
+      background-color: var(--on-surface);
+      color: var(--background);
+      border-color: var(--on-surface);
+    }
+
+    .btn-tab {
+      background-color: transparent;
+      color: var(--on-surface);
+      border: 1px solid var(--outline-variant);
+      text-align: left;
+      justify-content: flex-start;
+    }
+
+    .btn-tab:hover {
+      background-color: var(--surface-container-low);
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    /* Timeline interactive strip */
+    .timeline-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-column);
+    }
+
+    .timeline-step {
+      appearance: none;
+      background: transparent;
+      border: 0;
+      border-left: var(--rule-column);
+      padding: var(--space-md);
+      text-align: left;
+      cursor: pointer;
+      min-height: 44px;
+      color: var(--on-surface);
+      font-family: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .timeline-step:first-child {
+      border-left: 0;
+    }
+
+    .timeline-step:hover {
+      background-color: var(--surface-container-low);
+    }
+
+    .timeline-step.is-active {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .timeline-year {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.15rem;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--primary);
+    }
+
+    .timeline-step.is-active .timeline-year {
+      color: var(--on-primary-container);
+    }
+
+    .timeline-title {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.25;
+    }
+
+    .timeline-detail {
+      padding-top: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    /* Comparison desk */
+    .case-selector {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+
+    .comparison-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      margin-top: var(--space-md);
+    }
+
+    .comparison-col {
+      padding: var(--space-lg) var(--space-lg) var(--space-lg) 0;
+    }
+
+    .comparison-col + .comparison-col {
+      border-left: var(--rule-column);
+      padding: var(--space-lg) 0 var(--space-lg) var(--space-lg);
+    }
+
+    .col-kicker {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--space-sm);
+      display: block;
+    }
+
+    .col-kicker-frazer {
+      color: var(--secondary);
+    }
+
+    .col-kicker-witt {
+      color: var(--primary);
+    }
+
+    .case-source-note {
+      margin-top: var(--space-md);
+      padding-top: var(--space-sm);
+      border-top: var(--rule-column);
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Tables */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.96875rem;
+      line-height: 1.5;
+    }
+
+    thead th {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: left;
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      color: var(--on-surface);
+    }
+
+    tbody td {
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      border-bottom: var(--rule-column);
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: var(--rule-ink);
+    }
+
+    td.col-criterion {
+      font-weight: 600;
+      color: var(--on-surface);
+      width: 20%;
+    }
+
+    /* Language games explorer */
+    .games-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
+      gap: var(--space-lg);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+
+    .games-nav {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .game-detail {
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+    }
+
+    .game-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: var(--rule-column);
+    }
+
+    /* Perspicuous SVG Atlas */
+    .atlas-container {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+      gap: var(--space-lg);
+      align-items: stretch;
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+    }
+
+    .atlas-stage {
+      min-height: 390px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+
+    .atlas-svg {
+      width: 100%;
+      height: auto;
+      min-height: 340px;
+      display: block;
+      background-color: var(--background);
+      border: 1px solid var(--outline-variant);
+    }
+
+    .atlas-node {
+      cursor: pointer;
+    }
+
+    .atlas-node rect {
+      fill: var(--background);
+      stroke: var(--outline);
+      stroke-width: 1.5;
+      transition: fill var(--dur-micro) var(--ease-out), stroke var(--dur-micro) var(--ease-out);
+    }
+
+    .atlas-node text {
+      fill: var(--on-surface);
+      font-family: var(--font-label);
+      font-size: 12px;
+      font-weight: 700;
+      text-anchor: middle;
+    }
+
+    .atlas-node .node-sub {
+      fill: var(--on-surface-variant);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .atlas-node:hover rect {
+      fill: var(--surface-container-low);
+    }
+
+    .atlas-node.is-selected rect {
+      fill: var(--primary);
+      stroke: var(--primary);
+    }
+
+    .atlas-node.is-selected text,
+    .atlas-node.is-selected .node-sub {
+      fill: var(--on-primary);
+    }
+
+    .atlas-node-self rect {
+      fill: var(--primary-container);
+      stroke: var(--primary);
+      stroke-width: 2;
+    }
+
+    .atlas-node-self text {
+      fill: var(--on-primary-container);
+    }
+
+    .atlas-inspector {
+      border-left: var(--rule-column);
+      padding-left: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    /* Searchable Archive & Lexicon */
+    .filter-toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+      padding-bottom: var(--space-md);
+      border-bottom: var(--rule-column);
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .field-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+
+    .text-input {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--on-surface);
+      background-color: var(--background);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      width: 100%;
+    }
+
+    .text-input:focus {
+      border-color: var(--primary);
+    }
+
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-lg) var(--space-xl);
+      padding-top: var(--space-md);
+    }
+
+    .archive-entry {
+      border-top: var(--rule-ink);
+      padding-top: var(--space-sm);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .archive-entry h3 {
+      font-size: 1.1875rem;
+    }
+
+    .archive-german {
+      font-style: italic;
+      color: var(--on-surface-variant);
+      font-size: 0.9375rem;
+    }
+
+    .archive-empty {
+      padding: var(--space-lg);
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      display: none;
+    }
+
+    /* FAQ / Accordion */
+    .faq-list {
+      border-top: var(--rule-ink);
+    }
+
+    .faq-item {
+      border-bottom: var(--rule-column);
+    }
+
+    .faq-item:last-child {
+      border-bottom: var(--rule-ink);
+    }
+
+    .faq-item summary {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.15rem;
+      padding: var(--space-md) 0;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      min-height: 44px;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: '+';
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .faq-item[open] summary::after {
+      content: '−';
+    }
+
+    .faq-body {
+      padding-bottom: var(--space-md);
+      color: var(--on-surface-variant);
+      max-width: 66ch;
+    }
+
+    /* Quiz */
+    .quiz-shell {
+      border-top: var(--rule-ink);
+      border-bottom: var(--rule-ink);
+      padding-block: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .quiz-header-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--rule-column);
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .quiz-option {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      text-align: left;
+      background-color: var(--background);
+      color: var(--on-surface);
+      border: 1px solid var(--outline-variant);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+
+    .quiz-option:hover:not(:disabled) {
+      background-color: var(--surface-container-low);
+      border-color: var(--outline);
+    }
+
+    .quiz-option.is-correct {
+      background-color: var(--positive-container);
+      border-color: var(--positive);
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+
+    .quiz-option.is-wrong {
+      background-color: var(--primary-container);
+      border-color: var(--error);
+      color: var(--on-primary-container);
+    }
+
+    .quiz-feedback {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      background-color: var(--surface-container-low);
+      border-left: 3px solid var(--primary);
+      display: none;
+    }
+
+    .quiz-feedback.is-visible {
+      display: block;
+    }
+
+    /* Footer */
+    .colophon {
+      border-top: var(--rule-masthead);
+      padding-top: var(--space-lg);
+      color: var(--on-surface-variant);
+      font-size: 0.9375rem;
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+
+    .reveal.is-pending {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    @media (max-width: 860px) {
+      .columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-md) 0;
+      }
+      .columns > :nth-child(3) {
+        border-left: 0;
+        padding-left: 0;
+      }
+      .editorial-split,
+      .editorial-split-wide,
+      .games-layout,
+      .atlas-container,
+      .comparison-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .side-ruled,
+      .game-detail,
+      .atlas-inspector,
+      .comparison-col + .comparison-col {
+        border-left: 0;
+        padding-left: 0;
+        border-top: var(--rule-column);
+        padding-top: var(--space-md);
+      }
+      .timeline-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .case-selector {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .columns,
+      .timeline-strip,
+      .case-selector,
+      .game-meta-grid,
+      .filter-toolbar {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .columns > *,
+      .timeline-step {
+        border-left: 0;
+        border-top: var(--rule-column);
+        padding: var(--space-sm) 0;
+      }
+      .columns > :first-child,
+      .timeline-step:first-child {
+        border-top: 0;
+      }
+      .comparison-col {
+        padding: var(--space-md) 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- MASTHEAD -->
+    <header class="masthead">
+      <div class="masthead-line">
+        <span>Guía conceptual · Filosofía y antropología</span>
+        <span>Ludwig Wittgenstein · 1931–1948 / ed. 1967</span>
+      </div>
+
+      <div style="margin-top: var(--space-lg);">
+        <span class="tag">Lectura crítica de «La Rama Dorada»</span>
+        <h1 style="margin-top: var(--space-xs);">Observaciones a «La Rama Dorada» de Frazer</h1>
+        <p class="lede">
+          Por qué la magia y el rito no son una ciencia fallida sino un lenguaje gestual arraigado en nuestra propia finitud: recorrido analítico por la crítica al intelectualismo de J. G. Frazer, la noción de animal ceremonial y el método de la representación perspicua.
+        </p>
+      </div>
+
+      <nav class="edition-nav" aria-label="Navegación por secciones">
+        <a href="#contexto" class="is-active">01. Origen y tesis</a>
+        <a href="#critica-frazer">02. Crítica al intelectualismo</a>
+        <a href="#animal-ceremonial">03. Ritual y expresión</a>
+        <a href="#representacion-perspicua">04. Representación perspicua</a>
+        <a href="#archivo">05. Archivo de conceptos</a>
+        <a href="#autoevaluacion">06. Preguntas y examen</a>
+      </nav>
+    </header>
+
+    <!-- KEY FIGURES -->
+    <section aria-label="Datos clave de la obra">
+      <div class="columns">
+        <div>
+          <span class="stat-label">Composición en dos estratos</span>
+          <span class="stat-value">1931 &amp; 1936–48</span>
+          <span class="stat-note">Bloque I en manuscrito de Cambridge; Bloque II en notas a lápiz halladas por E. Anscombe.</span>
+        </div>
+        <div>
+          <span class="stat-label">Publicación póstuma</span>
+          <span class="stat-value">1967 / 1992</span>
+          <span class="stat-note">Editadas por Rush Rhees en <em>Synthese</em> (1967); edición y traducción española de Javier Sádaba (1992).</span>
+        </div>
+        <div>
+          <span class="stat-label">La obra examinada</span>
+          <span class="stat-value">12 vols. → 1 vol.</span>
+          <span class="stat-note">De la edición monumental de Frazer (1911–1915) al compendio abreviado de 1922.</span>
+        </div>
+        <div>
+          <span class="stat-label">Formas expresivas afines</span>
+          <span class="stat-value">4 lenguajes</span>
+          <span class="stat-note">Ciencia, moral, estética y lo mágico-religioso como reacciones anteriores al razonamiento.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: CONTEXTO Y TESIS -->
+    <section id="contexto" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">01 · Contexto textual y núcleo filosófico</span>
+        <h2>La ceguera del hombre moderno ante su propio ser ceremonial</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            <span class="run-in">Un legado breve, disperso y decisivo.</span> Las <em>Observaciones a «La Rama Dorada» de Frazer</em> (ORDF) no nacieron como un tratado sistemático, sino como apuntes redactados durante años en los márgenes de una lectura. Para estudiosos como A. J. Ayer carecieron de peso; para otros, constituyen una de las claves más originales para entender el paso del primer Wittgenstein (<em>Tractatus Logico-Philosophicus</em>) al segundo (<em>Investigaciones filosóficas</em>).
+          </p>
+          <p>
+            En estas páginas, Wittgenstein no se propone defender la irracionalidad frente a la ciencia. Lo que denuncia es la ceguera del intelectualismo moderno: al querer dominarlo y explicarlo todo bajo el patrón de las hipótesis empíricas, nuestra propia naturaleza expresiva, ritual y ceremonial se nos ha vuelto opaca. Recuperar esa dimensión —sostiene el prólogo de Javier Sádaba— es la condición misma de una sana racionalidad.
+          </p>
+          <p>
+            Antes de que exista un lenguaje articulado que represente hechos o formule teorías, los seres humanos reaccionan ante la contingencia, el límite y la muerte mediante acciones básicas. El lenguaje emerge después y sustituye o refina esas expresiones primarias: «El lenguaje no emergió del razonamiento».
+          </p>
+        </div>
+
+        <aside class="side-ruled">
+          <span class="tag">Vocabulario técnico del texto</span>
+          <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">Cuatro términos alemanes que articulan las ORDF</h3>
+          <p style="font-size: 0.96875rem;">
+            <span class="run-in">Anschauung (visión / intuición):</span> modo inmediato de ver o sentir el mundo, irreductible a conocimiento proposicional o hipótesis.
+          </p>
+          <p style="font-size: 0.96875rem;">
+            <span class="run-in">Meinung / Glaube (opinión / creencia):</span> juicio susceptible de ser verdadero o falso empíricamente. Wittgenstein niega que el rito nazca de una <em>Meinung</em>.
+          </p>
+          <p style="font-size: 0.96875rem;">
+            <span class="run-in">Erklärung (explicación):</span> hipótesis causal o genética que busca reducir un fenómeno extraño a otro conocido.
+          </p>
+          <p style="font-size: 0.96875rem;">
+            <span class="run-in">Darstellung (representación):</span> puesta en escena, sustitución simbólica o forma sinóptica de ordenar lo que ya sabemos para ver conexiones.
+          </p>
+        </aside>
+      </div>
+
+      <!-- Interactive Timeline -->
+      <div class="newsprint-panel" aria-labelledby="timeline-heading">
+        <span class="section-label">Cronología textual de la composición</span>
+        <h3 id="timeline-heading" style="margin-top: var(--space-xs); margin-bottom: var(--space-md);">De la biblioteca de Cambridge a la edición póstuma</h3>
+
+        <div class="timeline-strip" role="tablist" aria-label="Hitos de composición de las Observaciones">
+          <button type="button" class="timeline-step is-active" role="tab" aria-selected="true" onclick="selectTimeline(0, this)">
+            <span class="timeline-year">1890–1922</span>
+            <span class="timeline-title">La Rama Dorada de Frazer</span>
+          </button>
+          <button type="button" class="timeline-step" role="tab" aria-selected="false" onclick="selectTimeline(1, this)">
+            <span class="timeline-year">1930</span>
+            <span class="timeline-title">Lectura con M. O'C. Drury</span>
+          </button>
+          <button type="button" class="timeline-step" role="tab" aria-selected="false" onclick="selectTimeline(2, this)">
+            <span class="timeline-year">Junio 1931</span>
+            <span class="timeline-title">Primer bloque y notas «S»</span>
+          </button>
+          <button type="button" class="timeline-step" role="tab" aria-selected="false" onclick="selectTimeline(3, this)">
+            <span class="timeline-year">1936–1948+</span>
+            <span class="timeline-title">Hojas sueltas a lápiz</span>
+          </button>
+          <button type="button" class="timeline-step" role="tab" aria-selected="false" onclick="selectTimeline(4, this)">
+            <span class="timeline-year">1967 / 1992</span>
+            <span class="timeline-title">Publicación y legado</span>
+          </button>
+        </div>
+
+        <div id="timeline-detail" class="timeline-detail" aria-live="polite">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: CRÍTICA AL INTELECTUALISMO DE FRAZER -->
+    <section id="critica-frazer" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">02 · Crítica al intelectualismo de Frazer</span>
+        <h2>Por qué el rito no es una física errónea ni una «ciencia abortada»</h2>
+      </div>
+
+      <div class="editorial-split-wide">
+        <div>
+          <div class="pull-quote">
+            «Frazer es mucho más salvaje que la mayoría de sus salvajes, puesto que éstos no estarían tan alejados de la comprensión de algo espiritual como lo está un inglés del siglo XX.»
+            <cite>Ludwig Wittgenstein · Observaciones I</cite>
+          </div>
+          <p style="font-size: 0.96875rem; color: var(--on-surface-variant);">
+            Al lado de la narración de prácticas como el sacerdote-rey de Nemi o los Fuegos de Beltane, Wittgenstein percibe en el antropólogo británico la estrechez de espíritu de quien sólo puede imaginar a un sacerdote antiguo como «un párroco inglés de nuestros días con toda su imbecilidad y mediocridad».
+          </p>
+        </div>
+
+        <div>
+          <p>
+            <span class="run-in">El esquema evolucionista de James George Frazer (1854–1941).</span> Formado en la tradición humanista de Cambridge e impulsado por <em>Primitive Culture</em> de E. B. Tylor, Frazer concibe la historia humana como una superación lineal en tres estadios: <strong>Magia → Religión → Ciencia</strong>. Según su célebre teoría de la <em>magia simpatética</em>, el primitivo confunde la causalidad natural con dos leyes erróneas de asociación:
+          </p>
+          <p>
+            Primero, la <strong>magia homeopática</strong> (ley de semejanza: «lo semejante produce lo semejante», como destruir una imagen para dañar al enemigo). Segundo, la <strong>magia contagiosa o contaminante</strong> (ley de contacto: partes separadas como pelo o recortes de uñas actúan a distancia sobre su dueño). De ahí concluye Frazer que la magia es «un sistema espurio de leyes naturales», «una ciencia falsa» y un «arte abortado».
+          </p>
+          <p>
+            <span class="run-in">La refutación de Wittgenstein en cuatro puntos.</span> Primero, el ser humano no actúa en sus ritos por pura imbecilidad ni por ignorancia técnica: el mismo hombre que traspasa en efigie a su enemigo construye su choza de madera real y afila su flecha con destreza. Segundo, un símbolo religioso no descansa en una opinión empírica (<em>Meinung</em>): ni San Agustín en sus <em>Confesiones</em> ni un santo budista están «en el error», salvo cuando intentan levantar una teoría. Tercero, cuando se convive con una costumbre y unas visiones, la costumbre no nace de las creencias, sino que ambas están ahí juntas. Cuarto, Frazer mismo delata su afinidad con lo que describe al recurrir a palabras familiares y cargadas de temor como <em>ghost</em> (espíritu) o <em>shade</em> (sombra).
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Case Comparator -->
+      <div class="newsprint-panel" aria-labelledby="comparator-heading">
+        <span class="section-label">Mesa de contraste interactiva</span>
+        <h3 id="comparator-heading" style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">Cómo lee Frazer y cómo lee Wittgenstein seis casos concretos</h3>
+        <p style="font-size: 0.96875rem; color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+          Seleccione un fenómeno documentado en las <em>Observaciones</em> para contrastar la hipótesis explicativa de Frazer con la descripción expresiva de Wittgenstein.
+        </p>
+
+        <div class="case-selector" role="tablist" aria-label="Selector de casos etnográficos y cotidianos">
+          <button type="button" class="btn btn-tab is-active" role="tab" aria-selected="true" onclick="selectCase(0, this)">1. El rey de la lluvia en África</button>
+          <button type="button" class="btn btn-tab" role="tab" aria-selected="false" onclick="selectCase(1, this)">2. Traspasar la efigie / Besar el retrato</button>
+          <button type="button" class="btn btn-tab" role="tab" aria-selected="false" onclick="selectCase(2, this)">3. El Rey del Bosque de Nemi</button>
+          <button type="button" class="btn btn-tab" role="tab" aria-selected="false" onclick="selectCase(3, this)">4. Los Fuegos de Beltane</button>
+          <button type="button" class="btn btn-tab" role="tab" aria-selected="false" onclick="selectCase(4, this)">5. Adopción por los vestidos</button>
+          <button type="button" class="btn btn-tab" role="tab" aria-selected="false" onclick="selectCase(5, this)">6. Las partituras de Schubert</button>
+        </div>
+
+        <div id="case-display" aria-live="polite">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+
+      <!-- Summary Matrix Table -->
+      <div>
+        <h3 style="margin-bottom: var(--space-sm);">Balance estructural: explicación hipotética frente a comprensión descriptiva</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Eje de análisis</th>
+                <th>Enfoque de Frazer (<em>Erklärung</em>)</th>
+                <th>Enfoque de Wittgenstein (<em>Beschreibung</em>)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-criterion">Naturaleza del rito</td>
+                <td>Protociencia fallida nacida de confundir causalidad con semejanza o contacto.</td>
+                <td>Acción instintiva, simbólica y expresiva; un «lenguaje gestual altamente perfeccionado».</td>
+              </tr>
+              <tr>
+                <td class="col-criterion">Papel de la creencia</td>
+                <td>La creencia errónea causa la acción (<code>A hace X porque cree Y</code>).</td>
+                <td>El rito sustituye la reacción ante lo inexplicable (<code>A sustituye X por Y</code>); la costumbre y la visión coexisten.</td>
+              </tr>
+              <tr>
+                <td class="col-criterion">Progreso histórico</td>
+                <td>Evolución lineal de la magia y la religión hacia la ciencia empírica.</td>
+                <td>En la ciencia hay progreso causal; la magia carece de una dirección evolutiva propia.</td>
+              </tr>
+              <tr>
+                <td class="col-criterion">Posición del investigador</td>
+                <td>Observador externo y distante que reduce lo extraño a tontería plausible.</td>
+                <td>El «yo» entra en la figura: reconocemos en el rito una posibilidad humana compartida.</td>
+              </tr>
+              <tr>
+                <td class="col-criterion">Efecto buscado</td>
+                <td>Disolver el misterio mediante una hipótesis causal probable.</td>
+                <td>Preservar la profundidad y apaciguar la inquietud conectando el hecho con nuestra experiencia.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: RITUAL COMO EXPRESIÓN Y ACCIÓN CEREMONIAL -->
+    <section id="animal-ceremonial" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">03 · Concepción del ritual</span>
+        <h2>«Casi se podría decir que el hombre es un animal ceremonial»</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            <span class="run-in">Desahogo, satisfacción y sustitución simbólica.</span> ¿Qué hacemos realmente cuando ejecutamos un gesto ritual? Wittgenstein ofrece un ejemplo cotidiano irrebatible: cuando estoy furioso por algo, a veces golpeo con mi bastón la tierra o un árbol. No creo en absoluto que la tierra sea culpable ni que golpearla sirva causalmente para reparar nada. Simplemente: «Desahogo mi cólera». Y concluye: <em>«Todos los ritos son así»</em>.
+          </p>
+          <p>
+            A esas conductas las llama <strong>acciones instintivas</strong> (<em>Instinkt-Handlungen</em>). Del mismo modo, si alguien ríe demasiado en nuestra compañía, apretamos los labios casi involuntariamente como si con ello contuviéramos los suyos; o besamos el retrato o el nombre escrito de la persona amada. No buscamos producir un efecto físico a distancia sobre la persona retratada: «La representación de un deseo es, <em>eo ipso</em>, la representación de su satisfacción». Actuamos así y nos sentimos satisfechos.
+          </p>
+          <p>
+            <span class="run-in">Toda una mitología depositada en el lenguaje.</span> Lejos de ser reliquias de pueblos remotos, estos cambios simbólicos operan hoy en nuestro propio idioma: hablamos de «expulsar» o «matar la muerte», seguimos usando palabras como «alma» o «espíritu», y en las cosechas de Mecklemburgo llamaban «lobo de grano» tanto a lo que se esconde en el último haz como al haz mismo y al hombre que lo siega. Lo ceremonial —«caliente o frío», en contraposición a lo accidental o «tibio»— es el rasgo propio de la piedad humana.
+          </p>
+        </div>
+
+        <aside class="side-ruled">
+          <span class="tag">Distinción crítica</span>
+          <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">Magia expresiva frente a conceptos inexactos</h3>
+          <p style="font-size: 0.96875rem;">
+            Wittgenstein no mete todo en el mismo saco. Pide distinguir cuidadosamente las operaciones mágicas genuinamente simbólicas de aquellas prácticas que descansan en <strong>ideas falsas o simplistas</strong> (<em>unzutreffendes Bild</em>) sobre las cosas.
+          </p>
+          <p style="font-size: 0.96875rem;">
+            Si alguien cree que una enfermedad es un fluido o estado de calor que baja de la cabeza al pecho y toma precauciones físicas para «lavarla», ahí sí existe un concepto empírico inexacto. En cambio, en un rito de adopción, en un canto de duelo o en la confesión de los pecados, no hay una mala física sino una forma de vida expresiva que ni la verdad ni la falsedad empíricas agotan.
+          </p>
+        </aside>
+      </div>
+
+      <!-- Interactive Language Games Explorer -->
+      <div>
+        <h3 style="margin-bottom: var(--space-xs);">Cuatro juegos de lenguaje arraigados en reacciones primarias</h3>
+        <p style="font-size: 0.96875rem; color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+          En su introducción a las ORDF, Javier Sádaba sitúa lo mágico-religioso junto a otros lenguajes afines estudiados por Wittgenstein. Explore cada juego para ver cómo nace de una reacción instintiva anterior a toda teoría.
+        </p>
+
+        <div class="games-layout">
+          <div class="games-nav" role="tablist" aria-label="Juegos de lenguaje en Wittgenstein">
+            <button type="button" class="btn btn-tab is-active" role="tab" aria-selected="true" onclick="selectGame(0, this)">01 · Juego científico (causalidad)</button>
+            <button type="button" class="btn btn-tab" role="tab" aria-selected="false" onclick="selectGame(1, this)">02 · Juego moral (justificación)</button>
+            <button type="button" class="btn btn-tab" role="tab" aria-selected="false" onclick="selectGame(2, this)">03 · Juego estético (arte)</button>
+            <button type="button" class="btn btn-tab" role="tab" aria-selected="false" onclick="selectGame(3, this)">04 · Juego mágico-religioso</button>
+          </div>
+
+          <div id="game-detail" class="game-detail" aria-live="polite">
+            <!-- Filled by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: REPRESENTACIÓN PERSPICUA Y PROFUNDIDAD -->
+    <section id="representacion-perspicua" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">04 · El método filosófico de Wittgenstein</span>
+        <h2>La representación perspicua: «ver las conexiones» sin inventar hipótesis</h2>
+      </div>
+
+      <div class="editorial-split">
+        <div>
+          <p>
+            <span class="run-in">Describir y conjuntar lo ya sabido.</span> Frente al impulso explicativo que comparte Frazer con cierta filosofía y con el psicoanálisis freudiano, Wittgenstein formula su divisa metodológica: <em>«Aquí sólo se puede describir y decir: así es la vida humana»</em>. La explicación es siempre una hipótesis precaria que no calma la inquietud existencial (quien sufre por amor no se consuela con hipótesis sobre la circulación sanguínea o el cerebro).
+          </p>
+          <p>
+            La alternativa es la <strong>representación perspicua</strong> (<em>übersichtliche Darstellung</em>), noción central también en el §122 de las <em>Investigaciones filosóficas</em> e inspirada en la morfología de Goethe («Y así el coro sugiere una ley arcana») y en Spengler. Consiste en ordenar el material disponible mediante <strong>cadenas intermedias</strong> (<em>Zwischenglieder</em>) para agudizar nuestra mirada ante una relación formal, tal como se muestra el parentesco entre un círculo y una elipse mediante su transformación gradual —sin afirmar por ello que la elipse «evolucionó históricamente» a partir del círculo.
+          </p>
+        </div>
+
+        <aside class="side-ruled">
+          <span class="tag">El símil del rompecabezas</span>
+          <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">Por qué el «yo» aporta la profundidad</h3>
+          <p style="font-size: 0.96875rem;">
+            Frazer recompone el rompecabezas de las costumbres primitivas desde fuera, con una hipótesis objetiva que excluye al investigador. Wittgenstein integra al <strong>yo</strong> (a nosotros) dentro de la figura.
+          </p>
+          <p style="font-size: 0.96875rem;">
+            Al mirar los Fuegos de Beltane o el sacrificio del rey de Nemi ocurre como al contemplar un cuadro antiguo o una vieja fotografía: nos sentimos muy lejos por la época, y muy cerca porque <em>nosotros podríamos haber sido como ellos</em>. Lo siniestro no brota sólo de un pasado probable ni del dolor físico, sino del espíritu de la fiesta, del carácter humano y de aquello que nosotros proyectamos desde nuestra propia experiencia interior.
+          </p>
+        </aside>
+      </div>
+
+      <!-- Interactive SVG Perspicuous Representation Diagram -->
+      <div class="atlas-container" aria-labelledby="atlas-heading">
+        <div class="atlas-stage">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-sm);">
+            <div>
+              <span class="section-label">Esquema interactivo de método</span>
+              <h3 id="atlas-heading">Dos modos de ordenar los hechos: Frazer vs. Wittgenstein</h3>
+            </div>
+            <div class="btn-group" role="group" aria-label="Modo de representación">
+              <button type="button" id="btn-mode-witt" class="btn btn-secondary is-active" onclick="setAtlasMode('wittgenstein')">Representación perspicua</button>
+              <button type="button" id="btn-mode-frazer" class="btn btn-secondary" onclick="setAtlasMode('frazer')">Hipótesis de Frazer</button>
+            </div>
+          </div>
+
+          <svg id="atlas-svg" class="atlas-svg" viewBox="0 0 680 360" role="img" aria-label="Diagrama comparativo entre la hipótesis genética de Frazer y la representación perspicua de Wittgenstein">
+            <!-- Rendered dynamically by JS -->
+          </svg>
+
+          <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin: 0;">
+            Haga clic en cualquier nodo del diagrama para inspeccionar cómo opera el nexo formal o la crítica metodológica.
+          </p>
+        </div>
+
+        <aside id="atlas-inspector" class="atlas-inspector" aria-live="polite">
+          <!-- Filled by JS -->
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECTION 5: ARCHIVO BUSCABLE Y LÉXICO -->
+    <section id="archivo" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">05 · Archivo conceptual y glosario textual</span>
+        <h2>Conceptos, aforismos y motivos de «La Rama Dorada»</h2>
+      </div>
+
+      <div class="filter-toolbar">
+        <div class="field-group">
+          <label for="archive-search" class="field-label">Buscar término, ejemplo o motivo</label>
+          <input id="archive-search" type="search" class="text-input" placeholder="Ej.: Beltane, Goethe, imbecilidad, bastón, alma-piedra..." oninput="filterArchive()">
+        </div>
+        <div class="btn-group" role="group" aria-label="Filtrar por categoría">
+          <button type="button" class="btn btn-secondary is-active" onclick="setArchiveCategory('todos', this)">Todos</button>
+          <button type="button" class="btn btn-secondary" onclick="setArchiveCategory('critica', this)">Crítica a Frazer</button>
+          <button type="button" class="btn btn-secondary" onclick="setArchiveCategory('ritual', this)">Ritual y expresión</button>
+          <button type="button" class="btn btn-secondary" onclick="setArchiveCategory('metodo', this)">Método perspicuo</button>
+          <button type="button" class="btn btn-secondary" onclick="setArchiveCategory('casos', this)">Casos de Frazer</button>
+        </div>
+      </div>
+
+      <div id="archive-count" class="label-voice" style="color: var(--on-surface-variant);">
+        Mostrando 12 entradas
+      </div>
+
+      <div id="archive-grid" class="archive-grid">
+        <!-- Populated by JS -->
+      </div>
+
+      <div id="archive-empty" class="archive-empty">
+        <h3 style="margin-bottom: var(--space-xs);">Ninguna entrada coincide con el filtro actual</h3>
+        <p style="color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+          Pruebe con otro término de las <em>Observaciones</em> (por ejemplo, «Nemi», «fuego», «instinto» o «Schubert») o restablezca los filtros.
+        </p>
+        <button type="button" class="btn btn-secondary" onclick="resetArchiveFilters()">Mostrar todas las entradas</button>
+      </div>
+    </section>
+
+    <!-- SECTION 6: FAQ Y AUTOEVALUACIÓN -->
+    <section id="autoevaluacion" class="section-open reveal">
+      <div class="section-header">
+        <span class="section-label">06 · Dudas frecuentes y comprobación</span>
+        <h2>Preguntas clave y diagnóstico de lectura</h2>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom: var(--space-sm);">Cuestiones interpretativas frecuentes</h3>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>¿Niega Wittgenstein el valor de la ciencia o defiende la irracionalidad?</summary>
+            <div class="faq-body">
+              No. Wittgenstein distingue el juego de lenguaje científico —caracterizado por leyes causales y progreso técnico— de las reacciones expresivas y ceremoniales. La ceguera moderna no consiste en tener ciencia, sino en pretender subsumir todo lenguaje subjetivo y existencial bajo el modelo explicativo de la ciencia, lo que él llama «la tonta superstición de nuestro tiempo».
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>¿Sostiene Wittgenstein que en los ritos nunca hay errores empíricos?</summary>
+            <div class="faq-body">
+              Wittgenstein introduce una distinción explícita: una cosa es la acción mágica o ritual simbólica (como besar el retrato de la amada o traspasar una efigie) y otra muy distinta una operación basada en un concepto empírico inexacto (<em>unzutreffendes Bild</em>), como creer que la enfermedad es un fluido que baja de la cabeza al pecho y debe lavarse. Si un hombre abandona una costumbre al advertir un error empírico que la fundaba, no estábamos ante una costumbre propiamente religiosa.
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>¿Por qué dice que lo siniestro en Beltane no depende de probar históricamente el sacrificio humano?</summary>
+            <div class="faq-body">
+              Incluso si se demostrara históricamente que la fiesta moderna deriva de un antiguo sacrificio a Baal, esa costumbre podría haber perdido todo carácter siniestro hoy (como un juego infantil con botones). Inversamente, lo que nos estremece en el relato de Beltane —como el sorteo de un trozo negro de pastel para elegir víctima, comparable a «la traición por medio de un beso»— brota de la naturaleza interna de la fiesta, del carácter de quienes participan en ella y de lo que proyectamos desde nuestra propia experiencia humana.
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>¿En qué se diferencia el análisis de la religión en Wittgenstein frente al de William James o Freud?</summary>
+            <div class="faq-body">
+              A diferencia de William James, que subraya las dimensiones gozosas y positivas de la experiencia religiosa, Wittgenstein atiende sobre todo a su gravedad y dimensión trágica: la religión es un exutorio para ponerse a salvo de las inclemencias de la vida y no acabar derrotado por la existencia. Y frente a Freud, rechaza que el psicoanálisis «explique» nuestra vida interior; más bien, es nuestra angustia ante el límite la que explica la seducción de las teorías psicoanalíticas.
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>¿Qué relación guardan estas notas con el resto de la filosofía de Wittgenstein?</summary>
+            <div class="faq-body">
+              Constituyen el puente entre el <em>Tractatus</em> (donde el mundo místico aparecía como todo limitado) y las <em>Investigaciones filosóficas</em>: la idea de «representación perspicua» (§122), la renuncia a toda explicación en favor de la descripción (§109), la tesis de que el cuerpo humano es la mejor figura del alma humana, y la primacía de las reacciones instintivas anteriores al razonamiento (<em>Sobre la certeza</em>).
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- Interactive Quiz -->
+      <div class="quiz-shell" aria-labelledby="quiz-heading">
+        <div class="quiz-header-bar">
+          <div>
+            <span class="section-label">Comprobación de lectura</span>
+            <h3 id="quiz-heading">Cinco cuestiones para distinguir explicación y descripción</h3>
+          </div>
+          <div style="display: flex; align-items: center; gap: var(--space-md);">
+            <span id="quiz-score" class="label-voice" style="color: var(--primary);">Puntuación: 0 / 5</span>
+            <button type="button" id="quiz-reset-btn" class="btn btn-secondary" onclick="resetQuiz(this)">Reiniciar examen</button>
+          </div>
+        </div>
+
+        <div id="quiz-questions" style="display: grid; gap: var(--space-lg);">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER / COLOPHON -->
+    <footer class="colophon">
+      <span class="label-voice" style="color: var(--on-surface);">Fuentes documentales</span>
+      <p style="margin: 0; max-width: 78ch;">
+        Elaborado íntegramente a partir de: Ludwig Wittgenstein, <em>Observaciones a «La Rama Dorada» de Frazer</em> (edición española con introducción de Javier Sádaba, semblanza de James George Frazer por José Luis Velázquez, nota textual de Rush Rhees y aparato de notas editoriales, 1992; texto original alemán <em>Bemerkungen über Frazers The Golden Bough</em>, 1967). Referencias internas recogidas en la fuente: J. G. Frazer (<em>La Rama Dorada</em>), L. Wittgenstein (<em>Investigaciones filosóficas</em>, <em>Tractatus Logico-Philosophicus</em>, <em>Sobre la certeza</em>, <em>Cultura y valor</em>, <em>Los cuadernos azul y marrón</em>).
+      </p>
+    </footer>
+
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* Data: Timeline */
+      const timelineData = [
+        {
+          year: `1890–1922`,
+          title: `Publicación de «La Rama Dorada» de Frazer`,
+          summary: `James George Frazer publica su obra monumental entre 1890 (dos volúmenes) y 1911–1915 (doce volúmenes), preparando en 1922 la edición abreviada en un solo tomo. En ella formula la sucesión evolutiva magia → religión → ciencia y clasifica la magia simpatética en homeopática (semejanza) y contagiosa (contacto).`,
+          detail: `Frazer interpreta las costumbres mágicas como «un sistema espurio de leyes naturales» y «una ciencia falsa» debida a la ignorancia protocientífica de los pueblos primitivos.`
+        },
+        {
+          year: `1930`,
+          title: `El primer tomo pedido a M. O'C. Drury`,
+          summary: `Según relata el Dr. M. O'C. Drury, en 1930 Wittgenstein le confesó que siempre había deseado leer a Frazer y le pidió un ejemplar. Drury tomó prestado de la Union Library el primer volumen de la edición monumental de doce tomos.`,
+          detail: `Avanzaron poco en la lectura conjunta porque Wittgenstein comenzaba a seleccionar fragmentos abundantemente para comentar, por lo que desistieron de continuar al encuentro siguiente.`
+        },
+        {
+          year: `Junio de 1931`,
+          title: `Manuscrito principal y observaciones marcadas con «S»`,
+          summary: `El 19 de junio de 1931 Wittgenstein escribe las primeras observaciones sobre Frazer en su Manuscrito y continúa durante las dos o tres semanas siguientes, intercalándolas con reflexiones sobre proposición, significado, complejo y hecho.`,
+          detail: `Al dictar a máquina sus 771 páginas dejó fuera cinco notas iniciales marcadas con una «S» (schlecht, «mal» según Rush Rhees), donde proponía comenzar su libro tratando la metafísica «como una especie de magia» de la que «habría que conservar lo profundo».`
+        },
+        {
+          year: `1936–1948+`,
+          title: `Segundo bloque: hojas sueltas a lápiz`,
+          summary: `Años más tarde —nunca antes de 1936 y probablemente después de 1948— Wittgenstein redacta a lápiz una segunda serie de apuntes de primera mano en hojas sueltas, pensados para insertarse en su edición abreviada de un solo volumen.`,
+          detail: `Elizabeth Anscombe encontró estos papeles entre sus pertenencias tras su muerte. En ellos comenta páginas concretas de La Rama Dorada sobre el rey inmóvil, el alma-hombrecito malaya, los Fuegos de Beltane, el alma-piedra y el afeitado de brujas.`
+        },
+        {
+          year: `1967 / 1992`,
+          title: `Edición póstuma de Rhees y edición española de Sádaba`,
+          summary: `Las notas se publicaron póstumamente en alemán en la revista Synthese (1967) al cuidado de Rush Rhees. En 1992 aparecen en castellano con traducción e introducción de Javier Sádaba y semblanza de Frazer por José Luis Velázquez.`,
+          detail: `Hoy se consideran el puente decisivo hacia las Investigaciones filosóficas, donde reaparece el concepto clave de «representación perspicua» (§122) y el lema de describir en vez de explicar (§109).`
+        }
+      ];
+
+      /* Data: Case Comparator */
+      const casesData = [
+        {
+          title: `El rey de la lluvia en África`,
+          frazer: `Frazer documenta que ciertas tribus del Alto Nilo acuden al rey de la lluvia (Mata Kodou) ofreciéndole una vaca para que haga llover. Bajo su enfoque intelectualista, esta costumbre probaría la creencia ingenua de que un hombre controla mágicamente la atmósfera; el error persistiría porque tarde o temprano llueve y creen que el conjuro funcionó.`,
+          wittgenstein: `Wittgenstein señala un detalle decisivo del propio relato: la gente le pide al rey que llueva cuando llega finales de marzo, es decir, al comienzo de la estación lluviosa, nunca en la estación seca cuando la tierra es «un desierto quemado y árido». Igualmente celebran ritos del alba al salir el sol, y de noche simplemente encienden lámparas. Saben perfectamente cuándo llueve: no actúan por imbecilidad ni por falsa meteorología.`,
+          source: `Observaciones I · Referencia a La Rama Dorada, págs. 86, 107–110 y 139.`
+        },
+        {
+          title: `Traspasar la efigie del enemigo / Besar la imagen de la amada`,
+          frazer: `Para Frazer, dañar una imagen o figurilla para perjudicar a un enemigo ejemplifica la «magia homeopática» basada en la ley falsa de semejanza: el salvaje cree que lo que ocurre al retrato causará físicamente el mismo daño en la persona distante.`,
+          wittgenstein: `El mismo salvaje que atraviesa la imagen de su enemigo construye su choza realmente de madera y afila con arte su flecha real, no en efigie. Al igual que cuando nosotros besamos la fotografía o el nombre de la amada, o quemamos a alguien en efigie, no creemos en un efecto causal sobre el representado: «Actuamos así y nos sentimos después satisfechos». La representación de un deseo es ya la de su cumplimiento.`,
+          source: `Observaciones I · Analogía entre magia homeopática y gestos afectivos cotidianos.`
+        },
+        {
+          title: `El Rey del Bosque de Nemi`,
+          frazer: `En el santuario de Diana junto al lago de Nemi, el sacerdote-rey debe morir asesinado por quien antes arranque una rama dorada. Frazer busca una explicación causal-evolutiva: al debilitarse el rey, la comunidad teme que el alma decaiga y afecte la fertilidad; la rama dorada remitiría al mito escandinavo de Balder y el muérdago.`,
+          wittgenstein: `Cuando Frazer inicia el relato, su propio tono muestra que allí ocurre algo terrible y sobrecogedor. A la pregunta «¿por qué ocurre esto?» cabe responder: «porque da miedo». Si colocamos junto a la historia del sacerdote-rey las palabras «La majestad de la muerte», vemos que ambas son una sola cosa: su vida y su muerte representan esa majestad sin necesidad de reducirla a tontería plausible.`,
+          source: `Observaciones I · Apertura de La Rama Dorada y análisis del mito de Nemi.`
+        },
+        {
+          title: `Los Fuegos de Beltane y el pastel sorteado`,
+          frazer: `Frazer interpreta los festivales ígneos europeos de Beltane (Escocia) como residuos paganos de antiguos sacrificios al dios Baal, sustentados en la creencia primitiva de que el fuego celeste purifica cosechas y ganado mediante magia por semejanza.`,
+          wittgenstein: `Lo siniestro y profundo del sorteo del pastel con el trozo negro (cailleach bealtine) —que recuerda a «la traición por medio de un beso»— no depende de probar históricamente un sacrificio antiguo, ni siquiera del dolor físico de la víctima. Brota del espíritu de la fiesta, del carácter de los participantes y de la proyección de nuestra propia experiencia interior. Por eso, dice Wittgenstein, «la solución no es más tranquilizadora que el enigma».`,
+          source: `Observaciones II · Comentario a las págs. 684, 694–695 y 719–722.`
+        },
+        {
+          title: `Adopción haciendo pasar al niño por los vestidos`,
+          frazer: `Frazer recoge la costumbre observada entre turcos de Bosnia y Bulgaria según la cual una mujer adopta a un muchacho haciéndolo pasar por entre sus ropas, clasificándola bajo el principio de simulación mágica del nacimiento.`,
+          wittgenstein: `Wittgenstein replica tajantemente: «es idiota creer que aquí se da un error y que ella cree que ha dado a luz al niño». No hay confusión biológica alguna, sino una ceremonia simbólica y gestual que instituye solemnemente un vínculo filial mediante un signo visible.`,
+          source: `Observaciones I · Referencia a La Rama Dorada, pág. 38.`
+        },
+        {
+          title: `Las partituras rotas de Franz Schubert`,
+          frazer: `Desde un paradigma que exige una creencia utilitaria o mágica detrás de todo rito funerario o de piedad, destruir o repartir objetos pertenecientes a un difunto parecería requerir una hipótesis supersticiosa sobre el alma o la contaminación.`,
+          wittgenstein: `Tras la muerte de Schubert, su hermano cortó sus partituras en pequeños fragmentos y los repartió entre los discípulos más queridos. Ese acto nos resulta tan comprensible como signo de piedad como lo habría sido guardarlas intactas o quemarlas. Así muestra Wittgenstein que el principio ordenador de estas ceremonias reside en nuestra propia alma y distingue lo ceremonial («caliente o frío») de lo accidental («tibio»).`,
+          source: `Observaciones I · Contraste sobre la inventabilidad de las costumbres primitivas.`
+        }
+      ];
+
+      /* Data: Language Games */
+      const gamesData = [
+        {
+          name: `01 · Juego de lenguaje científico`,
+          tag: `Causalidad y progreso`,
+          summary: `Aunque suele oponerse frontalmente a la magia, Wittgenstein recuerda que incluso la ciencia comienza por una reacción primaria anterior a todo razonamiento. En el lenguaje científico hay desarrollo acumulativo y progreso, a diferencia de la magia.`,
+          reaction: `«Reaccionar a una causa» de modo inmediato: por ejemplo, seguir una cuerda para ver quién está tirando de ella, sin inferencias ni experimentos previos.`,
+          language: `Más tarde, un lenguaje causal reemplaza y refina esa reacción primaria estableciendo relaciones unívocas objeto–objeto y leyes naturales.`,
+          quote: `«El lenguaje no emergió del razonamiento» (Sobre la certeza, citado por Sádaba en la Introducción).`
+        },
+        {
+          name: `02 · Juego de lenguaje moral`,
+          tag: `Libertad y justificación`,
+          summary: `En el ámbito moral el esquema causa–efecto resulta insuficiente porque presupone la libertad del sujeto. Entre el objeto (incluso interno) y la persona no hay una relación unívoca subsumible bajo una ley natural.`,
+          reaction: `Respuesta abierta ante una situación humana que exige posicionamiento y valoración personal.`,
+          language: `Lo que cuenta no son las causas explicativas sino las justificaciones, los motivos y las razones de una acción.`,
+          quote: `«Si mediante alguna teoría pudiera aclarar a otro en qué consiste la esencia de lo ético, lo ético carecería de valor» (Conversaciones con Schlick).`
+        },
+        {
+          name: `03 · Juego de lenguaje estético`,
+          tag: `Gusto e impresión`,
+          summary: `Las reacciones artísticas funcionan de manera análoga a las rituales: nos conmueven de forma directa sin aguardar una explicación teórica sobre por qué algo resulta bello o sublime.`,
+          reaction: `Reacción expresiva y cuasi instintiva que produce gusto, asombro o placer estético ante una obra o forma.`,
+          language: `Sólo después entra en juego el lenguaje articulado, modulado por los condicionantes culturales e históricos de cada época.`,
+          quote: `«El atractivo de una explicación no es la explicación de un atractivo» (Sádaba sobre estética y psicología en Wittgenstein).`
+        },
+        {
+          name: `04 · Juego de lenguaje mágico-religioso`,
+          tag: `Expresión ante el límite`,
+          summary: `Es el centro de las ORDF. No consiste en sostener creencias empíricas falsas, sino en expresar simbólicamente nuestra condición de finitud, miedo y anhelo de salvación ante las inclemencias de la vida.`,
+          reaction: `Reacción simbólica y ceremonial frente a hechos sobrecogedores: nacimiento, muerte, sexo, tormentas o furia.`,
+          language: `El rito sustituye la angustia inexplicable por un símbolo o ceremonia; ni la verdad ni la falsedad fácticas son aquí el factor decisivo.`,
+          quote: `«Quien está conmovido por la majestad de la muerte, sólo puede expresarlo a través de una vida en consonancia» (Observaciones I).`
+        }
+      ];
+
+      /* Data: Perspicuous Atlas */
+      const atlasModes = {
+        wittgenstein: {
+          lines: [
+            { x1: 340, y1: 180, x2: 150, y2: 75, style: `primary` },
+            { x1: 340, y1: 180, x2: 530, y2: 75, style: `primary` },
+            { x1: 340, y1: 180, x2: 150, y2: 285, style: `secondary` },
+            { x1: 340, y1: 180, x2: 530, y2: 285, style: `secondary` },
+            { x1: 150, y1: 75, x2: 530, y2: 75, style: `dashed` },
+            { x1: 150, y1: 285, x2: 530, y2: 285, style: `dashed` },
+            { x1: 150, y1: 75, x2: 150, y2: 285, style: `dashed` },
+            { x1: 530, y1: 75, x2: 530, y2: 285, style: `dashed` }
+          ],
+          nodes: [
+            {
+              id: `self`, x: 340, y: 180, w: 176, h: 58, isSelf: true,
+              title: `EL «YO» EN LA FIGURA`,
+              sub: `Profundidad y analogía`,
+              kicker: `Núcleo del método wittgensteiniano`,
+              heading: `No dejar al «yo» fuera del rompecabezas`,
+              body: `Para Wittgenstein, lo que otorga profundidad a los ritos antiguos es incluirnos a nosotros mismos en la figura. Al reconocer nuestra propia capacidad de furia, piedad y temor ante la muerte, la distancia histórica se convierte en cercanía humana.`,
+              quote: `«Cuando veo una costumbre tal... somos nosotros los que proyectamos desde una experiencia que está en nuestro interior.»`
+            },
+            {
+              id: `circle`, x: 150, y: 75, w: 176, h: 56, isSelf: false,
+              title: `CÍRCULO ↔ ELIPSE`,
+              sub: `Cadenas intermedias`,
+              kicker: `Nexo formal (Zwischenglieder)`,
+              heading: `Transformación formal frente a génesis histórica`,
+              body: `Mostrar una serie gradual de elipses que se acercan a un círculo agudiza la mirada ante su parentesco formal. Pero no afirma que una elipse concreta «descendiera históricamente» de un círculo: la hipótesis evolutiva es sólo un ropaje posible de una relación formal.`,
+              quote: `«Lo correcto e interesante no es decir: "esto ha salido de aquí", sino "esto podía haber salido así".»`
+            },
+            {
+              id: `beltane`, x: 530, y: 75, w: 176, h: 56, isSelf: false,
+              title: `BELTANE ↔ SORTEO`,
+              sub: `Pastel y traición`,
+              kicker: `Espíritu de la fiesta`,
+              heading: `El sorteo del pastel y la traición por un beso`,
+              body: `Que el sacrificio en Beltane se decida mediante trozos de un pastel horneado en un gorro nos estremece por su semejanza con formas íntimas de traición humana. Esa impresión directa es psicológica y formal, no el fruto de una deducción probabilística.`,
+              quote: `«El hecho de que el sorteo tenga lugar a través de un pastel tiene algo especialmente horrible (casi como la traición por medio de un beso).»`
+            },
+            {
+              id: `instinct`, x: 150, y: 285, w: 176, h: 56, isSelf: false,
+              title: `BASTÓN ↔ EFIGIE`,
+              sub: `Acciones instintivas`,
+              kicker: `Expresión cotidiana`,
+              heading: `Golpear la tierra y besar una fotografía`,
+              body: `Conectar el rito lejano con gestos cotidianos propios —golpear el suelo con el bastón por cólera o besar la foto de la amada— disuelve la supuesta absurdidad primitiva sin inventar creencias falsas.`,
+              quote: `«Cuando un fenómeno tal se pone en conexión con un instinto que yo mismo poseo se obtiene la explicación deseada.»`
+            },
+            {
+              id: `nemi`, x: 530, y: 285, w: 176, h: 56, isSelf: false,
+              title: `NEMI ↔ MUERTE`,
+              sub: `Majestad y asombro`,
+              kicker: `Descripción sin añadir nada`,
+              heading: `Juntar las palabras justas junto al hecho`,
+              body: `No hace falta explicar por qué muere el sacerdote de Nemi mediante teorías sobre la fertilidad. Basta situar al lado del relato la expresión «La majestad de la muerte» para ver que ambas se iluminan mutuamente.`,
+              quote: `«Lo que sólo se ha de hacer es conjuntar correctamente lo que uno sabe y no añadir nada más.»`
+            }
+          ]
+        },
+        frazer: {
+          lines: [
+            { x1: 115, y1: 150, x2: 295, y2: 150, style: `secondary` },
+            { x1: 385, y1: 150, x2: 565, y2: 150, style: `secondary` }
+          ],
+          nodes: [
+            {
+              id: `f-magic`, x: 115, y: 150, w: 150, h: 64, isSelf: false,
+              title: `1. MAGIA`,
+              sub: `«Ciencia falsa»`,
+              kicker: `Estadio I en Frazer`,
+              heading: `Confusión entre semejanza y causalidad`,
+              body: `Frazer sitúa en la base una teoría errónea de la naturaleza: el primitivo cree controlar lluvias o enemigos mediante magia homeopática y contagiosa porque carece de leyes científicas.`,
+              quote: `«La magia es un sistema espurio de leyes naturales, una ciencia falsa y un arte abortado» (La Rama Dorada, p. 34).`
+            },
+            {
+              id: `f-religion`, x: 340, y: 150, w: 150, h: 64, isSelf: false,
+              title: `2. RELIGIÓN`,
+              sub: `Sumisión a poderes`,
+              kicker: `Estadio II en Frazer`,
+              heading: `Mayor grado de abstracción y súplica`,
+              body: `Cuando el hombre descubre que sus conjuros fallan, pasa de intentar forzar la naturaleza a suplicar sumisamente el favor de poderes espirituales superiores que gobiernan el mundo.`,
+              quote: `Frazer interpreta la religión como etapa intermedia que será superada por la razón empírica.`
+            },
+            {
+              id: `f-science`, x: 565, y: 150, w: 150, h: 64, isSelf: false,
+              title: `3. CIENCIA`,
+              sub: `Progreso y ley real`,
+              kicker: `Estadio III en Frazer`,
+              heading: `Aplicación correcta de la causalidad`,
+              body: `La ciencia comparte con la magia la fe en leyes naturales invariables, pero aplica correctamente los principios de asociación, trayendo progreso material, intelectual y moral.`,
+              quote: `En este modelo lineal, el investigador observa desde fuera y reduce todo lo anterior a error superado.`
+            },
+            {
+              id: `f-observer`, x: 340, y: 295, w: 250, h: 48, isSelf: true,
+              title: `OBSERVADOR EXTERNO (FUERA)`,
+              sub: `Distancia objetivista sin vínculo con el yo`,
+              kicker: `El punto ciego según Wittgenstein`,
+              heading: `El investigador excluido de la figura`,
+              body: `Al situarse fuera del rompecabezas como un «inglés del siglo XX» ante salvajes torpes, Frazer borra el misterio y pierde exactamente aquello que da profundidad al fenómeno: su lazo con nuestra propia existencia.`,
+              quote: `«Todo lo que hace Frazer es reducirla a algo que sea plausible a hombres que piensan como él.»`
+            }
+          ]
+        }
+      };
+
+      /* Data: Archive & Lexicon */
+      const archiveEntries = [
+        {
+          cat: `critica`,
+          catLabel: `Crítica a Frazer`,
+          title: `Error teórico frente a visión religiosa`,
+          german: `Anschauung vs. Meinung`,
+          text: `Frazer presenta las visiones mágicas y religiosas como si fueran errores empíricos. Wittgenstein objeta que ni San Agustín ni un santo budista estaban equivocados, salvo que hubieran formulado una teoría científica.`
+        },
+        {
+          cat: `ritual`,
+          catLabel: `Ritual y expresión`,
+          title: `Animal ceremonial`,
+          german: `Zeremonielles Tier`,
+          text: `Fórmula con la que Wittgenstein resume que, además de conductas biológicas como nutrirse, la vida humana se compone de actos rituales irreductibles a física o técnica erróneas.`
+        },
+        {
+          cat: `metodo`,
+          catLabel: `Método perspicuo`,
+          title: `Representación perspicua`,
+          german: `Übersichtliche Darstellung`,
+          text: `Ordenación sinóptica de hechos y analogías que produce comprensión al «ver las conexiones», sustituyendo las hipótesis evolutivas y causales por la pura descripción.`
+        },
+        {
+          cat: `metodo`,
+          catLabel: `Método perspicuo`,
+          title: `Cadenas intermedias`,
+          german: `Zwischenglieder`,
+          text: `Casos puente reales o imaginados (como transformar un círculo en elipse) que iluminan el aire de familia entre costumbres diversas sin afirmar que una derive históricamente de otra.`
+        },
+        {
+          cat: `ritual`,
+          catLabel: `Ritual y expresión`,
+          title: `Acción instintiva`,
+          german: `Instinkt-Handlung`,
+          text: `Conductas de desahogo o expresión directa —como golpear la tierra con un bastón cuando se está furioso— que no presuponen ninguna creencia causal en su eficacia.`
+        },
+        {
+          cat: `critica`,
+          catLabel: `Crítica a Frazer`,
+          title: `Concepto inexacto`,
+          german: `Unzutreffendes Bild`,
+          text: `Ideas empíricas simplistas (como creer que la enfermedad baja como un fluido de la cabeza al pecho). Wittgenstein pide distinguir estos errores conceptuales de la magia genuinamente expresiva.`
+        },
+        {
+          cat: `ritual`,
+          catLabel: `Ritual y expresión`,
+          title: `Mitología depositada en el lenguaje`,
+          german: `Ghost / Shade / Alma / Espíritu`,
+          text: `Nuestro propio idioma culto conserva estructuras míticas y sustituciones simbólicas: en Mecklemburgo llaman «lobo de grano» al último haz y al hombre que lo siega.`
+        },
+        {
+          cat: `casos`,
+          catLabel: `Casos de Frazer`,
+          title: `Alma-piedra y el hombrecito malayo`,
+          german: `Soul-stone (Nueva Bretaña) · Pág. 219 y 762`,
+          text: `Entre indígenas de Nueva Bretaña el alma queda ligada a una piedra con forma humana o animal; los malayos la imaginan como un hombrecito de igual tez y figura. Wittgenstein recuerda: «El cuerpo humano es la mejor figura del alma humana».`
+        },
+        {
+          cat: `casos`,
+          catLabel: `Casos de Frazer`,
+          title: `El afeitado de brujas y la dignidad`,
+          german: `Francia · Pág. 763 · Hermanos Karamázov`,
+          text: `Ante la costumbre de afeitar por completo a acusados de hechicería para quitarles su poder, Wittgenstein ve una verdad psicológica no supersticiosa: una mutilación que nos hace parecer ridículos destruye el respeto por nosotros mismos.`
+        },
+        {
+          cat: `casos`,
+          catLabel: `Casos de Frazer`,
+          title: `El rey inmóvil y el poder sobre el tiempo`,
+          german: `Trono e inmovilidad · Págs. 206–210`,
+          text: `El rey que permanece rígido como estatua para conservar la paz del imperio no descansa en una física demente: nosotros mismos apretamos los labios cuando alguien ríe en exceso. Las prohibiciones protegen la divinidad que encarna.`
+        },
+        {
+          cat: `metodo`,
+          catLabel: `Método perspicuo`,
+          title: `La «sabia Elsa» y la incertidumbre histórica`,
+          german: `Kluge Else (Hermanos Grimm)`,
+          text: `Preocuparse en exceso por verificar si un origen remoto ocurrió exactamente así recuerda al cuento de la sabia Elsa mirando hacia atrás: lo que da profundidad al rito actúa ya en el presente y en nuestra mente.`
+        },
+        {
+          cat: `critica`,
+          catLabel: `Crítica a Frazer`,
+          title: `La «tonta superstición» de nuestro tiempo`,
+          german: `Aberglaube · Asombro y ciencia`,
+          text: `Creer que al «explicar» científicamente el fuego o el relámpago dejan de ser asombrosos es la superstición moderna. La ciencia puede adormecer el asombro ante la existencia, mientras que lo ceremonial lo mantiene despierto.`
+        }
+      ];
+
+      /* Data: Quiz */
+      const quizData = [
+        {
+          question: `1. ¿Cuál es el reproche principal que dirige Wittgenstein a la interpretación de la magia en «La Rama Dorada» de Frazer?`,
+          options: [
+            `Que Frazer acumuló pocos datos etnográficos de campo sobre Europa y África.`,
+            `Que Frazer presenta las visiones mágico-religiosas como errores teóricos o protociencia fallida debida a la imbecilidad.`,
+            `Que Frazer negó que existiera relación alguna entre la magia simpatética y la religión.`
+          ],
+          correct: 1,
+          explanation: `Correcto. Wittgenstein critica que Frazer reduzca las costumbres a «tonterías» explicables por falsas creencias empíricas, cuando los hombres que practican esos ritos muestran perfecto dominio técnico en su vida práctica.`
+        },
+        {
+          question: `2. ¿Qué demuestra, según Wittgenstein, el hecho de que las tribus del Alto Nilo pidan lluvia a su rey a finales de marzo y celebren ritos del alba por la mañana?`,
+          options: [
+            `Que conocen el ciclo real de las estaciones y del día, por lo que no creen ingenuamente sustituir la naturaleza con magia.`,
+            `Que los reyes de la lluvia engañaban conscientemente a la población durante la estación seca.`,
+            `Que la magia contagiosa es más eficaz que la magia homeopática en climas áridos.`
+          ],
+          correct: 0,
+          explanation: `Exacto. Nunca piden lluvia cuando la tierra es un desierto árido en estación seca, ni celebran ritos del alba de noche (cuando encienden lámparas). Eso prueba que la práctica es ceremonial y no un error meteorológico.`
+        },
+        {
+          question: `3. Frente al esquema intelectualista «A hace X porque cree Y», ¿cómo describe Wittgenstein la acción ritual?`,
+          options: [
+            `A realiza X tras comprobar estadísticamente que Y funciona a largo plazo.`,
+            `A sustituye X (una impresión o angustia ante lo inexplicable) por Y (una acción ritual o símbolo), obteniendo satisfacción expresiva.`,
+            `A imita el comportamiento animal de supervivencia para mejorar la caza y las cosechas.`
+          ],
+          correct: 1,
+          explanation: `Así es. Como al golpear la tierra con un bastón por furia o besar el retrato de la amada, el rito no persigue un efecto causal sino el desahogo y la expresión simbólica.`
+        },
+        {
+          question: `4. ¿Qué papel cumplen las «cadenas intermedias» (Zwischenglieder) en el método de la representación perspicua?`,
+          options: [
+            `Demostrar el origen histórico cronológico de una costumbre en la Antigüedad.`,
+            `Agudizar la mirada ante relaciones formales y semejanzas («ver las conexiones») sin afirmar una hipótesis evolutiva.`,
+            `Sustituir los testimonios etnográficos por fórmulas lógicas del Tractatus.`
+          ],
+          correct: 1,
+          explanation: `Correcto. Como al mostrar la transición gradual entre un círculo y una elipse, las cadenas intermedias revelan un parentesco formal («esto podía haber salido así»), no una derivación histórica obligada.`
+        },
+        {
+          question: `5. Según Wittgenstein, ¿de dónde brota en última instancia lo «profundo» y «siniestro» de costumbres como los Fuegos de Beltane?`,
+          options: [
+            `Exclusivamente de la prueba documental de que los druidas adoraban al dios fenicio Baal.`,
+            `Únicamente del sufrimiento físico de la víctima, idéntico al de cualquier enfermedad grave.`,
+            `De la naturaleza interna de la fiesta, el carácter de quienes participan y lo que nosotros proyectamos al incluir al «yo» en la figura.`
+          ],
+          correct: 2,
+          explanation: `Exacto. Las enfermedades causan el mismo dolor y no producen esa impresión siniestra; la profundidad nace del vínculo humano entre nosotros y ellos y del carácter inquietante del propio gesto (como sortear una víctima mediante un pastel).`
+        }
+      ];
+
+      /* State */
+      let activeAtlasMode = `wittgenstein`;
+      let activeAtlasNodeId = `self`;
+      let activeArchiveCat = `todos`;
+      let quizAnswers = new Array(quizData.length).fill(null);
+
+      /* Timeline handler */
+      function selectTimeline(index, btn) {
+        const buttons = document.querySelectorAll('.timeline-step');
+        buttons.forEach(function (b) {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        if (btn) {
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-selected', 'true');
+        }
+        const item = timelineData[index];
+        const container = document.getElementById('timeline-detail');
+        if (!container || !item) return;
+        container.innerHTML = `
+          <span class="tag">${item.year}</span>
+          <h4 style="font-size: 1.25rem; margin-top: var(--space-xs);">${item.title}</h4>
+          <p style="margin-bottom: var(--space-xs);">${item.summary}</p>
+          <p style="color: var(--on-surface-variant); font-size: 0.96875rem; margin: 0;">${item.detail}</p>
+        `;
+      }
+
+      /* Case comparator handler */
+      function selectCase(index, btn) {
+        const buttons = document.querySelectorAll('.case-selector .btn-tab');
+        buttons.forEach(function (b) {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        if (btn) {
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-selected', 'true');
+        }
+        const item = casesData[index];
+        const container = document.getElementById('case-display');
+        if (!container || !item) return;
+        container.innerHTML = `
+          <div class="comparison-columns">
+            <div class="comparison-col">
+              <span class="col-kicker col-kicker-frazer">Lectura de Frazer · Explicación por creencia</span>
+              <h4 style="margin-bottom: var(--space-sm);">${item.title}</h4>
+              <p style="font-size: 0.98rem;">${item.frazer}</p>
+            </div>
+            <div class="comparison-col">
+              <span class="col-kicker col-kicker-witt">Lectura de Wittgenstein · Descripción expresiva</span>
+              <h4 style="margin-bottom: var(--space-sm);">Sentido del gesto o rito</h4>
+              <p style="font-size: 0.98rem;">${item.wittgenstein}</p>
+            </div>
+          </div>
+          <div class="case-source-note">${item.source}</div>
+        `;
+      }
+
+      /* Language games handler */
+      function selectGame(index, btn) {
+        const buttons = document.querySelectorAll('.games-nav .btn-tab');
+        buttons.forEach(function (b) {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        if (btn) {
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-selected', 'true');
+        }
+        const item = gamesData[index];
+        const container = document.getElementById('game-detail');
+        if (!container || !item) return;
+        container.innerHTML = `
+          <span class="tag">${item.tag}</span>
+          <h4 style="font-size: 1.35rem; margin-top: var(--space-xs); margin-bottom: var(--space-sm);">${item.name}</h4>
+          <p>${item.summary}</p>
+          <div class="game-meta-grid">
+            <div>
+              <span class="stat-label">Reacción primaria anterior</span>
+              <p style="font-size: 0.96875rem; margin: 0;">${item.reaction}</p>
+            </div>
+            <div>
+              <span class="stat-label">Papel del lenguaje posterior</span>
+              <p style="font-size: 0.96875rem; margin: 0;">${item.language}</p>
+            </div>
+          </div>
+          <p style="margin-top: var(--space-md); padding-top: var(--space-sm); border-top: var(--rule-column); font-style: italic; color: var(--on-surface-variant);">
+            ${item.quote}
+          </p>
+        `;
+      }
+
+      /* Perspicuous Atlas SVG renderer */
+      function setAtlasMode(mode) {
+        activeAtlasMode = mode;
+        const btnWitt = document.getElementById('btn-mode-witt');
+        const btnFrazer = document.getElementById('btn-mode-frazer');
+        if (btnWitt && btnFrazer) {
+          btnWitt.classList.toggle('is-active', mode === 'wittgenstein');
+          btnFrazer.classList.toggle('is-active', mode === 'frazer');
+        }
+        const modeObj = atlasModes[mode];
+        if (!modeObj) return;
+        activeAtlasNodeId = modeObj.nodes[0].id;
+        renderAtlas();
+      }
+
+      function selectAtlasNode(nodeId) {
+        activeAtlasNodeId = nodeId;
+        renderAtlas();
+      }
+
+      function renderAtlas() {
+        const svg = document.getElementById('atlas-svg');
+        const inspector = document.getElementById('atlas-inspector');
+        const modeObj = atlasModes[activeAtlasMode];
+        if (!svg || !inspector || !modeObj) return;
+
+        let svgMarkup = `
+          <defs>
+            <marker id="arrow-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" style="fill: var(--secondary);"></path>
+            </marker>
+          </defs>
+        `;
+
+        modeObj.lines.forEach(function (ln) {
+          let strokeColor = 'var(--outline-variant)';
+          let strokeWidth = '1.5';
+          let dashAttr = '';
+          let markerAttr = '';
+          if (ln.style === 'primary') {
+            strokeColor = 'var(--primary)';
+            strokeWidth = '2';
+          } else if (ln.style === 'secondary') {
+            strokeColor = 'var(--secondary)';
+            strokeWidth = '2';
+            if (activeAtlasMode === 'frazer') {
+              markerAttr = 'marker-end="url(#arrow-head)"';
+            }
+          } else if (ln.style === 'dashed') {
+            strokeColor = 'var(--data-context)';
+            strokeWidth = '1.25';
+            dashAttr = 'stroke-dasharray="4 4"';
+          }
+          svgMarkup += `<line x1="${ln.x1}" y1="${ln.y1}" x2="${ln.x2}" y2="${ln.y2}" ${dashAttr} ${markerAttr} style="stroke: ${strokeColor}; stroke-width: ${strokeWidth};" aria-hidden="true" />`;
+        });
+
+        modeObj.nodes.forEach(function (nd) {
+          const rx = nd.x - nd.w / 2;
+          const ry = nd.y - nd.h / 2;
+          const isSelected = nd.id === activeAtlasNodeId;
+          const cls = `atlas-node ${nd.isSelf ? 'atlas-node-self' : ''} ${isSelected ? 'is-selected' : ''}`;
+          svgMarkup += `
+            <g class="${cls}" role="button" tabindex="0" aria-label="${nd.title}" onclick="selectAtlasNode('${nd.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectAtlasNode('${nd.id}');}">
+              <rect x="${rx}" y="${ry}" width="${nd.w}" height="${nd.h}" />
+              <text x="${nd.x}" y="${nd.y - 3}">${nd.title}</text>
+              <text x="${nd.x}" y="${nd.y + 15}" class="node-sub">${nd.sub}</text>
+            </g>
+          `;
+        });
+
+        svg.innerHTML = svgMarkup;
+
+        const selected = modeObj.nodes.find(function (n) { return n.id === activeAtlasNodeId; }) || modeObj.nodes[0];
+        inspector.innerHTML = `
+          <div>
+            <span class="section-label">${selected.kicker}</span>
+            <h4 style="font-size: 1.25rem; margin-top: var(--space-xs); margin-bottom: var(--space-sm);">${selected.heading}</h4>
+            <p style="font-size: 0.98rem;">${selected.body}</p>
+          </div>
+          <div style="border-top: var(--rule-ink); padding-top: var(--space-sm); font-style: italic; font-size: 0.95rem; color: var(--on-surface-variant);">
+            ${selected.quote}
+          </div>
+        `;
+      }
+
+      /* Archive filter & search */
+      function setArchiveCategory(cat, btn) {
+        activeArchiveCat = cat;
+        const buttons = document.querySelectorAll('#archivo .filter-toolbar .btn-secondary');
+        buttons.forEach(function (b) {
+          b.classList.remove('is-active');
+        });
+        if (btn) btn.classList.add('is-active');
+        filterArchive();
+      }
+
+      function resetArchiveFilters() {
+        const searchInput = document.getElementById('archive-search');
+        if (searchInput) searchInput.value = '';
+        activeArchiveCat = 'todos';
+        const buttons = document.querySelectorAll('#archivo .filter-toolbar .btn-secondary');
+        buttons.forEach(function (b, idx) {
+          b.classList.toggle('is-active', idx === 0);
+        });
+        filterArchive();
+      }
+
+      function filterArchive() {
+        const searchInput = document.getElementById('archive-search');
+        const grid = document.getElementById('archive-grid');
+        const empty = document.getElementById('archive-empty');
+        const countEl = document.getElementById('archive-count');
+        if (!grid || !empty || !countEl) return;
+
+        const query = (searchInput ? searchInput.value : '').trim().toLowerCase();
+        const filtered = archiveEntries.filter(function (entry) {
+          const matchesCat = activeArchiveCat === 'todos' || entry.cat === activeArchiveCat;
+          const haystack = `${entry.title} ${entry.german} ${entry.text} ${entry.catLabel}`.toLowerCase();
+          const matchesQuery = !query || haystack.indexOf(query) !== -1;
+          return matchesCat && matchesQuery;
+        });
+
+        countEl.textContent = filtered.length === 1
+          ? `Mostrando 1 entrada`
+          : `Mostrando ${filtered.length} entradas`;
+
+        if (filtered.length === 0) {
+          grid.innerHTML = '';
+          empty.style.display = 'block';
+          return;
+        }
+
+        empty.style.display = 'none';
+        grid.innerHTML = filtered.map(function (entry) {
+          return `
+            <article class="archive-entry">
+              <span class="tag">${entry.catLabel}</span>
+              <h3>${entry.title}</h3>
+              <span class="archive-german">${entry.german}</span>
+              <p style="font-size: 0.96875rem; margin-top: var(--space-xs);">${entry.text}</p>
+            </article>
+          `;
+        }).join('');
+      }
+
+      /* Quiz logic */
+      function renderQuiz() {
+        const container = document.getElementById('quiz-questions');
+        const scoreEl = document.getElementById('quiz-score');
+        if (!container || !scoreEl) return;
+
+        let score = 0;
+        quizAnswers.forEach(function (ans, i) {
+          if (ans === quizData[i].correct) score += 1;
+        });
+        scoreEl.textContent = `Puntuación: ${score} / ${quizData.length}`;
+
+        container.innerHTML = quizData.map(function (q, qIndex) {
+          const chosen = quizAnswers[qIndex];
+          const isAnswered = chosen !== null;
+          const optionsHtml = q.options.map(function (opt, oIndex) {
+            let cls = 'quiz-option';
+            if (isAnswered) {
+              if (oIndex === q.correct) cls += ' is-correct';
+              else if (oIndex === chosen) cls += ' is-wrong';
+            }
+            return `
+              <button type="button" class="${cls}" ${isAnswered ? 'disabled' : ''} onclick="answerQuiz(${qIndex}, ${oIndex})">
+                ${opt}
+              </button>
+            `;
+          }).join('');
+
+          const feedbackClass = isAnswered ? 'quiz-feedback is-visible' : 'quiz-feedback';
+          const verdict = isAnswered
+            ? (chosen === q.correct ? 'Respuesta acertada.' : 'Atención al enfoque de Wittgenstein.')
+            : '';
+
+          return `
+            <div style="padding-bottom: var(--space-md); border-bottom: var(--rule-column);">
+              <h4 style="font-size: 1.125rem; line-height: 1.35;">${q.question}</h4>
+              <div class="quiz-options">${optionsHtml}</div>
+              <div class="${feedbackClass}">
+                <strong style="color: var(--primary);">${verdict}</strong> ${q.explanation}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function answerQuiz(qIndex, oIndex) {
+        if (quizAnswers[qIndex] !== null) return;
+        quizAnswers[qIndex] = oIndex;
+        const resetBtn = document.getElementById('quiz-reset-btn');
+        if (resetBtn) {
+          resetBtn.dataset.armed = 'false';
+          resetBtn.textContent = 'Reiniciar examen';
+        }
+        renderQuiz();
+      }
+
+      function resetQuiz(btn) {
+        const hasProgress = quizAnswers.some(function (a) { return a !== null; });
+        if (hasProgress && btn && btn.dataset.armed !== 'true') {
+          btn.dataset.armed = 'true';
+          btn.textContent = 'Confirmar reinicio';
+          return;
+        }
+        if (btn) {
+          btn.dataset.armed = 'false';
+          btn.textContent = 'Reiniciar examen';
+        }
+        quizAnswers = new Array(quizData.length).fill(null);
+        renderQuiz();
+      }
+
+      /* Expose inline handlers */
+      window.selectTimeline = selectTimeline;
+      window.selectCase = selectCase;
+      window.selectGame = selectGame;
+      window.setAtlasMode = setAtlasMode;
+      window.selectAtlasNode = selectAtlasNode;
+      window.setArchiveCategory = setArchiveCategory;
+      window.resetArchiveFilters = resetArchiveFilters;
+      window.filterArchive = filterArchive;
+      window.answerQuiz = answerQuiz;
+      window.resetQuiz = resetQuiz;
+
+      /* Scroll reveal observer */
+      function initReveal() {
+        const els = document.querySelectorAll('.reveal');
+        if (!('IntersectionObserver' in window)) return;
+        els.forEach(function (el) { el.classList.add('is-pending'); });
+        const observer = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.remove('is-pending');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08 });
+        els.forEach(function (el) { observer.observe(el); });
+      }
+
+      /* Active nav highlight on scroll */
+      function initNavObserver() {
+        const links = document.querySelectorAll('.edition-nav a');
+        const sections = Array.from(links).map(function (link) {
+          const id = link.getAttribute('href').slice(1);
+          return document.getElementById(id);
+        }).filter(Boolean);
+
+        if (!('IntersectionObserver' in window) || sections.length === 0) return;
+
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              links.forEach(function (l) {
+                const match = l.getAttribute('href') === `#${entry.target.id}`;
+                l.classList.toggle('is-active', match);
+              });
+            }
+          });
+        }, { rootMargin: '-20% 0px -65% 0px' });
+
+        sections.forEach(function (sec) { observer.observe(sec); });
+      }
+
+      /* Initialize */
+      document.addEventListener('DOMContentLoaded', function () {
+        const firstTl = document.querySelector('.timeline-step');
+        selectTimeline(0, firstTl);
+
+        const firstCase = document.querySelector('.case-selector .btn-tab');
+        selectCase(0, firstCase);
+
+        const firstGame = document.querySelector('.games-nav .btn-tab');
+        selectGame(0, firstGame);
+
+        renderAtlas();
+        filterArchive();
+        renderQuiz();
+        initReveal();
+        initNavObserver();
+      });
+    })();
+  </script>
+</body>
+</html>

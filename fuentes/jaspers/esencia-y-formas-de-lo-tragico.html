@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="artifact-type" content="narrative">
+<meta name="design-style" content="atelier">
+<title>Esencia y formas de lo trágico — Guía conceptual de Karl Jaspers</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+
+  /* 1. Atelier palette & tokens */
+  --background: #fafaf8;
+  --surface-container-low: #ece8e1;
+  --surface-container: #e5e0d8;
+  --surface-container-high: #ddd7cd;
+
+  --on-surface: #111111;
+  --on-surface-variant: #5b5752;
+
+  --outline: #111111;
+  --outline-variant: #d8d3cb;
+
+  --primary: #111111;
+  --on-primary: #fafaf8;
+  --primary-container: #ece8e1;
+  --on-primary-container: #111111;
+  --secondary: #7a5c48;
+  --tertiary: #a89c8c;
+  --error: #9a2b22;
+  --on-error: #fafaf8;
+
+  /* Data series */
+  --data-1: #111111;
+  --data-2: #7a5c48;
+  --data-3: #948a7d;
+  --data-4: #55657a;
+  --data-context: #cfc9bf;
+
+  /* Fonts */
+  --font-headline: 'Bodoni Moda', serif;
+  --font-body: 'Jost', sans-serif;
+  --font-label: 'Jost', sans-serif;
+
+  /* Shape */
+  --rounded: 0;
+  --rounded-lg: 0;
+  --rounded-full: 0;
+
+  /* Style effects */
+  --rule-ink: 1px solid var(--outline);
+  --rule-stone: 1px solid var(--outline-variant);
+  --label-tracking: 0.22em;
+
+  /* 3. Shared tokens */
+  --positive: #3d5a45;
+  --warning: #7a5c48;
+  --focus: var(--primary);
+
+  /* Type scale -- Narrative */
+  --display-size: clamp(2.75rem, 1.5rem + 4.5vw, 5rem);
+  --headline-size: clamp(1.875rem, 1.25rem + 2.1vw, 2.65rem);
+  --subhead-size: clamp(1.25rem, 1.1rem + 0.55vw, 1.5rem);
+  --body-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --lede-size: clamp(1.2rem, 1.08rem + 0.45vw, 1.42rem);
+  --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+  /* Spacing scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+}
+
+/* Base reset */
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  overflow-x: clip;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--body-size);
+  line-height: 1.65;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+header { position: static !important; }
+
+.page-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2xl);
+  padding: var(--space-lg) var(--space-xl) var(--space-3xl);
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.page-grid * { min-width: 0; }
+
+/* Focus rings */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Typography classes */
+.display {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  font-size: var(--display-size);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  font-optical-sizing: auto;
+  margin: 0;
+  color: var(--on-surface);
+}
+.display em,
+h2 em,
+h3 em {
+  font-style: italic;
+}
+
+h2 {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  font-size: var(--headline-size);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--space-md) 0;
+  color: var(--on-surface);
+}
+
+h3 {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  font-size: var(--subhead-size);
+  line-height: 1.2;
+  margin: 0 0 var(--space-sm) 0;
+  color: var(--on-surface);
+}
+
+.label {
+  font-family: var(--font-label);
+  font-weight: 400;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+  line-height: 1.4;
+}
+
+.kicker {
+  color: var(--secondary);
+  margin-top: var(--space-sm);
+  display: block;
+}
+
+.lede {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: var(--lede-size);
+  line-height: 1.6;
+  color: var(--on-surface);
+  max-width: 62ch;
+  margin: var(--space-lg) 0 0 0;
+}
+
+p {
+  margin: 0 0 var(--space-md) 0;
+  max-width: 65ch;
+}
+
+blockquote {
+  margin: var(--space-lg) 0;
+  padding: var(--space-sm) 0 var(--space-sm) var(--space-lg);
+  border-left: var(--rule-ink);
+  max-width: 58ch;
+  font-style: italic;
+  color: var(--on-surface);
+}
+blockquote cite {
+  display: block;
+  font-style: normal;
+  margin-top: var(--space-xs);
+  color: var(--secondary);
+}
+
+/* Title block & Gallery margins */
+.title-block {
+  padding: var(--space-2xl) 0 var(--space-xl);
+  border-bottom: var(--rule-ink);
+}
+
+/* Editorial navigation */
+.toc-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-lg);
+  padding: var(--space-md) 0;
+  border-bottom: var(--rule-stone);
+  margin-top: var(--space-lg);
+}
+.toc-link {
+  color: var(--on-surface-variant);
+  text-decoration: none;
+  padding: var(--space-xs) 0;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 1px solid transparent;
+  transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+}
+.toc-link:hover,
+.toc-link.is-active {
+  color: var(--on-surface);
+  border-bottom-color: var(--outline);
+}
+
+/* Ruled top elements (Treatment 3) */
+.ruled-top {
+  border-top: var(--rule-ink);
+  padding-top: var(--space-sm);
+  background: transparent;
+}
+.ruled-top .value {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  font-size: var(--subhead-size);
+  line-height: 1.25;
+  margin-top: var(--space-xs);
+  color: var(--on-surface);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.ruled-top .note {
+  color: var(--secondary);
+  font-size: var(--label-size);
+  margin-top: var(--space-xs);
+  display: block;
+}
+
+.divider {
+  border: 0;
+  border-top: var(--rule-stone);
+  margin: var(--space-lg) 0;
+}
+
+/* Key figure row */
+.key-figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+/* Section layout */
+.chapter {
+  padding-top: var(--space-xl);
+  border-top: var(--rule-ink);
+}
+
+.chapter-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+
+.asymmetric-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr);
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.asymmetric-wide-left {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: var(--space-lg);
+}
+
+/* Stone panel (rare inset object) */
+.stone-panel {
+  background-color: var(--surface-container-low);
+  padding: var(--space-lg);
+  border-top: var(--rule-ink);
+  container-type: inline-size;
+}
+
+.stone-panel-deep {
+  background-color: var(--surface-container);
+  padding: var(--space-lg);
+  border-top: var(--rule-ink);
+}
+
+/* Exhibition caption (Treatment 5) */
+figure {
+  margin: 0;
+}
+figcaption {
+  border-top: var(--rule-ink);
+  padding-top: var(--space-sm);
+  margin-top: var(--space-md);
+  color: var(--on-surface-variant);
+  font-size: 0.95rem;
+}
+figcaption .label {
+  display: block;
+  color: var(--on-surface);
+  margin-bottom: var(--space-xs);
+}
+
+/* Buttons (Atelier: square, ink or 1px ink outline, tracked uppercase) */
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: end;
+}
+
+.btn {
+  font-family: var(--font-label);
+  font-weight: 400;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--rounded);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border: var(--rule-ink);
+}
+.btn-primary:hover {
+  background-color: var(--on-surface-variant);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--on-surface);
+  border: var(--rule-ink);
+}
+.btn-outline:hover {
+  background-color: var(--surface-container-high);
+}
+.btn-outline[aria-pressed="true"],
+.btn-outline.is-selected {
+  background-color: var(--primary);
+  color: var(--on-primary);
+}
+
+/* Tag (square, no fill, no border, taupe tracked small caps) */
+.tag {
+  font-family: var(--font-label);
+  font-weight: 400;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+  color: var(--secondary);
+  display: inline-block;
+}
+
+/* Inputs */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.field-input,
+.field-select {
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  color: var(--on-surface);
+  background: transparent;
+  border: 0;
+  border-bottom: var(--rule-ink);
+  border-radius: 0;
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-sm) var(--space-sm) 0;
+  width: 100%;
+}
+.field-select {
+  padding-right: var(--space-lg);
+}
+
+/* Tables */
+.atelier-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+.atelier-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.96rem;
+}
+.atelier-table thead th {
+  font-family: var(--font-label);
+  font-weight: 400;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+  color: var(--on-surface);
+  border-top: var(--rule-ink);
+  border-bottom: var(--rule-ink);
+  padding: var(--space-md) var(--space-sm);
+  vertical-align: bottom;
+}
+.atelier-table tbody td {
+  border-bottom: var(--rule-stone);
+  padding: var(--space-md) var(--space-sm);
+  vertical-align: top;
+}
+.atelier-table tbody tr:hover {
+  background-color: var(--surface-container-low);
+}
+.num-col {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* Interactive SVG Diagram */
+.diagram-frame {
+  width: 100%;
+  background: var(--surface-container-low);
+  padding: var(--space-md);
+  border-top: var(--rule-ink);
+}
+.diagram-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.svg-node {
+  cursor: pointer;
+}
+.svg-node rect {
+  fill: var(--background);
+  stroke: var(--outline);
+  stroke-width: 1;
+  transition: fill var(--dur-micro) var(--ease-out);
+}
+.svg-node:hover rect {
+  fill: var(--surface-container-high);
+}
+.svg-node.is-active rect {
+  fill: var(--primary);
+}
+.svg-node text {
+  font-family: var(--font-label);
+  fill: var(--on-surface);
+  pointer-events: none;
+}
+.svg-node.is-active text {
+  fill: var(--on-primary);
+}
+
+/* Step list for 6 historical manifestations */
+.milestone-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.milestone-btn {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-top: var(--rule-stone);
+  padding: var(--space-md) var(--space-sm);
+  min-height: 44px;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: var(--space-sm);
+  align-items: baseline;
+  text-align: left;
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  transition: background-color var(--dur-micro) var(--ease-out);
+}
+.milestone-btn:last-child {
+  border-bottom: var(--rule-stone);
+}
+.milestone-btn:hover {
+  background-color: var(--surface-container-high);
+}
+.milestone-btn.is-active {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border-top-color: var(--primary);
+}
+.milestone-btn .step-idx {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  letter-spacing: var(--label-tracking);
+  color: var(--secondary);
+}
+.milestone-btn.is-active .step-idx {
+  color: var(--on-primary);
+}
+
+/* Diagnostic Lab */
+.criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: var(--space-sm);
+  margin: var(--space-md) 0;
+}
+.criterion-toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  border: var(--rule-ink);
+  background: var(--background);
+  color: var(--on-surface);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 0.96rem;
+  transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+}
+.criterion-toggle:hover {
+  background: var(--surface-container-high);
+}
+.criterion-toggle[aria-pressed="true"] {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.criterion-mark {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.verdict-box {
+  border-top: var(--rule-ink);
+  padding-top: var(--space-md);
+  margin-top: var(--space-md);
+}
+.verdict-status {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+.verdict-tragic {
+  background-color: var(--primary);
+  color: var(--on-primary);
+}
+.verdict-partial {
+  background-color: var(--surface-container);
+  color: var(--on-surface);
+  border: var(--rule-ink);
+}
+.verdict-misery {
+  background-color: var(--error);
+  color: var(--on-error);
+}
+.verdict-grace {
+  background-color: var(--positive);
+  color: var(--on-primary);
+}
+
+/* Knowledge Base concept rows */
+.kb-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-lg);
+  align-items: end;
+  margin-bottom: var(--space-xl);
+}
+.kb-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-xl) var(--space-lg);
+}
+.kb-item {
+  border-top: var(--rule-ink);
+  padding-top: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.kb-meta-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  align-items: baseline;
+}
+.kb-relation {
+  border-top: var(--rule-stone);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  font-size: 0.92rem;
+  color: var(--on-surface-variant);
+}
+
+/* Collapsible details */
+details.atelier-details {
+  border-top: var(--rule-stone);
+  border-bottom: var(--rule-stone);
+  padding: var(--space-sm) 0;
+  margin: var(--space-md) 0;
+}
+details.atelier-details summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+}
+details.atelier-details summary::-webkit-details-marker {
+  display: none;
+}
+details.atelier-details[open] summary {
+  margin-bottom: var(--space-sm);
+}
+
+/* Reveal motion */
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Container query for inner interactive splits */
+@container (min-width: 560px) {
+  .panel-two-col {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-lg);
+  }
+}
+@container (max-width: 559px) {
+  .panel-two-col {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-md);
+  }
+}
+
+/* Responsive mobile breakpoint */
+@media (max-width: 640px) {
+  .page-grid {
+    padding: var(--space-md) var(--space-md) var(--space-2xl);
+    gap: var(--space-xl);
+  }
+  .title-block {
+    padding: var(--space-xl) 0 var(--space-lg);
+  }
+  .asymmetric-split,
+  .asymmetric-wide-left,
+  .kb-controls {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<div class="page-grid">
+
+  <!-- OPENING TITLE BLOCK -->
+  <header class="title-block">
+    <span class="label tag">Guía conceptual y base de conocimientos estructurada</span>
+    <h1 class="display">Esencia y formas de lo <em>trágico</em></h1>
+    <span class="label kicker">Karl Jaspers · Über das Tragische (1952) · Traducción de Norberto Silvetti Paz</span>
+    <p class="lede">
+      Para Karl Jaspers, la conciencia de lo trágico constituye el fundamento de la conciencia del ser. No se confunde con la simple desdicha, la muerte biológica o la crueldad anónima: exige acción libre, colisión irreconciliable de verdades y la experiencia del naufragio total, instante en el que el hombre fracasa como existencia y deja traslucir el ser.
+    </p>
+
+    <div class="key-figures">
+      <div class="ruled-top">
+        <span class="label">Tesis nuclear</span>
+        <div class="value">«El ser aparece en el fracasar»</div>
+        <span class="note">No existe tragedia no trascendente</span>
+      </div>
+      <div class="ruled-top">
+        <span class="label">Umbral histórico</span>
+        <div class="value">Siglos VI – III a. C.</div>
+        <span class="note">Madurez paralela de filosofía y mito</span>
+      </div>
+      <div class="ruled-top">
+        <span class="label">Arquitectura de la obra</span>
+        <div class="value">5 núcleos temáticos</div>
+        <span class="note">Del mito originario a las interpretaciones</span>
+      </div>
+      <div class="ruled-top">
+        <span class="label">Condición del fenómeno</span>
+        <div class="value">No unidad temporal</div>
+        <span class="note">Lo trágico habita el primer plano, no a Dios</span>
+      </div>
+    </div>
+
+    <nav class="toc-nav" aria-label="Índice de capítulos">
+      <a class="label toc-link is-active" href="#intuiciones">01 Intuiciones</a>
+      <a class="label toc-link" href="#horizontes">02 Saber trágico</a>
+      <a class="label toc-link" href="#hitos">03 Seis hitos</a>
+      <a class="label toc-link" href="#anatomia">04 Anatomía y diagnóstico</a>
+      <a class="label toc-link" href="#subjetividad">05 Subjetividad</a>
+      <a class="label toc-link" href="#interpretaciones">06 Límites</a>
+      <a class="label toc-link" href="#base-conocimientos">07 Base conceptual</a>
+    </nav>
+  </header>
+
+  <main style="display: grid; gap: var(--space-3xl);">
+
+    <!-- CAPÍTULO 1: INTUICIONES ORIGINARIAS -->
+    <section id="intuiciones" class="chapter reveal">
+      <div class="chapter-header">
+        <span class="label tag">Capítulo I · Introducción</span>
+        <h2>La verdad irrumpe en mitos y figuras antes de hacerse <em>método</em></h2>
+      </div>
+
+      <div class="asymmetric-split">
+        <div>
+          <p>
+            Es propio del hombre dirigir su mirada hacia el fundamento de la verdad. Antes del salto hacia el filosofar metódico —que alcanza su madurez entre los siglos VI y III a. C.—, la verdad habita en intuiciones espirituales originarias transmitidas como mitos, revelaciones, ritos e historias concretas.
+          </p>
+          <p>
+            La filosofía no destruye ese caudal: pugna con él, lo asimila o reconoce su límite ininteligible, convirtiéndolo en su <em>organon</em>. Durante este proceso histórico, aquella unidad primitiva se desmiembra en tres lenguajes autónomos que conservan un vínculo subterráneo:
+          </p>
+          <ul style="padding-left: var(--space-lg); margin: 0 0 var(--space-md) 0; max-width: 60ch;">
+            <li><strong>Religión:</strong> fundamento comunitario y freno del individuo; adversario y soporte fecundo del filosofar. Su olvido completo desembocaría en nihilismo, desesperación vacía y «caótica superstición», arrastrando consigo incluso a la ciencia.</li>
+            <li><strong>Arte plástico:</strong> enseña a ver el espacio, el paisaje y al hombre. Jaspers distingue la mera decoración o representación naturalista del «gran arte» metafísico, que funciona como <em>criptografía metafísica</em> capaz de revelar el ser en lo visible.</li>
+            <li><strong>Poesía:</strong> ámbito medular del lenguaje; desde el himno y la plegaria hasta la representación del destino humano, es el órgano por el cual irrumpe la primera filosofía.</li>
+          </ul>
+        </div>
+
+        <figure>
+          <div class="diagram-frame">
+            <svg class="diagram-svg" viewBox="0 0 600 340" role="img" aria-label="Esquema interactivo de las intuiciones originarias según Karl Jaspers">
+              <!-- Connections -->
+              <line x1="300" y1="68" x2="110" y2="145" stroke="currentColor" stroke-width="1"></line>
+              <line x1="300" y1="68" x2="300" y2="145" stroke="currentColor" stroke-width="1"></line>
+              <line x1="300" y1="68" x2="490" y2="145" stroke="currentColor" stroke-width="1"></line>
+              <line x1="110" y1="205" x2="300" y2="265" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"></line>
+              <line x1="300" y1="205" x2="300" y2="265" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"></line>
+              <line x1="490" y1="205" x2="300" y2="265" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"></line>
+
+              <!-- Node 0: Unidad originaria -->
+              <g class="svg-node is-active" data-sphere="unidad" tabindex="0" role="button" aria-label="Inspeccionar Intuiciones originarias">
+                <rect x="150" y="16" width="300" height="52"></rect>
+                <text x="300" y="39" text-anchor="middle" font-size="11" letter-spacing="2">INTUICIONES ORIGINARIAS</text>
+                <text x="300" y="55" text-anchor="middle" font-size="10" opacity="0.85">MITO · RITO · REVELACIÓN</text>
+              </g>
+
+              <!-- Node 1: Religion -->
+              <g class="svg-node" data-sphere="religion" tabindex="0" role="button" aria-label="Inspeccionar Religión">
+                <rect x="25" y="145" width="170" height="60"></rect>
+                <text x="110" y="171" text-anchor="middle" font-size="11" letter-spacing="2">RELIGIÓN</text>
+                <text x="110" y="189" text-anchor="middle" font-size="9.5" opacity="0.8">POTENCIA COMUNITARIA</text>
+              </g>
+
+              <!-- Node 2: Arte plastico -->
+              <g class="svg-node" data-sphere="arte" tabindex="0" role="button" aria-label="Inspeccionar Arte plástico">
+                <rect x="215" y="145" width="170" height="60"></rect>
+                <text x="300" y="171" text-anchor="middle" font-size="11" letter-spacing="2">ARTE PLÁSTICO</text>
+                <text x="300" y="189" text-anchor="middle" font-size="9.5" opacity="0.8">CRIPTOGRAFÍA VISIBLE</text>
+              </g>
+
+              <!-- Node 3: Poesia -->
+              <g class="svg-node" data-sphere="poesia" tabindex="0" role="button" aria-label="Inspeccionar Poesía">
+                <rect x="405" y="145" width="170" height="60"></rect>
+                <text x="490" y="171" text-anchor="middle" font-size="11" letter-spacing="2">POESÍA</text>
+                <text x="490" y="189" text-anchor="middle" font-size="9.5" opacity="0.8">ÓRGANO DEL LENGUAJE</text>
+              </g>
+
+              <!-- Node 4: Filosofar -->
+              <g class="svg-node" data-sphere="filosofia" tabindex="0" role="button" aria-label="Inspeccionar Filosofar metódico">
+                <rect x="135" y="265" width="330" height="58"></rect>
+                <text x="300" y="290" text-anchor="middle" font-size="11" letter-spacing="2">FILOSOFAR METÓDICO</text>
+                <text x="300" y="307" text-anchor="middle" font-size="9.5" opacity="0.85">SIGLOS VI–III A. C. · LO TRÁGICO COMO ORGANON</text>
+              </g>
+            </svg>
+
+            <div id="sphere-detail" class="ruled-top" style="margin-top: var(--space-md);" aria-live="polite">
+              <span class="label tag" id="sphere-tag">Esfera seleccionada</span>
+              <h3 id="sphere-title" style="margin-top: var(--space-xs);">Unidad primigenia de la verdad</h3>
+              <p id="sphere-desc" style="margin-bottom: 0;">Las preguntas últimas (¿por qué la condición del hombre es así?, ¿cómo lograr la liberación y el reposo en el ser?) no reciben al inicio respuestas reflexivas, sino hechos incuestionables en mitos como Prometeo o la caída del pecado, los misterios y los ritos.</p>
+            </div>
+          </div>
+          <figcaption>
+            <span class="label">Figura 01 · Arquitectura de las intuiciones originarias</span>
+            Pulsa sobre cualquier nodo del diagrama para examinar su función en el nacimiento de la conciencia filosófica y su vínculo con lo trágico.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO 2: EL SABER TRÁGICO Y LA SEGURIDAD SIN TRAGEDIA -->
+    <section id="horizontes" class="chapter reveal">
+      <div class="chapter-header">
+        <span class="label tag">Capítulo II · El saber trágico</span>
+        <h2>La conciencia trágica despierta la historia al quebrar el ciclo de lo <em>perecedero</em></h2>
+      </div>
+
+      <p>
+        No toda cultura ha vivido el saber trágico. Jaspers traza una divisoria profunda entre las cosmovisiones cerradas que protegen al hombre dentro del ciclo natural o de una fe salvífica y el despertar trágico, que arroja al ser humano ante las situaciones límite y pone en marcha el movimiento irreiterable de la historia interior.
+      </p>
+
+      <div class="stone-panel" style="margin-top: var(--space-lg);">
+        <div class="btn-row" role="group" aria-label="Seleccionar horizonte de conciencia">
+          <button type="button" class="btn btn-outline is-selected" data-horizon="pretragico" aria-pressed="true">1. Saber pretrágico</button>
+          <button type="button" class="btn btn-outline" data-horizon="china" aria-pressed="false">2. China prebudista</button>
+          <button type="button" class="btn btn-outline" data-horizon="apatia" aria-pressed="false">3. Apatía filosófica</button>
+          <button type="button" class="btn btn-outline" data-horizon="cristianismo" aria-pressed="false">4. Revelación cristiana</button>
+          <button type="button" class="btn btn-outline" data-horizon="tragico" aria-pressed="false">5. Saber trágico</button>
+        </div>
+
+        <div id="horizon-display" class="panel-two-col" style="margin-top: var(--space-lg); border-top: var(--rule-ink); padding-top: var(--space-md);" aria-live="polite">
+          <div>
+            <span class="label tag" id="horizon-badge">Horizonte ahistórico</span>
+            <h3 id="horizon-title" style="margin-top: var(--space-xs);">Saber pretrágico (mítico-circular)</h3>
+            <p id="horizon-summary">Contempla el dolor y la muerte como un eterno giro de vida, muerte y resurrección (el dios que muere y resucita, la diosa madre y de la muerte que engendra y recoge todo en su seno).</p>
+          </div>
+          <div style="display: grid; gap: var(--space-sm);">
+            <div class="ruled-top">
+              <span class="label">Sentido del tiempo</span>
+              <div id="horizon-time" style="margin-top: var(--space-xs);">Circular y ahistórico: siempre la misma realidad, sin acontecimientos irrepetibles.</div>
+            </div>
+            <div class="ruled-top">
+              <span class="label">Actitud ante el sufrimiento</span>
+              <div id="horizon-attitude" style="margin-top: var(--space-xs);">Saber tranquilizador de lo perecedero; el hombre se siente protegido dentro de la naturaleza.</div>
+            </div>
+            <div class="ruled-top">
+              <span class="label">¿Por qué no es tragedia?</span>
+              <div id="horizon-limit" style="margin-top: var(--space-xs);">Falta el desasosiego ante la situación límite y la ruptura provocada por la acción libre del héroe.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="atelier-table-wrap" style="margin-top: var(--space-xl);">
+        <table class="atelier-table">
+          <thead>
+            <tr>
+              <th>Horizonte espiritual</th>
+              <th>Naturaleza del orden</th>
+              <th>Estatuto de la culpa y el dolor</th>
+              <th>Desenlace / Liberación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Pretrágico mítico</strong></td>
+              <td>Ciclo eterno de estaciones, vida y muerte</td>
+              <td>Tristeza y júbilo integrados; sin acusación</td>
+              <td>Amparo en el retorno natural</td>
+            </tr>
+            <tr>
+              <td><strong>China prebudista</strong></td>
+              <td>Armonía luminosa, buena y ordenada</td>
+              <td>Perturbación pasajera sin necesidad existencial</td>
+              <td>Lamento sin desesperación; sereno soportar y morir</td>
+            </tr>
+            <tr>
+              <td><strong>Apatía ilustrada (postaristotélica)</strong></td>
+              <td>Armonía racional del Todo; desarmonías relativas</td>
+              <td>El destino es un «papel escénico» externo al yo</td>
+              <td>Indolencia e indiferencia (autoafirmación vacía; fracasa en la práctica)</td>
+            </tr>
+            <tr>
+              <td><strong>Religión de revelación</strong></td>
+              <td>Providencia y Reino de Dios más allá del mundo</td>
+              <td>Pecado original; <em>felix culpa</em> que posibilita la redención</td>
+              <td>Gracia y salvación; Cristo fracasa en el mundo sin ser trágico</td>
+            </tr>
+            <tr>
+              <td><strong>Saber trágico</strong></td>
+              <td>Desarmonía e irreiterabilidad histórica</td>
+              <td>Colisión inevitable nacida de la acción y la verdad</td>
+              <td>Catarsis y lucidez ante el límite; el ser trasluce en el naufragio</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO 3: RESEÑA HISTÓRICA (6 HITOS) -->
+    <section id="hitos" class="chapter reveal">
+      <div class="chapter-header">
+        <span class="label tag">Capítulo II · Reseña histórica</span>
+        <h2>Seis hitos históricos donde el saber trágico cobra forma y se <em>consume</em></h2>
+      </div>
+
+      <p>
+        Ningún saber trágico es en su forma concreta universalmente intemporal: cada época debe conquistarlo de nuevo. Jaspers enumera seis grandes manifestaciones históricas que se iluminan recíprocamente como un espejo de nuestras posibilidades.
+      </p>
+
+      <div class="asymmetric-wide-left" style="margin-top: var(--space-lg);">
+        <div class="milestone-list" role="listbox" aria-label="Seis hitos históricos del saber trágico">
+          <button type="button" class="milestone-btn is-active" data-milestone="0" role="option" aria-selected="true">
+            <span class="step-idx">01</span>
+            <span><strong>Homero, Edda y Sagas islandesas</strong> — Leyendas heroicas</span>
+          </button>
+          <button type="button" class="milestone-btn" data-milestone="1" role="option" aria-selected="false">
+            <span class="step-idx">02</span>
+            <span><strong>Tragedia griega</strong> — Esquilo, Sófocles y Eurípides</span>
+          </button>
+          <button type="button" class="milestone-btn" data-milestone="2" role="option" aria-selected="false">
+            <span class="step-idx">03</span>
+            <span><strong>Tragedia moderna</strong> — Shakespeare, Calderón y Racine</span>
+          </button>
+          <button type="button" class="milestone-btn" data-milestone="3" role="option" aria-selected="false">
+            <span class="step-idx">04</span>
+            <span><strong>Ámbito germano y s. XIX</strong> — Lessing, Schiller y el drama moderno</span>
+          </button>
+          <button type="button" class="milestone-btn" data-milestone="4" role="option" aria-selected="false">
+            <span class="step-idx">05</span>
+            <span><strong>Poemas del terror</strong> — Libro de Job y dramas indios</span>
+          </button>
+          <button type="button" class="milestone-btn" data-milestone="5" role="option" aria-selected="false">
+            <span class="step-idx">06</span>
+            <span><strong>Pensadores existenciales</strong> — Kierkegaard, Dostoiewski, Nietzsche</span>
+          </button>
+        </div>
+
+        <div id="milestone-panel" class="stone-panel" aria-live="polite">
+          <span class="label tag" id="m-era">Hito 01 de 06</span>
+          <h3 id="m-title" style="margin-top: var(--space-xs);">Homero, Edda y Sagas de los islandeses</h3>
+          <p id="m-text">
+            Las leyendas heroicas desde Occidente hasta China muestran lo trágico como algo natural y comprensible de suyo. Su objeto es el desnudo padecimiento, la muerte, la corrupción, la resistencia y la gloria. Sobre dioses enfrentados y hombres impera la tenebrosa <em>Moira</em>.
+          </p>
+          <div class="ruled-top" style="margin-top: var(--space-md);">
+            <span class="label">Estatuto filosófico</span>
+            <p id="m-statute" style="margin: var(--space-xs) 0 0 0; font-size: 0.96rem;">
+              «Saber trágico a medias»: no anhela aún la liberación del alma ni interroga por el sentido último; se satisface con un puro y simple poder soportar.
+            </p>
+          </div>
+          <div class="ruled-top" style="margin-top: var(--space-md);">
+            <span class="label">Contraste clave</span>
+            <p id="m-contrast" style="margin: var(--space-xs) 0 0 0; font-size: 0.96rem;">
+              En el Edda y las sagas la oposición frente al destino resulta menos vigorosa que en Homero, pero más apasionada y desmesurada.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO 4: ANATOMÍA DEL OBJETO TRÁGICO Y DIAGNÓSTICO -->
+    <section id="anatomia" class="chapter reveal">
+      <div class="chapter-header">
+        <span class="label tag">Capítulos II y III · Caracteres y objetos poéticos</span>
+        <h2>No toda ruina es tragedia: acción, colisión de verdades y <em>naufragio</em></h2>
+      </div>
+
+      <div class="card-grid">
+        <article class="ruled-top">
+          <span class="label">01 · Atmósfera trágica</span>
+          <h3 style="margin-top: var(--space-xs);">La amenaza ineludible</h3>
+          <p>No es el apacible florecer y agostarse natural, sino algo lúgubre que nos entrega a la aniquilación hagamos lo que hiciéremos —como la lucidez profética de Casandra.</p>
+        </article>
+        <article class="ruled-top">
+          <span class="label">02 · Lucha en 4 planos</span>
+          <h3 style="margin-top: var(--space-xs);">Inmanente y trascendente</h3>
+          <p>La colisión se libra: (1) entre individuo y cosmos; (2) entre principios de la existencia histórica; (3) entre hombres y dioses; o (4) entre los dioses recíprocamente.</p>
+        </article>
+        <article class="ruled-top">
+          <span class="label">03 · Culpa y grandeza</span>
+          <h3 style="margin-top: var(--space-xs);">Más allá de la pequeñez</h3>
+          <p>Citando a Platón, de naturalezas endebles no brota ni el gran bien ni el gran mal. La culpa trágica es una «necesidad sin culpa»: al afirmar una verdad moral, se destruye otra igualmente necesaria.</p>
+        </article>
+        <article class="ruled-top">
+          <span class="label">04 · Pregunta por la verdad</span>
+          <h3 style="margin-top: var(--space-xs);">El silencio de Hamlet</h3>
+          <p>Cada potencia en pugna es verdadera por sí misma. ¿Triunfa lo justo? Hamlet fracasa en el «no saber» de su voluntad de verdad: «el resto solo es silencio».</p>
+        </article>
+      </div>
+
+      <blockquote style="margin-top: var(--space-xl);">
+        «No es el pensar la alternativa “éxito o catástrofe” lo que logra captar lo trágico, sino solo el penetrante pensamiento que contempla, en medio del éxito más absoluto, la más absoluta catástrofe.»
+        <cite class="label">Karl Jaspers · Interpretaciones sistemáticas de lo trágico</cite>
+      </blockquote>
+
+      <!-- LABORATORIO DE DIAGNÓSTICO INTERACTIVO -->
+      <div class="stone-panel" style="margin-top: var(--space-xl);">
+        <span class="label tag">Laboratorio conceptual interactivo</span>
+        <h3 style="margin-top: var(--space-xs);">Diagnóstico de lo trágico según Jaspers</h3>
+        <p style="margin-bottom: var(--space-md);">
+          Selecciona un caso citado en la obra o combina libremente los cuatro criterios estructurales para comprobar por qué Jaspers distingue la tragedia auténtica de la mera desdicha anónima o de la redención religiosa.
+        </p>
+
+        <div style="margin-bottom: var(--space-md);">
+          <span class="label" style="display: block; margin-bottom: var(--space-xs);">Cargar caso de la obra</span>
+          <div class="btn-row" role="group" aria-label="Casos paradigmáticos de Jaspers">
+            <button type="button" class="btn btn-outline is-selected" data-case="hamlet">Hamlet / Colisión de verdades</button>
+            <button type="button" class="btn btn-outline" data-case="prisionero">Prisionero torturado en secreto</button>
+            <button type="button" class="btn btn-outline" data-case="karamazov">Niños sacrificados (Iván Karamazov)</button>
+            <button type="button" class="btn btn-outline" data-case="homero">Héroe homérico ante la Moira</button>
+            <button type="button" class="btn btn-outline" data-case="cristo">Cristo y la «felix culpa»</button>
+          </div>
+        </div>
+
+        <div class="criteria-grid" role="group" aria-label="Criterios estructurales de lo trágico">
+          <button type="button" class="criterion-toggle" id="crit-action" aria-pressed="true">
+            <span class="criterion-mark">[SÍ]</span>
+            <span><strong>Acción libre:</strong> el sujeto teje su destino al actuar, no sufre solo finitud pasiva.</span>
+          </button>
+          <button type="button" class="criterion-toggle" id="crit-collision" aria-pressed="true">
+            <span class="criterion-mark">[SÍ]</span>
+            <span><strong>Colisión de verdades:</strong> chocan dos potencias o deberes éticos igualmente legítimos.</span>
+          </button>
+          <button type="button" class="criterion-toggle" id="crit-success" aria-pressed="true">
+            <span class="criterion-mark">[SÍ]</span>
+            <span><strong>Ruina desde el éxito:</strong> la catástrofe brota de la realización misma, no por azar.</span>
+          </button>
+          <button type="button" class="criterion-toggle" id="crit-open" aria-pressed="true">
+            <span class="criterion-mark">[SÍ]</span>
+            <span><strong>Apertura sin dogma:</strong> no hay garantía previa de salvación que anule el encierro.</span>
+          </button>
+        </div>
+
+        <div id="diagnostic-verdict" class="verdict-box" aria-live="polite">
+          <span id="verdict-badge" class="verdict-status verdict-tragic">Tragedia auténtica</span>
+          <h3 id="verdict-title" style="margin: var(--space-xs) 0;">El ser trasluce en el naufragio de lo finito</h3>
+          <p id="verdict-body" style="margin-bottom: 0;">
+            Cuando concurren acción consciente, colisión irreconciliable de verdades, ruina nacida del propio obrar y apertura al ser sin ilusión dogmática, la existencia humana toca su límite y revela la trascendencia en el fracaso.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO 5: SUBJETIVIDAD DE LO TRÁGICO -->
+    <section id="subjetividad" class="chapter reveal">
+      <div class="chapter-header">
+        <span class="label tag">Capítulo IV · La subjetividad de lo trágico</span>
+        <h2>Al contemplar el naufragio, el espectador trasciende hacia el <em>ser</em></h2>
+      </div>
+
+      <div class="asymmetric-split">
+        <div>
+          <p>
+            El saber trágico no es una expectativa fría: transforma a quien conoce. Frente al héroe —instalado real y positivamente en la situación límite—, el espectador vive esa situación como <em>posibilidad</em>, abandonando su yo aislado en el yo común de la humanidad.
+          </p>
+          <p>
+            Sin embargo, acecha una desviación moderna: la <strong>«no obligatoriedad» estética</strong>. Cuando poetas y espectadores pierden la gravedad originaria, la tragedia se reduce a un virtuosismo de lo patético que dispersa al hombre y lo vuelve frívolo, sustituyendo la introvisión hacia el ser por mero consumo cultural de teorías filosóficas disfrazadas de personajes.
+          </p>
+          <details class="atelier-details">
+            <summary class="label">Goethe y la superación existencial en la comunicación</summary>
+            <p style="margin-top: var(--space-xs); margin-bottom: 0;">
+              Citando a Goethe —«en la medida en que la reconciliación de las partes es posible, desaparece lo trágico»—, Jaspers advierte que pensar la reconciliación como una armonía automática del mundo es un autoengaño. La única superación auténtica, sin ilusión, ocurre en la <em>amorosa lucha</em> y la comunicación existencial entre los hombres.
+            </p>
+          </details>
+        </div>
+
+        <div>
+          <span class="label tag" style="margin-bottom: var(--space-sm);">Cuatro vías de lectura sobre la liberación trágica</span>
+          <div class="card-grid">
+            <div class="ruled-top">
+              <span class="label">Vía A · En germen</span>
+              <h3 style="margin-top: var(--space-xs);">Mudo soportar</h3>
+              <p>Tenacidad inconmovible en el «no saber» y en la pura capacidad de aguantar al hundirse (propio de la epopeya heroica).</p>
+            </div>
+            <div class="ruled-top">
+              <span class="label">Vía B · Hegel</span>
+              <h3 style="margin-top: var(--space-xs);">Inmolación ante el Todo</h3>
+              <p>Lo finito naufraga ante lo absoluto. Jaspers objeta que, sin autoafirmación irreconciliada, Hegel cae en «trivialidad armonizadora».</p>
+            </div>
+            <div class="ruled-top">
+              <span class="label">Vía C · Nietzsche</span>
+              <h3 style="margin-top: var(--space-xs);">Júbilo dionisíaco</h3>
+              <p>En la destrucción de su máxima potencia, el espectador contempla el júbilo eterno de la vida que prodiga y destruye sin agotarse.</p>
+            </div>
+            <div class="ruled-top">
+              <span class="label">Vía D · Aristóteles</span>
+              <h3 style="margin-top: var(--space-xs);">Catarsis del alma</h3>
+              <p>Compasión por el héroe y temor por sí mismo purifican los velos de la vida cotidiana y producen elevación y libertad del ánimo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO 6: INTERPRETACIONES SISTEMÁTICAS Y SUS LÍMITES -->
+    <section id="interpretaciones" class="chapter reveal">
+      <div class="chapter-header">
+        <span class="label tag">Capítulo V · Interpretaciones sistemáticas y límites</span>
+        <h2>La tragedia habita en el fenómeno temporal, nunca en el fundamento del <em>ser</em></h2>
+      </div>
+
+      <div class="asymmetric-wide-left">
+        <div>
+          <p>
+            Toda interpretación sistemática que pretende reducir las visiones trágicas a un principio racional único fracasa o falsifica el fenómeno. Jaspers distingue tres niveles que no deben confundirse: la <em>realidad trágica</em>, el <em>saber trágico</em> (que transfigura al hombre) y la <em>filosofía de lo trágico</em>.
+          </p>
+          <p>
+            De ahí su rechazo frontal al <strong>pantragismo</strong>: afirmar que Dios o el fundamento mismo del ser es trágico resulta absurdo. Lo trágico nace de la «no unidad» en el tiempo; pertenece al primer plano de la aparición fenoménica. A través de la tragedia habla algo que <em>ha dejado ya de ser trágico</em>.
+          </p>
+          <p>
+            Incluso dentro de la existencia humana, Jaspers diferencia dos estadios: un primer nivel general donde toda vida y obra finita acaba derrumbándose por enfermedad, muerte o exclusión mutua; y una tragedia más honda donde los gérmenes de destrucción residen en el seno mismo de lo verdadero y lo bueno, exponiendo al hombre al abismo sin fondo en medio de su mayor seguridad.
+          </p>
+        </div>
+
+        <div class="stone-panel-deep">
+          <span class="label tag">Crítica a la perversión filosófica</span>
+          <h3 style="margin-top: var(--space-xs);">El descarrilamiento del «solo trágico»</h3>
+          <p>
+            Cuando el saber trágico se aísla de su polo liberador y se absolutiza como cosmovisión —como en la ley universal de Bahnsen o el «sentimiento trágico de la vida» de Unamuno—, degenera en dos peligros graves:
+          </p>
+          <ul style="padding-left: var(--space-md); margin: 0;">
+            <li><strong>Elitismo ciego:</strong> convierte lo trágico en privilegio de una «aristocracia humana», desdeñando como insignificantes la enfermedad, la miseria y la crueldad cotidiana sin grandeza.</li>
+            <li><strong>Disimulación de la nada:</strong> el hombre nihilista usa el patetismo heroico como «hipócrita sustituto de la nada» para justificar una vida cómoda o desatar su furia destructiva contra el mundo.</li>
+          </ul>
+          <hr class="divider">
+          <span class="label">Antídoto filosófico</span>
+          <p style="margin: var(--space-xs) 0 0 0; font-size: 0.96rem;">
+            Preservar la visión primigenia en figuras (<em>Gestalten</em>) y cifras fluctuantes: mantener la interrogación abierta, el asombro y la veracidad sin ilusión.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO 7: BASE DE CONOCIMIENTOS ESTRUCTURADA -->
+    <section id="base-conocimientos" class="chapter reveal">
+      <div class="chapter-header">
+        <span class="label tag">Base de conocimientos · Síntesis relacional</span>
+        <h2>Mapa de conceptos clave, ejemplos y relaciones entre <em>ideas</em></h2>
+      </div>
+
+      <div class="kb-controls">
+        <div class="btn-row" role="group" aria-label="Filtrar conceptos por eje temático">
+          <button type="button" class="btn btn-outline is-selected" data-kb-filter="todas">Todas (12)</button>
+          <button type="button" class="btn btn-outline" data-kb-filter="ontologia">Ontología del ser</button>
+          <button type="button" class="btn btn-outline" data-kb-filter="poetica">Poética e historia</button>
+          <button type="button" class="btn btn-outline" data-kb-filter="etica">Ética y subjetividad</button>
+          <button type="button" class="btn btn-outline" data-kb-filter="critica">Crítica y límites</button>
+        </div>
+        <div class="field-group" style="min-width: 240px;">
+          <label for="kb-search" class="label">Buscar concepto o autor</label>
+          <input id="kb-search" type="search" class="field-input" placeholder="Ej. catarsis, Hamlet, Moira…">
+        </div>
+      </div>
+
+      <div id="kb-grid" class="kb-list" aria-live="polite"></div>
+
+      <!-- BIOGRAFÍA Y FUENTE -->
+      <div class="stone-panel" style="margin-top: var(--space-2xl);">
+        <div class="panel-two-col">
+          <div>
+            <span class="label tag">Sobre el autor · Datos biográficos</span>
+            <h3 style="margin-top: var(--space-xs);">Karl Theodor Jaspers (1883–1969)</h3>
+            <p style="margin-bottom: 0;">
+              Nacido en Oldenburg el 23 de febrero de 1883 y fallecido en Basilea en 1969. Estudió derecho y medicina y se doctoró en la Universidad de Heidelberg, donde enseñó psiquiatría desde 1916 antes de ocupar la cátedra de filosofía en 1937. Durante la mayor parte del régimen de Hitler fue apartado de la enseñanza por su rechazo incondicional al nacionalsocialismo y por estar casado con una mujer judía. En 1948 aceptó una cátedra en Basilea, Suiza. Su obra supera los treinta libros e influyó decisivamente en el existencialismo, la psiquiatría y la teología del siglo XX.
+            </p>
+          </div>
+          <div style="display: grid; gap: var(--space-sm); align-content: start;">
+            <div class="ruled-top">
+              <span class="label">Fuente primaria analizada</span>
+              <div style="margin-top: var(--space-xs);">Karl Jaspers, <em>Esencia y formas de lo trágico</em> (título original: <em>Über das Tragische</em>, 1952).</div>
+            </div>
+            <div class="ruled-top">
+              <span class="label">Traducción al español</span>
+              <div style="margin-top: var(--space-xs);">Norberto Silvetti Paz (edición digital Titivillus, r1.0 / base r2.1).</div>
+            </div>
+            <div class="ruled-top">
+              <span class="label">Autores y obras citados en los pasajes</span>
+              <div style="margin-top: var(--space-xs);">Platón, Hesíodo (<em>Teogonía</em>), Aristóteles, Homero, Edda, Esquilo, Sófocles, Eurípides, Séneca, Shakespeare (<em>Hamlet</em>, Próspero), Calderón, Racine, Dante, Lessing, Schiller, Goethe, Kierkegaard, Dostoiewski (<em>Iván Karamazov</em>), Nietzsche, Hegel, Bahnsen, Unamuno y Libro de Job.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  /* 1. Interactive SVG Diagram: Intuiciones originarias */
+  var sphereData = {
+    unidad: {
+      tag: `Núcleo originario`,
+      title: `Unidad primigenia de la verdad`,
+      desc: `Las preguntas últimas (¿por qué la condición del hombre es así?, ¿cómo lograr la liberación y el reposo en el ser?) no reciben al inicio respuestas reflexivas, sino hechos incuestionables en mitos como Prometeo o la caída del pecado, los misterios y los ritos.`
+    },
+    religion: {
+      tag: `Esfera 01 · Religión`,
+      title: `Fundamento comunitario y límite`,
+      desc: `Activa como potencia de la comunidad y freno del individuo, da forma al alma incluso cuando se abandona su forma histórica. Se vuelve adversario y resistencia fecunda del filosofar; su olvido abriría paso al nihilismo y a una «caótica superstición».`
+    },
+    arte: {
+      tag: `Esfera 02 · Arte plástico`,
+      title: `Criptografía metafísica de lo visible`,
+      desc: `Vemos el espacio, el paisaje y al hombre según el arte nos enseña a verlos. Frente al arte puramente decorativo o imitativo, el «gran arte» metafísico logra revelar el ser mismo mediante lo visible.`
+    },
+    poesia: {
+      tag: `Esfera 03 · Poesía`,
+      title: `Ámbito medular del lenguaje`,
+      desc: `Comunica lo revelado desde las palabras del sacrificio hasta el destino humano. Es el órgano natural con que aprehendemos el espacio cósmico y la primera forma en que irrumpe la filosofía.`
+    },
+    filosofia: {
+      tag: `Salto metódico · Siglos VI–III a. C.`,
+      title: `El filosofar y su organon`,
+      desc: `El pensamiento metódico despierta al mismo tiempo en que las intuiciones originarias alcanzan su máxima madurez. Al dialogar con ellas, asimilarlas o reconocer lo que le resulta ininteligible, el filosofar convierte esas intuiciones en su organon.`
+    }
+  };
+
+  var svgNodes = document.querySelectorAll('.svg-node');
+  var sphereTag = document.getElementById('sphere-tag');
+  var sphereTitle = document.getElementById('sphere-title');
+  var sphereDesc = document.getElementById('sphere-desc');
+
+  function selectSphere(key) {
+    var item = sphereData[key];
+    if (!item || !sphereTag || !sphereTitle || !sphereDesc) return;
+    svgNodes.forEach(function(n) {
+      if (n.getAttribute('data-sphere') === key) {
+        n.classList.add('is-active');
+      } else {
+        n.classList.remove('is-active');
+      }
+    });
+    sphereTag.textContent = item.tag;
+    sphereTitle.textContent = item.title;
+    sphereDesc.textContent = item.desc;
+  }
+
+  svgNodes.forEach(function(node) {
+    node.addEventListener('click', function() {
+      selectSphere(node.getAttribute('data-sphere'));
+    });
+    node.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectSphere(node.getAttribute('data-sphere'));
+      }
+    });
+  });
+
+  /* 2. Horizons comparator */
+  var horizonData = {
+    pretragico: {
+      badge: `Horizonte ahistórico`,
+      title: `Saber pretrágico (mítico-circular)`,
+      summary: `Contempla el dolor y la muerte como un eterno giro de vida, muerte y resurrección (el dios que muere y resucita, la diosa madre y de la muerte que engendra y recoge todo en su seno).`,
+      time: `Circular y ahistórico: siempre la misma realidad, sin acontecimientos irrepetibles.`,
+      attitude: `Saber tranquilizador de lo perecedero; el hombre se siente protegido dentro de la naturaleza.`,
+      limit: `Falta el desasosiego ante la situación límite y la ruptura provocada por la acción libre del héroe.`
+    },
+    china: {
+      badge: `Armonía natural`,
+      title: `Antigua China prebudista`,
+      summary: `Experimenta lo terrible no menos que Occidente, pero interpreta toda miseria y desdicha como perturbaciones pasajeras sin verdadera necesidad existencial.`,
+      time: `Vínculo con un fundamento inmemorial para restablecer el orden positivo, sin impulso histórico conflictivo.`,
+      attitude: `Hay lamento y queja, pero ningún desgarramiento, acusación contra el ser ni obstinado desafío.`,
+      limit: `Al nacer la conciencia trágica occidental se pierde esa «seguridad sin tragedia» y sublime humanidad natural.`
+    },
+    apatia: {
+      badge: `Racionalismo postaristotélico`,
+      title: `Apatía filosófica de la Ilustración`,
+      summary: `Saca las consecuencias agnósticas de la descomposición mítica y proyecta una armonía racional del Todo donde las discordancias son solo relativas.`,
+      time: `El yo interior se concibe inconmovible por encima de los avatares escénicos del destino mundano.`,
+      attitude: `Indolencia e indiferencia (apatía) en lugar de la resistencia heroica o la catarsis del alma.`,
+      limit: `Liberación insuficiente: es pobre de contenido, naufraga en autoafirmación vacía y fracasa en la mayoría de los hombres.`
+    },
+    cristianismo: {
+      badge: `Salvación por la gracia`,
+      title: `Religión de la revelación (judeocristiana)`,
+      summary: `Subsume la desarmonía humana en el pecado original de Adán y la salvación en la crucifixión de Cristo. El hombre asume voluntariamente la cruz sostenido por la gracia.`,
+      time: `Historia universal de caída y redención garantizada desde la trascendencia divina.`,
+      attitude: `La culpa se convierte en «felix culpa»; la traición de Judas posibilita la beatitud de los creyentes.`,
+      limit: `No existe tragedia cristiana propiamente dicha: la gracia elimina el encierro sin salidas del mundo trágico.`
+    },
+    tragico: {
+      badge: `Despertar histórico`,
+      title: `El saber trágico auténtico`,
+      summary: `Coloca al hombre frente a las situaciones límite en un desasosiego que lo impulsa hacia adelante; ninguna situación estable lo satisface ya.`,
+      time: `Historicidad irreiterable en movimiento progresivo: lo decidido no retorna jamás.`,
+      attitude: `Lucidez y acción en medio de la colisión de verdades y potencias irreconciliables.`,
+      limit: `No es la última palabra metafísica, sino un espejo donde en el naufragio de lo finito transparece el ser.`
+    }
+  };
+
+  var horizonBtns = document.querySelectorAll('[data-horizon]');
+  var hBadge = document.getElementById('horizon-badge');
+  var hTitle = document.getElementById('horizon-title');
+  var hSummary = document.getElementById('horizon-summary');
+  var hTime = document.getElementById('horizon-time');
+  var hAttitude = document.getElementById('horizon-attitude');
+  var hLimit = document.getElementById('horizon-limit');
+
+  function selectHorizon(key) {
+    var d = horizonData[key];
+    if (!d || !hBadge || !hTitle || !hSummary || !hTime || !hAttitude || !hLimit) return;
+    horizonBtns.forEach(function(btn) {
+      var active = btn.getAttribute('data-horizon') === key;
+      btn.classList.toggle('is-selected', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    hBadge.textContent = d.badge;
+    hTitle.textContent = d.title;
+    hSummary.textContent = d.summary;
+    hTime.textContent = d.time;
+    hAttitude.textContent = d.attitude;
+    hLimit.textContent = d.limit;
+  }
+
+  horizonBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      selectHorizon(btn.getAttribute('data-horizon'));
+    });
+  });
+
+  /* 3. Six historical manifestations */
+  var milestones = [
+    {
+      era: `Hito 01 de 06 · Épica arcaica`,
+      title: `Homero, Edda y Sagas de los islandeses`,
+      text: `Las leyendas heroicas desde Occidente hasta China muestran lo trágico como algo natural y comprensible de suyo. Su objeto es el desnudo padecimiento, la muerte, la corrupción, la resistencia y la gloria. Sobre dioses enfrentados y hombres impera la tenebrosa Moira.`,
+      statute: `«Saber trágico a medias»: no anhela aún la liberación del alma ni interroga por el sentido último; se satisface con un puro y simple poder soportar.`,
+      contrast: `En el Edda y las sagas la oposición frente al destino resulta menos vigorosa que en Homero, pero más apasionada y desmesurada.`
+    },
+    {
+      era: `Hito 02 de 06 · Hélade clásica`,
+      title: `La tragedia griega: Esquilo, Sófocles, Eurípides`,
+      text: `Solo aquí nace la tragedia como poesía dentro de un acto del culto (festividad de Dionisos): un certamen en torno a los dioses, el sentido y la justicia. Transfigura los mitos hasta consumirlos en un «sublime proceso combustivo» en busca de la catarsis del alma.`,
+      statute: `De la fe en la polis y las medidas fundadoras (Esquilo y Sófocles) se pasa a la duda histórica ante lo tradicional (Eurípides), sin abandonar la pregunta por la justicia y el bien.`,
+      contrast: `Mientras Hesíodo exaltaba el canto de las musas para olvidar la pena, la tragedia griega exige atravesar el estremecimiento para purificar y abrir el alma al ser.`
+    },
+    {
+      era: `Hito 03 de 06 · Edad Moderna`,
+      title: `Shakespeare, Calderón y Racine`,
+      text: `Tres cumbres nacionales en polos opuestos. Shakespeare lleva al hombre a la escena mundana en toda su plenitud —grandeza y satanismo, amor y ceguera— frente a problemas insolubles. Calderón y Racine representan la cumbre de la tragedia cristiana.`,
+      statute: `En Shakespeare lo religioso se escapa como dogma, aunque su mundo irredento apunta indirectamente a una apertura hacia la redención. En Calderón y Racine, Providencia y gracia sustituyen al destino.`,
+      contrast: `Frente a la riqueza ilimitada de figuras de Shakespeare, la tragedia cristiana resulta más acotada en problemas porque lo trágico se extingue ante la certeza de la fe.`
+    },
+    {
+      era: `Hito 04 de 06 · Ilustración y siglo XIX`,
+      title: `Lessing, Schiller y el drama moderno`,
+      text: `La tragedia del ámbito cultural germano evoluciona desde los valores ilustrados y el conflicto de principios hacia los dramas modernos del siglo XIX, donde emerge la «tragedia absoluta» como situación sin salida posible.`,
+      statute: `Con la pérdida de la obligatoriedad cultual y religiosa, surge la profundidad insondable junto con la «no obligatoriedad estética»: construcciones intelectuales y virtuosismo de lo patético.`,
+      contrast: `Cuando falta la infinitud de lo ininteligible y solo pugnan valores abstractos racionales (a partir de la Ilustración), lo que aparece es miseria, no tragedia.`
+    },
+    {
+      era: `Hito 05 de 06 · Otras tradiciones`,
+      title: `Poemas del terror: Job y dramas indios`,
+      text: `Testimonios decisivos fuera del canon clásico griego y europeo que formulan una interrogación radical por el ser ante el sufrimiento extremo y el escándalo del dolor humano.`,
+      statute: `El Libro de Job alcanza la hondura de la pregunta metafísica dirigida a Dios frente a la desgracia inmerecida.`,
+      contrast: `Jaspers precisa que algunos dramas indios presentan una intensa interrogación por el ser, aunque en su conjunto no constituyan tragedias en sentido estricto.`
+    },
+    {
+      era: `Hito 06 de 06 · Umbral contemporáneo`,
+      title: `Kierkegaard, Dostoiewski y Nietzsche`,
+      text: `El saber trágico desborda el género dramático para convertirse en pensamiento existencial y novela filosófica. Se interroga el absurdo, la rebeldía ética frente al sufrimiento inocente y la afirmación dionisíaca de la vida.`,
+      statute: `Iván Karamazov se subleva ante la tortura de los niños inocentes (demostrando que esa crueldad sin sentido rebasa lo trágico); Nietzsche interpreta el júbilo del ser en la destrucción.`,
+      contrast: `A diferencia del esteticismo escénico decimonónico, en estos pensadores vuelve a jugarse la existencia real del hombre ante la nada y la trascendencia.`
+    }
+  ];
+
+  var milestoneBtns = document.querySelectorAll('.milestone-btn');
+  var mEra = document.getElementById('m-era');
+  var mTitle = document.getElementById('m-title');
+  var mText = document.getElementById('m-text');
+  var mStatute = document.getElementById('m-statute');
+  var mContrast = document.getElementById('m-contrast');
+
+  function selectMilestone(idx) {
+    var item = milestones[idx];
+    if (!item || !mEra || !mTitle || !mText || !mStatute || !mContrast) return;
+    milestoneBtns.forEach(function(btn, i) {
+      var active = i === idx;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    mEra.textContent = item.era;
+    mTitle.textContent = item.title;
+    mText.textContent = item.text;
+    mStatute.textContent = item.statute;
+    mContrast.textContent = item.contrast;
+  }
+
+  milestoneBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var idx = parseInt(btn.getAttribute('data-milestone'), 10);
+      if (!isNaN(idx)) selectMilestone(idx);
+    });
+  });
+
+  /* 4. Interactive Diagnostic Lab */
+  var casePresets = {
+    hamlet: { action: true, collision: true, success: true, open: true,
+      note: `Hamlet encarna el saber en el estremecimiento ante los límites del hombre: la voluntad de verdad choca con la realidad y fracasa en el «no saber» («el resto solo es silencio»).` },
+    prisionero: { action: false, collision: false, success: false, open: true,
+      note: `El hombre torturado a muerte en la soledad de un calabozo sin que nadie lo sepa sufre una catástrofe sin culpa ni relación con el sentido: es malignidad oculta, no tragedia.` },
+    karamazov: { action: false, collision: false, success: false, open: true,
+      note: `Los niñitos sacrificados por solaz en la guerra ante los que se rebela Iván Karamazov constituyen una realidad lacerante y absurda que clama por auxilio, pero no es tragedia.` },
+    homero: { action: true, collision: true, success: false, open: true,
+      note: `El héroe de Homero resiste con firmeza ante la Moira y la lucha de los dioses, pero no distingue aún los modos últimos de la destrucción ni busca redención: saber trágico a medias.` },
+    cristo: { action: true, collision: false, success: true, open: false,
+      note: `Cristo es el símbolo más profundo del fracaso en el mundo, pero no es trágico: la Providencia, la «felix culpa» y la gracia redimen de antemano el encierro sin salidas.` }
+  };
+
+  var criteriaState = { action: true, collision: true, success: true, open: true };
+  var activePresetNote = casePresets.hamlet.note;
+
+  var caseBtns = document.querySelectorAll('[data-case]');
+  var critButtons = {
+    action: document.getElementById('crit-action'),
+    collision: document.getElementById('crit-collision'),
+    success: document.getElementById('crit-success'),
+    open: document.getElementById('crit-open')
+  };
+  var verdictBadge = document.getElementById('verdict-badge');
+  var verdictTitle = document.getElementById('verdict-title');
+  var verdictBody = document.getElementById('verdict-body');
+
+  function updateCriteriaButtons() {
+    Object.keys(critButtons).forEach(function(key) {
+      var btn = critButtons[key];
+      if (!btn) return;
+      var val = criteriaState[key];
+      btn.setAttribute('aria-pressed', val ? 'true' : 'false');
+      var mark = btn.querySelector('.criterion-mark');
+      if (mark) mark.textContent = val ? `[SÍ]` : `[NO]`;
+    });
+  }
+
+  function evaluateDiagnostic(customNote) {
+    if (!verdictBadge || !verdictTitle || !verdictBody) return;
+    var a = criteriaState.action;
+    var c = criteriaState.collision;
+    var s = criteriaState.success;
+    var o = criteriaState.open;
+
+    verdictBadge.className = 'verdict-status';
+
+    if (!o) {
+      verdictBadge.classList.add('verdict-grace');
+      verdictBadge.textContent = `Superación religiosa o sistemática (no trágica)`;
+      verdictTitle.textContent = `El encierro sin salidas ha sido disuelto de antemano`;
+      verdictBody.textContent = customNote || `Al existir una garantía previa de salvación por la gracia (como en la fe cristiana) o una armonía racional asegurada, el fracaso queda transfigurado y deja de ser propiamente trágico.`;
+    } else if (a && c && s && o) {
+      verdictBadge.classList.add('verdict-tragic');
+      verdictBadge.textContent = `Tragedia auténtica`;
+      verdictTitle.textContent = `El ser trasluce en el naufragio de lo finito`;
+      verdictBody.textContent = customNote || `Concurren acción consciente, colisión irreconciliable de verdades, catástrofe nacida de la propia realización y apertura sin dogma: la existencia toca su límite y revela la trascendencia en el fracaso.`;
+    } else if (!a && !c) {
+      verdictBadge.classList.add('verdict-misery');
+      verdictBadge.textContent = `Desdicha, azar o miseria anónima (no trágica)`;
+      verdictTitle.textContent = `Sufrimiento lacerante sin relación de sentido trágico`;
+      verdictBody.textContent = customNote || `Jaspers advierte que la muerte, la enfermedad, la casualidad o la tortura del inocente sin acción ni colisión de potencias verdaderas son realidades espantosas que claman auxilio, pero no constituyen tragedia.`;
+    } else {
+      verdictBadge.classList.add('verdict-partial');
+      verdictBadge.textContent = `Saber trágico parcial o en germen`;
+      verdictTitle.textContent = `Falta algún elemento constitutivo de la tragedia plena`;
+      verdictBody.textContent = customNote || `Existe resistencia heroica o desgarramiento, pero si el fracaso no brota de la colisión interna de lo verdadero y lo bueno en la propia acción, permanece como saber trágico a medias o desdicha ocasional.`;
+    }
+  }
+
+  caseBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var key = btn.getAttribute('data-case');
+      var preset = casePresets[key];
+      if (!preset) return;
+      caseBtns.forEach(function(b) {
+        b.classList.toggle('is-selected', b === btn);
+      });
+      criteriaState.action = preset.action;
+      criteriaState.collision = preset.collision;
+      criteriaState.success = preset.success;
+      criteriaState.open = preset.open;
+      activePresetNote = preset.note;
+      updateCriteriaButtons();
+      evaluateDiagnostic(activePresetNote);
+    });
+  });
+
+  Object.keys(critButtons).forEach(function(key) {
+    var btn = critButtons[key];
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      criteriaState[key] = !criteriaState[key];
+      caseBtns.forEach(function(b) { b.classList.remove('is-selected'); });
+      updateCriteriaButtons();
+      evaluateDiagnostic(null);
+    });
+  });
+
+  /* 5. Structured Knowledge Base Filter & Search */
+  var kbConcepts = [
+    {
+      name: `El ser en el fracasar`,
+      category: `ontologia`,
+      catLabel: `Ontología`,
+      definition: `Tesis nuclear de Jaspers: el ser no se pierde en el fracaso, sino que se vuelve directa y decididamente perceptible en el instante del hundimiento.`,
+      example: `Autoafirmación de Sófocles o Hamlet ante los límites.`,
+      relation: `Se opone al nihilismo y fundamenta que «no existe ninguna tragedia no trascendente».`
+    },
+    {
+      name: `Situación límite`,
+      category: `ontologia`,
+      catLabel: `Ontología`,
+      definition: `Frontera insuperable de la existencia humana (culpa, lucha, sufrimiento, muerte) donde toda estabilidad fracasa y despierta el movimiento histórico.`,
+      example: `El héroe la padece realmente; el espectador, como posibilidad.`,
+      relation: `Actúa como punto de ruptura frente al «saber pretrágico» circular.`
+    },
+    {
+      name: `Criptografía metafísica / Cifra`,
+      category: `ontologia`,
+      catLabel: `Ontología`,
+      definition: `Lenguaje fluctuante (mitos, imágenes, gran arte plástico, tragedias) mediante el cual lo visible deja traslucir el ser sin fijarlo en dogma racional.`,
+      example: `El «gran arte» metafísico frente a la mera decoración.`,
+      relation: `Constituye la tarea del filosofar: comprender cifras sin petrificarlas en sistema.`
+    },
+    {
+      name: `Saber pretrágico`,
+      category: `poetica`,
+      catLabel: `Historia`,
+      definition: `Conciencia mítica ahistórica que asume dolor y muerte dentro del eterno retorno de la naturaleza (dios que muere y resucita, diosa madre).`,
+      example: `Cultos estacionales y mitologías agrarias arcaicas.`,
+      relation: `Difiere de la «seguridad sin tragedia» china y precede al despertar histórico.`
+    },
+    {
+      name: `Combustión de los mitos`,
+      category: `poetica`,
+      catLabel: `Historia`,
+      definition: `Proceso de la tragedia griega en que el poeta interroga apasionadamente a los dioses hasta consumir la tradición mítica y dejar solo sus cenizas poéticas.`,
+      example: `De la fe cívica de Esquilo al escepticismo en Eurípides.`,
+      relation: `Desemboca históricamente en el agnosticismo de la Ilustración postaristotélica.`
+    },
+    {
+      name: `Colisión de verdades`,
+      category: `poetica`,
+      catLabel: `Poética`,
+      definition: `Separación del «ser verdadero» en potencias contrapuestas que tienen cada una razón por derecho propio y deben excluirse recíprocamente.`,
+      example: `Individuo vs. cosmos; hombres vs. dioses; principios históricos.`,
+      relation: `Origina la «culpa inocente» o «necesidad sin culpa» del héroe trágico.`
+    },
+    {
+      name: `Catarsis`,
+      category: `etica`,
+      catLabel: `Subjetividad`,
+      definition: `Purificación del alma y apertura al ser mediante el estremecimiento de la compasión y el temor que disuelven los velos de la vida cotidiana.`,
+      example: `Definición aristotélica reinterpretada en la festividad de Dionisos.`,
+      relation: `Contrasta con el olvido consolador del canto en Hesíodo y con la apatía estoica.`
+    },
+    {
+      name: `No obligatoriedad estética`,
+      category: `etica`,
+      catLabel: `Subjetividad`,
+      definition: `Degradación moderna de lo trágico en mero espectáculo cultural donde el espectador disfruta el patetismo sin comprometer ni transformar su ser.`,
+      example: `Dramas del siglo XIX convertidos en virtuosismo intelectual.`,
+      relation: `Polo opuesto al compromiso existencial de la «amorosa lucha» (Goethe).`
+    },
+    {
+      name: `Culpa trágica vs. Felix culpa`,
+      category: `etica`,
+      catLabel: `Ética`,
+      definition: `Mientras la culpa trágica nace de la acción que destruye otra verdad necesaria sin salvación externa, la «felix culpa» cristiana queda redimida por la gracia.`,
+      example: `Hamlet o Antígona frente a Calderón, Racine y la pasión de Cristo.`,
+      relation: `Explica por qué, en rigor, para Jaspers no hay una tragedia cristiana pura.`
+    },
+    {
+      name: `Pantragismo`,
+      category: `critica`,
+      catLabel: `Crítica`,
+      definition: `Metafísica especulativa que traslada la tragedia al fundamento mismo del ser o a Dios («dios sufriente»), absolutizando la negatividad.`,
+      example: `Interpretaciones dialécticas que declaran quebradizo el fondo del ser.`,
+      relation: `Jaspers la rechaza: lo trágico pertenece al fenómeno temporal, nunca a la trascendencia.`
+    },
+    {
+      name: `Cosmovisión del «solo trágico»`,
+      category: `critica`,
+      catLabel: `Crítica`,
+      definition: `Desviación que aísla lo trágico de su polo liberador, convirtiéndolo en privilegio elitista o en disfraz patético del nihilismo y la furia destructiva.`,
+      example: `Ley universal (Bahnsen) o sentimiento trágico absoluto (Unamuno).`,
+      relation: `Oculta las miserias reales sin grandeza (enfermedad, tortura, inocentes de Karamazov).`
+    },
+    {
+      name: `Amorosa lucha`,
+      category: `critica`,
+      catLabel: `Crítica`,
+      definition: `Comunicación profunda entre los seres humanos que supera lo trágico existencialmente sin caer en la ilusión de una armonía cósmica automática.`,
+      example: `Reinterpretación jaspersiana de la máxima de Goethe sobre la reconciliación.`,
+      relation: `Única vía de superación sin autoengaño junto a la contemplación abierta de las cifras.`
+    }
+  ];
+
+  var kbGrid = document.getElementById('kb-grid');
+  var kbSearch = document.getElementById('kb-search');
+  var kbFilterBtns = document.querySelectorAll('[data-kb-filter]');
+  var currentKbFilter = 'todas';
+
+  function renderKb() {
+    if (!kbGrid) return;
+    var query = kbSearch ? kbSearch.value.trim().toLowerCase() : '';
+    var filtered = kbConcepts.filter(function(item) {
+      var matchesCat = currentKbFilter === 'todas' || item.category === currentKbFilter;
+      var haystack = (item.name + ' ' + item.definition + ' ' + item.example + ' ' + item.relation).toLowerCase();
+      var matchesQuery = !query || haystack.indexOf(query) !== -1;
+      return matchesCat && matchesQuery;
+    });
+
+    if (filtered.length === 0) {
+      kbGrid.innerHTML = `<div class="ruled-top"><span class="label">Sin coincidencias</span><p style="margin-top: var(--space-xs);">Ningún concepto coincide con el filtro o término buscado. Limpia la búsqueda o selecciona «Todas».</p></div>`;
+      return;
+    }
+
+    kbGrid.innerHTML = filtered.map(function(item) {
+      return `
+        <article class="kb-item">
+          <div class="kb-meta-row">
+            <span class="label tag">${item.catLabel}</span>
+          </div>
+          <h3>${item.name}</h3>
+          <p style="margin-bottom: var(--space-xs);">${item.definition}</p>
+          <div class="kb-relation">
+            <strong>Ejemplo / Referencia:</strong> ${item.example}<br>
+            <strong>Relación:</strong> ${item.relation}
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  kbFilterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      currentKbFilter = btn.getAttribute('data-kb-filter') || 'todas';
+      kbFilterBtns.forEach(function(b) {
+        b.classList.toggle('is-selected', b === btn);
+      });
+      renderKb();
+    });
+  });
+
+  if (kbSearch) {
+    kbSearch.addEventListener('input', renderKb);
+  }
+  renderKb();
+
+  /* 6. Scroll-triggered reveals & TOC active link */
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var revealObs = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(function(el) { revealObs.observe(el); });
+
+    var tocLinks = document.querySelectorAll('.toc-link');
+    var sectionObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.getAttribute('id');
+          tocLinks.forEach(function(link) {
+            link.classList.toggle('is-active', link.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-25% 0px -65% 0px' });
+
+    document.querySelectorAll('section[id]').forEach(function(sec) {
+      sectionObs.observe(sec);
+    });
+  } else {
+    reveals.forEach(function(el) { el.classList.add('is-visible'); });
+  }
+});
+</script>
+</body>
+</html>

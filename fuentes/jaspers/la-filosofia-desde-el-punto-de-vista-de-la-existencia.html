@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>La filosofía desde el punto de vista de la existencia — Karl Jaspers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Briefing palette & typography tokens */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --tertiary: #785008;
+      --error: #b42318;
+      --on-error: #ffffff;
+
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      --font-headline: 'Source Serif 4', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* 3. Shared semantic, type, spacing & motion tokens */
+      --positive: #2b6e52;
+      --warning: #785008;
+      --focus: #1f4e5f;
+
+      --tag-warm-bg: #f5e6c4;
+      --secondary-wash: #e8f0f2;
+      --border-muted: #c8c4b8;
+
+      --display-size: clamp(2.125rem, 1.35rem + 3vw, 3.5rem);
+      --headline-size: clamp(1.625rem, 1.2rem + 1.5vw, 2.25rem);
+      --subhead-size: clamp(1.125rem, 1.02rem + 0.45vw, 1.35rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+      --label-size: 0.75rem;
+
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    html { scroll-behavior: smooth; }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    a {
+      color: var(--secondary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color var(--dur-micro) var(--ease-out);
+    }
+    a:hover { color: var(--on-surface); }
+
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Layout container */
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-lg);
+      max-width: 1160px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Briefing dossier bars & typography */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      display: inline-block;
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.6875rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    h1.title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--display-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.08;
+      margin: 0;
+      color: var(--on-surface);
+    }
+    h2.section-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--headline-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.15;
+      margin: 0 0 var(--space-xs) 0;
+      color: var(--on-surface);
+    }
+    h3.sub-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      margin: 0 0 var(--space-sm) 0;
+      color: var(--on-surface);
+    }
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      line-height: 1.45;
+      color: var(--secondary);
+      margin: var(--space-sm) 0 var(--space-md) 0;
+      max-width: 65ch;
+    }
+    .prose {
+      max-width: 65ch;
+      margin: 0 0 var(--space-md) 0;
+    }
+
+    /* Site navigation */
+    .site-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding-top: var(--space-md);
+      border-top: var(--card-border);
+      margin-top: var(--space-lg);
+    }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:hover {
+      background-color: var(--surface-container);
+      border-color: var(--outline);
+      color: var(--secondary);
+    }
+
+    /* Key figures & card grids */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .two-col-asymmetric {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .split-interactive {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .figure-card .label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      background: var(--surface-container);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+    }
+    .figure-card .value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+      line-height: 1.1;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      margin-top: var(--space-xs);
+    }
+    .figure-card .caption {
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+    }
+    .aside-box p { margin: 0 0 var(--space-sm) 0; }
+    .aside-box p:last-child { margin-bottom: 0; }
+
+    .pull-quote {
+      border-left: 3px solid var(--primary-container);
+      background: var(--surface-container-low);
+      padding: var(--space-md) var(--space-lg);
+      margin: var(--space-lg) 0;
+      border-radius: 0 var(--rounded-lg) var(--rounded-lg) 0;
+      border-top: var(--card-border);
+      border-right: var(--card-border);
+      border-bottom: var(--card-border);
+    }
+    .pull-quote blockquote {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: var(--subhead-size);
+      line-height: 1.45;
+      margin: 0 0 var(--space-xs) 0;
+      color: var(--on-surface);
+    }
+    .pull-quote cite {
+      font-family: var(--font-label);
+      font-style: normal;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      letter-spacing: 0.05em;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+    }
+    table.briefing-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    table.briefing-table th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      background: var(--surface-container);
+      border-bottom: var(--section-rule);
+      padding: var(--space-md);
+    }
+    table.briefing-table td {
+      padding: var(--space-md);
+      border-bottom: var(--card-border);
+      vertical-align: top;
+      font-size: 0.95rem;
+    }
+    table.briefing-table tr:last-child td { border-bottom: none; }
+
+    /* Tags & chips */
+    .tag-warm {
+      display: inline-block;
+      background: var(--tag-warm-bg);
+      color: var(--tertiary);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+    }
+    .tag-slate {
+      display: inline-block;
+      background: var(--secondary-wash);
+      color: var(--secondary);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+    }
+
+    /* Interactive Buttons & Controls */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .selector-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .btn-choice {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      min-height: 48px;
+      width: 100%;
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .btn-choice:hover {
+      background-color: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .btn-choice[aria-pressed="true"],
+    .btn-choice.is-active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-choice[aria-pressed="true"] .index-num,
+    .btn-choice.is-active .index-num {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .filter-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: 1px solid var(--border-muted);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .filter-pill:hover {
+      background-color: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .filter-pill[aria-pressed="true"] {
+      background-color: var(--secondary);
+      color: var(--on-primary);
+      border-color: var(--secondary);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: 1px solid var(--border-muted);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .btn-secondary:hover {
+      background-color: var(--surface-container);
+      border-color: var(--outline);
+    }
+
+    /* Form Controls with always-visible labels */
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      flex: 1 1 260px;
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .field-input {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: 1px solid var(--border-muted);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      transition: border-color var(--dur-micro) var(--ease-out);
+    }
+    .field-input:focus {
+      border-color: var(--secondary);
+    }
+
+    /* Interactive SVG Concept Map */
+    .diagram-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .diagram-svg {
+      width: 100%;
+      height: auto;
+      min-height: 360px;
+      display: block;
+    }
+    .svg-ring-outer {
+      fill: var(--background);
+      stroke: var(--secondary);
+      stroke-width: 2;
+      stroke-dasharray: 6 4;
+    }
+    .svg-box-core {
+      fill: var(--surface-container);
+      stroke: var(--outline);
+      stroke-width: 1.5;
+    }
+    .svg-node {
+      cursor: pointer;
+      transition: opacity var(--dur-micro) var(--ease-out);
+    }
+    .svg-node rect,
+    .svg-node circle {
+      fill: var(--surface-container-low);
+      stroke: var(--secondary);
+      stroke-width: 1.5;
+      transition: fill var(--dur-micro) var(--ease-out), stroke var(--dur-micro) var(--ease-out);
+    }
+    .svg-node.is-selected rect,
+    .svg-node.is-selected circle {
+      fill: var(--primary-container);
+      stroke: var(--outline);
+      stroke-width: 2;
+    }
+    .svg-node:hover rect,
+    .svg-node:hover circle {
+      stroke: var(--outline);
+    }
+    .svg-text-title {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 13px;
+      fill: var(--on-surface);
+    }
+    .svg-text-mono {
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: 11px;
+      fill: var(--on-surface-variant);
+      text-transform: uppercase;
+    }
+    .svg-arrow {
+      stroke: var(--outline-variant);
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .svg-arrow-accent {
+      stroke: var(--secondary);
+      stroke-width: 1.75;
+      fill: none;
+    }
+
+    /* Knowledge base cards */
+    .kb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .kb-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .kb-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .kb-card h3 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.2rem;
+      line-height: 1.25;
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .kb-card p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--on-surface);
+    }
+    .kb-relation {
+      margin-top: auto;
+      padding-top: var(--space-sm);
+      border-top: var(--card-border);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+    }
+
+    .empty-state {
+      background: var(--surface-container);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+      text-align: left;
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .faq-item {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+    }
+    .faq-trigger {
+      width: 100%;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: var(--space-md) var(--space-lg);
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.125rem;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .faq-trigger:hover {
+      background-color: var(--surface-container);
+    }
+    .faq-icon {
+      flex-shrink: 0;
+      transition: transform var(--dur-short) var(--ease-out);
+      color: var(--secondary);
+    }
+    .faq-trigger[aria-expanded="true"] .faq-icon {
+      transform: rotate(180deg);
+    }
+    .faq-panel {
+      padding: 0 var(--space-lg) var(--space-lg) var(--space-lg);
+      border-top: var(--card-border);
+      padding-top: var(--space-md);
+      color: var(--on-surface);
+    }
+    .faq-panel[hidden] { display: none; }
+
+    /* Container queries for component adaptation */
+    .card-wrapper { container-type: inline-size; }
+    @container (max-width: 520px) {
+      .split-interactive,
+      .two-col-asymmetric {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* Reveal animation */
+    .reveal-section {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal-section.will-animate {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    .reveal-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      border-top: var(--section-rule);
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-xl);
+      color: var(--on-surface-variant);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .two-col-asymmetric,
+      .split-interactive {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- PÁGINA DE INICIO / CABECERA -->
+    <header id="inicio">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Base de conocimientos</span>
+          <span class="dossier-meta">Karl Jaspers · Einführung in die Philosophie (1949)</span>
+        </div>
+        <span class="dossier-meta">Traducción: José Gaos (1953)</span>
+      </div>
+
+      <h1 class="title">La filosofía desde el punto de vista de la existencia</h1>
+      <p class="standfirst">
+        Síntesis estructurada e interactiva de las doce conferencias radiofónicas de Basilea: por qué filosofar es «ir de camino», cuáles son sus cuatro orígenes y cómo se abre lo Circunvalante ante las situaciones límites.
+      </p>
+
+      <div class="card-grid" aria-label="Hechos y cifras clave de la obra">
+        <div class="figure-card">
+          <div class="label-row">
+            <span class="dossier-meta">Origen de la obra</span>
+            <span class="index-num">01</span>
+          </div>
+          <div class="value">12 conferencias</div>
+          <p class="caption">Dictadas por encargo del estudio radiofónico de Basilea y publicadas en alemán en 1949.</p>
+        </div>
+        <div class="figure-card">
+          <div class="label-row">
+            <span class="dossier-meta">Tradición histórica</span>
+            <span class="index-num">02</span>
+          </div>
+          <div class="value">2 500 años</div>
+          <p class="caption">Filosofía sistemática en tres grandes focos: Occidente, China y la India (<em>philosophia perennis</em>).</p>
+        </div>
+        <div class="figure-card">
+          <div class="label-row">
+            <span class="dossier-meta">Motores del filosofar</span>
+            <span class="index-num">03</span>
+          </div>
+          <div class="value">4 orígenes</div>
+          <p class="caption">Asombro, duda metódica, situaciones límites y la voluntad de comunicación auténtica.</p>
+        </div>
+        <div class="figure-card">
+          <div class="label-row">
+            <span class="dossier-meta">Realidad mundanal</span>
+            <span class="index-num">04</span>
+          </div>
+          <div class="value">4 grados</div>
+          <p class="caption">Materia física, vida, alma y espíritu: estratos separados por saltos irreductibles.</p>
+        </div>
+      </div>
+
+      <nav class="site-nav" aria-label="Navegación principal del sitio">
+        <a class="nav-link" href="#inicio">Inicio</a>
+        <a class="nav-link" href="#que-es">01 · Qué es la filosofía</a>
+        <a class="nav-link" href="#origenes">02 · Orígenes y límites</a>
+        <a class="nav-link" href="#circunvalante">03 · Lo Circunvalante</a>
+        <a class="nav-link" href="#base-conocimientos">04 · Base de conocimientos</a>
+        <a class="nav-link" href="#preguntas-frecuentes">05 · Preguntas frecuentes</a>
+      </nav>
+    </header>
+
+    <!-- CONTEXTO DEL AUTOR Y EDICIÓN -->
+    <section class="two-col-asymmetric reveal-section" aria-label="Contexto biográfico y nota editorial">
+      <div>
+        <h2 class="section-title">Un pensar claro frente a la crisis moderna</h2>
+        <p class="standfirst">Del médico y psiquiatra de Heidelberg al filósofo exiliado en Basilea.</p>
+        <p class="prose">
+          Karl Theodor Jaspers (Oldenburg, 23 de febrero de 1883 – Basilea, 20 de febrero de 1969) estudió derecho y medicina antes de enseñar psiquiatría desde 1916 y ocupar la cátedra de filosofía en Heidelberg en 1937. Por estar casado con una mujer judía y rechazar sin paliativos al régimen hitleriano, se le prohibió enseñar durante la mayor parte de la dictadura. En 1948 aceptó una cátedra en Basilea, Suiza, donde compuso estas lecciones para acercar al público no profesional los problemas esenciales del existir humano.
+        </p>
+        <div class="pull-quote">
+          <blockquote>«Filosofía quiere decir: ir de camino. Sus preguntas son más esenciales que sus respuestas, y toda respuesta se convierte en una nueva pregunta.»</blockquote>
+          <cite>Capítulo I · ¿Qué es la filosofía?</cite>
+        </div>
+      </div>
+
+      <aside class="aside-box">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">Nota de edición</span>
+          </div>
+          <span class="dossier-meta">Hechos clave</span>
+        </div>
+        <p><strong>Título original vs. traducción:</strong> En alemán la obra se llama <em>Einführung in die Philosophie</em> («Introducción a la filosofía», 1949). La versión española de José Gaos (1953) adoptó un título alternativo libérrimo.</p>
+        <p><strong>Fidelidad documental:</strong> La edición digital empleada coteja la sexta reimpresión de 1973 con el original alemán, incorporando los apartados del apéndice, notas al pie y la bibliografía esencial.</p>
+        <p><strong>Obras mayores vinculadas:</strong> <em>Psicopatología general</em> (1913), <em>Psicología de las concepciones del mundo</em> (1919), <em>Filosofía</em> (3 vols., 1932), <em>Filosofía de la existencia</em> (1938) y <em>La cuestión de la culpabilidad alemana</em> (1946).</p>
+      </aside>
+    </section>
+
+    <!-- SECCIÓN 01: QUÉ ES LA FILOSOFÍA -->
+    <section id="que-es" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Capítulo I</span>
+          <span class="dossier-meta">Definición, ciencia y espontaneidad humana</span>
+        </div>
+        <span class="dossier-meta">Sección 01</span>
+      </div>
+
+      <h2 class="section-title">No es posesión de verdades, sino búsqueda compartida</h2>
+      <p class="standfirst">La palabra griega <em>philósophos</em> (amante del saber) nació frente a <em>sophós</em> (el sabio que cree poseerlo).</p>
+
+      <div class="two-col-asymmetric">
+        <div>
+          <p class="prose">
+            Para quien deposita su fe únicamente en la ciencia, la filosofía resulta desconcertante: carece de resultados unánimes y definitivos. En cuanto una idea alcanza validez imperiosa para todo intelecto, se desgaja de la filosofía y pasa a ser un conocimiento científico particular. Sin embargo, la certeza filosófica no es intelectual ni parcial: compromete la esencia entera del hombre y apunta a la totalidad del ser.
+          </p>
+          <p class="prose">
+            Por eso la filosofía sufre ataques constantes desde tres frentes: el <strong>autoritarismo eclesiástico</strong> (que recela de la independencia del pensar), el <strong>totalitarismo político</strong> (que exige transformar el mundo en lugar de interpretarlo, generando sustitutivos interesados como el marxismo o el fascismo) y el <strong>sentido común utilitario</strong>, encarnado en la sirviente que se rió de Tales de Mileto cuando cayó en un pozo por mirar las estrellas.
+          </p>
+        </div>
+
+        <div class="table-wrap">
+          <table class="briefing-table">
+            <thead>
+              <tr>
+                <th>Rasgo</th>
+                <th>Conocimiento científico</th>
+                <th>Pensar filosófico</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Objeto</strong></td>
+                <td>Dominios especiales del mundo</td>
+                <td>Totalidad del ser y sentido del hombre</td>
+              </tr>
+              <tr>
+                <td><strong>Validez</strong></td>
+                <td>Unánime e imperiosa para todo intelecto</td>
+                <td>Sin unanimidad; exige realización personal</td>
+              </tr>
+              <tr>
+                <td><strong>Historia</strong></td>
+                <td>Progresiva (superamos a Hipócrates)</td>
+                <td>No progresiva (apenas igualamos a Platón)</td>
+              </tr>
+              <tr>
+                <td><strong>Relación vital</strong></td>
+                <td>Separable de quien la investiga</td>
+                <td>Indisoluble del ser del propio filósofo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- INTERACTIVO 1: PREGUNTAS DE LOS NIÑOS Y FILOSOFÍA SIN CIENCIA -->
+      <div class="figure-card card-wrapper" style="margin-top: var(--space-xl);">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">Interactivo 01</span>
+            <span class="dossier-meta">Manifestaciones originales de la filosofía antes de la ciencia</span>
+          </div>
+          <span class="dossier-meta">Ejemplos del texto</span>
+        </div>
+        <h3 class="sub-title">El despertar filosófico en la boca de los niños y en la vida humana</h3>
+        <p class="prose">
+          Jaspers sostiene que el pensar filosófico debe llevarlo a cabo cada ser humano por sí mismo. Antes de caer en «la prisión de las convenciones y opiniones corrientes», los niños formulan preguntas que tocan las raíces metafísicas del ser. Selecciona cada caso para examinar la cita literal y la interpretación de Jaspers:
+        </p>
+
+        <div class="split-interactive">
+          <div class="selector-list" role="group" aria-label="Casos de filosofía original">
+            <button type="button" class="btn-choice is-active" aria-pressed="true" onclick="selectChildExample('yo', this)">
+              <span>El enigma del «yo»</span>
+              <span class="index-num">01</span>
+            </button>
+            <button type="button" class="btn-choice" aria-pressed="false" onclick="selectChildExample('principio', this)">
+              <span>Antes del principio</span>
+              <span class="index-num">02</span>
+            </button>
+            <button type="button" class="btn-choice" aria-pressed="false" onclick="selectChildExample('bosque', this)">
+              <span>La niña del bosque y la Tierra</span>
+              <span class="index-num">03</span>
+            </button>
+            <button type="button" class="btn-choice" aria-pressed="false" onclick="selectChildExample('escalera', this)">
+              <span>La niña en la escalera</span>
+              <span class="index-num">04</span>
+            </button>
+            <button type="button" class="btn-choice" aria-pressed="false" onclick="selectChildExample('velos', this)">
+              <span>Enfermedad mental, sueño y mitos</span>
+              <span class="index-num">05</span>
+            </button>
+          </div>
+
+          <div id="child-example-detail" class="aside-box" aria-live="polite">
+            <span class="tag-warm">Ejemplo infantil 01</span>
+            <h3 class="sub-title" style="margin-top: var(--space-sm);">La conciencia del ser en la conciencia del yo</h3>
+            <p><strong>Testimonio citado:</strong> «Me empeño en pensar que soy otro y sigo siendo siempre yo».</p>
+            <p><strong>Alcance filosófico:</strong> Este niño toca uno de los orígenes de toda certeza. Se asombra ante el enigma del yo, un ser que no puede concebirse ni reducirse por medio de ningún otro objeto, deteniéndose con lucidez ante ese límite.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 02: ORÍGENES DE LA FILOSOFÍA -->
+    <section id="origenes" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Capítulo II</span>
+          <span class="dossier-meta">Comienzo histórico vs. origen permanente</span>
+        </div>
+        <span class="dossier-meta">Sección 02</span>
+      </div>
+
+      <h2 class="section-title">Los cuatro motores que despiertan el filosofar</h2>
+      <p class="standfirst">El comienzo fue hace 2 500 años; el origen mana en todo tiempo desde el asombro, la duda, la impotencia y el afán de comunicación.</p>
+
+      <!-- INTERACTIVO 2: EXPLORADOR DE LOS 4 ORÍGENES -->
+      <div class="figure-card card-wrapper">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">Interactivo 02</span>
+            <span class="dossier-meta">Matriz comparativa de los orígenes</span>
+          </div>
+          <span class="dossier-meta">Selecciona un origen</span>
+        </div>
+
+        <div class="btn-row" role="group" aria-label="Selector de los cuatro orígenes de la filosofía" style="margin-bottom: var(--space-lg);">
+          <button type="button" class="filter-pill" aria-pressed="true" onclick="selectOrigin('asombro', this)">1. El asombro</button>
+          <button type="button" class="filter-pill" aria-pressed="false" onclick="selectOrigin('duda', this)">2. La duda</button>
+          <button type="button" class="filter-pill" aria-pressed="false" onclick="selectOrigin('limites', this)">3. Situaciones límites</button>
+          <button type="button" class="filter-pill" aria-pressed="false" onclick="selectOrigin('comunicacion', this)">4. La comunicación</button>
+        </div>
+
+        <div id="origin-detail-panel" class="two-col-asymmetric" aria-live="polite">
+          <div>
+            <span class="tag-slate">Origen clásico · Antigüedad griega</span>
+            <h3 class="sub-title" style="margin-top: var(--space-sm);">Del asombro nace la pregunta y la conciencia de no saber</h3>
+            <p class="prose">
+              Platón enseñaba que el espectáculo de las estrellas, el sol y la bóveda celeste dio al hombre el impulso de investigar el universo. Aristóteles coincidía en que la admiración ante lo extraño empuja a preguntar por el origen de todas las cosas, buscando el saber por sí mismo y no para satisfacer ninguna necesidad material inmediata.
+            </p>
+            <p class="prose">
+              El filosofar actúa aquí como un despertar de la servidumbre cotidiana hacia la contemplación desinteresada del mundo.
+            </p>
+          </div>
+          <div class="aside-box">
+            <p><strong>Referentes clave:</strong> Platón y Aristóteles.</p>
+            <p><strong>Estado de turbación:</strong> Conciencia súbita de ignorancia frente a la inmensidad del cosmos.</p>
+            <p><strong>Meta buscada:</strong> Comprender la esencia del ser por puro afán de conocimiento.</p>
+            <p><strong>Límite:</strong> El conocimiento acumulado pronto revela sus contradicciones y da paso a la duda.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVO 3: ANALIZADOR DE SITUACIONES LÍMITES -->
+      <div class="figure-card card-wrapper" style="margin-top: var(--space-lg);">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">Interactivo 03</span>
+            <span class="dossier-meta">Situaciones concretas vs. situaciones límites</span>
+          </div>
+          <span class="dossier-meta">Epicteto · Estoicismo · Jaspers</span>
+        </div>
+        <h3 class="sub-title">El muro infranqueable y la experiencia del fracaso</h3>
+        <p class="prose">
+          Las situaciones concretas cambian y pueden manipularse mediante planes técnicos o políticos. Las <strong>situaciones límites</strong>, en cambio, son permanentes e inmutables: revelan la desconfianza que merece todo ser mundanal —pues ni el dominio de la naturaleza ni el Estado ofrecen protección absoluta— y nos ponen frente al fracaso. Explora cada situación límite para ver qué ilusión cotidiana destruye:
+        </p>
+
+        <div class="btn-row" role="group" aria-label="Selector de situaciones límites" style="margin-bottom: var(--space-md);">
+          <button type="button" class="filter-pill" aria-pressed="true" onclick="selectLimit('muerte', this)">La muerte</button>
+          <button type="button" class="filter-pill" aria-pressed="false" onclick="selectLimit('padecer', this)">El padecer</button>
+          <button type="button" class="filter-pill" aria-pressed="false" onclick="selectLimit('lucha', this)">La lucha</button>
+          <button type="button" class="filter-pill" aria-pressed="false" onclick="selectLimit('acaso', this)">El acaso</button>
+          <button type="button" class="filter-pill" aria-pressed="false" onclick="selectLimit('culpa', this)">La culpa</button>
+          <button type="button" class="filter-pill" aria-pressed="false" onclick="selectLimit('desconfianza', this)">Desconfianza del mundo</button>
+        </div>
+
+        <div id="limit-detail" class="aside-box" aria-live="polite">
+          <span class="tag-warm">Situación límite 01 · Inalterable</span>
+          <h3 class="sub-title" style="margin-top: var(--space-xs);">No puedo menos de morir</h3>
+          <p><strong>Reacción habitual (ocultamiento):</strong> En la vida corriente cerramos los ojos y actuamos como si la muerte no existiera o fuese un accidente lejano.</p>
+          <p><strong>Respuesta filosófica:</strong> Asumir la finitud con honradez. Como recogía la tradición clásica, filosofar es aprender a morir: saber morir es la condición misma de la vida recta, porque despoja al mundo de falsas pretensiones absolutas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 03: LO CIRCUNVALANTE -->
+    <section id="circunvalante" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Capítulo III</span>
+          <span class="dossier-meta">Das Umgreifende · Existenz · Cifras</span>
+        </div>
+        <span class="dossier-meta">Sección 03</span>
+      </div>
+
+      <h2 class="section-title">El salto más allá de la escisión entre sujeto y objeto</h2>
+      <p class="standfirst">Todo lo que conocemos aparece como fenómeno frente a nosotros; el ser en sí no es un objeto, sino el horizonte que nos envuelve.</p>
+
+      <div class="split-interactive">
+        <div class="diagram-card">
+          <div class="dossier-bar">
+            <div class="dossier-bar-left">
+              <span class="dossier-pill">Mapa estructural</span>
+              <span class="dossier-meta">Haz clic en cualquier nodo</span>
+            </div>
+          </div>
+          <svg class="diagram-svg" viewBox="0 0 560 410" role="img" aria-label="Diagrama interactivo de lo Circunvalante y la estructura del ser según Karl Jaspers">
+            <defs>
+              <marker id="arrow-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="currentColor"></path>
+              </marker>
+            </defs>
+
+            <!-- Horizonte exterior: Lo Circunvalante -->
+            <g class="svg-node is-selected" data-node="circunvalante" tabindex="0" role="button" aria-label="Lo Circunvalante" onclick="selectDiagramNode('circunvalante')" onkeydown="handleDiagramKey(event, 'circunvalante')">
+              <rect class="svg-ring-outer" x="14" y="14" width="532" height="382" rx="14"></rect>
+              <text class="svg-text-mono" x="32" y="38">HORIZONTE ABIERTO · DAS UMGREIFENDE</text>
+              <text class="svg-text-title" x="32" y="56">Lo Circunvalante (el ser que todo lo contiene)</text>
+            </g>
+
+            <!-- Trascendencia arriba -->
+            <g class="svg-node" data-node="trascendencia" tabindex="0" role="button" aria-label="Trascendencia y cifras de Dios" onclick="selectDiagramNode('trascendencia')" onkeydown="handleDiagramKey(event, 'trascendencia')">
+              <rect x="160" y="76" width="240" height="58" rx="6"></rect>
+              <text class="svg-text-mono" x="280" y="96" text-anchor="middle">LECTURA DE CIFRAS</text>
+              <text class="svg-text-title" x="280" y="116" text-anchor="middle">Trascendencia (Dios)</text>
+            </g>
+
+            <!-- Existenz a la izquierda -->
+            <g class="svg-node" data-node="existenz" tabindex="0" role="button" aria-label="Existenz y libertad" onclick="selectDiagramNode('existenz')" onkeydown="handleDiagramKey(event, 'existenz')">
+              <rect x="34" y="168" width="160" height="72" rx="6"></rect>
+              <text class="svg-text-mono" x="114" y="188" text-anchor="middle">NO OBJETIVABLE</text>
+              <text class="svg-text-title" x="114" y="208" text-anchor="middle">«Existencia» (Existenz)</text>
+              <text class="svg-text-mono" x="114" y="226" text-anchor="middle">Libertad e historicidad</text>
+            </g>
+
+            <!-- Escisión Sujeto - Objeto en el centro-derecha -->
+            <g class="svg-node" data-node="escision" tabindex="0" role="button" aria-label="Escisión sujeto y objeto" onclick="selectDiagramNode('escision')" onkeydown="handleDiagramKey(event, 'escision')">
+              <rect x="234" y="168" width="292" height="72" rx="6"></rect>
+              <text class="svg-text-mono" x="380" y="188" text-anchor="middle">FENOMENICIDAD KANTIANA</text>
+              <text class="svg-text-title" x="380" y="208" text-anchor="middle">Escisión Sujeto ↔ Objeto</text>
+              <text class="svg-text-mono" x="380" y="226" text-anchor="middle">Todo conocimiento es interpretación</text>
+            </g>
+
+            <!-- Líneas de conexión -->
+            <path class="svg-arrow-accent" d="M 194 204 L 234 204"></path>
+            <path class="svg-arrow-accent" d="M 114 168 L 210 134"></path>
+            <path class="svg-arrow-accent" d="M 380 168 L 330 134"></path>
+            <path class="svg-arrow-accent" d="M 380 240 L 380 272"></path>
+
+            <!-- Cuatro grados discontinuos de la realidad abajo -->
+            <g class="svg-node" data-node="grados" tabindex="0" role="button" aria-label="Cuatro grados discontinuos del mundo" onclick="selectDiagramNode('grados')" onkeydown="handleDiagramKey(event, 'grados')">
+              <rect x="34" y="274" width="492" height="100" rx="6"></rect>
+              <text class="svg-text-mono" x="50" y="295">MUNDO ABIERTO · SIN IMAGEN CERRADA DEL TODO (SALTOS IRREDUCTIBLES)</text>
+              <text class="svg-text-title" x="88" y="328" text-anchor="middle">1. Materia</text>
+              <text class="svg-text-mono" x="88" y="346" text-anchor="middle">Física</text>
+              <text class="svg-text-title" x="150" y="328" text-anchor="middle">→</text>
+              <text class="svg-text-title" x="212" y="328" text-anchor="middle">2. Vida</text>
+              <text class="svg-text-mono" x="212" y="346" text-anchor="middle">Biología</text>
+              <text class="svg-text-title" x="276" y="328" text-anchor="middle">→</text>
+              <text class="svg-text-title" x="338" y="328" text-anchor="middle">3. Alma</text>
+              <text class="svg-text-mono" x="338" y="346" text-anchor="middle">Psique</text>
+              <text class="svg-text-title" x="400" y="328" text-anchor="middle">→</text>
+              <text class="svg-text-title" x="462" y="328" text-anchor="middle">4. Espíritu</text>
+              <text class="svg-text-mono" x="462" y="346" text-anchor="middle">Sentido</text>
+            </g>
+          </svg>
+
+          <div class="btn-row" role="group" aria-label="Accesos directos al diagrama" style="margin-top: var(--space-md);">
+            <button type="button" class="filter-pill" aria-pressed="true" onclick="selectDiagramNode('circunvalante')">Lo Circunvalante</button>
+            <button type="button" class="filter-pill" aria-pressed="false" onclick="selectDiagramNode('escision')">Sujeto ↔ Objeto</button>
+            <button type="button" class="filter-pill" aria-pressed="false" onclick="selectDiagramNode('grados')">4 grados del mundo</button>
+            <button type="button" class="filter-pill" aria-pressed="false" onclick="selectDiagramNode('existenz')">Existenz</button>
+            <button type="button" class="filter-pill" aria-pressed="false" onclick="selectDiagramNode('trascendencia')">Trascendencia</button>
+          </div>
+        </div>
+
+        <div id="diagram-detail-panel" class="aside-box" aria-live="polite">
+          <span class="tag-warm">Nodo seleccionado · Concepto central</span>
+          <h3 class="sub-title" style="margin-top: var(--space-sm);">Lo Circunvalante (das Umgreifende)</h3>
+          <p>
+            No es un objeto más dentro del horizonte, sino el horizonte mismo en el que surge todo cuanto experimentamos. Todas las escuelas filosóficas yerran cuando confunden un ente particular (materia, espíritu, razón) con el ser absoluto.
+          </p>
+          <p>
+            <strong>Cómo se alcanza:</strong> No abandonando el mundo hacia una mística incomunicable, sino llevando el pensamiento objetivamente determinado hasta su límite extremo y dando allí el «salto» que convierte la aparente nada en libre espacio de libertad.
+          </p>
+          <p>
+            <strong>Conexión con el todo:</strong> La realidad del mundo tiene un «ser evanescente entre Dios y la existencia». En el límite del saber claro se abre el «plenario no saber», fuente de nuestra conciencia del ser.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 04: BASE DE CONOCIMIENTOS ESTRUCTURADA -->
+    <section id="base-conocimientos" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Base de conocimientos</span>
+          <span class="dossier-meta">Temas · Hechos · Ejemplos · Filósofos · Relaciones</span>
+        </div>
+        <span class="dossier-meta" id="kb-count-label">16 fichas indexadas</span>
+      </div>
+
+      <h2 class="section-title">Inventario estructurado de ideas, hechos y relaciones</h2>
+      <p class="standfirst">Filtra por categoría o busca cualquier término de la obra para consultar su definición y su vínculo conceptual dentro del sistema de Jaspers.</p>
+
+      <div class="figure-card" style="margin-bottom: var(--space-lg);">
+        <div class="controls-row">
+          <div class="field-group">
+            <label class="field-label" for="kb-search">Buscar en la base de conocimientos</label>
+            <input id="kb-search" type="search" class="field-input" placeholder="Ej.: Descartes, cifras, Basilea, Freud, escalera…" oninput="applyKbFilter()">
+          </div>
+          <button type="button" class="btn-secondary" onclick="resetKbFilters()">Limpiar filtros</button>
+        </div>
+
+        <div class="btn-row" role="group" aria-label="Filtrar fichas por categoría">
+          <button type="button" class="filter-pill" aria-pressed="true" onclick="setKbCategory('todos', this)">Todos (16)</button>
+          <button type="button" class="filter-pill" aria-pressed="false" onclick="setKbCategory('concepto', this)">Temas clave</button>
+          <button type="button" class="filter-pill" aria-pressed="false" onclick="setKbCategory('hecho', this)">Hechos y datos</button>
+          <button type="button" class="filter-pill" aria-pressed="false" onclick="setKbCategory('ejemplo', this)">Ejemplos</button>
+          <button type="button" class="filter-pill" aria-pressed="false" onclick="setKbCategory('autor', this)">Autores citados</button>
+          <button type="button" class="filter-pill" aria-pressed="false" onclick="setKbCategory('relacion', this)">Relaciones</button>
+        </div>
+      </div>
+
+      <div id="kb-results-grid" class="kb-grid" aria-live="polite"></div>
+
+      <!-- SÍNTESIS DE RELACIONES Y APÉNDICE METODOLÓGICO -->
+      <div class="two-col-asymmetric" style="margin-top: var(--space-xl);">
+        <div>
+          <h3 class="sub-title">Cadena de relaciones entre ideas</h3>
+          <p class="prose">
+            Las tesis de Jaspers no forman compartimentos estancos ni un sistema cerrado de proposiciones; se encadenan como un movimiento circular de esclarecimiento existencial:
+          </p>
+          <div class="table-wrap">
+            <table class="briefing-table">
+              <thead>
+                <tr>
+                  <th>Punto de partida</th>
+                  <th>Mediación crítica</th>
+                  <th>Desenlace existencial</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Asombro y Duda</strong></td>
+                  <td>Desengaño de certezas absolutas y crítica científica</td>
+                  <td><strong>Plenario no saber</strong> que abre paso a la filosofía</td>
+                </tr>
+                <tr>
+                  <td><strong>Situaciones límites</strong></td>
+                  <td>Impotencia ante muerte, culpa, lucha y acaso</td>
+                  <td><strong>Fracaso asumido</strong> que señala más allá del mundo</td>
+                </tr>
+                <tr>
+                  <td><strong>Escisión Sujeto–Objeto</strong></td>
+                  <td>Fenomenicidad kantiana; todo saber es interpretación</td>
+                  <td><strong>Salto a lo Circunvalante</strong> y libertad de la <em>Existenz</em></td>
+                </tr>
+                <tr>
+                  <td><strong>Ausencia de vínculo</strong></td>
+                  <td>Aislamiento moderno y rechazo del dogmatismo</td>
+                  <td><strong>Lucha amorosa</strong> en la comunicación de yo con yo</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="aside-box">
+          <div class="dossier-bar">
+            <div class="dossier-bar-left">
+              <span class="dossier-pill">Apéndice</span>
+            </div>
+            <span class="dossier-meta">Guía de estudio</span>
+          </div>
+          <h3 class="sub-title">Dos caminos para adentrarse en la filosofía</h3>
+          <p><strong>1. Participar en la investigación científica:</strong> Arraigada en la ciencia natural y la filología, enseña el pensar crítico indispensable para la veracidad filosófica.</p>
+          <p><strong>2. Estudiar a fondo un gran filósofo:</strong> «Trepar por el tronco de grandes obras originales» desde un interés vital presente. En cualquiera de los grandes filósofos está contenida toda la historia de la filosofía.</p>
+          <p><strong>Advertencia contemporánea:</strong> Jaspers contrapone a K. E. von Baer frente al reduccionismo causal de Darwin, y advierte que el psicoanálisis de Freud trivializa en clave naturalista las intuiciones profundas de Kierkegaard y Nietzsche.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 05: PREGUNTAS FRECUENTES -->
+    <section id="preguntas-frecuentes" class="reveal-section">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Preguntas frecuentes</span>
+          <span class="dossier-meta">Respuestas basadas únicamente en las fuentes</span>
+        </div>
+        <span class="dossier-meta">Sección 05</span>
+      </div>
+
+      <h2 class="section-title">Cuestiones esenciales sobre el pensamiento de Jaspers</h2>
+      <p class="standfirst">Despliega cada pregunta para consultar una respuesta precisa y documentada en el texto de la obra.</p>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="true" aria-controls="faq-1" onclick="toggleFaq(this)">
+            <span>1. ¿Por qué el libro en español se titula «La filosofía desde el punto de vista de la existencia» si el original significa otra cosa?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div id="faq-1" class="faq-panel">
+            <p class="prose">El título alemán original de 1949 es <em>Einführung in die Philosophie</em>, cuya traducción literal es «Introducción a la filosofía». Según explica la nota de la edición digital, José Gaos optó en 1953 por una traducción libérrima que sustituyó el título original por uno alternativo para destacar el enfoque existencial de las doce conferencias de Basilea.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-2" onclick="toggleFaq(this)">
+            <span>2. ¿Por qué no puede existir una «imagen total y cerrada del mundo» según Jaspers?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div id="faq-2" class="faq-panel" hidden>
+            <p class="prose">Porque la ciencia crítica demuestra que el universo no es reducible a un principio único. Existen cuatro estratos distintos —mundo físico, vida, alma y espíritu— separados por saltos irreductibles (por ejemplo, la vida presupone materia, pero no puede derivarse simplemente de ella). Además, todo conocimiento es una interpretación relativa y fenomenal; el mundo permanece siempre abierto.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-3" onclick="toggleFaq(this)">
+            <span>3. ¿En qué se distingue el «comienzo» del «origen» de la filosofía?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div id="faq-3" class="faq-panel" hidden>
+            <p class="prose">El <strong>comienzo</strong> es histórico (hace unos 2 500 años como pensar metódico, y mucho antes en el mito) y acumula supuestos previos. El <strong>origen</strong> es la fuente interior y atemporal de la que brota en cada instante el impulso a filosofar: el asombro, la duda, la conciencia de las situaciones límites y la voluntad de comunicación auténtica.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-4" onclick="toggleFaq(this)">
+            <span>4. ¿Por qué considera Jaspers insuficiente el consejo del estoicismo frente al sufrimiento y la impotencia?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div id="faq-4" class="faq-panel" hidden>
+            <p class="prose">Aunque reconoce que Epicteto y los estoicos nacen de la auténtica filosofía al advertir la debilidad humana, Jaspers señala que erraron al no ver cuán radical es esa impotencia: incluso el pensamiento depende de lo que se le da y está expuesto a la locura. Refugiarse en la mera independencia del pensar deja al hombre sin consuelo ni esperanza, privado de entrega amorosa y de apertura a lo posible.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-5" onclick="toggleFaq(this)">
+            <span>5. ¿Qué significa leer las «cifras de la trascendencia» y qué papel cumple la «superstición científica»?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div id="faq-5" class="faq-panel" hidden>
+            <p class="prose">No disponemos de un saber directo u objetivo de Dios ni de la «existencia»; solo percibimos las cosas del mundo como <strong>cifras</strong> —un lenguaje siempre equívoco que interpretamos con ayuda del arte, la poesía y la reflexión filosófica—. Quien cree que el modesto saber científico agota el ser en su totalidad cae en la <em>superstición científica</em> y deja de asombrarse y de filosofar.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-6" onclick="toggleFaq(this)">
+            <span>6. ¿Cómo se relacionan el saber vivir, el saber morir y el instante presente?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div id="faq-6" class="faq-panel" hidden>
+            <p class="prose">Para Jaspers, aprender a vivir y saber morir son lo mismo: exponerse con absoluta honradez a los extremos de la existencia sin velarlos con ilusiones ni dogmas. Dado que no tenemos más realidad que el «aquí y ahora», solo adueñándonos plenamente de nuestra época y nuestras decisiones concretas accedemos a lo eterno en el tiempo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        <strong>Fuente documental:</strong> Elaborado íntegramente a partir de los extractos de <em>La filosofía desde el punto de vista de la existencia</em> (título original: <em>Einführung in die Philosophie</em>, 1949) de Karl Jaspers, en traducción de José Gaos (1953; sexta reimpresión de 1973; edición digital ePub r1.0 Titivillus, 2016) y su reseña biográfica anexa.
+      </p>
+    </footer>
+
+  </div>
+
+  <script>
+    const childExamples = {
+      yo: {
+        tag: `Ejemplo infantil 01 · Conciencia del yo`,
+        title: `La conciencia del ser en la conciencia del yo`,
+        quote: `«Me empeño en pensar que soy otro y sigo siendo siempre yo».`,
+        analysis: `Este niño toca uno de los orígenes de toda certeza. Se asombra ante el enigma del yo, un ser que no cabe concebir ni explicar por medio de ningún otro objeto, deteniéndose con su pregunta ante ese límite originario.`
+      },
+      principio: {
+        tag: `Ejemplo infantil 02 · Infinitud de la serie`,
+        title: `La imposibilidad de que el intelecto haga alto`,
+        quote: `Al oír la historia de la creación («Al principio creó Dios el cielo y la tierra…»), pregunta en el acto: «¿Y qué había antes del principio?».`,
+        analysis: `Este niño experimenta la infinitud de las preguntas posibles y descubre que el intelecto humano no puede obtener por sí solo una respuesta concluyente y última sobre el comienzo absoluto.`
+      },
+      bosque: {
+        tag: `Ejemplo infantil 03 · El pasmo de la existencia`,
+        title: `Distinción entre objetos del mundo y el ser`,
+        quote: `Tras negar a los elfos del bosque y golpear el suelo («la tierra está quieta; yo sólo creo lo que veo»), responde al hablarle de Dios: «Si no existiese él, tampoco existiríamos nosotros».`,
+        analysis: `La niña es presa del gran pasmo de la existencia: comprende que nuestra existencia no es obra de sí misma y distingue entre preguntar por un objeto particular del mundo y preguntar por el ser en el universo.`
+      },
+      escalera: {
+        tag: `Ejemplo infantil 04 · Fugacidad del tiempo`,
+        title: `El espanto ante el universal caducar de las cosas`,
+        quote: `Al subir la escalera y oír que todo pasa como si no hubiese existido, protesta: «Pero tiene que haber algo fijo… que ahora estoy aquí subiendo la escalera de casa de la tía siempre será una cosa segura para mí».`,
+        analysis: `Ante el vértigo de que todo fenezca y desaparezca, la niña busca una salida desmañada pero profundamente filosófica: aferrar un punto inmutable frente a la temporalidad.`
+      },
+      velos: {
+        tag: `Manifestaciones 03 y 04 · Ruptura de velos y mitos`,
+        title: `Enfermedad mental, despertar del sueño y omnipresencia cultural`,
+        quote: `«Quien rechaza la filosofía, profesa también una filosofía, pero sin ser consciente de ella».`,
+        analysis: `Al inicio de ciertas enfermedades mentales (como muestran los casos excepcionales de Hölderlin y Van Gogh) o al despertar del sueño, parece romperse el velo ordinario de la vida. Además, la filosofía late en los refranes, la política y los mitos: no es posible escapar de ella.`
+      }
+    };
+
+    const originsData = {
+      asombro: {
+        tag: `Origen 01 · Antigüedad griega`,
+        title: `Del asombro nace la pregunta y la conciencia de no saber`,
+        paragraphs: [
+          `Platón enseñaba que el espectáculo de las estrellas, el sol y la bóveda celeste dio al hombre el impulso de investigar el universo. Aristóteles coincidía en que la admiración ante lo extraño empuja a preguntar por el origen de todas las cosas, buscando el saber por sí mismo y no para satisfacer ninguna necesidad material común.`,
+          `El filosofar actúa aquí como un despertar de la servidumbre cotidiana hacia la contemplación desinteresada del mundo.`
+        ],
+        refs: `Platón y Aristóteles`,
+        turbacion: `Conciencia súbita de no saber frente al espectáculo del universo.`,
+        meta: `Comprender la esencia del ser por el saber mismo.`,
+        limite: `Los conocimientos acumulados chocan entre sí ante la crítica y despiertan la duda.`
+      },
+      duda: {
+        tag: `Origen 02 · Examen crítico moderno`,
+        title: `De la duda radical nace el examen crítico y la certeza`,
+        paragraphs: [
+          `Una vez satisfecho el primer asombro, el examen crítico muestra que nuestras percepciones sensoriales son engañosas y que las formas del intelecto se enredan en contradicciones insolubles. Sin una duda radical no existe verdadero filosofar.`,
+          `Descartes llevó este método hasta el extremo buscando una certeza invulnerable: «pienso, luego existo», verdad indubitable incluso si un engaño perfecto afectara todo lo demás.`
+        ],
+        refs: `René Descartes`,
+        turbacion: `Incertidumbre de los sentidos y contradicción de las opiniones humanas.`,
+        meta: `Conquistar a través de la duda metódica un terreno firme de certeza.`,
+        limite: `La certeza intelectual olvida al hombre concreto en su situación vital.`
+      },
+      limites: {
+        tag: `Origen 03 · Existencia e impotencia`,
+        title: `De la conmoción ante las situaciones límites nace la cuestión de sí mismo`,
+        paragraphs: [
+          `Epicteto afirmó que «el origen de la filosofía es el percatarse de la propia debilidad e impotencia». Frente a las situaciones cambiantes que manejamos con planes, nos enfrentamos a situaciones límites inalterables: muerte, padecer, lucha, acaso y culpa.`,
+          `Cuando dejamos de cerrar los ojos ante ellas, experimentamos la desesperación o la reconstitución interior: llegamos a ser nosotros mismos transformando nuestra conciencia del ser.`
+        ],
+        refs: `Epicteto, Epicuro y Karl Jaspers`,
+        turbacion: `Conciencia de estar perdido y de la imposibilidad de protección mundanal absoluta.`,
+        meta: `Encontrar en el fracaso honradamente aceptado el camino hacia el verdadero ser.`,
+        limite: `El repliegue puramente estoico en el pensamiento carece de consuelo y esperanza.`
+      },
+      comunicacion: {
+        tag: `Origen 04 · Condición suprema actual`,
+        title: `De la ausencia de vínculo nace la voluntad de comunicación auténtica`,
+        paragraphs: [
+          `En nuestra época —el corte más radical de la historia, tiempo de disolución inaudita—, los tres motivos clásicos quedan subordinados a una condición decisiva: la comunicación entre los hombres.`,
+          `Toda filosofía impulsa a expresarse y ser oída. Su esencia es la coparticipación en una «lucha amorosa» que vincula en sus profundidades «yo con yo», única vía donde se alcanza el interiorizarse del ser, la claridad del amor y la plenitud del reposo.`
+        ],
+        refs: `Karl Jaspers (respuesta a la crisis contemporánea)`,
+        turbacion: `Aislamiento espiritual y ruptura de los vínculos humanos en la época moderna.`,
+        meta: `Comunión en la verdad mediante el diálogo abierto y la lucha amorosa.`,
+        limite: `Exige verdad sin reservas y no puede imponerse por la fuerza ni probarse como dogma.`
+      }
+    };
+
+    const limitsData = {
+      muerte: {
+        tag: `Situación límite 01 · Inalterable`,
+        title: `No puedo menos de morir`,
+        illusion: `En la vida cotidiana olvidamos nuestra mortalidad y actuamos como si siempre hubiese tiempo disponible.`,
+        insight: `Asumir la muerte con honradez enseña a vivir rectamente. Como afirmaba la tradición antigua, filosofar es aprender a morir: saber morir y aprender a vivir son una y la misma cosa.`
+      },
+      padecer: {
+        tag: `Situación límite 02 · Inalterable`,
+        title: `No puedo menos de padecer`,
+        illusion: `La ciencia y la técnica prometen aliviar todo malestar, pero jamás eliminan el peso del trabajo, la vejez ni la enfermedad.`,
+        insight: `Lo digno de confianza en la naturaleza dominada es apenas una pequeña parcela rodeada por lo incalculable. El dolor rompe la confianza irreflexiva de la vida feliz.`
+      },
+      lucha: {
+        tag: `Situación límite 03 · Inalterable`,
+        title: `No puedo menos de luchar`,
+        illusion: `Creer que el Estado o las instituciones sociales pueden garantizar por sí solos una paz y justicia absolutas.`,
+        insight: `La solidaridad absoluta de todos con todos nunca ha existido históricamente; en los casos extremos solo un círculo limitado o individuos aislados se asisten mutuamente.`
+      },
+      acaso: {
+        tag: `Situación límite 04 · Inalterable`,
+        title: `Estoy sometido al acaso`,
+        illusion: `Suponer que mediante el cálculo racional y la planificación técnica controlamos por entero nuestro destino.`,
+        insight: `Las ocasiones pasan y no retornan; lo imprevisible irrumpe en cualquier existencia y nos obliga a responder con libertad histórica en el instante concreto.`
+      },
+      culpa: {
+        tag: `Situación límite 05 · Inalterable`,
+        title: `Me hundo inevitablemente en la culpa`,
+        illusion: `Imaginar una inocencia intacta cerrando los ojos a las consecuencias de nuestras acciones u omisiones.`,
+        insight: `Reconocer la propia finitud y culpa rompe la autosuficiencia moral y despierta la responsabilidad existencial del individuo ante el ser.`
+      },
+      desconfianza: {
+        tag: `Situación límite 06 · Índice trascendente`,
+        title: `La desconfianza que merece todo ser mundanal`,
+        illusion: `Tomar el hogar, la patria, la tradición o la cultura humana como un refugio absoluto e incuestionable.`,
+        insight: `Todo lo histórico es obra humana y cuestionable. Por eso la desconfianza hacia el mundo actúa como «un índice levantado» que prohíbe conformarse con lo finito y señala más allá del mundo.`
+      }
+    };
+
+    const diagramNodesData = {
+      circunvalante: {
+        tag: `Nodo seleccionado · Concepto central`,
+        title: `Lo Circunvalante (das Umgreifende)`,
+        body1: `No es un objeto más dentro del horizonte, sino el horizonte mismo en el que surge todo cuanto experimentamos. Todas las escuelas filosóficas yerran cuando confunden un ente particular (materia, espíritu, razón) con el ser absoluto.`,
+        body2: `<strong>Cómo se alcanza:</strong> No abandonando el mundo hacia una mística incomunicable, sino llevando el pensamiento objetivamente determinado hasta su límite extremo y dando allí el «salto» que convierte la aparente nada en libre espacio de libertad.`,
+        body3: `<strong>Conexión con el todo:</strong> La realidad del mundo tiene un «ser evanescente entre Dios y la existencia». En el límite del saber claro se abre el «plenario no saber», fuente de nuestra conciencia del ser.`
+      },
+      escision: {
+        tag: `Nodo seleccionado · Teoría del conocimiento`,
+        title: `Escisión Sujeto ↔ Objeto y Fenomenicidad`,
+        body1: `Es el «protofenómeno de nuestra existencia consciente»: todo lo que pensamos o nombramos se nos enfrenta como un objeto distinto del yo pensante. Incluso al pensarnos a nosotros mismos, nos convertimos en objeto para nuestra propia reflexión.`,
+        body2: `<strong>Todo conocimiento es interpretación:</strong> Tomar una interpretación científica o filosófica por la realidad absoluta en sí es una falsificación del saber.`,
+        body3: `<strong>Fenomenicidad (Kant):</strong> Todos los objetos conocidos son meros fenómenos, nunca el ser en sí ni en conjunto.`
+      },
+      grados: {
+        tag: `Nodo seleccionado · Crítica de las ciencias`,
+        title: `Cuatro grados discontinuos del mundo`,
+        body1: `La ciencia crítica revela que el mundo no forma un sistema cerrado ni explicable desde un principio único. Las realidades se ordenan en cuatro grados: <strong>materia física → vida → alma → espíritu</strong>.`,
+        body2: `<strong>Saltos irreductibles:</strong> Cada grado posterior presupone la existencia del anterior (no hay vida sin materia, pero sí materia sin vida), pero ningún intento ha logrado derivar mecánicamente el superior del inferior.`,
+        body3: `<strong>Consecuencia:</strong> No existe una «imagen del mundo» total, sino únicamente una sistematización abierta de las ciencias.`
+      },
+      existenz: {
+        tag: `Nodo seleccionado · Antropología filosófica`,
+        title: `El hombre como objeto vs. «Existencia» (Existenz)`,
+        body1: `El ser humano es accesible de un doble modo: como objeto empírico de investigación científica y como <strong>«existencia»</strong> de una libertad radicalmente inaccesible a toda ciencia.`,
+        body2: `<strong>Irreductibilidad humana:</strong> «El hombre es radicalmente más que lo que puede saber de sí.» Reducirlo a un seudosaber científico encubre su libertad.`,
+        body3: `<strong>Historicidad:</strong> Solo «existiendo» íntegramente en nuestras elecciones concretas de aquí y ahora tocamos lo eterno y nos cercioramos de nosotros mismos.`
+      },
+      trascendencia: {
+        tag: `Nodo seleccionado · Fe filosófica`,
+        title: `Trascendencia, Dios y lectura de cifras`,
+        body1: `No existe un saber directo u objetivo de Dios ni oímos su palabra inequívoca. «Dios existe para mí en la medida en que yo "existo" propiamente» en el salto hacia la libertad.`,
+        body2: `<strong>Las cifras de la trascendencia:</strong> Leemos el lenguaje siempre equívoco de las cosas del mundo con ayuda de la poesía, el arte y la representación filosófica.`,
+        body3: `<strong>Principios de la fe filosófica:</strong> Dios existe; hay un requerimiento incondicional; el hombre es finito e imperfectible; el hombre puede vivir bajo la dirección de Dios.`
+      }
+    };
+
+    const knowledgeBaseItems = [
+      {
+        id: `KB-01`,
+        category: `concepto`,
+        categoryLabel: `Tema clave`,
+        title: `Filosofía como «ir de camino»`,
+        summary: `A diferencia del sabio (sophós), el filósofo (philósophos) ama el saber sin poseerlo en dogmas definitivos. Las preguntas importan más que las respuestas.`,
+        relation: `Relación: Etimología griega → Rechazo del dogmatismo → Actualización constante`
+      },
+      {
+        id: `KB-02`,
+        category: `concepto`,
+        categoryLabel: `Tema clave`,
+        title: `Lo Circunvalante (das Umgreifende)`,
+        summary: `El horizonte último del ser que contiene tanto al sujeto como al objeto. No se apresa como objeto racional, sino mediante un salto desde el límite del pensar claro.`,
+        relation: `Relación: Escisión sujeto-objeto → Límite del intelecto → Salto liberador`
+      },
+      {
+        id: `KB-03`,
+        category: `concepto`,
+        categoryLabel: `Tema clave`,
+        title: `Existenz y libertad`,
+        summary: `La dimensión no objetivable del ser humano: posibilidad y libertad inaprensible por la ciencia. «El hombre es radicalmente más que lo que puede saber de sí».`,
+        relation: `Relación: Crítica al seudosaber → Salto existencial → Vínculo con Dios`
+      },
+      {
+        id: `KB-04`,
+        category: `concepto`,
+        categoryLabel: `Tema clave`,
+        title: `Lucha amorosa en la comunicación`,
+        summary: `Condición suprema del filosofar actual: la verdad es inseparable de la coparticipación sincera y sin reservas entre «yo y yo».`,
+        relation: `Relación: Crisis moderna → Turbación por aislamiento → Plenitud en el diálogo`
+      },
+      {
+        id: `KB-05`,
+        category: `concepto`,
+        categoryLabel: `Tema clave`,
+        title: `Cifras de la trascendencia`,
+        summary: `El lenguaje equívoco de las cosas finitas a través del cual la libertad lee lo eterno en el tiempo, apoyada por la poesía y el arte.`,
+        relation: `Relación: Fenomenicidad del mundo → Reflexión trascendente → Fe filosófica`
+      },
+      {
+        id: `KB-06`,
+        category: `hecho`,
+        categoryLabel: `Hecho y dato`,
+        title: `Doce conferencias radiofónicas en Basilea (1949)`,
+        summary: `La obra nació como un ciclo de doce emisiones encargadas por el estudio de Basilea tras asumir Jaspers su cátedra en 1948; fue traducida al español por José Gaos en 1953.`,
+        relation: `Relación: Exilio académico en Suiza → Lenguaje accesible al no profesional`
+      },
+      {
+        id: `KB-07`,
+        category: `hecho`,
+        categoryLabel: `Hecho y dato`,
+        title: `2 500 años de philosophia perennis`,
+        summary: `La filosofía sistemática surgió paralelamente hace dos milenios y medio en tres focos culturales: Occidente, China y la India.`,
+        relation: `Relación: Comienzo histórico múltiple → Unidad atemporal del filosofar`
+      },
+      {
+        id: `KB-08`,
+        category: `hecho`,
+        categoryLabel: `Hecho y dato`,
+        title: `Biografía de Karl Jaspers (1883–1969)`,
+        summary: `Médico y psiquiatra (Psicopatología general, 1913) y catedrático de filosofía en Heidelberg (1937); apartado de la docencia por el nazismo y trasladado a Basilea en 1948.`,
+        relation: `Relación: Psiquiatría crítica → Defensa de la libertad frente al totalitarismo`
+      },
+      {
+        id: `KB-09`,
+        category: `hecho`,
+        categoryLabel: `Hecho y dato`,
+        title: `Cuatro estratos del mundo sin unidad cerrada`,
+        summary: `Las ciencias muestran saltos irreductibles entre materia física, vida, alma y espíritu; por ello no existe una imagen cerrada del mundo.`,
+        relation: `Relación: Crítica científica → Ruptura de cosmovisiones → Plenario no saber`
+      },
+      {
+        id: `KB-10`,
+        category: `ejemplo`,
+        categoryLabel: `Ejemplo concreto`,
+        title: `Tales de Mileto y la sirviente`,
+        summary: `Al caer en un pozo por observar el cielo estrellado, Tales fue ridiculizado por su sirviente: símbolo eterno del choque entre la filosofía y el utilitarismo cotidiano.`,
+        relation: `Relación: Sentido común pragmático → Imposibilidad de justificar la filosofía por utilidad`
+      },
+      {
+        id: `KB-11`,
+        category: `ejemplo`,
+        categoryLabel: `Ejemplo concreto`,
+        title: `Las cuatro preguntas infantiles`,
+        summary: `El niño del «yo», el de «qué había antes del principio», la niña ante la Tierra/Dios y la niña en la escalera muestran la genialidad filosófica previa a las convenciones.`,
+        relation: `Relación: Espontaneidad infantil → Pérdida adulta por la prisión de las costumbres`
+      },
+      {
+        id: `KB-12`,
+        category: `ejemplo`,
+        categoryLabel: `Ejemplo concreto`,
+        title: `Hölderlin, Van Gogh y el despertar del sueño`,
+        summary: `Casos citados donde al romperse el velo ordinario —en ciertas psicosis o en el umbral del despertar— emergen revelaciones metafísicas estremecedoras.`,
+        relation: `Relación: Ruptura de convenciones → Contraste con la gran creación filosófica consciente`
+      },
+      {
+        id: `KB-13`,
+        category: `autor`,
+        categoryLabel: `Autor citado`,
+        title: `Platón, Aristóteles y Descartes`,
+        summary: `Platón y Aristóteles encarnan el asombro como origen del filosofar; Descartes representa la duda metódica y el «pienso, luego existo» como búsqueda de certeza.`,
+        relation: `Relación: Asombro antiguo + Duda moderna → Superados en las situaciones límites`
+      },
+      {
+        id: `KB-14`,
+        category: `autor`,
+        categoryLabel: `Autor citado`,
+        title: `Kant, Kierkegaard, Nietzsche y Lutero`,
+        summary: `Kant fundamentó la fenomenicidad; Kierkegaard y Nietzsche exigieron autorreflexión sin fin; Lutero aportó la fórmula sobre el «lugar de lo Absoluto» en el hombre.`,
+        relation: `Relación: Crítica de la razón → Desenmascaramiento → Conciencia de lo incondicional`
+      },
+      {
+        id: `KB-15`,
+        category: `autor`,
+        categoryLabel: `Autor citado`,
+        title: `Epicteto, Epicuro, Darwin, Fechner y Freud`,
+        summary: `Los estoicos ven la impotencia pero erran en el mero repliegue; en el apéndice, Darwin, Fechner y Freud ilustran desviaciones naturalistas frente a von Baer, Kierkegaard y Nietzsche.`,
+        relation: `Relación: Estudio crítico de las ciencias → Discernimiento de reduccionismos`
+      },
+      {
+        id: `KB-16`,
+        category: `relacion`,
+        categoryLabel: `Relación estructural`,
+        title: `Superstición científica vs. Plenario no saber`,
+        summary: `Tomar la ciencia por conocimiento total del ser es «superstición científica»; en cambio, llevar la ciencia hasta su límite abre el «plenario no saber» donde despierta el filosofar.`,
+        relation: `Relación: Intelecto (ratio) llevado al extremo → Iluminación de los límites`
+      }
+    ];
+
+    let activeKbCategory = `todos`;
+
+    function selectChildExample(key, btnEl) {
+      const data = childExamples[key];
+      const detail = document.getElementById('child-example-detail');
+      if (!data || !detail) return;
+
+      const buttons = btnEl ? btnEl.parentElement.querySelectorAll('.btn-choice') : [];
+      buttons.forEach(function (b) {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      if (btnEl) {
+        btnEl.classList.add('is-active');
+        btnEl.setAttribute('aria-pressed', 'true');
+      }
+
+      detail.innerHTML = `
+        <span class="tag-warm">${data.tag}</span>
+        <h3 class="sub-title" style="margin-top: var(--space-sm);">${data.title}</h3>
+        <p><strong>Testimonio citado:</strong> ${data.quote}</p>
+        <p><strong>Alcance filosófico:</strong> ${data.analysis}</p>
+      `;
+    }
+
+    function selectOrigin(key, btnEl) {
+      const data = originsData[key];
+      const panel = document.getElementById('origin-detail-panel');
+      if (!data || !panel) return;
+
+      const buttons = btnEl ? btnEl.parentElement.querySelectorAll('.filter-pill') : [];
+      buttons.forEach(function (b) {
+        b.setAttribute('aria-pressed', 'false');
+      });
+      if (btnEl) {
+        btnEl.setAttribute('aria-pressed', 'true');
+      }
+
+      panel.innerHTML = `
+        <div>
+          <span class="tag-slate">${data.tag}</span>
+          <h3 class="sub-title" style="margin-top: var(--space-sm);">${data.title}</h3>
+          <p class="prose">${data.paragraphs[0]}</p>
+          <p class="prose">${data.paragraphs[1]}</p>
+        </div>
+        <div class="aside-box">
+          <p><strong>Referentes clave:</strong> ${data.refs}</p>
+          <p><strong>Estado de turbación:</strong> ${data.turbacion}</p>
+          <p><strong>Meta buscada:</strong> ${data.meta}</p>
+          <p><strong>Límite:</strong> ${data.limite}</p>
+        </div>
+      `;
+    }
+
+    function selectLimit(key, btnEl) {
+      const data = limitsData[key];
+      const detail = document.getElementById('limit-detail');
+      if (!data || !detail) return;
+
+      const buttons = btnEl ? btnEl.parentElement.querySelectorAll('.filter-pill') : [];
+      buttons.forEach(function (b) {
+        b.setAttribute('aria-pressed', 'false');
+      });
+      if (btnEl) {
+        btnEl.setAttribute('aria-pressed', 'true');
+      }
+
+      detail.innerHTML = `
+        <span class="tag-warm">${data.tag}</span>
+        <h3 class="sub-title" style="margin-top: var(--space-xs);">${data.title}</h3>
+        <p><strong>Ilusión cotidiana:</strong> ${data.illusion}</p>
+        <p><strong>Respuesta filosófica:</strong> ${data.insight}</p>
+      `;
+    }
+
+    function selectDiagramNode(key) {
+      const data = diagramNodesData[key];
+      const panel = document.getElementById('diagram-detail-panel');
+      if (!data || !panel) return;
+
+      const svgNodes = document.querySelectorAll('.svg-node');
+      svgNodes.forEach(function (node) {
+        if (node.getAttribute('data-node') === key) {
+          node.classList.add('is-selected');
+        } else {
+          node.classList.remove('is-selected');
+        }
+      });
+
+      const shortcuts = document.querySelectorAll('#circunvalante .btn-row .filter-pill');
+      const nodeOrder = ['circunvalante', 'escision', 'grados', 'existenz', 'trascendencia'];
+      shortcuts.forEach(function (btn, idx) {
+        btn.setAttribute('aria-pressed', nodeOrder[idx] === key ? 'true' : 'false');
+      });
+
+      panel.innerHTML = `
+        <span class="tag-warm">${data.tag}</span>
+        <h3 class="sub-title" style="margin-top: var(--space-sm);">${data.title}</h3>
+        <p>${data.body1}</p>
+        <p>${data.body2}</p>
+        <p>${data.body3}</p>
+      `;
+    }
+
+    function handleDiagramKey(evt, key) {
+      if (evt.key === 'Enter' || evt.key === ' ') {
+        evt.preventDefault();
+        selectDiagramNode(key);
+      }
+    }
+
+    function setKbCategory(cat, btnEl) {
+      activeKbCategory = cat;
+      const buttons = btnEl ? btnEl.parentElement.querySelectorAll('.filter-pill') : [];
+      buttons.forEach(function (b) {
+        b.setAttribute('aria-pressed', 'false');
+      });
+      if (btnEl) {
+        btnEl.setAttribute('aria-pressed', 'true');
+      }
+      applyKbFilter();
+    }
+
+    function resetKbFilters() {
+      activeKbCategory = `todos`;
+      const input = document.getElementById('kb-search');
+      if (input) input.value = ``;
+      const pills = document.querySelectorAll('#base-conocimientos .filter-pill');
+      pills.forEach(function (b, idx) {
+        b.setAttribute('aria-pressed', idx === 0 ? 'true' : 'false');
+      });
+      applyKbFilter();
+    }
+
+    function normalizeText(str) {
+      return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function applyKbFilter() {
+      const grid = document.getElementById('kb-results-grid');
+      const countLabel = document.getElementById('kb-count-label');
+      const input = document.getElementById('kb-search');
+      if (!grid) return;
+
+      const query = input ? normalizeText(input.value.trim()) : ``;
+
+      const filtered = knowledgeBaseItems.filter(function (item) {
+        const matchesCat = activeKbCategory === `todos` || item.category === activeKbCategory;
+        if (!matchesCat) return false;
+        if (!query) return true;
+        const haystack = normalizeText(`${item.title} ${item.summary} ${item.relation} ${item.categoryLabel}`);
+        return haystack.indexOf(query) !== -1;
+      });
+
+      if (countLabel) {
+        countLabel.textContent = filtered.length === 1
+          ? `1 ficha encontrada`
+          : `${filtered.length} fichas indexadas`;
+      }
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <h3 class="sub-title">Sin coincidencias en la base de conocimientos</h3>
+            <p class="prose">No hay fichas que coincidan con los criterios actuales de búsqueda y categoría.</p>
+            <button type="button" class="btn-secondary" onclick="resetKbFilters()">Mostrar las 16 fichas</button>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(function (item) {
+        const tagClass = item.category === `concepto` || item.category === `relacion` ? `tag-warm` : `tag-slate`;
+        return `
+          <article class="kb-card">
+            <div class="kb-card-header">
+              <span class="${tagClass}">${item.categoryLabel}</span>
+              <span class="index-num">${item.id}</span>
+            </div>
+            <h3>${item.title}</h3>
+            <p>${item.summary}</p>
+            <div class="kb-relation">${item.relation}</div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function toggleFaq(btnEl) {
+      if (!btnEl) return;
+      const targetId = btnEl.getAttribute('aria-controls');
+      const panel = targetId ? document.getElementById(targetId) : null;
+      if (!panel) return;
+
+      const expanded = btnEl.getAttribute('aria-expanded') === 'true';
+      btnEl.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      panel.hidden = expanded;
+    }
+
+    function initScrollReveal() {
+      const sections = document.querySelectorAll('.reveal-section');
+      if (!('IntersectionObserver' in window)) return;
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            entry.target.classList.remove('will-animate');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      sections.forEach(function (sec) {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top > window.innerHeight * 0.9) {
+          sec.classList.add('will-animate');
+          observer.observe(sec);
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      applyKbFilter();
+      initScrollReveal();
+    });
+  </script>
+</body>
+</html>
