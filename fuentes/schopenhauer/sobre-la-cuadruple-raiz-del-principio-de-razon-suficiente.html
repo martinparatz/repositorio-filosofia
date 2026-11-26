@@ -1,0 +1,2120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>Sobre la cuádruple raíz del principio de razón suficiente — Guía Filosófica de Arthur Schopenhauer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Briefing style tokens */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+      --outline-button: #c8c4b8;
+
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --tertiary: #785008;
+      --error: #b42318;
+      --on-error: #ffffff;
+
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      --font-headline: 'Source Serif 4', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* 3. Shared & semantic tokens */
+      --positive: #2b6e52;
+      --warning: #9a6312;
+      --focus: #1f4e5f;
+
+      --tag-amber-bg: #f5e6c4;
+      --secondary-container: #e4eef2;
+      --positive-container: #e3f0ea;
+      --error-container: #fbeae8;
+      --shadow-subtle: 0 1px 3px rgba(23, 24, 26, 0.06);
+
+      /* Narrative type scale */
+      --display-size: clamp(2.35rem, 1.45rem + 3.4vw, 4rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.6vw, 2.35rem);
+      --subhead-size: clamp(1.15rem, 1.05rem + 0.45vw, 1.375rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.1vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1160px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography helpers */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-size: var(--display-size);
+      line-height: 1.07;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      line-height: 1.12;
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      line-height: 1.22;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 68ch;
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+      line-height: 1.48;
+      color: var(--secondary);
+      margin-top: var(--space-sm);
+      max-width: 62ch;
+    }
+    .muted {
+      color: var(--on-surface-variant);
+    }
+    .mono-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      letter-spacing: 0.05em;
+    }
+
+    /* Dossier treatments */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm) var(--space-md);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-pill {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: 0.22rem 0.55rem;
+      border-radius: var(--badge-radius);
+      display: inline-block;
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      background-color: var(--surface-container);
+      padding: 0.2rem 0.45rem;
+      border-radius: var(--badge-radius);
+      display: inline-block;
+      font-variant-numeric: tabular-nums;
+    }
+    .tag-amber {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background-color: var(--tag-amber-bg);
+      color: var(--tertiary);
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--rounded);
+      display: inline-block;
+    }
+    .tag-slate {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background-color: var(--secondary-container);
+      color: var(--secondary);
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--rounded);
+      display: inline-block;
+    }
+
+    /* Site Header & Simple Navigation */
+    .site-header {
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-md);
+      margin-bottom: var(--space-xs);
+    }
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .brand-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: var(--on-surface);
+      letter-spacing: -0.01em;
+    }
+    .primary-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      align-items: center;
+    }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0.45rem 0.8rem;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--on-surface);
+      text-decoration: none;
+      border: 1px solid transparent;
+      border-radius: var(--rounded);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:hover {
+      background-color: var(--surface-container);
+      border-color: var(--outline-variant);
+      color: var(--secondary);
+    }
+    .nav-link-accent {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .nav-link-accent:hover {
+      background-color: var(--secondary);
+      color: var(--on-primary);
+      border-color: var(--secondary);
+    }
+
+    /* Hero & Key Figures */
+    .hero-section {
+      display: grid;
+      gap: var(--space-lg);
+      padding-top: var(--space-sm);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .hero-quote {
+      margin-top: var(--space-lg);
+      padding: var(--space-md) var(--space-lg);
+      background-color: var(--surface-container);
+      border-left: 3px solid var(--secondary);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+    }
+    .hero-quote blockquote {
+      margin: 0 0 var(--space-xs) 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.0625rem;
+      color: var(--on-surface);
+    }
+    .hero-quote cite {
+      font-family: var(--font-label);
+      font-style: normal;
+      font-size: 0.78rem;
+      color: var(--on-surface-variant);
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .figure-card {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      box-shadow: var(--shadow-subtle);
+    }
+    .figure-card .kpi-label {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+      display: block;
+    }
+    .figure-card .value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.45rem, 1.2rem + 1vw, 1.9rem);
+      line-height: 1.1;
+      color: var(--on-surface);
+      font-variant-numeric: lining-nums tabular-nums;
+      margin-bottom: var(--space-xs);
+    }
+    .figure-card .kpi-desc {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    /* Quick Site Map */
+    .sitemap-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-sm);
+    }
+    .sitemap-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      text-decoration: none;
+      color: var(--on-surface);
+      transition: border-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+    .sitemap-card:hover {
+      border-color: var(--secondary);
+      transform: translateY(-2px);
+    }
+    .sitemap-card strong {
+      font-family: var(--font-headline);
+      font-size: 1.05rem;
+      color: var(--secondary);
+    }
+    .sitemap-card span {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      line-height: 1.4;
+    }
+
+    /* Sections */
+    .content-section {
+      padding-top: var(--space-lg);
+    }
+    .section-header {
+      margin-bottom: var(--space-lg);
+    }
+
+    /* Aside / methodology box */
+    .aside-box {
+      background-color: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 0 var(--rounded) var(--rounded);
+    }
+    .aside-box h3, .aside-box h4 {
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Two-column editorial split */
+    .split-2col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .split-asymmetric {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Card grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .card-wrapper {
+      container-type: inline-size;
+    }
+
+    /* Buttons & Interactive Controls */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: 0.55rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: var(--rounded);
+      cursor: pointer;
+      border: 1px solid var(--outline-button);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover {
+      background-color: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+    }
+    .btn.is-active {
+      background-color: var(--secondary);
+      color: var(--on-primary);
+      border-color: var(--secondary);
+    }
+
+    .segmented-group {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    /* Order switcher list */
+    .order-steps {
+      display: grid;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .order-step-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: start;
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+    }
+
+    /* Four Roots Interactive Schematic & Cards */
+    .roots-interactive-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: var(--space-lg);
+      align-items: start;
+      margin-bottom: var(--space-xl);
+    }
+    .svg-schematic-box {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-subtle);
+    }
+    .schematic-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 410px;
+    }
+    .svg-node {
+      cursor: pointer;
+      transition: opacity var(--dur-micro) var(--ease-out);
+    }
+    .svg-node:hover rect, .svg-node:focus-visible rect {
+      stroke-width: 2.5px;
+    }
+    .root-spotlight-panel {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-top: 3px solid var(--secondary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-subtle);
+    }
+    .root-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-sm) var(--space-md);
+      margin: var(--space-md) 0;
+      padding: var(--space-md);
+      background-color: var(--surface-container);
+      border-radius: var(--rounded);
+    }
+    .root-meta-item strong {
+      display: block;
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      margin-bottom: 2px;
+    }
+    .root-meta-item span {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+
+    /* Detailed 4 Roots Cards in Flow */
+    .roots-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+    .root-card {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      box-shadow: var(--shadow-subtle);
+    }
+    .root-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      border-bottom: 1px solid var(--outline-variant);
+      padding-bottom: var(--space-sm);
+    }
+    .root-latin {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--secondary);
+    }
+    .root-list {
+      margin: var(--space-xs) 0 0 0;
+      padding-left: 1.2rem;
+    }
+    .root-list li {
+      margin-bottom: var(--space-xs);
+      font-size: 0.95rem;
+    }
+    .root-color-1 { border-top: 3px solid var(--data-1); }
+    .root-color-2 { border-top: 3px solid var(--data-2); }
+    .root-color-3 { border-top: 3px solid var(--data-3); }
+    .root-color-4 { border-top: 3px solid var(--data-4); }
+
+    /* Descartes & Spinoza Critique */
+    .critique-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+    .sofisma-lab {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-subtle);
+    }
+    .sofisma-steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-sm);
+      margin: var(--space-md) 0;
+    }
+    .sofisma-step-btn {
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      border-radius: var(--rounded);
+      border: 1px solid var(--outline-variant);
+      background-color: var(--surface-container);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .sofisma-step-btn:hover {
+      border-color: var(--secondary);
+    }
+    .sofisma-step-btn.is-active {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+      color: var(--on-primary);
+    }
+    .sofisma-step-btn.is-active .mono-meta {
+      color: var(--primary-container);
+    }
+    .sofisma-detail {
+      padding: var(--space-md);
+      background-color: var(--surface-container);
+      border-left: 3px solid var(--error);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+    }
+
+    /* Tables */
+    .table-wrap {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow-x: auto;
+      box-shadow: var(--shadow-subtle);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.92rem;
+    }
+    thead th {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      background-color: var(--surface-container);
+      border-bottom: var(--section-rule);
+      padding: 0.85rem 1rem;
+      white-space: nowrap;
+    }
+    tbody td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--outline-variant);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+    tbody tr:hover {
+      background-color: var(--background);
+    }
+
+    /* Visual Bar Comparison for 3 Causality Grades */
+    .causality-bars {
+      display: grid;
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+    .c-bar-row {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: center;
+    }
+    .c-bar-track {
+      height: 14px;
+      background-color: var(--surface-container);
+      border-radius: var(--badge-radius);
+      overflow: hidden;
+    }
+    .c-bar-fill {
+      height: 100%;
+      border-radius: var(--badge-radius);
+    }
+
+    /* Interactive Classifier / Case Explorer */
+    .lab-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .case-list {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .case-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.7rem 0.9rem;
+      min-height: 44px;
+      border-radius: var(--rounded);
+      border: 1px solid var(--outline-variant);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .case-btn:hover {
+      border-color: var(--secondary);
+      background-color: var(--surface-container);
+    }
+    .case-btn.is-active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .case-btn.is-active .case-tag {
+      color: var(--primary-container);
+    }
+    .case-tag {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: var(--secondary);
+      flex-shrink: 0;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+    }
+    .form-field label {
+      font-family: var(--font-label);
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface);
+    }
+    .form-select, .form-input {
+      min-height: 44px;
+      padding: 0.55rem 2.2rem 0.55rem 0.85rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--on-surface);
+      background-color: var(--surface-container-low);
+      border: 1px solid var(--outline-button);
+      border-radius: var(--rounded);
+      width: 100%;
+    }
+    .form-input {
+      padding-right: 0.85rem;
+    }
+
+    /* Glossary & FAQ */
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+    .glossary-card {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+    }
+    .glossary-de {
+      font-family: var(--font-headline);
+      font-style: italic;
+      color: var(--secondary);
+      font-size: 0.95rem;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .faq-item {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+    }
+    .faq-trigger {
+      width: 100%;
+      min-height: 52px;
+      padding: var(--space-md) var(--space-lg);
+      background-color: transparent;
+      border: 0;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.08rem;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .faq-trigger:hover {
+      background-color: var(--surface-container);
+    }
+    .faq-icon {
+      flex-shrink: 0;
+      transition: transform var(--dur-short) var(--ease-in-out);
+      color: var(--secondary);
+    }
+    .faq-trigger[aria-expanded="true"] .faq-icon {
+      transform: rotate(180deg);
+    }
+    .faq-panel {
+      padding: 0 var(--space-lg) var(--space-md) var(--space-lg);
+      border-top: 1px solid var(--outline-variant);
+      color: var(--on-surface);
+      font-size: 0.96rem;
+    }
+    .faq-panel[hidden] {
+      display: none;
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--section-rule);
+      padding: var(--space-lg) 0 var(--space-2xl) 0;
+      margin-top: var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Reveal animation */
+    .reveal-section {
+      opacity: 1;
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal-section.is-pending {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    /* Container & Responsive rules */
+    @container (max-width: 440px) {
+      .root-meta-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .roots-interactive-layout,
+      .roots-detail-grid,
+      .critique-cards,
+      .split-2col,
+      .split-asymmetric,
+      .lab-grid {
+        grid-template-columns: 1fr;
+      }
+      .sofisma-steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .kpi-grid,
+      .sofisma-steps {
+        grid-template-columns: 1fr;
+      }
+      .c-bar-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+      }
+      .primary-nav {
+        gap: var(--space-xs);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+    <!-- HEADER & CONCISE NAVIGATION -->
+    <header class="site-header" id="inicio">
+      <div class="header-top">
+        <div class="brand-mark">
+          <span class="dossier-pill">Filosofía</span>
+          <span class="brand-title">Portal Schopenhauer · La Cuádruple Raíz</span>
+        </div>
+        <nav class="primary-nav" aria-label="Navegación principal del sitio">
+          <a class="nav-link" href="#inicio">Inicio</a>
+          <a class="nav-link" href="#principio">El Principio</a>
+          <a class="nav-link" href="#raices">Las 4 Raíces</a>
+          <a class="nav-link" href="#critica">Descartes y Spinoza</a>
+          <a class="nav-link" href="#esquemas">Esquemas</a>
+          <a class="nav-link" href="#faq">Glosario y FAQ</a>
+          <a class="nav-link nav-link-accent" href="#interactivo">Explorador</a>
+        </nav>
+      </div>
+
+      <!-- HERO / PAGINA DE INICIO -->
+      <section class="hero-section" aria-labelledby="hero-title">
+        <div class="dossier-bar">
+          <span class="dossier-pill">Base de Conocimientos</span>
+          <span class="dossier-meta">Tesis doctoral (1813) · Edición definitiva (1847) · Traducción de Pilar López de Santa María</span>
+        </div>
+
+        <div class="hero-grid">
+          <div>
+            <h1 id="hero-title">Sobre la cuádruple raíz del principio de razón suficiente</h1>
+            <p class="standfirst">
+              El cimiento epistemológico del sistema de Arthur Schopenhauer: por qué todo cuanto existe para nosotros se rige por cuatro formas de conexión necesaria y qué ocurre cuando la filosofía confunde la causa real con la razón lógica.
+            </p>
+            <div class="hero-quote">
+              <blockquote>
+                «Nada es sin una razón por la que sea» — <em>Nihil est sine ratione cur potius sit, quam non sit</em>.
+              </blockquote>
+              <cite>Formulación wolffiana elegida como lema general del tratado (§ 5) · Tradición de Leibniz como «el gran principio del porqué»</cite>
+            </div>
+          </div>
+
+          <div class="kpi-grid" aria-label="Datos clave de la obra">
+            <div class="figure-card">
+              <span class="kpi-label">1.ª Edición · Jena</span>
+              <div class="value">1813</div>
+              <p class="kpi-desc">Redactada en Rudolstadt a los 26 años; aprobada <em>magna cum laude</em> el 2 de octubre.</p>
+            </div>
+            <div class="figure-card">
+              <span class="kpi-label">2.ª Edición · Fráncfort</span>
+              <div class="value">1847</div>
+              <p class="kpi-desc">Versión definitiva ampliada a los 60 años con crítica a Spinoza, Hume y Hegel.</p>
+            </div>
+            <div class="figure-card">
+              <span class="kpi-label">Estructura Cognitiva</span>
+              <div class="value">4 Raíces</div>
+              <p class="kpi-desc">Devenir, Conocer, Ser y Obrar: cuatro leyes <em>a priori</em> nacidas de una raíz común.</p>
+            </div>
+            <div class="figure-card">
+              <span class="kpi-label">Estatus Sistemático</span>
+              <div class="value">Cimiento</div>
+              <p class="kpi-desc">Formula casi íntegra la teoría del conocimiento de <em>El mundo como voluntad y representación</em>.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTEXTO HISTORICO + MAPA RAPIDO DE SECCIONES -->
+        <div class="aside-box">
+          <h3>Contexto de la obra y estructura de este sitio</h3>
+          <p>
+            En el verano de 1813, cuando Berlín se movilizaba frente a Napoleón tras la batalla de Lützen, el joven Schopenhauer (1788–1860) se retiró a la aldea de Rudolstadt para escribir su disertación doctoral, convencido de haber nacido para servir a la humanidad «no con el puño, sino con la cabeza». Aunque en su momento la obra vendió apenas cien de los quinientos ejemplares impresos —y su madre, Johanna, bromeó diciendo que parecía un libro «para boticarios»—, Schopenhauer la consideró siempre la piedra angular de su filosofía. En su portada inscribió el juramento pitagórico de la <em>tetraktys</em>, símbolo de la fuente cuádruple de la naturaleza.
+          </p>
+        </div>
+
+        <nav class="sitemap-strip" aria-label="Mapa de secciones del sitio">
+          <a class="sitemap-card" href="#principio">
+            <span class="index-num">01 · Fundamento</span>
+            <strong>Método y raíz única</strong>
+            <span>Homogeneidad vs. especificación, correlación sujeto–objeto y orden sistemático.</span>
+          </a>
+          <a class="sitemap-card" href="#raices">
+            <span class="index-num">02 · Las 4 Raíces</span>
+            <strong>Mapa del conocimiento</strong>
+            <span>Devenir (causalidad), Conocer (verdad), Ser (espacio/tiempo) y Obrar (motivación).</span>
+          </a>
+          <a class="sitemap-card" href="#critica">
+            <span class="index-num">03 · Crítica Histórica</span>
+            <strong>Descartes y Spinoza</strong>
+            <span>El fraude de confundir causa con razón de conocimiento y el argumento ontológico.</span>
+          </a>
+          <a class="sitemap-card" href="#esquemas">
+            <span class="index-num">04 · Síntesis</span>
+            <strong>Esquemas comparativos</strong>
+            <span>Cuadro maestro de las 4 raíces, grados de la causalidad y tipos de verdad.</span>
+          </a>
+          <a class="sitemap-card" href="#interactivo">
+            <span class="index-num">05 · Práctica</span>
+            <strong>Clasificador del «porqué»</strong>
+            <span>Pon a prueba ejemplos del tratado y clasifica preguntas según su raíz.</span>
+          </a>
+          <a class="sitemap-card" href="#faq">
+            <span class="index-num">06 · Consulta</span>
+            <strong>Glosario y FAQ</strong>
+            <span>Léxico alemán–español de términos clave y respuestas a dudas frecuentes.</span>
+          </a>
+        </nav>
+      </section>
+    </header>
+
+    <!-- SECCION 2: EL PRINCIPIO Y EL METODO -->
+    <section class="content-section reveal-section" id="principio" aria-labelledby="principio-title">
+      <div class="dossier-bar">
+        <span class="dossier-pill">Sección 01</span>
+        <span class="dossier-meta">Capítulos I y III · Método, raíz común y orden sistemático</span>
+      </div>
+      <div class="section-header">
+        <h2 id="principio-title">Una sola raíz cognoscitiva, cuatro leyes irreductibles</h2>
+        <p class="standfirst">
+          Antes de Schopenhauer, la filosofía solía reducir el principio de razón a una fórmula vaga. Aplicando las reglas metodológicas de Platón y Kant, el tratado separa cuatro jurisdicciones exactas del «porqué».
+        </p>
+      </div>
+
+      <div class="split-asymmetric">
+        <div>
+          <h3>El equilibrio entre homogeneidad y especificación</h3>
+          <p>
+            Siguiendo a Platón y a Kant, todo filosofar riguroso debe obedecer dos leyes complementarias. La <strong>ley de la homogeneidad</strong> ordena agrupar las semejanzas en especies y géneros sin multiplicar entidades sin necesidad. La <strong>ley de la especificación</strong>, por el contrario, prohíbe fundir en un mismo concepto cosas de naturaleza distinta.
+          </p>
+          <p>
+            Según Schopenhauer, la filosofía anterior abusó de la homogeneidad y descuidó la especificación: trató el principio de razón suficiente como si fuera una única regla indiferenciada. Sin embargo, toda nuestra conciencia cognoscitiva se divide sin excepción en <strong>sujeto</strong> y <strong>objeto</strong>; ser objeto para un sujeto y ser nuestra representación (<em>Vorstellung</em>) son lo mismo.
+          </p>
+          <p>
+            Puesto que ninguna representación existe aislada e independiente, todas quedan enlazadas <em>a priori</em> según cuatro clases de objetos posibles. Esa conectividad universal es la <strong>raíz única</strong> del principio, que adopta cuatro formas según la clase de objeto a la que se aplica. Como resultado final (§ 52), Schopenhauer advierte que el principio vale solo dentro del mundo fenoménico y nunca para la cosa en sí ni para la totalidad del mundo.
+          </p>
+        </div>
+
+        <div class="figure-card">
+          <div class="dossier-bar">
+            <span class="tag-slate">Comparador interactivo</span>
+            <span class="dossier-meta">§ 46 · Dos modos de recorrer las raíces</span>
+          </div>
+          <p class="muted" style="font-size: 0.92rem;">
+            En el libro, Schopenhauer sigue un orden <strong>didáctico</strong> (de lo más familiar a lo más abstracto), pero señala que el orden <strong>sistemático</strong> real parte del tiempo como esquema simple de toda finitud.
+          </p>
+          <div class="segmented-group" role="group" aria-label="Seleccionar orden de las raíces">
+            <button type="button" class="btn is-active" id="btn-order-didactic" onclick="setOrderMode('didactic')">Orden didáctico (tratado)</button>
+            <button type="button" class="btn" id="btn-order-systematic" onclick="setOrderMode('systematic')">Orden sistemático (§ 46)</button>
+          </div>
+          <div class="order-steps" id="order-steps-container" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCION 3: LAS CUATRO RAICES -->
+    <section class="content-section reveal-section" id="raices" aria-labelledby="raices-title">
+      <div class="dossier-bar">
+        <span class="dossier-pill">Sección 02</span>
+        <span class="dossier-meta">Capítulos IV–VII · Anatomía de la cuádruple raíz</span>
+      </div>
+      <div class="section-header">
+        <h2 id="raices-title">Las cuatro raíces del principio de razón suficiente</h2>
+        <p class="standfirst">
+          Selecciona cualquiera de las cuatro ramas en el diagrama para inspeccionar su fórmula exacta, su facultad cognitiva y su ejemplo paradigmático, o recorre debajo la ficha completa de cada raíz.
+        </p>
+      </div>
+
+      <!-- Diagrama SVG interactivo + Panel de detalle -->
+      <div class="roots-interactive-layout card-wrapper">
+        <div class="svg-schematic-box">
+          <span class="dossier-meta" style="display: block; margin-bottom: var(--space-sm);">Esquema interactivo · Pulsa una raíz para detallarla</span>
+          <svg class="schematic-svg" viewBox="0 0 520 390" role="img" aria-label="Diagrama interactivo de la raíz común y las cuatro raíces del principio de razón suficiente">
+            <!-- Trunk / Root node -->
+            <line x1="260" y1="308" x2="80" y2="165" stroke="var(--data-1)" stroke-width="2" />
+            <line x1="260" y1="308" x2="200" y2="120" stroke="var(--data-2)" stroke-width="2" />
+            <line x1="260" y1="308" x2="320" y2="120" stroke="var(--data-3)" stroke-width="2" />
+            <line x1="260" y1="308" x2="440" y2="165" stroke="var(--data-4)" stroke-width="2" />
+
+            <!-- Common Root Base -->
+            <rect x="115" y="308" width="290" height="66" rx="4" fill="var(--surface-container)" stroke="var(--outline)" stroke-width="1.5" />
+            <text x="260" y="334" text-anchor="middle" fill="var(--on-surface)" font-family="Source Serif 4, serif" font-weight="600" font-size="15">Raíz común: Sujeto ↔ Objeto</text>
+            <text x="260" y="356" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Geist Mono, monospace" font-size="11">CONEXIÓN A PRIORI DE LAS REPRESENTACIONES</text>
+
+            <!-- Node 1: Devenir -->
+            <g class="svg-node" id="svg-node-1" tabindex="0" role="button" aria-label="Raíz 1: Principio del devenir o causalidad" onclick="selectRoot(1)" onkeydown="handleSvgKey(event, 1)">
+              <rect x="14" y="102" width="132" height="84" rx="4" fill="var(--surface-container-low)" stroke="var(--data-1)" stroke-width="2.5" />
+              <text x="80" y="124" text-anchor="middle" fill="var(--data-1)" font-family="Geist Mono, monospace" font-weight="600" font-size="11">01 · FIENDI</text>
+              <text x="80" y="145" text-anchor="middle" fill="var(--on-surface)" font-family="Source Serif 4, serif" font-weight="600" font-size="15">Devenir</text>
+              <text x="80" y="164" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Plus Jakarta Sans, sans-serif" font-size="11">Causalidad</text>
+              <text x="80" y="179" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Geist Mono, monospace" font-size="10">Verstand</text>
+            </g>
+
+            <!-- Node 2: Conocer -->
+            <g class="svg-node" id="svg-node-2" tabindex="0" role="button" aria-label="Raíz 2: Principio del conocer o verdad lógica" onclick="selectRoot(2)" onkeydown="handleSvgKey(event, 2)">
+              <rect x="134" y="24" width="132" height="84" rx="4" fill="var(--surface-container-low)" stroke="var(--data-2)" stroke-width="2" />
+              <text x="200" y="46" text-anchor="middle" fill="var(--tertiary)" font-family="Geist Mono, monospace" font-weight="600" font-size="11">02 · COGNOSCENDI</text>
+              <text x="200" y="67" text-anchor="middle" fill="var(--on-surface)" font-family="Source Serif 4, serif" font-weight="600" font-size="15">Conocer</text>
+              <text x="200" y="86" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Plus Jakarta Sans, sans-serif" font-size="11">Juicios y verdad</text>
+              <text x="200" y="101" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Geist Mono, monospace" font-size="10">Vernunft</text>
+            </g>
+
+            <!-- Node 3: Ser -->
+            <g class="svg-node" id="svg-node-3" tabindex="0" role="button" aria-label="Raíz 3: Principio del ser en espacio y tiempo" onclick="selectRoot(3)" onkeydown="handleSvgKey(event, 3)">
+              <rect x="254" y="24" width="132" height="84" rx="4" fill="var(--surface-container-low)" stroke="var(--data-3)" stroke-width="2" />
+              <text x="320" y="46" text-anchor="middle" fill="var(--data-3)" font-family="Geist Mono, monospace" font-weight="600" font-size="11">03 · ESSENDI</text>
+              <text x="320" y="67" text-anchor="middle" fill="var(--on-surface)" font-family="Source Serif 4, serif" font-weight="600" font-size="15">Ser</text>
+              <text x="320" y="86" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Plus Jakarta Sans, sans-serif" font-size="11">Espacio y tiempo</text>
+              <text x="320" y="101" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Geist Mono, monospace" font-size="10">Sensibilidad pura</text>
+            </g>
+
+            <!-- Node 4: Obrar -->
+            <g class="svg-node" id="svg-node-4" tabindex="0" role="button" aria-label="Raíz 4: Principio del obrar o motivación" onclick="selectRoot(4)" onkeydown="handleSvgKey(event, 4)">
+              <rect x="374" y="102" width="132" height="84" rx="4" fill="var(--surface-container-low)" stroke="var(--data-4)" stroke-width="2" />
+              <text x="440" y="124" text-anchor="middle" fill="var(--data-4)" font-family="Geist Mono, monospace" font-weight="600" font-size="11">04 · AGENDI</text>
+              <text x="440" y="145" text-anchor="middle" fill="var(--on-surface)" font-family="Source Serif 4, serif" font-weight="600" font-size="15">Obrar</text>
+              <text x="440" y="164" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Plus Jakarta Sans, sans-serif" font-size="11">Motivación</text>
+              <text x="440" y="179" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Geist Mono, monospace" font-size="10">Autoconciencia</text>
+            </g>
+          </svg>
+          <div class="segmented-group" style="margin-top: var(--space-md);" role="group" aria-label="Selector rápido de las cuatro raíces">
+            <button type="button" class="btn is-active" id="root-tab-1" onclick="selectRoot(1)">01. Devenir</button>
+            <button type="button" class="btn" id="root-tab-2" onclick="selectRoot(2)">02. Conocer</button>
+            <button type="button" class="btn" id="root-tab-3" onclick="selectRoot(3)">03. Ser</button>
+            <button type="button" class="btn" id="root-tab-4" onclick="selectRoot(4)">04. Obrar</button>
+          </div>
+        </div>
+
+        <div class="root-spotlight-panel" id="root-spotlight" aria-live="polite">
+          <!-- Populated dynamically on load & click -->
+        </div>
+      </div>
+
+      <!-- Fichas completas de las 4 raíces expuestas en el flujo -->
+      <div class="roots-detail-grid">
+        <article class="root-card root-color-1">
+          <div class="root-card-head">
+            <div>
+              <span class="index-num">Raíz 01 · Cap. IV</span>
+              <h3 style="margin-top: var(--space-xs);">Principio del Devenir (Causalidad)</h3>
+            </div>
+            <span class="root-latin">Principium rationis sufficientis fiendi</span>
+          </div>
+          <p>
+            Rige la primera clase de objetos: las <strong>representaciones intuitivas, empíricas y completas</strong> que conforman la realidad material en el espacio y el tiempo unidos. Su correlato subjetivo es el <strong>Entendimiento</strong> (<em>Verstand</em>), cuya única función es la causalidad —descartando las otras once categorías kantianas como «ventanas ciegas»—.
+          </p>
+          <ul class="root-list">
+            <li><strong>Regla de cambio:</strong> Solo se aplica a la aparición y cese de estados de la materia, nunca a los objetos mismos ni a la materia (ingenerada e indestructible).</li>
+            <li><strong>Intelectualidad de la intuición:</strong> El ojo, el oído y la mano solo reciben sensaciones brutas; el entendimiento las transforma en mundo objetivo al inferir de inmediato una causa espacial externa. Por ello los animales superiores poseen entendimiento.</li>
+            <li><strong>Tres formas naturales:</strong> Se manifiesta como <em>causa</em> estricta (mundo inorgánico), <em>estímulo</em> (plantas) y <em>motivo</em> (animales y hombre).</li>
+            <li><strong>Límites críticos:</strong> La cadena causal no tiene primer eslabón (<em>in infinitum</em>), refutando el argumento cosmológico y la <em>causa prima</em>. Además, la causa debe distinguirse siempre de la fuerza natural eterna (<em>qualitas occulta</em>).</li>
+          </ul>
+        </article>
+
+        <article class="root-card root-color-2">
+          <div class="root-card-head">
+            <div>
+              <span class="index-num">Raíz 02 · Cap. V</span>
+              <h3 style="margin-top: var(--space-xs);">Principio del Conocer (Verdad lógica)</h3>
+            </div>
+            <span class="root-latin">Principium rationis sufficientis cognoscendi</span>
+          </div>
+          <p>
+            Rige la segunda clase de objetos: los <strong>conceptos o representaciones abstractas</strong> («representaciones de representaciones»), patrimonio exclusivo del ser humano mediante su <strong>Razón</strong> (<em>Vernunft</em>). Gracias a ellos existen el lenguaje, la reflexión (<em>Besonnenheit</em>), la planificación, el Estado y la ciencia, aunque también una mayor capacidad de sufrimiento.
+          </p>
+          <ul class="root-list">
+            <li><strong>Criterio de verdad:</strong> Todo juicio que exprese conocimiento exige una razón suficiente exterior a él; la «verdad intrínseca» es una contradicción.</li>
+            <li><strong>Cuatro clases de verdad:</strong> <em>Lógica</em> (apoyada en otro juicio), <em>Empírica</em> (en la intuición sensible), <em>Trascendental</em> (en las formas <em>a priori</em> de espacio, tiempo y causalidad) y <em>Metalógica</em> (en las cuatro leyes del pensar: identidad, contradicción, tercio excluso y razón del conocer).</li>
+            <li><strong>Polémica anti-idealista:</strong> Schopenhauer rechaza frontalmente que la Razón sea una «facultad oracular de lo suprasensible» para intuir a Dios o lo absoluto, como pretendían los profesores universitarios, Schelling o Hegel.</li>
+          </ul>
+        </article>
+
+        <article class="root-card root-color-3">
+          <div class="root-card-head">
+            <div>
+              <span class="index-num">Raíz 03 · Cap. VI</span>
+              <h3 style="margin-top: var(--space-xs);">Principio del Ser (Espacio y Tiempo)</h3>
+            </div>
+            <span class="root-latin">Principium rationis sufficientis essendi</span>
+          </div>
+          <p>
+            Rige la tercera clase de objetos: la parte formal de las representaciones, es decir, las <strong>intuiciones puras</strong> del espacio y del tiempo separadas de toda materia, cuyo correlato es la <strong>sensibilidad pura</strong>.
+          </p>
+          <ul class="root-list">
+            <li><strong>En el espacio (Geometría):</strong> Cada parte determina recíprocamente la posición de todas las demás. En un triángulo, la igualdad de los ángulos es <em>razón de ser</em> (no causa física ni mero concepto lógico) de la igualdad de los lados.</li>
+            <li><strong>En el tiempo (Aritmética):</strong> La determinación es estrictamente unidireccional: cada instante está condicionado por el anterior y condiciona al siguiente. De ahí nace el carácter irrevocable del pasado y la aritmética, pues contar abrevia pasos temporales (no hay diez sin los nueve anteriores).</li>
+            <li><strong>Crítica a Euclides:</strong> Schopenhauer censura que la geometría tradicional demuestre teoremas mediante cadenas lógicas que solo convencen de la <em>razón de conocer</em> sin hacer intuir la <em>razón de ser</em> espacial.</li>
+          </ul>
+        </article>
+
+        <article class="root-card root-color-4">
+          <div class="root-card-head">
+            <div>
+              <span class="index-num">Raíz 04 · Cap. VII</span>
+              <h3 style="margin-top: var(--space-xs);">Principio del Obrar (Motivación)</h3>
+            </div>
+            <span class="root-latin">Principium rationis sufficientis agendi</span>
+          </div>
+          <p>
+            Rige la cuarta clase de objetos: un único objeto inmediato dado en el <strong>sentido interno</strong> (autoconciencia) bajo la sola forma del tiempo: el <strong>sujeto del querer</strong> o los actos de voluntad.
+          </p>
+          <ul class="root-list">
+            <li><strong>Del <em>cogito</em> al <em>volo</em>:</strong> El sujeto cognoscente («el ojo del mundo») nunca puede convertirse en objeto ni conocerse a sí mismo como pensante; solo se conoce como <em>volente</em>. La identidad entre quien conoce y quien quiere (mediada por el propio cuerpo) es el <em>milagro por antonomasia</em>.</li>
+            <li><strong>Causalidad vista desde dentro:</strong> Un motivo es una causa que atraviesa el conocimiento. En el animal opera solo por intuiciones presentes; en el hombre, también por motivos abstractos en conflicto consciente.</li>
+            <li><strong>Determinismo estricto:</strong> Dado el carácter empírico individual y el motivo más fuerte, la acción sigue con <em>necesidad moral</em> tan férrea como la física. La voluntad también gobierna secretamente la atención y la asociación de ideas (§ 44).</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCION 4: CRITICA HISTORICA (DESCARTES Y SPINOZA) -->
+    <section class="content-section reveal-section" id="critica" aria-labelledby="critica-title">
+      <div class="dossier-bar">
+        <span class="dossier-pill">Sección 03</span>
+        <span class="dossier-meta">Capítulo II (§§ 6–14) · Historia del error fundamental</span>
+      </div>
+      <div class="section-header">
+        <h2 id="critica-title">La confusión entre causa y razón: Descartes y Spinoza en el banquillo</h2>
+        <p class="standfirst">
+          Desde Aristóteles —que llamaba indistintamente <em>αἴτιον</em> a una causa física y a las premisas de un silogismo— hasta la filosofía moderna, mezclar la razón del conocer con la causa del devenir produjo las mayores quimeras metafísicas.
+        </p>
+      </div>
+
+      <div class="critique-cards">
+        <article class="figure-card">
+          <span class="tag-amber">§ 7 · El argumento ontológico</span>
+          <h3 style="margin-top: var(--space-xs);">René Descartes: <em>causa sive ratio</em></h3>
+          <p style="margin-top: var(--space-sm);">
+            En su respuesta a las segundas objeciones de las <em>Meditaciones</em> (Axioma I), Descartes afirma que de toda cosa puede preguntarse la causa de su existencia, pero añade que en Dios «la inmensidad de su naturaleza es la <em>causa o razón</em> por la que no necesita causa para existir».
+          </p>
+          <p>
+            Para Schopenhauer, ahí «la intención falsea la comprensión»: donde la causalidad exige una <strong>causa real</strong> en el tiempo, Descartes introduce por contrabando una <strong>razón de conocimiento</strong> extraída de un concepto fabricado <em>ad hoc</em> (la suma perfección que supuestamente encierra la existencia). Aristóteles ya había refutado tal maniobra al sentenciar que la existencia jamás pertenece a la esencia de una cosa.
+          </p>
+        </article>
+
+        <article class="figure-card">
+          <span class="tag-amber">§ 8 · El panteísmo y la <em>causa sui</em></span>
+          <h3 style="margin-top: var(--space-xs);">Baruch Spinoza: <em>ratio seu causa</em></h3>
+          <p style="margin-top: var(--space-sm);">
+            Spinoza heredó la mezcla cartesiana y la transformó en el cimiento de su <em>Ética</em>: lo que en Descartes era un argumento lógico-subjetivo para probar a Dios, en Spinoza se vuelve realidad objetiva del mundo bajo el nombre de <em>causa sui</em> («aquello cuya esencia envuelve la existencia»).
+          </p>
+          <p>
+            Schopenhauer señala que Spinoza llega a escribir ocho veces en una sola página <em>ratio seu causa</em> para encubrir la equiparación ilícita entre las propiedades analíticas de una definición y las causas eficientes reales. Llama a la <em>causa sui</em> una <em>contradictio in adjecto</em> —poner antes lo que viene después— y propone como su emblema exacto al <strong>barón de Münchhausen</strong> tirándose de su propia coleta para sacarse a sí mismo y a su caballo del agua.
+          </p>
+        </article>
+      </div>
+
+      <!-- Desglosador interactivo del sofisma ontológico -->
+      <div class="sofisma-lab">
+        <div class="dossier-bar">
+          <span class="tag-slate">Anatomía interactiva del sofisma</span>
+          <span class="dossier-meta">Cómo se construye el «tour de passe-passe» (§§ 7, 8 y 50)</span>
+        </div>
+        <p class="muted" style="font-size: 0.94rem;">
+          Recorre los cuatro pasos mediante los cuales, según Schopenhauer, la metafísica teológica o panteísta salta ilícitamente de una serie a otra para detener la cadena infinita de causas:
+        </p>
+        <div class="sofisma-steps" role="tablist" aria-label="Pasos del sofisma entre causa y razón">
+          <button type="button" class="sofisma-step-btn is-active" id="sofisma-btn-1" onclick="selectSofismaStep(1)">
+            <span class="mono-meta">Paso 01</span>
+            <strong>Ascenso causal</strong>
+          </button>
+          <button type="button" class="sofisma-step-btn" id="sofisma-btn-2" onclick="selectSofismaStep(2)">
+            <span class="mono-meta">Paso 02</span>
+            <strong>El concepto fabricado</strong>
+          </button>
+          <button type="button" class="sofisma-step-btn" id="sofisma-btn-3" onclick="selectSofismaStep(3)">
+            <span class="mono-meta">Paso 03</span>
+            <strong>El trueque ilícito</strong>
+          </button>
+          <button type="button" class="sofisma-step-btn" id="sofisma-btn-4" onclick="selectSofismaStep(4)">
+            <span class="mono-meta">Paso 04</span>
+            <strong>Veredicto crítico</strong>
+          </button>
+        </div>
+        <div class="sofisma-detail" id="sofisma-detail-box" aria-live="polite"></div>
+      </div>
+
+      <!-- Breve cuadro de hitos previos y posteriores -->
+      <div class="aside-box" style="margin-top: var(--space-lg);">
+        <h4>Otros hitos de la historia del principio (§§ 6, 9–13)</h4>
+        <p style="font-size: 0.94rem;">
+          <strong>Aristóteles y Sexto Empírico:</strong> intuían la diferencia entre demostrar <em>que</em> algo es y explicar <em>por qué</em> es, pero usaron <em>αἴτιον</em> para ambos casos. ·
+          <strong>Leibniz y Wolff:</strong> Leibniz formuló el principio como base de la ciencia, y Wolff fue el primero en separar expresamente <em>principium cognoscendi</em> y <em>principium fiendi</em>. ·
+          <strong>Hume y Kant:</strong> Hume cuestionó la autoridad de la causalidad (reduciéndola erróneamente al hábito), pero despertó el idealismo trascendental de Kant, quien consagró la distinción entre razón lógica y causa real. ·
+          <strong>Schelling:</strong> prolongó el error de Spinoza al hablar de un «infundamento» (<em>Ungrund</em>) en Dios, tomado de Jakob Böhme y de los valentinianos del siglo II.
+        </p>
+      </div>
+    </section>
+
+    <!-- SECCION 5: ESQUEMAS COMPARATIVOS -->
+    <section class="content-section reveal-section" id="esquemas" aria-labelledby="esquemas-title">
+      <div class="dossier-bar">
+        <span class="dossier-pill">Sección 04</span>
+        <span class="dossier-meta">Síntesis estructural · Cuadros y esquemas comparativos</span>
+      </div>
+      <div class="section-header">
+        <h2 id="esquemas-title">Esquemas comparativos del sistema epistemológico</h2>
+        <p class="standfirst">
+          Tres vistas comparativas extraídas directamente de los capítulos IV, V, VI, VII y VIII para contrastar de un vistazo las cuatro raíces, los niveles de causalidad natural y las clases de verdad.
+        </p>
+      </div>
+
+      <!-- Tabla 1: Cuadro maestro de las 4 raíces -->
+      <h3 style="margin-bottom: var(--space-sm);">1. Cuadro sinóptico de las cuatro raíces del principio</h3>
+      <div class="table-wrap" style="margin-bottom: var(--space-xl);">
+        <table>
+          <thead>
+            <tr>
+              <th>Raíz (Forma latina)</th>
+              <th>Clase de objetos</th>
+              <th>Facultad subjetiva</th>
+              <th>Ciencia / Ámbito</th>
+              <th>Tipo de necesidad (§ 49)</th>
+              <th>Serie y dirección (§§ 47, 50)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Devenir</strong><br><span class="mono-meta">P. r. s. fiendi</span></td>
+              <td>Representaciones intuitivas empíricas completas</td>
+              <td>Entendimiento (<em>Verstand</em>)</td>
+              <td>Física, química, mecánica, fisiología</td>
+              <td><span class="tag-slate">Necesidad física</span></td>
+              <td>Infinita hacia atrás (<em>in infinitum</em>); la causa precede al efecto</td>
+            </tr>
+            <tr>
+              <td><strong>2. Conocer</strong><br><span class="mono-meta">P. r. s. cognoscendi</span></td>
+              <td>Conceptos o representaciones abstractas</td>
+              <td>Razón (<em>Vernunft</em>)</td>
+              <td>Lógica, juicios, ciencias discursivas</td>
+              <td><span class="tag-amber">Necesidad lógica</span></td>
+              <td>Finita: termina en verdad empírica, trascendental o metalógica; atemporal</td>
+            </tr>
+            <tr>
+              <td><strong>3. Ser</strong><br><span class="mono-meta">P. r. s. essendi</span></td>
+              <td>Intuiciones puras del espacio y del tiempo</td>
+              <td>Sensibilidad pura</td>
+              <td>Geometría (espacio) y Aritmética (tiempo)</td>
+              <td><span class="tag-slate">Necesidad matemática</span></td>
+              <td>Infinita; recíproca en el espacio, unidireccional en el tiempo</td>
+            </tr>
+            <tr>
+              <td><strong>4. Obrar</strong><br><span class="mono-meta">P. r. s. agendi</span></td>
+              <td>Actos de voluntad (sujeto del querer)</td>
+              <td>Sentido interno (Autoconciencia)</td>
+              <td>Ética, derecho, historia, psicología</td>
+              <td><span class="tag-amber">Necesidad moral</span></td>
+              <td>Termina en la representación que motiva según el carácter empírico</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Esquema 2 & 3 en paralelo -->
+      <div class="split-2col">
+        <div class="figure-card">
+          <div class="dossier-bar">
+            <span class="tag-slate">Esquema 2 · § 20</span>
+            <span class="dossier-meta">Grados de receptividad causal</span>
+          </div>
+          <h3>Los tres modos de la causalidad natural</h3>
+          <p style="font-size: 0.92rem; margin-top: var(--space-xs);">
+            La distinción entre causa, estímulo y motivo depende del grado de receptividad del ser: cuanto mayor es esta, más sutil puede ser el influjo externo, aunque la necesidad del efecto nunca disminuye.
+          </p>
+
+          <div class="causality-bars" aria-label="Comparación de receptividad e inmediatez entre causa, estímulo y motivo">
+            <div class="c-bar-row">
+              <div>
+                <strong>Causa estricta</strong>
+                <div class="mono-meta">Mundo inorgánico</div>
+              </div>
+              <div class="c-bar-track" aria-hidden="true">
+                <div class="c-bar-fill" style="width: 33%; background-color: var(--data-1);"></div>
+              </div>
+              <span class="mono-meta">3.ª ley de Newton</span>
+            </div>
+            <p class="muted" style="font-size: 0.86rem; margin-bottom: var(--space-xs);">
+              Acción y reacción equivalentes y proporcionales (la piedra tiene que ser empujada).
+            </p>
+
+            <div class="c-bar-row">
+              <div>
+                <strong>Estímulo (<em>Reiz</em>)</strong>
+                <div class="mono-meta">Mundo vegetal</div>
+              </div>
+              <div class="c-bar-track" aria-hidden="true">
+                <div class="c-bar-fill" style="width: 66%; background-color: var(--data-3);"></div>
+              </div>
+              <span class="mono-meta">Sin proporcionalidad</span>
+            </div>
+            <p class="muted" style="font-size: 0.86rem; margin-bottom: var(--space-xs);">
+              Exige contacto y duración; un aumento excesivo invierte el efecto (el calor moderado nutre la planta, el excesivo la mata).
+            </p>
+
+            <div class="c-bar-row">
+              <div>
+                <strong>Motivo (<em>Motiv</em>)</strong>
+                <div class="mono-meta">Animales y hombre</div>
+              </div>
+              <div class="c-bar-track" aria-hidden="true">
+                <div class="c-bar-fill" style="width: 100%; background-color: var(--data-4);"></div>
+              </div>
+              <span class="mono-meta">Pasa por el conocer</span>
+            </div>
+            <p class="muted" style="font-size: 0.86rem;">
+              Basta con ser percibido un instante («el hombre obedece a una mirada»). En animales solo es intuitivo; en humanos también abstracto.
+            </p>
+          </div>
+        </div>
+
+        <div class="figure-card">
+          <div class="dossier-bar">
+            <span class="tag-amber">Esquema 3 · §§ 30–33</span>
+            <span class="dossier-meta">Raíz del conocer</span>
+          </div>
+          <h3>Las cuatro clases de verdad de un juicio</h3>
+          <p style="font-size: 0.92rem; margin-top: var(--space-xs);">
+            La verdad es siempre la relación de un juicio con una razón distinta de él. Según la naturaleza de esa razón, existen cuatro especies exactas:
+          </p>
+          <div class="table-wrap" style="margin-top: var(--space-sm); box-shadow: none;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tipo</th>
+                  <th>Razón que lo funda</th>
+                  <th>Ejemplo del tratado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Lógica</strong></td>
+                  <td>Otro juicio previo (formal)</td>
+                  <td>Conclusión de un silogismo correcto</td>
+                </tr>
+                <tr>
+                  <td><strong>Empírica</strong></td>
+                  <td>Intuición sensible (material, <em>a posteriori</em>)</td>
+                  <td>Juicio apoyado en la experiencia perceptiva</td>
+                </tr>
+                <tr>
+                  <td><strong>Trascendental</strong></td>
+                  <td>Formas <em>a priori</em> de la experiencia</td>
+                  <td>«Nada nace de la nada»; «dos líneas no cierran un espacio»</td>
+                </tr>
+                <tr>
+                  <td><strong>Metalógica</strong></td>
+                  <td>Las 4 leyes formales de todo pensar</td>
+                  <td>Identidad (<em>a = a</em>), contradicción, tercio excluso y razón suficiente</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCION 6: ELEMENTO INTERACTIVO PRINCIPAL -->
+    <section class="content-section reveal-section" id="interactivo" aria-labelledby="interactivo-title">
+      <div class="dossier-bar">
+        <span class="dossier-pill">Sección 05</span>
+        <span class="dossier-meta">Laboratorio filosófico · Clasificador del «porqué»</span>
+      </div>
+      <div class="section-header">
+        <h2 id="interactivo-title">¿A qué raíz pertenece cada «porqué»?</h2>
+        <p class="standfirst">
+          Schopenhauer exige a todo filósofo precisar a qué clase de razón se refiere cuando pregunta <em>¿por qué?</em> Explora casos tomados directamente del tratado o diagnostica tu propia pregunta con el clasificador guiado.
+        </p>
+      </div>
+
+      <div class="lab-grid">
+        <!-- Columna izquierda: Casos del tratado -->
+        <div class="figure-card">
+          <div class="dossier-bar">
+            <span class="tag-slate">Casos del tratado</span>
+            <span class="dossier-meta" id="cases-explored-counter">1 / 8 explorados</span>
+          </div>
+          <p class="muted" style="font-size: 0.9rem; margin-bottom: var(--space-md);">
+            Selecciona un ejemplo citado por Schopenhauer para ver qué raíz lo rige (o si se trata de casualidad o sofisma):
+          </p>
+          <div class="case-list" id="case-buttons-list" role="listbox" aria-label="Lista de casos filosóficos del tratado"></div>
+        </div>
+
+        <!-- Columna derecha: Diagnóstico + Clasificador guiado -->
+        <div style="display: grid; gap: var(--space-lg);">
+          <div class="root-spotlight-panel" id="case-diagnosis-panel" aria-live="polite"></div>
+
+          <div class="figure-card">
+            <div class="dossier-bar">
+              <span class="tag-amber">Clasificador guiado</span>
+              <span class="dossier-meta">Analiza cualquier «porqué»</span>
+            </div>
+            <div class="form-field">
+              <label for="select-domain">1. ¿Sobre qué clase de objeto preguntas «por qué»?</label>
+              <select class="form-select" id="select-domain" onchange="runGuidedClassifier()">
+                <option value="change">Un cambio físico o suceso material en los cuerpos</option>
+                <option value="judgment">La verdad de un juicio, deducción o afirmación conceptual</option>
+                <option value="spacetime">Una propiedad geométrica, numérica o sucesión pura del tiempo</option>
+                <option value="will">Una decisión o acción voluntaria de un ser consciente</option>
+                <option value="coincidence">Dos hechos seguidos en el tiempo sin enlace causal (ej. música, teja)</option>
+                <option value="totality">La causa última del mundo entero o la existencia de la materia</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="select-subtype">2. Matiz específico del caso</label>
+              <select class="form-select" id="select-subtype" onchange="runGuidedClassifier()">
+                <option value="auto">Evaluación estándar según Schopenhauer</option>
+                <option value="plant">Se trata de un proceso orgánico o vegetal (estímulo)</option>
+                <option value="ontological">Se intenta deducir la existencia desde una definición</option>
+              </select>
+            </div>
+            <div class="aside-box" id="guided-result-box" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCION 7: GLOSARIO Y PREGUNTAS FRECUENTES -->
+    <section class="content-section reveal-section" id="faq" aria-labelledby="faq-title">
+      <div class="dossier-bar">
+        <span class="dossier-pill">Sección 06</span>
+        <span class="dossier-meta">Referencia rápida · Glosario del tratado y preguntas frecuentes</span>
+      </div>
+      <div class="section-header">
+        <h2 id="faq-title">Glosario esencial y preguntas frecuentes</h2>
+        <p class="standfirst">
+          Términos técnicos alemanes fijados en la traducción de Pilar López de Santa María junto con las respuestas directas a las cuestiones clave del tratado.
+        </p>
+      </div>
+
+      <!-- Glosario con filtro rápido -->
+      <div class="figure-card" style="margin-bottom: var(--space-xl);">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--space-md);">
+          <div>
+            <h3>Glosario técnico español–alemán (Cap. Introducción, § 8)</h3>
+            <p class="muted" style="font-size: 0.9rem; margin-top: 2px;">Filtra por término en español, alemán o categoría.</p>
+          </div>
+          <div class="form-field" style="margin-bottom: 0; min-width: min(280px, 100%);">
+            <label for="glossary-search">Filtrar glosario</label>
+            <input type="search" class="form-input" id="glossary-search" placeholder="Ej. Verstand, motivo, intuición…" oninput="filterGlossary(this.value)">
+          </div>
+        </div>
+        <div class="glossary-grid" id="glossary-grid" aria-live="polite"></div>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <h3 style="margin-bottom: var(--space-md);">Preguntas frecuentes sobre la obra</h3>
+      <div class="faq-list" id="faq-list">
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="true" onclick="toggleFaq(this)">
+            <span>1. ¿Por qué Schopenhauer dice que este tratado es «el cimiento de todo su sistema»?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-panel">
+            <p>
+              Aunque en ella no desarrolla todavía el pesimismo ni la metafísica del dolor de la existencia, esta disertación formula casi íntegra la teoría del conocimiento que sustenta <em>El mundo como voluntad y representación</em>: delimita qué es el mundo como representación (sometido a las cuatro formas del principio de razón) y abre, mediante el capítulo VII sobre la motivación y el autoconocimiento del sujeto como volente, la puerta hacia la voluntad como cosa en sí.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>2. ¿Qué diferencia hay entre una causa física y una fuerza natural (como la gravedad o la electricidad)?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-panel" hidden>
+            <p>
+              La <strong>causa</strong> es siempre un cambio efímero en el tiempo (por ejemplo, acercar un cuerpo a un cristal o frotar el ámbar). La <strong>fuerza natural</strong> (gravedad, electricidad) es la forma eterna e inmutable de acción que entra en juego cuando se dan las causas adecuadas. Por eso es absurdo decir que «la gravedad es causa» o preguntar por «la causa de la gravedad»: toda fuerza natural primigenia es una <em>qualitas occulta</em> que la física no puede explicar más allá de su ley natural.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>3. ¿Tienen entendimiento los animales según Schopenhauer?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-panel" hidden>
+            <p>
+              Sí. Como toda intuición empírica del mundo exterior exige pasar de la sensación corporal a su causa en el espacio (<strong>intelectualidad de la intuición</strong>), todos los animales —especialmente los superiores como el perro, el elefante o el mono— poseen <strong>entendimiento</strong> (<em>Verstand</em>). Lo único exclusivo del ser humano es la <strong>razón</strong> (<em>Vernunft</em>), es decir, la capacidad de formar conceptos abstractos, hablar, reír, planificar el futuro y construir la ciencia.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>4. ¿Por qué distingue Schopenhauer entre «seguir» (<em>folgen</em>) y «resultar» (<em>erfolgen</em>) al criticar a Kant?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-panel" hidden>
+            <p>
+              Kant sostenía en el § 23 que solo podemos percibir una sucesión temporal como objetiva cuando está regida por la causalidad. Schopenhauer objeta que existen innumerables sucesiones perfectamente objetivas sin nexo causal alguno (<em>seguir</em> sin <em>resultar</em>): el día y la noche no son causa uno del otro, las notas de una pieza musical tampoco, y si salgo por la puerta y cae una teja sobre mí, la secuencia es objetiva aunque sea pura casualidad (<em>Zufall</em>). La causalidad no sirve para percibir la sucesión, sino para conocer la necesidad de un cambio y construir la intuición de los objetos mismos.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>5. ¿Por qué no existe libertad de la voluntad en los actos concretos?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-panel" hidden>
+            <p>
+              Porque la ley de la motivación es una forma del principio de razón suficiente: «la causalidad vista desde dentro». Aunque el ser humano puede deliberar y sopesar motivos abstractos en conflicto consciente, una vez que un motivo resulta más fuerte para su carácter empírico innato e inmutable, la acción se sigue con la misma necesidad inevitable con que rueda una bola empujada. Afirmar que a un hombre dado, en una situación dada, le son posibles dos acciones distintas dentro del mundo fenoménico es, para Schopenhauer, un absurdo.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>6. ¿Por qué es imposible demostrar el principio de razón suficiente?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-panel" hidden>
+            <p>
+              Toda demostración consiste en aducir la razón de un juicio para declararlo verdadero. Por lo tanto, exigir una demostración del principio de razón suficiente presupone ya la validez de ese mismo principio —lo que constituye un círculo vicioso evidente: pedir una razón que justifique el derecho a exigir razones (§ 14)—.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>7. ¿Qué es el «milagro <em>κατ’ ἐξοχήν</em>» del capítulo VII?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-panel" hidden>
+            <p>
+              Todo conocimiento exige un sujeto que conoce y un objeto conocido; por eso el sujeto cognoscente («el ojo del mundo») nunca puede conocerse a sí mismo como objeto. Sin embargo, en el sentido interno nos descubrimos inmediatamente como sujeto que quiere (voluntad). La identidad inexplicable en el «yo» entre el sujeto cognoscente y el sujeto volente es lo que Schopenhauer llama el «nudo del mundo» o el milagro por antonomasia (completado en el § 18 de <em>El mundo</em> con la doble experiencia del propio cuerpo).
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>8. ¿Por qué afirma Schopenhauer al final que «no existe una razón en general»?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-panel" hidden>
+            <p>
+              Adoptando una postura nominalista (§ 52), sostiene que así como no existe un «triángulo en general» fuera de los triángulos rectángulos, acutángulos u obtusángulos reales, tampoco existe una «razón en general» por encima de las cuatro clases de objetos. Todo uso filosófico de la palabra «razón» debe especificar si se refiere al devenir, al conocer, al ser o al obrar; de lo contrario, se desliza hacia el error metafísico.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER & SOURCES -->
+    <footer class="site-footer">
+      <div>
+        <strong>Fuente exclusiva:</strong> Arthur Schopenhauer, <em>Sobre la cuádruple raíz del principio de razón suficiente</em> (1813 / 1847), traducción, introducción y glosario de Pilar López de Santa María.
+      </div>
+      <div>
+        <a class="nav-link" href="#inicio" style="border-color: var(--outline-variant);">Volver al inicio ↑</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const ORDER_DATA = {
+      didactic: [
+        { num: `01`, name: `Principio del Devenir (Causalidad)`, note: `Se expone primero por ser el más familiar: el mundo material de la experiencia cotidiana.` },
+        { num: `02`, name: `Principio del Conocer (Verdad lógica)`, note: `Abarca los conceptos y juicios discursivos de la razón humana.` },
+        { num: `03`, name: `Principio del Ser (Espacio y Tiempo)`, note: `Analiza las intuiciones puras formales que fundan la geometría y la aritmética.` },
+        { num: `04`, name: `Principio del Obrar (Motivación)`, note: `Culmina con el sentido interno, los actos de voluntad y el acceso a la metafísica.` }
+      ],
+      systematic: [
+        { num: `01`, name: `Ser en el Tiempo (Aritmética)`, note: `Esquema más simple de las demás formas y prototipo de toda finitud.` },
+        { num: `02`, name: `Ser en el Espacio (Geometría)`, note: `Determinación recíproca de posiciones simultáneas antes de llenarse de materia.` },
+        { num: `03`, name: `Devenir (Ley de la Causalidad)`, note: `Une tiempo y espacio en la materia para regular sus cambios de estado.` },
+        { num: `04`, name: `Obrar (Ley de la Motivación)`, note: `Causalidad vista desde dentro en los seres dotados de conocimiento.` },
+        { num: `05`, name: `Conocer (Conceptos y Juicios)`, note: `Debe ir al final porque opera sobre «representaciones de representaciones», derivadas de las anteriores.` }
+      ]
+    };
+
+    const ROOTS_DATA = {
+      1: {
+        badge: `01 · Devenir (Fiendi)`,
+        title: `Principio de razón suficiente del devenir`,
+        latin: `Principium rationis sufficientis fiendi`,
+        summary: `Ley de la causalidad: cuando aparece un nuevo estado en uno o varios objetos reales, debe haberle precedido otro al que sigue con necesidad regular.`,
+        objects: `Representaciones empíricas completas`,
+        faculty: `Entendimiento (Verstand)`,
+        necessity: `Necesidad física`,
+        science: `Física, química, mecánica`,
+        example: `Si un cuerpo arde, preceden tres condiciones causales: afinidad con el oxígeno, contacto con el oxígeno y temperatura suficiente (p. ej., por rayos solares concentrados al retirarse una nube).`,
+        colorVar: `var(--data-1)`
+      },
+      2: {
+        badge: `02 · Conocer (Cognoscendi)`,
+        title: `Principio de razón suficiente del conocer`,
+        latin: `Principium rationis sufficientis cognoscendi`,
+        summary: `Todo juicio que pretenda expresar un conocimiento verdadero debe descansar en una razón suficiente externa al propio juicio.`,
+        objects: `Conceptos y juicios abstractos`,
+        faculty: `Razón (Vernunft)`,
+        necessity: `Necesidad lógica`,
+        science: `Lógica y ciencias deductivas`,
+        example: `El juicio «todo cuerpo tiene extensión» tiene verdad lógica fundada en el principio de contradicción; la elevación del termómetro es razón del conocer de un aumento de calor (sin ser su causa).`,
+        colorVar: `var(--data-2)`
+      },
+      3: {
+        badge: `03 · Ser (Essendi)`,
+        title: `Principio de razón suficiente del ser`,
+        latin: `Principium rationis sufficientis essendi`,
+        summary: `Regula la posición recíproca de las partes en el espacio puro y la sucesión unidireccional de los instantes en el tiempo puro.`,
+        objects: `Intuiciones puras de espacio y tiempo`,
+        faculty: `Sensibilidad pura`,
+        necessity: `Necesidad matemática`,
+        science: `Geometría y Aritmética`,
+        example: `En un triángulo, la igualdad de los tres ángulos es razón de ser de la igualdad de los tres lados; en el tiempo, el número diez presupone los nueve precedentes como razón de su ser.`,
+        colorVar: `var(--data-3)`
+      },
+      4: {
+        badge: `04 · Obrar (Agendi)`,
+        title: `Principio de razón suficiente del obrar`,
+        latin: `Principium rationis sufficientis agendi (Motivación)`,
+        summary: `Toda decisión o acto de voluntad está determinado necesariamente por un motivo percibido en relación con el carácter empírico del sujeto.`,
+        objects: `Actos de voluntad (sujeto del querer)`,
+        faculty: `Sentido interno / Autoconciencia`,
+        necessity: `Necesidad moral`,
+        science: `Ética, derecho, historia, psicología`,
+        example: `El hombre puede deliberar entre motivos abstractos contrapuestos; finalmente prevalece el motivo más fuerte, que mueve la voluntad con la misma necesidad que el choque mueve la bola.`,
+        colorVar: `var(--data-4)`
+      }
+    };
+
+    const SOFISMA_DATA = {
+      1: {
+        title: `Paso 01 · Se parte de la ley del devenir (causalidad)`,
+        text: `El argumento cosmológico comienza preguntando la causa del mundo y asciende de efecto en efecto por la cadena de las causas. Pero la ley de causalidad exige siempre una causa anterior sin permitir detenerse en una «causa primera» (causa prima).`
+      },
+      2: {
+        title: `Paso 02 · Se fabrica un concepto con la existencia escondida dentro`,
+        text: `Para escapar del regreso infinito, Descartes compone un concepto ideal («ser sumamente perfecto» o de naturaleza «inmensa») e introduce entre sus predicados —a menudo envuelto bajo términos como perfectio o immensitas— el predicado de la existencia necesaria.`
+      },
+      3: {
+        title: `Paso 03 · El trueque ilícito: razón del conocer por causa real`,
+        text: `Se sustituye subrepticiamente la causa física exigida (fiendi) por la mera razón lógica contenida en la definición (cognoscendi): Descartes escribe «causa sive ratio» y Spinoza escribe ocho veces en una página «ratio seu causa», proclamando una «causa sui» para convertir a Dios en sustancia única del mundo.`
+      },
+      4: {
+        title: `Paso 04 · El veredicto de Schopenhauer`,
+        text: `De un concepto inventado en la mente solo pueden extraerse juicios analíticos (verdad lógica), jamás existencia real independiente (que solo acredita la experiencia). La causa sui es una contradictio in adjecto comparable al barón de Münchhausen tirando de su propia coleta para sacarse del pantano.`
+      }
+    };
+
+    const TREATISE_CASES = [
+      {
+        id: `burn`,
+        short: `La combustión de un cuerpo`,
+        tag: `Devenir`,
+        question: `¿Por qué arde de pronto un cuerpo al retirar una nube frente a un espejo ustorio?`,
+        root: `Raíz 01 · Principio del Devenir (Causalidad)`,
+        faculty: `Entendimiento (Verstand)`,
+        necessity: `Necesidad física`,
+        explanation: `Se trata de un cambio de estado material. El estado completo (afinidad y contacto con el oxígeno más temperatura suficiente) es la causa real; el último momento causal (retirarse la nube) suele llamarse «causa» por ser el decisivo, pero todo el estado previo es necesario.`
+      },
+      {
+        id: `triangle`,
+        short: `Los lados iguales del triángulo`,
+        tag: `Ser (Espacio)`,
+        question: `¿Por qué en este triángulo son iguales los tres lados si sus tres ángulos son iguales?`,
+        root: `Raíz 03 · Principio del Ser en el espacio`,
+        faculty: `Sensibilidad pura (Intuición espacial)`,
+        necessity: `Necesidad matemática`,
+        explanation: `No hay aquí cambio físico (no es causa) ni el concepto de ángulo igual encierra analíticamente el de lado igual (no es mera razón lógica). La igualdad de los ángulos es inmediatamente razón de ser de la igualdad de los lados en la intuición pura del espacio.`
+      },
+      {
+        id: `past`,
+        short: `El pasado irrecuperable`,
+        tag: `Ser (Tiempo)`,
+        question: `¿Por qué el pasado es absolutamente irrecuperable y el futuro inevitable (facta infecta fieri non possunt)?`,
+        root: `Raíz 03 · Principio del Ser en el tiempo`,
+        faculty: `Sensibilidad pura (Intuición temporal)`,
+        necessity: `Necesidad matemática / formal`,
+        explanation: `La causalidad rige los acontecimientos dentro del tiempo, no el tiempo mismo. Es la propia ley unidireccional de la razón de ser en el tiempo la que hace que cada hora presente arroje a la anterior al abismo del pasado.`
+      },
+      {
+        id: `thermometer`,
+        short: `Termómetro y aumento de calor`,
+        tag: `Doble vía`,
+        question: `La columna del termómetro sube cuando aumenta el calor: ¿cuál es causa y cuál es razón de conocer?`,
+        root: `Raíz 01 (Devenir) + Raíz 02 (Conocer)`,
+        faculty: `Entendimiento (hecho) y Razón (juicio)`,
+        necessity: `Física y Lógica (direcciones inversas)`,
+        explanation: `Según la causalidad (§ 36), el incremento del calor es causa y la subida del mercurio es efecto. Pero según la razón del conocer, el efecto (ver subir el termómetro) sirve con frecuencia como razón de conocimiento para juzgar que ha aumentado el calor.`
+      },
+      {
+        id: `tile`,
+        short: `Salir de casa y caer una teja`,
+        tag: `Sin nexo causal`,
+        question: `Salgo por la puerta y acto seguido cae una teja sobre mí: ¿la salida causó la caída?`,
+        root: `Mera sucesión objetiva · Casualidad (Zufall)`,
+        faculty: `Sensibilidad pura (percepción temporal)`,
+        necessity: `Ninguna entre sí (coincidencia)`,
+        explanation: `Ejemplo central del § 23 contra Kant: ambos sucesos «siguen» (folgen) uno al otro de modo objetivo en el tiempo, pero no «resultan» (erfolgen) uno del otro. La secuencia de hechos no vinculados causalmente es precisamente la casualidad.`
+      },
+      {
+        id: `plant`,
+        short: `Calor solar y crecimiento vegetal`,
+        tag: `Estímulo`,
+        question: `¿Por qué el calor moderado hace crecer la planta pero un exceso la mata?`,
+        root: `Raíz 01 · Causalidad como Estímulo (Reiz)`,
+        faculty: `Entendimiento (fisiología orgánica)`,
+        necessity: `Necesidad física orgánica`,
+        explanation: `Es la segunda forma de la causalidad: el estímulo propio de la vida vegetal. A diferencia de la mecánica inorgánica, aquí no rige la equivalencia de la 3.ª ley de Newton: causa y efecto no son cualitativamente iguales ni cuantitativamente proporcionales.`
+      },
+      {
+        id: `deliberation`,
+        short: `Elección consciente tras deliberar`,
+        tag: `Obrar`,
+        question: `¿Por qué una persona toma una decisión tras sopesar dos razones contrapuestas?`,
+        root: `Raíz 04 · Principio del Obrar (Motivación)`,
+        faculty: `Sentido interno + Razón (motivos abstractos)`,
+        necessity: `Necesidad moral`,
+        explanation: `La razón permite al hombre sopesar motivos abstractos en conflicto consciente, pero la decisión final obedece necesariamente al motivo más fuerte según su carácter empírico individual. La motivación es la causalidad vista desde dentro.`
+      },
+      {
+        id: `ontological`,
+        short: `La «causa sui» de Spinoza`,
+        tag: `Sofisma`,
+        question: `¿Es válida la idea de un ser cuya esencia envuelve su existencia (causa sui)?`,
+        root: `Confusión ilícita entre Raíz 02 y Raíz 01`,
+        faculty: `Abuso especulativo de conceptos`,
+        necessity: `Ninguna (contradictio in adjecto)`,
+        explanation: `Schopenhauer denuncia aquí el error capital de Descartes y Spinoza: disfrazar una propiedad lógica de una definición inventada (razón de conocer) como si fuera una causa real de existencia (devenir).`
+      }
+    ];
+
+    const GLOSSARY_TERMS = [
+      { es: `Principio de razón suficiente`, de: `Satz vom (zureichenden) Grunde`, cat: `Concepto central`, def: `Expresión común de las cuatro leyes a priori que enlazan todas nuestras representaciones.` },
+      { es: `Representación`, de: `Vorstellung`, cat: `Epistemología`, def: `Todo lo que es objeto para un sujeto; abarca intuiciones, conceptos, formas puras y actos de voluntad.` },
+      { es: `Entendimiento`, de: `Verstand`, cat: `Raíz 01`, def: `Facultad única de la causalidad; convierte las sensaciones en intuición objetiva (común a hombres y animales).` },
+      { es: `Razón (como facultad)`, de: `Vernunft`, cat: `Raíz 02`, def: `Facultad exclusiva del hombre para formar conceptos abstractos, juzgar y razonar discursivamente.` },
+      { es: `Razón (como fundamento)`, de: `Grund`, cat: `Concepto central`, def: `Aquello de lo cual se sigue necesariamente una consecuencia según cualquiera de las cuatro formas del principio.` },
+      { es: `Causa`, de: `Ursache`, cat: `Raíz 01`, def: `Estado material precedente al que sigue necesariamente otro nuevo estado en el mundo inorgánico.` },
+      { es: `Estímulo`, de: `Reiz`, cat: `Raíz 01`, def: `Forma de causalidad propia de las plantas y procesos orgánicos; requiere contacto y duración sin proporcionalidad.` },
+      { es: `Motivo`, de: `Motiv`, cat: `Raíz 04`, def: `Causalidad que pasa por el conocimiento; determina los actos de voluntad en animales y seres humanos.` },
+      { es: `Intuición`, de: `Anschauung`, cat: `Raíz 01 y 03`, def: `Conocimiento inmediato de objetos singulares (empírica si interviene la materia, pura si es solo espacio/tiempo).` },
+      { es: `Concepto`, de: `Begriff`, cat: `Raíz 02`, def: `Representación abstracta y discursiva extraída de las intuiciones («representación de representaciones»).` },
+      { es: `Discernimiento`, de: `Besonnenheit`, cat: `Raíz 02`, def: `Lucidez reflexiva otorgada por la razón que libera al ser humano de la tiranía del instante presente.` },
+      { es: `Voluntad`, de: `Wille`, cat: `Raíz 04`, def: `Objeto inmediato del sentido interno (sujeto del querer) y piedra angular de la metafísica schopenhaueriana.` },
+      { es: `Juicio`, de: `Urteil`, cat: `Raíz 02`, def: `Enlace de conceptos susceptible de verdad o falsedad según posea o no una razón suficiente.` },
+      { es: `Necesidad`, de: `Notwendigkeit`, cat: `Cap. VIII`, def: `No significa «lo que no puede no ser», sino únicamente lo infalible de la consecuencia una vez dada su razón.` }
+    ];
+
+    const exploredCaseIds = new Set([`burn`]);
+
+    function setOrderMode(mode) {
+      const btnDidactic = document.getElementById(`btn-order-didactic`);
+      const btnSystematic = document.getElementById(`btn-order-systematic`);
+      const container = document.getElementById(`order-steps-container`);
+      if (!btnDidactic || !btnSystematic || !container) return;
+
+      btnDidactic.classList.toggle(`is-active`, mode === `didactic`);
+      btnSystematic.classList.toggle(`is-active`, mode === `systematic`);
+
+      const steps = ORDER_DATA[mode] || ORDER_DATA.didactic;
+      container.innerHTML = steps.map(function (step) {
+        return `<div class="order-step-row">
+          <span class="index-num">${step.num}</span>
+          <div>
+            <strong style="display: block; font-size: 0.96rem;">${step.name}</strong>
+            <span class="muted" style="font-size: 0.86rem;">${step.note}</span>
+          </div>
+        </div>`;
+      }).join(``);
+    }
+
+    function handleSvgKey(event, id) {
+      if (event.key === `Enter` || event.key === ` `) {
+        event.preventDefault();
+        selectRoot(id);
+      }
+    }
+
+    function selectRoot(id) {
+      const data = ROOTS_DATA[id];
+      const spotlight = document.getElementById(`root-spotlight`);
+      if (!data || !spotlight) return;
+
+      for (let i = 1; i <= 4; i++) {
+        const tab = document.getElementById(`root-tab-${i}`);
+        if (tab) tab.classList.toggle(`is-active`, i === id);
+
+        const node = document.getElementById(`svg-node-${i}`);
+        if (node) {
+          const rect = node.querySelector(`rect`);
+          if (rect) {
+            rect.setAttribute(`stroke-width`, i === id ? `3.5` : `1.5`);
+            rect.setAttribute(`fill`, i === id ? `var(--surface-container)` : `var(--surface-container-low)`);
+          }
+        }
+      }
+
+      spotlight.style.borderTopColor = data.colorVar;
+      spotlight.innerHTML = `
+        <div class="dossier-bar">
+          <span class="tag-slate">${data.badge}</span>
+          <span class="dossier-meta">${data.latin}</span>
+        </div>
+        <h3>${data.title}</h3>
+        <p style="margin-top: var(--space-sm);">${data.summary}</p>
+        <div class="root-meta-grid">
+          <div class="root-meta-item">
+            <strong>Clase de objetos</strong>
+            <span>${data.objects}</span>
+          </div>
+          <div class="root-meta-item">
+            <strong>Facultad cognitiva</strong>
+            <span>${data.faculty}</span>
+          </div>
+          <div class="root-meta-item">
+            <strong>Tipo de necesidad</strong>
+            <span>${data.necessity}</span>
+          </div>
+          <div class="root-meta-item">
+            <strong>Ciencias asociadas</strong>
+            <span>${data.science}</span>
+          </div>
+        </div>
+        <div class="aside-box">
+          <strong>Ejemplo clave del tratado:</strong>
+          <p style="margin-top: var(--space-xs); font-size: 0.93rem;">${data.example}</p>
+        </div>
+      `;
+    }
+
+    function selectSofismaStep(stepNum) {
+      const box = document.getElementById(`sofisma-detail-box`);
+      const info = SOFISMA_DATA[stepNum];
+      if (!box || !info) return;
+
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`sofisma-btn-${i}`);
+        if (btn) btn.classList.toggle(`is-active`, i === stepNum);
+      }
+
+      box.innerHTML = `
+        <h4 style="margin-bottom: var(--space-xs);">${info.title}</h4>
+        <p style="font-size: 0.95rem;">${info.text}</p>
+      `;
+    }
+
+    function renderCaseButtons(activeId) {
+      const list = document.getElementById(`case-buttons-list`);
+      const counter = document.getElementById(`cases-explored-counter`);
+      if (!list) return;
+
+      list.innerHTML = TREATISE_CASES.map(function (c) {
+        const activeClass = c.id === activeId ? ` is-active` : ``;
+        return `<button type="button" class="case-btn${activeClass}" onclick="selectTreatiseCase('${c.id}')" role="option" aria-selected="${c.id === activeId}">
+          <span>${c.short}</span>
+          <span class="case-tag">${c.tag}</span>
+        </button>`;
+      }).join(``);
+
+      if (counter) {
+        counter.textContent = `${exploredCaseIds.size} / ${TREATISE_CASES.length} explorados`;
+      }
+    }
+
+    function selectTreatiseCase(caseId) {
+      const found = TREATISE_CASES.find(function (c) { return c.id === caseId; });
+      const panel = document.getElementById(`case-diagnosis-panel`);
+      if (!found || !panel) return;
+
+      exploredCaseIds.add(caseId);
+      renderCaseButtons(caseId);
+
+      panel.innerHTML = `
+        <div class="dossier-bar">
+          <span class="tag-amber">${found.tag}</span>
+          <span class="dossier-meta">Diagnóstico según Schopenhauer</span>
+        </div>
+        <h3>${found.question}</h3>
+        <div class="root-meta-grid">
+          <div class="root-meta-item">
+            <strong>Clasificación</strong>
+            <span>${found.root}</span>
+          </div>
+          <div class="root-meta-item">
+            <strong>Facultad / Medio</strong>
+            <span>${found.faculty}</span>
+          </div>
+        </div>
+        <p><strong>Necesidad implicada:</strong> ${found.necessity}.</p>
+        <p>${found.explanation}</p>
+      `;
+    }
+
+    function runGuidedClassifier() {
+      const domainEl = document.getElementById(`select-domain`);
+      const subtypeEl = document.getElementById(`select-subtype`);
+      const out = document.getElementById(`guided-result-box`);
+      if (!domainEl || !subtypeEl || !out) return;
+
+      const domain = domainEl.value;
+      const subtype = subtypeEl.value;
+      let html = ``;
+
+      if (subtype === `ontological`) {
+        html = `<strong>Alerta de sofisma (§§ 7–8):</strong> Intentar extraer la existencia real de un ente desde su mera definición conceptual confunde la <em>Raíz 02 (Conocer)</em> con la <em>Raíz 01 (Devenir)</em>. La existencia solo la atestigua la experiencia.`;
+      } else if (domain === `change` && subtype === `plant`) {
+        html = `<strong>Raíz 01 · Devenir (Estímulo / Reiz):</strong> Los procesos vegetales y fisiológicos responden a estímulos que requieren contacto y duración, sin proporcionalidad mecánica entre causa y efecto.`;
+      } else if (domain === `change`) {
+        html = `<strong>Raíz 01 · Devenir (Causalidad):</strong> Aplica la ley de causalidad mediante el Entendimiento (<em>Verstand</em>). Todo cambio en los estados de la materia exige una causa precedente con necesidad física.`;
+      } else if (domain === `judgment`) {
+        html = `<strong>Raíz 02 · Conocer (Verdad):</strong> Aplica a conceptos y juicios de la Razón (<em>Vernunft</em>). Su verdad depende de una razón lógica, empírica, trascendental o metalógica, con necesidad lógica.`;
+      } else if (domain === `spacetime`) {
+        html = `<strong>Raíz 03 · Ser (Espacio y Tiempo):</strong> Pertenece a la sensibilidad pura (Geometría o Aritmética). No busca causas ni meras premisas verbales, sino determinación recíproca espacial o sucesión temporal unidireccional.`;
+      } else if (domain === `will`) {
+        html = `<strong>Raíz 04 · Obrar (Motivación):</strong> Pertenece al sentido interno. El motivo es la causa vista desde dentro a través del conocimiento; dado el carácter empírico y el motivo más fuerte, opera con necesidad moral.`;
+      } else if (domain === `coincidence`) {
+        html = `<strong>Sin nexo causal · Casualidad (Zufall):</strong> Como muestra Schopenhauer contra Kant (§ 23), que un fenómeno siga a otro objetivamente en el tiempo (<em>folgen</em>) no implica que resulte de él (<em>erfolgen</em>).`;
+      } else {
+        html = `<strong>Fuera de jurisdicción (§§ 20 y 52):</strong> El principio de razón suficiente rige dentro de los fenómenos para un sujeto, pero jamás puede aplicarse a la totalidad del mundo ni a la cosa en sí. Preguntar por una «causa primera» anula el propio principio.`;
+      }
+
+      out.innerHTML = html;
+    }
+
+    function filterGlossary(query) {
+      const grid = document.getElementById(`glossary-grid`);
+      if (!grid) return;
+      const q = (query || ``).trim().toLowerCase();
+
+      const filtered = GLOSSARY_TERMS.filter(function (item) {
+        if (!q) return true;
+        return item.es.toLowerCase().includes(q) ||
+               item.de.toLowerCase().includes(q) ||
+               item.cat.toLowerCase().includes(q) ||
+               item.def.toLowerCase().includes(q);
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="aside-box" style="grid-column: 1 / -1;">
+          <strong>Sin coincidencias:</strong> No hay términos que coincidan con «${query}». Prueba con «causa», «razón», «Verstand» o borra el filtro.
+        </div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(function (item) {
+        return `<article class="glossary-card">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-sm); margin-bottom: var(--space-xs);">
+            <strong style="font-size: 1rem;">${item.es}</strong>
+            <span class="tag-slate">${item.cat}</span>
+          </div>
+          <div class="glossary-de">${item.de}</div>
+          <p style="font-size: 0.9rem; margin-top: var(--space-xs);">${item.def}</p>
+        </article>`;
+      }).join(``);
+    }
+
+    function toggleFaq(btn) {
+      if (!btn) return;
+      const expanded = btn.getAttribute(`aria-expanded`) === `true`;
+      const panel = btn.nextElementSibling;
+      btn.setAttribute(`aria-expanded`, expanded ? `false` : `true`);
+      if (panel) {
+        panel.hidden = expanded;
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, function () {
+      setOrderMode(`didactic`);
+      selectRoot(1);
+      selectSofismaStep(1);
+      selectTreatiseCase(`burn`);
+      runGuidedClassifier();
+      filterGlossary(``);
+
+      if (`IntersectionObserver` in window) {
+        const sections = document.querySelectorAll(`.reveal-section`);
+        sections.forEach(function (sec) { sec.classList.add(`is-pending`); });
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.remove(`is-pending`);
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08 });
+        sections.forEach(function (sec) { observer.observe(sec); });
+      }
+    });
+  </script>
+</body>
+</html>

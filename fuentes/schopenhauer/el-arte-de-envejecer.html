@@ -1,0 +1,2227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="sonnet">
+  <title>El arte de envejecer — Senilia de Arthur Schopenhauer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces — Sonnet */
+      --background: #f5efe0;
+      --surface-container-low: #f8f3e7;
+      --surface-container: #ece3cf;
+      --surface-container-high: #e4d8bf;
+
+      /* Ink */
+      --on-surface: #1f1a17;
+      --on-surface-variant: #4a3f38;
+
+      /* Rules */
+      --outline: #a8843f;
+      --outline-variant: #d8c7a3;
+
+      /* Accents */
+      --primary: #6b1424;
+      --on-primary: #f5efe0;
+      --primary-container: #efe0dc;
+      --on-primary-container: #4a0d18;
+      --secondary: #2f4a3a;
+      --secondary-container: #e3ebe5;
+      --tertiary: #a8843f;
+      --error: #9b2c1f;
+      --on-error: #f5efe0;
+
+      /* Data series */
+      --data-1: #6b1424;
+      --data-2: #2f4a3a;
+      --data-3: #a8843f;
+      --data-4: #3d5a73;
+      --data-context: #b9ad9c;
+
+      /* Fonts */
+      --font-headline: 'Cormorant Garamond', serif;
+      --font-body: 'Crimson Pro', serif;
+      --font-label: 'Cormorant Garamond', serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --gilt-rule: 1px solid var(--outline);
+      --gilt-rule-soft: 1px solid var(--outline-variant);
+      --gilt-frame-inset: 5px;
+      --paper-vignette: inset 0 0 90px rgb(120 90 40 / 0.16);
+
+      /* Shared tokens */
+      --positive: #2f4a3a;
+      --warning: #8c5a18;
+      --focus: #6b1424;
+
+      /* Type scale — Narrative (stepped up for Cormorant Garamond's small x-height) */
+      --display-size: clamp(2.85rem, 1.8rem + 4vw, 4.75rem);
+      --headline-size: clamp(2rem, 1.4rem + 2vw, 2.9rem);
+      --subhead-size: clamp(1.35rem, 1.15rem + 0.65vw, 1.65rem);
+      --body-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem);
+      --label-size: clamp(0.78rem, 0.75rem + 0.15vw, 0.875rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.7;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page {
+      min-height: 100vh;
+      box-shadow: var(--paper-vignette);
+      padding-bottom: var(--space-3xl);
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg);
+      max-width: 1060px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Accessibility focus ring */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      font-weight: 500;
+      margin: 0;
+      letter-spacing: -0.005em;
+    }
+
+    h1 {
+      font-size: var(--display-size);
+      font-style: italic;
+      line-height: 1.06;
+    }
+
+    h2 {
+      font-size: var(--headline-size);
+      font-style: italic;
+      line-height: 1.15;
+    }
+
+    h3 {
+      font-size: var(--subhead-size);
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    p {
+      margin: 0 0 var(--space-md);
+      font-variant-numeric: oldstyle-nums;
+    }
+
+    .measure {
+      max-width: 65ch;
+      margin-inline: auto;
+      text-align: left;
+    }
+
+    .label-voice {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--primary);
+    }
+
+    .muted-note {
+      color: var(--on-surface-variant);
+      font-size: 0.96em;
+    }
+
+    /* Header & Navigation */
+    .site-header {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-lg) var(--space-md);
+      text-align: center;
+      border-bottom: var(--gilt-rule-soft);
+    }
+
+    .masthead-kicker {
+      display: block;
+      margin-bottom: var(--space-sm);
+    }
+
+    .main-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-xs) var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+
+    .nav-link {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--on-surface);
+      text-decoration: none;
+      padding: var(--space-sm) var(--space-sm);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+      border-bottom-color: var(--outline);
+    }
+
+    .nav-dot {
+      color: var(--outline);
+      user-select: none;
+      font-size: var(--label-size);
+    }
+
+    /* Defining Treatments */
+    .gilt-frame {
+      border: var(--gilt-rule);
+      outline: var(--gilt-rule);
+      outline-offset: calc(-1 * var(--gilt-frame-inset));
+      padding: var(--space-2xl) var(--space-xl);
+      text-align: center;
+      background-color: var(--surface-container-low);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: var(--subhead-size);
+      color: var(--on-surface-variant);
+      max-width: 44ch;
+      margin: var(--space-md) auto var(--space-lg);
+      line-height: 1.4;
+    }
+
+    .drop-cap::first-letter {
+      float: left;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 3.6em;
+      line-height: 0.85;
+      padding: 0.06em 0.1em 0 0;
+      color: var(--primary);
+    }
+
+    .ruled {
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--gilt-rule-soft);
+    }
+
+    .section-header .label-voice {
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    .section-header .section-lede {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--on-surface-variant);
+      max-width: 48ch;
+      margin: var(--space-sm) auto 0;
+      line-height: 1.45;
+    }
+
+    .verse {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.28em;
+      line-height: 1.5;
+      color: var(--secondary);
+      border-left: var(--gilt-rule);
+      padding-left: var(--space-lg);
+      max-width: 40ch;
+      margin: var(--space-lg) auto;
+      text-align: left;
+    }
+
+    .verse cite {
+      display: block;
+      margin-top: var(--space-xs);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--on-surface-variant);
+    }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      padding: var(--space-sm) var(--space-lg);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: var(--rounded);
+      border: 1px solid var(--primary);
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--on-primary-container);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn-ghost {
+      background-color: transparent;
+      color: var(--secondary);
+      border-color: var(--secondary);
+    }
+
+    .btn-ghost:hover {
+      background-color: var(--secondary);
+      color: var(--on-primary);
+    }
+
+    .btn[aria-pressed="true"],
+    .btn.is-active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* Key figures row */
+    .figures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+      gap: var(--space-lg);
+      text-align: center;
+    }
+
+    .figure-item {
+      padding: var(--space-sm);
+    }
+
+    .figure-value {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: clamp(2.1rem, 1.6rem + 1.5vw, 2.8rem);
+      color: var(--on-surface);
+      line-height: 1.1;
+      margin: var(--space-xs) 0;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    .figure-caption {
+      font-style: italic;
+      color: var(--on-surface-variant);
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--secondary);
+      border: 1px solid var(--secondary);
+      border-radius: var(--rounded-full);
+      padding: 0.2rem 0.75rem;
+    }
+
+    /* Ruled columns for editorial insights */
+    .ruled-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+      gap: var(--space-xl);
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+      margin-block: var(--space-xl);
+    }
+
+    .ruled-col h3 {
+      margin-bottom: var(--space-sm);
+      color: var(--primary);
+    }
+
+    .ruled-col p {
+      font-size: 1.02rem;
+      margin-bottom: 0;
+    }
+
+    /* Tables — Sonnet rules: no vertical lines, gilt hairlines */
+    .table-wrap {
+      overflow-x: auto;
+      margin-block: var(--space-xl);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    th {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--primary);
+      padding: var(--space-md) var(--space-sm);
+      border-top: var(--gilt-rule);
+      border-bottom: var(--gilt-rule);
+    }
+
+    td {
+      padding: var(--space-md) var(--space-sm);
+      border-bottom: var(--gilt-rule-soft);
+      vertical-align: top;
+      font-size: 1.02rem;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: var(--gilt-rule);
+    }
+
+    /* Visualizations & SVG containers */
+    .figure-panel {
+      margin-block: var(--space-xl);
+      padding-block: var(--space-lg);
+      border-block: var(--gilt-rule);
+    }
+
+    .chart-title {
+      font-family: var(--font-headline);
+      font-size: var(--subhead-size);
+      font-style: italic;
+      text-align: center;
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--gilt-rule-soft);
+      margin-bottom: var(--space-md);
+    }
+
+    .svg-box {
+      width: 100%;
+      min-height: 240px;
+      display: block;
+    }
+
+    .svg-label {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      fill: var(--on-surface-variant);
+    }
+
+    .svg-anno {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 14px;
+      fill: var(--on-surface);
+    }
+
+    .svg-year {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-variant-numeric: lining-nums tabular-nums;
+      fill: var(--primary);
+    }
+
+    /* Interactive Modules */
+    .module-block {
+      background-color: var(--surface-container-low);
+      border-top: var(--gilt-rule);
+      border-bottom: var(--gilt-rule);
+      padding: var(--space-xl) var(--space-lg);
+      margin-block: var(--space-xl);
+    }
+
+    .module-header {
+      text-align: center;
+      margin-bottom: var(--space-lg);
+    }
+
+    .module-header h3 {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.75rem;
+      margin-top: var(--space-xs);
+    }
+
+    .split-explorer {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .control-group {
+      margin-bottom: var(--space-md);
+    }
+
+    .input-label {
+      display: block;
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--primary);
+      margin-bottom: var(--space-xs);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      cursor: pointer;
+      min-height: 44px;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid var(--on-surface);
+      padding: var(--space-sm) var(--space-xs);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      color: var(--on-surface);
+      border-radius: var(--rounded);
+      min-height: 44px;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      border-bottom-color: var(--primary);
+    }
+
+    .age-readout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      border-top: var(--gilt-rule-soft);
+      padding-top: var(--space-md);
+    }
+
+    .age-stat {
+      border-bottom: var(--gilt-rule-soft);
+      padding-bottom: var(--space-sm);
+    }
+
+    .age-stat strong {
+      display: block;
+      font-family: var(--font-headline);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+
+    /* Fragment Explorer Grid */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .fragments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    .fragment-card {
+      border-top: var(--gilt-rule);
+      border-bottom: var(--gilt-rule-soft);
+      padding: var(--space-md) 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+
+    .fragment-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .fragment-quote {
+      font-style: italic;
+      font-size: 1.08rem;
+      line-height: 1.55;
+      color: var(--on-surface);
+    }
+
+    .fragment-key {
+      font-size: 0.95rem;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Practice checklist & Personal Vademecum */
+    .practice-panel {
+      margin-top: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: var(--gilt-rule);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+    }
+
+    .practice-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: var(--space-sm) 0;
+      border-bottom: var(--gilt-rule-soft);
+      cursor: pointer;
+      min-height: 44px;
+    }
+
+    .practice-item input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      margin-top: 4px;
+      accent-color: var(--primary);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .saved-list {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-sm) 0;
+    }
+
+    .saved-list li {
+      padding: var(--space-sm) 0;
+      border-bottom: var(--gilt-rule-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+
+    .status-banner {
+      padding: var(--space-sm) var(--space-md);
+      border-left: 2px solid var(--secondary);
+      background-color: var(--secondary-container);
+      color: var(--on-surface);
+      font-size: 0.98rem;
+      margin-top: var(--space-sm);
+    }
+
+    .status-banner.is-warning {
+      border-left-color: var(--warning);
+      background-color: var(--surface-container);
+    }
+
+    /* Quiz */
+    .quiz-card {
+      max-width: 68ch;
+      margin: 0 auto;
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+      margin-block: var(--space-md);
+    }
+
+    .quiz-opt {
+      text-align: left;
+      justify-content: flex-start;
+      text-transform: none;
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      letter-spacing: normal;
+      font-weight: 400;
+      padding: var(--space-md);
+      border: 1px solid var(--outline-variant);
+      background-color: transparent;
+      color: var(--on-surface);
+    }
+
+    .quiz-opt:hover:not(:disabled) {
+      border-color: var(--outline);
+      background-color: var(--surface-container);
+      color: var(--on-surface);
+    }
+
+    .quiz-opt.is-correct {
+      border-color: var(--positive);
+      background-color: var(--secondary-container);
+      color: var(--on-surface);
+    }
+
+    .quiz-opt.is-wrong {
+      border-color: var(--error);
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      max-width: 68ch;
+      margin: 0 auto;
+      border-top: var(--gilt-rule);
+    }
+
+    .faq-item {
+      border-bottom: var(--gilt-rule-soft);
+    }
+
+    .faq-trigger {
+      width: 100%;
+      background: transparent;
+      border: none;
+      text-align: left;
+      padding: var(--space-md) 0;
+      min-height: 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      cursor: pointer;
+      font-family: var(--font-headline);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+
+    .faq-trigger:hover {
+      color: var(--primary);
+    }
+
+    .faq-mark {
+      font-family: var(--font-label);
+      font-size: 1.2rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .faq-panel {
+      padding-bottom: var(--space-md);
+      color: var(--on-surface-variant);
+    }
+
+    .faq-panel[hidden] {
+      display: none;
+    }
+
+    /* Footer */
+    .site-footer {
+      max-width: 1060px;
+      margin: var(--space-2xl) auto 0;
+      padding: var(--space-xl) var(--space-lg) 0;
+      border-top: var(--gilt-rule);
+      text-align: center;
+      color: var(--on-surface-variant);
+      font-size: 0.96rem;
+    }
+
+    /* Gentle entrance animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 780px) {
+      .split-explorer,
+      .practice-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: 1fr;
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .gilt-frame {
+        padding: var(--space-lg) var(--space-md);
+      }
+      .module-block {
+        padding: var(--space-lg) var(--space-md);
+      }
+      .age-readout-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-dot {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header" id="inicio">
+      <span class="label-voice masthead-kicker">Arthur Schopenhauer · Manuscrito «Senilia» (1852–1860)</span>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a class="nav-link" href="#inicio">Inicio</a>
+        <span class="nav-dot" aria-hidden="true">·</span>
+        <a class="nav-link" href="#vejez">La vejez</a>
+        <span class="nav-dot" aria-hidden="true">·</span>
+        <a class="nav-link" href="#serenidad">Serenidad</a>
+        <span class="nav-dot" aria-hidden="true">·</span>
+        <a class="nav-link" href="#pasiones">Pasiones</a>
+        <span class="nav-dot" aria-hidden="true">·</span>
+        <a class="nav-link" href="#biblioterapia">Biblioterapia</a>
+        <span class="nav-dot" aria-hidden="true">·</span>
+        <a class="nav-link" href="#cosecha">La cosecha</a>
+        <span class="nav-dot" aria-hidden="true">·</span>
+        <a class="nav-link" href="#modulos">Aprendizaje</a>
+        <span class="nav-dot" aria-hidden="true">·</span>
+        <a class="nav-link" href="#faq">Preguntas frecuentes</a>
+      </nav>
+    </header>
+
+    <main class="page-grid">
+      <!-- HERO -->
+      <section aria-labelledby="titulo-principal">
+        <div class="gilt-frame">
+          <span class="label-voice">Filosofía práctica y eudemonología</span>
+          <h1 id="titulo-principal">El arte de envejecer</h1>
+          <p class="hero-subtitle">
+            Ocho años y medio de meditaciones en Fráncfort como remedio espiritual para hacer llevadero —e incluso agradable— el instante en que «el Nilo llega a El Cairo».
+          </p>
+          <blockquote class="verse">
+            «Se debe envejecer de una forma elegante, lo demás viene dado.»
+            <cite>Arthur Schopenhauer · Carta a Sibylle Mertens-Schaffhausen (1849)</cite>
+          </blockquote>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#vejez">Comenzar la lectura</a>
+            <a class="btn btn-secondary" href="#modulos">Abrir talleres interactivos</a>
+          </div>
+        </div>
+
+        <div class="ruled" style="margin-top: var(--space-xl);">
+          <div class="figures-grid">
+            <div class="figure-item">
+              <span class="label-voice">Selección «Senilia»</span>
+              <div class="figure-value">319</div>
+              <p class="figure-caption">Fragmentos reunidos de entre más de 200 páginas manuscritas (150 de escritura compacta)</p>
+            </div>
+            <div class="figure-item">
+              <span class="label-voice">Redacción diaria</span>
+              <div class="figure-value">8,5 años</div>
+              <p class="figure-caption">Desde abril de 1852 hasta su muerte el 21 de septiembre de 1860</p>
+            </div>
+            <div class="figure-item">
+              <span class="label-voice">Texto y comentario</span>
+              <div class="figure-value">40 + 30</div>
+              <p class="figure-caption">Los primeros cuarenta años suministran el texto; los treinta siguientes revelan su sentido</p>
+            </div>
+            <div class="figure-item">
+              <span class="label-voice">Límite natural</span>
+              <div class="figure-value">90–100</div>
+              <p class="figure-caption">Años de duración natural según el fragmento 65, desembocando en una muerte serena</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="measure" style="margin-top: var(--space-xl);">
+          <p class="drop-cap">
+            En abril de 1852, en Fráncfort del Meno, Arthur Schopenhauer inauguró su último cuaderno póstumo con una frase sobria: «Este libro se titula <em>Senilia</em>». Durante los ocho años y medio finales de su vida anotó día tras día reflexiones metafísicas, citas clásicas, observaciones sobre la naturaleza, invectivas contra los profesores de universidad y reglas de conducta. Paradójicamente, quien había definido el mundo como una fuerza ciega e irracional —y la existencia como un péndulo entre el dolor y el tedio— descubrió en la ancianidad una dicha imprevista.
+          </p>
+          <p>
+            Como explica Franco Volpi en su introducción, la filosofía no resuelve los problemas de la vida, pero instruye sobre cómo sobrellevarlos. Tras casi cuarenta años de aislamiento académico —en los que se comparaba con Kaspar Hauser, privado de luz y aire—, el anciano filósofo asistió a lo que llamó irónicamente la «comedia de mi fama» y cultivó la filosofía práctica como un arte del cuidado de sí mismo.
+          </p>
+        </div>
+
+        <!-- SVG Timeline of late recognition -->
+        <figure class="figure-panel reveal">
+          <figcaption class="chart-title" style="border-top: none; margin-top: 0;">
+            Del ostracismo de cuarenta años a la «comedia de mi fama» (1819–1860)
+          </figcaption>
+          <svg class="svg-box" viewBox="0 0 880 230" role="img" aria-label="Línea temporal de la recepción tardía de Schopenhauer entre 1819 y 1860" xmlns="http://www.w3.org/2000/svg">
+            <!-- Baseline -->
+            <line x1="40" y1="125" x2="840" y2="125" stroke="var(--outline)" stroke-width="1.5" />
+            <!-- Silence span -->
+            <line x1="65" y1="125" x2="225" y2="125" stroke="var(--data-context)" stroke-width="6" />
+            <text x="145" y="108" text-anchor="middle" class="svg-label">~40 años de silencio gremial</text>
+
+            <!-- Milestones -->
+            <!-- 1819 -->
+            <circle cx="65" cy="125" r="5" fill="var(--data-context)" stroke="var(--on-surface)" stroke-width="1.2" />
+            <text x="65" y="152" text-anchor="middle" class="svg-year">1819</text>
+            <text x="65" y="170" text-anchor="middle" class="svg-anno">1.ª ed. «El mundo...»</text>
+            <text x="65" y="187" text-anchor="middle" class="svg-anno">(reducida a pasta de papel)</text>
+
+            <!-- 1839 -->
+            <circle cx="170" cy="125" r="5" fill="var(--data-3)" />
+            <text x="170" y="152" text-anchor="middle" class="svg-year">1839</text>
+            <text x="170" y="170" text-anchor="middle" class="svg-anno">Premio en Noruega</text>
+
+            <!-- 1851 -->
+            <circle cx="315" cy="125" r="6" fill="var(--data-2)" />
+            <line x1="315" y1="125" x2="315" y2="62" stroke="var(--outline-variant)" stroke-width="1" />
+            <text x="315" y="42" text-anchor="middle" class="svg-year">1851</text>
+            <text x="315" y="57" text-anchor="middle" class="svg-anno">«Parerga y Paralipómena»</text>
+
+            <!-- 1852 -->
+            <circle cx="435" cy="125" r="7" fill="var(--data-1)" />
+            <text x="435" y="152" text-anchor="middle" class="svg-year">Abril 1852</text>
+            <text x="435" y="170" text-anchor="middle" class="svg-anno">Inicia «Senilia»</text>
+            <text x="435" y="187" text-anchor="middle" class="svg-anno">y reseña de Oxenford</text>
+
+            <!-- 1854 -->
+            <circle cx="555" cy="125" r="6" fill="var(--data-2)" />
+            <line x1="555" y1="125" x2="555" y2="62" stroke="var(--outline-variant)" stroke-width="1" />
+            <text x="555" y="42" text-anchor="middle" class="svg-year">1854</text>
+            <text x="555" y="57" text-anchor="middle" class="svg-anno">Wagner dedica «El anillo»</text>
+
+            <!-- 1858 -->
+            <circle cx="675" cy="125" r="6" fill="var(--data-1)" />
+            <text x="675" y="152" text-anchor="middle" class="svg-year">1858 (70 años)</text>
+            <text x="675" y="170" text-anchor="middle" class="svg-anno">3.ª ed. con honorarios;</text>
+            <text x="675" y="187" text-anchor="middle" class="svg-anno">rechaza Academia de Berlín</text>
+
+            <!-- 1859-1860 -->
+            <circle cx="810" cy="125" r="6" fill="var(--data-1)" />
+            <line x1="810" y1="125" x2="810" y2="62" stroke="var(--outline-variant)" stroke-width="1" />
+            <text x="810" y="42" text-anchor="middle" class="svg-year">1859–1860</text>
+            <text x="810" y="57" text-anchor="middle" class="svg-anno">Busto de E. Ney · Último apunte</text>
+          </svg>
+        </figure>
+      </section>
+
+      <!-- SECCIÓN 1: LA VEJEZ -->
+      <section id="vejez" class="reveal" aria-labelledby="h-vejez">
+        <div class="section-header">
+          <span class="label-voice">Sección I · El sentido de la edad avanzada</span>
+          <h2 id="h-vejez">La vejez no es decadencia, sino la visión completa de la vida</h2>
+          <p class="section-lede">
+            Solo quien alcanza los años tardíos contempla la existencia desde su final y comprende el revés del tejido.
+          </p>
+        </div>
+
+        <div class="measure">
+          <p class="drop-cap">
+            Schopenhauer rechaza frontalmente dos prejuicios extendidos: ni la juventud es la etapa feliz de la existencia ni el destino inevitable de la vejez es la enfermedad y el aburrimiento. Porque la vida tiene por trasfondo la carencia y el dolor, las cargas se reparten de forma equitativa entre sus mitades: si la primera vive marcada por el anhelo insatisfecho de felicidad, la segunda está definida por la preocupación ante la infelicidad y el desencanto que desvela la vanidad de todas las cosas.
+          </p>
+          <p>
+            Para ilustrar esta transformación, el filósofo propone tres imágenes complementarias. Primero, la vida se asemeja a un <strong>tejido de punto</strong>: en la juventud lo observamos del derecho, vistoso y seductor; en la vejez lo vemos del revés, menos atractivo a simple vista, pero sumamente instructivo porque deja al descubierto el entretejido real de los hilos. Segundo, los primeros <strong>cuarenta años</strong> suministran el texto de la vida, mientras los <strong>treinta siguientes</strong> proporcionan su comentario indispensable para entender su sentido, su cohesión moral y sus sutilezas.
+          </p>
+          <p>
+            En tercer lugar, en el fragmento 65 corrige la creencia bíblica y herodotea de que la vida dura setenta u ochenta años. Quienes mueren a esa edad fallecen a causa de enfermedades, que son siempre una anormalidad; la duración natural alcanza entre <strong>noventa y cien años</strong> —en sintonía con los <em>Upanishad</em>—, culminando en la <strong>eutanasia</strong> natural: una muerte ligera, imperceptible y exenta de convulsiones. Y aun con el desgaste corporal, el fragmento 128 recuerda una certeza íntima: en su núcleo más profundo, el anciano sigue siendo exactamente el mismo que cuando era joven o niño, porque la esencia humana no habita en el tiempo.
+          </p>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Dimensión vital</th>
+                <th>Primera mitad (Juventud)</th>
+                <th>Segunda mitad (Vejez)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Motor anímico</strong></td>
+                <td>Anhelo insatisfecho de felicidad, sueños y quimeras.</td>
+                <td>Preocupación ante la infelicidad y sereno desencanto.</td>
+              </tr>
+              <tr>
+                <td><strong>Facultad dominante</strong></td>
+                <td>Opinión y concepción inmediata; tiempo propio de la poesía.</td>
+                <td>Pensamiento, juicio, penetración y fundamento; tiempo de la filosofía.</td>
+              </tr>
+              <tr>
+                <td><strong>Imagen del tejido</strong></td>
+                <td>El derecho del tejido: apariencia colorida y engañosa.</td>
+                <td>El revés del tejido: instructivo, revela la trama de los hilos.</td>
+              </tr>
+              <tr>
+                <td><strong>Relación con los otros</strong></td>
+                <td>Alegría expansiva y sociabilidad frecuente.</td>
+                <td>Inclinación hacia la soledad y la autarquía interior.</td>
+              </tr>
+              <tr>
+                <td><strong>Perspectiva en la montaña</strong></td>
+                <td>Al escalar la cumbre no se ve la muerte, oculta al otro lado.</td>
+                <td>Tras cruzar la cima se divisa la muerte con claridad y se abarca toda la vida.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: SERENIDAD -->
+      <section id="serenidad" class="reveal" aria-labelledby="h-serenidad">
+        <div class="section-header">
+          <span class="label-voice">Sección II · Ataraxia y liberación del conocimiento</span>
+          <h2 id="h-serenidad">El sosiego del corazón cuando la voluntad depone sus grilletes</h2>
+          <p class="section-lede">
+            La tranquilidad de espíritu no es un consuelo menor: constituye la condición misma y lo esencial de la felicidad.
+          </p>
+        </div>
+
+        <div class="measure">
+          <p class="drop-cap">
+            En la metafísica schopenhaueriana, la inmensa mayoría de los seres utiliza su intelecto únicamente como «criada del estómago», un mero instrumento subordinado a las exigencias urgentes de la voluntad de vivir (fragmentos 4 y 56). Solo en contados momentos —o en la madurez sosegada— ese excedente intelectual logra emanciparse de los apetitos individuales para contemplar el mundo de forma objetiva.
+          </p>
+          <p>
+            Ahí radica el privilegio más hondo de los años tardíos: mientras la juventud es despedazada de un lado a otro por las pasiones, con poca alegría real y muchas penalidades, a la vejez atemperada las pasiones la dejan en paz. Entonces el conocimiento se libera, se sitúa en lo más alto y permite contemplar la seducción, la exaltación y el dolor desde una distancia lúcida. Como anota en el fragmento 28 y en el 79, cuando el puro sujeto del conocimiento prevalece —ante la belleza natural, ante los animales libres que muestran nuestra propia esencia simplificada (fragmento 176), o en la creación artística—, desaparece la voluntad de la conciencia y sobreviene el sosiego del corazón.
+          </p>
+        </div>
+
+        <blockquote class="verse">
+          «La juventud es el periodo de la intranquilidad; la vejez el del sosiego. La vejez conlleva la alegría de quien ha soportado los grilletes durante mucho tiempo y se mueve ahora libremente.»
+          <cite>Aforismos sobre el arte de vivir · Citado por Franco Volpi</cite>
+        </blockquote>
+      </section>
+
+      <!-- SECCIÓN 3: DESMITIFICACIÓN DE LAS PASIONES -->
+      <section id="pasiones" class="reveal" aria-labelledby="h-pasiones">
+        <div class="section-header">
+          <span class="label-voice">Sección III · Crítica a las ilusiones juveniles</span>
+          <h2 id="h-pasiones">Fuegos fatuos, estatuas frontales y el espejismo del deseo</h2>
+          <p class="section-lede">
+            Desenmascarar la tiranía del impulso erótico, la fama y el tiempo convierte la pérdida de ilusiones en una ganancia de libertad.
+          </p>
+        </div>
+
+        <div class="measure">
+          <p class="drop-cap">
+            Para explicar por qué nadie debería añorar el ardor de los años mozos, Schopenhauer evoca el célebre apotegma de Sófocles: el anciano dramaturgo celebraba haber escapado al fin de la esclavitud de los impulsos sexuales. Lejos de ser una privación trágica, el declive del deseo disipa una ilusión biológica destinada a perpetuar la especie (fragmentos 44 y 185) a costa de la paz individual.
+          </p>
+          <p>
+            En <em>Senilia</em> esta desmitificación adopta imágenes inolvidables. El deseo pasional engaña incluso al más sagaz, igual que las luces errantes de los pantanos; lamentar placeres pasados apenas deja entre las manos «la momia seca de un recuerdo» (fragmento 41); y perseguir riqueza o renombre mundano equivale a beber agua del mar, pues cada sorbo redobla la sed. Incluso nuestra memoria actúa como un colador cuyos orificios se ensanchan con los años (fragmento 158), filtrando lo accesorio para dejar solo lo esencial.
+          </p>
+        </div>
+
+        <div class="ruled-columns">
+          <div class="ruled-col">
+            <span class="tag">Fragmento 234</span>
+            <h3 style="margin-top: var(--space-sm);">Los fuegos fatuos</h3>
+            <p>
+              «Los caprichos surgidos del impulso sexual son análogos a los fuegos fatuos: engañan hasta al más espabilado. Pero si los seguimos nos conducirán al fango y desaparecerán.»
+            </p>
+          </div>
+          <div class="ruled-col">
+            <span class="tag">Fragmento 273</span>
+            <h3 style="margin-top: var(--space-sm);">Las estatuas frontales</h3>
+            <p>
+              El enamoramiento se parece a las estatuas esculpidas para verse solo de frente: de cerca prometen un paraíso de delicias; contempladas desde la distancia temporal revelan su insignificancia.
+            </p>
+          </div>
+          <div class="ruled-col">
+            <span class="tag">Fragmento 134</span>
+            <h3 style="margin-top: var(--space-sm);">El agua salada</h3>
+            <p>
+              «La riqueza es como el agua salada: cuanto más se bebe de ella, más sed se tiene. Lo mismo ocurre con la fama.» Solo la autarquía quiebra este círculo.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 4: BIBLIOTERAPIA -->
+      <section id="biblioterapia" class="reveal" aria-labelledby="h-biblioterapia">
+        <div class="section-header">
+          <span class="label-voice">Sección IV · Técnicas cotidianas del arte de vivir</span>
+          <h2 id="h-biblioterapia">Biblioterapia, escritura diaria y meditación ante el fin</h2>
+          <p class="section-lede">
+            La disciplina espiritual de «Senilia» combina la lectura de los antiguos en su lengua original con ejercicios estoicos y budistas.
+          </p>
+        </div>
+
+        <div class="measure">
+          <p class="drop-cap">
+            ¿Cómo sostener la lucidez frente a la vulgaridad y el tedio cotidianos? Schopenhauer practica en <em>Senilia</em> lo que Franco Volpi denomina <strong>biblioterapia</strong>: el trato asiduo y profundo con los clásicos de todas las épocas leídos estrictamente en su idioma original. Una lectura auténtica nunca nos deja indiferentes; nos obliga a pensar con rigor y nos protege de la verborrea moderna (fragmento 318). En contrapartida, desaconseja los periódicos —«un aperitivo de mal sabor»—, oponiéndose a Hegel, quien veía en la prensa la oración matutina del hombre moderno.
+          </p>
+          <p>
+            Junto a la lectura, el filósofo adopta cuatro reglas prácticas heredadas de la Antigüedad helenística y de la moralística europea (Séneca, Epicteto, Marco Aurelio, Montaigne, Baltasar Gracián, Vauvenargues y Chamfort):
+          </p>
+        </div>
+
+        <div class="ruled-columns">
+          <div class="ruled-col">
+            <span class="label-voice">Plinio el Viejo</span>
+            <h3>Nulla dies sine linea</h3>
+            <p>
+              Ningún día sin escribir una línea. Igual que las abejas condensan en miel el polen recogido durante la jornada antes de caer la tarde, la escritura fija los frutos de la lectura para que no se disipen.
+            </p>
+          </div>
+          <div class="ruled-col">
+            <span class="label-voice">Marco Aurelio</span>
+            <h3>In promptu habere</h3>
+            <p>
+              Redactar un libro de reglas de conducta y máximas sobre la prudencia para tenerlas siempre disponibles a mano, tal como el cirujano lleva consigo su maletín de instrumentos.
+            </p>
+          </div>
+          <div class="ruled-col">
+            <span class="label-voice">Séneca y Epicteto</span>
+            <h3>Cada día como una vida</h3>
+            <p>
+              «Cada despertar es un pequeño nacimiento, cada fresca mañana una pequeña juventud y cada irse a la cama una pequeña muerte» (fragmento 292). Consumir la vida antes de morir, obrando con belleza antes de que el fin nos sorprenda.
+            </p>
+          </div>
+          <div class="ruled-col">
+            <span class="label-voice">Fragmento 207</span>
+            <h3>Recuerdo diario del Samsara</h3>
+            <p>
+              Para ejercitar la paciencia frente a los males y la conducta humana, Schopenhauer prescribe repetir conscientemente cuatro veces al día que este es el mundo del nacimiento, la enfermedad, la vejez y la muerte.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 5: LA COSECHA -->
+      <section id="cosecha" class="reveal" aria-labelledby="h-cosecha">
+        <div class="section-header">
+          <span class="label-voice">Sección V · Autarquía y plenitud tardía</span>
+          <h2 id="h-cosecha">La cosecha de la existencia y el consuelo de las obras que no envejecen</h2>
+          <p class="section-lede">
+            Quien ha llegado a ser dueño de sí mismo no mendiga aprobación externa y contempla sereno el camino recorrido.
+          </p>
+        </div>
+
+        <div class="measure">
+          <p class="drop-cap">
+            Lejos de constituir una mera antesala de la nada, la vejez representa el tiempo de la cosecha y el punto de realización de la existencia. Libre ya de impulsos tiránicos, con las ambiciones satisfechas o superadas y las obligaciones mundanas depuestas, el anciano sabio alcanza la autarquía: es capaz de hacer brotar de sí mismo toda satisfacción, sin buscar nada en los placeres pasajeros ni en la gloria ajena. Ha llegado a ser quien es y se ha reconciliado consigo mismo.
+          </p>
+          <p>
+            Aunque una vida perfectamente dichosa sea imposible —pues lo más alto a que puede aspirar el ser humano es una trayectoria vital heroica que resista con las armas en la mano (fragmento 66)—, existe un consuelo incomparable al final del trayecto. En el fragmento 153 lo formula con nitidez: «En la vejez no hay ningún consuelo más hermoso que el de quien ha incorporado a toda la fuerza de su juventud unas obras, las cuales no envejecen».
+          </p>
+        </div>
+
+        <blockquote class="verse">
+          «Al final del sendero me siento agotado,<br>
+          La exhausta cabeza apenas puede sostener el laurel:<br>
+          Sin embargo contemplo feliz lo que he llevado a cabo,<br>
+          Siempre imperturbable ante lo que los demás creen.»
+          <cite>Senilia · Fragmento 198 (1854–1857)</cite>
+        </blockquote>
+      </section>
+
+      <!-- MÓDULOS INTERACTIVOS DE APRENDIZAJE -->
+      <section id="modulos" class="reveal" aria-labelledby="h-modulos">
+        <div class="section-header">
+          <span class="label-voice">Talleres filosóficos interactivos</span>
+          <h2 id="h-modulos">Explora, ejercita y pon a prueba «El arte de envejecer»</h2>
+          <p class="section-lede">
+            Tres instrumentos prácticos basados exclusivamente en los conceptos y fragmentos de «Senilia». Tu progreso y tus notas personales se conservan entre sesiones.
+          </p>
+        </div>
+
+        <!-- MÓDULO 1: LA MONTAÑA DE LA VIDA Y EL TEJIDO -->
+        <div class="module-block">
+          <div class="module-header">
+            <span class="label-voice">Módulo I · Perspectiva vital</span>
+            <h3>La montaña de la vida y el tejido de punto</h3>
+            <p class="muted-note" style="max-width: 56ch; margin: var(--space-xs) auto 0;">
+              Desplaza la edad para observar cómo cambian la facultad dominante, la visibilidad de la muerte y la lectura del tejido de la existencia.
+            </p>
+          </div>
+
+          <div class="split-explorer">
+            <div>
+              <div class="control-group">
+                <label class="input-label" for="age-slider">Edad del observador: <span id="age-display">64</span> años</label>
+                <input type="range" id="age-slider" min="20" max="95" value="64" oninput="handleAgeSlider(this.value)">
+                <div class="btn-row" style="justify-content: flex-start; margin-top: var(--space-sm); gap: var(--space-sm);">
+                  <button type="button" class="btn btn-secondary" onclick="setAgePreset(25)">25 · Juventud</button>
+                  <button type="button" class="btn btn-secondary" onclick="setAgePreset(40)">40 · Fin del texto</button>
+                  <button type="button" class="btn btn-secondary" onclick="setAgePreset(64)">64 · Senilia</button>
+                  <button type="button" class="btn btn-secondary" onclick="setAgePreset(72)">72 · Comentario</button>
+                  <button type="button" class="btn btn-secondary" onclick="setAgePreset(92)">92 · Eutanasia</button>
+                </div>
+              </div>
+
+              <div class="age-readout-grid" id="age-readouts">
+                <div class="age-stat">
+                  <span class="label-voice">Fase del libro vital</span>
+                  <strong id="readout-phase">El comentario de la vida</strong>
+                  <span class="muted-note" id="readout-phase-note">Años 41–70+: se revela el sentido y la cohesión moral del texto vivido.</span>
+                </div>
+                <div class="age-stat">
+                  <span class="label-voice">Cara del tejido</span>
+                  <strong id="readout-tapestry">Del revés (instructivo)</strong>
+                  <span class="muted-note" id="readout-tapestry-note">Menos vistoso, pero permite reconocer el entretejido de los hilos.</span>
+                </div>
+                <div class="age-stat">
+                  <span class="label-voice">Facultad y motor</span>
+                  <strong id="readout-faculty">Pensamiento y sosiego</strong>
+                  <span class="muted-note" id="readout-faculty-note">Tiempo de la filosofía; el conocimiento se libera de las pasiones.</span>
+                </div>
+                <div class="age-stat">
+                  <span class="label-voice">Horizonte de la muerte</span>
+                  <strong id="readout-death">Divisada tras la cumbre</strong>
+                  <span class="muted-note" id="readout-death-note">Ya no se conoce solo de oídas; ilumina el conjunto de la existencia.</span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <svg class="svg-box" id="mountain-svg" viewBox="0 0 460 280" role="img" aria-label="Esquema de la montaña de la vida según Schopenhauer" xmlns="http://www.w3.org/2000/svg">
+                <!-- Baseline -->
+                <line x1="24" y1="230" x2="436" y2="230" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="4 4" />
+                <!-- Mountain path: ascends from (36,230) to summit (200,68) then descends to (424,230) -->
+                <path d="M 36 230 Q 125 140 200 68 Q 295 145 424 230" fill="none" stroke="var(--outline)" stroke-width="2" />
+                <!-- Sight line from traveler to Ultima linea rerum -->
+                <line id="sight-line" x1="200" y1="68" x2="424" y2="230" stroke="var(--secondary)" stroke-width="1.2" stroke-dasharray="3 3" />
+                <!-- Labels -->
+                <text x="42" y="252" class="svg-label">Nacimiento (Texto)</text>
+                <text x="200" y="48" text-anchor="middle" class="svg-label">Cumbre (~40–45 años)</text>
+                <text x="424" y="252" text-anchor="end" class="svg-label">Ultima linea rerum (90–100)</text>
+                <!-- Death marker at foot -->
+                <circle cx="424" cy="230" r="5" fill="var(--secondary)" />
+                <!-- Traveler marker -->
+                <circle id="traveler-dot" cx="305" cy="148" r="8" fill="var(--primary)" stroke="var(--background)" stroke-width="2" />
+                <text id="traveler-label" x="305" y="132" text-anchor="middle" class="svg-year">64 años</text>
+              </svg>
+              <p class="muted-note" id="mountain-caption" style="text-align: center; font-style: italic; margin-top: var(--space-xs);">
+                Cruzada la cumbre, la mirada abarca tanto la subida ya recorrida como el descenso sereno hacia el final.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- MÓDULO 2: ARCHIVO DE FRAGMENTOS Y CUADERNO DE BIBLIOTERAPIA -->
+        <div class="module-block">
+          <div class="module-header">
+            <span class="label-voice">Módulo II · Archivo y ejercicio cotidiano</span>
+            <h3>Antología de «Senilia» y cuaderno «in promptu habere»</h3>
+            <p class="muted-note" style="max-width: 58ch; margin: var(--space-xs) auto 0;">
+              Filtra fragmentos auténticos de la obra, guarda tus favoritos en tu vademécum personal y registra tus prácticas diarias de biblioterapia.
+            </p>
+          </div>
+
+          <div class="filter-bar" role="group" aria-label="Filtrar fragmentos por tema">
+            <button type="button" class="btn btn-secondary is-active" data-filter="todos" onclick="filterFragments('todos')">Todos (12)</button>
+            <button type="button" class="btn btn-secondary" data-filter="vejez" onclick="filterFragments('vejez')">Vejez y tiempo</button>
+            <button type="button" class="btn btn-secondary" data-filter="serenidad" onclick="filterFragments('serenidad')">Serenidad</button>
+            <button type="button" class="btn btn-secondary" data-filter="pasiones" onclick="filterFragments('pasiones')">Pasiones e ilusiones</button>
+            <button type="button" class="btn btn-secondary" data-filter="biblioterapia" onclick="filterFragments('biblioterapia')">Biblioterapia</button>
+            <button type="button" class="btn btn-secondary" data-filter="muerte" onclick="filterFragments('muerte')">Muerte y permanencia</button>
+          </div>
+
+          <div class="fragments-grid" id="fragments-container"></div>
+
+          <div class="practice-panel">
+            <div>
+              <span class="label-voice">Régimen cotidiano del «ars bene vivendi»</span>
+              <h4 style="font-size: 1.45rem; margin: var(--space-xs) 0 var(--space-sm);">Ejercicios de hoy</h4>
+              <div id="practice-checklist">
+                <label class="practice-item">
+                  <input type="checkbox" id="prac-clasicos" onchange="togglePractice('clasicos', this.checked)">
+                  <span><strong>Biblioterapia clásica:</strong> leer a un autor antiguo o moralista evitando la dispersión de los periódicos.</span>
+                </label>
+                <label class="practice-item">
+                  <input type="checkbox" id="prac-linea" onchange="togglePractice('linea', this.checked)">
+                  <span><strong>Nulla dies sine linea:</strong> condensar por escrito una idea o lectura del día, como la abeja que produce miel.</span>
+                </label>
+                <label class="practice-item">
+                  <input type="checkbox" id="prac-samsara" onchange="togglePractice('samsara', this.checked)">
+                  <span><strong>Recuerdo budista (Frag. 207):</strong> recordar con serenidad que habitamos el Samsara para ejercitar la paciencia.</span>
+                </label>
+                <label class="practice-item">
+                  <input type="checkbox" id="prac-natura" onchange="togglePractice('natura', this.checked)">
+                  <span><strong>Contemplación desinteresada (Frag. 176):</strong> observar sin apetito la naturaleza o un animal libre para sosegar el corazón.</span>
+                </label>
+              </div>
+              <div id="practice-status" class="status-banner" style="margin-top: var(--space-md);">
+                Selecciona los ejercicios que practiques hoy para registrar tu progreso.
+              </div>
+            </div>
+
+            <div>
+              <span class="label-voice">Tu vademécum portátil</span>
+              <h4 style="font-size: 1.45rem; margin: var(--space-xs) 0 var(--space-sm);">Máxima personal (Nulla dies sine linea)</h4>
+              <label class="input-label" for="personal-note-input">Escribe una regla o reflexión breve para tu cuaderno</label>
+              <input type="text" id="personal-note-input" placeholder="Ej.: Ningún día sin leer diez páginas de Séneca…">
+              <div class="btn-row" style="justify-content: flex-start; margin-top: var(--space-md);">
+                <button type="button" class="btn btn-primary" onclick="savePersonalNote()">Guardar en vademécum</button>
+                <button type="button" class="btn btn-ghost" onclick="exportVademecum()">Exportar (.txt)</button>
+                <button type="button" class="btn btn-secondary" id="reset-vademecum-btn" onclick="resetNotebook(this)">Restablecer</button>
+              </div>
+              <div id="note-feedback" class="muted-note" style="margin-top: var(--space-xs); min-height: 1.4em;"></div>
+
+              <div style="margin-top: var(--space-md);">
+                <span class="label-voice">Elementos guardados (<span id="saved-count">0</span>)</span>
+                <ul class="saved-list" id="saved-vademecum-list"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MÓDULO 3: AUTOEVALUACIÓN -->
+        <div class="module-block">
+          <div class="module-header">
+            <span class="label-voice">Módulo III · Comprobación de lectura</span>
+            <h3>¿Comprendes «El arte de envejecer» de Schopenhauer?</h3>
+            <p class="muted-note" id="quiz-score-banner">Puntuación actual: 0 / 6 respuestas correctas</p>
+          </div>
+
+          <div class="quiz-card" id="quiz-container">
+            <div class="fragment-meta" style="margin-bottom: var(--space-sm);">
+              <span class="label-voice" id="quiz-progress-label">Pregunta 1 de 6</span>
+              <span class="tag" id="quiz-topic-tag">Contexto</span>
+            </div>
+            <h4 id="quiz-question" style="font-size: 1.5rem; margin-bottom: var(--space-md);"></h4>
+            <div class="quiz-options" id="quiz-options"></div>
+            <div id="quiz-feedback" class="status-banner" hidden></div>
+            <div class="btn-row" style="justify-content: space-between;">
+              <button type="button" class="btn btn-secondary" id="quiz-prev-btn" onclick="moveQuiz(-1)">Anterior</button>
+              <button type="button" class="btn btn-ghost" id="quiz-reset-btn" onclick="resetQuiz(this)">Reiniciar cuestionario</button>
+              <button type="button" class="btn btn-primary" id="quiz-next-btn" onclick="moveQuiz(1)">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PREGUNTAS FRECUENTES -->
+      <section id="faq" class="reveal" aria-labelledby="h-faq">
+        <div class="section-header">
+          <span class="label-voice">Preguntas frecuentes</span>
+          <h2 id="h-faq">Claves esenciales sobre «Senilia» y la filosofía de la edad avanzada</h2>
+        </div>
+
+        <div class="faq-list" id="faq-accordion">
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p-1" onclick="toggleFaq(this)">
+              <span>1. ¿Cómo pudo el «padre del pesimismo» escribir una defensa de la vejez y del arte de ser feliz?</span>
+              <span class="faq-mark" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-p-1" hidden>
+              <p>
+                Schopenhauer distingue entre la metafísica y la filosofía práctica (eudemonología). Aunque en el plano metafísico sostiene que el mundo es manifestación de una voluntad ciega e irracional (<em>mundus pessimus</em>), en el plano práctico está convencido de que la sabiduría puede mitigar los pesares, protegernos de las adversidades y dotar a la existencia de serenidad. Además, tras casi cuarenta años de silencio académico, él mismo vivió en la vejez una inesperada felicidad con la llegada de su fama tardía.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p-2" onclick="toggleFaq(this)">
+              <span>2. ¿Qué significa la metáfora de que «el Nilo llega a El Cairo»?</span>
+              <span class="faq-mark" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-p-2" hidden>
+              <p>
+                Es la imagen con la que Schopenhauer alude al tramo final de la vida y a la inevitable aproximación de la <em>ultima linea rerum</em> (la muerte). Alude al sentimiento resignado y apacible de quien sabe que el curso largo e impetuoso del río desemboca al fin en su llanura terminal, y por ello prepara su ánimo con el remedio espiritual de <em>Senilia</em>.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p-3" onclick="toggleFaq(this)">
+              <span>3. ¿Por qué afirma Schopenhauer que la juventud es el tiempo de la poesía y la vejez el de la filosofía?</span>
+              <span class="faq-mark" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-p-3" hidden>
+              <p>
+                Porque en la juventud predominan la opinión, la ilusión, la fantasía y la agitación de las pasiones; en cambio, en la vejez predominan el pensamiento, el juicio, la penetración y el fundamento. Cuando las pasiones se aquietan, el conocimiento se libera de su servidumbre y permite comprender el conjunto de la vida como un comentario lúcido de los primeros cuarenta años.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p-4" onclick="toggleFaq(this)">
+              <span>4. ¿Por qué compara los deseos eróticos con «fuegos fatuos» y estatuas vistas de frente?</span>
+              <span class="faq-mark" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-p-4" hidden>
+              <p>
+                En los fragmentos 234 y 273 muestra que los caprichos sexuales y el enamoramiento son artimañas de la voluntad para propagar la especie: deslumbran a quien está cerca —como una estatua diseñada para ser admirada solo frontalmente—, pero si se les sigue conducen al fango y, vistos con la distancia del tiempo, parecen exiguos o insignificantes. De ahí la alegría de Sófocles al verse liberado de ese yugo en la vejez.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p-5" onclick="toggleFaq(this)">
+              <span>5. ¿En qué consiste la «biblioterapia» y por qué desaconseja leer periódicos?</span>
+              <span class="faq-mark" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-p-5" hidden>
+              <p>
+                Consiste en la lectura atenta de los grandes clásicos de todas las épocas —griegos, romanos y moralistas modernos—, leídos en su lengua original y acompañados de la escritura diaria (<em>nulla dies sine linea</em>). Para Schopenhauer, los periódicos son un «aperitivo de mal sabor» que dispersa el pensamiento y nutre la verborrea, en oposición directa a Hegel, quien comparaba la lectura de la prensa con la oración de la mañana.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p-6" onclick="toggleFaq(this)">
+              <span>6. ¿Qué entiende Schopenhauer por «eutanasia» en el fragmento 65?</span>
+              <span class="faq-mark" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-p-6" hidden>
+              <p>
+                La entiende como la muerte natural y apacible que corona una edad muy avanzada (entre los 90 y 100 años): un modo sumamente ligero y no sentido de morir, sin enfermedades, sin luchas agónicas, sin estertores ni convulsiones. El paulatino agotamiento de las fuerzas en la ancianidad prepara precisamente este tránsito benéfico.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p-7" onclick="toggleFaq(this)">
+              <span>7. ¿Por qué sostiene en el fragmento 128 que nuestro núcleo interior no envejece?</span>
+              <span class="faq-mark" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-p-7" hidden>
+              <p>
+                Porque el tiempo y el espacio pertenecen únicamente a la forma fenoménica de nuestro intelecto, no a la cosa en sí. Aunque cambien las capas externas de los años, las relaciones y las opiniones —como el caparazón de un cangrejo en el fragmento 238—, en nuestro interior sentimos que seguimos siendo exactamente los mismos que en la infancia y la juventud.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        Fuente única: <em>El arte de envejecer</em> (<em>Senilia</em>, 1852–1860) de Arthur Schopenhauer, edición, introducción («Cuando el Nilo llega a El Cairo») y notas de Franco Volpi; traducción de Adela Muñoz Fernández.
+      </p>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+
+  <script>
+    // --- Grounded Data from Source ---
+    var FRAGMENTS_DATA = [
+      {
+        id: 41,
+        year: `1853`,
+        theme: `pasiones`,
+        themeLabel: `Pasiones e ilusiones`,
+        quote: `¡Qué necio resulta lamentarse y quejarse de que, en tiempos pasados, se tuvo la oportunidad de obtener aquella dicha o aquel placer y se dejó escapar! ¿Qué se consigue ahora con recordarlo? La momia seca de un recuerdo.`,
+        key: `La propia forma del tiempo está hecha para mostrarnos la insignificancia de los placeres pasajeros.`
+      },
+      {
+        id: 65,
+        year: `1853`,
+        theme: `vejez`,
+        themeLabel: `Vejez y tiempo`,
+        quote: `Los seres humanos mueren, más bien, entre los 90 y los 100 años, eso sí, normalmente mueren de viejos, sin enfermedades, sin luchas a muerte, sin estertores, sin palpitaciones; esta forma de morir es lo que denominamos eutanasia.`,
+        key: `El límite bíblico de 70–80 años confunde la muerte natural con la muerte por enfermedad.`
+      },
+      {
+        id: 96,
+        year: `1853`,
+        theme: `biblioterapia`,
+        themeLabel: `Biblioterapia`,
+        quote: `Las obras son la quintaesencia de un espíritu: de ahí que resulten con frecuencia, incluso cuando se trata del más grande, más valiosas que el propio trato con este espíritu. Por eso la cultura intelectual superior nos lleva a buscar entretenimiento casi solo en los libros.`,
+        key: `Fundamento de la biblioterapia: conversar con los clásicos mediante lo mejor de su pensamiento destilado.`
+      },
+      {
+        id: 128,
+        year: `1854`,
+        theme: `muerte`,
+        themeLabel: `Muerte y permanencia`,
+        quote: `Cuando uno logra alcanzar una edad avanzada siente, empero, todavía en su interior que sigue siendo exactamente el mismo que era cuando joven, incluso cuando niño: pues el núcleo de nuestra esencia no envejece con el tiempo, ya que no está en el tiempo.`,
+        key: `Distinción entre el desgaste temporal del fenómeno y la invariabilidad atemporal del núcleo propio.`
+      },
+      {
+        id: 131,
+        year: `1854`,
+        theme: `muerte`,
+        themeLabel: `Muerte y permanencia`,
+        quote: `Cada vez que dormimos cedemos un pedazo a la muerte, pues el sueño es como un préstamo anticipado que obtenemos y renovamos tras un día agotador. Es la renta provisional de la muerte.`,
+        key: `Cuanto más regular y generosamente pagamos el interés del sueño, más tarde se exige el capital final.`
+      },
+      {
+        id: 134,
+        year: `1854`,
+        theme: `pasiones`,
+        themeLabel: `Pasiones e ilusiones`,
+        quote: `La riqueza es como el agua salada: cuanto más se bebe de ella, más sed se tiene. Lo mismo ocurre con la fama.`,
+        key: `Ninguna acumulación mundana sacia la voluntad; solo la autarquía pacifica el deseo.`
+      },
+      {
+        id: 153,
+        year: `1854–1856`,
+        theme: `vejez`,
+        themeLabel: `Vejez y tiempo`,
+        quote: `En la vejez no hay ningún consuelo más hermoso que el de quien ha incorporado a toda la fuerza de su juventud unas obras, las cuales no envejecen.`,
+        key: `La verdadera cosecha del anciano: contemplar el fruto imperecedero de su empeño juvenil.`
+      },
+      {
+        id: 176,
+        year: `1856`,
+        theme: `serenidad`,
+        themeLabel: `Serenidad`,
+        quote: `Qué singular placer nos depara la contemplación de cada animal libre cuando hace de las suyas por sí mismo, sin ser molestado. Que su contemplación nos solace tanto tiene que ver con que nos alegra ver nuestra propia esencia ante nosotros de una forma tan simplificada.`,
+        key: `La contemplación desinteresada de la naturaleza serena la conciencia y silencia la voluntad.`
+      },
+      {
+        id: 207,
+        year: `1856–1857`,
+        theme: `biblioterapia`,
+        themeLabel: `Biblioterapia`,
+        quote: `Este es Samsara, el mundo de las veleidades y del deseo y, por ello, el mundo del nacimiento, de la enfermedad, de la vejez y del morir. Es mi deseo prescribir que cada uno repita esto, con plena conciencia de ello, cuatro veces por día.`,
+        key: `Ejercicio espiritual diario para sobrellevar con paciencia los males y las debilidades humanas.`
+      },
+      {
+        id: 234,
+        year: `1857`,
+        theme: `pasiones`,
+        themeLabel: `Pasiones e ilusiones`,
+        quote: `Los caprichos surgidos del impulso sexual son análogos a los fuegos fatuos: engañan hasta al más espabilado. Pero si los seguimos nos conducirán al fango y desaparecerán.`,
+        key: `Desmitificación de la pasión juvenil: el repliegue del deseo en la vejez es una liberación.`
+      },
+      {
+        id: 292,
+        year: `1859`,
+        theme: `serenidad`,
+        themeLabel: `Serenidad`,
+        quote: `Cada día supone una pequeña vida. Cada despertar y levantarse es un pequeño nacimiento, cada fresca mañana una pequeña juventud y cada irse a la cama y dormir una pequeña muerte.`,
+        key: `Vivir cada jornada como un ciclo completo permite ordenar la existencia en el presente.`
+      },
+      {
+        id: 318,
+        year: `1860`,
+        theme: `biblioterapia`,
+        themeLabel: `Biblioterapia`,
+        quote: `Una utilidad principal del estudio de los antiguos es que nos previene de la verborrea, en tanto que los antiguos se esforzaban constantemente por escribir de una forma concisa y significativa.`,
+        key: `Por qué Schopenhauer mantuvo la lectura de los clásicos hasta el último año de su vida.`
+      }
+    ];
+
+    var QUIZ_QUESTIONS = [
+      {
+        topic: `Contexto de Senilia`,
+        question: `¿A qué alude la metáfora de que «el Nilo llega a El Cairo» en la introducción de Franco Volpi?`,
+        options: [
+          `Al momento de la vejez en que el curso de la vida se acerca serenamente a su desembocadura final (ultima linea rerum).`,
+          `Al viaje que Schopenhauer emprendió por Oriente tras publicar «Parerga y Paralipómena».`,
+          `A la llegada de los ejércitos europeos y la expansión de la filosofía universitaria hegeliana.`,
+          `Al período juvenil en que el intelecto se desborda como una inundación de pasiones.`
+        ],
+        correct: 0,
+        explanation: `Volpi explica que «Senilia» fue la medicina espiritual de los últimos ocho años y medio de Schopenhauer ante la aproximación de la ultima linea rerum, con la calma de saber que «el Nilo llega a El Cairo».`
+      },
+      {
+        topic: `Edades de la vida`,
+        question: `En la comparación del libro de la vida, ¿qué papel cumplen los primeros 40 años frente a los 30 años siguientes?`,
+        options: [
+          `Los primeros 40 son años perdidos en la ilusión; los 30 siguientes son la única vida auténtica.`,
+          `Los primeros 40 suministran el texto; los 30 siguientes aportan el comentario que revela su sentido, cohesión y moral.`,
+          `Los primeros 40 pertenecen a la filosofía; los 30 siguientes están dedicados exclusivamente a la poesía.`,
+          `Los primeros 40 son el revés del tejido; los 30 siguientes muestran únicamente el derecho vistoso.`
+        ],
+        correct: 1,
+        explanation: `Según los «Aforismos sobre el arte de vivir» citados en la obra, los primeros cuarenta años suministran el texto y los treinta siguientes el comentario que instruye en su verdadero sentido y sutilezas.`
+      },
+      {
+        topic: `Serenidad y pasiones`,
+        question: `¿Por qué celebra Schopenhauer el apotegma de Sófocles sobre la edad avanzada?`,
+        options: [
+          `Porque en la vejez se multiplican los placeres sensoriales y el vigor físico.`,
+          `Porque la memoria retiene con más detalle cada aventura amorosa de la juventud.`,
+          `Porque el anciano se siente al fin liberado de la tiranía de los impulsos sexuales, comparados luego con «fuegos fatuos».`,
+          `Porque la vejez garantiza un reconocimiento académico inmediato por parte de las universidades.`
+        ],
+        correct: 2,
+        explanation: `Sófocles se alegró de llegar a viejo al quedar liberado de los impulsos sexuales que lo sometían; Schopenhauer refuerza esta idea en los fragmentos 234 y 273 al comparar esos impulsos con fuegos fatuos y estatuas frontales.`
+      },
+      {
+        topic: `Biblioterapia`,
+        question: `¿Cuál es la postura de Schopenhauer frente a la lectura de periódicos en contraste con Hegel?`,
+        options: [
+          `Ambos coinciden en que el periódico sustituye con ventaja a la oración de la mañana.`,
+          `Schopenhauer los considera un «aperitivo de mal sabor» que debe evitarse o dosificarse frente a la lectura profunda de los clásicos.`,
+          `Schopenhauer recomienda leer solo periódicos en lengua extranjera para ejercitar la memoria.`,
+          `Schopenhauer aconseja leer prensa por la tarde y reservar la mañana exclusivamente para las matemáticas.`
+        ],
+        correct: 1,
+        explanation: `Frente a Hegel —para quien la prensa sustituye a la oración matutina—, Schopenhauer prefiere la biblioterapia de los clásicos en su idioma original y evita los periódicos como un «aperitivo de mal sabor».`
+      },
+      {
+        topic: `Duración natural`,
+        question: `En el fragmento 65, ¿qué edad sitúa Schopenhauer como duración natural de la vida humana y qué denomina «eutanasia»?`,
+        options: [
+          `70 a 80 años según los Salmos; eutanasia sería retirarse de la vida pública a esa edad.`,
+          `50 años al cruzar la cumbre de la montaña; eutanasia sería el olvido de los errores juveniles.`,
+          `90 a 100 años (como en los Upanishad); eutanasia es la muerte natural ligera, sin enfermedad ni convulsiones.`,
+          `120 años mediante ungüentos médicos que sustituyan a la fuerza curativa de la naturaleza.`
+        ],
+        correct: 2,
+        explanation: `En el fragmento 65 afirma que morir entre los 70 y 80 años ocurre por enfermedad (una anormalidad), mientras la duración natural llega a los 90–100 años desembocando en la eutanasia: una muerte ligera y no sentida.`
+      },
+      {
+        topic: `Práctica diaria`,
+        question: `¿Qué prescribe Schopenhauer repetir conscientemente cuatro veces al día en el fragmento 207?`,
+        options: [
+          `La lista de profesores universitarios que silenciaron «El mundo como voluntad y representación».`,
+          `El recuerdo budista de que este mundo es Samsara (nacimiento, enfermedad, vejez y muerte) para ejercitar la paciencia.`,
+          `Un verso de Shakespeare sobre las siete edades del hombre antes de cada comida.`,
+          `Un cálculo geométrico al estilo de Euler para mantener intacta la memoria.`
+        ],
+        correct: 1,
+        explanation: `Para sobrellevar de modo sereno tanto los males como a los seres humanos, el fragmento 207 prescribe repetir cuatro veces al día que este mundo y sus habitantes pertenecen al Samsara.`
+      }
+    ];
+
+    // --- Application State (persisted via notebookAppApi) ---
+    var appState = {
+      age: 64,
+      filter: `todos`,
+      savedFragments: [],
+      practices: {
+        clasicos: false,
+        linea: false,
+        samsara: false,
+        natura: false
+      },
+      notes: [],
+      quizIndex: 0,
+      quizAnswers: {}
+    };
+
+    function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+        return window.notebookAppApi.setAppState(appState).catch(function() {});
+      }
+      return Promise.resolve();
+    }
+
+    // --- Module 1: Age & Mountain Explorer ---
+    function handleAgeSlider(val) {
+      var age = parseInt(val, 10);
+      if (isNaN(age)) age = 64;
+      updateAgeView(age, true);
+    }
+
+    function setAgePreset(age) {
+      var slider = document.getElementById('age-slider');
+      if (slider) slider.value = String(age);
+      updateAgeView(age, true);
+    }
+
+    function updateAgeView(age, shouldSave) {
+      appState.age = age;
+      var ageDisplay = document.getElementById('age-display');
+      if (ageDisplay) ageDisplay.textContent = String(age);
+
+      var phaseEl = document.getElementById('readout-phase');
+      var phaseNoteEl = document.getElementById('readout-phase-note');
+      var tapEl = document.getElementById('readout-tapestry');
+      var tapNoteEl = document.getElementById('readout-tapestry-note');
+      var facEl = document.getElementById('readout-faculty');
+      var facNoteEl = document.getElementById('readout-faculty-note');
+      var deathEl = document.getElementById('readout-death');
+      var deathNoteEl = document.getElementById('readout-death-note');
+      var captionEl = document.getElementById('mountain-caption');
+
+      if (age <= 40) {
+        if (phaseEl) phaseEl.textContent = `El texto de la vida (años 1–40)`;
+        if (phaseNoteEl) phaseNoteEl.textContent = `Se escriben las experiencias inmediatas antes de poseer la perspectiva de conjunto.`;
+        if (tapEl) tapEl.textContent = `Del derecho (vistoso)`;
+        if (tapNoteEl) tapNoteEl.textContent = `Predominan ilusiones, sueños, quimeras y el anhelo insatisfecho de felicidad.`;
+        if (facEl) facEl.textContent = `Opinión y poesía`;
+        if (facNoteEl) facNoteEl.textContent = `Más concepción y sociabilidad, pero intranquilidad por las pasiones.`;
+        if (deathEl) deathEl.textContent = `Oculta al otro lado`;
+        if (deathNoteEl) deathNoteEl.textContent = `Al escalar la montaña solo se conoce la muerte de oídas.`;
+        if (captionEl) captionEl.textContent = `En el ascenso juvenil la cumbre bloquea la vista de la ultima linea rerum; el núcleo interior aún busca en lo externo.`;
+      } else if (age < 64) {
+        if (phaseEl) phaseEl.textContent = `Transición al comentario (41–63)`;
+        if (phaseNoteEl) phaseNoteEl.textContent = `Comienza la lectura reflexiva de lo vivido; el desencanto aclara el juicio.`;
+        if (tapEl) tapEl.textContent = `Girando hacia el revés`;
+        if (tapNoteEl) tapNoteEl.textContent = `Se empieza a percibir cómo se entrelazan los hilos de carácter y destino.`;
+        if (facEl) facEl.textContent = `Juicio y penetración`;
+        if (facNoteEl) facNoteEl.textContent = `Aumenta el peso del pensamiento sobre la opinión; disminuye el impulso ciego.`;
+        if (deathEl) deathEl.textContent = `Divisada desde la cumbre`;
+        if (deathNoteEl) deathNoteEl.textContent = `Cruzada la cima de la vida, el final entra en el campo visual real.`;
+        if (captionEl) captionEl.textContent = `Al rebasar la cumbre de los 40–45 años se contempla la existencia por primera vez desde su desenlace.`;
+      } else if (age < 85) {
+        if (phaseEl) phaseEl.textContent = `El comentario pleno («Senilia»)`;
+        if (phaseNoteEl) phaseNoteEl.textContent = `Schopenhauer inició Senilia a los 64 años y publicó su 3.ª edición a los 70.`;
+        if (tapEl) tapEl.textContent = `Del revés (instructivo)`;
+        if (tapNoteEl) tapNoteEl.textContent = `Se comprende la vanidad de todo y la cohesión moral de los actos pasados.`;
+        if (facEl) facEl.textContent = `Filosofía y sosiego`;
+        if (facNoteEl) facNoteEl.textContent = `Las pasiones quedan en calma; el conocimiento se libera y reina la autarquía.`;
+        if (deathEl) deathEl.textContent = `Presente sin terror`;
+        if (deathNoteEl) deathNoteEl.textContent = `Se afronta el ocaso con biblioterapia, paciencia y contemplación pura.`;
+        if (captionEl) captionEl.textContent = `El anciano suelta los grilletes de la juventud y cosecha el consuelo de obras que no envejecen.`;
+      } else {
+        if (phaseEl) phaseEl.textContent = `Edad muy avanzada (85–100)`;
+        if (phaseNoteEl) phaseNoteEl.textContent = `Duración natural de la existencia humana según los Upanishad y el fragmento 65.`;
+        if (tapEl) tapEl.textContent = `Trama enteramente legible`;
+        if (tapNoteEl) tapNoteEl.textContent = `Representación completa y comedida de la vida desde su comienzo hasta su fin.`;
+        if (facEl) facEl.textContent = `Pura contemplación`;
+        if (facNoteEl) facNoteEl.textContent = `Solo el núcleo atemporal del yo permanece invariable bajo la caducidad física.`;
+        if (deathEl) deathEl.textContent = `Eutanasia natural`;
+        if (deathNoteEl) deathNoteEl.textContent = `El desgaste paulatino prepara una muerte ligera, serena y sin convulsiones.`;
+        if (captionEl) captionEl.textContent = `Cuando «el Nilo llega a El Cairo», la mayor ganancia de los años tardíos es una partida apacible.`;
+      }
+
+      // Update SVG mountain traveler position along quadratic Bezier path
+      // Ascent (20..42): (36,230) -> (125,140) -> (200,68)
+      // Descent (42..95): (200,68) -> (295,145) -> (424,230)
+      var dot = document.getElementById('traveler-dot');
+      var lbl = document.getElementById('traveler-label');
+      var sight = document.getElementById('sight-line');
+      var x, y, t;
+      if (age <= 42) {
+        t = (age - 20) / (42 - 20);
+        x = (1 - t) * (1 - t) * 36 + 2 * (1 - t) * t * 125 + t * t * 200;
+        y = (1 - t) * (1 - t) * 230 + 2 * (1 - t) * t * 140 + t * t * 68;
+      } else {
+        t = (age - 42) / (95 - 42);
+        x = (1 - t) * (1 - t) * 200 + 2 * (1 - t) * t * 295 + t * t * 424;
+        y = (1 - t) * (1 - t) * 68 + 2 * (1 - t) * t * 145 + t * t * 230;
+      }
+      if (dot) {
+        dot.setAttribute('cx', x.toFixed(1));
+        dot.setAttribute('cy', y.toFixed(1));
+      }
+      if (lbl) {
+        lbl.setAttribute('x', x.toFixed(1));
+        lbl.setAttribute('y', Math.max(24, y - 15).toFixed(1));
+        lbl.textContent = `${age} años`;
+      }
+      if (sight) {
+        if (age < 42) {
+          // Sight blocked by summit
+          sight.setAttribute('x1', x.toFixed(1));
+          sight.setAttribute('y1', y.toFixed(1));
+          sight.setAttribute('x2', '200');
+          sight.setAttribute('y2', '68');
+          sight.setAttribute('stroke', 'var(--data-context)');
+        } else {
+          // Clear sight to death
+          sight.setAttribute('x1', x.toFixed(1));
+          sight.setAttribute('y1', y.toFixed(1));
+          sight.setAttribute('x2', '424');
+          sight.setAttribute('y2', '230');
+          sight.setAttribute('stroke', 'var(--secondary)');
+        }
+      }
+
+      if (shouldSave) persistState();
+    }
+
+    // --- Module 2: Fragments & Bibliotherapy Notebook ---
+    function filterFragments(theme) {
+      appState.filter = theme;
+      var buttons = document.querySelectorAll('.filter-bar button');
+      for (var i = 0; i < buttons.length; i++) {
+        var btnTheme = buttons[i].getAttribute('data-filter');
+        if (btnTheme === theme) {
+          buttons[i].classList.add('is-active');
+          buttons[i].setAttribute('aria-pressed', 'true');
+        } else {
+          buttons[i].classList.remove('is-active');
+          buttons[i].setAttribute('aria-pressed', 'false');
+        }
+      }
+      renderFragments();
+      persistState();
+    }
+
+    function renderFragments() {
+      var container = document.getElementById('fragments-container');
+      if (!container) return;
+
+      var list = FRAGMENTS_DATA.filter(function(item) {
+        return appState.filter === `todos` || item.theme === appState.filter;
+      });
+
+      var html = '';
+      for (var i = 0; i < list.length; i++) {
+        var f = list[i];
+        var isSaved = appState.savedFragments.indexOf(f.id) !== -1;
+        html += `<article class="fragment-card">
+          <div>
+            <div class="fragment-meta">
+              <span class="label-voice">Fragmento ${f.id} · ${f.year}</span>
+              <span class="tag">${f.themeLabel}</span>
+            </div>
+            <p class="fragment-quote" style="margin-top: var(--space-sm);">«${f.quote}»</p>
+            <p class="fragment-key">${f.key}</p>
+          </div>
+          <div>
+            <button type="button" class="btn ${isSaved ? 'btn-primary' : 'btn-secondary'}" onclick="toggleSaveFragment(${f.id})" aria-pressed="${isSaved ? 'true' : 'false'}">
+              ${isSaved ? 'Guardado en vademécum' : 'Añadir al vademécum'}
+            </button>
+          </div>
+        </article>`;
+      }
+      container.innerHTML = html;
+    }
+
+    function toggleSaveFragment(id) {
+      var idx = appState.savedFragments.indexOf(id);
+      if (idx === -1) {
+        appState.savedFragments.push(id);
+      } else {
+        appState.savedFragments.splice(idx, 1);
+      }
+      renderFragments();
+      renderVademecum();
+      persistState();
+    }
+
+    function togglePractice(key, checked) {
+      appState.practices[key] = Boolean(checked);
+      updatePracticeStatus();
+      persistState();
+    }
+
+    function updatePracticeStatus() {
+      var keys = [`clasicos`, `linea`, `samsara`, `natura`];
+      var done = 0;
+      for (var i = 0; i < keys.length; i++) {
+        var cb = document.getElementById(`prac-${keys[i]}`);
+        var val = Boolean(appState.practices[keys[i]]);
+        if (cb) cb.checked = val;
+        if (val) done++;
+      }
+      var statusEl = document.getElementById('practice-status');
+      if (!statusEl) return;
+      if (done === 0) {
+        statusEl.textContent = `Aún no has marcado ejercicios hoy. Comienza con una sola página clásica o una línea escrita.`;
+        statusEl.classList.add('is-warning');
+      } else if (done < 4) {
+        statusEl.textContent = `Has completado ${done} de 4 prácticas del ars bene vivendi.`;
+        statusEl.classList.remove('is-warning');
+      } else {
+        statusEl.textContent = `Jornada completa (4/4): lectura, escritura, paciencia y contemplación sosegada.`;
+        statusEl.classList.remove('is-warning');
+      }
+    }
+
+    function savePersonalNote() {
+      var input = document.getElementById('personal-note-input');
+      var feedback = document.getElementById('note-feedback');
+      if (!input) return;
+      var text = input.value.trim();
+      if (text.length < 4) {
+        if (feedback) feedback.textContent = `Escribe al menos unas palabras para fijar tu máxima en el cuaderno.`;
+        return;
+      }
+      appState.notes.unshift(text);
+      if (appState.notes.length > 20) appState.notes.pop();
+      input.value = ``;
+      if (feedback) feedback.textContent = `Máxima incorporada a tu vademécum personal.`;
+      renderVademecum();
+      persistState();
+    }
+
+    function removePersonalNote(index) {
+      if (index >= 0 && index < appState.notes.length) {
+        appState.notes.splice(index, 1);
+        renderVademecum();
+        persistState();
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, `&amp;`)
+        .replace(/</g, `&lt;`)
+        .replace(/>/g, `&gt;`)
+        .replace(/"/g, `&quot;`);
+    }
+
+    function renderVademecum() {
+      var listEl = document.getElementById('saved-vademecum-list');
+      var countEl = document.getElementById('saved-count');
+      if (!listEl) return;
+
+      var total = appState.savedFragments.length + appState.notes.length;
+      if (countEl) countEl.textContent = String(total);
+
+      if (total === 0) {
+        listEl.innerHTML = `<li class="muted-note" style="font-style: italic;">Tu vademécum está vacío. Añade fragmentos desde la antología o escribe una máxima arriba.</li>`;
+        return;
+      }
+
+      var html = '';
+      for (var i = 0; i < appState.notes.length; i++) {
+        html += `<li>
+          <span><strong>Máxima propia:</strong> ${escapeHtml(appState.notes[i])}</span>
+          <button type="button" class="btn btn-secondary" style="min-height: 44px; padding: 0.25rem 0.6rem;" onclick="removePersonalNote(${i})">Quitar</button>
+        </li>`;
+      }
+      for (var j = 0; j < appState.savedFragments.length; j++) {
+        var fid = appState.savedFragments[j];
+        var found = null;
+        for (var k = 0; k < FRAGMENTS_DATA.length; k++) {
+          if (FRAGMENTS_DATA[k].id === fid) {
+            found = FRAGMENTS_DATA[k];
+            break;
+          }
+        }
+        if (found) {
+          html += `<li>
+            <span><strong>Frag. ${found.id}:</strong> «${escapeHtml(found.quote.slice(0, 95))}…»</span>
+            <button type="button" class="btn btn-secondary" style="min-height: 44px; padding: 0.25rem 0.6rem;" onclick="toggleSaveFragment(${found.id})">Quitar</button>
+          </li>`;
+        }
+      }
+      listEl.innerHTML = html;
+    }
+
+    function exportVademecum() {
+      var lines = [];
+      lines.push(`VADEMECUM PERSONAL — EL ARTE DE ENVEJECER (SENILIA)`);
+      lines.push(`Arthur Schopenhauer`);
+      lines.push(`=====================================================`);
+      lines.push(``);
+      lines.push(`PRACTICAS DEL DIA:`);
+      lines.push(`- Lectura clasica: ${appState.practices.clasicos ? 'Si' : 'Pendiente'}`);
+      lines.push(`- Nulla dies sine linea: ${appState.practices.linea ? 'Si' : 'Pendiente'}`);
+      lines.push(`- Recuerdo diario (Frag. 207): ${appState.practices.samsara ? 'Si' : 'Pendiente'}`);
+      lines.push(`- Contemplacion desinteresada (Frag. 176): ${appState.practices.natura ? 'Si' : 'Pendiente'}`);
+      lines.push(``);
+      lines.push(`MAXIMAS PROPIAS:`);
+      if (appState.notes.length === 0) {
+        lines.push(`(Ninguna registrada)`);
+      } else {
+        for (var i = 0; i < appState.notes.length; i++) {
+          lines.push(`- ${appState.notes[i]}`);
+        }
+      }
+      lines.push(``);
+      lines.push(`FRAGMENTOS SELECCIONADOS DE SENILIA:`);
+      if (appState.savedFragments.length === 0) {
+        lines.push(`(Ninguno seleccionado)`);
+      } else {
+        for (var j = 0; j < appState.savedFragments.length; j++) {
+          for (var k = 0; k < FRAGMENTS_DATA.length; k++) {
+            if (FRAGMENTS_DATA[k].id === appState.savedFragments[j]) {
+              var f = FRAGMENTS_DATA[k];
+              lines.push(`[Fragmento ${f.id}, ${f.year}] "${f.quote}"`);
+              lines.push(`  Clave: ${f.key}`);
+            }
+          }
+        }
+      }
+      var content = lines.join(`\n`);
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `vademecum-senilia.txt`
+        });
+      }
+    }
+
+    function resetNotebook(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirmar borrado`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Restablecer`;
+      appState.savedFragments = [];
+      appState.notes = [];
+      appState.practices = { clasicos: false, linea: false, samsara: false, natura: false };
+      var feedback = document.getElementById('note-feedback');
+      if (feedback) feedback.textContent = `Cuaderno restablecido.`;
+      renderFragments();
+      renderVademecum();
+      updatePracticeStatus();
+      persistState();
+    }
+
+    // --- Module 3: Comprehension Quiz ---
+    function renderQuiz() {
+      var idx = appState.quizIndex;
+      if (idx < 0) idx = 0;
+      if (idx >= QUIZ_QUESTIONS.length) idx = QUIZ_QUESTIONS.length - 1;
+      appState.quizIndex = idx;
+
+      var q = QUIZ_QUESTIONS[idx];
+      var chosen = appState.quizAnswers[idx];
+      var hasAnswered = typeof chosen === 'number';
+
+      var progEl = document.getElementById('quiz-progress-label');
+      var tagEl = document.getElementById('quiz-topic-tag');
+      var qEl = document.getElementById('quiz-question');
+      var optsEl = document.getElementById('quiz-options');
+      var fbEl = document.getElementById('quiz-feedback');
+      var prevBtn = document.getElementById('quiz-prev-btn');
+      var nextBtn = document.getElementById('quiz-next-btn');
+
+      if (progEl) progEl.textContent = `Pregunta ${idx + 1} de ${QUIZ_QUESTIONS.length}`;
+      if (tagEl) tagEl.textContent = q.topic;
+      if (qEl) qEl.textContent = q.question;
+
+      if (optsEl) {
+        var html = '';
+        for (var i = 0; i < q.options.length; i++) {
+          var cls = `btn quiz-opt`;
+          if (hasAnswered) {
+            if (i === q.correct) cls += ` is-correct`;
+            else if (i === chosen && chosen !== q.correct) cls += ` is-wrong`;
+          }
+          html += `<button type="button" class="${cls}" ${hasAnswered ? 'disabled' : ''} onclick="answerQuiz(${i})">${q.options[i]}</button>`;
+        }
+        optsEl.innerHTML = html;
+      }
+
+      if (fbEl) {
+        if (hasAnswered) {
+          fbEl.hidden = false;
+          var isRight = chosen === q.correct;
+          fbEl.classList.toggle(`is-warning`, !isRight);
+          fbEl.innerHTML = `<strong>${isRight ? 'Correcto.' : 'Revisa este matiz:'}</strong> ${q.explanation}`;
+        } else {
+          fbEl.hidden = true;
+          fbEl.innerHTML = ``;
+        }
+      }
+
+      if (prevBtn) prevBtn.disabled = idx === 0;
+      if (nextBtn) nextBtn.disabled = idx === QUIZ_QUESTIONS.length - 1;
+
+      updateQuizScore();
+    }
+
+    function answerQuiz(optionIdx) {
+      var idx = appState.quizIndex;
+      if (typeof appState.quizAnswers[idx] === 'number') return;
+      appState.quizAnswers[idx] = optionIdx;
+      renderQuiz();
+      persistState();
+    }
+
+    function moveQuiz(delta) {
+      var next = appState.quizIndex + delta;
+      if (next < 0 || next >= QUIZ_QUESTIONS.length) return;
+      appState.quizIndex = next;
+      renderQuiz();
+      persistState();
+    }
+
+    function updateQuizScore() {
+      var correctCount = 0;
+      var answeredCount = 0;
+      for (var i = 0; i < QUIZ_QUESTIONS.length; i++) {
+        if (typeof appState.quizAnswers[i] === 'number') {
+          answeredCount++;
+          if (appState.quizAnswers[i] === QUIZ_QUESTIONS[i].correct) {
+            correctCount++;
+          }
+        }
+      }
+      var banner = document.getElementById('quiz-score-banner');
+      if (banner) {
+        banner.textContent = `Puntuación actual: ${correctCount} / ${QUIZ_QUESTIONS.length} respuestas correctas (${answeredCount} respondidas)`;
+      }
+    }
+
+    function resetQuiz(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirmar reinicio`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reiniciar cuestionario`;
+      appState.quizAnswers = {};
+      appState.quizIndex = 0;
+      renderQuiz();
+      persistState();
+    }
+
+    // --- FAQ Accordion ---
+    function toggleFaq(btn) {
+      if (!btn) return;
+      var panelId = btn.getAttribute('aria-controls');
+      var panel = panelId ? document.getElementById(panelId) : null;
+      var mark = btn.querySelector('.faq-mark');
+      var isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      var nextState = !isExpanded;
+      btn.setAttribute('aria-expanded', nextState ? 'true' : 'false');
+      if (panel) panel.hidden = !nextState;
+      if (mark) mark.textContent = nextState ? `−` : `+`;
+    }
+
+    // --- Scroll Reveal Observer ---
+    function initRevealObserver() {
+      var items = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        for (var i = 0; i < items.length; i++) items[i].classList.add('is-visible');
+        return;
+      }
+      var observer = new IntersectionObserver(function(entries, obs) {
+        for (var i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            entries[i].target.classList.add('is-visible');
+            obs.unobserve(entries[i].target);
+          }
+        }
+      }, { threshold: 0.1 });
+
+      for (var j = 0; j < items.length; j++) {
+        observer.observe(items[j]);
+      }
+    }
+
+    // --- Startup & Persistence Hydration ---
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+          var saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            if (typeof saved.age === 'number') appState.age = saved.age;
+            if (typeof saved.filter === 'string') appState.filter = saved.filter;
+            if (Array.isArray(saved.savedFragments)) appState.savedFragments = saved.savedFragments;
+            if (saved.practices && typeof saved.practices === 'object') appState.practices = saved.practices;
+            if (Array.isArray(saved.notes)) appState.notes = saved.notes;
+            if (typeof saved.quizIndex === 'number') appState.quizIndex = saved.quizIndex;
+            if (saved.quizAnswers && typeof saved.quizAnswers === 'object') appState.quizAnswers = saved.quizAnswers;
+          }
+        }
+      } catch (e) {
+        // Proceed with defaults if state hydration fails
+      }
+
+      var slider = document.getElementById('age-slider');
+      if (slider) slider.value = String(appState.age);
+      updateAgeView(appState.age, false);
+
+      var filterButtons = document.querySelectorAll('.filter-bar button');
+      for (var i = 0; i < filterButtons.length; i++) {
+        var bt = filterButtons[i].getAttribute('data-filter');
+        filterButtons[i].classList.toggle('is-active', bt === appState.filter);
+        filterButtons[i].setAttribute('aria-pressed', bt === appState.filter ? 'true' : 'false');
+      }
+
+      renderFragments();
+      renderVademecum();
+      updatePracticeStatus();
+      renderQuiz();
+      initRevealObserver();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
+  </script>
+</body>
+</html>

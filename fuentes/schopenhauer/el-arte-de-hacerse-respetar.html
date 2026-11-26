@@ -1,0 +1,2133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="artifact-type" content="narrative">
+<meta name="design-style" content="broadsheet">
+<title>El arte de hacerse respetar — Tratado sobre el honor de Arthur Schopenhauer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500..800;1,400..700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+
+  /* 1. Broadsheet tokens */
+  --background: #f7f3eb;
+  --surface-container-low: #efe8da;
+  --surface-container: #e6ddcc;
+  --surface-container-high: #ddd2be;
+
+  --on-surface: #1a1817;
+  --on-surface-variant: #4d4845;
+
+  --outline: #33302e;
+  --outline-variant: #cdc3b2;
+
+  --primary: #990f3d;
+  --on-primary: #ffffff;
+  --primary-container: #f4dce2;
+  --on-primary-container: #6b0a2a;
+  --secondary: #0d7680;
+  --tertiary: #0f5499;
+  --error: #b3261e;
+  --on-error: #ffffff;
+
+  --data-1: #990f3d;
+  --data-2: #0d7680;
+  --data-3: #0f5499;
+  --data-4: #9a6312;
+  --data-context: #bfb5a4;
+
+  --font-headline: 'Bitter', serif;
+  --font-body: 'Source Serif 4', serif;
+  --font-label: 'Source Sans 3', sans-serif;
+
+  --rounded: 0;
+  --rounded-lg: 0;
+  --rounded-full: 0;
+
+  --rule-masthead: 3px double var(--on-surface);
+  --rule-ink: 1px solid var(--on-surface);
+  --rule-section: 2px solid var(--outline);
+  --rule-column: 1px solid var(--outline-variant);
+
+  /* 3. Shared foundation tokens */
+  --positive: #1b5e3a;
+  --warning: #7d4e07;
+  --focus: var(--primary);
+
+  /* Narrative Type Scale */
+  --display-size: clamp(2.4rem, 1.5rem + 3.6vw, 4.25rem);
+  --headline-size: clamp(1.75rem, 1.25rem + 1.8vw, 2.5rem);
+  --subhead-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+  --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.15rem);
+  --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+  /* Spacing scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+}
+
+/* Base reset */
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  overflow-x: clip;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  line-height: 1.6;
+  font-optical-sizing: auto;
+  scroll-behavior: smooth;
+}
+header { position: static !important; }
+
+.page-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-xl);
+  padding: var(--space-lg);
+  max-width: 1140px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.page-grid * { min-width: 0; }
+
+/* Focus & Accessibility */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--primary);
+  color: var(--on-primary);
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  z-index: 100;
+  text-decoration: none;
+}
+.skip-link:focus { left: var(--space-md); top: var(--space-md); }
+
+/* Typography */
+h1, h2, h3, h4 {
+  font-family: var(--font-headline);
+  color: var(--on-surface);
+  margin: 0;
+}
+h1 {
+  font-weight: 800;
+  font-size: var(--display-size);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+}
+h2 {
+  font-weight: 700;
+  font-size: var(--headline-size);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+h3 {
+  font-weight: 700;
+  font-size: var(--subhead-size);
+  line-height: 1.18;
+}
+p {
+  margin: 0 0 var(--space-md) 0;
+  max-width: 66ch;
+}
+p:last-child { margin-bottom: 0; }
+
+strong { font-weight: 600; }
+
+.prose-measure {
+  max-width: 65ch;
+}
+
+.lede {
+  font-family: var(--font-body);
+  font-size: clamp(1.15rem, 1.05rem + 0.45vw, 1.35rem);
+  line-height: 1.5;
+  color: var(--on-surface-variant);
+  max-width: 58ch;
+  margin-top: var(--space-md);
+}
+
+.label-caps {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--secondary);
+  background: transparent;
+  padding: 0;
+}
+
+.tag-ink {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--primary);
+  background: transparent;
+  padding: 0;
+}
+
+/* Links */
+a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: text-decoration-thickness var(--dur-micro) var(--ease-out);
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Masthead (Broadsheet signature treatment 1 - used once) */
+.masthead-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-sm) var(--space-lg);
+  border-bottom: var(--rule-masthead);
+  padding-bottom: var(--space-sm);
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--on-surface-variant);
+}
+
+.masthead-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-md);
+  border-bottom: var(--rule-ink);
+  padding: var(--space-sm) 0;
+  margin-bottom: var(--space-lg);
+}
+
+.masthead-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: var(--space-xs) var(--space-xs);
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--on-surface);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+}
+.masthead-nav a:hover {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.masthead {
+  border-bottom: var(--rule-ink);
+  padding-bottom: var(--space-xl);
+}
+
+/* Broadsheet Hairline Columns */
+.columns {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-md);
+  border-top: var(--rule-column);
+}
+.columns > * {
+  border-left: var(--rule-column);
+  padding: var(--space-xs) var(--space-lg);
+  background: transparent;
+}
+.columns > :first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+.columns > :last-child {
+  padding-right: 0;
+}
+
+.stat-value {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.35rem);
+  line-height: 1.05;
+  font-variant-numeric: lining-nums tabular-nums;
+  margin: var(--space-xs) 0;
+  color: var(--on-surface);
+}
+.stat-meta {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--on-surface-variant);
+}
+
+/* Section Openings (Broadsheet Treatment 4) */
+.section-block {
+  padding-top: var(--space-md);
+}
+.section-open {
+  border-top: var(--rule-section);
+  padding-top: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+.section-label {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--primary);
+  margin-bottom: var(--space-xs);
+}
+.section-sub {
+  font-size: 1rem;
+  color: var(--on-surface-variant);
+  max-width: 62ch;
+  margin-top: var(--space-xs);
+}
+
+/* Two-column editorial split */
+.editorial-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 0;
+  align-items: start;
+}
+.editorial-split > .col-main {
+  padding-right: var(--space-xl);
+}
+.editorial-split > .col-side {
+  border-left: var(--rule-column);
+  padding-left: var(--space-xl);
+}
+
+/* Pull Quote */
+.pull-quote {
+  font-family: var(--font-headline);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+  line-height: 1.4;
+  color: var(--on-surface);
+  border-top: var(--rule-ink);
+  border-bottom: var(--rule-ink);
+  padding: var(--space-md) 0;
+  margin: var(--space-lg) 0;
+}
+.pull-quote cite {
+  display: block;
+  font-family: var(--font-label);
+  font-style: normal;
+  font-weight: 700;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--on-surface-variant);
+  margin-top: var(--space-sm);
+}
+
+/* Rare Filled Aside Panel (only for object-like interactive boxes/forms) */
+.newsprint-panel {
+  background-color: var(--surface-container-low);
+  border: var(--rule-ink);
+  padding: var(--space-lg);
+}
+.newsprint-panel-deep {
+  background-color: var(--surface-container);
+  border: var(--rule-ink);
+  padding: var(--space-lg);
+}
+
+/* Buttons (Broadsheet: square, no shadow, claret primary / newsprint secondary) */
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: var(--rounded);
+  border: var(--rule-ink);
+  cursor: pointer;
+  background-color: var(--background);
+  color: var(--on-surface);
+  text-decoration: none;
+  transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+}
+.btn:hover {
+  background-color: var(--surface-container);
+}
+.btn:active {
+  background-color: var(--surface-container-high);
+}
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+}
+.btn-primary:hover {
+  background-color: var(--on-primary-container);
+  border-color: var(--on-primary-container);
+}
+.btn-secondary {
+  background-color: var(--surface-container-low);
+  color: var(--on-surface);
+  border-color: var(--outline);
+}
+.btn-secondary[aria-pressed="true"],
+.btn[aria-pressed="true"] {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Inputs & Selects */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.field-label {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--on-surface);
+}
+.input-control, .select-control {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--background);
+  color: var(--on-surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--rounded);
+  width: 100%;
+  transition: border-color var(--dur-micro) var(--ease-out);
+}
+.select-control {
+  padding-right: var(--space-xl);
+}
+.input-control:focus, .select-control:focus {
+  border-color: var(--primary);
+}
+
+/* Broadsheet Tables */
+.broadsheet-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: var(--space-md);
+}
+.broadsheet-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.96rem;
+}
+.broadsheet-table thead th {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--on-surface-variant);
+  border-top: var(--rule-ink);
+  border-bottom: var(--rule-ink);
+  padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+  vertical-align: bottom;
+}
+.broadsheet-table tbody td {
+  border-bottom: var(--rule-column);
+  padding: var(--space-md) var(--space-md) var(--space-md) 0;
+  vertical-align: top;
+}
+.broadsheet-table tbody tr:last-child td {
+  border-bottom: var(--rule-ink);
+}
+.broadsheet-table th.col-highlight {
+  color: var(--primary);
+}
+
+/* Interactive Explorer Containers */
+.card-wrapper {
+  container-type: inline-size;
+}
+.interactive-split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.36fr) minmax(0, 0.64fr);
+  gap: 0;
+  border-top: var(--rule-ink);
+  border-bottom: var(--rule-ink);
+  margin-top: var(--space-md);
+}
+.list-rail {
+  display: flex;
+  flex-direction: column;
+  border-right: var(--rule-column);
+}
+.rail-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: var(--space-xs);
+  min-height: 44px;
+  padding: var(--space-md);
+  background: transparent;
+  color: var(--on-surface);
+  border: 0;
+  border-bottom: var(--rule-column);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color var(--dur-micro) var(--ease-out);
+}
+.rail-btn:last-child { border-bottom: 0; }
+.rail-btn:hover { background-color: var(--surface-container-low); }
+.rail-btn[aria-selected="true"] {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  box-shadow: inset 4px 0 0 0 var(--primary);
+}
+.rail-btn-title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+.rail-btn-sub {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--on-surface-variant);
+}
+.rail-btn[aria-selected="true"] .rail-btn-sub {
+  color: var(--on-primary-container);
+}
+
+.detail-pane {
+  padding: var(--space-lg);
+}
+
+.detail-meta-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border-top: var(--rule-column);
+  border-bottom: var(--rule-column);
+  margin: var(--space-md) 0;
+}
+.detail-meta-row > div {
+  padding: var(--space-md) var(--space-md) var(--space-md) 0;
+}
+.detail-meta-row > div + div {
+  border-left: var(--rule-column);
+  padding-left: var(--space-md);
+  padding-right: 0;
+}
+
+/* Historical Contrast Columns */
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 0;
+  border-top: var(--rule-ink);
+  border-bottom: var(--rule-ink);
+}
+.case-item {
+  padding: var(--space-lg);
+  border-right: var(--rule-column);
+  border-bottom: var(--rule-column);
+}
+.case-item h3 {
+  margin: var(--space-xs) 0 var(--space-sm) 0;
+}
+
+/* Scenario Lab */
+.lab-controls {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-md);
+  align-items: end;
+}
+.lab-output-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border-top: var(--rule-ink);
+  border-bottom: var(--rule-ink);
+  margin-top: var(--space-lg);
+}
+.lab-output-col {
+  padding: var(--space-md) var(--space-lg);
+  border-left: var(--rule-column);
+}
+.lab-output-col:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+.lab-output-col:last-child {
+  padding-right: 0;
+}
+
+.verdict-banner {
+  border-left: 4px solid var(--primary);
+  background-color: var(--surface-container-low);
+  padding: var(--space-md) var(--space-lg);
+  margin-top: var(--space-md);
+}
+.verdict-banner.verdict-positive {
+  border-left-color: var(--positive);
+}
+.verdict-banner.verdict-warning {
+  border-left-color: var(--warning);
+}
+
+/* Maxim Cards (Rule-separated rows, not filled boxes) */
+.maxim-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-md);
+  align-items: end;
+  padding-bottom: var(--space-md);
+  border-bottom: var(--rule-ink);
+}
+.maxim-list {
+  display: flex;
+  flex-direction: column;
+}
+.maxim-row {
+  display: grid;
+  grid-template-columns: minmax(0, 180px) minmax(0, 1fr);
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+  border-bottom: var(--rule-column);
+  align-items: start;
+}
+.maxim-row:last-child {
+  border-bottom: var(--rule-ink);
+}
+.maxim-index {
+  border-right: var(--rule-column);
+  padding-right: var(--space-md);
+}
+.maxim-num {
+  font-family: var(--font-headline);
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  color: var(--primary);
+  margin-top: var(--space-xs);
+}
+
+/* Details / Accordion (FAQ & Maxims) */
+details.editorial-detail {
+  border-bottom: var(--rule-column);
+  padding: var(--space-md) 0;
+}
+details.editorial-detail:first-of-type {
+  border-top: var(--rule-ink);
+}
+details.editorial-detail:last-of-type {
+  border-bottom: var(--rule-ink);
+}
+details.editorial-detail summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  min-height: 44px;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 1.12rem;
+  line-height: 1.25;
+  color: var(--on-surface);
+}
+details.editorial-detail summary::-webkit-details-marker { display: none; }
+.summary-marker {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+.detail-body {
+  padding-top: var(--space-sm);
+  max-width: 65ch;
+  color: var(--on-surface);
+}
+
+/* Inline Quiz */
+.quiz-item {
+  padding: var(--space-lg) 0;
+  border-bottom: var(--rule-column);
+}
+.quiz-item:first-child { border-top: var(--rule-ink); }
+.quiz-item:last-child { border-bottom: var(--rule-ink); }
+.quiz-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+.quiz-opt {
+  text-align: left;
+  justify-content: flex-start;
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+.quiz-opt.is-correct {
+  background-color: var(--surface-container-low);
+  box-shadow: inset 4px 0 0 0 var(--positive);
+  border-color: var(--positive);
+  font-weight: 600;
+}
+.quiz-opt.is-wrong {
+  background-color: var(--primary-container);
+  box-shadow: inset 4px 0 0 0 var(--error);
+  border-color: var(--error);
+}
+.quiz-feedback {
+  margin-top: var(--space-sm);
+  font-size: 0.96rem;
+  padding: var(--space-sm) var(--space-md);
+  border-left: 3px solid var(--outline-variant);
+}
+.quiz-feedback.fb-ok {
+  border-left-color: var(--positive);
+  color: var(--positive);
+}
+.quiz-feedback.fb-err {
+  border-left-color: var(--error);
+  color: var(--error);
+}
+
+/* SVG Diagram Container */
+.diagram-frame {
+  border-top: var(--rule-ink);
+  border-bottom: var(--rule-ink);
+  padding: var(--space-md) 0;
+  margin: var(--space-lg) 0;
+}
+.diagram-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Scroll Reveal */
+.reveal-section {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+}
+.reveal-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Footer */
+.colophon {
+  border-top: var(--rule-section);
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-2xl);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-md);
+  color: var(--on-surface-variant);
+  font-size: 0.92rem;
+}
+
+/* Container queries */
+@container (max-width: 680px) {
+  .detail-meta-row {
+    grid-template-columns: 1fr;
+  }
+  .detail-meta-row > div + div {
+    border-left: 0;
+    border-top: var(--rule-column);
+    padding-left: 0;
+  }
+}
+
+/* Responsive page shifts */
+@media (max-width: 900px) {
+  .columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .columns > :nth-child(3) {
+    border-left: 0;
+    padding-left: 0;
+    border-top: var(--rule-column);
+    padding-top: var(--space-md);
+  }
+  .columns > :nth-child(4) {
+    border-top: var(--rule-column);
+    padding-top: var(--space-md);
+  }
+  .editorial-split,
+  .interactive-split,
+  .lab-controls,
+  .lab-output-grid,
+  .maxim-toolbar,
+  .maxim-row {
+    grid-template-columns: 1fr;
+  }
+  .editorial-split > .col-main { padding-right: 0; padding-bottom: var(--space-lg); }
+  .editorial-split > .col-side {
+    border-left: 0;
+    border-top: var(--rule-column);
+    padding-left: 0;
+    padding-top: var(--space-lg);
+  }
+  .list-rail {
+    border-right: 0;
+    border-bottom: var(--rule-ink);
+  }
+  .lab-output-col {
+    border-left: 0;
+    border-bottom: var(--rule-column);
+    padding: var(--space-md) 0;
+  }
+  .lab-output-col:last-child { border-bottom: 0; }
+  .maxim-index {
+    border-right: 0;
+    padding-right: 0;
+    border-bottom: var(--rule-column);
+    padding-bottom: var(--space-xs);
+  }
+}
+
+@media (max-width: 640px) {
+  .page-grid {
+    grid-template-columns: 1fr;
+    padding: var(--space-md);
+    gap: var(--space-lg);
+  }
+  .columns {
+    grid-template-columns: 1fr;
+  }
+  .columns > * {
+    border-left: 0 !important;
+    padding: var(--space-md) 0 !important;
+    border-top: var(--rule-column);
+  }
+  .columns > :first-child { border-top: 0; }
+  .masthead-nav {
+    gap: var(--space-xs) var(--space-sm);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal-section {
+    opacity: 1;
+    transform: none;
+  }
+}
+</style>
+</head>
+<body>
+<a href="#contenido-principal" class="skip-link">Saltar al contenido principal</a>
+
+<div class="page-grid">
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-line">
+      <span>Arthur Schopenhauer · Tratado sobre el honor</span>
+      <span>Manuscrito Adversaria § 69 (Berlín, 1828) · Ed. Franco Volpi</span>
+    </div>
+
+    <nav class="masthead-nav" aria-label="Navegación por secciones">
+      <a href="#introduccion">Propósito</a>
+      <a href="#distincion">Honor vs. Fatuidad</a>
+      <a href="#tipos">Cinco Especies</a>
+      <a href="#duelo">Crítica al Duelo</a>
+      <a href="#laboratorio">Laboratorio de Injurias</a>
+      <a href="#maximas">14 Máximas</a>
+      <a href="#faq">Objeciones y Test</a>
+    </nav>
+
+    <div class="section-label">Sabiduría práctica · Prontuario filosófico</div>
+    <h1>El arte de hacerse respetar</h1>
+    <p class="lede">
+      O bien <em>Tratado sobre el honor</em>: catorce máximas de sabiduría práctica para distinguir la probidad ciudadana de la superstición del duelo y descubrir por qué las palabras o golpes ajenos jamás manchan la propia dignidad.
+    </p>
+
+    <div class="columns" aria-label="Cifras clave del tratado">
+      <div>
+        <div class="tag">Estructura</div>
+        <div class="stat-value">14 máximas</div>
+        <div class="stat-meta">8 sobre el honor y la verdad; 6 sobre el honor fatuo o caballeresco.</div>
+      </div>
+      <div>
+        <div class="tag">Génesis</div>
+        <div class="stat-value">1828 / 1851</div>
+        <div class="stat-meta">Redactado en Berlín y retomado en <em>Aforismos sobre la sabiduría de la vida</em>.</div>
+      </div>
+      <div>
+        <div class="tag">Taxonomía</div>
+        <div class="stat-value">5 especies</div>
+        <div class="stat-meta">Honor privado, público o del cargo, sexual, nacional y de la humanidad.</div>
+      </div>
+      <div>
+        <div class="tag">Principio rector</div>
+        <div class="stat-value">Activo</div>
+        <div class="stat-meta">El honor verdadero brota de lo que hacemos y omitimos, no de lo que padecemos.</div>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenido-principal">
+    <!-- SECCIÓN 1: PROPÓSITO Y ANATOMÍA -->
+    <section id="introduccion" class="section-block reveal-section">
+      <div class="section-open">
+        <div class="section-label">01 · Génesis y propósito</div>
+        <h2>Un manual práctico, no una especulación abstracta</h2>
+        <p class="section-sub">
+          Compuesto en el verano de 1828 junto a <em>El arte de tener razón</em> y <em>El arte de ser feliz</em>, el opúsculo busca armar al lector de criterio racional frente a prejuicios asimilados sin examen.
+        </p>
+      </div>
+
+      <div class="editorial-split">
+        <div class="col-main prose-measure">
+          <p>
+            Como explica Franco Volpi en su introducción, Arthur Schopenhauer (1788–1860) no aborda el honor desde un plano meramente especulativo (<em>docens</em>), sino con finalidad pragmática (<em>utens</em>): ofrece coordenadas concretas para conservar la respetabilidad frente a las vicisitudes de la vida cotidiana. En su propio manuscrito lo tituló <em>Esbozo de un tratado sobre el honor</em>, apoyado en apuntes previos de sus cuadernos <em>Portafolios</em> (1820 y 1823) y <em>Cuartillas</em> (1825).
+          </p>
+          <p>
+            El filósofo constata con asombro que, pese a ser el honor el bien terrenal más encumbrado, apenas existían tratados sistemáticos en lenguas vivas salvo obras jurídicas en latín como el extenso <em>Tractatus de existimatione</em> de Marquard Freher (Basilea, 1591) o los cinco libros <em>De gloria</em> de Girolamo Osorio (1552). Frente a la tradición clásica —desde Aristóteles, que llamó al honor el mayor de los bienes externos y premio de la virtud, y Marco Claudio Marcelo, que erigió los templos contiguos de la Virtud y el Honor, hasta la definición jurídica romana de Calístrato—, Schopenhauer prefiere un análisis descarnado: separar lo que brota de la naturaleza humana de lo que es mera farsa heredada.
+          </p>
+        </div>
+
+        <aside class="col-side">
+          <div class="tag-ink">Epígrafe del Prefacio</div>
+          <blockquote class="pull-quote">
+            «Lo bueno, si breve, dos veces bueno; y aun lo malo, si poco, no tan malo: más obran quintas esencias, que fárragos.»
+            <cite>Baltasar Gracián, Oráculo manual, citado por Schopenhauer</cite>
+          </blockquote>
+          <p class="stat-meta">
+            <strong>Hilo conductor:</strong> quien analiza el sentimiento del honor en el «espejo incoloro de la reflexión» descubre pronto cuánto debe a la razón y cuánto a prejuicios inculcados en la juventud.
+          </p>
+        </aside>
+      </div>
+
+      <!-- Diagrama SVG: Arquitectura del Honor Verdadero vs Honor Fatuo -->
+      <div class="diagram-frame">
+        <div class="label-caps" style="margin-bottom: var(--space-xs); color: var(--on-surface-variant);">
+          Esquema estructural · Origen y dirección de los dos códigos
+        </div>
+        <svg class="diagram-svg" viewBox="0 0 920 270" role="img" aria-label="Diagrama comparativo del circuito del honor verdadero frente al honor fatuo" xmlns="http://www.w3.org/2000/svg">
+          <!-- Fondo sutil de columnas -->
+          <line x1="0" y1="135" x2="920" y2="135" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="4 4"/>
+
+          <!-- Fila Superior: Honor Verdadero (Teal / Claret) -->
+          <text x="10" y="24" font-family="Source Sans 3, sans-serif" font-size="12" font-weight="700" fill="var(--secondary)" letter-spacing="1">CIRCUITO I · HONOR VERDADERO (PARTE I, MÁX. 1–8)</text>
+
+          <rect x="10" y="42" width="195" height="68" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5"/>
+          <text x="22" y="64" font-family="Bitter, serif" font-size="14" font-weight="700" fill="var(--on-surface)">1. Raíz interior activa</text>
+          <text x="22" y="83" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-surface-variant)">Lo que haces u omites</text>
+          <text x="22" y="99" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-surface-variant)">(probidad y deber)</text>
+
+          <line x1="205" y1="76" x2="248" y2="76" stroke="var(--secondary)" stroke-width="2"/>
+          <polygon points="248,71 258,76 248,81" fill="var(--secondary)"/>
+
+          <rect x="258" y="42" width="205" height="68" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5"/>
+          <text x="270" y="64" font-family="Bitter, serif" font-size="14" font-weight="700" fill="var(--on-surface)">2. Opinión involuntaria</text>
+          <text x="270" y="83" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-surface-variant)">Juicio del círculo competente</text>
+          <text x="270" y="99" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-surface-variant)">(el «Argos de cien ojos»)</text>
+
+          <line x1="463" y1="76" x2="506" y2="76" stroke="var(--secondary)" stroke-width="2"/>
+          <polygon points="506,71 516,76 506,81" fill="var(--secondary)"/>
+
+          <rect x="516" y="42" width="195" height="68" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5"/>
+          <text x="528" y="64" font-family="Bitter, serif" font-size="14" font-weight="700" fill="var(--on-surface)">3. Confianza social</text>
+          <text x="528" y="83" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-surface-variant)">Valor relativo como medio</text>
+          <text x="528" y="99" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-surface-variant)">para cooperar y vivir bien</text>
+
+          <line x1="711" y1="76" x2="742" y2="76" stroke="var(--secondary)" stroke-width="2"/>
+          <polygon points="742,71 752,76 742,81" fill="var(--secondary)"/>
+
+          <rect x="752" y="42" width="158" height="68" fill="var(--background)" stroke="var(--secondary)" stroke-width="2"/>
+          <text x="764" y="64" font-family="Bitter, serif" font-size="14" font-weight="700" fill="var(--secondary)">Ante la injuria:</text>
+          <text x="764" y="83" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-surface)">Solo mancha al autor;</text>
+          <text x="764" y="99" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-surface)">refutación o desdén.</text>
+
+          <!-- Fila Inferior: Honor Fatuo (Claret) -->
+          <text x="10" y="162" font-family="Source Sans 3, sans-serif" font-size="12" font-weight="700" fill="var(--primary)" letter-spacing="1">CIRCUITO II · HONOR FATUO O CABALLERESCO (PARTE II, MÁX. 1–6)</text>
+
+          <rect x="10" y="180" width="195" height="68" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="1.5"/>
+          <text x="22" y="202" font-family="Bitter, serif" font-size="14" font-weight="700" fill="var(--on-primary-container)">1. Origen pasivo externo</text>
+          <text x="22" y="221" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-primary-container)">Lo que otro dice o hace</text>
+          <text x="22" y="237" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-primary-container)">(insulto o golpe ajeno)</text>
+
+          <line x1="205" y1="214" x2="248" y2="214" stroke="var(--primary)" stroke-width="2"/>
+          <polygon points="248,209 258,214 248,219" fill="var(--primary)"/>
+
+          <rect x="258" y="180" width="205" height="68" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="1.5"/>
+          <text x="270" y="202" font-family="Bitter, serif" font-size="14" font-weight="700" fill="var(--on-primary-container)">2. Ficción verbal</text>
+          <text x="270" y="221" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-primary-container)">Cuenta la expresión proferida,</text>
+          <text x="270" y="237" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-primary-container)">sin importar si es cierta</text>
+
+          <line x1="463" y1="214" x2="506" y2="214" stroke="var(--primary)" stroke-width="2"/>
+          <polygon points="506,209 516,214 506,219" fill="var(--primary)"/>
+
+          <rect x="516" y="180" width="195" height="68" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="1.5"/>
+          <text x="528" y="202" font-family="Bitter, serif" font-size="14" font-weight="700" fill="var(--on-primary-container)">3. Recurso a la fuerza</text>
+          <text x="528" y="221" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-primary-container)">Grosería, avantage y</text>
+          <text x="528" y="237" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-primary-container)">«derecho del puño»</text>
+
+          <line x1="711" y1="214" x2="742" y2="214" stroke="var(--primary)" stroke-width="2"/>
+          <polygon points="742,209 752,214 742,219" fill="var(--primary)"/>
+
+          <rect x="752" y="180" width="158" height="68" fill="var(--primary)" stroke="var(--primary)" stroke-width="2"/>
+          <text x="764" y="202" font-family="Bitter, serif" font-size="14" font-weight="700" fill="var(--on-primary)">Desenlace fatal:</text>
+          <text x="764" y="221" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-primary)">El duelo arriesga el fin</text>
+          <text x="764" y="237" font-family="Source Serif 4, serif" font-size="12" fill="var(--on-primary)">(la vida) por el medio.</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: DISTINCIÓN FUNDAMENTAL Y COMPARADOR -->
+    <section id="distincion" class="section-block reveal-section">
+      <div class="section-open">
+        <div class="section-label">02 · Conceptos fundamentales (Parte I, Máx. 1–7)</div>
+        <h2>Honor verdadero frente a la fama y al honor caballeresco</h2>
+        <p class="section-sub">
+          Antes de analizar ofensas o agravios, Schopenhauer deslinda tres nociones que la lengua cotidiana suele confundir: el honor verdadero, la fama y la caricatura caballeresca.
+        </p>
+      </div>
+
+      <div class="prose-measure" style="margin-bottom: var(--space-lg);">
+        <p>
+          En sentido objetivo, el honor es la <strong>opinión general de quienes están calificados para juzgar nuestro valor</strong>, es decir, «el representante de nuestro valor ante los pensamientos ajenos» (Máxima 1). Por sí solo, un pensamiento en cabeza ajena sería indiferente; adquiere enorme valor <em>relativo</em> porque determina cómo los demás cooperan o se relacionan con nosotros en la vida civilizada (Máxima 2). Sin embargo, jamás vale más que la vida misma: vivir de manera aceptable es el fin, y el honor es únicamente un medio (Máxima 4).
+        </p>
+        <p>
+          A diferencia de la <strong>fama</strong> —que es positiva y se conquista mediante hazañas o creaciones excepcionales—, el honor posee un <strong>carácter negativo</strong> (Máxima 5): indica simplemente que no constituimos una excepción a las cualidades mínimas exigibles a cualquier miembro de nuestra clase. Pero negatividad no equivale a pasividad (Máxima 6): nuestro honor brota de dentro hacia fuera, de lo que hacemos y omitimos, aunque florezca en la mente del público, ese «Argos de cien ojos» al que la hipocresía no logra engañar por largo tiempo.
+        </p>
+      </div>
+
+      <!-- Comparador interactivo -->
+      <div aria-labelledby="comparador-titulo">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: var(--space-md); margin-bottom: var(--space-sm);">
+          <div>
+            <span class="tag">Comparador analítico</span>
+            <h3 id="comparador-titulo" style="margin-top: var(--space-xs);">Contraste de tres códigos por criterio</h3>
+          </div>
+          <div class="btn-row" role="group" aria-label="Seleccionar dimensión de análisis">
+            <button type="button" class="btn btn-secondary" onclick="selectComparison('all', this)" aria-pressed="true">Vista completa</button>
+            <button type="button" class="btn btn-secondary" onclick="selectComparison('origen', this)" aria-pressed="false">Raíz y naturaleza</button>
+            <button type="button" class="btn btn-secondary" onclick="selectComparison('injuria', this)" aria-pressed="false">Ante la injuria</button>
+            <button type="button" class="btn btn-secondary" onclick="selectComparison('vida', this)" aria-pressed="false">Valor frente a la vida</button>
+          </div>
+        </div>
+
+        <div class="broadsheet-table-wrap">
+          <table class="broadsheet-table" id="comparison-table">
+            <thead>
+              <tr>
+                <th style="width: 19%;">Criterio</th>
+                <th class="col-highlight" style="width: 27%;">Honor verdadero (Parte I)</th>
+                <th style="width: 27%;">Honor caballeresco / fatuo (Parte II)</th>
+                <th style="width: 27%;">Fama / Gloria (Máx. 3 y 5)</th>
+              </tr>
+            </thead>
+            <tbody id="comparison-tbody">
+              <!-- Poblado por JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: LAS CINCO ESPECIES DEL HONOR -->
+    <section id="tipos" class="section-block reveal-section">
+      <div class="section-open">
+        <div class="section-label">03 · Taxonomía social (Máxima 8)</div>
+        <h2>Los cinco ámbitos donde se forma la confianza</h2>
+        <p class="section-sub">
+          Las especies del honor nacen de las distintas esferas en que otros deben depositar confianza en nosotros. Seleccione cada categoría para examinar sus reglas, subtipos y mecanismos de defensa.
+        </p>
+      </div>
+
+      <div class="card-wrapper">
+        <div class="interactive-split">
+          <div class="list-rail" role="tablist" aria-label="Tipos de honor según Schopenhauer">
+            <button type="button" class="rail-btn" role="tab" aria-selected="true" onclick="selectHonorType('civil', this)">
+              <span class="rail-btn-sub">Máxima 8 · Esfera A</span>
+              <span class="rail-btn-title">Honor privado o civil</span>
+            </button>
+            <button type="button" class="rail-btn" role="tab" aria-selected="false" onclick="selectHonorType('publico', this)">
+              <span class="rail-btn-sub">Máxima 8 · Esfera B</span>
+              <span class="rail-btn-title">Honor público o del cargo</span>
+            </button>
+            <button type="button" class="rail-btn" role="tab" aria-selected="false" onclick="selectHonorType('sexual', this)">
+              <span class="rail-btn-sub">Máxima 8 · Esfera C</span>
+              <span class="rail-btn-title">Honor sexual</span>
+            </button>
+            <button type="button" class="rail-btn" role="tab" aria-selected="false" onclick="selectHonorType('nacional', this)">
+              <span class="rail-btn-sub">Máxima 8 · Esfera D</span>
+              <span class="rail-btn-title">Honor nacional</span>
+            </button>
+            <button type="button" class="rail-btn" role="tab" aria-selected="false" onclick="selectHonorType('humanidad', this)">
+              <span class="rail-btn-sub">Máxima 8 · Esfera E</span>
+              <span class="rail-btn-title">Honor de la humanidad</span>
+            </button>
+          </div>
+
+          <div class="detail-pane" id="honor-type-detail" role="tabpanel" aria-live="polite">
+            <!-- Poblado por JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: CRÍTICA AL DUELO Y CONTRASTE HISTÓRICO -->
+    <section id="duelo" class="section-block reveal-section">
+      <div class="section-open">
+        <div class="section-label">04 · Del honor fatuo (Parte II, Máx. 1–6)</div>
+        <h2>Por qué el código caballeresco corona la animalidad</h2>
+        <p class="section-sub">
+          Circunscrito a la Europa cristiana desde la caballería medieval y venerado en particular por asociaciones estudiantiles, este código invierte punto por punto la racionalidad del honor civil.
+        </p>
+      </div>
+
+      <div class="editorial-split" style="margin-bottom: var(--space-xl);">
+        <div class="col-main prose-measure">
+          <p>
+            Schopenhauer desmonta el <em>point d'honneur</em> mediante método analítico ascendente. Primero muestra que en él no importa la opinión real de nadie, sino la <strong>expresión aislada</strong>: basta que alguien se retracte formalmente para que la afrenta desaparezca como por arte de magia, sin indagar si su juicio interior cambió (Parte II, Máxima 1). Segundo, la honra pasa de ser activa a ser <strong>completamente pasiva</strong>: queda en la punta de la lengua del sujeto más ruin o socarrón, o a merced de un golpe físico convertido en superstición suprema (Máxima 2).
+          </p>
+          <p>
+            De ahí nace el mecanismo del <strong><em>avantage</em></strong> y el culto a la grosería (Máximas 3 y 4): si en una conversación alguien demuestra mayor amor a la verdad, conocimiento más riguroso o juicio más ponderado, el ignorante puede «montarse en el caballito de batalla de la divina grosería» y barrer del campo al ingenio, obligando a escalar de la bofetada al bastón, del bastón al látigo y de allí al duelo mortal. En última instancia, la autoridad suprema del código es la <strong>fuerza física</strong>: un residuo del «derecho del más fuerte» (<em>Faust-Recht</em> o «honor del puño») propio de las ordalías medievales (Máxima 5).
+          </p>
+        </div>
+
+        <aside class="col-side">
+          <div class="tag-ink">La analogía del termómetro</div>
+          <blockquote class="pull-quote">
+            «Tratar de obtener con amenazas de violencia física el testimonio de un respeto es como si alguien, abrazando con la mano la esfera de un termómetro, quisiera demostrar que su habitación tiene una agradable temperatura.»
+            <cite>Arthur Schopenhauer, Nota a la Parte II</cite>
+          </blockquote>
+          <p class="stat-meta">
+            <strong>La doble moral financiera (Máxima 6):</strong> el código exige pagar puntualmente las deudas de juego y mantener la fórmula «¡Por mi honor!», pero tolera impunemente faltar a las deudas ordinarias y desollar a acreedores.
+          </p>
+        </aside>
+      </div>
+
+      <!-- Galería Histórica: Antiguos vs Modernos -->
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: var(--space-md); margin-bottom: var(--space-md);">
+        <div>
+          <span class="tag">Evidencia histórica del tratado</span>
+          <h3 style="margin-top: var(--space-xs);">«¡Cuán grandes los antiguos y cuán insignificantes los modernos!»</h3>
+        </div>
+        <div class="btn-row" role="group" aria-label="Filtrar casos históricos">
+          <button type="button" class="btn btn-secondary" onclick="filterCases('todos', this)" aria-pressed="true">Todos los casos (7)</button>
+          <button type="button" class="btn btn-secondary" onclick="filterCases('antiguedad', this)" aria-pressed="false">Antigüedad clásica (6)</button>
+          <button type="button" class="btn btn-secondary" onclick="filterCases('moderno', this)" aria-pressed="false">Farsa moderna (1)</button>
+        </div>
+      </div>
+
+      <div class="case-grid" id="historical-cases-grid">
+        <!-- Poblado por JS -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: LABORATORIO DE DIGNIDAD E INTEGRIDAD FRENTE A INJURIAS -->
+    <section id="laboratorio" class="section-block reveal-section">
+      <div class="section-open">
+        <div class="section-label">05 · Sabiduría práctica aplicada</div>
+        <h2>Laboratorio de dignidad e integridad frente a las injurias ajenas</h2>
+        <p class="section-sub">
+          Explore cómo el tratado transforma las ofensas cotidianas. Primero contraste respuestas ante casos típicos del libro; luego evalúe cualquier incidente mediante sus variables conceptuales.
+        </p>
+      </div>
+
+      <!-- Parte A: Simulador de 5 Escenarios -->
+      <div style="margin-bottom: var(--space-2xl);">
+        <span class="tag">Parte A · Contraste de respuestas</span>
+        <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">Cinco escenarios de conflicto ante la opinión ajena</h3>
+
+        <div class="btn-row" role="group" aria-label="Seleccionar escenario de conflicto" style="margin-bottom: var(--space-md);">
+          <button type="button" class="btn btn-secondary" onclick="selectScenario('insulto', this)" aria-pressed="true">1. Insulto infundado</button>
+          <button type="button" class="btn btn-secondary" onclick="selectScenario('groseria', this)" aria-pressed="false">2. Grosería en debate</button>
+          <button type="button" class="btn btn-secondary" onclick="selectScenario('golpe', this)" aria-pressed="false">3. Agresión o golpe</button>
+          <button type="button" class="btn btn-secondary" onclick="selectScenario('calumnia', this)" aria-pressed="false">4. Calumnia civil / cargo</button>
+          <button type="button" class="btn btn-secondary" onclick="selectScenario('verdad', this)" aria-pressed="false">5. Falta propia real</button>
+        </div>
+
+        <div class="newsprint-panel" id="scenario-context-box" style="margin-bottom: var(--space-md);">
+          <!-- Contexto del escenario -->
+        </div>
+
+        <div class="lab-output-grid" id="scenario-responses-grid" aria-live="polite">
+          <!-- 3 columnas: Código Fatuo | Ira Impulsiva | Sabiduría de Schopenhauer -->
+        </div>
+      </div>
+
+      <!-- Parte B: Evaluador Analítico de Injurias -->
+      <div class="newsprint-panel">
+        <span class="tag-ink">Parte B · Diagnóstico racional</span>
+        <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-xs);">Evaluador del impacto real sobre tu honor y dignidad</h3>
+        <p class="stat-meta" style="margin-bottom: var(--space-md);">
+          Ajuste las tres coordenadas del incidente para determinar dónde recae la mancha moral y cuál es la conducta práctica aconsejada en el tratado.
+        </p>
+
+        <div class="lab-controls">
+          <div class="field-group">
+            <label for="eval-tipo" class="field-label">1. Naturaleza del acto o palabra</label>
+            <select id="eval-tipo" class="select-control" onchange="evaluateInjury()">
+              <option value="insulto_vacio">Insulto genérico o burla tosca sin hechos</option>
+              <option value="calumnia_hechos">Calumnia o acusación falsa sobre hechos concretos</option>
+              <option value="groseria_debate">Grosería para acallar un argumento razonado</option>
+              <option value="agresion_fisica">Amenaza de golpe o violencia física directa</option>
+              <option value="falta_propia">Reproche fundado en una falta cometida por mí</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="eval-ambito" class="field-label">2. Ámbito o esfera implicada</label>
+            <select id="eval-ambito" class="select-control" onchange="evaluateInjury()">
+              <option value="cotidiano">Convivencia cotidiana y trato social</option>
+              <option value="civil">Honor civil, comercial o profesional</option>
+              <option value="cargo">Honor público o ejercicio de un cargo</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="eval-emisor" class="field-label">3. Disposición del emisor</label>
+            <select id="eval-emisor" class="select-control" onchange="evaluateInjury()">
+              <option value="tosco">Persona iracunda o vulgar (como la vendedora del mercado)</option>
+              <option value="sofista">Contendiente sin argumentos que busca ventaja</option>
+              <option value="difamador">Tercero que busca dañar tu crédito ante el público</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="evaluator-result" aria-live="polite" style="margin-top: var(--space-lg); border-top: var(--rule-ink); padding-top: var(--space-md);">
+          <!-- Poblado por JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 6: PRONTUARIO DE LAS 14 MÁXIMAS -->
+    <section id="maximas" class="section-block reveal-section">
+      <div class="section-open">
+        <div class="section-label">06 · Prontuario completo</div>
+        <h2>Las 14 máximas del tratado</h2>
+        <p class="section-sub">
+          Busque conceptos clave o filtre por bloque para recorrer la arquitectura completa del manuscrito de 1828, desde el Prefacio hasta el Epílogo.
+        </p>
+      </div>
+
+      <div class="maxim-toolbar">
+        <div class="field-group">
+          <label for="maxim-search" class="field-label">Buscar en máximas y conceptos</label>
+          <input type="search" id="maxim-search" class="input-control" placeholder="Ej.: duelo, fama, calumnia, grosería, cargo, Sócrates…" oninput="renderMaxims()">
+        </div>
+
+        <div class="btn-row" role="group" aria-label="Filtrar máximas por parte">
+          <button type="button" class="btn btn-secondary" onclick="setMaximFilter('todas', this)" aria-pressed="true">Todas (14)</button>
+          <button type="button" class="btn btn-secondary" onclick="setMaximFilter('parte1', this)" aria-pressed="false">Parte I: Verdad (1–8)</button>
+          <button type="button" class="btn btn-secondary" onclick="setMaximFilter('parte2', this)" aria-pressed="false">Parte II: Fatuo (1–6)</button>
+        </div>
+      </div>
+
+      <div id="maxim-count" class="label-caps" style="margin-top: var(--space-md); color: var(--on-surface-variant);"></div>
+      <div class="maxim-list" id="maxim-list">
+        <!-- Poblado por JS -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN 7: PREGUNTAS FRECUENTES (EPÍLOGO) Y AUTOEVALUACIÓN -->
+    <section id="faq" class="section-block reveal-section">
+      <div class="section-open">
+        <div class="section-label">07 · Objeciones del Epílogo y comprobación</div>
+        <h2>Preguntas frecuentes y autoevaluación</h2>
+        <p class="section-sub">
+          En el Epílogo, Schopenhauer refuta las excusas habituales con que se defiende el código caballeresco. Examine sus respuestas y ponga a prueba su comprensión del tratado.
+        </p>
+      </div>
+
+      <div class="editorial-split">
+        <div class="col-main">
+          <h3 style="margin-bottom: var(--space-md);">Objeciones respondidas en el tratado</h3>
+
+          <details class="editorial-detail" open>
+            <summary>
+              <span>¿No es el honor caballeresco un «mal necesario» para conservar las buenas costumbres?</span>
+              <span class="summary-marker">Epílogo</span>
+            </summary>
+            <div class="detail-body">
+              <p>
+                Schopenhauer lo niega rotundamente. Si perdiera vigencia el código del duelo y nadie pudiera quitarle a otro su honor mediante un insulto, cualquiera comprendería al instante que su grosería o injusticia solo menoscaba <em>su propio</em> honor verdadero. Entonces todos se cuidarían tanto de insultar como hoy se cuidan de ser insultados. Solo bajo esa condición nacería el verdadero <em>bon ton</em>: el primado de la inteligencia y la razón sobre la fuerza bruta, tal como existió en la sociedad refinada de Atenas, Corinto y Roma.
+              </p>
+            </div>
+          </details>
+
+          <details class="editorial-detail">
+            <summary>
+              <span>¿No es natural en hombres y animales responder de manera agresiva a toda agresión?</span>
+              <span class="summary-marker">Epílogo</span>
+            </summary>
+            <div class="detail-body">
+              <p>
+                Hasta cierto punto, sí: los insultos generan insultos mayores y los golpes, golpes más fuertes; eso pertenece a la ira y a la naturaleza animal, como en el pueblo llano alemán (donde el homicidio es cien veces más raro que en los estamentos superiores). Lo absurdo e innatural es pretender que «a una bofetada se responda con una puñalada» como deber de honor. El hombre verdaderamente culto reprime a la «chusma» interior (el <em>ὄχλος</em> del símil de Proclo), no desciende a la arena de la fuerza bruta y enfrenta la violencia física solo como cuestión de conveniencia y autodefensa, jamás de honor.
+              </p>
+            </div>
+          </details>
+
+          <details class="editorial-detail">
+            <summary>
+              <span>¿Por qué el código considera un golpe más atroz que la muerte o la condena eterna?</span>
+              <span class="summary-marker">Parte II · Máx. 2</span>
+            </summary>
+            <div class="detail-body">
+              <p>
+                Tras buscar en vano una explicación racional o psicológica —observando que el mismo caballero tolera sin escándalo una coz diez veces más fuerte de su caballo, recibe estocadas en batalla como nimiedades o distingue entre la vaina de una espada y un bastón, mientras en China el bambú es sanción civil común—, Schopenhauer concluye que se trata de una antigua y burda superstición, equiparable a temer trece comensales a la mesa o una liebre que cruza el camino.
+              </p>
+            </div>
+          </details>
+
+          <details class="editorial-detail">
+            <summary>
+              <span>¿Puede recuperarse el honor verdadero una vez que se ha perdido?</span>
+              <span class="summary-marker">Parte I · Máx. 7</span>
+            </summary>
+            <div class="detail-body">
+              <p>
+                En rigor, no. El honor descansa en la suposición de que el carácter de las personas no cambia (por eso en inglés <em>character</em> significa reputación u honor), como expresan Shakespeare en <em>Otelo</em> y Boileau al compararlo con una «isla escarpada y sin accesos». Solo es posible restituirlo cuando la pérdida fue meramente aparente —originada en calumnia o engaño, refutada luego formalmente—, o mediante un cambio aparente de atmósfera general o de nombre.
+              </p>
+            </div>
+          </details>
+
+          <details class="editorial-detail">
+            <summary>
+              <span>¿Qué valor real tienen los títulos, cargos honoríficos y condecoraciones?</span>
+              <span class="summary-marker">Parte I · Máx. 8b</span>
+            </summary>
+            <div class="detail-body">
+              <p>
+                Son al honor genuino lo que los billetes de papel son al dinero acuñado en metales preciosos, o como letras de cambio endosadas a la opinión general: ahorran la molestia de contar, pero su autenticidad depende por completo del crédito moral de la autoridad que los emite. El honor sigue residiendo siempre en la opinión misma, no en su signo exterior.
+              </p>
+            </div>
+          </details>
+        </div>
+
+        <div class="col-side">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-sm); margin-bottom: var(--space-md);">
+            <h3 style="margin: 0;">Comprobación de lectura</h3>
+            <span id="quiz-score-badge" class="tag">0 / 5 aciertos</span>
+          </div>
+          <div id="quiz-container">
+            <!-- Poblado por JS -->
+          </div>
+          <div style="margin-top: var(--space-md); display: flex; justify-content: space-between; align-items: center; gap: var(--space-sm);">
+            <button type="button" class="btn btn-secondary" id="quiz-reset-btn" onclick="resetQuiz(this)">Reiniciar test</button>
+            <span id="quiz-status-msg" class="stat-meta" aria-live="polite"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="colophon">
+    <div>
+      <strong>Fuente exclusiva:</strong> Arthur Schopenhauer, <em>El arte de hacerse respetar. Expuesto en 14 máximas</em> (<em>Tratado sobre el honor</em>, manuscrito <em>Adversaria</em> § 69, Berlín, 1828). Edición, introducción y notas de Franco Volpi; traducción de Fabio Morales.
+    </div>
+    <div class="label-caps" style="color: var(--on-surface-variant);">
+      La razón terminará siempre por tener razón
+    </div>
+  </footer>
+</div>
+
+<script>
+const COMPARISON_ROWS = [
+  {
+    id: `origen`,
+    criterio: `Definición y sede`,
+    verdadero: `Opinión general de personas calificadas acerca de nuestro valor en una esfera dada; reside en el juicio ajeno fundado en hechos.`,
+    fatuo: `No reside en la opinión real, sino en expresiones verbales aisladas («expresiones de menosprecio») que basta retractar formalmente para anularlas.`,
+    fama: `Opinión de mérito extraordinario por acciones heroicas o por obras teóricas imperecederas (ej. los Vedas).`
+  },
+  {
+    id: `origen`,
+    criterio: `Raíz: actividad o pasividad`,
+    verdadero: `Sumamente activo (τῶν ἐφ' ἡμῖν): depende de lo que hacemos u omitimos. Cada cual es el forjador de su propio honor.`,
+    fatuo: `Pasivo en grado extremo: depende de lo que otro haga o diga; queda en la punta de la lengua de cualquiera.`,
+    fama: `Debe conquistarse primero mediante logros específicos que sobresalen por encima de la norma del género.`
+  },
+  {
+    id: `origen`,
+    criterio: `Carácter lógico`,
+    verdadero: `Carácter negativo: se presupone por defecto e indica simplemente que no somos una excepción censurable dentro de nuestra clase.`,
+    fatuo: `Carácter arbitrario y convencional: restringido a la Europa cristiana desde la caballería medieval y a ciertas clases sociales.`,
+    fama: `Carácter positivo: indica que somos excepcionales. Quien carece de fama no la perdió, simplemente nunca la adquirió.`
+  },
+  {
+    id: `injuria`,
+    criterio: `Efecto de un insulto o golpe`,
+    verdadero: `Un insulto o golpe solo deshonra a quien lo profiere o ejecuta; la calumnia es descubierta a la larga por el público.`,
+    fatuo: `Un golpe es visto como el summum malum, peor que la muerte; toda afrenta exige escalada de grosería (avantage) o sangre.`,
+    fama: `Las obras bien asentadas resisten la incomprensión o envidia coetánea y aguardan el juicio imparcial de la posteridad (Séneca).`
+  },
+  {
+    id: `injuria`,
+    criterio: `Restitución y defensa`,
+    verdadero: `Si se perdió de veras, no se recupera (presupone carácter inmutable); si fue por calumnia, se restituye refutando el engaño.`,
+    fatuo: `Panacea única: el duelo, o matar de una estocada si el ofensor no pertenece al estamento; el insulto queda borrado por retractación.`,
+    fama: `La gloria sigue a la virtud como su sombra; los datos de las obras permanecen firmes aunque los coetáneos guarden silencio.`
+  },
+  {
+    id: `vida`,
+    criterio: `Relación con la ley y la vida`,
+    verdadero: `Apoyado por las leyes del Estado contra injurias y difamación. Es un medio para vivir bien, jamás superior a la vida.`,
+    fatuo: `Combatido por las leyes de los Estados, aunque sin éxito porque quienes juegan con su vida confunden el medio con el fin.`,
+    fama: `Las obras trascienden la existencia individual; las hazañas requieren testigos presenciales casi siempre parciales.`
+  }
+];
+
+const HONOR_TYPES = {
+  civil: {
+    label: `Máxima 8a · Esfera de lo mío y lo tuyo`,
+    title: `Honor privado o civil`,
+    summary: `Consiste en la opinión general de que un hombre es completamente probo: respeta los derechos ajenos, no acude jamás a estafas o chantajes para lucrarse, cumple la palabra dada y respeta la ley.`,
+    subtipos: `Honor comercial (honrar letras de cambio a la fecha y hora, atender reclamos justificados, moderar el afán de lucro y evitar triquiñuelas); honor de cada profesión, oficio manual y de una compañía mercantil.`,
+    perdida: `Basta actuar en sentido contrario una sola vez o recibir una sanción legal para que el honor civil se desvanezca; la calumnia o el reproche público lo mancillan.`,
+    defensa: `Si alguien es difamado, debe enfrentar los ataques refutándolos ante los tribunales o fuera de ellos e insistir en investigar el asunto hasta las últimas consecuencias. Lo que salva el honor es la reivindicación formal, no el mero castigo del difamador.`
+  },
+  publico: {
+    label: `Máxima 8b · Cumplimiento de compromisos públicos`,
+    title: `Honor público o del cargo (Amtsehre)`,
+    summary: `Es la opinión general de que quien ocupa un cargo posee las capacidades intelectuales y las cualidades morales exigidas, y cumple puntualmente todas sus obligaciones.`,
+    subtipos: `Honor del funcionario, médico, abogado, maestro, licenciado y toda persona acreditada oficialmente para una tarea intelectual. Incluye el honor militar auténtico: resistencia, valentía, fuerza y resolución de no abandonar jamás la bandera jurada.`,
+    perdida: `Aumenta con la jerarquía e influencia en el Estado. Títulos y condecoraciones son como billetes de papel frente al metal precioso: su valor depende del crédito de quien los emite. Lo contrario es la degradación o proscripción, aunque estas a veces no arrebaten el honor real.`,
+    defensa: `Proteger la dignidad del cargo en beneficio de colegas y sucesores mediante el cumplimiento fiel del deber y procediendo legalmente contra ataques injustos que imputen negligencia o abuso público.`
+  },
+  sexual: {
+    label: `Máxima 8c · Relación entre los sexos`,
+    title: `Honor sexual (femenino y masculino)`,
+    summary: `Schopenhauer lo explica como un esprit de corps nacido de un cálculo social: en la mujer soltera, no haberse entregado a ningún hombre; en la casada, solo al esposo. En el hombre, no tolerar a sabiendas la infidelidad conyugal.`,
+    subtipos: `Honor femenino (cohesión de género para obligar al matrimonio como «capitulación» que asegura el cuidado compartido) y honor masculino (vigilancia del pactum, tema ilustrado en El médico de su honra de Calderón).`,
+    perdida: `La mujer adúltera pierde tanto el honor sexual como el civil por faltar a la palabra pactada. En el hombre, el oprobio proviene de tolerar conscientemente la infidelidad (pasividad ante la ruptura del pacto).`,
+    defensa: `Schopenhauer advierte que este honor posee valor relativo y convencional —no absoluto ni superior a la vida—: rechaza los extremos sangrientos de Virginio o Lucrecia y señala el infanticidio como prueba de su origen artificial.`
+  },
+  nacional: {
+    label: `Máxima 8d · Comunidad internacional`,
+    title: `Honor nacional`,
+    summary: `Es el honor de todo un pueblo considerado como un individuo dentro de la gran comunidad de las naciones.`,
+    subtipos: `No posee subgéneros internos distintos, sino una doble naturaleza híbrida: combina principios propios del honor privado o civil (cumplimiento de pactos) con rasgos del honor caballeresco.`,
+    perdida: `Se ve comprometido cuando un Estado falta a sus compromisos internacionales o tolera agravios en un escenario carente de tribunales superiores.`,
+    defensa: `Su existencia entre los Estados se justifica por el hecho práctico de que estos no cuentan con ninguna otra instancia de protección jurídica por encima de sí mismos.`
+  },
+  humanidad: {
+    label: `Máxima 8e · Juicio ante la especie`,
+    title: `Honor de la humanidad`,
+    summary: `La opinión que se formaría sobre la especie humana un observador imaginario situado fuera de ella que la juzgase por las acciones de sus individuos.`,
+    subtipos: `Abarca las grandes infamias históricas cometidas por los hombres contra la razón y la justicia moral: la ejecución de Sócrates, la crucifixión de Cristo, el asesinato de Enrique IV, la Inquisición y la trata de esclavos.`,
+    perdida: `Mientras las manchas de cualquier honor individual se borran con la muerte y el paso del tiempo, las manchas contra el honor de la humanidad permanecen imborrables para siempre.`,
+    defensa: `Exige vigilancia crítica y juicio moral constante frente al oscurantismo y al conservadurismo, para consolidar los derechos de la razón en la sociedad.`
+  }
+};
+
+const HISTORICAL_CASES = [
+  {
+    era: `antiguedad`,
+    eraLabel: `Antigüedad · Roma`,
+    title: `Cayo Mario ante el desafío de un príncipe teutón`,
+    source: `Suplementos de Freinsheim a Tito Livio, LXVIII, 12`,
+    body: `Desafiado a duelo singular, Mario mandó decir al príncipe que «si estaba cansado de vivir, era mejor que se ahorcase», y le ofreció un pequeño y demacrado gladiador para que batallara con él.`
+  },
+  {
+    era: `antiguedad`,
+    eraLabel: `Antigüedad · Grecia`,
+    title: `Temístocles frente al bastón de Euribíades`,
+    source: `Plutarco, Vida de Temístocles`,
+    body: `Acalorado el consejo de guerra, Euribíades alzó el bastón para golpearlo. En vez de empuñar el puñal, Temístocles respondió: «Golpéame, pero escúchame». Ningún oficial lo consideró deshonrado.`
+  },
+  {
+    era: `antiguedad`,
+    eraLabel: `Antigüedad · Atenas`,
+    title: `Sócrates ante una patada y ante un insulto`,
+    source: `Diógenes Laercio, Vida de los filósofos, II, 21 y 36`,
+    body: `Pateado por alguien harto de sus moralejas, preguntó impasible: «Si un asno me hubiera golpeado, ¿lo demandaría yo?». Y ante el aviso de que alguien lo afrentaba: «No, pues lo que él dice no se aplica a mí».`
+  },
+  {
+    era: `antiguedad`,
+    eraLabel: `Antigüedad · Cínicos`,
+    title: `Crates de Tebas y la tablilla en la frente`,
+    source: `Diógenes Laercio, VI, 89`,
+    body: `Abofeteado por el músico Nicódromo hasta sangrarle el rostro, Crates ató a su frente una tablilla con la firma del agresor —«Nicodromos fecit»— para exhibir ante todos la brutalidad del músico.`
+  },
+  {
+    era: `antiguedad`,
+    eraLabel: `Antigüedad · Cínicos`,
+    title: `Diógenes de Sinope en su carta a Melesipo`,
+    source: `Notas de Isaac Casaubon a Diógenes Laercio, VI, 33`,
+    body: `Tras recibir una paliza de jóvenes ebrios en un banquete, escribió: «Aunque el cuerpo de Diógenes haya sido golpeado por borrachos, su virtud no ha sido vulnerada; pues no se pueden recibir honores u ofensas de los malos».`
+  },
+  {
+    era: `antiguedad`,
+    eraLabel: `Tradición clásica e italiana`,
+    title: `Vincenzo Monti sobre el retorno de las injurias`,
+    source: `Citado por Schopenhauer al cierre de la Parte II`,
+    body: `En plena sintonía con los antiguos, Monti observó que las injurias son como las procesiones religiosas: regresan siempre a su punto de partida, deshonrando únicamente a quien las profirió.`
+  },
+  {
+    era: `moderno`,
+    eraLabel: `Farsa moderna · Ilustración`,
+    title: `Desglands y el parche negro en la mejilla`,
+    source: `Denis Diderot, Jacques le Fataliste et son maître`,
+    body: `Por celos en la mesa, Desglands estruja un huevo fresco sobre el rostro de su rival y susurra: «Me doy por enterado». Lleva un gran parche negro que va achicando tras cinco o seis duelos sucesivos hasta dar muerte a su contrincante.`
+  }
+];
+
+const SCENARIOS = {
+  insulto: {
+    tag: `Escenario 1 · Parte I, Máx. 6 y Parte II, Máx. 1`,
+    title: `Un conocido o desconocido te insulta públicamente sin fundamento`,
+    desc: `Alguien intenta atribuirte en voz alta una cualidad negativa falsa o proferir palabras soeces para rebajarte ante terceros.`,
+    fatuo: `Considera la frase como decreto objetivo válido hasta ser lavado con sangre, o exige una retractación formal mecánica sin importar lo que el otro piense realmente.`,
+    ira: `Responde con un insulto aún mayor buscando el «avantage», rebajándose al mismo nivel tosco del agresor y prolongando un altercado estéril.`,
+    schopenhauer: `Recuerda a Sócrates («lo que él dice no se aplica a mí») y a la vendedora del mercado: las injurias vuelven al punto de partida. Si no afecta hechos concretos ante tu círculo, el silencio magnánimo o la risa acrecienta tu honor y deja en evidencia al autor.`
+  },
+  groseria: {
+    tag: `Escenario 2 · Parte II, Máxima 4 y Epílogo`,
+    title: `En una discusión razonada, tu interlocutor responde con grosería`,
+    desc: `Has aportado datos rigurosos o un argumento sólido, y el oponente —falto de razones— recurre al tono agresivo y descortés para imponerse.`,
+    fatuo: `Declara vencida a la verdad por la «divina grosería»: si no replicaras con una grosería mayor, quedarías supuestamente deshonrado y en desventaja.`,
+    ira: `Entra en la liza de Demóstenes, donde el que cede a la provocación pierde su serenidad y permite que la disputa intelectual degenere en pelea.`,
+    schopenhauer: `Identifica la maniobra: toda grosería es una apelación a la animalidad (μετάβασις εἰς ἄλλο γένος). Quien gobierna a su «chusma interior» (Proclo) no conoce otra contienda que la de los argumentos y se retira sin bajar a la arena bruta.`
+  },
+  golpe: {
+    tag: `Escenario 3 · Parte II, Máxima 2 (nota) y Epílogo`,
+    title: `Sufres una agresión física o el amago de un golpe`,
+    desc: `Alguien intenta agredirte físicamente o te propina un golpe durante un altercado.`,
+    fatuo: `Eleva el golpe a summum malum, peor que la muerte y la condena eterna, exigiendo nada menos que un homicidio o duelo para «limpiar» una mancha ficticia.`,
+    ira: `Confunde la legítima defensa con un deber de honor y responde a una bofetada con un arma mortal, poniendo en riesgo vida, libertad y bienes.`,
+    schopenhauer: `Un golpe solo prueba que el agresor es más fuerte, más ágil o te tomó por sorpresa (como la coz de un caballo). Se repele la agresión física con la fuerza o previsión necesarias por pura conveniencia y autodefensa, jamás como cuestión de honor.`
+  },
+  calumnia: {
+    tag: `Escenario 4 · Parte I, Máximas 3, 7 y 8a-b`,
+    title: `Difunden una calumnia sobre hechos concretos de tu profesión o cargo`,
+    desc: `Circula la falsa acusación de que incumpliste un contrato, defraudaste bienes o descuidaste tus deberes públicos.`,
+    fatuo: `Desafía a duelo al difamador o recurre a amenazas físicas para acallarlo, lo cual nada prueba sobre la falsedad o veracidad de los hechos imputados.`,
+    ira: `Se limita a desahogarse con improperios privados sin aportar pruebas ni reclamar verificación formal ante los jueces competentes.`,
+    schopenhauer: `Aquí el círculo competente juzga por datos, y los datos han sido tergiversados. Exige investigar el caso hasta sus últimas consecuencias ante los tribunales o fuera de ellos: solo la reivindicación formal con pruebas restituye la opinión justa.`
+  },
+  verdad: {
+    tag: `Escenario 5 · Parte I, Máximas 3, 6 y 7`,
+    title: `El reproche ajeno señala una falta o engaño que realmente cometiste`,
+    desc: `Se descubre públicamente una violación real de la palabra dada, una estafa o un incumplimiento del deber propio.`,
+    fatuo: `Pretende cubrir la falta desafiando a quien se atrevió a mencionarla, sacrificando aún más el valor propio en aras de una apariencia intimidatoria.`,
+    ira: `Niega obstinadamente los hechos y ataca al mensajero para eludir la responsabilidad ante el público.`,
+    schopenhauer: `No hay atajo externo ni duelo que devuelva el honor perdido por actos propios, pues el honor verdadero hunde sus raíces en nuestra conducta. Reconoce que el daño nació de ti mismo y mantente fiel a la rectitud en el futuro.`
+  }
+};
+
+const MAXIMS = [
+  {
+    part: `parte1`,
+    num: `Parte I · Máxima 1`,
+    title: `El honor como opinión calificada`,
+    summary: `Es la opinión general de quienes saben algo de nosotros y están calificados para juzgar nuestro valor en un aspecto digno de consideración.`,
+    detail: `Schopenhauer denomina al honor «el representante de nuestro valor ante los pensamientos ajenos». Cada aspecto digno de consideración en que los demás evalúan nuestra valía determina una especie distinta del honor.`
+  },
+  {
+    part: `parte1`,
+    num: `Parte I · Máxima 2`,
+    title: `Valor meramente relativo de la opinión ajena`,
+    summary: `Los pensamientos en cabezas ajenas carecen de valor intrínseco; solo importan porque determinan cómo actúan los demás hacia nosotros.`,
+    detail: `En la sociedad civilizada dependemos de los demás en todas nuestras empresas y necesitamos su confianza previa. Por ello, «bonne renommée vaut mieux que ceinture dorée» (el buen nombre vale más que la bolsa llena de oro).`
+  },
+  {
+    part: `parte1`,
+    num: `Parte I · Máxima 3`,
+    title: `Naturaleza aparente frente a naturaleza verdadera`,
+    summary: `En primera instancia decide lo que parecemos (Gracián); solo cuando coincide con lo que somos existe el verdadero honor.`,
+    detail: `Se puede perder el honor sin perder el valor propio (casos de José ante la mujer de Putifar y de Hipólito ante Fedra), o cometer crímenes para salvar la apariencia. Sin embargo, como el círculo cercano juzga actos cotidianos, la falsa apariencia rara vez engaña a todos por largo tiempo.`
+  },
+  {
+    part: `parte1`,
+    num: `Parte I · Máxima 4`,
+    title: `La vida es el fin; el honor, solo un medio`,
+    summary: `Es falsa la frase altisonante de que «el honor vale más que la vida», pues el medio nunca supera al fin.`,
+    detail: `La vida es la condición de todo bienestar y la muerte el límite de todo mal. Además, la vida perdida no se recupera, mientras una honra mancillada por engaño puede restituirse. Quienes sacrifican su vida por el honor olvidan el fin por obsesionarse con los medios.`
+  },
+  {
+    part: `parte1`,
+    num: `Parte I · Máxima 5`,
+    title: `Carácter negativo del honor frente a la fama`,
+    summary: `El honor se presupone y expresa que no somos una excepción censurable; la fama es positiva y exige méritos excepcionales.`,
+    detail: `Quien no tiene fama es porque jamás la conquistó mediante acciones u obras notables; quien no tiene honor es porque lo perdió por sus actos. El honor implica más preceptos negativos (lo que nos abstenemos de hacer) que positivos.`
+  },
+  {
+    part: `parte1`,
+    num: `Parte I · Máxima 6`,
+    title: `Raíz activa y el «Argos de cien ojos»`,
+    summary: `Aunque negativo, el honor es sumamente activo: brota de nuestras acciones y omisiones (τῶν ἐφ' ἡμῖν), no de lo que nos sucede.`,
+    detail: `Nadie salvo la calumnia puede arrebatárnoslo, y el público —un Argos de cien ojos— acaba desenmascarando tanto la calumnia como la hipocresía. Por eso el medio más seguro para conservar el honor es ser digno de él mediante verdadera rectitud.`
+  },
+  {
+    part: `parte1`,
+    num: `Parte I · Máxima 7`,
+    title: `Permanencia del carácter e irrecuperabilidad`,
+    summary: `El honor presupone que las personas no cambian; por ello, una vez perdido de verdad, no puede recuperarse.`,
+    detail: `Citando a Shakespeare (Otelo) y a Boileau (la isla escarpada sin accesos), explica que solo se restablece una pérdida aparente causada por difamación o error cuando se revela el engaño. También cabe perder un género de honor (ej. del cargo) y conservar otro (civil).`
+  },
+  {
+    part: `parte1`,
+    num: `Parte I · Máxima 8`,
+    title: `Los cinco géneros del honor`,
+    summary: `Nacen de las esferas de confianza humana: privado o civil, público o del cargo, sexual (femenino y masculino), nacional y de la humanidad.`,
+    detail: `Cada esfera fija deberes concretos: probidad e integridad mercantil en el civil; aptitud y puntualidad en el cargo; esprit de corps y fidelidad al pacto conyugal en el sexual; protección interestatal en el nacional; y dignidad moral permanente en el de la humanidad.`
+  },
+  {
+    part: `parte2`,
+    num: `Parte II · Máxima 1`,
+    title: `Contra 1: solo cuentan las expresiones`,
+    summary: `En el honor caballeresco no importa la opinión real que los demás tengan de nosotros, sino únicamente sus palabras expresadas en voz alta.`,
+    detail: `Pueden despreciarnos en silencio cuanto quieran sin dañar este supuesto honor; pero basta una palabra infundada de desprecio para mancharlo, así como basta una retractación formal para anular la ofensa sin investigar si la opinión cambió.`
+  },
+  {
+    part: `parte2`,
+    num: `Parte II · Máxima 2`,
+    title: `Contra 6: honra pasiva y superstición del golpe`,
+    summary: `No depende de lo que el hombre hace, sino de lo que padece a manos —o en la punta de la lengua— de cualquiera.`,
+    detail: `Incluso el sujeto más ruin puede destruir la honra de un hombre íntegro con un insulto. El código eleva un golpe a summum malum peor que la muerte, exigiendo sangre u homicidio, pese a ser una superstición burda comparable a temer al número trece.`
+  },
+  {
+    part: `parte2`,
+    num: `Parte II · Máxima 3`,
+    title: `Contra 7: el duelo y el paliativo del avantage`,
+    summary: `Cuando es vulnerado, este honor no indaga verdades: se restaura mediante el duelo o mediante la escalada del avantage.`,
+    detail: `Si el agresor no pertenece al código, se pretende restaurar la honra matándolo de una estocada o aplicando el avantage: responder a una grosería con otra mayor, a la bofetada con el bastón, al bastón con el látigo e incluso con escupitajos.`
+  },
+  {
+    part: `parte2`,
+    num: `Parte II · Máxima 4`,
+    title: `La grosería que anula toda superioridad`,
+    summary: `La grosería sustituye y vence en este código a la verdad, al conocimiento, al espíritu y a cualquier ventaja intelectual.`,
+    detail: `Cada vez que alguien muestra en una conversación mayor acierto o ingenio, basta montarse en el «caballito de batalla» de la divina grosería para neutralizar sus argumentos y quedar, según el code, del lado del honor.`
+  },
+  {
+    part: `parte2`,
+    num: `Parte II · Máxima 5`,
+    title: `La animalidad como autoridad suprema`,
+    summary: `El alma de todo el código es el recurso a la superioridad física, ramificación del «derecho del más fuerte» (Faust-Recht).`,
+    detail: `Toda grosería declara sin lugar el derecho moral y la razón, sustituyéndolos por la fuerza bruta armada con instrumentos (el «tool-making animal» de Franklin, citado como Locke por Schopenhauer): un residuo medieval de las ordalías y juicios de Dios.`
+  },
+  {
+    part: `parte2`,
+    num: `Parte II · Máxima 6`,
+    title: `Tolerancia con las deudas comunes y rigor en el juego`,
+    summary: `A diferencia del honor civil, solo prohíbe faltar a la palabra «¡Por mi honor!» y a las deudas de juego.`,
+    detail: `Con otras deudas ordinarias y promesas corrientes el código exhibe una tolerancia magnánima: se puede desollar a acreedores sin que ello afecte al honor caballeresco, e incluso salvar la palabra traicionada retando a duelo a quien lo señale.`
+  }
+];
+
+const QUIZ_DATA = [
+  {
+    q: `1. Según la Máxima 5 de la Parte I, ¿qué distingue principalmente al honor verdadero de la fama?`,
+    options: [
+      `El honor es negativo (no ser excepción censurable); la fama es positiva (mérito excepcional).`,
+      `El honor depende de la fuerza física y la fama de las leyes civiles.`,
+      `El honor solo pertenece a los cargos públicos y la fama a los militares.`
+    ],
+    correct: 0,
+    explain: `Exacto. En la Máxima 5, Schopenhauer establece que el honor se da por sobreentendido (carácter negativo), mientras la fama exige conquistarse por acciones u obras extraordinarias.`
+  },
+  {
+    q: `2. En la Máxima 8b, ¿con qué compara Schopenhauer los títulos, cargos honoríficos y condecoraciones?`,
+    options: [
+      `Con las estocadas del juicio de Dios medieval.`,
+      `Con billetes de papel o letras de cambio respecto al dinero acuñado en metal precioso.`,
+      `Con el Argos de cien ojos que todo lo vigila.`
+    ],
+    correct: 1,
+    explain: `Correcto. Son «billetes de papel» cuyo valor real depende del crédito de la autoridad emisora; el honor genuino sigue residiendo siempre en la opinión misma.`
+  },
+  {
+    q: `3. ¿Qué ejemplo clásico cita Schopenhauer de Plutarco para demostrar que los antiguos desconocían la superstición del golpe?`,
+    options: [
+      `Desglands estrujando un huevo fresco en la mesa.`,
+      `Temístocles diciendo a Euribíades: «Golpéame, pero escúchame».`,
+      `Marco Claudio Marcelo fundando un tribunal de duelos.`
+    ],
+    correct: 1,
+    explain: `Exacto. Temístocles ante el bastón alzado de Euribíades, junto a los casos de Mario, Sócrates, Crates y Diógenes, demuestra que los antiguos no asociaban un golpe recibido con la pérdida del honor.`
+  },
+  {
+    q: `4. ¿Qué constituye, según la Máxima 5 de la Parte II, el alma y fundamento último del honor caballeresco?`,
+    options: [
+      `La superioridad intelectual y el bon ton de Atenas.`,
+      `El respeto escrupuloso a todas las deudas comerciales.`,
+      `La superioridad física y la animalidad («derecho del puño» o Faust-Recht).`
+    ],
+    correct: 2,
+    explain: `Así es. Toda grosería y el duelo mismo apelan en última instancia a la fuerza física bruta, heredada de las ordalías medievales.`
+  },
+  {
+    q: `5. En el Epílogo, ¿qué ocurriría en la sociedad si desapareciera el código del honor caballeresco?`,
+    options: [
+      `Todos se cuidarían de insultar, comprendiendo que la grosería solo daña el propio honor.`,
+      `Desaparecerían por completo las leyes civiles contra la difamación.`,
+      `Aumentarían los homicidios en el pueblo llano.`
+    ],
+    correct: 0,
+    explain: `Correcto. Al volver el honor a manos de cada cual (aspecto activo), nadie podría manchar a otro con insultos y reinaría el verdadero bon ton fundado en la razón.`
+  }
+];
+
+let currentCompFilter = `all`;
+let currentCaseFilter = `todos`;
+let currentMaximFilter = `todas`;
+const quizAnswers = {};
+
+function selectComparison(filter, btn) {
+  currentCompFilter = filter;
+  if (btn && btn.parentElement) {
+    const buttons = btn.parentElement.querySelectorAll(`button`);
+    buttons.forEach(function (b) { b.setAttribute(`aria-pressed`, `false`); });
+    btn.setAttribute(`aria-pressed`, `true`);
+  }
+  renderComparison();
+}
+
+function renderComparison() {
+  const tbody = document.getElementById(`comparison-tbody`);
+  if (!tbody) return;
+  const rows = COMPARISON_ROWS.filter(function (r) {
+    return currentCompFilter === `all` || r.id === currentCompFilter;
+  });
+  tbody.innerHTML = rows.map(function (r) {
+    return `
+      <tr>
+        <td><strong>${r.criterio}</strong></td>
+        <td>${r.verdadero}</td>
+        <td>${r.fatuo}</td>
+        <td>${r.fama}</td>
+      </tr>
+    `;
+  }).join(``);
+}
+
+function selectHonorType(key, btn) {
+  if (btn && btn.parentElement) {
+    const tabs = btn.parentElement.querySelectorAll(`[role="tab"]`);
+    tabs.forEach(function (t) { t.setAttribute(`aria-selected`, `false`); });
+    btn.setAttribute(`aria-selected`, `true`);
+  }
+  renderHonorType(key);
+}
+
+function renderHonorType(key) {
+  const container = document.getElementById(`honor-type-detail`);
+  const data = HONOR_TYPES[key];
+  if (!container || !data) return;
+  container.innerHTML = `
+    <div class="tag">${data.label}</div>
+    <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">${data.title}</h3>
+    <p>${data.summary}</p>
+    <div class="detail-meta-row">
+      <div>
+        <div class="tag-ink" style="margin-bottom: var(--space-xs);">Subtipos y alcance</div>
+        <p style="font-size: 0.96rem;">${data.subtipos}</p>
+      </div>
+      <div>
+        <div class="tag-ink" style="margin-bottom: var(--space-xs);">Pérdida y vulneración</div>
+        <p style="font-size: 0.96rem;">${data.perdida}</p>
+      </div>
+    </div>
+    <div>
+      <div class="tag" style="margin-bottom: var(--space-xs);">Criterio práctico y defensa racional</div>
+      <p style="font-size: 0.98rem;">${data.defensa}</p>
+    </div>
+  `;
+}
+
+function filterCases(filter, btn) {
+  currentCaseFilter = filter;
+  if (btn && btn.parentElement) {
+    const buttons = btn.parentElement.querySelectorAll(`button`);
+    buttons.forEach(function (b) { b.setAttribute(`aria-pressed`, `false`); });
+    btn.setAttribute(`aria-pressed`, `true`);
+  }
+  renderHistoricalCases();
+}
+
+function renderHistoricalCases() {
+  const grid = document.getElementById(`historical-cases-grid`);
+  if (!grid) return;
+  const items = HISTORICAL_CASES.filter(function (item) {
+    return currentCaseFilter === `todos` || item.era === currentCaseFilter;
+  });
+  grid.innerHTML = items.map(function (item) {
+    const isModern = item.era === `moderno`;
+    const tagClass = isModern ? `tag-ink` : `tag`;
+    return `
+      <article class="case-item">
+        <div class="${tagClass}">${item.eraLabel}</div>
+        <h3>${item.title}</h3>
+        <p style="font-size: 0.96rem;">${item.body}</p>
+        <div class="stat-meta" style="margin-top: var(--space-xs);">${item.source}</div>
+      </article>
+    `;
+  }).join(``);
+}
+
+function selectScenario(key, btn) {
+  if (btn && btn.parentElement) {
+    const buttons = btn.parentElement.querySelectorAll(`button`);
+    buttons.forEach(function (b) { b.setAttribute(`aria-pressed`, `false`); });
+    btn.setAttribute(`aria-pressed`, `true`);
+  }
+  renderScenario(key);
+}
+
+function renderScenario(key) {
+  const ctxBox = document.getElementById(`scenario-context-box`);
+  const grid = document.getElementById(`scenario-responses-grid`);
+  const s = SCENARIOS[key];
+  if (!ctxBox || !grid || !s) return;
+
+  ctxBox.innerHTML = `
+    <div class="tag-ink">${s.tag}</div>
+    <h4 style="margin-top: var(--space-xs); margin-bottom: var(--space-xs); font-size: 1.2rem;">${s.title}</h4>
+    <p style="font-size: 0.98rem;">${s.desc}</p>
+  `;
+
+  grid.innerHTML = `
+    <div class="lab-output-col">
+      <div class="tag-ink" style="margin-bottom: var(--space-xs);">1. Código caballeresco (fatuo)</div>
+      <p style="font-size: 0.96rem;">${s.fatuo}</p>
+    </div>
+    <div class="lab-output-col">
+      <div class="label-caps" style="color: var(--warning); margin-bottom: var(--space-xs);">2. Impulso natural de la ira</div>
+      <p style="font-size: 0.96rem;">${s.ira}</p>
+    </div>
+    <div class="lab-output-col">
+      <div class="tag" style="margin-bottom: var(--space-xs);">3. Sabiduría práctica (Schopenhauer)</div>
+      <p style="font-size: 0.96rem;"><strong>${s.schopenhauer}</strong></p>
+    </div>
+  `;
+}
+
+function evaluateInjury() {
+  const tipoEl = document.getElementById(`eval-tipo`);
+  const ambitoEl = document.getElementById(`eval-ambito`);
+  const emisorEl = document.getElementById(`eval-emisor`);
+  const outEl = document.getElementById(`evaluator-result`);
+  if (!tipoEl || !ambitoEl || !emisorEl || !outEl) return;
+
+  const tipo = tipoEl.value;
+  const ambito = ambitoEl.value;
+  const emisor = emisorEl.value;
+
+  let mancha = `Recae enteramente sobre quien profiere la ofensa (Vincenzo Monti y Epílogo).`;
+  let estado = `Intacto — Tu honor verdadero depende de tus actos, no de voces ajenas (Máxima 6).`;
+  let consejo = `Desdén sereno o risa ante la tosquedad, negándote a descender a una liza donde el vencido se convierte en vencedor.`;
+  let bannerClass = `verdict-positive`;
+  let fundamento = `Máximas 1, 2 y 6 de la Parte I; Epílogo`;
+
+  if (tipo === `calumnia_hechos`) {
+    mancha = `La mala intención es del calumniador, pero los datos falsos pueden confundir temporalmente al público.`;
+    estado = `En riesgo aparente por tergiversación de datos (Máxima 3 y 7).`;
+    if (ambito === `cargo`) {
+      consejo = `Procede legalmente y exige investigación formal para defender la dignidad del cargo en aras de colegas y sucesores (Máxima 8b).`;
+      fundamento = `Parte I, Máximas 3, 7 y 8b`;
+    } else {
+      consejo = `Refuta los hechos ante los tribunales o fuera de ellos insistiendo en que se aclare la verdad: lo que salva el honor civil es la reivindicación probatoria, no solo la sanción del ofensor (Máxima 8a).`;
+      fundamento = `Parte I, Máximas 3, 7 y 8a`;
+    }
+    bannerClass = `verdict-warning`;
+  } else if (tipo === `groseria_debate`) {
+    mancha = `Sobre el contendiente que abandona las razones y apela a la animalidad (Parte II, Máxima 4 y 5).`;
+    estado = `Intacto — Su exabrupto delata impotencia intelectual frente a tus argumentos.`;
+    consejo = `No montes en el «caballito de batalla» de la grosería ni aceptes el avantage. Reprime tu chusma interior (Proclo) y mantén la contienda únicamente en el plano de las razones.`;
+    fundamento = `Parte II, Máximas 4–5; Epílogo (símil de Proclo)`;
+  } else if (tipo === `agresion_fisica`) {
+    mancha = `Exclusivamente sobre el agresor brutal, como exhibió Crates con su tablilla «Nicodromos fecit».`;
+    estado = `Intacto — Un golpe no es una lesión moral; solo demuestra fuerza bruta o sorpresa (Parte II, Máx. 2).`;
+    consejo = `Neutraliza o repele la violencia física con previsión y fuerza proporcionada si no hay más remedio, pero hazlo por pura conveniencia y legítima defensa, jamás como un deber de honor.`;
+    fundamento = `Parte II, Máxima 2 y nota; Epílogo`;
+    bannerClass = `verdict-warning`;
+  } else if (tipo === `falta_propia`) {
+    mancha = `Sobre tu propia conducta, pues el honor civil exige probidad constante y cumplimiento de la palabra (Máxima 8a).`;
+    estado = `Vulnerado por acto propio — En rigor, el honor verdadero perdido por culpa propia no se borra con desplantes (Máxima 7).`;
+    consejo = `Evita la farsa caballeresca de amenazar a quien señala la falta. Repara el daño material o civil si cabe y retorna a la verdadera rectitud como única vía de mérito.`;
+    fundamento = `Parte I, Máximas 6, 7 y 8a`;
+    bannerClass = ``;
+  } else if (emisor === `difamador` && ambito !== `cotidiano`) {
+    consejo = `Si la burla amenaza con afectar tu crédito comercial o público en tu círculo de influencia, aclara los hechos con calma y datos verificables; si es mera vaciedad verbal, prescinde de ella con magnanimidad.`;
+  }
+
+  let notaEmisor = `El público competente («Argos de cien ojos») acabará distinguiendo la valía real de la bajeza ajena.`;
+  if (emisor === `tosco`) {
+    notaEmisor = `Ante la tosquedad vulgar, Schopenhauer recuerda el ejemplo cotidiano: si una vendedora del mercado nos insulta furiosa, nos limitamos a reír sin bajar a su arena.`;
+  } else if (emisor === `sofista`) {
+    notaEmisor = `Quien provoca busca arrastrarte del terreno de la verdad al de la fuerza o el enfado; no concederle esa desviación preserva intacta tu superioridad racional.`;
+  }
+
+  outEl.innerHTML = `
+    <div class="verdict-banner ${bannerClass}">
+      <div class="label-caps" style="color: var(--on-surface-variant); margin-bottom: var(--space-xs);">Diagnóstico según ${fundamento}</div>
+      <p style="margin-bottom: var(--space-sm);"><strong>Estado de tu honor verdadero:</strong> ${estado}</p>
+      <p style="margin-bottom: var(--space-sm);"><strong>¿Dónde recae la deshonra?</strong> ${mancha}</p>
+      <p style="margin-bottom: var(--space-sm);"><strong>Conducta racional recomendada:</strong> ${consejo}</p>
+      <p class="stat-meta" style="margin-bottom: 0;"><strong>Lectura del interlocutor:</strong> ${notaEmisor}</p>
+    </div>
+  `;
+}
+
+function setMaximFilter(filter, btn) {
+  currentMaximFilter = filter;
+  if (btn && btn.parentElement) {
+    const buttons = btn.parentElement.querySelectorAll(`button`);
+    buttons.forEach(function (b) { b.setAttribute(`aria-pressed`, `false`); });
+    btn.setAttribute(`aria-pressed`, `true`);
+  }
+  renderMaxims();
+}
+
+function renderMaxims() {
+  const listEl = document.getElementById(`maxim-list`);
+  const countEl = document.getElementById(`maxim-count`);
+  const searchEl = document.getElementById(`maxim-search`);
+  if (!listEl || !countEl) return;
+
+  const query = searchEl ? searchEl.value.trim().toLowerCase() : ``;
+
+  const filtered = MAXIMS.filter(function (m) {
+    const matchesPart = currentMaximFilter === `todas` || m.part === currentMaximFilter;
+    if (!matchesPart) return false;
+    if (!query) return true;
+    const haystack = `${m.num} ${m.title} ${m.summary} ${m.detail}`.toLowerCase();
+    return haystack.indexOf(query) !== -1;
+  });
+
+  countEl.textContent = `Mostrando ${filtered.length} de ${MAXIMS.length} máximas`;
+
+  if (filtered.length === 0) {
+    listEl.innerHTML = `
+      <div style="padding: var(--space-xl) 0; border-bottom: var(--rule-ink);">
+        <p><strong>Sin coincidencias</strong> — Ninguna máxima contiene «${escapeHtml(query)}» en este bloque.</p>
+        <button type="button" class="btn btn-secondary" onclick="clearMaximSearch()">Mostrar las 14 máximas</button>
+      </div>
+    `;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(function (m) {
+    const tagClass = m.part === `parte1` ? `tag` : `tag-ink`;
+    const partText = m.part === `parte1` ? `Del honor y de la verdad` : `Del honor fatuo`;
+    return `
+      <article class="maxim-row">
+        <div class="maxim-index">
+          <div class="${tagClass}">${partText}</div>
+          <div class="maxim-num">${m.num.replace(`Parte I · `, ``).replace(`Parte II · `, ``)}</div>
+        </div>
+        <div>
+          <h3 style="margin-bottom: var(--space-xs);">${m.title}</h3>
+          <p style="margin-bottom: var(--space-xs);"><strong>Síntesis:</strong> ${m.summary}</p>
+          <p class="stat-meta" style="font-size: 0.98rem;">${m.detail}</p>
+        </div>
+      </article>
+    `;
+  }).join(``);
+}
+
+function clearMaximSearch() {
+  const searchEl = document.getElementById(`maxim-search`);
+  if (searchEl) searchEl.value = ``;
+  currentMaximFilter = `todas`;
+  const toolbarBtns = document.querySelectorAll(`#maximas .btn-row button`);
+  toolbarBtns.forEach(function (b, idx) {
+    b.setAttribute(`aria-pressed`, idx === 0 ? `true` : `false`);
+  });
+  renderMaxims();
+}
+
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, `&amp;`)
+    .replace(/</g, `&lt;`)
+    .replace(/>/g, `&gt;`)
+    .replace(/"/g, `&quot;`);
+}
+
+function renderQuiz() {
+  const container = document.getElementById(`quiz-container`);
+  if (!container) return;
+  container.innerHTML = QUIZ_DATA.map(function (item, qIdx) {
+    const chosen = quizAnswers[qIdx];
+    const hasChosen = typeof chosen === `number`;
+    const isRight = hasChosen && chosen === item.correct;
+    const optsHtml = item.options.map(function (opt, oIdx) {
+      let cls = `btn quiz-opt`;
+      if (hasChosen) {
+        if (oIdx === item.correct) cls += ` is-correct`;
+        else if (oIdx === chosen) cls += ` is-wrong`;
+      }
+      return `<button type="button" class="${cls}" onclick="answerQuiz(${qIdx}, ${oIdx})">${opt}</button>`;
+    }).join(``);
+
+    let fbHtml = ``;
+    if (hasChosen) {
+      const fbClass = isRight ? `quiz-feedback fb-ok` : `quiz-feedback fb-err`;
+      const prefix = isRight ? `Correcto. ` : `Incorrecto. `;
+      fbHtml = `<div class="${fbClass}">${prefix}${item.explain}</div>`;
+    }
+
+    return `
+      <div class="quiz-item">
+        <div style="font-weight: 600;">${item.q}</div>
+        <div class="quiz-options">${optsHtml}</div>
+        ${fbHtml}
+      </div>
+    `;
+  }).join(``);
+
+  updateQuizScore();
+}
+
+function answerQuiz(qIdx, oIdx) {
+  quizAnswers[qIdx] = oIdx;
+  const statusEl = document.getElementById(`quiz-status-msg`);
+  if (statusEl) statusEl.textContent = ``;
+  renderQuiz();
+}
+
+function updateQuizScore() {
+  const badge = document.getElementById(`quiz-score-badge`);
+  if (!badge) return;
+  let score = 0;
+  QUIZ_DATA.forEach(function (item, idx) {
+    if (quizAnswers[idx] === item.correct) score += 1;
+  });
+  badge.textContent = `${score} / ${QUIZ_DATA.length} aciertos`;
+}
+
+function resetQuiz(btn) {
+  const statusEl = document.getElementById(`quiz-status-msg`);
+  if (btn && btn.dataset.armed !== `true`) {
+    btn.dataset.armed = `true`;
+    btn.textContent = `Confirmar reinicio`;
+    if (statusEl) statusEl.textContent = `Pulsa de nuevo para borrar tus respuestas.`;
+    return;
+  }
+  if (btn) {
+    btn.dataset.armed = `false`;
+    btn.textContent = `Reiniciar test`;
+  }
+  Object.keys(quizAnswers).forEach(function (k) { delete quizAnswers[k]; });
+  if (statusEl) statusEl.textContent = `Respuestas reiniciadas.`;
+  renderQuiz();
+}
+
+function initScrollReveals() {
+  const sections = document.querySelectorAll(`.reveal-section`);
+  if (!(`IntersectionObserver` in window)) {
+    sections.forEach(function (el) { el.classList.add(`is-visible`); });
+    return;
+  }
+  const observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add(`is-visible`);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  sections.forEach(function (el) { observer.observe(el); });
+}
+
+document.addEventListener(`DOMContentLoaded`, function () {
+  renderComparison();
+  renderHonorType(`civil`);
+  renderHistoricalCases();
+  renderScenario(`insulto`);
+  evaluateInjury();
+  renderMaxims();
+  renderQuiz();
+  initScrollReveals();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,2420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>Dialéctica erística o el arte de tener razón — Arthur Schopenhauer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js" defer></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces: warm stone-white paper */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      /* Ink */
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      /* Rules */
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+
+      /* Accents */
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --on-secondary: #ffffff;
+      --secondary-container: #e3eef2;
+      --tertiary: #785008;
+      --tertiary-container: #f5e6c4;
+      --error: #b42318;
+      --on-error: #ffffff;
+      --error-container: #fdecea;
+
+      /* Semantic */
+      --positive: #2b6e52;
+      --on-positive: #ffffff;
+      --positive-container: #e3f0ea;
+      --warning: #785008;
+      --warning-container: #f5e6c4;
+
+      /* Focus */
+      --focus: #1f4e5f;
+
+      /* Data series */
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-4-container: #f9e6e3;
+      --data-context: #c4bfb2;
+
+      /* Fonts */
+      --font-headline: 'Source Serif 4', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+      --badge-radius: 2px;
+
+      /* Style effects */
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --input-border: 1px solid var(--data-context);
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+      --shadow-focus: 0 0 0 2px var(--background), 0 0 0 4px var(--focus);
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.125rem, 1.35rem + 3vw, 3.625rem);
+      --headline-size: clamp(1.5rem, 1.15rem + 1.5vw, 2.25rem);
+      --subhead-size: clamp(1.125rem, 1.02rem + 0.45vw, 1.375rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+      --label-size: 0.75rem;
+      --pill-size: 0.6875rem;
+
+      /* Spacing scale (4pt base) */
+      --space-2xs: 0.1875rem;
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1120px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-size: var(--display-size);
+      line-height: 1.08;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      line-height: 1.15;
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      line-height: 1.25;
+    }
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 65ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .prose-wide p { max-width: 72ch; }
+
+    /* Dossier treatments */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .dossier-pill {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: var(--pill-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-2xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      display: inline-block;
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+    }
+
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+      line-height: 1.48;
+      color: var(--secondary);
+      margin-top: var(--space-md);
+      max-width: 68ch;
+    }
+
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      letter-spacing: var(--label-tracking);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .figure-card {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+
+    .aside-box {
+      background-color: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-lg);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+    }
+
+    /* Navigation bar inside header */
+    .toc-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+      padding-top: var(--space-md);
+      border-top: var(--card-border);
+    }
+    .toc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      text-decoration: none;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .toc-link:hover {
+      background-color: var(--surface-container);
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+    .toc-link .index-num {
+      font-size: var(--label-size);
+    }
+
+    /* Hero metrics grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr 1fr 1fr;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .kpi-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .kpi-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface-variant);
+    }
+    .kpi-value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+      line-height: 1.1;
+      color: var(--on-surface);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .kpi-note {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      line-height: 1.45;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      border-radius: var(--rounded);
+      cursor: pointer;
+      border: var(--card-border);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+    }
+    .btn-secondary {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      border: var(--input-border);
+    }
+    .btn-secondary:hover {
+      background-color: var(--surface-container);
+    }
+    .btn-secondary.is-active {
+      background-color: var(--secondary);
+      color: var(--on-secondary);
+      border-color: var(--secondary);
+    }
+    .btn-positive {
+      background-color: var(--positive-container);
+      color: var(--positive);
+      border-color: var(--positive);
+    }
+    .btn-sm {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      font-size: 0.875rem;
+    }
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    /* Asymmetric split layout */
+    .split-narrative {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+
+    /* Comparison controls & table */
+    .lens-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+      margin-bottom: var(--space-md);
+    }
+    .table-wrap {
+      overflow-x: auto;
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+    }
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+    .comparison-table thead th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface);
+      background-color: var(--surface-container);
+      padding: var(--space-md);
+      border-bottom: var(--section-rule);
+    }
+    .comparison-table tbody td {
+      padding: var(--space-md);
+      border-bottom: var(--card-border);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .comparison-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .comparison-table tbody tr.is-highlighted {
+      background-color: var(--secondary-container);
+    }
+    .comparison-table tbody tr.is-dimmed {
+      opacity: 0.55;
+    }
+    .dim-title {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--secondary);
+    }
+
+    /* Expandable details blocks */
+    .accordion-stack {
+      display: grid;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    details.expandable {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+    }
+    details.expandable summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      min-height: 48px;
+      padding: var(--space-md) var(--space-lg);
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.0625rem;
+      color: var(--on-surface);
+      background-color: var(--surface-container-low);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    details.expandable summary::-webkit-details-marker { display: none; }
+    details.expandable summary:hover {
+      background-color: var(--surface-container);
+    }
+    details.expandable[open] summary {
+      border-bottom: var(--card-border);
+      background-color: var(--surface-container);
+    }
+    .summary-left {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+    .summary-chevron {
+      flex-shrink: 0;
+      color: var(--secondary);
+      transition: transform var(--dur-short) var(--ease-in-out);
+    }
+    details.expandable[open] .summary-chevron {
+      transform: rotate(180deg);
+    }
+    .expandable-body {
+      padding: var(--space-lg);
+      color: var(--on-surface);
+    }
+    .expandable-body p + p {
+      margin-top: var(--space-sm);
+    }
+
+    /* Quote callout */
+    blockquote.editorial-quote {
+      margin: var(--space-md) 0;
+      padding: var(--space-md) var(--space-lg);
+      background-color: var(--surface-container);
+      border-left: 3px solid var(--secondary);
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.0625rem;
+      line-height: 1.55;
+      color: var(--on-surface);
+    }
+    blockquote.editorial-quote footer {
+      margin-top: var(--space-xs);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface-variant);
+    }
+
+    /* Osteology interactive schematic */
+    .osteology-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+    .osteology-canvas {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .osteology-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .svg-schematic {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .node-group {
+      cursor: pointer;
+    }
+    .node-box {
+      fill: var(--surface-container-low);
+      stroke: var(--outline-variant);
+      stroke-width: 1.5;
+      transition: fill var(--dur-micro) var(--ease-out), stroke var(--dur-micro) var(--ease-out);
+    }
+    .node-group:hover .node-box {
+      fill: var(--surface-container);
+      stroke: var(--secondary);
+    }
+    .node-group.is-selected .node-box {
+      fill: var(--secondary);
+      stroke: var(--secondary);
+    }
+    .node-title {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      fill: var(--on-surface);
+    }
+    .node-sub {
+      font-family: var(--font-label);
+      font-size: 10px;
+      fill: var(--on-surface-variant);
+    }
+    .node-group.is-selected .node-title,
+    .node-group.is-selected .node-sub {
+      fill: var(--on-secondary);
+    }
+    .schematic-line {
+      stroke: var(--data-context);
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .schematic-header {
+      font-family: var(--font-label);
+      font-size: 11px;
+      font-weight: 600;
+      fill: var(--secondary);
+      letter-spacing: 0.06em;
+    }
+
+    /* Stratagem Explorer */
+    .mastery-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: center;
+      margin-bottom: var(--space-lg);
+    }
+    .category-bar-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .bar-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .legend-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: var(--badge-radius);
+      display: inline-block;
+    }
+    .swatch-cat1 { background-color: var(--data-1); }
+    .swatch-cat2 { background-color: var(--data-2); }
+    .swatch-cat3 { background-color: var(--data-3); }
+    .swatch-cat4 { background-color: var(--data-4); }
+
+    .controls-bar {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 0.8fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+      background-color: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+      margin-bottom: var(--space-lg);
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface-variant);
+    }
+    .field-input, .field-select {
+      min-height: 44px;
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--on-surface);
+      background-color: var(--surface-container-low);
+      border: var(--input-border);
+      border-radius: var(--rounded);
+    }
+    .field-select {
+      padding-right: var(--space-xl);
+    }
+    .results-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+    .bulk-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    /* Card grid + Container queries */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .strat-wrapper {
+      container-type: inline-size;
+    }
+    .strat-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-md);
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      transition: border-color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+    .strat-card.is-mastered {
+      border-left: 4px solid var(--positive);
+    }
+    .strat-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .cat-tag {
+      font-family: var(--font-label);
+      font-size: var(--pill-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: var(--space-2xs) var(--space-sm);
+      border-radius: var(--rounded);
+    }
+    .cat-tag-1 { background-color: var(--secondary-container); color: var(--secondary); }
+    .cat-tag-2 { background-color: var(--tertiary-container); color: var(--tertiary); }
+    .cat-tag-3 { background-color: var(--positive-container); color: var(--positive); }
+    .cat-tag-4 { background-color: var(--data-4-container); color: var(--data-4); }
+
+    .strat-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.1875rem;
+      line-height: 1.25;
+      margin-top: var(--space-xs);
+    }
+    .strat-latin {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      margin-top: var(--space-xs);
+    }
+    .strat-desc {
+      font-size: 0.9375rem;
+      line-height: 1.55;
+      color: var(--on-surface);
+      margin-top: var(--space-sm);
+    }
+    .strat-detail-panel {
+      margin-top: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: var(--card-border);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .detail-block {
+      background-color: var(--surface-container);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .detail-block strong {
+      display: block;
+      font-family: var(--font-label);
+      font-size: var(--pill-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--secondary);
+      margin-bottom: var(--space-2xs);
+    }
+    .strat-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding-top: var(--space-sm);
+      border-top: var(--card-border);
+    }
+    @container (max-width: 340px) {
+      .strat-actions {
+        flex-direction: column;
+      }
+      .strat-actions .btn {
+        width: 100%;
+      }
+    }
+
+    .empty-state {
+      background-color: var(--surface-container);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+      text-align: left;
+    }
+
+    /* Quiz / El Duelo Dialéctico */
+    .quiz-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.85fr);
+      gap: var(--space-lg);
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      justify-content: flex-start;
+      padding: var(--space-md);
+      min-height: 52px;
+      background-color: var(--surface-container-low);
+      border: var(--input-border);
+      border-radius: var(--rounded);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--on-surface);
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      background-color: var(--surface-container);
+      border-color: var(--secondary);
+    }
+    .quiz-option.is-correct {
+      background-color: var(--positive-container);
+      border-color: var(--positive);
+      color: var(--on-surface);
+    }
+    .quiz-option.is-wrong {
+      background-color: var(--error-container);
+      border-color: var(--error);
+      color: var(--on-surface);
+    }
+    .quiz-feedback {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border-left: 4px solid var(--secondary);
+      background-color: var(--surface-container);
+    }
+    .quiz-feedback.is-correct {
+      border-left-color: var(--positive);
+      background-color: var(--positive-container);
+    }
+    .quiz-feedback.is-wrong {
+      border-left-color: var(--error);
+      background-color: var(--error-container);
+    }
+    .quiz-nav-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .score-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-sm);
+      margin: var(--space-md) 0;
+    }
+    .mini-stat {
+      background-color: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+    }
+    .mini-stat-val {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.5rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+    }
+
+    /* Footer */
+    .sources-footer {
+      border-top: var(--section-rule);
+      padding-top: var(--space-lg);
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Scroll reveal */
+    .reveal-section {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal-section.will-animate {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    .reveal-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive rules */
+    @media (max-width: 900px) {
+      .kpi-grid { grid-template-columns: 1fr 1fr; }
+      .split-narrative { grid-template-columns: 1fr; }
+      .osteology-layout { grid-template-columns: 1fr; }
+      .mastery-panel { grid-template-columns: 1fr; }
+      .controls-bar { grid-template-columns: 1fr 1fr; }
+      .quiz-shell { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .kpi-grid { grid-template-columns: 1fr; }
+      .controls-bar { grid-template-columns: 1fr; }
+      .toc-nav { gap: var(--space-xs); }
+      .toc-link { width: 100%; justify-content: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid">
+    <!-- 1. DOSSIER HEADER / MASTHEAD -->
+    <header aria-label="Encabezado principal">
+      <div class="dossier-bar">
+        <span class="dossier-pill">Dossier filosófico</span>
+        <span class="dossier-meta">Arthur Schopenhauer · Edición póstuma de Julius Frauenstädt (1864) · Esgrima intelectual</span>
+      </div>
+      <h1>Dialéctica erística o el arte de tener razón</h1>
+      <p class="standfirst">
+        Cómo distinguir la búsqueda de la verdad objetiva del arte de prevalecer en una disputa «por fas y por nefas», y cómo reconocer y neutralizar los treinta y ocho <em>Kunstgriffe</em> o estratagemas desleales del debate cotidiano.
+      </p>
+
+      <div class="kpi-grid" aria-label="Cifras clave del tratado">
+        <div class="figure-card kpi-card">
+          <span class="kpi-label">Repertorio erístico</span>
+          <span class="kpi-value">38 estratagemas</span>
+          <span class="kpi-note">Treinta y siete ardides numerados más la estratagema final (<em>argumentum ad personam</em>).</span>
+        </div>
+        <div class="figure-card kpi-card">
+          <span class="kpi-label">Publicación póstuma</span>
+          <span class="kpi-value">1864</span>
+          <span class="kpi-note">Editada por Julius Frauenstädt bajo el título original de <em>Eristik</em>.</span>
+        </div>
+        <div class="figure-card kpi-card">
+          <span class="kpi-label">Anatomía de la refutación</span>
+          <span class="kpi-value">2 modos · 2 vías</span>
+          <span class="kpi-note"><em>Ad rem</em> / <em>ad hominem</em> y vía directa / indirecta (<em>apagoge</em> e <em>instancia</em>).</span>
+        </div>
+        <div class="figure-card kpi-card">
+          <span class="kpi-label">Precedente aristotélico</span>
+          <span class="kpi-value">382 topoi</span>
+          <span class="kpi-note">Reglas formales en los ocho libros de los <em>Tópicos</em> de Aristóteles.</span>
+        </div>
+      </div>
+
+      <nav class="toc-nav" aria-label="Secciones del sitio">
+        <a class="toc-link" href="#base-conocimiento"><span class="index-num">01</span> Lógica vs. Dialéctica</a>
+        <a class="toc-link" href="#osteologia"><span class="index-num">02</span> Osteología de la disputa</a>
+        <a class="toc-link" href="#estratagemas"><span class="index-num">03</span> Las 38 estratagemas</a>
+        <a class="toc-link" href="#preguntas"><span class="index-num">04</span> Preguntas frecuentes</a>
+        <a class="toc-link" href="#duelo"><span class="index-num">05</span> El duelo dialéctico</a>
+      </nav>
+    </header>
+
+    <!-- 2. BASE DE CONOCIMIENTO -->
+    <section id="base-conocimiento" class="reveal-section" aria-labelledby="h-base">
+      <div class="dossier-bar">
+        <span class="dossier-pill">01 · Base de conocimiento</span>
+        <span class="dossier-meta">Introducción y pliegos anexos I y II</span>
+      </div>
+      <h2 id="h-base">La verdad objetiva y el arte de vencer en el debate son disciplinas distintas</h2>
+
+      <div class="split-narrative">
+        <div class="prose-wide">
+          <p>
+            Para Arthur Schopenhauer, la <strong>dialéctica erística</strong> es el arte de discutir de tal modo que uno conserve la razón tanto lícita como ilícitamente —<em>por fas y por nefas</em>—. Puede ocurrir que alguien posea la verdad objetiva sobre un asunto y, sin embargo, parezca derrotado ante los oyentes si su adversario refuta la prueba elegida o recurre a una maniobra engañosa.
+          </p>
+          <p>
+            El origen de esta escisión radica en la <strong>vanidad innata</strong>, la charlatanería y la improbidad natural del género humano: una vez formulada una tesis, el intelecto se subordina a la voluntad y lucha por ella <em>pro ara et focis</em> (por el altar y el hogar). Sin embargo, Schopenhauer añade una atenuante psicológica: a menudo tememos ceder demasiado pronto ante un buen argumento rival porque intuimos que existía una prueba salvadora que todavía no se nos ha ocurrido.
+          </p>
+        </div>
+        <aside class="aside-box" aria-label="Cita fundamental de la introducción">
+          <div class="dim-title">Principio rector</div>
+          <blockquote class="editorial-quote">
+            «La verdad objetiva de una tesis y su validez en la aprobación de los contrincantes y los oyentes son dos cosas distintas. Su función es idéntica a la del maestro de esgrima, que no repara en quién tenga efectivamente la razón en la riña que condujo al duelo.»
+            <footer>Arthur Schopenhauer · Introducción</footer>
+          </blockquote>
+          <p class="kpi-note">
+            Demócrito ya advertía: <em>Veritas est in puteo</em> (la verdad está en lo profundo). Como raramente se sabe de antemano quién la posee, la dialéctica se ocupa únicamente de atacar y parar golpes.
+          </p>
+        </aside>
+      </div>
+
+      <div class="lens-row" role="group" aria-label="Filtrar enfoque comparativo">
+        <button type="button" class="btn btn-secondary btn-sm is-active" id="lens-all" onclick="setComparisonLens('all')">Todas las dimensiones</button>
+        <button type="button" class="btn btn-secondary btn-sm" id="lens-epistemologia" onclick="setComparisonLens('epistemologia')">Forma vs. Contenido (a priori / a posteriori)</button>
+        <button type="button" class="btn btn-secondary btn-sm" id="lens-practica" onclick="setComparisonLens('practica')">Verdad vs. Victoria en la disputa</button>
+      </div>
+
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th scope="col">Dimensión</th>
+              <th scope="col">Lógica (Analítica)</th>
+              <th scope="col">Dialéctica erística</th>
+              <th scope="col">Sofística</th>
+            </tr>
+          </thead>
+          <tbody id="comparison-tbody">
+            <tr data-lens="practica">
+              <td><span class="dim-title">Propósito final</span></td>
+              <td>Búsqueda y demostración de la verdad objetiva formal (silogismos apodícticos).</td>
+              <td>Hacer valer la propia afirmación y obtener la razón ante el rival y el auditorio, con verdad o sin ella.</td>
+              <td>Mostrar la validez aparente de proposiciones falsas para ganar credibilidad (y obtener dinero, según Aristóteles).</td>
+            </tr>
+            <tr data-lens="epistemologia">
+              <td><span class="dim-title">Objeto de estudio</span></td>
+              <td>La mera forma de los conceptos, juicios y silogismos en el pensar autárquico (<em>logixestai</em>).</td>
+              <td>La materia o contenido de las proposiciones en la comunicación entre dos sujetos (<em>dialegestai</em>).</td>
+              <td>Silogismos cuya forma parece correcta pero en realidad es falsa o engañosa.</td>
+            </tr>
+            <tr data-lens="epistemologia">
+              <td><span class="dim-title">Estatuto del saber</span></td>
+              <td><em>A priori</em>: leyes universales de la razón pura independientes de la experiencia.</td>
+              <td>En gran medida <em>a posteriori</em>: nace empíricamente de las divergencias e individualidades que chocan en el diálogo.</td>
+              <td>Artificio engañoso sobre proposiciones materiales cuya verdad se finge.</td>
+            </tr>
+            <tr data-lens="practica">
+              <td><span class="dim-title">Relación con la verdad</span></td>
+              <td>Su único criterio es la verdad formal y la necesidad deductiva.</td>
+              <td>Deja a un lado la verdad objetiva o la considera accidental; defiende la tesis propia e invalida la ajena.</td>
+              <td>Presupone de antemano hacer pasar lo objetivamente falso por verdadero.</td>
+            </tr>
+            <tr data-lens="practica">
+              <td><span class="dim-title">Utilidad práctica</span></td>
+              <td>Escasa utilidad práctica directa; rara vez alguien infiere contradiciendo las leyes lógicas.</td>
+              <td>Alta utilidad práctica: enseña a defender la razón contra ataques desleales y a reconocer al instante las fintas del rival.</td>
+              <td>Indigna en la teoría; Schopenhauer la engloba junto a erística y peirástica dentro de la dialéctica erística.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="accordion-stack">
+        <details class="expandable">
+          <summary>
+            <span class="summary-left"><span class="index-num">A</span> Aristóteles, los 382 <em>topoi</em> y la crítica a Cicerón</span>
+            <i data-lucide="chevron-down" class="summary-chevron" aria-hidden="true"></i>
+          </summary>
+          <div class="expandable-body">
+            <p>
+              Aristóteles distinguió entre proposiciones consideradas filosóficamente según la verdad y dialécticamente según la credibilidad ante la opinión de los otros (<em>Tópicos</em>, I, 12), pero combinó ambos fines. En los ocho libros de los <em>Tópicos</em> redujo toda discusión a cuatro relaciones entre conceptos: <strong>definición</strong>, <strong>género</strong> (<em>genus</em>), <strong>característica esencial</strong> (<em>proprium</em>) y <strong>accidente</strong> (<em>accidens</em>), formulando 382 reglas generales o <em>topoi</em>.
+            </p>
+            <p>
+              Sin embargo, Schopenhauer observa que esos <em>topoi</em> resultan poco útiles en la práctica porque expresan verdades abstractas que el sano juicio ya percibe en cada caso concreto (como el <em>topos</em> noveno: «si se afirma el género, debe convenir alguna especie; si alguien no habló en absoluto, no pudo hablar mal de otro», o el <em>locus</em> 215 sobre no definir lo <em>proprium</em> mediante cualidades sensibles inciertas como el brillo del sol al ocultarse). Además, muchos <em>topoi</em> admiten excepciones fáciles, como demostró Escoto Erígena al afirmar que efectos contrarios exigen causas contrarias cuando el mismo calor endurece la arcilla y derrite la cera. De los <em>Tópicos</em> de Cicerón, Schopenhauer concluye que son una imitación de memoria, superficial y confusa, adornada con ejemplos jurídicos.
+            </p>
+          </div>
+        </details>
+
+        <details class="expandable">
+          <summary>
+            <span class="summary-left"><span class="index-num">B</span> Pliegos anexos: origen de «lógica» y «dialéctica» desde Platón hasta Kant</span>
+            <i data-lucide="chevron-down" class="summary-chevron" aria-hidden="true"></i>
+          </summary>
+          <div class="expandable-body">
+            <p>
+              En los pliegos anexos I y II, Schopenhauer lamenta que antiguos y modernos usaran «lógica» y «dialéctica» como sinónimos. Según Diógenes Laercio, Platón empleó por primera vez el término <em>dialéctica</em> (en el <em>Fedro</em>, el <em>Sofista</em> y la <em>República</em>) como ejercicio correcto de la razón; Aristóteles usó ambos términos; Cicerón y Quintiliano tradujeron la dialéctica como el arte de juzgar o disputar (<em>ars disputatrix</em>), y esa sinonimia perduró en la Edad Media hasta la época moderna, cuando Kant empleó «dialéctica» en sentido peyorativo como arte sofístico de la discusión.
+            </p>
+            <p>
+              Etimológicamente, la lógica proviene de <em>logixestai</em> (reflexionar, calcular en solitario, de <em>lógos</em>), mientras que la dialéctica procede de <em>dialegestai</em> (conversar entre dos). Si dos individuos funcionaran como relojes sincronizados de razón pura, concordarían siempre; las disputas surgen porque somos prepotentes por naturaleza y suponemos primero el error en el pensamiento del otro antes que en el propio.
+            </p>
+          </div>
+        </details>
+
+        <details class="expandable">
+          <summary>
+            <span class="summary-left"><span class="index-num">C</span> Sobre la controversia (<em>Parerga y Paralipómena</em>, II, § 26): con quién no discutir</span>
+            <i data-lucide="chevron-down" class="summary-chevron" aria-hidden="true"></i>
+          </summary>
+          <div class="expandable-body">
+            <p>
+              En su ensayo posterior sobre la controversia, Schopenhauer compara el debate teórico con un roce o colisión de dos cabezas que produce chispas. Para que sea fructífero, ambos contrincantes deben estar igualados en conocimientos (<em>au niveau</em>) e inteligencia. Si al rival le falta instrucción, no comprenderá los mejores argumentos y un público ignorante podría darle la razón; por eso cita a Goethe: «Nunca, incauto, te dejes arrastrar a discusiones; que el sabio que discute con ignaros expónese a perder también su norte».
+            </p>
+            <p>
+              Si al adversario le falta ingenio y carece de amor sincero por la verdad, la controversia deja de librarse contra su intelecto y pasa a enfrentarse con su voluntad herida, degenerando en argucias y grosería (<em>ultima ratio stultorum</em>). En este texto tardío Schopenhauer reproduce únicamente tres estratagemas de muestra con numeración distinta a la del tratado principal: la «séptima» (ampliación, que corresponde a la 1), la «octava» (uso abusivo de la consecutividad: «celebrar la expulsión de Carlos X» convertido en «¿quiere que expulsemos a nuestro rey?», emparentada con la 24 y la 3) y la «novena» (la diversión, que corresponde a la 29).
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 3. LA OSTEOLOGÍA DE TODA DISCUSIÓN -->
+    <section id="osteologia" class="reveal-section" aria-labelledby="h-osteologia">
+      <div class="dossier-bar">
+        <span class="dossier-pill">02 · Esqueleto de la disputa</span>
+        <span class="dossier-meta">Base de toda dialéctica · Andamiaje formal</span>
+      </div>
+      <h2 id="h-osteologia">Osteología de la discusión: dos modos, dos vías y tres niveles de esgrima</h2>
+      <p>
+        Antes de exponer las treinta y ocho fintas, Schopenhauer traza el esqueleto invariable al que se reduce cualquier refutación. Selecciona cualquier nodo del diagrama para examinar su mecanismo y su lugar en la esgrima intelectual.
+      </p>
+
+      <div class="osteology-layout">
+        <div class="osteology-canvas">
+          <div class="osteology-pills" role="group" aria-label="Seleccionar elemento de la osteología">
+            <button type="button" class="btn btn-secondary btn-sm is-active" id="ost-btn-ad_rem" onclick="selectOsteology('ad_rem')">Modo: Ad rem</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="ost-btn-ad_hominem" onclick="selectOsteology('ad_hominem')">Modo: Ad hominem</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="ost-btn-directa" onclick="selectOsteology('directa')">Vía directa</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="ost-btn-apagoge" onclick="selectOsteology('apagoge')">Indirecta: Apagoge</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="ost-btn-instancia" onclick="selectOsteology('instancia')">Indirecta: Instancia</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="ost-btn-esgrima" onclick="selectOsteology('esgrima')">Esgrima (Fintas vs. Golpes)</button>
+          </div>
+
+          <svg class="svg-schematic" viewBox="0 0 580 350" role="img" aria-label="Esquema interactivo de la base de toda dialéctica">
+            <!-- Connecting lines -->
+            <path class="schematic-line" d="M 290 54 L 290 78 M 145 78 L 435 78 M 145 78 L 145 102 M 435 78 L 435 102" />
+            <path class="schematic-line" d="M 145 154 L 145 190 M 145 190 L 82 190 L 82 212 M 145 190 L 208 190 L 208 212" />
+            <path class="schematic-line" d="M 435 154 L 435 190 M 435 190 L 368 190 L 368 212 M 435 190 L 502 190 L 502 212" />
+
+            <!-- Root thesis -->
+            <rect class="node-box" x="180" y="10" width="220" height="44" rx="4" />
+            <text class="node-title" x="290" y="29" text-anchor="middle">Tesis propuesta a refutar</text>
+            <text class="node-sub" x="290" y="44" text-anchor="middle">Contra negantem principia non est disputandum</text>
+
+            <!-- Modos headers -->
+            <text class="schematic-header" x="145" y="96" text-anchor="middle">1) MODOS DE REFUTACIÓN</text>
+            <text class="schematic-header" x="435" y="96" text-anchor="middle">2) VÍAS DE ATAQUE</text>
+
+            <!-- Modo A: Ad rem -->
+            <g class="node-group is-selected" id="ost-node-ad_rem" tabindex="0" role="button" aria-label="Modo ad rem" onclick="selectOsteology('ad_rem')" onkeydown="handleNodeKey(event, 'ad_rem')">
+              <rect class="node-box" x="24" y="104" width="114" height="50" rx="4" />
+              <text class="node-title" x="81" y="125" text-anchor="middle">Ad rem</text>
+              <text class="node-sub" x="81" y="142" text-anchor="middle">Verdad objetiva</text>
+            </g>
+
+            <!-- Modo B: Ad hominem -->
+            <g class="node-group" id="ost-node-ad_hominem" tabindex="0" role="button" aria-label="Modo ad hominem o ex concessis" onclick="selectOsteology('ad_hominem')" onkeydown="handleNodeKey(event, 'ad_hominem')">
+              <rect class="node-box" x="150" y="104" width="122" height="50" rx="4" />
+              <text class="node-title" x="211" y="125" text-anchor="middle">Ad hominem</text>
+              <text class="node-sub" x="211" y="142" text-anchor="middle">Ex concessis (relativa)</text>
+            </g>
+
+            <!-- Via A: Directa -->
+            <g class="node-group" id="ost-node-directa" tabindex="0" role="button" aria-label="Vía directa" onclick="selectOsteology('directa')" onkeydown="handleNodeKey(event, 'directa')">
+              <rect class="node-box" x="308" y="104" width="120" height="50" rx="4" />
+              <text class="node-title" x="368" y="125" text-anchor="middle">Vía directa</text>
+              <text class="node-sub" x="368" y="142" text-anchor="middle">Ataca fundamentos</text>
+            </g>
+
+            <!-- Via B: Indirecta -->
+            <g class="node-group" id="ost-node-indirecta" tabindex="0" role="button" aria-label="Vía indirecta: apagoge" onclick="selectOsteology('apagoge')" onkeydown="handleNodeKey(event, 'apagoge')">
+              <rect class="node-box" x="440" y="104" width="122" height="50" rx="4" />
+              <text class="node-title" x="501" y="125" text-anchor="middle">Vía indirecta</text>
+              <text class="node-sub" x="501" y="142" text-anchor="middle">Ataca consecuencias</text>
+            </g>
+
+            <!-- Sub-nodes Directa -->
+            <g class="node-group" id="ost-node-sub_directa" tabindex="0" role="button" aria-label="Nego majorem y nego consequentiam" onclick="selectOsteology('directa')" onkeydown="handleNodeKey(event, 'directa')">
+              <rect class="node-box" x="296" y="212" width="144" height="54" rx="4" />
+              <text class="node-title" x="368" y="232" text-anchor="middle">Nego majorem /</text>
+              <text class="node-sub" x="368" y="250" text-anchor="middle">Nego consequentiam</text>
+            </g>
+
+            <!-- Sub-nodes Indirecta: Apagoge & Instancia -->
+            <g class="node-group" id="ost-node-apagoge" tabindex="0" role="button" aria-label="Apagoge" onclick="selectOsteology('apagoge')" onkeydown="handleNodeKey(event, 'apagoge')">
+              <rect class="node-box" x="450" y="212" width="114" height="54" rx="4" />
+              <text class="node-title" x="507" y="232" text-anchor="middle">A) Apagoge</text>
+              <text class="node-sub" x="507" y="250" text-anchor="middle">Ad absurdum</text>
+            </g>
+
+            <g class="node-group" id="ost-node-instancia" tabindex="0" role="button" aria-label="Instancia o exemplum in contrarium" onclick="selectOsteology('instancia')" onkeydown="handleNodeKey(event, 'instancia')">
+              <rect class="node-box" x="20" y="212" width="246" height="54" rx="4" />
+              <text class="node-title" x="143" y="232" text-anchor="middle">B) Instancia (Enstasis)</text>
+              <text class="node-sub" x="143" y="250" text-anchor="middle">Exemplum in contrarium (contraejemplo)</text>
+            </g>
+
+            <!-- Bottom Fencing analogy bar -->
+            <g class="node-group" id="ost-node-esgrima" tabindex="0" role="button" aria-label="Analogía con la esgrima" onclick="selectOsteology('esgrima')" onkeydown="handleNodeKey(event, 'esgrima')">
+              <rect class="node-box" x="20" y="286" width="544" height="50" rx="4" />
+              <text class="node-title" x="292" y="307" text-anchor="middle">Analogía de la esgrima: Estocadas regulares · Fintas (38 Kunstgriffe) · Golpes bajos (Ad personam)</text>
+              <text class="node-sub" x="292" y="324" text-anchor="middle">Pulsa aquí para ver la distinción de Schopenhauer entre esgrima leal, finta y ataque personal</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="figure-card" id="osteology-detail" aria-live="polite">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. EXPLORADOR DE LAS 38 ESTRATAGEMAS -->
+    <section id="estratagemas" class="reveal-section" aria-labelledby="h-estratagemas">
+      <div class="dossier-bar">
+        <span class="dossier-pill">03 · Repertorio de Kunstgriffe</span>
+        <span class="dossier-meta">Explorador interactivo completo · Estratagemas 1 a 38</span>
+      </div>
+      <h2 id="h-estratagemas">Las treinta y ocho estratagemas de la dialéctica erística</h2>
+      <p>
+        Schopenhauer recopiló treinta y ocho maniobras observables en el debate cotidiano para que puedan reconocerse y desarmarse al instante. Filtra por familia táctica, busca términos latinos o ejemplos de la obra y despliega en cada ficha el caso de debate junto con su parada recomendada.
+      </p>
+
+      <div class="figure-card mastery-panel">
+        <div class="category-bar-wrap">
+          <div class="field-label">Composición táctica del repertorio (38 ardides)</div>
+          <svg width="100%" height="26" viewBox="0 0 380 26" role="img" aria-label="Distribución de las 38 estratagemas en 4 familias tácticas">
+            <rect x="0" y="4" width="90" height="18" style="fill: var(--data-1);" />
+            <rect x="92" y="4" width="100" height="18" style="fill: var(--data-2);" />
+            <rect x="194" y="4" width="100" height="18" style="fill: var(--data-3);" />
+            <rect x="296" y="4" width="84" height="18" style="fill: var(--data-4);" />
+          </svg>
+          <div class="bar-legend">
+            <span class="legend-item"><span class="legend-swatch swatch-cat1"></span> Lenguaje y desvío (9)</span>
+            <span class="legend-item"><span class="legend-swatch swatch-cat2"></span> Premisas e interrogatorio (10)</span>
+            <span class="legend-item"><span class="legend-swatch swatch-cat3"></span> Deducción y contragolpes (10)</span>
+            <span class="legend-item"><span class="legend-swatch swatch-cat4"></span> Psicología y auditorio (9)</span>
+          </div>
+        </div>
+        <div>
+          <div class="field-label">Tu progreso de estudio</div>
+          <div class="kpi-value" id="mastery-counter">0 / 38 dominadas</div>
+          <div class="kpi-note" id="mastery-note">Marca cada estratagema conforme revises su mecanismo, ejemplo y parada.</div>
+        </div>
+      </div>
+
+      <div class="controls-bar" role="search" aria-label="Filtros de estratagemas">
+        <div class="field-group">
+          <label class="field-label" for="search-strat">Buscar por título, latín o ejemplo</label>
+          <input class="field-input" type="search" id="search-strat" placeholder="Ej. Danzig, honor, apagoge, Kant, té…" oninput="handleStratFilter()">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="filter-cat">Familia táctica</label>
+          <select class="field-select" id="filter-cat" onchange="handleStratFilter()">
+            <option value="all">Todas las familias (38)</option>
+            <option value="lenguaje">1. Desplazamiento del tema y lenguaje (9)</option>
+            <option value="premisas">2. Trampas de premisas e interrogatorio (10)</option>
+            <option value="logica">3. Deducción abusiva y contragolpes (10)</option>
+            <option value="psicologia">4. Presión psicológica y auditorio (9)</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="filter-status">Estado de estudio</label>
+          <select class="field-select" id="filter-status" onchange="handleStratFilter()">
+            <option value="all">Todas</option>
+            <option value="pending">Pendientes</option>
+            <option value="mastered">Dominadas</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-secondary" onclick="resetStratFilters()">Limpiar</button>
+      </div>
+
+      <div class="results-meta">
+        <span class="dossier-meta" id="strat-count-label">Mostrando 38 de 38 estratagemas</span>
+        <div class="bulk-actions">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="toggleAllStratDetails(true)">Expandir ejemplos visibles</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="toggleAllStratDetails(false)">Contraer ejemplos</button>
+        </div>
+      </div>
+
+      <div class="card-grid" id="strat-grid" aria-live="polite">
+        <!-- Populated dynamically by JS -->
+      </div>
+    </section>
+
+    <!-- 5. PREGUNTAS FRECUENTES -->
+    <section id="preguntas" class="reveal-section" aria-labelledby="h-faq">
+      <div class="dossier-bar">
+        <span class="dossier-pill">04 · Preguntas frecuentes</span>
+        <span class="dossier-meta">Aclaraciones esenciales según la fuente</span>
+      </div>
+      <h2 id="h-faq">Preguntas clave sobre la dialéctica erística y su uso</h2>
+
+      <div class="accordion-stack">
+        <details class="expandable">
+          <summary>
+            <span class="summary-left"><span class="index-num">01</span> ¿Conviene conocer y usar estas estratagemas si uno busca la verdad?</span>
+            <i data-lucide="chevron-down" class="summary-chevron" aria-hidden="true"></i>
+          </summary>
+          <div class="expandable-body">
+            <p>
+              Sí, al menos para defenderse. Schopenhauer señala expresamente que incluso cuando alguien lleva la razón objetiva necesita la dialéctica para protegerla, y que hay que conocer los golpes desleales para encajarlos y, cuando sea inevitable frente a un contendiente que procede <em>por nefas</em>, responderle con sus mismas armas. Además, la tarea principal de la dialéctica científica es identificar y destruir de inmediato estas maniobras en los debates reales.
+            </p>
+          </div>
+        </details>
+
+        <details class="expandable">
+          <summary>
+            <span class="summary-left"><span class="index-num">02</span> ¿Cuál es la diferencia exacta entre <em>argumentum ad rem</em>, <em>ad hominem</em> y <em>ad personam</em>?</span>
+            <i data-lucide="chevron-down" class="summary-chevron" aria-hidden="true"></i>
+          </summary>
+          <div class="expandable-body">
+            <p>
+              El <strong>argumentum ad rem</strong> atiende a la naturaleza objetiva de la cosa debatida y es el único que derriba la verdad absoluta de una tesis. El <strong>argumentum ad hominem</strong> (o <em>ex concessis</em>) se aparta de la verdad objetiva para señalar una contradicción relativa con otras afirmaciones, concesiones o conductas del oponente. El <strong>argumentum ad personam</strong> (estratagema final) abandona por completo el asunto y ataca a la persona con groserías, burlas u ofensas.
+            </p>
+          </div>
+        </details>
+
+        <details class="expandable">
+          <summary>
+            <span class="summary-left"><span class="index-num">03</span> ¿Por qué la «Estratagema 12» (elegir el nombre ventajoso) es la más usada instintivamente?</span>
+            <i data-lucide="chevron-down" class="summary-chevron" aria-hidden="true"></i>
+          </summary>
+          <div class="expandable-body">
+            <p>
+              Porque todo orador traiciona de antemano su intención mediante la palabra que elige para nombrar un concepto sin término neutro. Quien habla a favor llama a una doctrina «piedad» o «fervor religioso», mientras su enemigo la tilda de «superstición» o «fanatismo»; un cambio se bautiza como «innovación» aborrecida o «reforma», y «asegurar su persona» se convierte en «encerrar». En el fondo, es una sutil <em>petitio principii</em> incrustada en el vocabulario.
+            </p>
+          </div>
+        </details>
+
+        <details class="expandable">
+          <summary>
+            <span class="summary-left"><span class="index-num">04</span> ¿Por qué Schopenhauer afirma que la estratagema 35 hace innecesarias todas las demás?</span>
+            <i data-lucide="chevron-down" class="summary-chevron" aria-hidden="true"></i>
+          </summary>
+          <div class="expandable-body">
+            <p>
+              Porque el <em>argumentum ab utili</em> no intenta persuadir al intelecto con razones, sino mover la voluntad mediante intereses concretos. Citando a Francis Bacon, Schopenhauer recuerda que el intelecto no es una luz seca que arda sin aceite, sino que está alimentado por la voluntad y las pasiones: casi siempre pesa más una pizca de voluntad que un quintal de juicio. Basta mostrar al rival o al auditorio que su tesis perjudica sus propios intereses para que la suelten como un hierro candente.
+            </p>
+          </div>
+        </details>
+
+        <details class="expandable">
+          <summary>
+            <span class="summary-left"><span class="index-num">05</span> ¿Cómo aconseja Schopenhauer actuar frente al ataque personal o la terquedad extrema?</span>
+            <i data-lucide="chevron-down" class="summary-chevron" aria-hidden="true"></i>
+          </summary>
+          <div class="expandable-body">
+            <p>
+              Si se tiene mucha sangre fría, se responde serenamente que la ofensa no guarda relación con el tema y se prosigue demostrando el error del rival (como Temístocles ante Euribíades: «¡pégame pero escúchame!»). No obstante, la única contrarregla verdaderamente segura —tomada de Aristóteles y reforzada por Voltaire («<em>la paix vaut encore mieux que la vérité</em>») y un proverbio árabe («los frutos de la paz penden del árbol del silencio»)— es elegir con rigor al interlocutor y recordar que de cada cien personas apenas hay una con la que merezca la pena discutir.
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 6. MÓDULO DE AUTOEVALUACIÓN INTERACTIVA -->
+    <section id="duelo" class="reveal-section" aria-labelledby="h-duelo">
+      <div class="dossier-bar">
+        <span class="dossier-pill">05 · Autoevaluación interactiva</span>
+        <span class="dossier-meta">El duelo dialéctico · 10 casos basados en la obra</span>
+      </div>
+      <h2 id="h-duelo">Entrenador de reflejos: identifica la estratagema del adversario</h2>
+      <p>
+        Pon a prueba tu capacidad para detectar en pleno debate los ardides documentados por Schopenhauer. Lee la réplica del oponente, identifica qué estratagema está aplicando y comprueba la parada correspondiente.
+      </p>
+
+      <div class="quiz-shell">
+        <div class="figure-card" id="quiz-stage" aria-live="polite">
+          <!-- Populated dynamically by JS -->
+        </div>
+
+        <aside class="aside-box" aria-label="Marcador del duelo dialéctico">
+          <div class="dim-title">Registro de esgrima</div>
+          <div class="score-grid">
+            <div class="mini-stat">
+              <div class="field-label">Aciertos</div>
+              <div class="mini-stat-val" id="quiz-score">0 / 10</div>
+            </div>
+            <div class="mini-stat">
+              <div class="field-label">Racha actual</div>
+              <div class="mini-stat-val" id="quiz-streak">0</div>
+            </div>
+            <div class="mini-stat">
+              <div class="field-label">Respondidos</div>
+              <div class="mini-stat-val" id="quiz-answered">0 / 10</div>
+            </div>
+            <div class="mini-stat">
+              <div class="field-label">Mejor marca</div>
+              <div class="mini-stat-val" id="quiz-best">0 / 10</div>
+            </div>
+          </div>
+          <p class="kpi-note" id="quiz-status-note">
+            Tu progreso en el duelo y las estratagemas marcadas como dominadas se guardan automáticamente en tu sesión.
+          </p>
+          <div style="margin-top: var(--space-md);">
+            <button type="button" class="btn btn-secondary btn-sm" id="quiz-reset-btn" onclick="resetQuiz(this)">Reiniciar duelo</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- FOOTER / FUENTE -->
+    <footer class="sources-footer">
+      <p>
+        <strong>Fuente exclusiva:</strong> Arthur Schopenhauer, <em>Dialéctica erística o el arte de tener razón, expuesta en treinta y ocho estratagemas</em> (publicada póstumamente en 1864 por Julius Frauenstädt bajo el título <em>Eristik</em>; ePUB v1.0) y apéndice «Sobre la controversia» (<em>Parerga y Paralipómena</em>, II, cap. II, § 26).
+      </p>
+    </footer>
+  </main>
+
+  <api-shim></api-shim>
+  <script>
+    // =========================================================================
+    // DATA: OSTEOLOGY NODES
+    // =========================================================================
+    const OSTEOLOGY_DATA = {
+      ad_rem: {
+        tag: `Modo 1A · Verdad objetiva`,
+        title: `Argumentum ad rem (en referencia a la cosa)`,
+        body: `Mostramos que la tesis expuesta por el adversario no concuerda con la naturaleza del objeto estudiado ni con la verdad objetiva absoluta. Es el único modo que derriba la verdad intrínseca de una afirmación, aunque en debates complejos ante legos suele ser más lento y difícil de exponer.`,
+        example: `Ejemplo de la obra: refutar una hipótesis física explicando cómo la presión atmosférica modifica el punto de ebullición del agua marina, en lugar de recurrir a una burla fácil.`
+      },
+      ad_hominem: {
+        tag: `Modo 1B · Verdad subjetiva o relativa`,
+        title: `Argumentum ad hominem / ex concessis`,
+        body: `Mostramos que la tesis contradice otras manifestaciones, principios de escuela o concesiones previas admitidas por el propio adversario. Solo logra una traslación relativa: deja indeterminada la verdad objetiva del asunto, pero tiene la gran ventaja de la brevedad.`,
+        example: `Analogía de Schopenhauer: es como un acusador que presenta ante el tribunal un pagaré falso y el acusado lo liquida con un recibo falso; el préstamo podría haber existido igualmente.`
+      },
+      directa: {
+        tag: `Vía 2A · Ataque a los fundamentos`,
+        title: `Refutación directa (Nego majorem/minorem · Nego consequentiam)`,
+        body: `Muestra que la tesis no es verdadera atacando sus raíces por dos caminos: negando la verdad material de sus premisas (nego majorem, nego minorem), o admitiendo las premisas pero demostrando que la conclusión no se sigue de ellas (nego consequentiam), atacando así la forma lógica de la inferencia.`,
+        example: `Ejemplo de la obra: cuando el rival equipara nuestra defensa práctica de los quietistas con la teoría hegeliana, detenemos el golpe por negación de la consecutividad.`
+      },
+      apagoge: {
+        tag: `Vía 2B-A · Refutación indirecta`,
+        title: `Apagoge (Reducción al absurdo)`,
+        body: `Aceptamos provisionalmente la tesis del adversario como si fuera verdadera y la unimos como premisa de un silogismo a otra proposición indiscutiblemente verdadera. Si de ambas se deduce una conclusión manifiestamente falsa —que contradice la naturaleza del objeto (ad rem) o las propias afirmaciones del rival (ad hominem)—, la tesis inicial debe ser falsa.`,
+        example: `Regla lógica citada: de premisas verdaderas solo pueden deducirse conclusiones verdaderas, aunque de premisas falsas no siempre se sigan conclusiones falsas.`
+      },
+      instancia: {
+        tag: `Vía 2B-B · Contraejemplo directo`,
+        title: `La instancia (Enstasis · Exemplum in contrarium)`,
+        body: `Refuta una tesis general mediante la aportación directa de un caso particular que está comprendido bajo su enunciado pero no la confirma. Si la afirmación universal falla en un único caso verdadero subsumido bajo su concepto, queda invalidada.`,
+        example: `Ejemplo clásico de la Estratagema 25: la tesis universal «todos los rumiantes tienen cuernos» queda refutada por la sola instancia del camello.`
+      },
+      esgrima: {
+        tag: `Metáfora central del tratado`,
+        title: `Estocadas regulares, fintas y golpes bajos`,
+        body: `Schopenhauer equipara toda la base formal de la disputa con la esgrima: las refutaciones directas e indirectas son las «estocadas regulares» (en tercera o cuarta); las 38 estratagemas recopiladas equivalen a las «fintas» engañosas; y la estratagema final (el ataque personal o ad personam) corresponde a lo que los maestros universitarios de esgrima llaman «golpes bajos».`,
+        example: `Principio común a toda disputa: contra quien niega los primeros principios acordados no puede discutirse (Contra negantem principia non est disputandum).`
+      }
+    };
+
+    // =========================================================================
+    // DATA: ALL 38 STRATAGEMS (Grounded 100% in source)
+    // =========================================================================
+    const CATEGORY_META = {
+      lenguaje: { label: `Tema y lenguaje`, cls: `cat-tag-1` },
+      premisas: { label: `Premisas e interrogatorio`, cls: `cat-tag-2` },
+      logica: { label: `Deducción y contragolpes`, cls: `cat-tag-3` },
+      psicologia: { label: `Psicología y auditorio`, cls: `cat-tag-4` }
+    };
+
+    const STRATAGEMS = [
+      {
+        num: 1,
+        cat: `lenguaje`,
+        title: `La amplificación`,
+        latin: `Status controversiae`,
+        desc: `Llevar la afirmación del adversario más allá de sus límites naturales e interpretarla en su sentido más general y exagerado; a la inversa, reducir la afirmación propia a su sentido más estrecho, pues cuanto más general es una tesis, a más ataques queda expuesta.`,
+        example: `1) Al afirmar que «los ingleses son la primera nación en el arte dramático», el rival intenta refutarlo citando su escasa relevancia en música y ópera. 2) Ante «la paz de 1814 devolvió a todas las ciudades hanseáticas alemanas su independencia», se objeta el caso de Danzig, y el hablante se salva precisando: «dije alemanas; Danzig era hanseática polaca». 3) Lamarck niega percepción sensible a los pólipos alegando que entonces cada molécula de su cuerpo pensaría y juzgaría.`,
+        defense: `Definir de entrada con precisión los puntos a discutir (puncti) y las condiciones del debate (status controversiae), recordando los límites literales de lo afirmado.`
+      },
+      {
+        num: 2,
+        cat: `lenguaje`,
+        title: `La homonimia`,
+        latin: `Sofisma ex homonymia · Quaternio terminorum`,
+        desc: `Usar una misma palabra que designa dos conceptos distintos para extender la afirmación del adversario a un significado ajeno al tema y refutarla triunfalmente en ese otro plano, generando una mutatio controversiae.`,
+        example: `1) Silogismo escolar: «Toda luz puede apagarse / el intelecto es luz / el intelecto puede apagarse». 2) Ante «aún no está iniciado en los misterios de la filosofía kantiana», responder «donde hay misterios no quiero saber nada». 3) Confundir el honor burgués (buen nombre mancillado por calumnias) con el honor caballeresco o point d'honneur (reparado con duelos) aprovechando la homonimia de «honor».`,
+        defense: `Desenmascarar la presencia de cuatro términos (dos sentidos bajo una misma palabra) y exigir separar ambos conceptos emparentados.`
+      },
+      {
+        num: 3,
+        cat: `lenguaje`,
+        title: `Tomar lo relativo en sentido absoluto`,
+        latin: `A dicto secundum quid ad dictum simpliciter`,
+        desc: `Interpretar una afirmación formulada de manera relativa o bajo un aspecto restringido como si hubiera sido enunciada en sentido general o absoluto, o bajo un aspecto completamente distinto, para refutarla ahí.`,
+        example: `Ejemplo de Aristóteles: «el moro es negro, por sus dientes blanco; luego es negro y no negro a la vez». Ejemplo real: alabar a los quietistas como hombres por su conducta práctica y criticar a Hegel como escritor teórico; el rival ataca ex hominem diciendo que los quietistas también escribieron disparates.`,
+        defense: `Refutación directa mediante negación de la consecutividad (negatio consequentiae), distinguiendo el plano práctico del teórico.`
+      },
+      {
+        num: 4,
+        cat: `premisas`,
+        title: `Ocultar la conclusión con prosilogismos`,
+        latin: `Aristóteles, Tópicos VIII, 1`,
+        desc: `Cuando se busca llegar a una conclusión que el rival impediría si la previera, hacer que admita las premisas una a una y dispersas; si aún desconfía, obtener primero las premisas de esas premisas (prosilogismos) de modo desordenado antes de recapitular desde atrás.`,
+        example: `Schopenhauer señala expresamente que esta regla procede de los Tópicos (VIII, 1) de Aristóteles y «no necesita ejemplo alguno»: enmascara la jugada hasta que el adversario ha concedido todo el material necesario.`,
+        defense: `Exigir al interlocutor que declare a qué conclusión conduce cada concesión parcial antes de aceptar premisas sueltas.`
+      },
+      {
+        num: 5,
+        cat: `premisas`,
+        title: `Usar premisas falsas ex concessis`,
+        latin: `Verdaderas ad hominem`,
+        desc: `Cuando el rival no admite premisas verdaderas (por ignorancia o por prever la conclusión), utilizar proposiciones falsas en sí mismas pero verdaderas según su modo de pensar (ex concessis), ya que lo verdadero puede deducirse también de premisas falsas.`,
+        example: `Si el contrincante pertenece a una secta o escuela con la que estamos en desacuerdo, emplear las máximas propias de esa secta como principios (principia) para demostrar nuestra tesis o refutar las suyas.`,
+        defense: `Evitar conceder dogmas de escuela sin examinar su validez objetiva ad rem en el caso concreto.`
+      },
+      {
+        num: 6,
+        cat: `premisas`,
+        title: `Encubrir la petición de principio`,
+        latin: `Petitio principii`,
+        desc: `Dar por supuesto aquello mismo que debe demostrarse mediante cuatro artimañas: 1) usar otro nombre; 2) dar por sentado en general lo que se discute en particular; 3) postular la consecuencia mutua; 4) hacer admitir todos los casos singulares para probar lo universal.`,
+        example: `Decir «buen nombre» por «honor», «virtud» por «virginidad», o «animales de sangre roja» por «animales vertebrados»; o probar la inseguridad de la medicina dando por sentada la inseguridad de todo saber humano (Aristóteles, Tópicos VIII, 11).`,
+        defense: `Identificar que la premisa propuesta es equivalente o idéntica a la tesis que aún falta probar y exigir una demostración independiente.`
+      },
+      {
+        num: 7,
+        cat: `premisas`,
+        title: `El método erotemático en ráfaga`,
+        latin: `Método socrático · Liber de elenchis sophisticis`,
+        desc: `En discusiones formales donde se procede preguntando al rival para deducir la tesis de sus respuestas, formular muchas preguntas de una vez y sobre asuntos diversos para ocultar lo que se busca admitir y extraer rápidamente la conclusión.`,
+        example: `Adaptada libremente del capítulo 15 del Liber de elenchis sophisticis de Aristóteles: quienes comprenden con lentitud no logran seguir la velocidad de la síntesis y pasan por alto fallos o lagunas en las deducciones.`,
+        defense: `Detener la ráfaga, responder a una sola pregunta cada vez y exigir verificar cada paso intermedio de la deducción.`
+      },
+      {
+        num: 8,
+        cat: `psicologia`,
+        title: `Provocar la cólera del adversario`,
+        latin: `Estrategia emocional`,
+        desc: `Irritar deliberadamente al contrincante hasta hacerlo montar en cólera, pues obcecado por la ira pierde la capacidad de juzgar rectamente y de advertir o aprovechar sus propias ventajas dialécticas.`,
+        example: `Se le encoleriza tratándolo injustamente sin miramiento alguno, incomodándolo de forma reiterada y comportándose en general con insolencia.`,
+        defense: `Conservar la calma interior, ignorar la provocación personal y ceñirse estrictamente a los argumentos objetivos.`
+      },
+      {
+        num: 9,
+        cat: `premisas`,
+        title: `Preguntar en desorden`,
+        latin: `Enmascaramiento erotemático`,
+        desc: `No plantear las preguntas en el orden lógico que requiere la conclusión deseada, sino desordenadamente, impidiendo que el adversario prevea adónde nos dirigimos y permitiendo extraer de sus respuestas conclusiones diversas o incluso contradictorias.`,
+        example: `Emparentada con la estratagema 4: al romper la secuencia visible de las premisas, el oponente responde sin sospechar cómo se ensamblarán luego sus concesiones.`,
+        defense: `Pedir que se explicite el vínculo de cada pregunta aislada con la tesis principal antes de responder.`
+      },
+      {
+        num: 10,
+        cat: `premisas`,
+        title: `Preguntar lo contrario o disyuntiva ambigua`,
+        latin: `Contrarrespuesta preventiva`,
+        desc: `Cuando se nota que el adversario niega intencionadamente toda pregunta cuya respuesta afirmativa beneficiaría nuestra tesis, preguntarle justo lo contrario fingiendo que eso es lo que necesitamos, o darle ambas opciones sin revelar cuál preferimos.`,
+        example: `Si el rival rechaza por sistema cuanto cree útil para nosotros, invertimos la presentación para inducirlo a conceder por oposición lo que en verdad sustenta nuestra postura.`,
+        defense: `Evaluar cada pregunta según su verdad material y no por oposición automática al interés aparente del interlocutor.`
+      },
+      {
+        num: 11,
+        cat: `premisas`,
+        title: `Dar por admitida la regla general tras la inducción`,
+        latin: `Salto inductivo tácito`,
+        desc: `Tras exponer varios casos particulares mediante inducción y lograr que el adversario los admita, no preguntarle si acepta también la verdad universal derivada, sino introducirla directamente en el discurso como si ya hubiera sido concedida.`,
+        example: `Tanto el propio adversario como los presentes creen que la conclusión general ya quedó demostrada al recordar la serie de preguntas sobre casos particulares que conducían hacia ella.`,
+        defense: `Señalar de inmediato que conceder ejemplos aislados no equivale a haber demostrado ni aceptado la proposición universal.`
+      },
+      {
+        num: 12,
+        cat: `lenguaje`,
+        title: `Elegir el símil o denominación ventajosa`,
+        latin: `Petitio principii léxica`,
+        desc: `Cuando un concepto general carece de nombre propio o se designa trópicamente, escoger enseguida la palabra o metáfora más favorable a nuestra tesis y más perjudicial para la del rival; es la estratagema usada con mayor frecuencia instintiva.`,
+        example: `«Serviles» frente a «liberales»; «protestantes» o «evangélicos» frente a «herejes»; «orden establecido» frente a «un pellejo»; «innovación» (término aborrecido) para el cambio ajeno; «culto» llamado «piedad» por el amigo o «superstición» por el enemigo; «asegurar su persona» frente a «encerrar»; «fervor religioso» frente a «fanatismo»; «desliz» frente a «infidelidad»; «contratiempo» frente a «bancarrota»; «relaciones» frente a «corrupción y nepotismo».`,
+        defense: `Desmontar la carga valorativa del vocablo y proponer una denominación descriptiva e imparcial antes de continuar.`
+      },
+      {
+        num: 13,
+        cat: `premisas`,
+        title: `La disyuntiva estridente`,
+        latin: `Contraste forzado`,
+        desc: `Para lograr que el rival admita una tesis, presentarle su opuesta de manera extrema y estridente para que, por no caer en una postura paradójica o absurda, elija nuestra tesis como lo más razonable.`,
+        example: `Preguntar: «¿Se debe obedecer a los padres en todas las cosas, o desobedecerles?»; o ante «a veces», forzar a elegir si significa «pocos casos» o «muchos». Es como comparar el gris con el negro para llamarlo blanco, y con el blanco para llamarlo negro.`,
+        defense: `Rechazar la disyuntiva falsa e introducir el término medio, el matiz o la gradación correspondiente.`
+      },
+      {
+        num: 14,
+        cat: `logica`,
+        title: `Exclamar la victoria sin fundamento`,
+        latin: `Fallacia non causae ut causae`,
+        desc: `Una jugada descarada: tras haber respondido el adversario a varias preguntas sin favorecer en nada nuestra conclusión, proclamarla triunfalmente como si ya hubiera quedado demostrada.`,
+        example: `Funciona especialmente si el contrincante es tímido o ingenuo y quien ataca posee suficiente descaro y una buena voz para imponer la apariencia de conclusión cerrada.`,
+        defense: `Exigir serenamente que señale cuál de las respuestas concedidas implica lógicamente la conclusión proclamada.`
+      },
+      {
+        num: 15,
+        cat: `logica`,
+        title: `Tesis auxiliar ante una paradoja`,
+        latin: `Trampa ad absurdum`,
+        desc: `Si defendemos una tesis paradójica difícil de probar, presentar al rival otra tesis correcta aunque poco evidente: si sospecha trampa y la rechaza, reducirlo al absurdo; si la acepta, ganar credibilidad diciendo algo razonable o proclamar probada la paradoja.`,
+        example: `Requiere una insolencia extrema que proporciona la experiencia, aunque algunas personas la practican instintivamente para salir de apuros argumentativos.`,
+        defense: `Examinar la tesis auxiliar por separado y advertir al auditorio que su aceptación no demuestra la paradoja inicial.`
+      },
+      {
+        num: 16,
+        cat: `logica`,
+        title: `Argumenta ad hominem o ex concessis`,
+        latin: `Contradicción con lo propio`,
+        desc: `Buscar si la afirmación del adversario entra en contradicción —al menos aparente— con algo que dijo o admitió antes, con los principios o hechos de una escuela que elogió, o con su propia conducta personal.`,
+        example: `Si el contrincante defiende el suicidio, espetarle: «¿Por qué no te ahorcas tú?». Si afirma que la estancia en Berlín no le es grata, replicar inesperadamente: «¿Por qué no te marchas de aquí en el primer correo?».`,
+        defense: `Recordar que la incoherencia personal o la conducta del hablante no refutan la verdad objetiva (ad rem) de su proposición.`
+      },
+      {
+        num: 17,
+        cat: `lenguaje`,
+        title: `La distinción sutil de escape`,
+        latin: `Ambigüedad salvadora`,
+        desc: `Cuando el adversario nos amenaza con una refutación inminente, salvar la propia tesis introduciendo una distinción sutil en la que antes no habíamos reparado, aprovechando cualquier ambigüedad o doble caso del asunto.`,
+        example: `Sirve siempre que los términos empleados al principio no se hubieran acotado de forma unívoca y permitan desdoblar dos acepciones o supuestos distintos.`,
+        defense: `Acordar definiciones precisas desde el comienzo y preguntar si la nueva distinción se mantiene coherente con lo ya afirmado.`
+      },
+      {
+        num: 18,
+        cat: `lenguaje`,
+        title: `Interrumpir y desviar la derrota`,
+        latin: `Mutatio controversiae`,
+        desc: `Cuando advertimos que el rival comienza una argumentación con la que va a derrotarnos, impedir a toda costa que la concluya, interrumpiendo o desviando a tiempo la trayectoria de la discusión hacia otras cuestiones.`,
+        example: `Remite expresamente a la maniobra de la diversión (estratagema 29): se corta el golpe decisivo cambiando el objeto del debate antes de que llegue la estocada final.`,
+        defense: `Exigir terminar la línea argumental interrumpida antes de abrir cualquier cuestión nueva.`
+      },
+      {
+        num: 19,
+        cat: `lenguaje`,
+        title: `Generalizar ante una pregunta concreta`,
+        latin: `Refugio en lo universal`,
+        desc: `Si el adversario nos solicita explícitamente alegar algo contra un punto concreto de su afirmación y no tenemos objeción válida, llevar el asunto a un plano general y argumentar en contra desde esa amplitud.`,
+        example: `Si debemos explicar por qué no es fiable una determinada hipótesis física y carecemos de prueba específica, disertamos largamente sobre lo engañoso del saber humano adornándolo con ejemplos.`,
+        defense: `Devolver la conversación al punto concreto planteado y señalar que la falibilidad general no refuta esa hipótesis en particular.`
+      },
+      {
+        num: 20,
+        cat: `premisas`,
+        title: `Concluir dando por concedido lo que falta`,
+        latin: `Fallacia non causae ut causae`,
+        desc: `Una vez obtenida del adversario la concesión de una de las premisas necesarias, no seguir preguntando por las restantes, sino deducir de inmediato la conclusión deseada dando también por concedidas las premisas que faltaban.`,
+        example: `El hablante salta directamente de una primera concesión al remate silogístico, contando con que la rapidez oculte los eslabones ausentes.`,
+        defense: `Interrumpir el salto deductivo y enumerar expresamente las premisas intermedias que nunca fueron admitidas.`
+      },
+      {
+        num: 21,
+        cat: `logica`,
+        title: `Liquidar un sofisma con otro sofisma`,
+        latin: `Contraargumento ad hominem`,
+        desc: `Cuando el rival usa un argumento meramente aparente o sofístico, es más corto y eficaz que desmontar su capciosidad responderle con otro argumento de análoga apariencia sofística o con un contraargumento ad hominem, pues importa la victoria y no la verdad.`,
+        example: `Si el oponente esgrime un argumento ad hominem, se lo anula al instante respondiéndole con otro ex concessis sin enzarzarse en la naturaleza profunda de la cosa.`,
+        defense: `Rehusar el intercambio de artificios y reconducir ambos argumentos a un examen ad rem.`
+      },
+      {
+        num: 22,
+        cat: `premisas`,
+        title: `Rechazar la premisa clave por petitio principii`,
+        latin: `Bloqueo al mejor argumento`,
+        desc: `Si el adversario nos conmina a admitir algo de lo que inmediatamente se seguiría el problema debatido, negarse aduciendo que incurre en una petición de principio (petitio principii), privándole así de su mejor argumento.`,
+        example: `Tanto el propio adversario como el auditorio confunden fácilmente una premisa cercana o parecida al problema con el problema mismo.`,
+        defense: `Demostrar que la premisa propuesta posee fundamento independiente y no es una mera reformulación de la conclusión.`
+      },
+      {
+        num: 23,
+        cat: `logica`,
+        title: `Provocar la exageración de la tesis rival`,
+        latin: `«Tanto dije, y no más»`,
+        desc: `Contradiciendo con discordia al adversario, inducirlo a llevar más allá de sus límites una afirmación que dentro de ellos era verdadera; al refutar su exageración parecerá que se refutó también su tesis inicial.`,
+        example: `Si el rival usa la misma táctica contra nosotros intentando estirar lo que dijimos más allá de nuestros términos, se le para súbitamente con un «tanto dije, y no más».`,
+        defense: `Mantener la tesis estrictamente dentro de sus términos originales sin dejarse arrastrar por el calor de la réplica a defender excesos.`
+      },
+      {
+        num: 24,
+        cat: `logica`,
+        title: `Uso abusivo de la deducción`,
+        latin: `Falsa apagoge · Non causae ut causae`,
+        desc: `Inferir a la fuerza de las tesis del adversario, mediante deducciones falsas y deformando sus conceptos, proposiciones absurdas o peligrosas que no están contenidas en su opinión, haciéndolo pasar por autocontradicción o contradicción con verdades reconocidas.`,
+        example: `En Parerga y Paralipómena (octava estratagema), Schopenhauer ilustra este abuso: A celebra que los franceses expulsaran a Carlos X y B añade tácitamente «quienes expulsan a su rey son loables» para preguntarle «¿es que quiere usted que expulsemos a nuestro rey?».`,
+        defense: `Negar la consecutividad (nego consequentiam) y exponer la premisa tácita falsa que el rival introdujo.`
+      },
+      {
+        num: 25,
+        cat: `logica`,
+        title: `La instancia o contraejemplo`,
+        latin: `Apagoge mediante exemplum in contrarium`,
+        desc: `Mientras la inducción (epagoge) exige muchos casos para sostener un principio universal, a la apagoge le basta presentar una única «instancia» (enstasis, contraejemplo) subsumida bajo el concepto en la que el principio no se cumple para refutarlo.`,
+        example: `La proposición «todos los rumiantes tienen cuernos» queda invalidada por la única instancia del camello.`,
+        defense: `Ante una instancia rival, verificar tres cosas: 1) si el ejemplo es verdadero (como muchos milagros o historias de espíritus); 2) si entra realmente bajo el concepto (posible distinción sutil); 3) si contradice de verdad la tesis o solo en apariencia.`
+      },
+      {
+        num: 26,
+        cat: `logica`,
+        title: `Dar la vuelta al argumento`,
+        latin: `Retorsio argumenti`,
+        desc: `Un golpe brillante que consiste en tomar el mismo argumento que el adversario emplea para defender su postura y volverlo con mayor fuerza en su contra.`,
+        example: `El adversario dice: «No es más que un niño, déjalo en paz, no se lo tengas en cuenta». Retorsio: «Precisamente porque es un niño se le debe tener en cuenta y corregirle, para que no se arraiguen sus malas costumbres».`,
+        defense: `Analizar la regla práctica implícita para mostrar por qué la consecuencia directa y la inversa no tienen el mismo peso en el caso.`
+      },
+      {
+        num: 27,
+        cat: `psicologia`,
+        title: `Insistir donde el rival se irrita`,
+        latin: `Síntoma del punto débil`,
+        desc: `Si el adversario se muestra inesperadamente irritado ante un argumento determinado, emplear ese argumento con insistencia, pues la irritación delata que se ha tocado el punto más vulnerable de su razonamiento.`,
+        example: `No se insiste solo por incomodarle, sino porque es de suponer que si se sigue presionando por esa brecha se obtendrá mucho más de lo que se ve a simple vista.`,
+        defense: `No delatar vulnerabilidad con enojo; responder de frente al punto cuestionado con serenidad.`
+      },
+      {
+        num: 28,
+        cat: `psicologia`,
+        title: `Argumentum ad auditores`,
+        latin: `Apelar a un público no experto`,
+        desc: `Cuando discuten personas doctas ante un público lego y falta todo argumento ad rem o ad hominem, lanzar una observación inválida (sobre todo si provoca risa) cuya falsedad solo el experto percibe pero exigiría una larga explicación técnica para ser refutada.`,
+        example: `El rival afirma que el granito cristalizó bajo el mar a 200 grados Réaumur; replicamos burlonamente que ya antes de los 80 grados el mar habría hervido en vapor. Los espectadores ríen, y el rival no se atreve a dar un tratado entero sobre presión atmosférica y punto de ebullición.`,
+        defense: `Condensar en una frase clara y llana el principio omitido (por ejemplo, que el peso del agua y la presión elevan el punto de ebullición) sin extenderse en tecnicismos.`
+      },
+      {
+        num: 29,
+        cat: `lenguaje`,
+        title: `La diversión`,
+        latin: `Mutatio controversiae · Faute de mieux`,
+        desc: `Al advertir que vamos a perder, comenzar repentinamente a hablar de otra cosa distinta como si tuviera relación con el debate o constituyera un nuevo argumento; puede hacerse con disimulo o descaradamente, como Escipión atacando África en vez de Italia.`,
+        example: `Tras elogiar que en China los cargos públicos se otorgan por exámenes (Examina) y no por nobleza de cuna, el rival vencido salta a reprochar que en China se castiga con bastonazos y se bebe demasiado té. La forma descarada roza ya el ataque personal («sí, y eso que usted decía recientemente…»).`,
+        defense: `No dejarse enredar en el desvío y advertir al auditorio que la partida original aún no ha sido respondida.`
+      },
+      {
+        num: 30,
+        cat: `psicologia`,
+        title: `Argumentum ad verecundiam`,
+        latin: `Apelar a la autoridad o opinión universal`,
+        desc: `En lugar de razones se emplean autoridades adaptadas al nivel del rival (florituras latinas o griegas, citas tergiversadas o inventadas) o se invocan prejuicios comunes como «opinión universal», pese a que, según Bentham y Bayle, el consenso masivo no prueba verdad alguna.`,
+        example: `Un cura francés (Curé) evita pavimentar la calle citando la sentencia bíblica «paveant illi, ego non pavebo» (haciendo creer a los delegados que viene de paver, pavimentar). Sobre la opinión universal: la distancia temporal (sistema ptolomeico) y espacial (budismo, cristianismo, islam) la anulan, y suele nacer de dos o tres personas repetidas por indolencia.`,
+        defense: `Exigir razones ad rem por encima de citas ajenas, comprobar el texto citado y recordar que cien mil votos repetidos valen tanto como el único testigo del que copiaron.`
+      },
+      {
+        num: 31,
+        cat: `psicologia`,
+        title: `Declararse irónicamente incompetente`,
+        latin: `Insinuar absurdo con cortesía`,
+        desc: `Cuando no se tiene nada que oponer a las razones del rival y se cuenta con mayor prestigio ante el auditorio, declararse fina e irónicamente incapaz de comprenderlo («supera mi pobre comprensión; renuncio a cualquier juicio»), insinuando que dijo un disparate.`,
+        example: `Así respondieron muchos profesores de la vieja escuela ecléctica al aparecer la Crítica de la razón pura de Kant, hasta que adeptos de la nueva escuela les demostraron con mal humor para ellos que efectivamente no la habían entendido.`,
+        defense: `Jugada contraria cortés: «Permítame… con su gran capacidad de penetración debe serle muy sencillo comprenderlo, por lo que únicamente mi mala exposición tiene la culpa», trocando «absurdo» en «incomprensión».`
+      },
+      {
+        num: 32,
+        cat: `lenguaje`,
+        title: `Subsumir bajo una categoría aborrecible`,
+        latin: `Etiqueta peyorativa`,
+        desc: `Forma rápida de invalidar o hacer sospechosa una afirmación incómoda vinculándola sin más con una categoría odiada o supuestamente refutada, suponiendo que es idéntica a ella y que esa categoría no contiene verdad alguna.`,
+        example: `Exclamar ante la tesis ajena: «¡Oh, esto no es nuevo para nosotros! Esto es maniqueísmo, arrianismo, pelagianismo, idealismo, espinozismo, panteísmo, brownianismo, naturalismo, ateísmo, racionalismo, espiritualismo o misticismo».`,
+        defense: `Negar la equivalencia automática con la etiqueta y exigir que se examine y refute la afirmación concreta en sus propios términos.`
+      },
+      {
+        num: 33,
+        cat: `logica`,
+        title: `«Verdad en teoría, falso en la práctica»`,
+        latin: `A ratione ad rationatum valet consequentia`,
+        desc: `Conceder las razones teóricas del adversario pero negar sus consecuencias prácticas, violando el principio lógico de consecutividad necesaria entre la causa o razón y su efecto.`,
+        example: `Es un sofisma que supone una imposibilidad: si algo no se verifica en la práctica, entonces había un fallo o una omisión en la teoría misma y la cuenta no salió bien.`,
+        defense: `Exigir al oponente que elija: o señala qué variable omitió la teoría para que sea falsa, o admite que si la teoría es verdadera debe cumplirse en la práctica.`
+      },
+      {
+        num: 34,
+        cat: `psicologia`,
+        title: `Detectar el punto débil por la evasiva`,
+        latin: `Enmudecimiento relativo`,
+        desc: `Cuando el adversario evita responder con precisión a un argumento, responde con otra pregunta, da una contestación esquiva o intenta desviar el tema, demuestra haber sufrido un «enmudecimiento relativo» en un punto vulnerable.`,
+        example: `Incluso cuando quien ataca lo descubre por azar y no ve todavía con claridad en qué consiste exactamente la flaqueza del adversario, la evasiva sirve de señal inequívoca.`,
+        defense: `Como táctica propia, mantenerse firme en ese punto exacto sin soltarlo; para defenderse de ella, responder con claridad antes de introducir matices.`
+      },
+      {
+        num: 35,
+        cat: `psicologia`,
+        title: `Argumentum ab utili (apelar a la voluntad)`,
+        latin: `Agarrar al árbol por la raíz`,
+        desc: `Estratagema que hace innecesarias todas las demás: en lugar de persuadir al intelecto con razones, influir en la voluntad mostrando al rival o al auditorio que su opinión perjudica gravemente sus propios intereses.`,
+        example: `1) Hacer notar a un clérigo que el dogma filosófico que defiende contradice un dogma de su iglesia. 2) Advertir al terrateniente que elogia las máquinas de vapor que pronto sustituirán los carros de caballos y desplomarán el precio de los caballos de sus cuadras. 3) Apelar al interés de una secta, sindicato o club al que pertenece el público.`,
+        defense: `Distinguir la verdad objetiva de una proposición de sus efectos prácticos o conveniencias gremiales (recordando la máxima de Bacon sobre voluntad e intelecto).`
+      },
+      {
+        num: 36,
+        cat: `psicologia`,
+        title: `Aturdir con absurda locuacidad`,
+        latin: `Palabras huecas con tono grave`,
+        desc: `Desconcertar al adversario —sobre todo si acostumbra a fingir que entiende lo que no comprende— lanzándole con aire serio y profundo una catarata de absurdos incomprensibles como prueba palpable de nuestra tesis.`,
+        example: `Fragmento de Oliver Goldsmith (El vicario de Wakefield, cap. VII): el Squire aturde al pobre Moisés con «concatenación de la propia existencia», «razón duplicada recíproca», «dialogismo problemático» y «secundum quoad a quoad minus», provocando la risa general y silenciándolo toda la noche.`,
+        defense: `Como intentó Moisés: pedir que el rival reduzca toda su parrafada a una proposición simple y concreta antes de admitir nada.`
+      },
+      {
+        num: 37,
+        cat: `logica`,
+        title: `Refutar la mala prueba y dar por vencida la tesis`,
+        latin: `Sustitución ad hominem por ad rem`,
+        desc: `Cuando el adversario tiene razón de fondo pero elige para defenderla una prueba inadecuada y fácil de destruir, invalidar esa prueba concreta y dar por refutada la tesis entera si nadie aporta otra mejor.`,
+        example: `Quien intenta probar la existencia de Dios aduciendo únicamente el argumento ontológico (fácil de refutar); o los malos abogados con una buena causa que invocan una ley inadecuada mientras no se les ocurre la pertinente.`,
+        defense: `Conceder que esa prueba concreta era deficiente, pero advertir que la falsedad de una prueba no prueba la falsedad de la tesis, y aportar una fundamentación distinta.`
+      },
+      {
+        num: 38,
+        cat: `psicologia`,
+        title: `Estratagema final: Argumentum ad personam`,
+        latin: `El golpe bajo · Ultima ratio`,
+        desc: `Cuando se advierte la superioridad del rival y que se tiene perdida la partida en el objeto debatido, abandonar por completo el tema y atacar grosera, ofensiva y burlonamente a la persona misma del adversario, pasando de la fuerza del espíritu a la bestialidad.`,
+        example: `Nace de la herida infligida a la vanidad intelectual (Hobbes, De Cive, I): incluso refutar serenamente a alguien lo irrita más que una grosería. Frente a ello, Temístocles dijo a Euribíades: «¡Pégame pero escúchame!».`,
+        defense: `Responder con sangre fría que la ofensa nada tiene que ver con el asunto y seguir demostrando su error; aunque la única contrarregla segura (Aristóteles, Tópicos VIII) es no discutir con el primero que salga al paso, sino solo con quienes valoran la verdad.`
+      }
+    ];
+
+    // =========================================================================
+    // DATA: 10 QUIZ SCENARIOS (Grounded directly in the source)
+    // =========================================================================
+    const QUIZ_CASES = [
+      {
+        id: `q1`,
+        prompt: `Afirmas que «la paz de 1814 devolvió a todas las ciudades hanseáticas alemanas su independencia». Tu rival responde triunfante: «¡Falso! Danzig perdió su independencia con esa paz». ¿Cómo detienes el golpe empleando la Estrategema 1?`,
+        options: [
+          `Cambiando de tema hacia el comercio del té para desviar la atención`,
+          `Limitando tu afirmación a sus términos exactos: «Dije alemanas; Danzig era una ciudad hanseática polaca»`,
+          `Acusando al adversario de utilizar una petitio principii encubierta`,
+          `Alegando que la historia solo es verdadera en teoría pero falsa en la práctica`
+        ],
+        correct: 1,
+        stratRef: `Estratagema 1 · La amplificación y limitación`,
+        explanation: `En el segundo ejemplo de la Estratagema 1, Schopenhauer muestra que quien es atacado con una aparente instantia in contrarium salva su afirmación restringiéndola al alcance exacto de su enunciado («ciudades alemanas», excluyendo Danzig).`
+      },
+      {
+        id: `q2`,
+        prompt: `Censuras el duelo diciendo que el verdadero honor no puede mancharse por lo que uno sufra, sino solo por lo que haga. Tu adversario replica: «Si calumnian a un comerciante acusándolo de estafa, su honor queda manchado por lo que padece». ¿Qué estratagema está usando?`,
+        options: [
+          `Estratagema 2 · La homonimia`,
+          `Estratagema 25 · La instancia (camello)`,
+          `Estratagema 33 · Teoría frente a práctica`,
+          `Estratagema 36 · Locuacidad absurda`
+        ],
+        correct: 0,
+        stratRef: `Estratagema 2 · La homonimia`,
+        explanation: `El rival aprovecha la homonimia de la palabra «honor» para mezclar dos conceptos distintos: el honor burgués (buen nombre mancillado por la calumnia) y el honor caballeresco o point d'honneur, provocando una mutatio controversiae.`
+      },
+      {
+        id: `q3`,
+        prompt: `Alabas a los quietistas en una charla filosófica y luego afirmas que Hegel escribió disparates teóricos. El rival te replica: «¡Pero si usted alabó a los quietistas, que también escribieron muchos disparates!». ¿Qué estratagema emplea y cómo se para?`,
+        options: [
+          `Estratagema 35 (ab utili); se para apelando a los intereses del público`,
+          `Estratagema 3 (tomar lo relativo en sentido absoluto); se para con negatio consequentiae, distinguiendo elogiarlos por sus acciones prácticas y no como filósofos teóricos`,
+          `Estratagema 26 (retorsio argumenti); se para respondiendo con el mismo elogio`,
+          `Estratagema 31 (incompetencia irónica); se para pidiendo disculpas por la exposición`
+        ],
+        correct: 1,
+        stratRef: `Estratagema 3 · Secundum quid → simpliciter`,
+        explanation: `En el ejemplo real de la Estratagema 3, Schopenhauer distingue admirar a los quietistas «como hombres, en un sentido práctico» frente a juzgar a Hegel «por sus aportaciones teóricas», deteniendo el golpe mediante negatio consequentiae.`
+      },
+      {
+        id: `q4`,
+        prompt: `En un debate teológico, tu oponente llama «piedad y beatitud» a lo que tú llamas «culto», mientras otro adversario lo bautiza de inmediato como «hipocresía y superstición». ¿Qué estratagema describe Schopenhauer aquí?`,
+        options: [
+          `Estratagema 12 · Elegir el símil o denominación ventajosa`,
+          `Estratagema 7 · El método erotemático en ráfaga`,
+          `Estratagema 20 · Saltar a la conclusión sin premisas`,
+          `Estratagema 37 · Refutar la mala prueba`
+        ],
+        correct: 0,
+        stratRef: `Estratagema 12 · Denominación tendenciosa`,
+        explanation: `Schopenhauer señala que esta es la estratagema más usada instintivamente: mediante el nombre elegido se introduce una sutil petitio principii que predispone al auditorio antes de argumentar.`
+      },
+      {
+        id: `q5`,
+        prompt: `Tu rival sostiene: «No es más que un niño, déjalo en paz, no se lo tengas en cuenta». Tú respondes al instante: «Precisamente porque es un niño se le debe tener en cuenta y corregirle, para que no se arraiguen sus malas costumbres». ¿Qué golpe acabas de ejecutar?`,
+        options: [
+          `Estratagema 16 · Argumentum ad hominem`,
+          `Estratagema 26 · Retorsio argumenti`,
+          `Estratagema 13 · La disyuntiva estridente`,
+          `Estratagema 24 · Uso abusivo de la deducción`
+        ],
+        correct: 1,
+        stratRef: `Estratagema 26 · Retorsio argumenti`,
+        explanation: `La retorsio argumenti consiste en dar la vuelta al mismo argumento que el adversario empleó para su defensa y dirigirlo en su contra.`
+      },
+      {
+        id: `q6`,
+        prompt: `Expones ante un público general que la costra granítica primigenia cristalizó bajo el mar a más de 200 grados Réaumur. Tu adversario se ríe y dice: «¡Antes de los 80 grados el mar ya habría hervido en vapor!», logrando las carcajadas de todos. ¿Qué estratagema aplicó?`,
+        options: [
+          `Estratagema 28 · Argumentum ad auditores`,
+          `Estratagema 30 · Argumentum ad verecundiam`,
+          `Estratagema 19 · Generalizar ante un ataque concreto`,
+          `Estratagema 8 · Provocar la cólera`
+        ],
+        correct: 0,
+        stratRef: `Estratagema 28 · Argumentum ad auditores`,
+        explanation: `Es el argumento al auditorio no experto: aprovecha una objeción inválida (y risible) que solo un físico refutaría tras un tratado sobre presión atmosférica y punto de ebullición, haciendo parecer derrotado al experto ante la audiencia.`
+      },
+      {
+        id: `q7`,
+        prompt: `Elogias el sistema chino de acceso a cargos públicos mediante exámenes frente a los privilegios de nacimiento. Al verse perdido, tu rival interrumpe: «¡Ah, pero en China se castiga con bastonazos y beben té en exceso!». ¿Qué maniobra ejecuta?`,
+        options: [
+          `Estratagema 29 · La diversión (mutatio controversiae)`,
+          `Estratagema 11 · Salto inductivo tácito`,
+          `Estratagema 22 · Rechazo por petitio principii`,
+          `Estratagema 32 · Categoría aborrecible`
+        ],
+        correct: 0,
+        stratRef: `Estratagema 29 · La diversión`,
+        explanation: `Cuando se advierte la derrota, se salta bruscamente a otro asunto ajeno (bastonazos y consumo de té) para desviar la disputa y hacer perder la victoria al rival si este se deja enredar en el nuevo tema.`
+      },
+      {
+        id: `q8`,
+        prompt: `Un profesor de prestigio dice ante los asistentes: «Lo que usted expone supera mi pobre capacidad de comprensión; probablemente sea muy justo, mas yo no acierto a comprenderlo, así que renuncio a juzgar». ¿Cuál es la jugada contraria recomendada por Schopenhauer?`,
+        options: [
+          `Aceptar con humildad y retirar la tesis inmediatamente`,
+          `Responder con exquisita cortesía que, dada su gran penetración, debe resultarle muy sencillo y que solo nuestra mala exposición tiene la culpa, obligándole a entenderlo`,
+          `Replicar con un insulto personal según la estratagema final`,
+          `Citar una autoridad latina inventada como en la estratagema 30`
+        ],
+        correct: 1,
+        stratRef: `Estratagema 31 · Incompetencia irónica`,
+        explanation: `Frente a la falsa modestia con que se insinúa que la tesis es absurda, Schopenhauer recomienda devolver el golpe con cortesía exquisita para trocar «absurdo» en «incomprensión» real del crítico.`
+      },
+      {
+        id: `q9`,
+        prompt: `Un terrateniente elogia las máquinas de vapor en Inglaterra porque hacen el trabajo de muchos hombres. Para que suelte su tesis al instante, le adviertes que pronto sustituirán a los carros de caballos y desplomarán el precio de los caballos de sus propias cuadras. ¿Qué estratagema aplicas?`,
+        options: [
+          `Estratagema 35 · Argumentum ab utili (apelar a la voluntad y los intereses)`,
+          `Estratagema 23 · Provocar la exageración`,
+          `Estratagema 14 · Exclamar victoria sin fundamento`,
+          `Estratagema 5 · Usar premisas falsas ex concessis`
+        ],
+        correct: 0,
+        stratRef: `Estratagema 35 · Argumentum ab utili`,
+        explanation: `En lugar de actuar sobre el intelecto con razones, se actúa sobre la voluntad mediante intereses concretos; quien ve dañados sus propios intereses suelta su opinión con la rapidez con que arrojaría un hierro candente.`
+      },
+      {
+        id: `q10`,
+        prompt: `Tu oponente defiende una causa verdadera, pero elige para probar la existencia de Dios únicamente el argumento ontológico, que refutas con facilidad, proclamando después que toda su tesis ha quedado destruida. ¿Qué estratagema empleaste?`,
+        options: [
+          `Estratagema 37 · Refutar una prueba inadecuada para dar por refutado todo el asunto`,
+          `Estratagema 6 · Encubrir una petitio principii`,
+          `Estratagema 10 · Preguntar lo contrario`,
+          `Estratagema 34 · Insistir ante el enmudecimiento relativo`
+        ],
+        correct: 0,
+        stratRef: `Estratagema 37 · Refutar la mala prueba`,
+        explanation: `Como señala Schopenhauer, así pierden los malos abogados con buena causa: se sustituye un argumentum ad rem por un ad hominem contra la prueba elegida, dando la tesis entera por vencida si nadie aporta otra prueba mejor.`
+      }
+    ];
+
+    // =========================================================================
+    // APP STATE (Persisted via notebookAppApi)
+    // =========================================================================
+    const DEFAULT_STATE = {
+      masteredIds: [],
+      quizIndex: 0,
+      quizAnswers: {},
+      bestScore: 0,
+      selectedOsteology: `ad_rem`
+    };
+
+    let appState = {
+      masteredIds: [],
+      quizIndex: 0,
+      quizAnswers: {},
+      bestScore: 0,
+      selectedOsteology: `ad_rem`
+    };
+
+    let expandedDetails = {};
+
+    async function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+        } catch (err) {
+          // Safe fallback inside sandbox
+        }
+      }
+    }
+
+    async function loadPersistedState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            appState = {
+              masteredIds: Array.isArray(saved.masteredIds) ? saved.masteredIds : [],
+              quizIndex: typeof saved.quizIndex === `number` ? saved.quizIndex : 0,
+              quizAnswers: saved.quizAnswers && typeof saved.quizAnswers === `object` ? saved.quizAnswers : {},
+              bestScore: typeof saved.bestScore === `number` ? saved.bestScore : 0,
+              selectedOsteology: typeof saved.selectedOsteology === `string` && OSTEOLOGY_DATA[saved.selectedOsteology] ? saved.selectedOsteology : `ad_rem`
+            };
+          }
+        } catch (err) {
+          appState = { ...DEFAULT_STATE };
+        }
+      }
+    }
+
+    // =========================================================================
+    // COMPARISON LENS HANDLER
+    // =========================================================================
+    function setComparisonLens(lens) {
+      const buttons = [`all`, `epistemologia`, `practica`];
+      buttons.forEach(function(id) {
+        const btn = document.getElementById(`lens-` + id);
+        if (btn) {
+          btn.classList.toggle(`is-active`, id === lens);
+        }
+      });
+
+      const tbody = document.getElementById(`comparison-tbody`);
+      if (!tbody) return;
+      const rows = tbody.querySelectorAll(`tr`);
+      rows.forEach(function(row) {
+        const rowLens = row.getAttribute(`data-lens`);
+        if (lens === `all`) {
+          row.classList.remove(`is-highlighted`, `is-dimmed`);
+        } else if (rowLens === lens) {
+          row.classList.add(`is-highlighted`);
+          row.classList.remove(`is-dimmed`);
+        } else {
+          row.classList.remove(`is-highlighted`);
+          row.classList.add(`is-dimmed`);
+        }
+      });
+    }
+
+    // =========================================================================
+    // OSTEOLOGY SCHEMATIC HANDLERS
+    // =========================================================================
+    function handleNodeKey(event, key) {
+      if (event.key === `Enter` || event.key === ` `) {
+        event.preventDefault();
+        selectOsteology(key);
+      }
+    }
+
+    function selectOsteology(key) {
+      if (!OSTEOLOGY_DATA[key]) return;
+      appState.selectedOsteology = key;
+
+      const keys = Object.keys(OSTEOLOGY_DATA);
+      keys.forEach(function(k) {
+        const btn = document.getElementById(`ost-btn-` + k);
+        if (btn) btn.classList.toggle(`is-active`, k === key);
+      });
+
+      const nodeMap = {
+        ad_rem: [`ost-node-ad_rem`],
+        ad_hominem: [`ost-node-ad_hominem`],
+        directa: [`ost-node-directa`, `ost-node-sub_directa`],
+        apagoge: [`ost-node-indirecta`, `ost-node-apagoge`],
+        instancia: [`ost-node-indirecta`, `ost-node-instancia`],
+        esgrima: [`ost-node-esgrima`]
+      };
+
+      const allNodeIds = [
+        `ost-node-ad_rem`,
+        `ost-node-ad_hominem`,
+        `ost-node-directa`,
+        `ost-node-indirecta`,
+        `ost-node-sub_directa`,
+        `ost-node-apagoge`,
+        `ost-node-instancia`,
+        `ost-node-esgrima`
+      ];
+      allNodeIds.forEach(function(nid) {
+        const el = document.getElementById(nid);
+        if (el) el.classList.remove(`is-selected`);
+      });
+
+      const activeIds = nodeMap[key] || [];
+      activeIds.forEach(function(nid) {
+        const el = document.getElementById(nid);
+        if (el) el.classList.add(`is-selected`);
+      });
+
+      const detailEl = document.getElementById(`osteology-detail`);
+      if (detailEl) {
+        const item = OSTEOLOGY_DATA[key];
+        detailEl.innerHTML = `
+          <div class="dim-title">${item.tag}</div>
+          <h3 style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">${item.title}</h3>
+          <p>${item.body}</p>
+          <div class="detail-block" style="margin-top: var(--space-md);">
+            <strong>Referencia de la fuente</strong>
+            ${item.example}
+          </div>
+        `;
+      }
+      persistState();
+    }
+
+    // =========================================================================
+    // 38 STRATAGEMS EXPLORER
+    // =========================================================================
+    function getFilteredStratagems() {
+      const searchEl = document.getElementById(`search-strat`);
+      const catEl = document.getElementById(`filter-cat`);
+      const statusEl = document.getElementById(`filter-status`);
+
+      const query = searchEl ? searchEl.value.trim().toLowerCase() : ``;
+      const cat = catEl ? catEl.value : `all`;
+      const status = statusEl ? statusEl.value : `all`;
+
+      return STRATAGEMS.filter(function(item) {
+        const isMastered = appState.masteredIds.indexOf(item.num) !== -1;
+        if (cat !== `all` && item.cat !== cat) return false;
+        if (status === `mastered` && !isMastered) return false;
+        if (status === `pending` && isMastered) return false;
+        if (query) {
+          const hay = (
+            item.num + ` ` +
+            item.title + ` ` +
+            item.latin + ` ` +
+            item.desc + ` ` +
+            item.example + ` ` +
+            item.defense
+          ).toLowerCase();
+          if (hay.indexOf(query) === -1) return false;
+        }
+        return true;
+      });
+    }
+
+    function updateMasteryDisplay() {
+      const count = appState.masteredIds.length;
+      const counterEl = document.getElementById(`mastery-counter`);
+      const noteEl = document.getElementById(`mastery-note`);
+      if (counterEl) {
+        counterEl.textContent = count + ` / 38 dominadas`;
+      }
+      if (noteEl) {
+        if (count === 0) {
+          noteEl.textContent = `Marca cada estratagema conforme revises su mecanismo, ejemplo y parada.`;
+        } else if (count < 38) {
+          noteEl.textContent = `Has revisado y marcado el ` + Math.round((count / 38) * 100) + `% del repertorio completo de Kunstgriffe.`;
+        } else {
+          noteEl.textContent = `Repertorio completo dominado: las 38 estratagemas identificadas.`;
+        }
+      }
+    }
+
+    function renderStratagems() {
+      const grid = document.getElementById(`strat-grid`);
+      const countLabel = document.getElementById(`strat-count-label`);
+      if (!grid) return;
+
+      const list = getFilteredStratagems();
+      if (countLabel) {
+        countLabel.textContent = `Mostrando ` + list.length + ` de 38 estratagemas`;
+      }
+
+      if (list.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <h3>Ninguna estratagema coincide con los filtros actuales</h3>
+            <p style="margin-top: var(--space-xs); color: var(--on-surface-variant);">
+              No hay coincidencias para esa combinación de búsqueda, familia táctica o estado de estudio.
+            </p>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top: var(--space-sm);" onclick="resetStratFilters()">Mostrar las 38 estratagemas</button>
+          </div>
+        `;
+        return;
+      }
+
+      const htmlParts = list.map(function(item) {
+        const isMastered = appState.masteredIds.indexOf(item.num) !== -1;
+        const isOpen = Boolean(expandedDetails[item.num]);
+        const meta = CATEGORY_META[item.cat];
+        const paddedNum = item.num < 10 ? `0` + item.num : String(item.num);
+        const numDisplay = item.num === 38 ? `38 · FINAL` : paddedNum;
+
+        return `
+          <div class="strat-wrapper">
+            <article class="strat-card ${isMastered ? `is-mastered` : ``}" aria-label="Estratagema ${item.num}">
+              <div>
+                <div class="strat-top">
+                  <span class="index-num">ESTRATAGEMA ${numDisplay}</span>
+                  <span class="cat-tag ${meta.cls}">${meta.label}</span>
+                </div>
+                <h3 class="strat-title">${item.title}</h3>
+                <div class="strat-latin">${item.latin}</div>
+                <p class="strat-desc">${item.desc}</p>
+                ${isOpen ? `
+                  <div class="strat-detail-panel">
+                    <div class="detail-block">
+                      <strong>Ejemplo o base en la fuente</strong>
+                      ${item.example}
+                    </div>
+                    <div class="detail-block">
+                      <strong>Parada y contragolpe</strong>
+                      ${item.defense}
+                    </div>
+                  </div>
+                ` : ``}
+              </div>
+              <div class="strat-actions">
+                <button type="button" class="btn btn-secondary btn-sm" aria-expanded="${isOpen}" onclick="toggleStratDetail(${item.num})">
+                  ${isOpen ? `Ocultar ejemplo y parada` : `Ver ejemplo y parada`}
+                </button>
+                <button type="button" class="btn btn-sm ${isMastered ? `btn-positive` : `btn-secondary`}" aria-pressed="${isMastered}" onclick="toggleMastered(${item.num})">
+                  ${isMastered ? `Dominada` : `Marcar dominada`}
+                </button>
+              </div>
+            </article>
+          </div>
+        `;
+      });
+
+      grid.innerHTML = htmlParts.join(``);
+      if (window.lucide && typeof window.lucide.createIcons === `function`) {
+        window.lucide.createIcons();
+      }
+    }
+
+    function handleStratFilter() {
+      renderStratagems();
+    }
+
+    function resetStratFilters() {
+      const searchEl = document.getElementById(`search-strat`);
+      const catEl = document.getElementById(`filter-cat`);
+      const statusEl = document.getElementById(`filter-status`);
+      if (searchEl) searchEl.value = ``;
+      if (catEl) catEl.value = `all`;
+      if (statusEl) statusEl.value = `all`;
+      renderStratagems();
+    }
+
+    function toggleStratDetail(num) {
+      expandedDetails[num] = !expandedDetails[num];
+      renderStratagems();
+    }
+
+    function toggleAllStratDetails(open) {
+      const visible = getFilteredStratagems();
+      visible.forEach(function(item) {
+        expandedDetails[item.num] = open;
+      });
+      renderStratagems();
+    }
+
+    function toggleMastered(num) {
+      const idx = appState.masteredIds.indexOf(num);
+      if (idx === -1) {
+        appState.masteredIds.push(num);
+      } else {
+        appState.masteredIds.splice(idx, 1);
+      }
+      updateMasteryDisplay();
+      renderStratagems();
+      persistState();
+    }
+
+    // =========================================================================
+    // INTERACTIVE QUIZ: EL DUELO DIALÉCTICO
+    // =========================================================================
+    function computeQuizStats() {
+      let correctCount = 0;
+      let answeredCount = 0;
+      let streak = 0;
+
+      QUIZ_CASES.forEach(function(q) {
+        const chosen = appState.quizAnswers[q.id];
+        if (typeof chosen === `number`) {
+          answeredCount += 1;
+          if (chosen === q.correct) {
+            correctCount += 1;
+            streak += 1;
+          } else {
+            streak = 0;
+          }
+        }
+      });
+
+      if (correctCount > appState.bestScore) {
+        appState.bestScore = correctCount;
+      }
+
+      return { correctCount, answeredCount, streak };
+    }
+
+    function updateQuizScoreboard() {
+      const stats = computeQuizStats();
+      const scoreEl = document.getElementById(`quiz-score`);
+      const streakEl = document.getElementById(`quiz-streak`);
+      const answeredEl = document.getElementById(`quiz-answered`);
+      const bestEl = document.getElementById(`quiz-best`);
+
+      if (scoreEl) scoreEl.textContent = stats.correctCount + ` / ` + QUIZ_CASES.length;
+      if (streakEl) streakEl.textContent = String(stats.streak);
+      if (answeredEl) answeredEl.textContent = stats.answeredCount + ` / ` + QUIZ_CASES.length;
+      if (bestEl) bestEl.textContent = appState.bestScore + ` / ` + QUIZ_CASES.length;
+    }
+
+    function renderQuiz() {
+      const stage = document.getElementById(`quiz-stage`);
+      if (!stage) return;
+
+      updateQuizScoreboard();
+
+      if (appState.quizIndex >= QUIZ_CASES.length) {
+        const stats = computeQuizStats();
+        let verdict = `Necesitas repasar el repertorio de fintas antes de entrar en liza.`;
+        if (stats.correctCount >= 8) {
+          verdict = `Dominio sobresaliente de la esgrima intelectual: reconoces de inmediato los ardides desleales.`;
+        } else if (stats.correctCount >= 5) {
+          verdict = `Buen criterio dialéctico: identificas las tácticas principales, aunque algunas fintas sutiles aún pueden sorprenderte.`;
+        }
+
+        stage.innerHTML = `
+          <div class="dim-title">Resultado del duelo dialéctico</div>
+          <h3 style="margin-top: var(--space-xs);">Has completado los ${QUIZ_CASES.length} casos de debate</h3>
+          <p style="margin-top: var(--space-sm);">${verdict}</p>
+          <div class="detail-block" style="margin-top: var(--space-md);">
+            <strong>Balance final</strong>
+            Obtuviste ${stats.correctCount} aciertos de ${QUIZ_CASES.length} posibles (mejor marca registrada: ${appState.bestScore} / ${QUIZ_CASES.length}).
+          </div>
+          <div class="quiz-nav-row">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="goToQuizCase(0)">Revisar desde el caso 1</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="clearQuizAnswers()">Volver a intentar los 10 casos</button>
+          </div>
+        `;
+        return;
+      }
+
+      const q = QUIZ_CASES[appState.quizIndex];
+      const userAnswer = appState.quizAnswers[q.id];
+      const hasAnswered = typeof userAnswer === `number`;
+      const isRight = hasAnswered && userAnswer === q.correct;
+      const letters = [`A`, `B`, `C`, `D`];
+
+      const optionsHtml = q.options.map(function(opt, idx) {
+        let stateClass = ``;
+        if (hasAnswered) {
+          if (idx === q.correct) stateClass = `is-correct`;
+          else if (idx === userAnswer) stateClass = `is-wrong`;
+        }
+        return `
+          <button type="button" class="quiz-option ${stateClass}" ${hasAnswered ? `disabled` : ``} onclick="submitQuizAnswer(${idx})">
+            <span class="index-num" style="margin-top: var(--space-2xs);">${letters[idx]}</span>
+            <span>${opt}</span>
+          </button>
+        `;
+      }).join(``);
+
+      stage.innerHTML = `
+        <div class="strat-top">
+          <span class="index-num">CASO ${appState.quizIndex + 1} DE ${QUIZ_CASES.length}</span>
+          <span class="dossier-meta">${hasAnswered ? q.stratRef : `DIAGNÓSTICO DE DEBATE`}</span>
+        </div>
+        <h3 style="margin-top: var(--space-sm); line-height: 1.4;">${q.prompt}</h3>
+        <div class="quiz-options" role="group" aria-label="Opciones de respuesta">
+          ${optionsHtml}
+        </div>
+        ${hasAnswered ? `
+          <div class="quiz-feedback ${isRight ? `is-correct` : `is-wrong`}">
+            <strong>${isRight ? `Parada certera` : `Golpe encajado — revisa la finta`} (${q.stratRef})</strong>
+            <p style="margin-top: var(--space-xs); margin-bottom: 0; font-size: 0.9375rem;">${q.explanation}</p>
+          </div>
+        ` : ``}
+        <div class="quiz-nav-row">
+          <button type="button" class="btn btn-secondary btn-sm" ${appState.quizIndex === 0 ? `disabled` : ``} onclick="goToQuizCase(${appState.quizIndex - 1})">Anterior</button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="goToQuizCase(${appState.quizIndex + 1})">
+            ${appState.quizIndex === QUIZ_CASES.length - 1 ? `Ver balance final` : `Siguiente caso`}
+          </button>
+        </div>
+      `;
+    }
+
+    function submitQuizAnswer(idx) {
+      const q = QUIZ_CASES[appState.quizIndex];
+      if (!q || typeof appState.quizAnswers[q.id] === `number`) return;
+      appState.quizAnswers[q.id] = idx;
+      computeQuizStats();
+      renderQuiz();
+      persistState();
+    }
+
+    function goToQuizCase(index) {
+      if (index < 0) index = 0;
+      if (index > QUIZ_CASES.length) index = QUIZ_CASES.length;
+      appState.quizIndex = index;
+      renderQuiz();
+      persistState();
+    }
+
+    function clearQuizAnswers() {
+      appState.quizIndex = 0;
+      appState.quizAnswers = {};
+      const resetBtn = document.getElementById(`quiz-reset-btn`);
+      if (resetBtn) {
+        resetBtn.dataset.armed = `false`;
+        resetBtn.textContent = `Reiniciar duelo`;
+      }
+      renderQuiz();
+      persistState();
+    }
+
+    function resetQuiz(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Pulsa otra vez para confirmar`;
+        return;
+      }
+      clearQuizAnswers();
+    }
+
+    // =========================================================================
+    // SCROLL REVEAL & INITIALIZATION
+    // =========================================================================
+    function setupRevealObserver() {
+      const sections = document.querySelectorAll(`.reveal-section`);
+      if (!(`IntersectionObserver` in window)) return;
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(`is-visible`);
+            entry.target.classList.remove(`will-animate`);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      sections.forEach(function(sec) {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top > window.innerHeight * 0.92) {
+          sec.classList.add(`will-animate`);
+          observer.observe(sec);
+        }
+      });
+    }
+
+    async function initApp() {
+      await loadPersistedState();
+      selectOsteology(appState.selectedOsteology);
+      updateMasteryDisplay();
+      renderStratagems();
+      renderQuiz();
+      setupRevealObserver();
+
+      if (window.lucide && typeof window.lucide.createIcons === `function`) {
+        window.lucide.createIcons();
+      }
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>

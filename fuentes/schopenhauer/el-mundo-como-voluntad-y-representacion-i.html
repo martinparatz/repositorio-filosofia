@@ -1,0 +1,2311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="sonnet">
+  <title>El mundo como voluntad y representación I — Arthur Schopenhauer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (Sonnet) */
+      --background: #f5efe0;
+      --surface-container-low: #f8f3e7;
+      --surface-container: #ece3cf;
+      --surface-container-high: #e4d8bf;
+
+      /* Ink */
+      --on-surface: #1f1a17;
+      --on-surface-variant: #4a3f38;
+
+      /* Rules */
+      --outline: #a8843f;
+      --outline-variant: #d8c7a3;
+
+      /* Accents */
+      --primary: #6b1424;
+      --on-primary: #f5efe0;
+      --primary-container: #efe0dc;
+      --on-primary-container: #4a0d18;
+      --secondary: #2f4a3a;
+      --secondary-container: #e3ebe5;
+      --tertiary: #a8843f;
+      --error: #9b2c1f;
+      --on-error: #f5efe0;
+
+      /* Data series */
+      --data-1: #6b1424;
+      --data-2: #2f4a3a;
+      --data-3: #a8843f;
+      --data-4: #3d5a73;
+      --data-context: #b9ad9c;
+
+      /* Fonts */
+      --font-headline: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Crimson Pro', Georgia, serif;
+      --font-label: 'Cormorant Garamond', Georgia, serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --gilt-rule: 1px solid var(--outline);
+      --gilt-hairline: 1px solid var(--outline-variant);
+      --ink-hairline: 1px solid var(--on-surface-variant);
+      --gilt-frame-inset: 5px;
+      --paper-vignette: inset 0 0 90px rgb(120 90 40 / 0.16);
+
+      /* Shared semantic tokens */
+      --positive: #2f4a3a;
+      --warning: #7c5412;
+      --focus: #6b1424;
+
+      /* Type scale (Narrative, adjusted for Cormorant & Crimson Pro) */
+      --display-size: clamp(2.4rem, 1.4rem + 3.8vw, 4.3rem);
+      --headline-size: clamp(1.85rem, 1.25rem + 2vw, 2.75rem);
+      --subhead-size: clamp(1.25rem, 1.05rem + 0.65vw, 1.55rem);
+      --body-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.22rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.14vw, 0.84rem);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.68;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    .page-shell {
+      min-height: 100vh;
+      box-shadow: var(--paper-vignette);
+      padding-block: var(--space-lg) var(--space-3xl);
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding-inline: var(--space-lg);
+      max-width: 1120px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography helpers */
+    .label-voice {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--primary);
+    }
+
+    .caption-voice {
+      font-family: var(--font-body);
+      font-size: 0.96rem;
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+    }
+
+    .prose-measure {
+      max-width: 65ch;
+      margin-inline: auto;
+      text-align: left;
+    }
+
+    .prose-measure p {
+      margin-block: 0 var(--space-md);
+      font-variant-numeric: oldstyle-nums;
+    }
+
+    .prose-measure p:last-child {
+      margin-bottom: 0;
+    }
+
+    .drop-cap::first-letter {
+      float: left;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 3.6em;
+      line-height: 0.85;
+      padding: 0.06em 0.09em 0 0;
+      color: var(--primary);
+    }
+
+    /* Header & Structured Navigation */
+    .site-header {
+      max-width: 1040px;
+      margin-inline: auto;
+      width: 100%;
+      padding-block: var(--space-sm) var(--space-lg);
+      border-bottom: var(--gilt-hairline);
+      text-align: center;
+    }
+
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-xs) var(--space-sm);
+    }
+
+    .nav-link {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--on-surface);
+      text-decoration: none;
+      padding: var(--space-sm) var(--space-sm);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: color var(--dur-short) var(--ease-out);
+    }
+
+    .nav-link:hover, .nav-link:focus-visible {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-color: var(--outline);
+      text-underline-offset: 4px;
+    }
+
+    .nav-middot {
+      color: var(--on-surface-variant);
+      user-select: none;
+      font-family: var(--font-headline);
+    }
+
+    /* Hero Title Block — Single Gilt Double Frame */
+    .gilt-frame {
+      border: var(--gilt-rule);
+      outline: var(--gilt-rule);
+      outline-offset: calc(-1 * var(--gilt-frame-inset));
+      padding: var(--space-2xl) var(--space-xl);
+      background-color: var(--surface-container-low);
+      text-align: center;
+      max-width: 960px;
+      margin-inline: auto;
+      width: 100%;
+    }
+
+    .hero-kicker {
+      display: block;
+      margin-bottom: var(--space-md);
+    }
+
+    .hero-title {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-style: italic;
+      font-size: var(--display-size);
+      line-height: 1.06;
+      letter-spacing: -0.005em;
+      margin: 0 auto var(--space-md);
+      max-width: 19ch;
+      color: var(--on-surface);
+    }
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--primary);
+    }
+
+    .hero-lede {
+      font-family: var(--font-body);
+      font-size: var(--subhead-size);
+      line-height: 1.48;
+      color: var(--on-surface-variant);
+      max-width: 52ch;
+      margin: 0 auto var(--space-lg);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    /* Key Figures Strip */
+    .figures-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-lg);
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+      max-width: 960px;
+      margin-inline: auto;
+      width: 100%;
+      text-align: center;
+    }
+
+    .figure-item {
+      padding-inline: var(--space-sm);
+    }
+
+    .figure-value {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.9rem, 1.4rem + 1.5vw, 2.5rem);
+      line-height: 1.15;
+      color: var(--on-surface);
+      margin: var(--space-xs) 0;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    /* Section Architecture */
+    .chapter-section {
+      display: grid;
+      gap: var(--space-xl);
+      padding-top: var(--space-lg);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 72ch;
+      margin-inline: auto;
+      padding-bottom: var(--space-md);
+      border-bottom: var(--gilt-hairline);
+      width: 100%;
+    }
+
+    .section-title {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-style: italic;
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      letter-spacing: -0.005em;
+      margin: var(--space-xs) 0 var(--space-sm);
+      color: var(--on-surface);
+    }
+
+    .section-subtitle {
+      font-family: var(--font-body);
+      font-size: 1.08rem;
+      color: var(--on-surface-variant);
+      margin: 0 auto;
+      max-width: 56ch;
+    }
+
+    /* Verse / Epigraph Block */
+    .verse {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.25rem;
+      line-height: 1.5;
+      color: var(--secondary);
+      border-left: var(--gilt-rule);
+      padding-left: var(--space-md);
+      margin: var(--space-md) auto;
+      max-width: 44ch;
+      text-align: left;
+    }
+
+    .verse-source {
+      display: block;
+      font-family: var(--font-body);
+      font-style: normal;
+      font-size: 0.92rem;
+      color: var(--on-surface-variant);
+      margin-top: var(--space-xs);
+    }
+
+    /* Ruled cards & containers */
+    .ruled-panel {
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+      background-color: transparent;
+    }
+
+    .inset-panel {
+      background-color: var(--surface-container-low);
+      border-top: var(--gilt-rule);
+      border-bottom: var(--gilt-rule);
+      padding: var(--space-xl) var(--space-lg);
+    }
+
+    .parchment-panel {
+      background-color: var(--surface-container);
+      border: var(--gilt-hairline);
+      padding: var(--space-xl) var(--space-lg);
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      border-radius: var(--rounded);
+      padding: 0.72rem 1.35rem;
+      min-height: 44px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      text-decoration: none;
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border: 1px solid var(--primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--on-primary-container);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--primary-container);
+    }
+
+    .btn[aria-pressed="true"],
+    .btn.is-active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      border: 1px solid var(--secondary);
+      border-radius: var(--rounded-full);
+      padding: 0.18rem 0.72rem;
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--secondary);
+    }
+
+    /* Two-column interactive layout */
+    .interactive-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Book Selector Buttons */
+    .book-selector-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .book-node-btn {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      text-align: left;
+      padding: var(--space-md);
+      min-height: 44px;
+      background-color: var(--surface-container-low);
+      border: var(--gilt-hairline);
+      color: var(--on-surface);
+      cursor: pointer;
+      transition: background-color var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+    }
+
+    .book-node-btn:hover {
+      background-color: var(--surface-container);
+    }
+
+    .book-node-btn.is-active {
+      background-color: var(--primary-container);
+      box-shadow: inset 3px 0 0 var(--primary);
+    }
+
+    .book-node-title {
+      display: block;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-style: italic;
+      font-size: 1.18rem;
+      color: var(--on-surface);
+      margin-top: var(--space-xs);
+    }
+
+    /* SVG Diagram Containers */
+    .diagram-stage {
+      background-color: var(--surface-container-low);
+      border: var(--gilt-hairline);
+      padding: var(--space-md);
+      min-height: 290px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .diagram-stage svg {
+      width: 100%;
+      height: auto;
+      max-width: 480px;
+      display: block;
+    }
+
+    /* Sliders and Inputs (Sonnet style) */
+    .control-group {
+      display: grid;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+    }
+
+    .control-label {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--on-surface);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+
+    .control-value {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 1rem;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--primary);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      min-height: 44px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .text-input, .select-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 0.55rem 0.75rem;
+      background-color: transparent;
+      border: none;
+      border-bottom: var(--ink-hairline);
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      color: var(--on-surface);
+      border-radius: var(--rounded);
+      transition: border-color var(--dur-micro) var(--ease-out);
+    }
+
+    .select-input {
+      padding-right: 2rem;
+    }
+
+    .text-input:focus, .select-input:focus {
+      border-bottom-color: var(--primary);
+    }
+
+    textarea.text-input {
+      min-height: 96px;
+      border: var(--gilt-hairline);
+      background-color: var(--surface-container-low);
+      padding: var(--space-sm) var(--space-md);
+      resize: vertical;
+    }
+
+    /* Comparison Cards / Concept Grid */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    .concept-entry {
+      border-top: var(--gilt-rule);
+      padding-top: var(--space-md);
+    }
+
+    .concept-entry h3 {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.45rem;
+      margin: var(--space-xs) 0 var(--space-sm);
+      color: var(--on-surface);
+    }
+
+    /* Arts Ladder */
+    .arts-ladder {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .art-tier-btn {
+      width: 100%;
+      min-height: 48px;
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: var(--gilt-hairline);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      transition: background-color var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+    }
+
+    .art-tier-btn:hover {
+      background-color: var(--surface-container);
+    }
+
+    .art-tier-btn.is-active {
+      background-color: var(--primary-container);
+      box-shadow: inset 4px 0 0 var(--primary);
+    }
+
+    .art-tier-name {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-style: italic;
+      font-size: 1.22rem;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      border-top: var(--gilt-rule);
+      border-bottom: var(--gilt-rule);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--primary);
+      padding: var(--space-md) var(--space-sm);
+      border-bottom: var(--gilt-rule);
+    }
+
+    td {
+      padding: var(--space-sm);
+      border-bottom: var(--gilt-hairline);
+      vertical-align: top;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .german-term {
+      font-style: italic;
+      color: var(--secondary);
+      font-weight: 500;
+    }
+
+    /* Quiz Module */
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+      margin-block: var(--space-md);
+    }
+
+    .quiz-option-btn {
+      width: 100%;
+      min-height: 48px;
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: var(--gilt-hairline);
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.45;
+      color: var(--on-surface);
+      cursor: pointer;
+      transition: background-color var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+    }
+
+    .quiz-option-btn:hover:not(:disabled) {
+      background-color: var(--surface-container);
+    }
+
+    .quiz-option-btn.is-correct {
+      background-color: var(--secondary-container);
+      box-shadow: inset 4px 0 0 var(--positive);
+    }
+
+    .quiz-option-btn.is-incorrect {
+      background-color: var(--primary-container);
+      box-shadow: inset 4px 0 0 var(--error);
+    }
+
+    .feedback-box {
+      padding: var(--space-md);
+      border-left: 3px solid var(--outline);
+      background-color: var(--surface-container-low);
+      margin-top: var(--space-md);
+    }
+
+    .feedback-box.is-positive {
+      border-left-color: var(--positive);
+    }
+
+    .feedback-box.is-error {
+      border-left-color: var(--error);
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      max-width: 72ch;
+      margin-inline: auto;
+      width: 100%;
+      border-top: var(--gilt-rule);
+    }
+
+    details.faq-item {
+      border-bottom: var(--gilt-hairline);
+      padding-block: var(--space-md);
+    }
+
+    details.faq-item summary {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-style: italic;
+      font-size: 1.32rem;
+      line-height: 1.3;
+      color: var(--on-surface);
+      cursor: pointer;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      list-style: none;
+    }
+
+    details.faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.faq-item summary::after {
+      content: "+";
+      font-family: var(--font-label);
+      font-style: normal;
+      font-size: 1.2rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    details.faq-item[open] summary::after {
+      content: "−";
+    }
+
+    .faq-answer {
+      padding-top: var(--space-sm);
+      color: var(--on-surface-variant);
+      max-width: 65ch;
+    }
+
+    /* Status & Notes bar */
+    .status-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      padding-block: var(--space-sm);
+      border-bottom: var(--gilt-hairline);
+      margin-bottom: var(--space-md);
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      gap: var(--space-md);
+    }
+
+    .form-field {
+      flex: 1 1 240px;
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    /* Reveal animation */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+
+    .reveal-item.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Footer */
+    .site-footer {
+      max-width: 960px;
+      margin-inline: auto;
+      width: 100%;
+      border-top: var(--gilt-rule);
+      padding-top: var(--space-lg);
+      text-align: center;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 780px) {
+      .interactive-split {
+        grid-template-columns: 1fr;
+      }
+      .figures-strip {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: 1fr;
+        padding-inline: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .gilt-frame {
+        padding: var(--space-xl) var(--space-md);
+      }
+      .inset-panel, .parchment-panel {
+        padding: var(--space-lg) var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-item {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="page-grid">
+
+      <!-- Navegación estructurada -->
+      <header class="site-header" aria-label="Navegación principal">
+        <nav class="nav-bar" aria-label="Secciones de la obra">
+          <a class="nav-link" href="#arquitectura">Arquitectura</a>
+          <span class="nav-middot" aria-hidden="true">·</span>
+          <a class="nav-link" href="#representacion">Representación y Maya</a>
+          <span class="nav-middot" aria-hidden="true">·</span>
+          <a class="nav-link" href="#voluntad">Voluntad</a>
+          <span class="nav-middot" aria-hidden="true">·</span>
+          <a class="nav-link" href="#arte">Arte e Ideas</a>
+          <span class="nav-middot" aria-hidden="true">·</span>
+          <a class="nav-link" href="#etica">Ética y Ascesis</a>
+          <span class="nav-middot" aria-hidden="true">·</span>
+          <a class="nav-link" href="#modulos">Módulos y Glosario</a>
+          <span class="nav-middot" aria-hidden="true">·</span>
+          <a class="nav-link" href="#faq">Preguntas Frecuentes</a>
+        </nav>
+      </header>
+
+      <!-- Apertura: Único marco doble dorado -->
+      <section class="gilt-frame" aria-labelledby="titulo-principal">
+        <span class="label-voice hero-kicker">Arthur Schopenhauer · Edición crítica de 1818–1859</span>
+        <h1 id="titulo-principal" class="hero-title">
+          El mundo como <em>voluntad</em> y representación I
+        </h1>
+        <p class="hero-lede">
+          Un sistema filosófico construido como un organismo vivo para descifrar el enigma del mundo mediante un único pensamiento: «El mundo es el autoconocimiento de la voluntad».
+        </p>
+        <blockquote class="verse" style="margin-inline: auto;">
+          «La vida es un asunto desagradable: he decidido pasarla reflexionando sobre ella.»
+          <span class="verse-source">Respuesta de Schopenhauer a Christoph Martin Wieland, abril de 1811</span>
+        </blockquote>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#modulo-maya">Explorar el Velo de Maya</a>
+          <a class="btn btn-secondary" href="#modulos">Autoevaluación y glosario</a>
+        </div>
+      </section>
+
+      <!-- Cifras clave de la obra -->
+      <section class="figures-strip" aria-label="Datos fundamentales de la obra">
+        <div class="figure-item">
+          <span class="label-voice">Edición original</span>
+          <div class="figure-value">1818 / 800</div>
+          <p class="caption-voice">Propuesta a Brockhaus en marzo de 1818; tiraje inicial limitado a 800 ejemplares.</p>
+        </div>
+        <div class="figure-item">
+          <span class="label-voice">Estructura orgánica</span>
+          <div class="figure-value">4 Libros + Apéndice</div>
+          <p class="caption-voice">Gnoseología, metafísica, estética, ética y 142 páginas de crítica a Kant.</p>
+        </div>
+        <div class="figure-item">
+          <span class="label-voice">Pensamiento único</span>
+          <div class="figure-value">2 Lecturas</div>
+          <p class="caption-voice">Exige leerse dos veces porque el comienzo supone el fin tanto como el fin el comienzo.</p>
+        </div>
+      </section>
+
+      <!-- SECCIÓN I: ARQUITECTURA ORGÁNICA -->
+      <section id="arquitectura" class="chapter-section reveal-item" aria-labelledby="titulo-arquitectura">
+        <header class="section-header">
+          <span class="label-voice">Sección I · Prólogo e Introducción</span>
+          <h2 id="titulo-arquitectura" class="section-title">Un libro único de estructura orgánica, no arquitectónica</h2>
+          <p class="section-subtitle">
+            Schopenhauer rompe con los sistemas encadenados del racionalismo moderno y exige tres propedéuticas antes de adentrarse en su pensamiento.
+          </p>
+        </header>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            El 28 de marzo de 1818, con treinta años recién cumplidos, Arthur Schopenhauer escribió al editor Brockhaus de Leipzig para ofrecerle un «nuevo sistema filosófico» dotado de un grado máximo de coherencia. Pese a la extensión de su obra posterior, todas sus publicaciones restantes son prolegómenos o desarrollos de este volumen único, que condensa en miles de páginas una sola intuición juvenil: frente al optimismo racionalista de Descartes, Leibniz y su contemporáneo Hegel —para quien «todo lo racional es real»—, el verdadero fondo del ser es una voluntad ciega, escindida e irracional.
+          </p>
+          <p>
+            En el Prólogo a la primera edición, el filósofo advierte que su tratado no posee una conexión arquitectónica —donde un cimiento sostiene pisos superiores sin ser sostenido por ellos—, sino orgánica: cada parte recibe del todo tanto como el todo de ella. De ahí su primera exigencia: leer la obra dos veces con paciencia. La segunda exige conocer su tratado previo <em>Sobre la cuádruple raíz del principio de razón suficiente</em> y el primer capítulo de <em>Sobre la visión y los colores</em>. La tercera presupone la filosofía crítica de Kant —depurada en el Apéndice final—, con Platón y la sabiduría hindú de los <em>Vedas</em> y las <em>Upanishads</em> como preparación privilegiada.
+          </p>
+        </div>
+
+        <!-- Módulo Interactivo 0: Mapa orgánico de los 4 libros + Apéndice -->
+        <div class="inset-panel" id="modulo-arquitectura">
+          <div class="status-strip">
+            <div>
+              <span class="label-voice">Explorador estructural</span>
+              <h3 style="font-family: var(--font-headline); font-style: italic; font-weight: 500; font-size: 1.55rem; margin: var(--space-xs) 0 0;">
+                La conexión orgánica entre los cuatro Libros y el Apéndice
+              </h3>
+            </div>
+            <span class="tag" id="arch-active-tag">Libro I</span>
+          </div>
+
+          <div class="book-selector-grid" role="group" aria-label="Seleccionar libro de la obra">
+            <button type="button" class="book-node-btn is-active" data-book="0" onclick="selectBookNode(0)">
+              <span class="label-voice">Libro I · § 1–16</span>
+              <span class="book-node-title">Representación I</span>
+            </button>
+            <button type="button" class="book-node-btn" data-book="1" onclick="selectBookNode(1)">
+              <span class="label-voice">Libro II · § 17–29</span>
+              <span class="book-node-title">La Voluntad</span>
+            </button>
+            <button type="button" class="book-node-btn" data-book="2" onclick="selectBookNode(2)">
+              <span class="label-voice">Libro III · § 30–52</span>
+              <span class="book-node-title">Arte e Ideas</span>
+            </button>
+            <button type="button" class="book-node-btn" data-book="3" onclick="selectBookNode(3)">
+              <span class="label-voice">Libro IV · § 53–71</span>
+              <span class="book-node-title">Ética y Ascesis</span>
+            </button>
+            <button type="button" class="book-node-btn" data-book="4" onclick="selectBookNode(4)">
+              <span class="label-voice">Apéndice · 142 pp.</span>
+              <span class="book-node-title">Crítica a Kant</span>
+            </button>
+          </div>
+
+          <div class="interactive-split">
+            <div class="diagram-stage">
+              <svg viewBox="0 0 420 280" role="img" aria-label="Diagrama orgánico del pensamiento único">
+                <!-- Circunferencia orgánica -->
+                <circle cx="210" cy="140" r="102" fill="none" stroke="var(--outline-variant)" stroke-width="1.5" stroke-dasharray="4 4" />
+                <!-- Líneas de interdependencia hacia el centro -->
+                <line x1="210" y1="38" x2="210" y2="140" stroke="var(--outline)" stroke-width="1.2" />
+                <line x1="312" y1="140" x2="210" y2="140" stroke="var(--outline)" stroke-width="1.2" />
+                <line x1="210" y1="242" x2="210" y2="140" stroke="var(--outline)" stroke-width="1.2" />
+                <line x1="108" y1="140" x2="210" y2="140" stroke="var(--outline)" stroke-width="1.2" />
+                <line x1="348" y1="48" x2="258" y2="95" stroke="var(--outline-variant)" stroke-width="1.2" stroke-dasharray="3 3" />
+
+                <!-- Centro: Pensamiento único -->
+                <circle cx="210" cy="140" r="46" fill="var(--surface-container)" stroke="var(--primary)" stroke-width="1.8" />
+                <text x="210" y="135" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="13" fill="var(--on-surface)">Autoconocimiento</text>
+                <text x="210" y="152" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="13" fill="var(--primary)">de la Voluntad</text>
+
+                <!-- Nodos -->
+                <g id="svg-book-0" style="cursor:pointer;" onclick="selectBookNode(0)">
+                  <circle cx="210" cy="38" r="22" fill="var(--primary)" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="210" y="42" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="13" fill="var(--on-primary)">Lib. I</text>
+                </g>
+                <g id="svg-book-1" style="cursor:pointer;" onclick="selectBookNode(1)">
+                  <circle cx="312" cy="140" r="22" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="312" y="144" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="13" fill="var(--on-surface)">Lib. II</text>
+                </g>
+                <g id="svg-book-2" style="cursor:pointer;" onclick="selectBookNode(2)">
+                  <circle cx="210" cy="242" r="22" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="210" y="246" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="13" fill="var(--on-surface)">Lib. III</text>
+                </g>
+                <g id="svg-book-3" style="cursor:pointer;" onclick="selectBookNode(3)">
+                  <circle cx="108" cy="140" r="22" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="108" y="144" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="13" fill="var(--on-surface)">Lib. IV</text>
+                </g>
+                <g id="svg-book-4" style="cursor:pointer;" onclick="selectBookNode(4)">
+                  <rect x="316" y="24" width="84" height="32" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="1.5" />
+                  <text x="358" y="44" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="12" fill="var(--on-surface)">Apéndice</text>
+                </g>
+              </svg>
+              <p class="caption-voice" style="margin: var(--space-sm) 0 0; text-align: center;">
+                Pulse en cualquier libro o en el Apéndice para examinar su función dentro del sistema.
+              </p>
+            </div>
+
+            <div id="arch-detail-panel" class="ruled-panel" aria-live="polite">
+              <span class="label-voice" id="arch-detail-discipline">Teoría del conocimiento</span>
+              <h4 id="arch-detail-title" style="font-family: var(--font-headline); font-style: italic; font-weight: 500; font-size: 1.6rem; margin: var(--space-xs) 0 var(--space-sm);">
+                Libro Primero: El mundo como representación
+              </h4>
+              <p id="arch-detail-summary" style="margin-top: 0;">
+                Analiza la cara exterior del mundo bajo el principio de razón suficiente: todo cuanto existe para el conocimiento es objeto para un sujeto en el espacio, el tiempo y la causalidad.
+              </p>
+              <blockquote class="verse" id="arch-detail-epigraph" style="margin-inline: 0; font-size: 1.1rem;">
+                «¡Sal de la infancia, amigo, despierta!» — Jean-Jacques Rousseau
+              </blockquote>
+              <p class="caption-voice" id="arch-detail-relation" style="margin-bottom: 0;">
+                <strong>Vínculo orgánico:</strong> Hace abstracción provisional de la voluntad para aislar la cognoscibilidad pura; prepara el enigma del «qué» que responderá el Libro II.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN II: REPRESENTACIÓN Y VELO DE MAYA -->
+      <section id="representacion" class="chapter-section reveal-item" aria-labelledby="titulo-representacion">
+        <header class="section-header">
+          <span class="label-voice">Sección II · Libro Primero</span>
+          <h2 id="titulo-representacion" class="section-title">El mundo es mi representación y el Velo de Maya encubre lo real</h2>
+          <p class="section-subtitle">
+            Ningún objeto existe sin un sujeto que lo intuya; espacio, tiempo y causalidad ordenan la apariencia onírica, pero silencian la esencia.
+          </p>
+        </header>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            El Libro Primero abre con una verdad inmediata e irrebatible: «El mundo es mi representación». Nadie conoce un sol ni una tierra, sino un ojo que ve el sol y una mano que siente la tierra. El mundo como representación consta de dos mitades inseparables: el objeto —cuyas formas son el espacio, el tiempo y la causalidad— y el sujeto cognoscente, «ojo del mundo» que todo lo conoce y de nada es conocido, entero e indiviso fuera del espacio y el tiempo. Si ese único sujeto desapareciera, desaparecería con él todo el mundo como representación.
+          </p>
+          <p>
+            Aunque Schopenhauer hereda esta tesis del idealismo transcendental de Kant, invierte el sentido del término <em>fenómeno</em> vinculándolo con Platón y la antigua sabiduría hindú. Para Kant el fenómeno era el modo en que los objetos nos son dados; para Schopenhauer es el modo en que se nos <em>oculta</em> la verdadera realidad. De ahí sus dos metáforas centrales: la vida como un sueño —«la vida y el sueño son hojas de un mismo libro»— y el <strong>Velo de Maya</strong>, el velo del engaño que envuelve los ojos de los mortales haciéndoles ver una pluralidad ilusoria de individuos separados. El principio de razón suficiente rige todas nuestras representaciones, pero carece de validez respecto de la cosa en sí: cuando la ciencia agota los «porqués», la razón calla ante el «qué» inexplicado.
+          </p>
+        </div>
+
+        <!-- Módulo Interactivo 1: Simulador del Velo de Maya -->
+        <div class="inset-panel" id="modulo-maya">
+          <div class="status-strip">
+            <div>
+              <span class="label-voice">Módulo interactivo I · Gnoseología y Metafísica</span>
+              <h3 style="font-family: var(--font-headline); font-style: italic; font-weight: 500; font-size: 1.55rem; margin: var(--space-xs) 0 0;">
+                Rasgar el Velo de Maya: de la representación externa a la unidad del ser
+              </h3>
+            </div>
+            <span class="tag" id="maya-stage-tag">Conocimiento fenoménico</span>
+          </div>
+
+          <div class="interactive-split">
+            <div>
+              <div class="control-group">
+                <label class="control-label" for="maya-slider">
+                  <span>Grado de penetración más allá del velo</span>
+                  <span class="control-value" id="maya-percent-label">15 % · Principium individuationis</span>
+                </label>
+                <input type="range" id="maya-slider" min="0" max="100" value="15" oninput="updateMayaView(this.value)">
+              </div>
+
+              <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-lg);">
+                <button type="button" class="btn btn-secondary" onclick="setMayaPreset(10)">Realismo ordinario</button>
+                <button type="button" class="btn btn-secondary" onclick="setMayaPreset(45)">Conciencia filosófica</button>
+                <button type="button" class="btn btn-secondary" onclick="setMayaPreset(75)">Puerta trasera corporal</button>
+                <button type="button" class="btn btn-secondary" onclick="setMayaPreset(100)">«Tat tvam asi»</button>
+              </div>
+
+              <div class="ruled-panel" aria-live="polite">
+                <h4 id="maya-mode-title" style="font-family: var(--font-headline); font-style: italic; font-weight: 500; font-size: 1.45rem; margin: 0 0 var(--space-sm);">
+                  El imperio del principio de razón suficiente
+                </h4>
+                <p id="maya-mode-desc" style="margin: 0 0 var(--space-md);">
+                  Bajo el velo intacto, el sujeto percibe seres aislados en el espacio y el tiempo. Cada otro ser aparece como un «no-yo» ajeno, regido únicamente por causas, estímulos y motivos.
+                </p>
+                <div class="concept-grid" style="gap: var(--space-md);">
+                  <div>
+                    <span class="label-voice">El propio cuerpo</span>
+                    <p id="maya-body-note" class="caption-voice" style="margin: var(--space-xs) 0 0;">Visto solo desde fuera, como un objeto más entre objetos.</p>
+                  </div>
+                  <div>
+                    <span class="label-voice">El otro ser vivo</span>
+                    <p id="maya-other-note" class="caption-voice" style="margin: var(--space-xs) 0 0;">«No-yo» distante; terreno natural del egoísmo.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="diagram-stage">
+              <svg viewBox="0 0 420 290" role="img" aria-label="Esquema del Velo de Maya entre sujeto y esencia">
+                <!-- Fondo: esencia única (Voluntad) -->
+                <rect x="24" y="24" width="372" height="242" fill="var(--surface-container)" stroke="var(--outline-variant)" stroke-width="1" />
+                <text x="210" y="54" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="16" fill="var(--primary)">
+                  Núcleo único: Voluntad indivisa (Cosa en sí)
+                </text>
+
+                <!-- Dos individuos aparentes en el fenómeno -->
+                <circle id="maya-ind-a" cx="135" cy="145" r="36" fill="var(--surface-container-low)" stroke="var(--secondary)" stroke-width="1.8" />
+                <text x="135" y="142" text-anchor="middle" font-family="Crimson Pro, serif" font-size="13" fill="var(--on-surface)">Sujeto / Yo</text>
+                <text x="135" y="158" text-anchor="middle" font-family="Crimson Pro, serif" font-style="italic" font-size="11" fill="var(--on-surface-variant)">Cuerpo propio</text>
+
+                <circle id="maya-ind-b" cx="285" cy="145" r="36" fill="var(--surface-container-low)" stroke="var(--secondary)" stroke-width="1.8" />
+                <text x="285" y="142" text-anchor="middle" font-family="Crimson Pro, serif" font-size="13" fill="var(--on-surface)">Otro ser</text>
+                <text id="maya-other-svg-label" x="285" y="158" text-anchor="middle" font-family="Crimson Pro, serif" font-style="italic" font-size="11" fill="var(--on-surface-variant)">«No-yo»</text>
+
+                <!-- Conexión interna subterránea (se intensifica al rasgar el velo) -->
+                <path id="maya-unity-arc" d="M 135 181 Q 210 232 285 181" fill="none" stroke="var(--primary)" stroke-width="2.5" opacity="0.2" />
+                <text id="maya-unity-text" x="210" y="232" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="14" fill="var(--primary)" opacity="0.2">
+                  Identidad esencial: «Otra vez yo»
+                </text>
+
+                <!-- Cortina del Velo de Maya (opacidad dinámica) -->
+                <g id="maya-veil-layer" opacity="0.85">
+                  <rect x="44" y="76" width="332" height="128" fill="var(--surface-container-high)" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="6 4" />
+                  <text x="210" y="102" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="13" letter-spacing="2" fill="var(--on-surface-variant)">
+                    VELO DE MAYA · ESPACIO · TIEMPO · CAUSALIDAD
+                  </text>
+                  <line x1="210" y1="112" x2="210" y2="195" stroke="var(--outline)" stroke-width="1.5" />
+                </g>
+              </svg>
+              <p class="caption-voice" style="margin: var(--space-sm) 0 0; text-align: center;">
+                Al disminuir el velo, el abismo espacial-temporal entre «yo» y «no-yo» revela su raíz común.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN III: LA VOLUNTAD Y EL PÉNDULO DEL DOLOR -->
+      <section id="voluntad" class="chapter-section reveal-item" aria-labelledby="titulo-voluntad">
+        <header class="section-header">
+          <span class="label-voice">Sección III · Libro Segundo y Libro Cuarto (§ 56)</span>
+          <h2 id="titulo-voluntad" class="section-title">La puerta trasera del cuerpo revela la Voluntad ciega y su péndulo</h2>
+          <p class="section-subtitle">
+            El mundo no solo es representación desde fuera; desde dentro, nuestro cuerpo desvela la esencia íntima de toda la naturaleza.
+          </p>
+        </header>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            Desde la pura conciencia pensante nunca superaríamos la cáscara de la representación; ese fue el error del <em>ego cogito</em> cartesiano. Pero somos seres corporales, y nuestro cuerpo ofrece una «puerta trasera» privilegiada: lo conocemos desde fuera como objeto entre objetos y, simultáneamente, desde dentro, donde cada movimiento corporal voluntario es idéntico a un acto de voluntad. Schopenhauer denomina a esta identidad entre el sujeto que conoce y el sujeto que quiere «el milagro <em>κατ’ εξοχήν</em>»: «El sujeto se conoce a sí mismo sólo como volente, no como cognoscente».
+          </p>
+          <p>
+            Extendiendo esa clave al resto de la naturaleza por analogía, descubrimos que en el principio no era el <em>lógos</em>, sino la <strong>Voluntad</strong>: una fuerza única, ciega e ilimitada que se objetiva tanto en la gravedad de la piedra y el crecimiento vegetal como en el instinto animal y el carácter humano. No es antropomorfismo de la naturaleza, sino naturalismo del hombre. Y como todo querer brota de una carencia —es decir, de sufrimiento—, la vida oscila como un péndulo entre el <strong>dolor</strong> de lo no satisfecho y el <strong>tedio</strong> de la voluntad desocupada tras una satisfacción efímera. Toda dicha es meramente negativa (cese de una privación), mientras que el dolor es positivo y crece con la claridad de la conciencia: <em>Qui auget scientiam, auget et dolorem</em>.
+          </p>
+        </div>
+
+        <blockquote class="verse">
+          «Podemos comparar el tiempo con un círculo que gira sin fin: la mitad que siempre desciende sería el pasado, la que siempre asciende, el futuro; arriba, el punto indivisible que toca la tangente sería el presente inextenso.»
+          <span class="verse-source">Libro Cuarto · Sobre el <em>nunc stans</em> y la eternidad de la voluntad de vivir</span>
+        </blockquote>
+
+        <!-- Módulo Interactivo 2: Péndulo de la existencia -->
+        <div class="inset-panel" id="modulo-pendulo">
+          <div class="status-strip">
+            <div>
+              <span class="label-voice">Módulo interactivo II · Dinámica de la Voluntad</span>
+              <h3 style="font-family: var(--font-headline); font-style: italic; font-weight: 500; font-size: 1.55rem; margin: var(--space-xs) 0 0;">
+                El péndulo de la existencia entre la Carencia y el Tedio
+              </h3>
+            </div>
+            <span class="tag" id="pendulum-state-tag">Oscilación moderada</span>
+          </div>
+
+          <div class="interactive-split">
+            <div class="diagram-stage">
+              <svg viewBox="0 0 420 270" role="img" aria-label="Péndulo entre Carencia (dolor) y Tedio (vacío)">
+                <!-- Arco del péndulo -->
+                <path d="M 80 185 A 150 150 0 0 0 340 185" fill="none" stroke="var(--outline-variant)" stroke-width="1.5" stroke-dasharray="4 4" />
+                <!-- Extremos -->
+                <text x="68" y="212" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="14" fill="var(--primary)">Carencia (Dolor)</text>
+                <text x="352" y="212" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="14" fill="var(--secondary)">Tedio (Vacío)</text>
+                <text x="210" y="246" text-anchor="middle" font-family="Crimson Pro, serif" font-style="italic" font-size="13" fill="var(--on-surface-variant)">
+                  Punto fugaz: satisfacción negativa
+                </text>
+
+                <!-- Pivote -->
+                <circle cx="210" cy="36" r="5" fill="var(--outline)" />
+                <!-- Varilla y masa del péndulo (actualizados por JS) -->
+                <line id="pendulum-rod" x1="210" y1="36" x2="120" y2="165" stroke="var(--on-surface)" stroke-width="2" />
+                <circle id="pendulum-bob" cx="120" cy="165" r="14" fill="var(--primary)" stroke="var(--outline)" stroke-width="1.5" />
+                <text id="pendulum-bob-label" x="210" y="20" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="12" letter-spacing="1.5" fill="var(--on-surface-variant)">
+                  RUEDA DE IXIÓN EN MOVIMIENTO
+                </text>
+              </svg>
+              <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-sm);">
+                <button type="button" class="btn btn-secondary" id="pendulum-toggle-btn" onclick="togglePendulumAnimation()">Pausar oscilación</button>
+                <button type="button" class="btn btn-secondary" onclick="setPendulumPreset(0, 95)">Aquietamiento del genio / santo</button>
+              </div>
+            </div>
+
+            <div>
+              <div class="control-group">
+                <label class="control-label" for="will-intensity-slider">
+                  <span>Vehemencia del querer (Voluntad)</span>
+                  <span class="control-value" id="will-intensity-val">65 %</span>
+                </label>
+                <input type="range" id="will-intensity-slider" min="0" max="100" value="65" oninput="updateWillSimulation()">
+              </div>
+
+              <div class="control-group">
+                <label class="control-label" for="consciousness-slider">
+                  <span>Grado de conciencia y conocimiento</span>
+                  <span class="control-value" id="consciousness-val">70 % · Ser humano</span>
+                </label>
+                <input type="range" id="consciousness-slider" min="0" max="100" value="70" oninput="updateWillSimulation()">
+              </div>
+
+              <div class="ruled-panel" aria-live="polite">
+                <span class="label-voice">Diagnóstico metafísico (§ 56)</span>
+                <h4 id="sim-diagnosis-title" style="font-family: var(--font-headline); font-style: italic; font-weight: 500; font-size: 1.45rem; margin: var(--space-xs) 0 var(--space-sm);">
+                  Tormento consciente y motivos abstractos
+                </h4>
+                <p id="sim-diagnosis-text" style="margin: 0 0 var(--space-sm);">
+                  Con la razón humana, el sufrimiento supera al animal: los pensamientos abstractos sobre el pasado y el futuro multiplican las privaciones. A mayor claridad, mayor dolor.
+                </p>
+                <p class="caption-voice" id="sim-suffering-metric" style="margin: 0;">
+                  <strong>Amplitud del péndulo:</strong> Alta · Oscilación continua entre el deseo insatisfecho y la saciedad tediosa.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN IV: ARTE E IDEAS PLATÓNICAS -->
+      <section id="arte" class="chapter-section reveal-item" aria-labelledby="titulo-arte">
+        <header class="section-header">
+          <span class="label-voice">Sección IV · Libro Tercero</span>
+          <h2 id="titulo-arte" class="section-title">El espejo del mundo: contemplar las Ideas platónicas aquieta la voluntad</h2>
+          <p class="section-subtitle">
+            Entre la voluntad y sus fenómenos múltiples media un tercer ámbito eterno; el genio lo contempla como puro sujeto sin querer, de la arquitectura a la música.
+          </p>
+        </header>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            Para liberarnos siquiera momentáneamente de la esclavitud de la voluntad, existe una vía contemplativa: el <strong>arte</strong>. Entre la cosa en sí y los individuos efímeros del espacio y el tiempo se alzan las <strong>Ideas platónicas</strong>, objetivaciones inmediatas y adecuadas de la voluntad que no nacen ni perecen. Así como las figuras cambiantes de las nubes, los remolinos del arroyo o las flores de escarcha en la ventana son accidentales frente a las fuerzas eternas de la naturaleza que en ellas se expresan, la historia humana narra solo sucesos superficiales mientras que la poesía revela lo universal e imperecedero del hombre.
+          </p>
+          <p>
+            En la contemplación estética, el sujeto olvida su individualidad, abandona el principio de razón (ya no pregunta <em>por qué</em>, sino <em>qué</em>) y se convierte en «puro sujeto del conocimiento», el espejo sereno del mundo. Frente a <em>lo atractivo</em> —que estimula el deseo—, <em>lo sublime</em> nace cuando contemplamos sin querer objetos hostiles a nuestra voluntad. Por eso en el grupo escultórico del <em>Laocoonte</em> (§ 46) la figura no grita: la música o la escultura no imitan la convulsión pasajera del deseo, sino la Idea eterna de la humanidad. Con todo, el arte no es un aquietador definitivo como la santidad, sino un «consuelo pasajero» simbolizado en la <em>Santa Cecilia</em> de Rafael.
+          </p>
+        </div>
+
+        <!-- Módulo Interactivo 3: Escala de las Bellas Artes -->
+        <div class="inset-panel" id="modulo-artes">
+          <div class="status-strip">
+            <div>
+              <span class="label-voice">Módulo interactivo III · Estética (§ 30–52)</span>
+              <h3 style="font-family: var(--font-headline); font-style: italic; font-weight: 500; font-size: 1.55rem; margin: var(--space-xs) 0 0;">
+                La escala ascendente de las bellas artes y el puesto supremo de la música
+              </h3>
+            </div>
+            <span class="tag" id="art-active-tag">Grado VI · Música</span>
+          </div>
+
+          <div class="interactive-split">
+            <div class="arts-ladder" role="group" aria-label="Niveles de la jerarquía artística">
+              <button type="button" class="art-tier-btn is-active" data-art="5" onclick="selectArtTier(5)">
+                <span class="art-tier-name">6. La Música (puesto aparte)</span>
+                <span class="label-voice">Copia directa de la Voluntad</span>
+              </button>
+              <button type="button" class="art-tier-btn" data-art="4" onclick="selectArtTier(4)">
+                <span class="art-tier-name">5. Poesía y Tragedia</span>
+                <span class="label-voice">Idea del hombre en conflicto</span>
+              </button>
+              <button type="button" class="art-tier-btn" data-art="3" onclick="selectArtTier(3)">
+                <span class="art-tier-name">4. Pintura histórica y Escultura</span>
+                <span class="label-voice">Gracia, belleza y carácter humano</span>
+              </button>
+              <button type="button" class="art-tier-btn" data-art="2" onclick="selectArtTier(2)">
+                <span class="art-tier-name">3. Pintura y escultura animal</span>
+                <span class="label-voice">Carácter de la especie</span>
+              </button>
+              <button type="button" class="art-tier-btn" data-art="1" onclick="selectArtTier(1)">
+                <span class="art-tier-name">2. Jardinería y Paisajismo</span>
+                <span class="label-voice">Naturaleza vegetal</span>
+              </button>
+              <button type="button" class="art-tier-btn" data-art="0" onclick="selectArtTier(0)">
+                <span class="art-tier-name">1. Arquitectura y Conducción de agua</span>
+                <span class="label-voice">Gravedad y rigidez</span>
+              </button>
+            </div>
+
+            <div class="ruled-panel" id="art-detail-panel" aria-live="polite">
+              <span class="label-voice" id="art-detail-object">Objeto metafísico: la Voluntad misma</span>
+              <h4 id="art-detail-title" style="font-family: var(--font-headline); font-style: italic; font-weight: 500; font-size: 1.65rem; margin: var(--space-xs) 0 var(--space-sm);">
+                La Música: sinfonía de la naturaleza y metafísica sonora
+              </h4>
+              <p id="art-detail-desc" style="margin-top: 0;">
+                A diferencia de las demás artes, la música no reproduce Ideas platónicas sino directamente la voluntad misma, erigiéndose en un mundo paralelo al de los fenómenos. Desde el bajo fundamental (fuerzas inferiores) hasta la melodía (la vida consciente del hombre), expresa la esencia íntima del mundo en un lenguaje universal que la razón no comprende.
+              </p>
+              <blockquote class="verse" id="art-detail-quote" style="margin-inline: 0; font-size: 1.1rem;">
+                «El compositor revela la esencia íntima del mundo y expresa la más honda sabiduría en un lenguaje que su razón no comprende.»
+              </blockquote>
+              <p class="caption-voice" id="art-detail-meta" style="margin-bottom: 0;">
+                <strong>Clave estética:</strong> Si pudiéramos traducir íntegramente la música a conceptos abstractos, tendríamos la verdadera filosofía.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN V: ÉTICA DE LA COMPASIÓN Y ASCESIS -->
+      <section id="etica" class="chapter-section reveal-item" aria-labelledby="titulo-etica">
+        <header class="section-header">
+          <span class="label-voice">Sección V · Libro Cuarto</span>
+          <h2 id="titulo-etica" class="section-title">De la compasión a la ascesis: las dos vías para negar la voluntad</h2>
+          <p class="section-subtitle">
+            Ni el deber abstracto ni el cambio externo suprimen el mal; solo la compasión que rasga el velo y la renuncia ascética extinguen la raíz del dolor.
+          </p>
+        </header>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            Para Schopenhauer, el mal físico y la maldad moral son dos caras de la misma voluntad. Quien permanece envuelto en el Velo de Maya absolutiza la distancia entre su yo y el «no-yo» ajeno, afirmando su voluntad hasta convertirse a la vez en verdugo y víctima. Sin embargo, algunos individuos consiguen rasgar el velo y descubrir «el secreto último de la vida»: que víctima y torturador son en sí una misma realidad. De ese conocimiento intuitivo —no del imperativo categórico ni del deber kantiano, estériles para la auténtica virtud— brota la <strong>compasión</strong> (<em>Mitleid</em>, <em>αγάπη</em>, <em>pietà</em>), único móvil moral genuino, desplegado primero como <strong>justicia</strong> y luego como <strong>caridad</strong> desinteresada.
+          </p>
+          <p>
+            No obstante, la justicia y la caridad mitigan el sufrimiento sin suprimir la voluntad de vivir. El paso definitivo es la <strong>ascesis</strong>: al reconocer la vanidad de sus afanes, la voluntad se niega a sí misma mediante la castidad voluntaria, la pobreza intencionada, el ayuno y la aceptación serena de toda injuria. A esta negación conducen dos caminos: la primera vía del santo, movido por el conocimiento puro del dolor universal; y la segunda vía (<em>δεύτερος πλους</em>), en la que un sufrimiento extremo sentido en carne propia quiebra el querer —como encarna Margarita en el <em>Fausto</em> de Goethe—. Al apagarse la voluntad, desaparece también su espejo: «Todo este mundo nuestro tan real, con todos sus soles y galaxias, es nada».
+          </p>
+        </div>
+
+        <div class="concept-grid">
+          <article class="concept-entry">
+            <span class="label-voice">Estadio I · Egoísmo (φως)</span>
+            <h3>La ilusión de la individualidad</h3>
+            <p class="caption-voice">
+              El sujeto toma la separación espacio-temporal por absoluta. Busca huir de su propio dolor infligiendo sufrimiento a otros, ignorando la «justicia eterna» por la que es verdugo y víctima a un tiempo.
+            </p>
+          </article>
+          <article class="concept-entry">
+            <span class="label-voice">Estadio II · Compasión (αγάπη)</span>
+            <h3>Justicia y caridad</h3>
+            <p class="caption-voice">
+              Rasgado el Velo de Maya, el otro pasa a ser «otra vez yo». La justicia impide dañar la voluntad ajena; la caridad afirma la voluntad ajena incluso sacrificando la propia existencia.
+            </p>
+          </article>
+          <article class="concept-entry">
+            <span class="label-voice">Estadio III · Ascesis (Resignación)</span>
+            <h3>Negación de la voluntad</h3>
+            <p class="caption-voice">
+              Alcanzada por el conocimiento puro o por la llama purificadora del dolor sentido (<em>δεύτερος πλους</em>). Privado de todo, al asceta todo le sobra porque ha cesado de querer.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECCIÓN VI: MÓDULOS EDUCATIVOS (AUTOEVALUACIÓN + GLOSARIO + NOTAS) -->
+      <section id="modulos" class="chapter-section reveal-item" aria-labelledby="titulo-modulos">
+        <header class="section-header">
+          <span class="label-voice">Sección VI · Taller Filosófico</span>
+          <h2 id="titulo-modulos" class="section-title">Autoevaluación conceptual, cuaderno de lectura y glosario alemán-español</h2>
+          <p class="section-subtitle">
+            Ponga a prueba su comprensión de los conceptos nucleares del volumen I y consulte la terminología original fijada en la edición crítica.
+          </p>
+        </header>
+
+        <!-- Módulo de Autoevaluación -->
+        <div class="parchment-panel" id="quiz-module">
+          <div class="status-strip">
+            <div>
+              <span class="label-voice">Módulo educativo IV · Comprobación filosófica</span>
+              <h3 style="font-family: var(--font-headline); font-style: italic; font-weight: 500; font-size: 1.55rem; margin: var(--space-xs) 0 0;">
+                Cuestionario de síntesis metafísica
+              </h3>
+            </div>
+            <div style="display: flex; align-items: center; gap: var(--space-md);">
+              <span class="tag" id="quiz-progress-tag">Pregunta 1 de 6</span>
+              <span class="label-voice" id="quiz-score-label">Aciertos: 0 / 6</span>
+            </div>
+          </div>
+
+          <div id="quiz-body" aria-live="polite">
+            <p id="quiz-question-text" style="font-size: 1.2rem; font-weight: 500; margin-top: 0;">
+              Cargando cuestión filosófica…
+            </p>
+            <div id="quiz-options-container" class="quiz-options"></div>
+            <div id="quiz-feedback" class="feedback-box" hidden></div>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md); margin-top: var(--space-lg); border-top: var(--gilt-hairline); padding-top: var(--space-md);">
+            <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm);">
+              <button type="button" class="btn btn-secondary" id="quiz-prev-btn" onclick="prevQuizQuestion()">Anterior</button>
+              <button type="button" class="btn btn-primary" id="quiz-next-btn" onclick="nextQuizQuestion()">Siguiente cuestión</button>
+            </div>
+            <button type="button" class="btn btn-secondary" id="quiz-reset-btn" onclick="resetQuizState(this)">Reiniciar cuestionario</button>
+          </div>
+        </div>
+
+        <!-- Cuaderno de Lectura Persistente -->
+        <div class="inset-panel">
+          <div class="status-strip">
+            <div>
+              <span class="label-voice">Cuaderno personal de estudio</span>
+              <h3 style="font-family: var(--font-headline); font-style: italic; font-weight: 500; font-size: 1.5rem; margin: var(--space-xs) 0 0;">
+                Anotaciones sobre la segunda lectura
+              </h3>
+            </div>
+            <span class="caption-voice" id="notes-save-status">Sin anotaciones guardadas aún.</span>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="study-notes-input">
+              <span>Reflexión o pasaje a recordar</span>
+              <span class="control-value">Se conserva automáticamente entre sesiones</span>
+            </label>
+            <textarea id="study-notes-input" class="text-input" placeholder="Anote aquí sus observaciones sobre la relación entre representación, voluntad, arte y ascesis…" oninput="saveStudyNotes(this.value)"></textarea>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm);">
+            <button type="button" class="btn btn-secondary" onclick="exportStudySummary()">Exportar notas y resultados (.txt)</button>
+            <button type="button" class="btn btn-secondary" id="clear-notes-btn" onclick="clearStudyNotes(this)">Borrar anotación</button>
+          </div>
+        </div>
+
+        <!-- Glosario Alemán-Español -->
+        <div class="ruled-panel">
+          <div class="status-strip">
+            <div>
+              <span class="label-voice">Sección 8 de la Introducción · Pilar López de Santa María</span>
+              <h3 style="font-family: var(--font-headline); font-style: italic; font-weight: 500; font-size: 1.55rem; margin: var(--space-xs) 0 0;">
+                Glosario crítico alemán–español
+              </h3>
+            </div>
+            <span class="tag" id="glossary-count-tag">18 términos</span>
+          </div>
+
+          <div class="form-row" style="margin-bottom: var(--space-lg);">
+            <div class="form-field">
+              <label class="control-label" for="glossary-search">Buscar término en español o alemán</label>
+              <input type="search" id="glossary-search" class="text-input" placeholder="Ej.: voluntad, Vorstellung, Maya, Mitleid…" oninput="filterGlossary()">
+            </div>
+            <div class="form-field" style="flex: 0 1 260px;">
+              <label class="control-label" for="glossary-category">Ámbito filosófico</label>
+              <select id="glossary-category" class="select-input" onchange="filterGlossary()">
+                <option value="todos">Todos los ámbitos</option>
+                <option value="gnoseologia">Conocimiento y Representación</option>
+                <option value="metafisica">Metafísica y Voluntad</option>
+                <option value="estetica">Estética e Ideas</option>
+                <option value="etica">Ética y Mal</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Término en español</th>
+                  <th>Original alemán</th>
+                  <th>Precisión de la edición crítica</th>
+                </tr>
+              </thead>
+              <tbody id="glossary-tbody"></tbody>
+            </table>
+          </div>
+          <p id="glossary-empty-msg" class="caption-voice" style="margin-top: var(--space-md);" hidden>
+            Ningún término coincide con su búsqueda. Pruebe limpiando el filtro o cambiando el ámbito filosófico.
+          </p>
+        </div>
+      </section>
+
+      <!-- SECCIÓN VII: PREGUNTAS FRECUENTES -->
+      <section id="faq" class="chapter-section reveal-item" aria-labelledby="titulo-faq">
+        <header class="section-header">
+          <span class="label-voice">Sección VII · Aclaraciones fundamentales</span>
+          <h2 id="titulo-faq" class="section-title">Preguntas frecuentes sobre El mundo como voluntad y representación I</h2>
+          <p class="section-subtitle">
+            Respuestas directas a las objeciones y malentendidos habituales aclarados en el Prólogo, la Introducción y los cuatro Libros.
+          </p>
+        </header>
+
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>¿Por qué exige Schopenhauer leer el libro dos veces y afirma que contiene un único pensamiento?</summary>
+            <div class="faq-answer">
+              <p>Porque la exposición tiene una estructura <strong>orgánica</strong> y no arquitectónica: en un sistema lineal la base sostiene la cúspide sin depender de ella, pero aquí cada parte ilumina al conjunto y es iluminada por él. Como un libro debe tener una primera y una última línea, forma y contenido entran en tensión; solo en la segunda lectura el comienzo (la representación) se comprende a la luz del final (la voluntad y su negación).</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>¿Comete Schopenhauer antropomorfismo al llamar «voluntad» a la gravedad o a las fuerzas físicas?</summary>
+            <div class="faq-answer">
+              <p>No. Él mismo aclara que no extrapola la voluntad consciente humana a las piedras, sino que nombra la cosa en sí a partir del modo más inmediato y claro en que se nos manifiesta en nuestro propio ser. Si la gravedad se nos revelara de manera interna e inmediata antes que el querer corporal, la habría llamado gravedad. No hay antropomorfismo de la naturaleza, sino naturalismo del ser humano.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>¿En qué se diferencia el «fenómeno» kantiano de la noción de fenómeno en Schopenhauer?</summary>
+            <div class="faq-answer">
+              <p>Para Kant el fenómeno es simplemente el modo en que los objetos nos son dados mediante las formas de la sensibilidad y el entendimiento. Schopenhauer funde el idealismo transcendental con Platón y los <em>Vedas</em>: las formas del sujeto (espacio, tiempo y causalidad) alteran la esencia, de modo que el fenómeno no revela la cosa en sí sino que la <em>encubre</em> como el Velo de Maya.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>¿Por qué dice que toda felicidad es negativa y que el arte solo proporciona un consuelo pasajero?</summary>
+            <div class="faq-answer">
+              <p>Porque lo único dado de forma inmediata es la carencia (el dolor). La satisfacción se percibe solo de modo mediato al cesar una privación previa, dando paso enseguida a un nuevo deseo o al tedio. La contemplación estética suspende el querer por un instante al convertirnos en puro sujeto de conocimiento, pero una vez cesa la contemplación, la voluntad retoma su exigencia.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>¿Por qué rechaza la ética kantiana del deber y sitúa la compasión como único fundamento moral?</summary>
+            <div class="faq-answer">
+              <p>Porque «el mero concepto es tan estéril para la auténtica virtud como para el auténtico arte». Una moral basada en leyes racionales abstractas o en el imperativo categórico no puede transformar la voluntad egoísta. Solo la intuición directa de que el otro es «otra vez yo» —rasgando el <em>principium individuationis</em>— produce la compasión (<em>Mitleid</em>), raíz de la justicia y la caridad.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>¿Qué significa la «nada» con la que concluye el Libro Cuarto?</summary>
+            <div class="faq-answer">
+              <p>Para quien aún permanece inmerso en la voluntad de vivir, la supresión de la voluntad conlleva la desaparición del mundo fenoménico —su espejo—, lo cual solo puede concebirse negativamente como «nada». Schopenhauer sugiere que desde una perspectiva inversa (la de quien ha alcanzado la resignación y la santidad), lo que nosotros llamamos «todo este mundo tan real» aparecería como nada, y aquella nada como lo verdaderamente existente.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- Pie de página y atribución de fuentes -->
+      <footer class="site-footer">
+        <span class="label-voice">Fuentes de esta síntesis</span>
+        <p class="caption-voice" style="max-width: 68ch; margin: var(--space-sm) auto 0;">
+          Elaborado íntegramente a partir de Arthur Schopenhauer, <em>El mundo como voluntad y representación I</em> (versión definitiva de la tercera edición alemana, 1859; edición original de 1818), traducción, introducción y notas de Pilar López de Santa María (sobre la <em>Jubiläumsausgabe</em> de Arthur Hübscher, Brockhaus, 1988).
+        </p>
+      </footer>
+
+    </div>
+  </div>
+
+  <api-shim></api-shim>
+
+  <script>
+    /* Datos rigurosos trazables a la fuente */
+    const BOOKS_DATA = [
+      {
+        tag: `Libro I`,
+        discipline: `Teoría del conocimiento · § 1–16`,
+        title: `Libro Primero: El mundo como representación`,
+        summary: `Examina el mundo únicamente bajo el prisma de su cognoscibilidad. Todo objeto existe solo para un sujeto y está sometido al principio de razón suficiente (espacio, tiempo y causalidad). La ciencia explica el «porqué» hasta chocar con el límite inexplicado del «qué».`,
+        epigraph: `«¡Sal de la infancia, amigo, despierta!» — Jean-Jacques Rousseau, La nouvelle Héloïse V, 1`,
+        relation: `Vínculo orgánico: Aísla artificialmente la cara exterior del mundo para mostrar la insuficiencia de la representación y abrir la puerta al Libro II.`
+      },
+      {
+        tag: `Libro II`,
+        discipline: `Metafísica de la naturaleza · § 17–29`,
+        title: `Libro Segundo: El mundo como voluntad`,
+        summary: `Accede al interior del mundo a través de la «puerta trasera» del propio cuerpo: el acto de voluntad y el movimiento corporal son idénticos. Esa esencia íntima —una voluntad ciega, unitaria y carente de razón— se objetiva en todos los grados de la naturaleza.`,
+        epigraph: `«En nosotros habita, no en el tártaro ni en las estrellas del cielo: todo ello lo hace el espíritu que nos llena.» — Agrippa de Nettesheim, Epist. V, 14`,
+        relation: `Vínculo orgánico: Responde al «qué» del Libro I y sienta los grados de objetivación (Ideas) que contemplará el Libro III.`
+      },
+      {
+        tag: `Libro III`,
+        discipline: `Teoría estética · § 30–52`,
+        title: `Libro Tercero: La Idea platónica y el objeto del arte`,
+        summary: `Estudia la representación liberada del principio de razón. El genio y el contemplador olvidan su individualidad y se convierten en «espejo del mundo» para intuir las Ideas platónicas eternas, desde la arquitectura hasta la tragedia, coronadas por la música.`,
+        epigraph: `«¿Qué es lo que siempre existe, lo que no tiene origen? ¿Y qué es lo que nace y perece pero realmente nunca es?» — Platón, Timeo 27D`,
+        relation: `Vínculo orgánico: Ofrece un consuelo catártico pasajero frente al dolor descrito en el Libro II, preparando la renuncia definitiva del Libro IV.`
+      },
+      {
+        tag: `Libro IV`,
+        discipline: `Ética y Ascética · § 53–71`,
+        title: `Libro Cuarto: Afirmación y negación de la voluntad`,
+        summary: `Analiza la vida como oscilación entre sufrimiento y tedio, la justicia eterna más allá de la individuación, la compasión como único fundamento moral frente al egoísmo, y las dos vías hacia la ascesis donde la voluntad se aquieta y se disuelve el mundo.`,
+        epigraph: `«Todo este mundo nuestro tan real, con todos sus soles y galaxias, es nada.» — Cierre del Libro Cuarto`,
+        relation: `Vínculo orgánico: Cierra el círculo del pensamiento único: el mundo es el autoconocimiento de la voluntad que, al verse en su espejo, puede afirmarse o negarse.`
+      },
+      {
+        tag: `Apéndice`,
+        discipline: `Crítica histórica · 142 pp. de 633`,
+        title: `Apéndice: Crítica de la filosofía kantiana`,
+        summary: `Schopenhauer recomienda leerlo antes del Libro I. Elogia la Estética transcendental y la distinción entre fenómeno y cosa en sí, pero somete la Lógica transcendental a una enmienda total por confundir conocimiento intuitivo y abstracto, además de criticar la ética del deber y el uso indebido de la palabra «idea».`,
+        epigraph: `«El efecto de los escritos de Kant es comparable a la operación de cataratas en un ciego; yo he querido proporcionar unas gafas opacas.» — Prólogo`,
+        relation: `Vínculo orgánico: Depura los aciertos de Kant de sus contradicciones para sostener todo el edificio idealista del Libro I y la ética del Libro IV.`
+      }
+    ];
+
+    const ARTS_DATA = [
+      {
+        tag: `Grado I · Inorgánico`,
+        object: `Objeto metafísico: fuerzas básicas de la materia`,
+        title: `1. Arquitectura y Conducción de agua`,
+        desc: `En el nivel inferior de la escala natural, la arquitectura como arte bello revela la Idea de la materia bruta en su conflicto perpetuo entre gravedad y rigidez (peso de la cubierta frente a resistencia de la columna). La conducción artística de agua muestra las fuerzas fluidas siguiendo la gravedad.`,
+        quote: `«Al arroyo que desciende por encima de las piedras, los remolinos y la espuma le son accidentales: seguir la gravedad como líquido transparente es su Idea.»`,
+        meta: `Clave estética: No imita formas utilitarias o artefactos, sino la lucha elemental de las fuerzas físicas.`
+      },
+      {
+        tag: `Grado II · Vegetal`,
+        object: `Objeto metafísico: la vida orgánica sin sensibilidad`,
+        title: `2. Jardinería artística y Pintura paisajística`,
+        desc: `Asciende hacia la objetivación de la voluntad en el reino vegetal. En este grado aún no existe sensibilidad ni dolor físico, pero la naturaleza despliega sus formas permanentes en calma, invitando al espectador atormentado por las pasiones a olvidar momentáneamente su individualidad.`,
+        quote: `«Una sola mirada libre a la exuberancia de la naturaleza bella apacigua de forma asombrosa la tormenta de las pasiones y el tormento del querer.»`,
+        meta: `Clave estética: La belleza vegetal aquieta el deseo al ofrecer objetos ajenos al interés egoísta.`
+      },
+      {
+        tag: `Grado III · Animal`,
+        object: `Objeto metafísico: el carácter de la especie`,
+        title: `3. Pintura y Escultura animal`,
+        desc: `Aquí el querer se manifiesta sin el disimulo de la reflexión racional, con rasgos ingenuos y francos en la acción, la postura y el gesto. Contemplamos el carácter fijo de la especie —no del individuo— y leemos el libro de la naturaleza bajo la gran palabra hindú: «Este ser vivo eres tú».`,
+        quote: `«Tat tvam asi — Este ser vivo eres tú: en todos los seres la voluntad es una y la misma, variando en formas como variaciones de un mismo tema.»`,
+        meta: `Clave estética: Revela la identidad esencial entre la animalidad y el ser humano.`
+      },
+      {
+        tag: `Grado IV · Humano`,
+        object: `Objeto metafísico: la Idea del hombre`,
+        title: `4. Pintura histórica y Escultura humana`,
+        desc: `Busca expresar la objetivación más alta de la voluntad: el carácter humano individualizado junto con la belleza corporal. En § 46 Schopenhauer explica por qué Laocoonte no grita en el famoso grupo escultórico: la escultura inmóvil no puede ni debe capturar el grito físico sino el silencio plástico que permite la contemplación pura.`,
+        quote: `«Frente a Winckelmann, Lessing y Hirt, la escultura suspende la angustia corporal para preservar la serenidad contemplativa del espectador.»`,
+        meta: `Clave estética: A diferencia del arte figurativo que fija un instante, el gesto escultórico eleva lo individual a Idea.`
+      },
+      {
+        tag: `Grado V · Poético`,
+        object: `Objeto metafísico: el hombre universal y su culpa`,
+        title: `5. Poesía y Tragedia`,
+        desc: `La poesía supera a la historia: mientras la historia queda anclada en los hechos superficiales del fenómeno, la poesía narra «lo que nunca envejece porque nunca sucedió». Su cumbre es la tragedia, que exhibe el conflicto interno de una voluntad que se devora a sí misma y culmina en la resignación.`,
+        quote: `«El verdadero sentido de la tragedia es la profunda comprensión de que lo que el héroe expía no son sus pecados particulares sino la culpa de la existencia misma.»`,
+        meta: `Clave estética: Es la culminación de todas las artes que representan Ideas platónicas.`
+      },
+      {
+        tag: `Grado VI · Supremo`,
+        object: `Objeto metafísico: la Voluntad misma`,
+        title: `6. La Música: sinfonía de la naturaleza y metafísica sonora`,
+        desc: `Ocupa un puesto aparte por encima de todas las demás artes, pues no copia Ideas sino directamente la voluntad misma, constituyendo un mundo paralelo al de los fenómenos. El bajo fundamental corresponde a la naturaleza inorgánica; la armonía intermedia a plantas y animales; y la melodía a la vida consciente humana.`,
+        quote: `«El compositor revela la esencia íntima del mundo y expresa la más honda sabiduría en un lenguaje que su razón no comprende.»`,
+        meta: `Clave estética: En un sistema irracionalista, el arte supremo no pertenece al lógos sino al lenguaje universal del sentimiento.`
+      }
+    ];
+
+    const QUIZ_DATA = [
+      {
+        question: `¿Cuál es la fórmula más breve con la que Schopenhauer resume el «único pensamiento» de El mundo como voluntad y representación I?`,
+        options: [
+          `«Todo lo racional es real y todo lo real es racional.»`,
+          `«El mundo es el autoconocimiento de la voluntad.»`,
+          `«Pienso, luego existo como sustancia pensante.»`,
+          `«La historia humana avanza hacia un progreso indefinido.»`
+        ],
+        correct: 1,
+        explanation: `Correcto según la Introducción y el Libro IV: frente al racionalismo optimista de Descartes, la Ilustración y Hegel, el pensamiento único de Schopenhauer afirma que el mundo es el espejo en que la voluntad se conoce a sí misma.`
+      },
+      {
+        question: `¿Qué nos permite superar la exterioridad de la representación y acceder a la cosa en sí según el Libro II?`,
+        options: [
+          `La deducción lógica a partir del cogito cartesiano.`,
+          `El análisis puramente empírico de las causas físicas externas.`,
+          `La «puerta trasera» del propio cuerpo, conocido desde dentro como voluntad.`,
+          `Las categorías a priori de la Lógica transcendental kantiana.`
+        ],
+        correct: 2,
+        explanation: `Exacto (§ 20 y cap. 4 de la Introducción): conocemos los demás objetos solo desde fuera, pero nuestro cuerpo se nos da doblemente —desde fuera como representación y desde dentro en identidad inmediata con los actos de voluntad—.`
+      },
+      {
+        question: `En la teoría de Schopenhauer, ¿qué diferencia esencial existe entre el fenómeno kantiano y el Velo de Maya?`,
+        options: [
+          `Para Schopenhauer el fenómeno no manifiesta la realidad, sino que la encubre tras una pluralidad ilusoria.`,
+          `Para Schopenhauer el fenómeno pertenece a la cosa en sí y es independiente del sujeto.`,
+          `Para Kant el fenómeno es ilusorio, mientras que para Schopenhauer es plenamente racional.`,
+          `No existe diferencia alguna: ambos sostienen que el tiempo y el espacio rigen la cosa en sí.`
+        ],
+        correct: 0,
+        explanation: `Muy bien: fusionando a Kant con Platón y los Vedas, Schopenhauer convierte el fenómeno en encubrimiento —el «velo del engaño» de Maya— creado por el espacio, el tiempo y la causalidad.`
+      },
+      {
+        question: `¿Por qué la Música ocupa un puesto aparte y supremo en la jerarquía de las bellas artes del Libro III?`,
+        options: [
+          `Porque imita con mayor precisión los acontecimientos históricos concretos.`,
+          `Porque traduce las leyes lógicas del principio de razón suficiente a sonido.`,
+          `Porque no representa Ideas platónicas intermedias, sino directamente la Voluntad misma.`,
+          `Porque excita el deseo sensual (lo atractivo) más intensamente que la escultura.`
+        ],
+        correct: 2,
+        explanation: `Exacto (Introducción § 5 y Libro III): mientras la arquitectura, la escultura o la tragedia objetivan Ideas platónicas, la música es copia directa de la voluntad en todos sus grados, del bajo fundamental a la melodía.`
+      },
+      {
+        question: `¿Cuál es el único fundamento genuino de la moralidad para Schopenhauer frente al imperativo categórico de Kant?`,
+        options: [
+          `La obediencia racional al deber incondicionado.`,
+          `El cálculo egoísta del bienestar futuro.`,
+          `La compasión (Mitleid), que nace al rasgar el Velo de Maya y ver al otro como «otra vez yo».`,
+          `La reforma política de las instituciones históricas.`
+        ],
+        correct: 2,
+        explanation: `Correcto (Libro IV e Introducción § 6): «el mero concepto es tan estéril para la auténtica virtud como para el auténtico arte». Solo la compasión intuitiva supera el egoísmo y funda la justicia y la caridad.`
+      },
+      {
+        question: `¿En qué consiste la «segunda vía» (δεύτερος πλους) hacia la negación de la voluntad de vivir?`,
+        options: [
+          `En la contemplación estética continua de paisajes y esculturas.`,
+          `En el quebrantamiento del querer mediante un intenso sufrimiento propio sentido en carne propia.`,
+          `En la lectura repetida de la Crítica de la razón pura.`,
+          `En la satisfacción plena de todos los deseos materiales para vencer el tedio.`
+        ],
+        correct: 1,
+        explanation: `Exacto (Libro IV): frente a la primera vía del conocimiento puro del dolor universal, la mayoría solo alcanza la resignación tras ser quebrada por un gran dolor propio, como ejemplifica Margarita en el Fausto de Goethe.`
+      }
+    ];
+
+    const GLOSSARY_DATA = [
+      { es: `voluntad`, de: `Wille`, cat: `metafisica`, note: `La cosa en sí, núcleo irracional y ciego de toda realidad, idéntico en la naturaleza y en el hombre.` },
+      { es: `representación`, de: `Vorstellung`, cat: `gnoseologia`, note: `Todo lo que existe para el conocimiento; requiere siempre la correlación de sujeto y objeto.` },
+      { es: `cosa en sí`, de: `Ding an sich`, cat: `metafisica`, note: `Realidad ajena al tiempo, al espacio y a la causalidad; en Schopenhauer coincide con la voluntad.` },
+      { es: `fenómeno`, de: `Erscheinung`, cat: `gnoseologia`, note: `Objetivación de la voluntad en el espacio y tiempo; lejos de revelar lo real, lo encubre como Velo de Maya.` },
+      { es: `principio de razón (suficiente)`, de: `Satz vom (zureichenden) Grunde`, cat: `gnoseologia`, note: `Enlace necesario de nuestras representaciones; carece de validez respecto de la cosa en sí.` },
+      { es: `entendimiento`, de: `Verstand`, cat: `gnoseologia`, note: `Facultad exclusivamente referida al conocimiento intuitivo de la causalidad (distinta de Intellekt).` },
+      { es: `razón (facultad)`, de: `Vernunft`, cat: `gnoseologia`, note: `Facultad de los conceptos abstractos y el saber discursivo; estéril para el arte y la virtud.` },
+      { es: `intelecto`, de: `Intellekt`, cat: `gnoseologia`, note: `Término general para designar la facultad de conocimiento al servicio de la voluntad.` },
+      { es: `intuición`, de: `Anschauung`, cat: `gnoseologia`, note: `Conocimiento inmediato de objetos o Ideas, base indispensable de todo concepto válido.` },
+      { es: `discernimiento`, de: `Besonnenheit`, cat: `estetica`, note: `Claridad contemplativa propia del genio artístico, distinta de la reflexión meramente racional.` },
+      { es: `genio`, de: `Genie`, cat: `estetica`, note: `Capacidad de abstraerse del propio querer para intuir lo universal e imperecedero (la Idea) en lo particular.` },
+      { es: `atractivo (lo)`, de: `Reizende`, cat: `estetica`, note: `En § 40, lo que excita la voluntad prometiéndole cumplimiento; verdadero opuesto de lo sublime.` },
+      { es: `compasión`, de: `Mitleid`, cat: `etica`, note: `Único móvil moral auténtico (αγάπη / caritas); apropiación inmediata del sufrimiento ajeno.` },
+      { es: `caridad`, de: `Menschenliebe / (reine) Liebe`, cat: `etica`, note: `Grado moral superior a la justicia: afirma la voluntad ajena aun negando la propia.` },
+      { es: `justicia`, de: `Gerechtigkeit / Recht`, cat: `etica`, note: `Primer grado de la compasión: limitar la propia voluntad para no negar ni dañar la ajena.` },
+      { es: `mal (físico) / malo`, de: `Übel / schlecht`, cat: `etica`, note: `Vertiente pasiva del dolor: lo sufrido o contrario a los impulsos de una voluntad individual.` },
+      { es: `maldad (moral) / malvado`, de: `das Böse / Bosheit`, cat: `etica`, note: `Vertiente activa del dolor en seres cognoscentes: producción intencional o cruel del sufrimiento ajeno.` },
+      { es: `sufrimiento`, de: `Leiden`, cat: `metafisica`, note: `Obstaculización de la voluntad; realidad inmediata y positiva frente al carácter negativo del placer.` }
+    ];
+
+    /* Estado persistente de la aplicación */
+    let appState = {
+      activeBook: 0,
+      mayaLevel: 15,
+      willIntensity: 65,
+      consciousness: 70,
+      pendulumPaused: false,
+      activeArt: 5,
+      quizIndex: 0,
+      quizAnswers: {},
+      studyNotes: ``
+    };
+
+    let pendulumAngle = -0.6;
+    let pendulumTime = 0;
+    let pendulumAnimId = null;
+
+    /* Selector del mapa orgánico */
+    function selectBookNode(idx) {
+      if (idx < 0 || idx >= BOOKS_DATA.length) return;
+      appState.activeBook = idx;
+      const data = BOOKS_DATA[idx];
+
+      const tagEl = document.getElementById('arch-active-tag');
+      const discEl = document.getElementById('arch-detail-discipline');
+      const titleEl = document.getElementById('arch-detail-title');
+      const sumEl = document.getElementById('arch-detail-summary');
+      const epiEl = document.getElementById('arch-detail-epigraph');
+      const relEl = document.getElementById('arch-detail-relation');
+
+      if (tagEl) tagEl.textContent = data.tag;
+      if (discEl) discEl.textContent = data.discipline;
+      if (titleEl) titleEl.textContent = data.title;
+      if (sumEl) sumEl.textContent = data.summary;
+      if (epiEl) epiEl.textContent = data.epigraph;
+      if (relEl) relEl.textContent = data.relation;
+
+      const btns = document.querySelectorAll('.book-node-btn');
+      btns.forEach((b, i) => {
+        if (i === idx) {
+          b.classList.add('is-active');
+        } else {
+          b.classList.remove('is-active');
+        }
+      });
+
+      for (let i = 0; i < 5; i++) {
+        const g = document.getElementById('svg-book-' + i);
+        if (!g) continue;
+        const shape = g.querySelector('circle, rect');
+        const label = g.querySelector('text');
+        if (shape && label) {
+          if (i === idx) {
+            shape.setAttribute('fill', 'var(--primary)');
+            label.setAttribute('fill', 'var(--on-primary)');
+          } else {
+            shape.setAttribute('fill', 'var(--surface-container-low)');
+            label.setAttribute('fill', 'var(--on-surface)');
+          }
+        }
+      }
+
+      persistState();
+    }
+
+    /* Simulador del Velo de Maya */
+    function setMayaPreset(val) {
+      const slider = document.getElementById('maya-slider');
+      if (slider) slider.value = val;
+      updateMayaView(val);
+    }
+
+    function updateMayaView(rawVal) {
+      const val = Math.max(0, Math.min(100, Number(rawVal)));
+      appState.mayaLevel = val;
+
+      const percentEl = document.getElementById('maya-percent-label');
+      const tagEl = document.getElementById('maya-stage-tag');
+      const titleEl = document.getElementById('maya-mode-title');
+      const descEl = document.getElementById('maya-mode-desc');
+      const bodyEl = document.getElementById('maya-body-note');
+      const otherEl = document.getElementById('maya-other-note');
+      const veilSvg = document.getElementById('maya-veil-layer');
+      const unityArc = document.getElementById('maya-unity-arc');
+      const unityText = document.getElementById('maya-unity-text');
+      const otherSvgLabel = document.getElementById('maya-other-svg-label');
+
+      const veilOpacity = Math.max(0.04, 0.92 - (val / 100) * 0.88);
+      const unityOpacity = Math.min(1, 0.15 + (val / 100) * 0.85);
+
+      if (veilSvg) veilSvg.setAttribute('opacity', veilOpacity.toFixed(2));
+      if (unityArc) unityArc.setAttribute('opacity', unityOpacity.toFixed(2));
+      if (unityText) unityText.setAttribute('opacity', unityOpacity.toFixed(2));
+
+      if (val < 30) {
+        if (percentEl) percentEl.textContent = `${val} % · Principium individuationis`;
+        if (tagEl) tagEl.textContent = `Conocimiento fenoménico`;
+        if (titleEl) titleEl.textContent = `El imperio del principio de razón suficiente`;
+        if (descEl) descEl.textContent = `Bajo el velo intacto, el sujeto percibe seres aislados en el espacio y el tiempo. Cada otro ser aparece como un «no-yo» ajeno, regido por causas y motivos.`;
+        if (bodyEl) bodyEl.textContent = `Visto solo desde fuera, como un objeto más entre objetos.`;
+        if (otherEl) otherEl.textContent = `«No-yo» distante; terreno natural del egoísmo.`;
+        if (otherSvgLabel) otherSvgLabel.textContent = `«No-yo»`;
+      } else if (val < 65) {
+        if (percentEl) percentEl.textContent = `${val} % · Idealismo transcendental`;
+        if (tagEl) tagEl.textContent = `Conciencia filosófica`;
+        if (titleEl) titleEl.textContent = `La relatividad de todo objeto y el límite de la ciencia`;
+        if (descEl) descEl.textContent = `Se advierte que tiempo, espacio y causalidad no pertenecen a la cosa en sí, sino al ojo cognoscente. La vida y el sueño se revelan como hojas de un mismo libro.`;
+        if (bodyEl) bodyEl.textContent = `Objeto inmediato de la representación; umbral del enigma.`;
+        if (otherEl) otherEl.textContent = `Fenómeno compartido en una misma conciencia universal.`;
+        if (otherSvgLabel) otherSvgLabel.textContent = `Fenómeno`;
+      } else if (val < 90) {
+        if (percentEl) percentEl.textContent = `${val} % · La puerta trasera`;
+        if (tagEl) tagEl.textContent = `Identidad volitiva`;
+        if (titleEl) titleEl.textContent = `El cuerpo desvela la voluntad como cosa en sí`;
+        if (descEl) descEl.textContent = `Por la vía interna, el sujeto se descubre no como puro intelecto sino como voluntad viviente, y comprende por analogía que esa misma esencia habita en toda la naturaleza.`;
+        if (bodyEl) bodyEl.textContent = `Doble acceso: representación externa y voluntad inmediata.`;
+        if (otherEl) otherEl.textContent = `Objetivación hermana de la misma voluntad única.`;
+        if (otherSvgLabel) otherSvgLabel.textContent = `Misma esencia`;
+      } else {
+        if (percentEl) percentEl.textContent = `${val} % · Velo rasgado`;
+        if (tagEl) tagEl.textContent = `«Tat tvam asi»`;
+        if (titleEl) titleEl.textContent = `Desaparición de la barrera egoísta: «Otra vez yo»`;
+        if (descEl) descEl.textContent = `El velo de Maya se desgarra casi por completo. El sujeto asume el sufrimiento ajeno como propio: brotan la compasión, la caridad y la antesala de la renuncia ascética.`;
+        if (bodyEl) bodyEl.textContent = `Mero fenómeno pasajero que ya no reclama prioridad egoísta.`;
+        if (otherEl) otherEl.textContent = `«Otra vez yo»; se revela el secreto último de la vida.`;
+        if (otherSvgLabel) otherSvgLabel.textContent = `«Otra vez yo»`;
+      }
+
+      persistState();
+    }
+
+    /* Simulador del Péndulo de la Voluntad */
+    function setPendulumPreset(willVal, conscVal) {
+      const wSlider = document.getElementById('will-intensity-slider');
+      const cSlider = document.getElementById('consciousness-slider');
+      if (wSlider) wSlider.value = willVal;
+      if (cSlider) cSlider.value = conscVal;
+      updateWillSimulation();
+    }
+
+    function updateWillSimulation() {
+      const wSlider = document.getElementById('will-intensity-slider');
+      const cSlider = document.getElementById('consciousness-slider');
+      const willVal = wSlider ? Number(wSlider.value) : 65;
+      const conscVal = cSlider ? Number(cSlider.value) : 70;
+
+      appState.willIntensity = willVal;
+      appState.consciousness = conscVal;
+
+      const wLabel = document.getElementById('will-intensity-val');
+      const cLabel = document.getElementById('consciousness-val');
+      const tagEl = document.getElementById('pendulum-state-tag');
+      const titleEl = document.getElementById('sim-diagnosis-title');
+      const textEl = document.getElementById('sim-diagnosis-text');
+      const metricEl = document.getElementById('sim-suffering-metric');
+      const bobLabel = document.getElementById('pendulum-bob-label');
+
+      if (wLabel) wLabel.textContent = `${willVal} %`;
+
+      let conscStage = `Naturaleza vegetal`;
+      if (conscVal >= 85) conscStage = `Genio / Lucidez extrema`;
+      else if (conscVal >= 60) conscStage = `Ser humano`;
+      else if (conscVal >= 30) conscStage = `Animal vertebrado`;
+      else if (conscVal >= 12) conscStage = `Organismo elemental`;
+
+      if (cLabel) cLabel.textContent = `${conscVal} % · ${conscStage}`;
+
+      if (willVal <= 12) {
+        if (tagEl) tagEl.textContent = `Aquietamiento`;
+        if (titleEl) titleEl.textContent = `Silencio de la voluntad: contemplación o ascesis`;
+        if (textEl) textEl.textContent = `Al ceder el apremio del querer, la rueda de Ixión se detiene. Sea por la contemplación estética fugaz o por la resignación del santo, desaparecen carencia y tedio.`;
+        if (metricEl) metricEl.textContent = `Amplitud del péndulo: Mínima · Sosiego frente a la agitación fenoménica.`;
+        if (bobLabel) bobLabel.textContent = `VOLUNTAD AQUIETADA`;
+      } else if (conscVal < 20) {
+        if (tagEl) tagEl.textContent = `Esfuerzo ciego`;
+        if (titleEl) titleEl.textContent = `Afán inconsciente sin sensibilidad dolorosa`;
+        if (textEl) textEl.textContent = `En la naturaleza inorgánica y en la planta la voluntad se afana sin tregua contra obstáculos físicos, pero al carecer de sistema nervioso no experimenta dolor subjetivo.`;
+        if (metricEl) metricEl.textContent = `Amplitud del péndulo: Física sin conciencia · Carece de tormento reflexivo.`;
+        if (bobLabel) bobLabel.textContent = `IMPULSO INCONSCIENTE`;
+      } else if (conscVal < 55) {
+        if (tagEl) tagEl.textContent = `Presente intuitivo`;
+        if (titleEl) titleEl.textContent = `Sufrimiento animal ligado al instante presente`;
+        if (textEl) textEl.textContent = `El animal siente dolor real por su sistema nervioso, pero al estar motivado solo por impresiones presentes no padece la angustia abstracta del pasado ni del porvenir.`;
+        if (metricEl) metricEl.textContent = `Amplitud del péndulo: Moderada · Confinada al presente inmediato.`;
+        if (bobLabel) bobLabel.textContent = `RUEDA DE IXIÓN EN MOVIMIENTO`;
+      } else if (conscVal >= 85 && willVal >= 50) {
+        if (tagEl) tagEl.textContent = `Sufrimiento máximo`;
+        if (titleEl) titleEl.textContent = `«Qui auget scientiam, auget et dolorem»`;
+        if (textEl) textEl.textContent = `Con máxima claridad de conciencia y querer intenso, el genio siente con extrema agudeza el absurdo de la existencia y la soledad en medio de la especie.`;
+        if (metricEl) metricEl.textContent = `Amplitud del péndulo: Extrema · Tensión aguda entre carencia profunda y hastío.`;
+        if (bobLabel) bobLabel.textContent = `MÁXIMA CLARIDAD Y DOLOR`;
+      } else {
+        if (tagEl) tagEl.textContent = `Oscilación humana`;
+        if (titleEl) titleEl.textContent = `Tormento consciente y motivos abstractos`;
+        if (textEl) textEl.textContent = `La razón multiplica la dicha y la desdicha al proyectar deseos futuros y duelos pasados. Apenas se colma una carencia, aparece el vacío del aburrimiento.`;
+        if (metricEl) metricEl.textContent = `Amplitud del péndulo: Alta · Oscilación continua entre deseo y tedio.`;
+        if (bobLabel) bobLabel.textContent = `RUEDA DE IXIÓN EN MOVIMIENTO`;
+      }
+
+      drawPendulumFrame(pendulumAngle);
+      persistState();
+    }
+
+    function drawPendulumFrame(angleRad) {
+      const rod = document.getElementById('pendulum-rod');
+      const bob = document.getElementById('pendulum-bob');
+      if (!rod || !bob) return;
+
+      const pivotX = 210;
+      const pivotY = 36;
+      const length = 150;
+      const maxSwing = 0.08 + (appState.willIntensity / 100) * 0.86;
+      const clampedAngle = angleRad * maxSwing;
+
+      const x = pivotX + Math.sin(clampedAngle) * length;
+      const y = pivotY + Math.cos(clampedAngle) * length;
+
+      rod.setAttribute('x2', x.toFixed(1));
+      rod.setAttribute('y2', y.toFixed(1));
+      bob.setAttribute('cx', x.toFixed(1));
+      bob.setAttribute('cy', y.toFixed(1));
+
+      if (appState.willIntensity <= 12) {
+        bob.setAttribute('fill', 'var(--secondary)');
+      } else if (clampedAngle < 0) {
+        bob.setAttribute('fill', 'var(--primary)');
+      } else {
+        bob.setAttribute('fill', 'var(--secondary)');
+      }
+    }
+
+    function startPendulumLoop() {
+      if (pendulumAnimId !== null) {
+        cancelAnimationFrame(pendulumAnimId);
+      }
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) {
+        drawPendulumFrame(-0.55);
+        return;
+      }
+
+      function tick() {
+        if (!appState.pendulumPaused) {
+          const speed = 0.015 + (appState.willIntensity / 100) * 0.035;
+          pendulumTime += speed;
+          pendulumAngle = Math.sin(pendulumTime);
+          drawPendulumFrame(pendulumAngle);
+        }
+        pendulumAnimId = requestAnimationFrame(tick);
+      }
+      pendulumAnimId = requestAnimationFrame(tick);
+    }
+
+    function togglePendulumAnimation() {
+      appState.pendulumPaused = !appState.pendulumPaused;
+      const btn = document.getElementById('pendulum-toggle-btn');
+      if (btn) {
+        btn.textContent = appState.pendulumPaused ? `Reanudar oscilación` : `Pausar oscilación`;
+      }
+      persistState();
+    }
+
+    /* Escala de las Bellas Artes */
+    function selectArtTier(idx) {
+      if (idx < 0 || idx >= ARTS_DATA.length) return;
+      appState.activeArt = idx;
+      const item = ARTS_DATA[idx];
+
+      const tagEl = document.getElementById('art-active-tag');
+      const objEl = document.getElementById('art-detail-object');
+      const titleEl = document.getElementById('art-detail-title');
+      const descEl = document.getElementById('art-detail-desc');
+      const quoteEl = document.getElementById('art-detail-quote');
+      const metaEl = document.getElementById('art-detail-meta');
+
+      if (tagEl) tagEl.textContent = item.tag;
+      if (objEl) objEl.textContent = item.object;
+      if (titleEl) titleEl.textContent = item.title;
+      if (descEl) descEl.textContent = item.desc;
+      if (quoteEl) quoteEl.textContent = item.quote;
+      if (metaEl) metaEl.textContent = item.meta;
+
+      const btns = document.querySelectorAll('.art-tier-btn');
+      btns.forEach((b) => {
+        const bIdx = Number(b.getAttribute('data-art'));
+        if (bIdx === idx) b.classList.add('is-active');
+        else b.classList.remove('is-active');
+      });
+
+      persistState();
+    }
+
+    /* Cuestionario interactivo */
+    function renderQuiz() {
+      const idx = appState.quizIndex;
+      const item = QUIZ_DATA[idx];
+      if (!item) return;
+
+      const qText = document.getElementById('quiz-question-text');
+      const optsWrap = document.getElementById('quiz-options-container');
+      const fbBox = document.getElementById('quiz-feedback');
+      const progTag = document.getElementById('quiz-progress-tag');
+      const scoreLabel = document.getElementById('quiz-score-label');
+      const prevBtn = document.getElementById('quiz-prev-btn');
+      const nextBtn = document.getElementById('quiz-next-btn');
+
+      if (progTag) progTag.textContent = `Pregunta ${idx + 1} de ${QUIZ_DATA.length}`;
+      if (qText) qText.textContent = item.question;
+
+      let correctCount = 0;
+      Object.keys(appState.quizAnswers).forEach((k) => {
+        const qIdx = Number(k);
+        if (QUIZ_DATA[qIdx] && appState.quizAnswers[k] === QUIZ_DATA[qIdx].correct) {
+          correctCount++;
+        }
+      });
+      if (scoreLabel) scoreLabel.textContent = `Aciertos: ${correctCount} / ${QUIZ_DATA.length}`;
+
+      const chosen = appState.quizAnswers[String(idx)];
+      const hasAnswered = chosen !== undefined;
+
+      if (optsWrap) {
+        optsWrap.innerHTML = '';
+        item.options.forEach((optText, oIdx) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'quiz-option-btn';
+          btn.textContent = optText;
+          if (hasAnswered) {
+            btn.disabled = true;
+            if (oIdx === item.correct) btn.classList.add('is-correct');
+            else if (oIdx === chosen) btn.classList.add('is-incorrect');
+          }
+          btn.onclick = function() { answerQuizQuestion(oIdx); };
+          optsWrap.appendChild(btn);
+        });
+      }
+
+      if (fbBox) {
+        if (hasAnswered) {
+          const isRight = chosen === item.correct;
+          fbBox.hidden = false;
+          fbBox.className = `feedback-box ${isRight ? 'is-positive' : 'is-error'}`;
+          fbBox.textContent = isRight
+            ? item.explanation
+            : `No coincide con el texto. ${item.explanation}`;
+        } else {
+          fbBox.hidden = true;
+          fbBox.textContent = '';
+        }
+      }
+
+      if (prevBtn) prevBtn.disabled = idx === 0;
+      if (nextBtn) {
+        nextBtn.disabled = idx === QUIZ_DATA.length - 1;
+        nextBtn.textContent = idx === QUIZ_DATA.length - 1 ? `Última cuestión` : `Siguiente cuestión`;
+      }
+    }
+
+    function answerQuizQuestion(optionIdx) {
+      appState.quizAnswers[String(appState.quizIndex)] = optionIdx;
+      renderQuiz();
+      persistState();
+    }
+
+    function prevQuizQuestion() {
+      if (appState.quizIndex > 0) {
+        appState.quizIndex--;
+        renderQuiz();
+        persistState();
+      }
+    }
+
+    function nextQuizQuestion() {
+      if (appState.quizIndex < QUIZ_DATA.length - 1) {
+        appState.quizIndex++;
+        renderQuiz();
+        persistState();
+      }
+    }
+
+    function resetQuizState(btn) {
+      if (btn && btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = `Confirmar reinicio`;
+        return;
+      }
+      if (btn) {
+        btn.dataset.armed = 'false';
+        btn.textContent = `Reiniciar cuestionario`;
+      }
+      appState.quizAnswers = {};
+      appState.quizIndex = 0;
+      renderQuiz();
+      persistState();
+    }
+
+    /* Cuaderno de notas */
+    function saveStudyNotes(text) {
+      appState.studyNotes = text;
+      const status = document.getElementById('notes-save-status');
+      if (status) {
+        status.textContent = text.trim().length > 0
+          ? `Anotación conservada (${text.trim().length} caracteres).`
+          : `Sin anotaciones guardadas aún.`;
+      }
+      persistState();
+    }
+
+    function clearStudyNotes(btn) {
+      if (btn && btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = `Confirmar borrado`;
+        return;
+      }
+      if (btn) {
+        btn.dataset.armed = 'false';
+        btn.textContent = `Borrar anotación`;
+      }
+      const area = document.getElementById('study-notes-input');
+      if (area) area.value = '';
+      saveStudyNotes('');
+    }
+
+    function exportStudySummary() {
+      let correctCount = 0;
+      Object.keys(appState.quizAnswers).forEach((k) => {
+        const qIdx = Number(k);
+        if (QUIZ_DATA[qIdx] && appState.quizAnswers[k] === QUIZ_DATA[qIdx].correct) {
+          correctCount++;
+        }
+      });
+
+      const content = [
+        `EL MUNDO COMO VOLUNTAD Y REPRESENTACION I — CUADERNO DE LECTURA`,
+        `Aciertos en autoevaluación: ${correctCount} de ${QUIZ_DATA.length}`,
+        `Nivel explorado en el Velo de Maya: ${appState.mayaLevel} %`,
+        ``,
+        `ANOTACIONES PERSONALES:`,
+        appState.studyNotes.trim() || `(Sin anotaciones registradas)`
+      ].join('\n');
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: 'text/plain',
+          encoding: 'UTF-8',
+          filename: 'schopenhauer_cuaderno.txt'
+        });
+      }
+    }
+
+    /* Glosario crítico */
+    function filterGlossary() {
+      const searchEl = document.getElementById('glossary-search');
+      const catEl = document.getElementById('glossary-category');
+      const tbody = document.getElementById('glossary-tbody');
+      const countTag = document.getElementById('glossary-count-tag');
+      const emptyMsg = document.getElementById('glossary-empty-msg');
+
+      const query = searchEl ? searchEl.value.trim().toLowerCase() : '';
+      const cat = catEl ? catEl.value : 'todos';
+
+      const filtered = GLOSSARY_DATA.filter((item) => {
+        const matchCat = cat === 'todos' || item.cat === cat;
+        const matchQuery = !query ||
+          item.es.toLowerCase().includes(query) ||
+          item.de.toLowerCase().includes(query) ||
+          item.note.toLowerCase().includes(query);
+        return matchCat && matchQuery;
+      });
+
+      if (tbody) {
+        tbody.innerHTML = '';
+        filtered.forEach((item) => {
+          const tr = document.createElement('tr');
+          const tdEs = document.createElement('td');
+          tdEs.innerHTML = `<strong>${item.es}</strong>`;
+          const tdDe = document.createElement('td');
+          tdDe.className = 'german-term';
+          tdDe.textContent = item.de;
+          const tdNote = document.createElement('td');
+          tdNote.textContent = item.note;
+          tr.appendChild(tdEs);
+          tr.appendChild(tdDe);
+          tr.appendChild(tdNote);
+          tbody.appendChild(tr);
+        });
+      }
+
+      if (countTag) countTag.textContent = `${filtered.length} ${filtered.length === 1 ? 'término' : 'términos'}`;
+      if (emptyMsg) emptyMsg.hidden = filtered.length > 0;
+    }
+
+    /* Persistencia mediante notebookAppApi */
+    async function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+        } catch (e) {
+          /* Silencioso si no hay contenedor host */
+        }
+      }
+    }
+
+    function initScrollReveals() {
+      const items = document.querySelectorAll('.reveal-item');
+      if (!('IntersectionObserver' in window)) {
+        items.forEach((el) => el.classList.add('is-visible'));
+        return;
+      }
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      items.forEach((el) => observer.observe(el));
+    }
+
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            appState = Object.assign(appState, saved);
+          }
+        } catch (e) {
+          /* Iniciar con estado por defecto */
+        }
+      }
+
+      selectBookNode(appState.activeBook);
+
+      const mayaSlider = document.getElementById('maya-slider');
+      if (mayaSlider) mayaSlider.value = appState.mayaLevel;
+      updateMayaView(appState.mayaLevel);
+
+      const wSlider = document.getElementById('will-intensity-slider');
+      const cSlider = document.getElementById('consciousness-slider');
+      if (wSlider) wSlider.value = appState.willIntensity;
+      if (cSlider) cSlider.value = appState.consciousness;
+      updateWillSimulation();
+
+      const toggleBtn = document.getElementById('pendulum-toggle-btn');
+      if (toggleBtn) {
+        toggleBtn.textContent = appState.pendulumPaused ? `Reanudar oscilación` : `Pausar oscilación`;
+      }
+
+      selectArtTier(appState.activeArt);
+      renderQuiz();
+      filterGlossary();
+
+      const notesEl = document.getElementById('study-notes-input');
+      const notesStatus = document.getElementById('notes-save-status');
+      if (notesEl && appState.studyNotes) {
+        notesEl.value = appState.studyNotes;
+        if (notesStatus) {
+          notesStatus.textContent = `Anotación restaurada (${appState.studyNotes.trim().length} caracteres).`;
+        }
+      }
+
+      initScrollReveals();
+      startPendulumLoop();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>

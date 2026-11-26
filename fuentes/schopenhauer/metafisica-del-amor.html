@@ -1,0 +1,2349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="sonnet">
+  <title>Metafísica del amor y de la muerte — Arthur Schopenhauer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (Sonnet) */
+      --background: #f5efe0;
+      --surface-container-low: #f8f3e7;
+      --surface-container: #ece3cf;
+      --surface-container-high: #e4d8bf;
+
+      /* Ink */
+      --on-surface: #1f1a17;
+      --on-surface-variant: #4a3f38;
+
+      /* Rules */
+      --outline: #a8843f;
+      --outline-variant: #d8c7a3;
+
+      /* Accents */
+      --primary: #6b1424;
+      --on-primary: #f5efe0;
+      --primary-container: #efe0dc;
+      --on-primary-container: #4a0d18;
+      --secondary: #2f4a3a;
+      --tertiary: #a8843f;
+      --error: #9b2c1f;
+      --on-error: #f5efe0;
+
+      /* Data series */
+      --data-1: #6b1424;
+      --data-2: #2f4a3a;
+      --data-3: #a8843f;
+      --data-4: #3d5a73;
+      --data-context: #b9ad9c;
+
+      /* Fonts */
+      --font-headline: 'Cormorant Garamond', serif;
+      --font-body: 'Crimson Pro', serif;
+      --font-label: 'Cormorant Garamond', serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --gilt-rule: 1px solid var(--outline);
+      --gilt-hairline: 1px solid var(--outline-variant);
+      --ink-hairline: 1px solid var(--on-surface-variant);
+      --gilt-frame-inset: 5px;
+      --paper-vignette: inset 0 0 90px rgb(120 90 40 / 0.16);
+
+      /* Shared tokens */
+      --positive: #2f4a3a;
+      --warning: #7a4b12;
+      --focus: #6b1424;
+
+      /* Type scale (Narrative, stepped for Cormorant's small x-height) */
+      --display-size: clamp(2.65rem, 1.5rem + 4.2vw, 4.65rem);
+      --headline-size: clamp(1.9rem, 1.3rem + 2.1vw, 2.75rem);
+      --subhead-size: clamp(1.3rem, 1.1rem + 0.65vw, 1.65rem);
+      --body-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.225rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.14vw, 0.84rem);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    body {
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      min-height: 100vh;
+      box-shadow: var(--paper-vignette);
+      padding-block: var(--space-xl) var(--space-3xl);
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding-inline: var(--space-lg);
+      max-width: 1080px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Accessibility & focus */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: var(--space-md);
+      background: var(--primary);
+      color: var(--on-primary);
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      z-index: 100;
+      text-decoration: none;
+    }
+    .skip-link:focus { left: var(--space-md); }
+
+    /* Label voice */
+    .label-voice {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--primary);
+      line-height: 1.4;
+    }
+    .label-muted {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--on-surface-variant);
+      line-height: 1.4;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+      font-weight: 500;
+    }
+    h1 {
+      font-size: var(--display-size);
+      font-style: italic;
+      line-height: 1.08;
+      letter-spacing: -0.005em;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      font-style: italic;
+      line-height: 1.15;
+      letter-spacing: -0.005em;
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    p {
+      margin: 0 0 var(--space-md);
+      font-variant-numeric: oldstyle-nums;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .prose-measure {
+      max-width: 64ch;
+      margin-inline: auto;
+      text-align: left;
+    }
+
+    /* Sonnet Defining Treatment 1: Gilt double frame (Hero only) */
+    .gilt-frame {
+      border: var(--gilt-rule);
+      outline: var(--gilt-rule);
+      outline-offset: calc(-1 * var(--gilt-frame-inset));
+      padding: var(--space-2xl) var(--space-xl);
+      background-color: var(--surface-container-low);
+      text-align: center;
+    }
+
+    .hero-kicker {
+      margin-bottom: var(--space-md);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-size: clamp(1.15rem, 1rem + 0.5vw, 1.38rem);
+      color: var(--on-surface-variant);
+      max-width: 56ch;
+      margin: var(--space-lg) auto 0;
+      line-height: 1.55;
+    }
+
+    .hero-emphasis {
+      color: var(--primary);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* Centered middot navigation */
+    .toc-nav {
+      margin-top: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: var(--gilt-hairline);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-xs) var(--space-sm);
+    }
+
+    .toc-link {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-color: var(--outline);
+      text-underline-offset: 4px;
+      padding: var(--space-sm) var(--space-xs);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+    .toc-link:hover {
+      color: var(--on-primary-container);
+      background-color: var(--primary-container);
+    }
+    .toc-middot {
+      color: var(--on-surface-variant);
+      user-select: none;
+      font-size: var(--label-size);
+    }
+
+    /* Reading & progress bar */
+    .progress-strip {
+      margin-top: var(--space-lg);
+      padding-block: var(--space-md);
+      border-block: var(--gilt-rule);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-md) var(--space-xl);
+    }
+    .progress-stat {
+      display: inline-flex;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+    .progress-value {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.35rem;
+      color: var(--primary);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    /* Key figures row (between gilt rules) */
+    .key-figures {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+      gap: var(--space-lg);
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+      text-align: center;
+    }
+    .figure-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-xs);
+      padding-inline: var(--space-sm);
+    }
+    .figure-value {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.35rem);
+      line-height: 1.1;
+      color: var(--on-surface);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .figure-caption {
+      font-style: italic;
+      font-size: 0.96rem;
+      color: var(--on-surface-variant);
+      line-height: 1.4;
+      max-width: 24ch;
+    }
+
+    /* Section headers (centered on page axis per Sonnet) */
+    .section-block {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xl);
+      padding-top: var(--space-lg);
+    }
+
+    .section-header {
+      text-align: center;
+      border-bottom: var(--gilt-hairline);
+      padding-bottom: var(--space-md);
+      max-width: 44rem;
+      margin-inline: auto;
+      width: 100%;
+    }
+    .section-header .label-voice {
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .section-deck {
+      font-size: 1.08rem;
+      color: var(--on-surface-variant);
+      font-style: italic;
+      margin-top: var(--space-sm);
+    }
+
+    /* Sonnet Defining Treatment 2: Drop cap (once per major narrative section) */
+    .drop-cap::first-letter {
+      float: left;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-style: normal;
+      font-size: 3.6em;
+      line-height: 0.85;
+      padding: 0.06em 0.1em 0 0;
+      color: var(--primary);
+    }
+
+    /* Sonnet Defining Treatment 4: Verse block */
+    .verse {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.25rem;
+      line-height: 1.5;
+      color: var(--secondary);
+      border-left: var(--gilt-rule);
+      padding-left: var(--space-lg);
+      max-width: 42ch;
+      margin: var(--space-md) auto;
+      text-align: left;
+    }
+    .verse-attr {
+      display: block;
+      margin-top: var(--space-xs);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--on-surface-variant);
+    }
+
+    /* Sonnet Defining Treatment 3: Gilt hairline rules */
+    .ruled-list {
+      max-width: 64ch;
+      width: 100%;
+      margin-inline: auto;
+      border-top: var(--gilt-rule);
+    }
+    .ruled-item {
+      border-bottom: var(--gilt-hairline);
+    }
+
+    /* Expandable explanations */
+    .accordion-trigger {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      padding: var(--space-md) 0;
+      min-height: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      text-align: left;
+      cursor: pointer;
+      color: var(--on-surface);
+      font-family: inherit;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .accordion-trigger:hover {
+      background-color: var(--surface-container-low);
+    }
+    .accordion-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .accordion-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--on-surface);
+    }
+    .accordion-chevron {
+      flex-shrink: 0;
+      color: var(--primary);
+      transition: transform var(--dur-short) var(--ease-in-out);
+    }
+    .accordion-trigger[aria-expanded="true"] .accordion-chevron {
+      transform: rotate(180deg);
+    }
+    .accordion-panel {
+      padding: 0 0 var(--space-lg);
+      color: var(--on-surface-variant);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+    .accordion-panel[hidden] {
+      display: none;
+    }
+
+    /* Tags (1px green outline, fully rounded) */
+    .tag {
+      display: inline-block;
+      border: 1px solid var(--secondary);
+      color: var(--secondary);
+      border-radius: var(--rounded-full);
+      padding: 0.15rem 0.7rem;
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      line-height: 1.5;
+    }
+
+    /* Buttons (square corners per Sonnet) */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .btn-primary, .btn-secondary {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      min-height: 44px;
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--rounded);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--on-primary-container);
+    }
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-secondary:hover {
+      background-color: var(--primary-container);
+    }
+    .btn-secondary[aria-pressed="true"] {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:disabled, .btn-secondary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Interactive Studio / Workbench panels */
+    .workbench {
+      background-color: var(--surface-container-low);
+      border-block: var(--gilt-rule);
+      padding: var(--space-xl) var(--space-lg);
+      container-type: inline-size;
+    }
+
+    .workbench-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    @container (max-width: 760px) {
+      .workbench-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .sim-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+    @container (max-width: 560px) {
+      .sim-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .sim-column-card {
+      border-top: var(--gilt-rule);
+      padding-top: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    /* Inputs (transparent with ink hairline, visible labels above) */
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--on-surface-variant);
+    }
+    .field-control {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--on-surface);
+      background-color: transparent;
+      border: 0;
+      border-bottom: var(--ink-hairline);
+      border-radius: var(--rounded);
+      padding: 0.5rem 2rem 0.5rem 0.25rem;
+      min-height: 44px;
+      width: 100%;
+      transition: border-color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+    .field-control:focus {
+      border-bottom-color: var(--primary);
+      background-color: var(--background);
+    }
+
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: end;
+    }
+
+    /* Diagnostic output panel */
+    .diagnostic-panel {
+      background-color: var(--surface-container);
+      border: var(--gilt-rule);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .metric-pair {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+      border-block: var(--gilt-hairline);
+      padding-block: var(--space-md);
+      text-align: center;
+    }
+    .metric-box-value {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 2rem;
+      line-height: 1.1;
+      color: var(--primary);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    .dialogue-box {
+      border-left: var(--gilt-rule);
+      padding-left: var(--space-md);
+      font-size: 1rem;
+      line-height: 1.55;
+      color: var(--on-surface);
+    }
+    .dialogue-speaker {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--primary);
+    }
+
+    /* SVG chart & schematic containers */
+    .chart-wrap {
+      width: 100%;
+      min-height: 220px;
+      border-block: var(--gilt-hairline);
+      padding-block: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .chart-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+    }
+    .chart-caption {
+      font-size: 0.92rem;
+      font-style: italic;
+      color: var(--on-surface-variant);
+      text-align: center;
+    }
+
+    /* Tables (Sonnet: no vertical lines, gold hairlines under header and rows) */
+    .table-scroll {
+      width: 100%;
+      overflow-x: auto;
+    }
+    table.sonnet-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table.sonnet-table th {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--primary);
+      text-align: left;
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+      border-bottom: var(--gilt-rule);
+    }
+    table.sonnet-table td {
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      border-bottom: var(--gilt-hairline);
+      vertical-align: top;
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    /* Comparator side-by-side */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-xl);
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+    }
+    @container (max-width: 600px) {
+      .compare-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .compare-side {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .compare-list {
+      margin: 0;
+      padding-left: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      color: var(--on-surface-variant);
+    }
+
+    /* Allegory of the leaf interactive stepper */
+    .stepper-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: var(--space-xl);
+      align-items: center;
+    }
+    @container (max-width: 680px) {
+      .stepper-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .stage-list {
+      display: flex;
+      flex-direction: column;
+      border-top: var(--gilt-rule);
+    }
+    .stage-btn {
+      background: transparent;
+      border: 0;
+      border-bottom: var(--gilt-hairline);
+      padding: var(--space-md);
+      min-height: 48px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      font-family: var(--font-headline);
+      font-size: 1.2rem;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .stage-btn:hover {
+      background-color: var(--surface-container);
+    }
+    .stage-btn[aria-current="step"] {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      font-weight: 600;
+    }
+
+    /* Quiz module */
+    .quiz-card {
+      max-width: 64ch;
+      width: 100%;
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-xl);
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      background-color: var(--surface-container-low);
+      border: var(--gilt-hairline);
+      padding: var(--space-md);
+      min-height: 48px;
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      color: var(--on-surface);
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      transition: background-color var(--dur-micro) var(--ease-out), outline-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      background-color: var(--surface-container);
+    }
+    .quiz-option.is-correct {
+      background-color: var(--surface-container);
+      outline: 2px solid var(--positive);
+      outline-offset: -2px;
+    }
+    .quiz-option.is-wrong {
+      background-color: var(--primary-container);
+      outline: 2px solid var(--error);
+      outline-offset: -2px;
+    }
+    .quiz-letter {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--primary);
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+    .quiz-feedback {
+      border-left: 2px solid var(--primary);
+      padding-left: var(--space-md);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--on-surface);
+    }
+    .quiz-feedback.is-positive {
+      border-left-color: var(--positive);
+    }
+    .quiz-feedback.is-error {
+      border-left-color: var(--error);
+    }
+
+    /* Footer */
+    .colophon {
+      border-top: var(--gilt-rule);
+      padding-top: var(--space-xl);
+      text-align: center;
+      color: var(--on-surface-variant);
+      font-size: 0.98rem;
+      max-width: 60ch;
+      margin-inline: auto;
+    }
+
+    /* Reveal animation */
+    .reveal-section {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+
+    /* Mobile rules */
+    @media (max-width: 640px) {
+      .page-grid {
+        padding-inline: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .gilt-frame {
+        padding: var(--space-lg) var(--space-md);
+      }
+      .workbench {
+        padding: var(--space-lg) var(--space-md);
+      }
+      .metric-pair {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#contenido-principal" class="skip-link">Saltar al contenido principal</a>
+
+  <div class="page">
+    <main id="contenido-principal" class="page-grid">
+
+      <!-- HERO / PORTADA (Unique Gilt Double Frame) -->
+      <header class="gilt-frame">
+        <span class="label-voice hero-kicker">Arthur Schopenhauer · Parerga und Paralipomena · 1851</span>
+        <h1>Metafísica del amor <span class="hero-emphasis">/</span> Metafísica de la muerte</h1>
+        <p class="hero-subtitle">
+          Exploración filosófica interactiva sobre <em>Eros</em> y <em>Thanatos</em> como las dos manifestaciones primordiales de la Voluntad de vivir: el engaño del genio de la especie y la disolución de la individualidad.
+        </p>
+
+        <nav class="toc-nav" aria-label="Navegación por secciones">
+          <a href="#sec-genio" class="toc-link">I. El genio de la especie</a>
+          <span class="toc-middot" aria-hidden="true">·</span>
+          <a href="#sec-eleccion" class="toc-link">II. Simulador de elección</a>
+          <span class="toc-middot" aria-hidden="true">·</span>
+          <a href="#sec-desengano" class="toc-link">III. Desengaño y conflicto</a>
+          <span class="toc-middot" aria-hidden="true">·</span>
+          <a href="#sec-muerte" class="toc-link">IV. Metafísica de la muerte</a>
+          <span class="toc-middot" aria-hidden="true">·</span>
+          <a href="#sec-faq" class="toc-link">V. Preguntas frecuentes</a>
+          <span class="toc-middot" aria-hidden="true">·</span>
+          <a href="#sec-evaluacion" class="toc-link">VI. Autoevaluación</a>
+        </nav>
+
+        <div class="progress-strip" aria-live="polite">
+          <div class="progress-stat">
+            <span class="label-muted">Escenarios explorados:</span>
+            <span id="stat-scenarios" class="progress-value">0</span>
+          </div>
+          <div class="progress-stat">
+            <span class="label-muted">Autoevaluación:</span>
+            <span id="stat-quiz-score" class="progress-value">0 / 6</span>
+          </div>
+          <button type="button" class="btn-secondary" id="btn-global-reset" onclick="handleGlobalReset(this)">
+            Restablecer progreso
+          </button>
+        </div>
+      </header>
+
+      <!-- KEY FIGURES -->
+      <section class="key-figures" aria-label="Ejes doctrinales de la obra">
+        <div class="figure-item">
+          <span class="label-voice">Principio único</span>
+          <span class="figure-value">La Voluntad</span>
+          <span class="figure-caption">Realidad metafísica más allá de lo observable que impulsa toda vida.</span>
+        </div>
+        <div class="figure-item">
+          <span class="label-voice">Estrategia de Eros</span>
+          <span class="figure-value">18–28 / 30–35</span>
+          <span class="figure-caption">Edades preferidas por el instinto femenino y masculino para procrear.</span>
+        </div>
+        <div class="figure-item">
+          <span class="label-voice">Mecánica de pareja</span>
+          <span class="figure-value">Ácido + Álcali</span>
+          <span class="figure-caption">Neutralización mutua de defectos en busca del tipo puro de la especie.</span>
+        </div>
+        <div class="figure-item">
+          <span class="label-voice">Salida de Thanatos</span>
+          <span class="figure-value">Nirvana</span>
+          <span class="figure-caption">Negación de la voluntad de vivir que desprende al individuo de la especie.</span>
+        </div>
+      </section>
+
+      <!-- SECCIÓN I: EL GENIO DE LA ESPECIE -->
+      <section id="sec-genio" class="section-block reveal-section" aria-labelledby="titulo-sec-1">
+        <div class="section-header">
+          <span class="label-voice">Sección I · El engaño de la naturaleza</span>
+          <h2 id="titulo-sec-1">El instinto sexual como ilusión del genio de la especie</h2>
+          <p class="section-deck">Por qué el enamoramiento más sublime oculta la estrategia de la generación venidera.</p>
+        </div>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            Para Schopenhauer, toda individualidad es un error especial, una equivocación cuyo verdadero destino es disolverse. El amor y la muerte —<em>Eros</em> y <em>Thanatos</em>— constituyen los dos grandes medios para trascender esa individualidad estrecha, pues ambos son manifestaciones iniciales de la Voluntad de vivir. Por más etéreo que pretenda mostrarse, todo enamoramiento hunde sus raíces en el instinto sexual individualizado y determinado hacia un único ser.
+          </p>
+          <p>
+            Si observamos cuánto trastorna el amor la vida humana —interrumpiendo negociaciones diplomáticas, deslizando esquelas entre manuscritos filosóficos, rompiendo vínculos sólidos o arrojando al hombre honrado al deshonor—, surge la pregunta inevitable: <em>«¿Por qué tanto ruido? ¿Por qué esos esfuerzos, esos arrebatos, esas ansiedades y esa miseria?»</em>. La respuesta del pensador descorre el velo: no se trata de una fruslería, sino de la composición misma de la próxima generación, de la <em>existentia</em> y la <em>essentia</em> de los seres futuros.
+          </p>
+          <p>
+            Como el egoísmo tiene raíces tan hondas en el individuo que éste no se sacrificaría voluntariamente por la especie, la naturaleza necesita embaucarlo mediante una ilusión. Le coloca ante los ojos el espejismo de una dicha suprema e infinita en los brazos de la persona amada. Así, el individuo se convierte en esclavo inconsciente del <strong>genio de la especie</strong> (<em>Genius der Gattung</em>) en el preciso instante en que cree obedecer únicamente a su propio deseo.
+          </p>
+        </div>
+
+        <blockquote class="verse">
+          «¡Oh, vosotros los sabios de alta y profunda ciencia, que habéis meditado y que sabéis dónde, cuándo y cómo se une todo en la naturaleza, el porqué de todos esos amores y besos…, decidme dónde, cuándo y cómo me ocurrió amar, por qué me ocurrió amar!»
+          <span class="verse-attr">Epígrafe de Bürger citado al inicio de «Metafísica del amor»</span>
+        </blockquote>
+
+        <div class="ruled-list" aria-label="Explicaciones expandibles sobre el genio de la especie">
+          <div class="ruled-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-title-wrap">
+                <span class="tag">Antecedentes filosóficos</span>
+                <span class="accordion-title">De Platón y Spinoza al silencio de los filósofos modernos</span>
+              </span>
+              <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="accordion-panel" hidden>
+              <p>Schopenhauer se sorprende de que un asunto capital para todos los poetas (<em>Romeo y Julieta</em>, <em>La Nueva Eloísa</em>, <em>Werther</em>) haya sido abandonado por la filosofía. Critica a La Rochefoucauld y Lichtenberg por dudar de la realidad de esta pasión; señala que Platón (<em>Banquete</em>, <em>Fedro</em>) se quedó en mitos sobre el amor griego; califica lo dicho por Rousseau en el <em>Discurso sobre la desigualdad</em> de falso e insuficiente; considera superficial a Kant en el <em>Tratado sobre el sentimiento de lo bello y de lo sublime</em> y medianas las ideas de Platner. De Spinoza rescata su sencillez: <em>«El amor es un cosquilleo acompañado por la idea de una causa externa»</em> (<em>Eth.</em> IV, prop. 44).</p>
+            </div>
+          </div>
+
+          <div class="ruled-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-title-wrap">
+                <span class="tag">Analogía natural</span>
+                <span class="accordion-title">Insectos, sistema ganglional y engaño fisiológico</span>
+              </span>
+              <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="accordion-panel" hidden>
+              <p>El instinto amoroso humano es análogo al de la avispa <em>Ichneumon</em> que busca sin descanso la larva donde depositar sus huevos, al ave que construye su nido o a las abejas y hormigas que trabajan para generaciones futuras. En los insectos predomina el sistema ganglional (subjetivo) sobre el cerebral (objetivo). En el ser humano, el predominio del cerebro reduce los instintos —salvo el sexual, el del recién nacido al pecho y el antojo de las mujeres encintas— y permite incluso extravíos instintivos, comparables a la mosca <em>Musca vomitoria</em> cuando deposita sus huevos en la flor hedionda del <em>Arum dracunculus</em>.</p>
+            </div>
+          </div>
+
+          <div class="ruled-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-title-wrap">
+                <span class="tag">Punctum saliens</span>
+                <span class="accordion-title">El instante de la mirada y la idea platónica del hijo</span>
+              </span>
+              <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="accordion-panel" hidden>
+              <p>El primer paso hacia la existencia —el verdadero <em>punctum saliens</em> de la vida— ocurre cuando dos futuros padres comienzan a amarse y sus miradas ardientes se cruzan. Ese nuevo individuo posible actúa como una «idea platónica» que tiende con violencia a apoderarse de la materia para existir. La intensidad de la pasión amorosa no es sino la fuerza con que esa futura individualidad exige venir al mundo, aunque a veces la antipatía mutua revele que de esa unión sólo nacería un ser mal constituido y sin armonía.</p>
+            </div>
+          </div>
+
+          <div class="ruled-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-title-wrap">
+                <span class="tag">Asimetría natural</span>
+                <span class="accordion-title">Inconstancia masculina frente a fidelidad femenina</span>
+              </span>
+              <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="accordion-panel" hidden>
+              <p>Schopenhauer observa que el amor del hombre disminuye perceptiblemente tras la satisfacción y aspira al cambio, mientras que el de la mujer crece desde ese instante. La razón radica en la multiplicación de la especie: un hombre podría engendrar más de cien hijos al año si tuviera otras tantas mujeres, en tanto que una mujer sólo puede dar a luz uno al año (salvo gemelos). Por instinto, la mujer se mantiene fiel para retener junto a sí a quien protegerá y alimentará a la prole; de ahí que la fidelidad conyugal sea artificial en el hombre y natural en la mujer.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN II: CONSIDERACIONES Y SIMULADOR DE NEUTRALIZACIÓN -->
+      <section id="sec-eleccion" class="section-block reveal-section" aria-labelledby="titulo-sec-2">
+        <div class="section-header">
+          <span class="label-voice">Sección II · Consideraciones absolutas, psíquicas y relativas</span>
+          <h2 id="titulo-sec-2">La arquitectura de la elección y el simulador de neutralización</h2>
+          <p class="section-deck">Cómo calcula el genio de la especie la corrección de defectos entre dos individuos.</p>
+        </div>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            Lo que parece una preferencia estética o espiritual desinteresada obedece en realidad a tres órdenes de consideraciones inconscientes. Las <strong>consideraciones absolutas</strong> protegen el tipo puro de la especie: la edad fecunda (18 a 28 años en la mujer; 30 a 35 años en el hombre como apogeo de potencia genésica), la salud libre de enfermedades crónicas hereditarias, la rectitud del esqueleto (pies menudos y buena dentadura), cierta plenitud de carnes que promete alimento al feto y, en último lugar, la belleza ósea del rostro (nariz, boca pequeña, mentón prominente y frente ligada a la inteligencia materna).
+          </p>
+          <p>
+            El segundo orden atañe a las <strong>cualidades psíquicas</strong> y revela una herencia cruzada: el hijo hereda del padre la voluntad y el carácter (firmeza, arrojo, rectitud), por lo que la mujer es atraída por la fuerza y valentía masculinas pero resulta indiferente al talento o al genio; de la madre hereda el hijo la inteligencia y la estatura, razón por la cual tantos «Sócrates» (como Shakespeare, Alberto Durero o Byron) se unieron con sus «Xántipas». Por último, las <strong>consideraciones relativas</strong> explican la pasión más violenta: cada cual ama precisamente lo que le falta para neutralizar sus propios extravíos del tipo normal, tal como un ácido y un álcali se combinan para formar una sal neutra.
+          </p>
+        </div>
+
+        <!-- Resumen tabular de las consideraciones y herencia -->
+        <div class="prose-measure table-scroll">
+          <table class="sonnet-table" aria-label="Tabla de herencia y consideraciones en la elección amorosa">
+            <thead>
+              <tr>
+                <th>Orden de consideración</th>
+                <th>Aporte paterno (hombre)</th>
+                <th>Aporte materno (mujer)</th>
+                <th>Efecto en la pasión</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Absoluto</strong><br><span class="label-muted">Tipo puro</span></td>
+                <td>Edad óptima 30–35 años; fuerza muscular, valentía, anchos hombros y estructura masculina.</td>
+                <td>Edad óptima 18–28 años; salud, esqueleto recto, pies menudos, plenitud vegetativa, belleza facial.</td>
+                <td>Amores comunes y pasajeros; garantiza viabilidad integral de la especie.</td>
+              </tr>
+              <tr>
+                <td><strong>Psíquico</strong><br><span class="label-muted">Herencia cruzada</span></td>
+                <td>Transmite la <em>voluntad</em> y el carácter (decisión, bondad o dureza), además de las facciones.</td>
+                <td>Transmite la <em>inteligencia</em> (frente y ojos) y la estatura general del hijo.</td>
+                <td>Explica por qué las mujeres eligen carácter y no genio, y por qué los genios buscan belleza.</td>
+              </tr>
+              <tr>
+                <td><strong>Relativo</strong><br><span class="label-muted">Neutralización</span></td>
+                <td colspan="2">Compensación química mutua de opuestos: estatura baja × alta, nariz chata × aguileña, tez oscura × blancura, virilidad exacta × feminidad exacta.</td>
+                <td>Amor apasionado, exclusivo e irresistible; cuanto más rara la combinación, más violenta.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ELEMENTO INTERACTIVO 1: SIMULADOR DE NEUTRALIZACIÓN -->
+        <div class="workbench" id="simulador-neutralizacion">
+          <div class="section-header" style="margin-bottom: var(--space-lg);">
+            <span class="label-voice">Laboratorio interactivo</span>
+            <h3>Simulador de neutralización de cualidades</h3>
+            <p class="section-deck">Ajuste los rasgos de ambos progenitores o cargue casos célebres del tratado para observar el veredicto del genio de la especie y el diálogo traducido al estilo de Dafnis y Cloe.</p>
+          </div>
+
+          <div class="btn-row" style="margin-bottom: var(--space-lg);" role="group" aria-label="Escenarios predefinidos del tratado">
+            <button type="button" class="btn-secondary" onclick="loadSimPreset('dafnis')">Dafnis y Cloe (Diálogo original)</button>
+            <button type="button" class="btn-secondary" onclick="loadSimPreset('contrarios')">Máxima neutralización de opuestos</button>
+            <button type="button" class="btn-secondary" onclick="loadSimPreset('disarmonia')">Antipatía y matrimonio desigual</button>
+          </div>
+
+          <div class="workbench-grid">
+            <div class="sim-columns">
+              <!-- Progenitor A -->
+              <div class="sim-column-card">
+                <span class="label-voice">Individuo A · Herencia de Voluntad y Facciones</span>
+
+                <div class="field-group">
+                  <label class="field-label" for="sim-a-age">Edad (umbral genésico)</label>
+                  <select id="sim-a-age" class="field-control" onchange="updateSimulator()">
+                    <option value="optima">30–35 años (Apogeo masculino)</option>
+                    <option value="joven">18–25 años (Juventud temprana)</option>
+                    <option value="tardia">Edad avanzada (Declive instintivo)</option>
+                  </select>
+                </div>
+
+                <div class="field-group">
+                  <label class="field-label" for="sim-a-stature">Estatura y fuerza muscular</label>
+                  <select id="sim-a-stature" class="field-control" onchange="updateSimulator()">
+                    <option value="alta">Elevada estatura y robustez</option>
+                    <option value="baja">Estrecho / bajito y débil</option>
+                    <option value="media">Proporción media y recta</option>
+                  </select>
+                </div>
+
+                <div class="field-group">
+                  <label class="field-label" for="sim-a-face">Rasgo facial y tez</label>
+                  <select id="sim-a-face" class="field-control" onchange="updateSimulator()">
+                    <option value="aguilena-blanca">Nariz aguileña y fina piel blanca (rubio)</option>
+                    <option value="chata-oscura">Nariz chata y tez oscura</option>
+                    <option value="armonica">Rostro proporcionado y mentón prominente</option>
+                  </select>
+                </div>
+
+                <div class="field-group">
+                  <label class="field-label" for="sim-a-will">Carácter / Voluntad (transmisión paterna)</label>
+                  <select id="sim-a-will" class="field-control" onchange="updateSimulator()">
+                    <option value="firme">Valentía, firmeza y bondad de corazón</option>
+                    <option value="brutal">Carácter brutal y resuelto</option>
+                    <option value="indeciso">Temperamento apocado e irresoluto</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Progenitor B -->
+              <div class="sim-column-card">
+                <span class="label-voice">Individuo B · Herencia de Intelecto y Plasticidad</span>
+
+                <div class="field-group">
+                  <label class="field-label" for="sim-b-age">Edad (período menstrual)</label>
+                  <select id="sim-b-age" class="field-control" onchange="updateSimulator()">
+                    <option value="optima">18–28 años (Preferencia decisiva)</option>
+                    <option value="madura">29–40 años (Atractivo decreciente)</option>
+                    <option value="mayor">Fuera del período fecundo</option>
+                  </select>
+                </div>
+
+                <div class="field-group">
+                  <label class="field-label" for="sim-b-form">Formas, carnes y esqueleto</label>
+                  <select id="sim-b-form" class="field-control" onchange="updateSimulator()">
+                    <option value="armonica">Bellas formas, plenitud y pies menudos</option>
+                    <option value="sargentona">Mujerona robusta de gran talla</option>
+                    <option value="flaca">Excesivamente flaca o esqueleto desviado</option>
+                  </select>
+                </div>
+
+                <div class="field-group">
+                  <label class="field-label" for="sim-b-face">Rasgos faciales y coloración</label>
+                  <select id="sim-b-face" class="field-control" onchange="updateSimulator()">
+                    <option value="morena-chica">Cabellos/ojos negros y boca chiquita</option>
+                    <option value="aguilena-blanca">Nariz aguileña y blancura deslumbradora</option>
+                    <option value="chata-oscura">Nariz chata y tez aceitunada</option>
+                  </select>
+                </div>
+
+                <div class="field-group">
+                  <label class="field-label" for="sim-b-mind">Intelecto y frente (transmisión materna)</label>
+                  <select id="sim-b-mind" class="field-control" onchange="updateSimulator()">
+                    <option value="aguda">Hermosa frente, ingenio e inteligencia</option>
+                    <option value="comun">Inteligencia mediana y apacible</option>
+                    <option value="gansa">Escaso discernimiento y torpeza</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Diagnostic Output -->
+            <aside class="diagnostic-panel" aria-live="polite">
+              <span class="label-voice">Veredicto del Genio de la Especie</span>
+
+              <div class="metric-pair">
+                <div>
+                  <span class="label-muted">Neutralización</span>
+                  <div id="sim-score" class="metric-box-value">94%</div>
+                </div>
+                <div>
+                  <span class="label-muted">Grado de pasión</span>
+                  <div id="sim-passion" class="metric-box-value" style="font-size: 1.45rem;">Apasionado</div>
+                </div>
+              </div>
+
+              <!-- SVG Chemical Balance Meter -->
+              <svg id="sim-balance-svg" class="chart-svg" viewBox="0 0 360 92" role="img" aria-label="Balanza de neutralización química entre ácido y álcali">
+                <line x1="24" y1="68" x2="336" y2="68" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="3 3"></line>
+                <polygon points="180,68 172,82 188,82" fill="var(--outline)"></polygon>
+                <g id="sim-beam-group" transform="rotate(0 180 68)">
+                  <line x1="46" y1="42" x2="314" y2="42" stroke="var(--on-surface)" stroke-width="2"></line>
+                  <circle cx="180" cy="42" r="4" fill="var(--primary)"></circle>
+                  <line x1="180" y1="42" x2="180" y2="68" stroke="var(--outline)" stroke-width="1.5"></line>
+                  <circle cx="56" cy="42" r="14" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="1.5"></circle>
+                  <text x="56" y="46" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" font-weight="600" fill="var(--primary)">A</text>
+                  <circle cx="304" cy="42" r="14" fill="var(--surface-container-low)" stroke="var(--secondary)" stroke-width="1.5"></circle>
+                  <text x="304" y="46" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" font-weight="600" fill="var(--secondary)">B</text>
+                </g>
+                <text id="sim-beam-label" x="180" y="20" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" font-style="italic" fill="var(--secondary)">Sal neutra: equilibrio ideal del tipo humano</text>
+              </svg>
+
+              <p id="sim-diagnosis" style="font-size: 1rem; line-height: 1.55; margin: 0;"></p>
+
+              <div class="dialogue-box">
+                <div style="margin-bottom: var(--space-xs);">
+                  <span class="dialogue-speaker">Dafnis (A):</span>
+                  <span id="sim-dafnis-line"></span>
+                </div>
+                <div>
+                  <span class="dialogue-speaker">Cloe (B):</span>
+                  <span id="sim-cloe-line"></span>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN III: DESENGAÑO Y CONFLICTO -->
+      <section id="sec-desengano" class="section-block reveal-section" aria-labelledby="titulo-sec-3">
+        <div class="section-header">
+          <span class="label-voice">Sección III · Cupido tirano y el fin de la quimera</span>
+          <h2 id="titulo-sec-3">El desengaño posterior al goce y el choque entre individuo y especie</h2>
+          <p class="section-deck">Por qué los matrimonios por amor suelen vivir con dolores y los amantes trabajan en secreto contra sí mismos.</p>
+        </div>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            Los antiguos representaban a Cupido con flechas mortíferas, alas y una venda en los ojos. Las alas simbolizan la inconstancia que sigue inmediatamente al deseo satisfecho; la venda explica por qué un enamorado inteligente cierra los ojos ante vicios intolerables de carácter en su prometida y se enlaza con «harpías» o «megeras» con tal de cumplir el dictado de la especie. Una vez pagado el tributo mediante el goce físico —una voluptuosidad que Sterne y Schopenhauer califican de grave y bestial, pues <em>«la bestialidad no se ríe»</em>—, la ilusión se desvanece súbitamente.
+          </p>
+          <p>
+            El amante cae entonces en los estrechos límites de su propia pobreza y advierte que ha sido víctima de los engaños del genio de la especie: al igual que Teseo abandona a Ariadna tras conseguirla, o como el canto de Petrarca hubiera cesado si su pasión se hubiese satisfecho, queda un rápido desencanto. De allí nace el conflicto permanente entre la dicha del individuo y los fines de la especie, resumido en el refrán español: <em>«Quien se casa por amores ha de vivir con dolores»</em>.
+          </p>
+        </div>
+
+        <blockquote class="verse">
+          «El placer es lo más charlatán de todo.»
+          <span class="verse-attr">Platón, citado por Schopenhauer respecto al rápido desencanto</span>
+        </blockquote>
+
+        <!-- ELEMENTO INTERACTIVO 2: COMPARADOR + CURVA DEL DESENGAÑO -->
+        <div class="workbench" id="comparador-dualidades">
+          <div class="section-header" style="margin-bottom: var(--space-lg);">
+            <span class="label-voice">Comparador filosófico</span>
+            <h3>Dualidades y conflictos en el tribunal de la especie</h3>
+            <p class="section-deck">Seleccione un eje para contraponer los intereses enfrentados en el tratado.</p>
+          </div>
+
+          <div class="btn-row" style="margin-bottom: var(--space-lg);" role="group" aria-label="Ejes de comparación">
+            <button type="button" class="btn-secondary" aria-pressed="true" data-comp="individuo" onclick="selectComparison('individuo', this)">Individuo vs. Especie</button>
+            <button type="button" class="btn-secondary" aria-pressed="false" data-comp="matrimonio" onclick="selectComparison('matrimonio', this)">Amor vs. Conveniencia</button>
+            <button type="button" class="btn-secondary" aria-pressed="false" data-comp="grados" onclick="selectComparison('grados', this)">Amor vulgar vs. Apasionado</button>
+            <button type="button" class="btn-secondary" aria-pressed="false" data-comp="teatro" onclick="selectComparison('teatro', this)">Comedia vs. Tragedia</button>
+          </div>
+
+          <div class="compare-grid" id="compare-container" aria-live="polite">
+            <div class="compare-side">
+              <span class="tag" id="comp-left-tag">Polo individual</span>
+              <h3 id="comp-left-title">El interés del individuo</h3>
+              <ul class="compare-list" id="comp-left-list"></ul>
+            </div>
+            <div class="compare-side">
+              <span class="tag" id="comp-right-tag">Polo de la especie</span>
+              <h3 id="comp-right-title">El interés de la especie</h3>
+              <ul class="compare-list" id="comp-right-list"></ul>
+            </div>
+          </div>
+
+          <!-- Annotated SVG Curve of Illusion & Disenchantment -->
+          <div class="chart-wrap" style="margin-top: var(--space-xl); border-bottom: 0;">
+            <div style="text-align: center;">
+              <span class="label-voice">Trayectoria psicológica del enamoramiento</span>
+            </div>
+            <svg class="chart-svg" viewBox="0 0 720 220" role="img" aria-label="Curva de la ilusión amorosa y su caída tras el goce físico">
+              <!-- Dotted horizontal gridlines -->
+              <line x1="48" y1="45" x2="680" y2="45" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="3 4"></line>
+              <line x1="48" y1="105" x2="680" y2="105" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="3 4"></line>
+              <line x1="48" y1="165" x2="680" y2="165" stroke="var(--outline)" stroke-width="1"></line>
+
+              <!-- Context baseline (convenience / calm reality) -->
+              <line x1="48" y1="125" x2="680" y2="125" stroke="var(--data-context)" stroke-width="1.5" stroke-dasharray="6 4"></line>
+              <text x="676" y="118" text-anchor="end" font-family="Crimson Pro, serif" font-style="italic" font-size="13" fill="var(--on-surface-variant)">Realidad ordinaria del individuo</text>
+
+              <!-- Primary curve: Passion / Illusion -->
+              <path d="M 60 155 C 145 145, 210 38, 340 36 C 410 35, 445 148, 515 158 C 565 164, 620 158, 668 158" fill="none" stroke="var(--data-1)" stroke-width="2" stroke-linecap="square"></path>
+
+              <!-- Secondary branch: Friendship born after passion -->
+              <path d="M 515 158 C 565 148, 615 100, 668 92" fill="none" stroke="var(--data-2)" stroke-width="1.8" stroke-linecap="square"></path>
+
+              <!-- Endpoints and milestones -->
+              <circle cx="60" cy="155" r="4" fill="var(--data-1)"></circle>
+              <circle cx="340" cy="36" r="4.5" fill="var(--data-1)"></circle>
+              <circle cx="445" cy="110" r="4" fill="var(--data-1)"></circle>
+              <circle cx="515" cy="158" r="4" fill="var(--data-1)"></circle>
+              <circle cx="668" cy="158" r="4" fill="var(--data-1)"></circle>
+              <circle cx="668" cy="92" r="4" fill="var(--data-2)"></circle>
+
+              <!-- Direct annotations with thin leader lines -->
+              <text x="60" y="185" text-anchor="start" font-family="Cormorant Garamond, serif" font-weight="600" font-size="12" fill="var(--on-surface)">1. PUNCTUM SALIENS</text>
+              <text x="60" y="200" text-anchor="start" font-family="Crimson Pro, serif" font-style="italic" font-size="12" fill="var(--on-surface-variant)">Cruce de miradas</text>
+
+              <text x="340" y="22" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="12" fill="var(--primary)">2. SUBLIMACIÓN POÉTICA</text>
+              <text x="458" y="88" text-anchor="start" font-family="Crimson Pro, serif" font-style="italic" font-size="12" fill="var(--primary)">3. Goce físico (la especie vence)</text>
+
+              <text x="545" y="185" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="12" fill="var(--primary)">4. DESENGAÑO</text>
+              <text x="545" y="200" text-anchor="middle" font-family="Crimson Pro, serif" font-style="italic" font-size="12" fill="var(--on-surface-variant)">Teseo abandona a Ariadna</text>
+
+              <text x="668" y="78" text-anchor="end" font-family="Crimson Pro, serif" font-style="italic" font-size="13" fill="var(--secondary)">Amistad complementaria (excepción)</text>
+              <text x="668" y="147" text-anchor="end" font-family="Crimson Pro, serif" font-style="italic" font-size="13" fill="var(--primary)">Discordia conyugal</text>
+            </svg>
+            <p class="chart-caption">Una vez cumplido el fin metafísico de engendrar al nuevo ser, la ilusión se disipa y deja al desnudo la incompatibilidad o, en casos raros, una amistad serena basada en el acuerdo de los caracteres.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN IV: METAFÍSICA DE LA MUERTE -->
+      <section id="sec-muerte" class="section-block reveal-section" aria-labelledby="titulo-sec-4">
+        <div class="section-header">
+          <span class="label-voice">Sección IV · Thanatos y la indestructibilidad del ser en sí</span>
+          <h2 id="titulo-sec-4">La metafísica de la muerte, la hoja en el árbol y el Nirvana</h2>
+          <p class="section-deck">Por qué el fin de la conciencia individual es un alivio necesario y cómo persiste la esencia más allá del tiempo.</p>
+        </div>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            Si el amor garantiza la perpetuación de la especie, la muerte revela la verdad sobre el individuo. Schopenhauer sostiene que exigir la inmortalidad de nuestra persona individual es querer perpetuar un error hasta el infinito: la rigidez inmutable del carácter y los estrechos límites de la inteligencia harían tan monótona una vida eterna que acabaríamos prefiriendo la nada. Incluso en un mundo libre de miseria, el hombre caería presa del tedio; para alcanzar un estado mejor debe dejar de ser lo que es, condición que realiza la muerte como necesidad moral y alivio maravilloso, visible en la dulce serenidad difundida en el rostro de los difuntos.
+          </p>
+          <p>
+            Ante las vicisitudes de la vida, la Naturaleza misma habla como un oráculo lacónico: entrega sin escrúpulo insectos, limacos, peces, ranas, aves, ovejas y hombres al azar ciego. No le conmueve la muerte del individuo porque sabe que, al sucumbir, todas sus criaturas caen de nuevo en su seno, donde siempre han permanecido. Así, el verdadero fondo de nuestro ser —libre del <em>principium individuationis</em>— no es destruido por la muerte, pues reside en la misma fuerza eterna que anima tanto al animal presente como a la especie entera.
+          </p>
+        </div>
+
+        <!-- ELEMENTO INTERACTIVO 3: ALEGORÍA DE LA HOJA EN EL ÁRBOL -->
+        <div class="workbench" id="alegoria-hoja">
+          <div class="section-header" style="margin-bottom: var(--space-lg);">
+            <span class="label-voice">Visualización interactiva</span>
+            <h3>La alegoría de la hoja en el árbol de la vida</h3>
+            <p class="section-deck">Recorra las cuatro estaciones metafísicas que ilustran la relación entre individuo, especie, voluntad y liberación.</p>
+          </div>
+
+          <div class="stepper-layout">
+            <!-- Interactive SVG Diagram of Tree & Leaf -->
+            <div>
+              <svg id="tree-svg" class="chart-svg" viewBox="0 0 360 300" role="img" aria-label="Alegoría filosófica de la hoja y el árbol de la Voluntad">
+                <!-- Roots and Trunk (The indestructible Will / Thing-in-itself) -->
+                <path d="M 162 270 Q 170 210 172 155 Q 173 125 180 105 Q 187 125 188 155 Q 190 210 198 270 Z" fill="var(--on-surface)"></path>
+                <path d="M 164 265 Q 125 275 95 282 M 196 265 Q 235 275 265 282 M 180 265 L 180 288" stroke="var(--on-surface)" stroke-width="2" fill="none"></path>
+                <!-- Branches -->
+                <path d="M 178 145 Q 130 118 92 102 M 182 132 Q 235 105 272 90 M 180 112 Q 152 72 140 48 M 180 112 Q 214 70 228 45" stroke="var(--on-surface)" stroke-width="2.5" fill="none"></path>
+
+                <!-- Dynamic stage elements -->
+                <g id="leaf-stage-visual"></g>
+
+                <!-- Labels -->
+                <text x="180" y="295" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="12" fill="var(--primary)">LA VOLUNTAD DE VIVIR (FUERZA OCULTA DEL ÁRBOL)</text>
+              </svg>
+            </div>
+
+            <div>
+              <div class="stage-list" role="tablist" aria-label="Estaciones de la alegoría">
+                <button type="button" class="stage-btn" aria-current="step" data-stage="0" onclick="setTreeStage(0)">
+                  <span>I. Otoño · El lamento de la hoja efímera</span>
+                  <span class="label-voice">Individuo</span>
+                </button>
+                <button type="button" class="stage-btn" data-stage="1" onclick="setTreeStage(1)">
+                  <span>II. Invierno · Sueño, crisálida y materia</span>
+                  <span class="label-voice">Persistencia</span>
+                </button>
+                <button type="button" class="stage-btn" data-stage="2" onclick="setTreeStage(2)">
+                  <span>III. Primavera · El tronco y las nuevas hojas</span>
+                  <span class="label-voice">Especie</span>
+                </button>
+                <button type="button" class="stage-btn" data-stage="3" onclick="setTreeStage(3)">
+                  <span>IV. Ascesis · Negación de la voluntad y Nirvana</span>
+                  <span class="label-voice">Liberación</span>
+                </button>
+              </div>
+
+              <div id="tree-stage-text" style="padding-top: var(--space-lg); text-align: left;" aria-live="polite"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Expandable deep-dives on Metaphysics of Death -->
+        <div class="ruled-list" aria-label="Profundizaciones sobre la metafísica de la muerte">
+          <div class="ruled-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-title-wrap">
+                <span class="tag">El archæus</span>
+                <span class="accordion-title">La mirada del perro y la persistencia de la idea</span>
+              </span>
+              <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="accordion-panel" hidden>
+              <p>Schopenhauer invita a contemplar al perro doméstico: tan fresco y animoso como si fuera su primer día, a pesar de que millares de perros murieron antes que él. La desaparición de todos aquellos no ha oscurecido la idea del perro; a través de sus ojos brilla el principio indestructible, el <em>archæus</em>. La muerte sólo destruye su sombra o figura temporal porque nuestro conocimiento limitado únicamente percibe los fenómenos en el tiempo.</p>
+            </div>
+          </div>
+
+          <div class="ruled-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-title-wrap">
+                <span class="tag">Materia y forma</span>
+                <span class="accordion-title">Qué puede el polvo y la ceniza disueltos en el agua</span>
+              </span>
+              <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="accordion-panel" hidden>
+              <p>Quien no conciba otra inmortalidad puede hallar consuelo en la persistencia absoluta de la materia. Antes de despreciar el polvo y la ceniza, recuerda el filósofo, conviene saber lo que esa materia es capaz de hacer: disuelta en el agua se convierte en cristal, brilla con fulgor metálico, produce chispas eléctricas, manifiesta poder magnético, se modela en plantas y animales y vuelve a desarrollar en su seno misterioso esa misma vida cuya pérdida tanto atormenta al espíritu limitado.</p>
+            </div>
+          </div>
+
+          <div class="ruled-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-title-wrap">
+                <span class="tag">Juego de dados</span>
+                <span class="accordion-title">La franqueza de la Naturaleza ante el riesgo mortal</span>
+              </span>
+              <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="accordion-panel" hidden>
+              <p>Mientras los hombres asisten ansiosos al juego de dados entre nacimiento y muerte, la Naturaleza —que nunca miente— muestra que la vida o la muerte individual le son indiferentes. Expone al insecto a un paso distraído, al limaco indefenso, al pez en la red, a la rana lenta, al ave bajo el halcón y a la oveja ante el lobo. Entrega sus organismos al azar más ciego o al humor de un niño porque sabe que nada se pierde realmente fuera de su seno.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN V: PREGUNTAS FRECUENTES -->
+      <section id="sec-faq" class="section-block reveal-section" aria-labelledby="titulo-sec-5">
+        <div class="section-header">
+          <span class="label-voice">Sección V · Consulta rápida del tratado</span>
+          <h2 id="titulo-sec-5">Preguntas frecuentes</h2>
+          <p class="section-deck">Respuestas concisas fundamentadas exclusivamente en el texto de Schopenhauer.</p>
+        </div>
+
+        <div class="prose-measure" style="width: 100%;">
+          <div class="control-row" style="margin-bottom: var(--space-lg);">
+            <div class="field-group" style="flex: 1 1 240px;">
+              <label class="field-label" for="faq-search">Buscar por concepto o autor</label>
+              <input id="faq-search" type="search" class="field-control" oninput="filterFaqs()" placeholder="Ej. Platón, matrimonio, nariz, Nirvana…">
+            </div>
+            <div class="btn-row" role="group" aria-label="Filtrar preguntas por tema">
+              <button type="button" class="btn-secondary" aria-pressed="true" data-faq-cat="todas" onclick="setFaqCategory('todas', this)">Todas</button>
+              <button type="button" class="btn-secondary" aria-pressed="false" data-faq-cat="eros" onclick="setFaqCategory('eros', this)">Eros e instinto</button>
+              <button type="button" class="btn-secondary" aria-pressed="false" data-faq-cat="eleccion" onclick="setFaqCategory('eleccion', this)">Elección y pareja</button>
+              <button type="button" class="btn-secondary" aria-pressed="false" data-faq-cat="thanatos" onclick="setFaqCategory('thanatos', this)">Muerte y voluntad</button>
+            </div>
+          </div>
+
+          <div id="faq-list" class="ruled-list"></div>
+          <p id="faq-empty" style="display: none; text-align: center; font-style: italic; color: var(--on-surface-variant); padding-block: var(--space-lg);">
+            Ninguna entrada coincide con el criterio actual. Pruebe otro término o seleccione «Todas».
+          </p>
+        </div>
+      </section>
+
+      <!-- SECCIÓN VI: AUTOEVALUACIÓN -->
+      <section id="sec-evaluacion" class="section-block reveal-section" aria-labelledby="titulo-sec-6">
+        <div class="section-header">
+          <span class="label-voice">Sección VI · Comprobación de lectura</span>
+          <h2 id="titulo-sec-6">Autoevaluación filosófica</h2>
+          <p class="section-deck">Seis cuestiones fundamentales para verificar su comprensión de <em>Metafísica del amor / Metafísica de la muerte</em>.</p>
+        </div>
+
+        <div class="quiz-card" id="quiz-container">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-sm);">
+            <span id="quiz-counter" class="label-voice">Pregunta 1 de 6</span>
+            <span id="quiz-topic-tag" class="tag">Genio de la especie</span>
+          </div>
+
+          <h3 id="quiz-question" style="font-size: 1.45rem; line-height: 1.3;"></h3>
+
+          <div id="quiz-options" class="quiz-options" role="radiogroup" aria-labelledby="quiz-question"></div>
+
+          <div id="quiz-feedback" class="quiz-feedback" hidden aria-live="polite"></div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); border-top: var(--gilt-hairline); padding-top: var(--space-md);">
+            <div class="btn-row">
+              <button type="button" class="btn-secondary" id="quiz-prev" onclick="moveQuiz(-1)">Anterior</button>
+              <button type="button" class="btn-primary" id="quiz-next" onclick="moveQuiz(1)">Siguiente</button>
+            </div>
+            <span id="quiz-summary-line" class="label-muted">Aciertos acumulados: 0 de 6</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- COLOPHON / FUENTES -->
+      <footer class="colophon">
+        <p class="label-voice" style="margin-bottom: var(--space-sm);">Nota sobre las fuentes</p>
+        <p>
+          Todo el contenido, citas y ejemplos de esta plataforma proceden exclusivamente de <em>Metafísica del amor / Metafísica de la muerte</em> de Arthur Schopenhauer (fragmentos originalmente vinculados a <em>Parerga und Paralipomena</em>, 1851; edición digital Trips, 2014) y de la nota biográfica sobre el autor (Danzig, 1788 – Fráncfort del Meno, 1860; <em>El mundo como voluntad y representación</em>, 1819) contenida en el documento fuente.
+        </p>
+      </footer>
+
+    </main>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    // =========================================================================
+    // 1. SOURCE-GROUNDED DATA STRUCTURES (Backtick literals only)
+    // =========================================================================
+
+    const COMPARISONS = {
+      individuo: {
+        leftTag: `Interés particular`,
+        leftTitle: `El individuo efímero`,
+        leftPoints: [
+          `Busca su bienestar, tranquilidad, riqueza, honor y conservación personal.`,
+          `Cree perseguir su propia dicha suprema al desear a una persona determinada.`,
+          `Es embaucado por el instinto porque el egoísmo rechazaría sacrificarse por terceros.`,
+          `Al satisfacerse el deseo físico, despierta de la quimera y descubre un placer breve seguido de desencanto.`
+        ],
+        rightTag: `Interés metafísico`,
+        rightTitle: `El genio de la especie`,
+        rightPoints: [
+          `Tiene un derecho anterior y más inmediato sobre nosotros: administra la generación venidera.`,
+          `No le importa sacrificar la felicidad, la salud, la fortuna ni la vida del individuo.`,
+          `Opera en medio de guerras, negocios o claustros para fijar la existencia y esencia del ser futuro.`,
+          `Para él, los individuos son al infinito lo que lo mortal es a lo inmortal.`
+        ]
+      },
+      matrimonio: {
+        leftTag: `Inclinación instintiva`,
+        leftTitle: `Matrimonio por amor`,
+        leftPoints: [
+          `Se concierta en provecho de la especie y no de los esposos presentes.`,
+          `Asegura la constitución de la generación venidera a expensas de la dicha de la pareja actual.`,
+          `Cumple el proverbio español: "Quien se casa por amores ha de vivir con dolores".`,
+          `Excepción consoladora: cuando tras extinguirse la pasión brota una amistad por acuerdo complementario de caracteres.`
+        ],
+        rightTag: `Cálculo racional`,
+        rightTitle: `Matrimonio de conveniencia`,
+        rightPoints: [
+          `Concertado por la razón o por elección de los padres atendiendo a circunstancias reales.`,
+          `Sus fundamentos materiales o sociales no desaparecen por sí mismos tras el goce.`,
+          `Puede favorecer la ventura de los cónyuges (aunque problemática), pero a expensas de los hijos futuros.`,
+          `La miserable constitución física o moral de muchos hombres proviene de bodas hechas sin elección instintiva.`
+        ]
+      },
+      grados: {
+        leftTag: `Instinto genérico`,
+        leftTitle: `Amor vulgar`,
+        leftPoints: [
+          `Se dirige a todos los individuos del otro sexo sin selección exclusiva ni profunda.`,
+          `Solo aspira a salud, fuerza, juventud y belleza general para conservar la especie por el número.`,
+          `Permanece próximo a una necesidad irritante sin gran elevación poética.`,
+          `No arriesga la existencia entera ni conduce al delirio cuando encuentra un obstáculo.`
+        ],
+        rightTag: `Individualización extrema`,
+        rightTitle: `Amor apasionado`,
+        rightPoints: [
+          `Se fija en una persona única capaz de neutralizar exactamente los defectos del amante.`,
+          `Reúne armonía física, concordancia psíquica y una misión metafísica para engendrar cierto ser exacto.`,
+          `Reviste deseos materiales con colorido sublime y poético (como en Petrarca o Werther).`,
+          `Si es imposible de satisfacer, vuelve sosa la vida y empuja al suicidio, doble suicidio o locura.`
+        ]
+      },
+      teatro: {
+        leftTag: `Justicia poética`,
+        leftTitle: `En la comedia y la novela`,
+        leftPoints: [
+          `Los jóvenes amantes defienden el interés de la especie contra padres preocupados por lo individual.`,
+          `El espectador simpatiza con los enamorados y celebra el triunfo sobre barreras de alcurnia o dinero.`,
+          `El público sale consolado creyendo que los amantes sellaron su propia ventura, cuando en verdad la sacrificaron por la especie.`,
+          `En el Decamerón, el genio de la especie se burla abiertamente de los derechos individuales.`
+        ],
+        rightTag: `Desenlace fatal`,
+        rightTitle: `En la tragedia`,
+        rightPoints: [
+          `Los amantes sucumben porque no lograron hacer triunfar los fines de la especie (Romeo y Julieta, Don Carlos, Wallenstein).`,
+          `El individuo resulta un vaso demasiado frágil para contener la aspiración infinita de la voluntad de la especie.`,
+          `Puede combinarse con el odio más violento cuando el amor es rechazado ("La amo y la odio", Shakespeare).`,
+          `Cuando la sociedad los separa, los amantes desesperados llegan a quitarse la vida.`
+        ]
+      }
+    };
+
+    const TREE_STAGES = [
+      {
+        title: `I. Otoño · El lamento de la hoja efímera`,
+        text: `La hoja que se marchita en otoño teme su caída y gime pensando en los brotes venideros: «No seré yo, serán otras hojas». Para Schopenhauer, esa actitud retrata al preguntón insensato que desconoce su propia esencia y confunde la pérdida de su conciencia individual con la aniquilación absoluta.`
+      },
+      {
+        title: `II. Invierno · Sueño, crisálida y materia persistente`,
+        text: `Así como el insecto prepara en otoño su capullo o su celdilla con alimento para la larva primaveral y muere tranquilo —igual que un hombre ordena sus vestidos antes de dormir—, entre el sueño y la muerte no hay diferencia radical. Incluso el polvo y la ceniza perseveran para cristalizar, dar chispas y modelar nueva vida.`
+      },
+      {
+        title: `III. Primavera · El tronco inmutable y la especie`,
+        text: `¿De dónde vendrían las otras hojas sino del mismo árbol? La respuesta invita a reconocer el propio ser en la fuerza íntima, oculta y siempre activa del árbol —la Voluntad de vivir, cosa en sí libre del principium individuationis— que permanece idéntica e intacta a través de todas las generaciones de hojas.`
+      },
+      {
+        title: `IV. Ascesis · Negación de la voluntad y Nirvana`,
+        text: `Aunque la muerte deja intacta la voluntad de vivir y no conduce por sí sola a un estado mejor, el ser vivo puede liberarse del ciclo de sufrimiento y muerte mediante la negación de la voluntad de vivir: desprender la voluntad individual de la rama de la especie, alcanzando la libertad que el budismo llama «nirvana».`
+      }
+    ];
+
+    const FAQS = [
+      {
+        id: `faq-1`,
+        cat: `eros`,
+        catLabel: `Eros e instinto`,
+        q: `¿Por qué afirma Schopenhauer que todo enamoramiento, por etéreo que parezca, nace del instinto sexual?`,
+        a: `Porque el objeto al que hoy se dedican madrigales y sonetos apenas hubiera obtenido una mirada si hubiese nacido dieciocho años antes. La admiración objetiva es un antifaz de la naturaleza: el amor no se conforma con un sentimiento recíproco, sino que exige la posesión física para engendrar un ser nuevo.`
+      },
+      {
+        id: `faq-2`,
+        cat: `eros`,
+        catLabel: `Eros e instinto`,
+        q: `¿En qué sentido los amantes son llamados «traidores» en la conclusión de Metafísica del amor?`,
+        a: `En medio del tumulto de la vida llena de miserias y tormentos, los amantes cruzan miradas temerosas y disimuladas porque trabajan en secreto para perpetuar indefinidamente toda esa miseria y esos dolores que, sin la procreación de nuevas generaciones, tendrían un fin próximo.`
+      },
+      {
+        id: `faq-3`,
+        cat: `eleccion`,
+        catLabel: `Elección y pareja`,
+        q: `¿Qué rasgos corporales busca prioritariamente el instinto masculino según las consideraciones absolutas?`,
+        a: `Primero la edad fecunda (de dieciocho a veintiocho años); segundo, la salud libre de enfermedades crónicas hereditarias; tercero, un esqueleto recto con pies menudos y buena dentadura; cuarto, cierta plenitud de carnes y pechos bien formados que prometen alimento al feto y al recién nacido; y en último lugar, la belleza ósea del rostro (nariz, boca pequeña, mentón prominente, frente y ojos).`
+      },
+      {
+        id: `faq-4`,
+        cat: `eleccion`,
+        catLabel: `Elección y pareja`,
+        q: `¿Por qué suelen unirse hombres geniales con mujeres mediocres o mujeres brillantes con hombres rudos?`,
+        a: `Debido a la herencia cruzada: el hijo hereda del padre la voluntad o el carácter (valentía, firmeza, rectitud) y de la madre la inteligencia. Por ello el talento masculino no ejerce atracción instintiva sobre la mujer, mientras que el hombre instruido queda fácilmente subyugado por la belleza corpórea femenina; así tantos Sócrates hallaron sus Xántipas (Shakespeare, Alberto Durero o Byron).`
+      },
+      {
+        id: `faq-5`,
+        cat: `eleccion`,
+        catLabel: `Elección y pareja`,
+        q: `¿Qué papel cumple la metáfora química de ácido y álcali en las consideraciones relativas?`,
+        a: `Representa la neutralización mutua de dos constituciones incompletas. Cada individuo busca en el otro exactamente la fracción que le falta para compensar sus desviaciones del tipo humano normal (por ejemplo, hombre bajito con mujer alta, nariz chata con aguileña, tez oscura con blancura deslumbradora) y formar un tipo cabal en el hijo.`
+      },
+      {
+        id: `faq-6`,
+        cat: `eros`,
+        catLabel: `Eros e instinto`,
+        q: `¿Por qué fracasan con tanta frecuencia los matrimonios contraídos por amor apasionado?`,
+        a: `Porque el genio de la especie deslumbra al amante con una venda en los ojos para unir cualidades físicas y psíquicas aptas para el hijo futuro, haciéndole ignorar incompatibilidades de carácter o conveniencia social. Satisfecho el instinto de la especie, la ilusión se desvanece y deja tras de sí una discordia ruidosa.`
+      },
+      {
+        id: `faq-7`,
+        cat: `thanatos`,
+        catLabel: `Muerte y voluntad`,
+        q: `¿Por qué sostiene Schopenhauer que la inmortalidad individual sería indeseable?`,
+        a: `Porque toda individualidad es una equivocación estrecha: el carácter es inmutable y la inteligencia humana suele estar llena de ideas pobres y terrenales. Prolongar esa misma conciencia por una eternidad engendraría tal monotonía y disgusto que el hombre terminaría por preferir la nada.`
+      },
+      {
+        id: `faq-8`,
+        cat: `thanatos`,
+        catLabel: `Muerte y voluntad`,
+        q: `¿La muerte destruye la Voluntad de vivir o libera definitivamente del sufrimiento?`,
+        a: `La muerte por sí sola deja intacta la fuerza de la voluntad de vivir (como la caída de la hoja deja intacto el árbol), pues todo ser vivo vuelve a resurgir en la especie y en la materia. La única liberación definitiva del sufrimiento y del ciclo de nacimientos ocurre por la negación de la voluntad de vivir, estado que el budismo denomina «nirvana».`
+      }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        topic: `Genio de la especie`,
+        question: `¿Cuál es, según Schopenhauer, el verdadero propósito inconsciente detrás de todo enamoramiento, incluso el más poético?`,
+        options: [
+          `Alcanzar una amistad espiritual desinteresada que consuele la soledad del individuo.`,
+          `Garantizar la existencia y la constitución determinada de la próxima generación en beneficio de la especie.`,
+          `Superar las convenciones sociales mediante un acto libre de la razón pura.`,
+          `Obtener reconocimiento social y seguridad patrimonial para los contrayentes.`
+        ],
+        correct: 1,
+        explanation: `Correcto según la tesis central: el fin definitivo de toda empresa amorosa es la composición de la próxima generación (existentia y essentia del nuevo individuo), para lo cual la naturaleza embauca al individuo egoísta mediante la ilusión del instinto.`
+      },
+      {
+        topic: `Herencia cruzada`,
+        question: `En la teoría schopenhaueriana de las cualidades psíquicas, ¿qué transmite principalmente el padre y qué transmite la madre al hijo?`,
+        options: [
+          `El padre transmite la inteligencia y el talento artístico; la madre, el arrojo moral.`,
+          `Ambos transmiten por igual la voluntad y la inteligencia sin distinción instintiva.`,
+          `El padre transmite la voluntad o el carácter (y las facciones); la madre transmite la inteligencia y la estatura.`,
+          `La madre transmite el carácter firme y el padre transmite exclusivamente la belleza facial.`
+        ],
+        correct: 2,
+        explanation: `El texto establece expresamente que el hijo recibe del padre la voluntad o el carácter (por eso las mujeres buscan firmeza y valentía, no genio) y de la madre la inteligencia (por eso los ojos y la frente hermosa son evaluados por el hombre).`
+      },
+      {
+        topic: `Consideraciones relativas`,
+        question: `¿Qué explica la metáfora química del «ácido y el álcali» que forman una sal neutra?`,
+        options: [
+          `La manera en que el paso del tiempo disuelve cualquier atracción física inicial.`,
+          `La necesidad de que dos personas se compensen mutuamente en sus defectos y grados de sexualidad para restaurar el tipo puro en el hijo.`,
+          `El proceso fisiológico por el cual el cerebro domina al sistema ganglional en los seres humanos.`,
+          `La unión de dos familias de distinta clase social en los matrimonios por conveniencia.`
+        ],
+        correct: 1,
+        explanation: `Cada persona es una parte incompleta del todo humano; en las consideraciones relativas, el individuo ama aquello que le falta para neutralizar sus propias desviaciones y evitar que se agraven como deformidades en la descendencia.`
+      },
+      {
+        topic: `Desengaño y matrimonio`,
+        question: `¿Por qué ilustra Schopenhauer el desenlace del amor satisfecho con el abandono de Ariadna por Teseo?`,
+        options: [
+          `Para mostrar que los héroes antiguos carecían de sentimientos verdaderos.`,
+          `Porque la ilusión de felicidad infinita era sólo un señuelo de la especie y se disipa en cuanto queda cumplido el goce físico.`,
+          `Para demostrar que el amor únicamente puede sobrevivir dentro del matrimonio por conveniencia.`,
+          `Porque la mujer siempre se vuelve infiel tras el primer año de convivencia.`
+        ],
+        correct: 1,
+        explanation: `Una vez pagado el tributo a la especie mediante la unión física, el genio de la especie abandona al individuo; la quimera se evapora y el amante comprueba con asombro que no es más feliz que antes.`
+      },
+      {
+        topic: `Metafísica de la muerte`,
+        question: `En la alegoría de la hoja en el árbol, ¿qué representa la fuerza íntima y oculta del árbol que no padece ni nacimiento ni muerte?`,
+        options: [
+          `La memoria histórica de los grandes poetas y filósofos.`,
+          `La conciencia individual inmortal que conserva sus recuerdos tras morir.`,
+          `La Voluntad de vivir como cosa en sí, libre del principium individuationis e idéntica a través de las generaciones.`,
+          `El orden político de la sociedad que sobrevive a los ciudadanos.`
+        ],
+        correct: 2,
+        explanation: `La hoja otoñal es el individuo efímero que teme desaparecer; el tronco siempre activo simboliza la Voluntad de vivir (la esencia oculta idéntica en todos los individuos sucesivos), intacta ante la muerte.`
+      },
+      {
+        topic: `Ascesis y Nirvana`,
+        question: `Según el tratado, ¿cómo puede el ser vivo liberarse verdaderamente del ciclo de sufrimientos y muerte?`,
+        options: [
+          `Asegurando la inmortalidad de su conciencia individual en otro mundo sin penas.`,
+          `Mediante la negación de la voluntad de vivir, desprendiendo la voluntad individual de la rama de la especie (estado que el budismo llama nirvana).`,
+          `Multiplicando la descendencia mediante matrimonios guiados por la razón.`,
+          `Sometiendo la inteligencia a los impulsos del sistema ganglional.`
+        ],
+        correct: 1,
+        explanation: `Incluso en un mundo sin miseria el hombre caería en el tedio. La única redención señalada por Schopenhauer es la negación o renuncia de la voluntad de vivir, que suprime la existencia en la especie y abre paso al nirvana.`
+      }
+    ];
+
+    // =========================================================================
+    // 2. APPLICATION STATE (Synced with notebookAppApi)
+    // =========================================================================
+
+    const DEFAULT_STATE = {
+      sim: {
+        aAge: `optima`,
+        aStature: `alta`,
+        aFace: `aguilena-blanca`,
+        aWill: `firme`,
+        bAge: `optima`,
+        bForm: `armonica`,
+        bFace: `morena-chica`,
+        bMind: `aguda`
+      },
+      scenariosCount: 0,
+      activeComp: `individuo`,
+      treeStage: 0,
+      faqCategory: `todas`,
+      faqQuery: ``,
+      quizIndex: 0,
+      quizAnswers: {}
+    };
+
+    let appState = JSON.parse(JSON.stringify(DEFAULT_STATE));
+
+    async function persistState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (err) {
+        // Silent resilience if host rejects transient writes
+      }
+    }
+
+    // =========================================================================
+    // 3. ACCORDION & NAVIGATION HANDLERS (Hoisted function declarations)
+    // =========================================================================
+
+    function toggleAccordion(btn) {
+      if (!btn) return;
+      const expanded = btn.getAttribute(`aria-expanded`) === `true`;
+      btn.setAttribute(`aria-expanded`, expanded ? `false` : `true`);
+      const panel = btn.nextElementSibling;
+      if (panel) {
+        panel.hidden = expanded;
+      }
+    }
+
+    function updateProgressBar() {
+      const scenEl = document.getElementById(`stat-scenarios`);
+      if (scenEl) scenEl.textContent = String(appState.scenariosCount);
+
+      let correctCount = 0;
+      for (let i = 0; i < QUIZ_QUESTIONS.length; i++) {
+        if (appState.quizAnswers[String(i)] === QUIZ_QUESTIONS[i].correct) {
+          correctCount++;
+        }
+      }
+      const scoreEl = document.getElementById(`stat-quiz-score`);
+      if (scoreEl) scoreEl.textContent = `${correctCount} / ${QUIZ_QUESTIONS.length}`;
+    }
+
+    function handleGlobalReset(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirmar reinicio total`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Restablecer progreso`;
+      appState = JSON.parse(JSON.stringify(DEFAULT_STATE));
+      applyStateToUI();
+      persistState();
+    }
+
+    // =========================================================================
+    // 4. SIMULATOR OF NEUTRALIZATION (Dafnis & Cloe)
+    // =========================================================================
+
+    function readSimInputs() {
+      const ids = {
+        aAge: `sim-a-age`,
+        aStature: `sim-a-stature`,
+        aFace: `sim-a-face`,
+        aWill: `sim-a-will`,
+        bAge: `sim-b-age`,
+        bForm: `sim-b-form`,
+        bFace: `sim-b-face`,
+        bMind: `sim-b-mind`
+      };
+      const out = {};
+      for (const key in ids) {
+        const el = document.getElementById(ids[key]);
+        if (el) out[key] = el.value;
+      }
+      return out;
+    }
+
+    function writeSimInputs(sim) {
+      const map = {
+        'sim-a-age': sim.aAge,
+        'sim-a-stature': sim.aStature,
+        'sim-a-face': sim.aFace,
+        'sim-a-will': sim.aWill,
+        'sim-b-age': sim.bAge,
+        'sim-b-form': sim.bForm,
+        'sim-b-face': sim.bFace,
+        'sim-b-mind': sim.bMind
+      };
+      for (const id in map) {
+        const el = document.getElementById(id);
+        if (el && map[id]) el.value = map[id];
+      }
+    }
+
+    function loadSimPreset(presetName) {
+      if (presetName === `dafnis`) {
+        appState.sim = {
+          aAge: `optima`,
+          aStature: `alta`,
+          aFace: `aguilena-blanca`,
+          aWill: `firme`,
+          bAge: `optima`,
+          bForm: `armonica`,
+          bFace: `morena-chica`,
+          bMind: `aguda`
+        };
+      } else if (presetName === `contrarios`) {
+        appState.sim = {
+          aAge: `optima`,
+          aStature: `baja`,
+          aFace: `chata-oscura`,
+          aWill: `firme`,
+          bAge: `optima`,
+          bForm: `sargentona`,
+          bFace: `aguilena-blanca`,
+          bMind: `aguda`
+        };
+      } else {
+        appState.sim = {
+          aAge: `tardia`,
+          aStature: `alta`,
+          aFace: `aguilena-blanca`,
+          aWill: `indeciso`,
+          bAge: `mayor`,
+          bForm: `flaca`,
+          bFace: `chata-oscura`,
+          bMind: `gansa`
+        };
+      }
+      writeSimInputs(appState.sim);
+      appState.scenariosCount += 1;
+      renderSimulatorOutput();
+      updateProgressBar();
+      persistState();
+    }
+
+    function updateSimulator() {
+      appState.sim = readSimInputs();
+      appState.scenariosCount += 1;
+      renderSimulatorOutput();
+      updateProgressBar();
+      persistState();
+    }
+
+    function renderSimulatorOutput() {
+      const s = appState.sim;
+      let score = 50;
+      let dafnisParts = [];
+      let cloeParts = [];
+      let diagNotes = [];
+
+      // 1. Age thresholds (Absolute considerations)
+      if (s.bAge === `mayor` || s.aAge === `tardia`) {
+        score -= 34;
+        diagNotes.push(`El umbral de edad fecunda falla: sin posibilidad reproductiva plena (18–28 en la mujer; 30–35 en el hombre), el instinto pierde su resorte fundamental.`);
+      } else if (s.bAge === `optima` && s.aAge === `optima`) {
+        score += 18;
+      } else {
+        score += 6;
+      }
+
+      // 2. Stature & Skeletal Form (Complementary neutralization)
+      if (s.aStature === `baja` && s.bForm === `sargentona`) {
+        score += 18;
+        dafnisParts.push(`compenso mi menor estatura con tu gran talla`);
+        cloeParts.push(`corrijo con mi figura la herencia de estatura para el hijo`);
+        diagNotes.push(`Neutralización física clásica observada por Schopenhauer: los hombres bajitos sienten decidida inclinación por mujeres altas y robustas.`);
+      } else if (s.aStature === `alta` && s.bForm === `sargentona`) {
+        score -= 12;
+        diagNotes.push(`Exceso mutuo: la aversión natural entre individuos demasiado grandes busca evitar una raza gigantesca sin vigor duradero.`);
+      } else if (s.aStature === `alta` && s.bForm === `armonica`) {
+        score += 14;
+        dafnisParts.push(`elevada estatura y fuerza muscular`);
+        cloeParts.push(`bellas formas y menudos pies`);
+      } else if (s.bForm === `flaca`) {
+        score -= 22;
+        diagNotes.push(`La extrema delgadez o desviación del esqueleto contraría las consideraciones absolutas sobre el tipo humano y la nutrición fetal.`);
+      } else {
+        score += 5;
+        dafnisParts.push(`estatura equilibrada`);
+        cloeParts.push(`constitución corporal aceptable`);
+      }
+
+      // 3. Facial traits & coloring (Neutralization)
+      if (s.aFace === `aguilena-blanca` && s.bFace === `morena-chica`) {
+        score += 14;
+        dafnisParts.push(`fina piel blanca y nariz aguileña`);
+        cloeParts.push(`cabellos negros, ojos negros y boca chiquita`);
+      } else if (s.aFace === `chata-oscura` && s.bFace === `aguilena-blanca`) {
+        score += 16;
+        dafnisParts.push(`busco en tu nariz aguileña y blancura el correctivo de mis rasgos`);
+        cloeParts.push(`neutralizo las desviaciones extremas en la fisonomía del ser futuro`);
+        diagNotes.push(`Compensación facial inversa: quien tiene nariz chata contempla con inexplicable placer un perfil aguileño, y la tez oscura busca blancura deslumbradora.`);
+      } else if (s.aFace === s.bFace) {
+        score -= 4;
+        dafnisParts.push(`rasgos semejantes a los tuyos`);
+        cloeParts.push(`facciones afines sin contraste`);
+      } else {
+        score += 7;
+        dafnisParts.push(`facciones proporcionadas`);
+        cloeParts.push(`rasgo facial complementario`);
+      }
+
+      // 4. Crossed Psychic Inheritance (Father = Will, Mother = Intellect)
+      if (s.aWill === `firme` && s.bMind === `aguda`) {
+        score += 12;
+        dafnisParts.push(`valentía y bondad de corazón que no podrían venirle de ti`);
+        cloeParts.push(`hermosa frente, ingenio e inteligencia que no podrían venirle de ti`);
+      } else if (s.aWill === `brutal` && s.bMind === `aguda`) {
+        score += 4;
+        dafnisParts.push(`fuerza de voluntad resuelta aunque áspera`);
+        cloeParts.push(`agudeza de espíritu para equilibrar el carácter`);
+        diagNotes.push(`Matrimonio desigual de espíritu frecuente en el tratado: padre brutal y robusto unido a madre aguda e instruida; de él vendrá el carácter, de ella la mente.`);
+      } else if (s.aWill === `indeciso` || s.bMind === `gansa`) {
+        score -= 14;
+        dafnisParts.push(`un carácter vacilante`);
+        cloeParts.push(`escaso aporte intelectual materno`);
+        diagNotes.push(`Déficit en la herencia psíquica cruzada: si falla la voluntad paterna o la inteligencia materna, la armonía del hijo queda comprometida.`);
+      } else {
+        score += 4;
+        dafnisParts.push(`temple moderado`);
+        cloeParts.push(`entendimiento sereno`);
+      }
+
+      score = Math.max(5, Math.min(99, score));
+
+      let passionLabel = `Fugaz`;
+      let beamAngle = 0;
+      let beamMsg = ``;
+
+      if (score >= 82) {
+        passionLabel = `Apasionado`;
+        beamAngle = 0;
+        beamMsg = `Sal neutra: equilibrio ideal del tipo humano`;
+      } else if (score >= 60) {
+        passionLabel = `Moderado`;
+        beamAngle = -4;
+        beamMsg = `Ajuste parcial: inclinación guiada por rasgos generales`;
+      } else {
+        passionLabel = `Antipatía`;
+        beamAngle = 11;
+        beamMsg = `Desequilibrio: el ser futuro carecería de armonía`;
+      }
+
+      if (diagNotes.length === 0) {
+        diagNotes.push(`Complementariedad completa entre las consideraciones absolutas, psíquicas y relativas: el genio de la especie proyecta una criatura armoniosa y dispara la pasión exclusiva.`);
+      }
+
+      const scoreEl = document.getElementById(`sim-score`);
+      const passionEl = document.getElementById(`sim-passion`);
+      const diagEl = document.getElementById(`sim-diagnosis`);
+      const dafnisEl = document.getElementById(`sim-dafnis-line`);
+      const cloeEl = document.getElementById(`sim-cloe-line`);
+      const beamGroup = document.getElementById(`sim-beam-group`);
+      const beamLabel = document.getElementById(`sim-beam-label`);
+
+      if (scoreEl) scoreEl.textContent = `${score}%`;
+      if (passionEl) passionEl.textContent = passionLabel;
+      if (diagEl) diagEl.textContent = diagNotes.join(` `);
+      if (dafnisEl) dafnisEl.textContent = `«Quisiera regalar un individuo a la generación futura: yo le doy ${dafnisParts.join(`, `)}.»`;
+      if (cloeEl) cloeEl.textContent = `«Tengo la misma intención: yo le doy ${cloeParts.join(`, `)}.»`;
+      if (beamGroup) beamGroup.setAttribute(`transform`, `rotate(${beamAngle} 180 68)`);
+      if (beamLabel) beamLabel.textContent = beamMsg;
+    }
+
+    // =========================================================================
+    // 5. INTERACTIVE COMPARATOR
+    // =========================================================================
+
+    function selectComparison(key, btn) {
+      if (!COMPARISONS[key]) return;
+      appState.activeComp = key;
+
+      const buttons = document.querySelectorAll(`[data-comp]`);
+      buttons.forEach(function(b) {
+        b.setAttribute(`aria-pressed`, b.dataset.comp === key ? `true` : `false`);
+      });
+
+      renderComparison();
+      persistState();
+    }
+
+    function renderComparison() {
+      const data = COMPARISONS[appState.activeComp] || COMPARISONS.individuo;
+      const lt = document.getElementById(`comp-left-tag`);
+      const lti = document.getElementById(`comp-left-title`);
+      const ll = document.getElementById(`comp-left-list`);
+      const rt = document.getElementById(`comp-right-tag`);
+      const rti = document.getElementById(`comp-right-title`);
+      const rl = document.getElementById(`comp-right-list`);
+
+      if (lt) lt.textContent = data.leftTag;
+      if (lti) lti.textContent = data.leftTitle;
+      if (rt) rt.textContent = data.rightTag;
+      if (rti) rti.textContent = data.rightTitle;
+
+      if (ll) {
+        ll.innerHTML = data.leftPoints.map(function(pt) {
+          return `<li>${pt}</li>`;
+        }).join(``);
+      }
+      if (rl) {
+        rl.innerHTML = data.rightPoints.map(function(pt) {
+          return `<li>${pt}</li>`;
+        }).join(``);
+      }
+    }
+
+    // =========================================================================
+    // 6. ALLEGORY OF THE LEAF STEPPER
+    // =========================================================================
+
+    function setTreeStage(idx) {
+      if (idx < 0 || idx >= TREE_STAGES.length) return;
+      appState.treeStage = idx;
+
+      const btns = document.querySelectorAll(`[data-stage]`);
+      btns.forEach(function(b) {
+        if (Number(b.dataset.stage) === idx) {
+          b.setAttribute(`aria-current`, `step`);
+        } else {
+          b.removeAttribute(`aria-current`);
+        }
+      });
+
+      renderTreeStage();
+      persistState();
+    }
+
+    function renderTreeStage() {
+      const stage = TREE_STAGES[appState.treeStage] || TREE_STAGES[0];
+      const textBox = document.getElementById(`tree-stage-text`);
+      if (textBox) {
+        textBox.innerHTML = `<h3 style="margin-bottom: var(--space-sm); color: var(--primary);">${stage.title}</h3><p>${stage.text}</p>`;
+      }
+
+      const visual = document.getElementById(`leaf-stage-visual`);
+      if (!visual) return;
+
+      if (appState.treeStage === 0) {
+        // Autumn: golden/oxblood dry leaves, one falling and lamenting
+        visual.innerHTML = `
+          <ellipse cx="92" cy="102" rx="14" ry="8" transform="rotate(-25 92 102)" fill="var(--outline)"></ellipse>
+          <ellipse cx="140" cy="48" rx="14" ry="8" transform="rotate(15 140 48)" fill="var(--outline)"></ellipse>
+          <ellipse cx="228" cy="45" rx="14" ry="8" transform="rotate(-15 228 45)" fill="var(--outline)"></ellipse>
+          <path d="M 272 90 Q 285 150 268 205" stroke="var(--primary)" stroke-width="1.2" stroke-dasharray="3 3" fill="none"></path>
+          <ellipse cx="268" cy="212" rx="16" ry="9" transform="rotate(35 268 212)" fill="var(--primary)"></ellipse>
+          <text x="268" y="238" text-anchor="middle" font-family="Crimson Pro, serif" font-style="italic" font-size="12" fill="var(--primary)">«No seré yo…»</text>
+        `;
+      } else if (appState.treeStage === 1) {
+        // Winter: chrysalis & dormant matter
+        visual.innerHTML = `
+          <ellipse cx="140" cy="64" rx="10" ry="16" fill="var(--surface-container)" stroke="var(--outline)" stroke-width="1.8"></ellipse>
+          <ellipse cx="228" cy="61" rx="10" ry="16" fill="var(--surface-container)" stroke="var(--outline)" stroke-width="1.8"></ellipse>
+          <circle cx="92" cy="102" r="4" fill="var(--outline)"></circle>
+          <circle cx="272" cy="90" r="4" fill="var(--outline)"></circle>
+          <text x="180" y="25" text-anchor="middle" font-family="Crimson Pro, serif" font-style="italic" font-size="13" fill="var(--on-surface-variant)">Crisálida invernal y persistencia de la materia</text>
+        `;
+      } else if (appState.treeStage === 2) {
+        // Spring: fresh green canopy
+        visual.innerHTML = `
+          <ellipse cx="92" cy="102" rx="18" ry="10" transform="rotate(-25 92 102)" fill="var(--secondary)"></ellipse>
+          <ellipse cx="140" cy="48" rx="18" ry="10" transform="rotate(15 140 48)" fill="var(--secondary)"></ellipse>
+          <ellipse cx="228" cy="45" rx="18" ry="10" transform="rotate(-15 228 45)" fill="var(--secondary)"></ellipse>
+          <ellipse cx="272" cy="90" rx="18" ry="10" transform="rotate(20 272 90)" fill="var(--secondary)"></ellipse>
+          <ellipse cx="180" cy="75" rx="18" ry="10" fill="var(--secondary)"></ellipse>
+          <text x="180" y="22" text-anchor="middle" font-family="Crimson Pro, serif" font-style="italic" font-size="13" fill="var(--secondary)">Fresco verdor primaveral sobre el mismo tronco</text>
+        `;
+      } else {
+        // Ascesis & Nirvana: branch detached into luminous calm
+        visual.innerHTML = `
+          <ellipse cx="92" cy="102" rx="14" ry="8" transform="rotate(-25 92 102)" fill="var(--data-context)"></ellipse>
+          <ellipse cx="140" cy="48" rx="14" ry="8" transform="rotate(15 140 48)" fill="var(--data-context)"></ellipse>
+          <circle cx="282" cy="58" r="24" fill="none" stroke="var(--outline)" stroke-width="1" stroke-dasharray="2 3"></circle>
+          <ellipse cx="282" cy="58" rx="13" ry="7" fill="var(--surface-container-low)" stroke="var(--primary)" stroke-width="1.6"></ellipse>
+          <text x="282" y="96" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="12" fill="var(--primary)">NIRVANA</text>
+          <text x="282" y="110" text-anchor="middle" font-family="Crimson Pro, serif" font-style="italic" font-size="11" fill="var(--on-surface-variant)">Desprendimiento de la rama</text>
+        `;
+      }
+    }
+
+    // =========================================================================
+    // 7. SEARCHABLE FAQ MODULE
+    // =========================================================================
+
+    function setFaqCategory(cat, btn) {
+      appState.faqCategory = cat;
+      const buttons = document.querySelectorAll(`[data-faq-cat]`);
+      buttons.forEach(function(b) {
+        b.setAttribute(`aria-pressed`, b.dataset.faqCat === cat ? `true` : `false`);
+      });
+      renderFaqs();
+      persistState();
+    }
+
+    function filterFaqs() {
+      const input = document.getElementById(`faq-search`);
+      appState.faqQuery = input ? input.value : ``;
+      renderFaqs();
+    }
+
+    function renderFaqs() {
+      const listEl = document.getElementById(`faq-list`);
+      const emptyEl = document.getElementById(`faq-empty`);
+      if (!listEl) return;
+
+      const query = (appState.faqQuery || ``).trim().toLowerCase();
+      const filtered = FAQS.filter(function(item) {
+        const catOk = appState.faqCategory === `todas` || item.cat === appState.faqCategory;
+        const textOk = !query || item.q.toLowerCase().includes(query) || item.a.toLowerCase().includes(query) || item.catLabel.toLowerCase().includes(query);
+        return catOk && textOk;
+      });
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = ``;
+        if (emptyEl) emptyEl.style.display = `block`;
+        return;
+      }
+
+      if (emptyEl) emptyEl.style.display = `none`;
+      listEl.innerHTML = filtered.map(function(item) {
+        return `
+          <div class="ruled-item">
+            <button type="button" class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-title-wrap">
+                <span class="tag">${item.catLabel}</span>
+                <span class="accordion-title">${item.q}</span>
+              </span>
+              <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="accordion-panel" hidden>
+              <p>${item.a}</p>
+            </div>
+          </div>
+        `;
+      }).join(``);
+    }
+
+    // =========================================================================
+    // 8. SELF-ASSESSMENT QUIZ
+    // =========================================================================
+
+    function selectQuizOption(optionIdx) {
+      const qIdx = String(appState.quizIndex);
+      appState.quizAnswers[qIdx] = optionIdx;
+      renderQuiz();
+      updateProgressBar();
+      persistState();
+    }
+
+    function moveQuiz(delta) {
+      const next = appState.quizIndex + delta;
+      if (next < 0 || next >= QUIZ_QUESTIONS.length) return;
+      appState.quizIndex = next;
+      renderQuiz();
+      persistState();
+    }
+
+    function renderQuiz() {
+      const idx = appState.quizIndex;
+      const item = QUIZ_QUESTIONS[idx] || QUIZ_QUESTIONS[0];
+      const chosen = appState.quizAnswers[String(idx)];
+      const hasAnswered = typeof chosen === `number`;
+
+      const counterEl = document.getElementById(`quiz-counter`);
+      const tagEl = document.getElementById(`quiz-topic-tag`);
+      const qEl = document.getElementById(`quiz-question`);
+      const optsEl = document.getElementById(`quiz-options`);
+      const fbEl = document.getElementById(`quiz-feedback`);
+      const prevBtn = document.getElementById(`quiz-prev`);
+      const nextBtn = document.getElementById(`quiz-next`);
+      const summaryEl = document.getElementById(`quiz-summary-line`);
+
+      if (counterEl) counterEl.textContent = `Pregunta ${idx + 1} de ${QUIZ_QUESTIONS.length}`;
+      if (tagEl) tagEl.textContent = item.topic;
+      if (qEl) qEl.textContent = item.question;
+
+      const letters = [`A`, `B`, `C`, `D`];
+      if (optsEl) {
+        optsEl.innerHTML = item.options.map(function(optText, oIdx) {
+          let cls = `quiz-option`;
+          if (hasAnswered) {
+            if (oIdx === item.correct) cls += ` is-correct`;
+            else if (oIdx === chosen) cls += ` is-wrong`;
+          }
+          const isChecked = chosen === oIdx ? `true` : `false`;
+          return `
+            <button type="button" class="${cls}" role="radio" aria-checked="${isChecked}" onclick="selectQuizOption(${oIdx})">
+              <span class="quiz-letter">${letters[oIdx]}.</span>
+              <span>${optText}</span>
+            </button>
+          `;
+        }).join(``);
+      }
+
+      if (fbEl) {
+        if (hasAnswered) {
+          const isOk = chosen === item.correct;
+          fbEl.hidden = false;
+          fbEl.className = `quiz-feedback ${isOk ? `is-positive` : `is-error`}`;
+          fbEl.innerHTML = `<strong>${isOk ? `Respuesta acertada.` : `Precisión del tratado:`}</strong> ${item.explanation}`;
+        } else {
+          fbEl.hidden = true;
+          fbEl.innerHTML = ``;
+        }
+      }
+
+      if (prevBtn) prevBtn.disabled = idx === 0;
+      if (nextBtn) nextBtn.disabled = idx === QUIZ_QUESTIONS.length - 1;
+
+      let totalCorrect = 0;
+      let totalAnswered = 0;
+      for (let i = 0; i < QUIZ_QUESTIONS.length; i++) {
+        if (typeof appState.quizAnswers[String(i)] === `number`) {
+          totalAnswered++;
+          if (appState.quizAnswers[String(i)] === QUIZ_QUESTIONS[i].correct) totalCorrect++;
+        }
+      }
+      if (summaryEl) {
+        summaryEl.textContent = `Aciertos acumulados: ${totalCorrect} de ${QUIZ_QUESTIONS.length} (${totalAnswered} respondidas)`;
+      }
+    }
+
+    // =========================================================================
+    // 9. INITIALIZATION & STATE RESTORATION
+    // =========================================================================
+
+    function applyStateToUI() {
+      writeSimInputs(appState.sim);
+      renderSimulatorOutput();
+
+      const compBtns = document.querySelectorAll(`[data-comp]`);
+      compBtns.forEach(function(b) {
+        b.setAttribute(`aria-pressed`, b.dataset.comp === appState.activeComp ? `true` : `false`);
+      });
+      renderComparison();
+
+      setTreeStageWithoutSave(appState.treeStage);
+
+      const faqInput = document.getElementById(`faq-search`);
+      if (faqInput) faqInput.value = appState.faqQuery || ``;
+      const faqBtns = document.querySelectorAll(`[data-faq-cat]`);
+      faqBtns.forEach(function(b) {
+        b.setAttribute(`aria-pressed`, b.dataset.faqCat === appState.faqCategory ? `true` : `false`);
+      });
+      renderFaqs();
+
+      renderQuiz();
+      updateProgressBar();
+    }
+
+    function setTreeStageWithoutSave(idx) {
+      const validIdx = (idx >= 0 && idx < TREE_STAGES.length) ? idx : 0;
+      appState.treeStage = validIdx;
+      const btns = document.querySelectorAll(`[data-stage]`);
+      btns.forEach(function(b) {
+        if (Number(b.dataset.stage) === validIdx) {
+          b.setAttribute(`aria-current`, `step`);
+        } else {
+          b.removeAttribute(`aria-current`);
+        }
+      });
+      renderTreeStage();
+    }
+
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            if (saved.sim) appState.sim = Object.assign({}, DEFAULT_STATE.sim, saved.sim);
+            if (typeof saved.scenariosCount === `number`) appState.scenariosCount = saved.scenariosCount;
+            if (saved.activeComp && COMPARISONS[saved.activeComp]) appState.activeComp = saved.activeComp;
+            if (typeof saved.treeStage === `number`) appState.treeStage = saved.treeStage;
+            if (saved.faqCategory) appState.faqCategory = saved.faqCategory;
+            if (typeof saved.faqQuery === `string`) appState.faqQuery = saved.faqQuery;
+            if (typeof saved.quizIndex === `number`) appState.quizIndex = saved.quizIndex;
+            if (saved.quizAnswers && typeof saved.quizAnswers === `object`) appState.quizAnswers = saved.quizAnswers;
+          }
+        }
+      } catch (err) {
+        // Fallback cleanly to default state
+      }
+
+      applyStateToUI();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>

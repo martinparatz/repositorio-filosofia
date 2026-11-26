@@ -1,0 +1,2427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="sonnet">
+  <title>Parerga y paralipómena I — Arthur Schopenhauer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Sonnet Style Tokens */
+      --background: #f5efe0;
+      --surface-container-low: #f8f3e7;
+      --surface-container: #ece3cf;
+      --surface-container-high: #e4d8bf;
+
+      /* Ink */
+      --on-surface: #1f1a17;
+      --on-surface-variant: #4a3f38;
+
+      /* Rules (gold is ornament/rules/lines only, never text) */
+      --outline: #a8843f;
+      --outline-variant: #d8c7a3;
+
+      /* Accents */
+      --primary: #6b1424;
+      --on-primary: #f5efe0;
+      --primary-container: #efe0dc;
+      --on-primary-container: #4a0d18;
+      --secondary: #2f4a3a;
+      --on-secondary: #f5efe0;
+      --tertiary: #a8843f;
+      --error: #9b2c1f;
+      --on-error: #f5efe0;
+
+      /* Data series */
+      --data-1: #6b1424;
+      --data-2: #2f4a3a;
+      --data-3: #a8843f;
+      --data-4: #3d5a73;
+      --data-context: #b9ad9c;
+
+      /* Fonts */
+      --font-headline: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Crimson Pro', Georgia, serif;
+      --font-label: 'Cormorant Garamond', Georgia, serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --gilt-rule: 1px solid var(--outline);
+      --gilt-rule-soft: 1px solid var(--outline-variant);
+      --ink-rule: 1px solid var(--on-surface);
+      --gilt-frame-inset: 5px;
+      --paper-vignette: inset 0 0 90px rgb(120 90 40 / 0.16);
+
+      /* 2. Shared Tokens */
+      --positive: #2f4a3a;
+      --warning: #6e4710;
+      --focus: #6b1424;
+
+      /* Type Scale — Narrative (stepped up slightly for Cormorant's small x-height) */
+      --display-size: clamp(2.85rem, 1.5rem + 4.5vw, 4.9rem);
+      --headline-size: clamp(1.95rem, 1.3rem + 2.2vw, 2.85rem);
+      --subhead-size: clamp(1.3rem, 1.1rem + 0.65vw, 1.65rem);
+      --body-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.14vw, 0.84rem);
+
+      /* Spacing Scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base Reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+    body {
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.68;
+      font-variant-numeric: oldstyle-nums;
+      box-shadow: var(--paper-vignette);
+      min-height: 100vh;
+    }
+    header { position: static !important; }
+
+    /* Focus Accessibility */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Layout Shell */
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1040px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Centered Reading Measure */
+    .prose-measure {
+      max-width: 65ch;
+      margin-inline: auto;
+      text-align: left;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-size: var(--display-size);
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.06;
+      letter-spacing: -0.005em;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.14;
+      letter-spacing: -0.004em;
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      font-weight: 600;
+      line-height: 1.22;
+    }
+    p {
+      margin: 0 0 var(--space-md);
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .label-voice {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-style: normal;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--primary);
+    }
+    .label-muted {
+      color: var(--on-surface-variant);
+    }
+    .tabular-nums {
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    /* Sonnet Defining Treatment 1: Gilt Double Frame (once per view, on opening title block) */
+    .gilt-frame {
+      border: var(--gilt-rule);
+      outline: var(--gilt-rule);
+      outline-offset: calc(-1 * var(--gilt-frame-inset));
+      padding: var(--space-2xl) var(--space-xl);
+      background-color: var(--surface-container-low);
+      text-align: center;
+    }
+
+    .title-ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+    .title-ornament-line {
+      height: 1px;
+      width: 3.5rem;
+      background-color: var(--outline);
+    }
+
+    .lede {
+      font-size: clamp(1.2rem, 1.1rem + 0.4vw, 1.4rem);
+      color: var(--on-surface-variant);
+      max-width: 54ch;
+      margin: var(--space-md) auto var(--space-lg);
+      line-height: 1.55;
+    }
+
+    /* Sonnet Defining Treatment 4: Verse / Epigraph Block */
+    .verse {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.2rem, 1.1rem + 0.35vw, 1.42rem);
+      line-height: 1.48;
+      color: var(--secondary);
+      border-left: var(--gilt-rule);
+      padding-left: var(--space-md);
+      max-width: 42ch;
+      margin: var(--space-lg) auto;
+      text-align: left;
+    }
+    .verse-source {
+      display: block;
+      margin-top: var(--space-xs);
+      font-style: normal;
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--on-surface-variant);
+    }
+
+    /* Navigation Strip (centered labels separated by middots) */
+    .toc-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-sm) var(--space-md);
+      padding-top: var(--space-lg);
+      margin-top: var(--space-lg);
+      border-top: var(--gilt-rule-soft);
+    }
+    .toc-nav a {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-color: var(--outline);
+      text-underline-offset: 3px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding-inline: var(--space-xs);
+      transition: color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+    .toc-nav a:hover {
+      color: var(--on-primary-container);
+      background-color: var(--primary-container);
+    }
+    .toc-middot {
+      color: var(--on-surface-variant);
+      user-select: none;
+    }
+
+    /* Sonnet Defining Treatment 3: Gilt Hairline Rules & Key Figures */
+    .ruled-figures {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-lg);
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+      text-align: center;
+    }
+    .figure-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .figure-value {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.9rem, 1.5rem + 1.2vw, 2.5rem);
+      line-height: 1.1;
+      color: var(--on-surface);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .figure-caption {
+      font-style: italic;
+      font-size: 0.96rem;
+      color: var(--on-surface-variant);
+      max-width: 22ch;
+      line-height: 1.38;
+    }
+
+    /* Section Structure */
+    .chapter-section {
+      padding-top: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .section-header {
+      text-align: center;
+      border-bottom: var(--gilt-rule-soft);
+      padding-bottom: var(--space-md);
+      max-width: 65ch;
+      width: 100%;
+      margin-inline: auto;
+    }
+    .section-header .label-voice {
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .section-subtitle {
+      font-style: italic;
+      color: var(--on-surface-variant);
+      margin: var(--space-xs) auto 0;
+      max-width: 52ch;
+    }
+
+    /* Sonnet Defining Treatment 2: Drop Cap (max one per major section) */
+    .drop-cap::first-letter {
+      float: left;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 3.6em;
+      line-height: 0.85;
+      padding: 0.06em 0.09em 0 0;
+      color: var(--primary);
+    }
+
+    /* Buttons (square corners, primary oxblood fill, secondary oxblood outline) */
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--on-primary-container);
+    }
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-secondary:hover:not(:disabled),
+    .btn-secondary[aria-pressed="true"] {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* Tags (1px green outline, green tracked label, fully rounded) */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--secondary);
+      border: 1px solid var(--secondary);
+      border-radius: var(--rounded-full);
+      padding: var(--space-xs) var(--space-md);
+      line-height: 1.2;
+    }
+
+    /* Interactive Panels (sparingly filled parchment or ruled inset) */
+    .parchment-panel {
+      background-color: var(--surface-container);
+      border-block: var(--gilt-rule);
+      padding: var(--space-xl);
+    }
+    .inset-panel {
+      background-color: var(--surface-container-low);
+      border: var(--gilt-rule-soft);
+      padding: var(--space-lg);
+    }
+
+    /* Module 1: Timeline Interactive */
+    .timeline-shell {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .timeline-rail {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: var(--space-sm);
+      border-bottom: var(--gilt-rule);
+      padding-bottom: var(--space-md);
+    }
+    .timeline-node {
+      background: transparent;
+      border: 1px solid var(--outline-variant);
+      padding: var(--space-sm);
+      min-height: 52px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      color: var(--on-surface);
+      font-family: inherit;
+      transition: background-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .timeline-node:hover {
+      background-color: var(--surface-container);
+    }
+    .timeline-node[aria-selected="true"] {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .timeline-node[aria-selected="true"] .timeline-year,
+    .timeline-node[aria-selected="true"] .timeline-short {
+      color: var(--on-primary);
+    }
+    .timeline-year {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.95rem;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--primary);
+    }
+    .timeline-short {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--on-surface-variant);
+      text-align: center;
+      line-height: 1.2;
+    }
+    .timeline-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+      padding-top: var(--space-sm);
+    }
+    .timeline-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      border-top: var(--gilt-rule-soft);
+      padding-top: var(--space-md);
+    }
+
+    /* Module 2: Concept Explorer & Search */
+    .explorer-controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+      border-bottom: var(--gilt-rule);
+      padding-bottom: var(--space-lg);
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--primary);
+    }
+    .line-input {
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      color: var(--on-surface);
+      background-color: transparent;
+      border: 0;
+      border-bottom: 1px solid var(--on-surface);
+      padding: var(--space-sm) var(--space-xs);
+      min-height: 44px;
+      width: 100%;
+      transition: border-color var(--dur-micro) var(--ease-out);
+    }
+    .line-input:focus {
+      outline: none;
+      border-bottom-color: var(--primary);
+      box-shadow: inset 0 -1px 0 var(--primary);
+    }
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .explorer-list {
+      display: flex;
+      flex-direction: column;
+    }
+    .explorer-item {
+      border-bottom: var(--gilt-rule-soft);
+      padding-block: var(--space-md);
+    }
+    .explorer-item-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+    .explorer-german {
+      font-style: italic;
+      color: var(--secondary);
+      font-size: 1.05rem;
+    }
+
+    /* Expandable Accordions (Concepts & FAQ) */
+    .accordion-trigger {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      padding: var(--space-md) 0;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      text-align: left;
+      cursor: pointer;
+      color: var(--on-surface);
+      font-family: var(--font-headline);
+      font-size: clamp(1.2rem, 1.08rem + 0.4vw, 1.45rem);
+      font-weight: 600;
+      transition: color var(--dur-micro) var(--ease-out);
+    }
+    .accordion-trigger:hover {
+      color: var(--primary);
+    }
+    .accordion-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--primary);
+      transition: transform var(--dur-short) var(--ease-in-out);
+    }
+    .accordion-trigger[aria-expanded="true"] .accordion-icon {
+      transform: rotate(180deg);
+    }
+    .accordion-panel {
+      padding-bottom: var(--space-md);
+      color: var(--on-surface-variant);
+      max-width: 65ch;
+    }
+    .accordion-panel[hidden] {
+      display: none;
+    }
+
+    /* Module 3: Ideal vs Real Interactive Genealogy */
+    .genealogy-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-lg);
+    }
+    .thinker-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+      gap: var(--space-sm);
+    }
+    .thinker-btn {
+      background: var(--surface-container-low);
+      border: var(--gilt-rule-soft);
+      padding: var(--space-sm) var(--space-xs);
+      min-height: 54px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      color: var(--on-surface);
+      font-family: inherit;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .thinker-btn:hover {
+      background-color: var(--surface-container);
+    }
+    .thinker-btn[aria-pressed="true"] {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .thinker-btn[aria-pressed="true"] .thinker-era {
+      color: var(--on-primary);
+    }
+    .thinker-name {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.08rem;
+    }
+    .thinker-era {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--on-surface-variant);
+    }
+    .genealogy-detail {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+      align-items: start;
+    }
+
+    /* Module 4: Comparison Table & University Dossier */
+    .ruled-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    .ruled-table th {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--primary);
+      border-bottom: var(--gilt-rule);
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+    }
+    .ruled-table td {
+      border-bottom: var(--gilt-rule-soft);
+      padding: var(--space-md) var(--space-md) var(--space-md) 0;
+      vertical-align: top;
+    }
+    .ruled-table tr:last-child td {
+      border-bottom: var(--gilt-rule);
+    }
+
+    .card-wrapper { container-type: inline-size; }
+    .dossier-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-lg);
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+    }
+    @container (max-width: 680px) {
+      .dossier-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* Module 5: Meridians & Parallels Causal Web */
+    .causal-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: center;
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+    }
+    .svg-stage {
+      width: 100%;
+      min-height: 290px;
+      display: block;
+    }
+
+    /* Module 6: Eudemonology Balance & Four Factors */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-lg);
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+    }
+    .pillar-card {
+      border-left: var(--gilt-rule);
+      padding-left: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .hedonic-bar-row {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr) 90px;
+      gap: var(--space-md);
+      align-items: center;
+      padding-block: var(--space-sm);
+    }
+    .bar-track {
+      height: 12px;
+      background-color: var(--surface-container-high);
+      position: relative;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      transition: width var(--dur-long) var(--ease-out);
+    }
+
+    /* Module 7: Self-Assessment Quiz */
+    .quiz-shell {
+      border: var(--gilt-rule);
+      background-color: var(--surface-container-low);
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .quiz-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      border-bottom: var(--gilt-rule-soft);
+      padding-bottom: var(--space-sm);
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .quiz-option {
+      text-align: left;
+      background-color: var(--background);
+      border: 1px solid var(--outline-variant);
+      padding: var(--space-md);
+      min-height: 48px;
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      color: var(--on-surface);
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      transition: background-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      background-color: var(--surface-container);
+    }
+    .quiz-option.is-correct {
+      background-color: var(--surface-container);
+      border-color: var(--positive);
+      box-shadow: inset 4px 0 0 var(--positive);
+    }
+    .quiz-option.is-wrong {
+      background-color: var(--primary-container);
+      border-color: var(--error);
+      box-shadow: inset 4px 0 0 var(--error);
+    }
+    .quiz-feedback {
+      border-left: 3px solid var(--secondary);
+      padding: var(--space-sm) var(--space-md);
+      background-color: var(--background);
+    }
+    .quiz-feedback.is-error-note {
+      border-left-color: var(--error);
+    }
+
+    /* Footer / Colophon */
+    .colophon {
+      border-top: var(--gilt-rule);
+      padding-top: var(--space-xl);
+      text-align: center;
+      color: var(--on-surface-variant);
+      max-width: 60ch;
+      margin-inline: auto;
+    }
+
+    /* Scroll Reveal Animation */
+    .reveal {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal.is-pending {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    /* Mobile Breakpoint */
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .gilt-frame {
+        padding: var(--space-lg) var(--space-md);
+      }
+      .ruled-figures {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .timeline-rail {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .timeline-stage,
+      .genealogy-detail,
+      .causal-layout,
+      .explorer-controls {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hedonic-bar-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-xs);
+      }
+      .parchment-panel,
+      .quiz-shell {
+        padding: var(--space-lg) var(--space-md);
+      }
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid">
+
+    <!-- OPENING MASTHEAD IN GILT DOUBLE FRAME -->
+    <header class="gilt-frame">
+      <div class="title-ornament" aria-hidden="true">
+        <span class="title-ornament-line"></span>
+        <span class="label-voice">Arthur Schopenhauer · Edición de 1851</span>
+        <span class="title-ornament-line"></span>
+      </div>
+      <h1>Parerga y paralipómena I</h1>
+      <p class="lede">
+        La «filosofía para el mundo» que puso fin a treinta y tres años de silencio editorial y convirtió al solitario de Fráncfort en un referente europeo.
+      </p>
+      <blockquote class="verse">
+        «Vitam impendere vero.»
+        <span class="verse-source">Dedicar la vida a la verdad — Juvenal, IV, 91 (Epígrafe de la obra)</span>
+      </blockquote>
+
+      <nav class="toc-nav" aria-label="Índice de la obra">
+        <a href="#genesis">Génesis y fama</a>
+        <span class="toc-middot" aria-hidden="true">·</span>
+        <a href="#explorador">Ensayos y glosario</a>
+        <span class="toc-middot" aria-hidden="true">·</span>
+        <a href="#ideal-real">Lo ideal y lo real</a>
+        <span class="toc-middot" aria-hidden="true">·</span>
+        <a href="#universidad">Filosofía universitaria</a>
+        <span class="toc-middot" aria-hidden="true">·</span>
+        <a href="#espectros">Destino y espectros</a>
+        <span class="toc-middot" aria-hidden="true">·</span>
+        <a href="#eudemonologia">Eudemonología</a>
+        <span class="toc-middot" aria-hidden="true">·</span>
+        <a href="#autoevaluacion">Autoevaluación</a>
+        <span class="toc-middot" aria-hidden="true">·</span>
+        <a href="#faq">Preguntas frecuentes</a>
+      </nav>
+    </header>
+
+    <!-- KEY FIGURES -->
+    <section aria-label="Cifras editoriales del primer volumen">
+      <div class="ruled-figures">
+        <div class="figure-item">
+          <span class="label-voice">Aislamiento previo</span>
+          <span class="figure-value">33 años</span>
+          <span class="figure-caption">Silencio entre «El mundo como voluntad y representación» y los «Parerga»</span>
+        </div>
+        <div class="figure-item">
+          <span class="label-voice">Primera edición</span>
+          <span class="figure-value">750</span>
+          <span class="figure-caption">Ejemplares impresos por A. W. Hayn en noviembre de 1851</span>
+        </div>
+        <div class="figure-item">
+          <span class="label-voice">Volumen primero</span>
+          <span class="figure-value">6 ensayos</span>
+          <span class="figure-caption">455 páginas en su formato original de 1851</span>
+        </div>
+        <div class="figure-item">
+          <span class="label-voice">Honorarios</span>
+          <span class="figure-value">0 luises</span>
+          <span class="figure-caption">Schopenhauer renunció al pago y recibió diez copias sin coste</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: GENESIS & TIMELINE -->
+    <section id="genesis" class="chapter-section reveal">
+      <div class="section-header">
+        <span class="label-voice">I · Introducción histórico-editorial</span>
+        <h2>De «Kaspar Hauser de la filosofía» a la comedia de la fama</h2>
+        <p class="section-subtitle">
+          Cómo unos escritos complementarios al «pensamiento único» lograron lo que su tratado sistemático no consiguió en tres décadas.
+        </p>
+      </div>
+
+      <div class="prose-measure">
+        <p class="drop-cap">
+          Arthur Schopenhauer fue autor de producción temprana y fama tardía. A los treinta años, con la conclusión de <em>El mundo como voluntad y representación</em>, había formulado ya todo el corpus de su sistema: su «pensamiento único», cuya llave secreta era la <strong>Voluntad</strong> como cosa en sí, esencia interna de todos los fenómenos y responsable de un mundo de miseria. Sin embargo, frente al auge triunfal del idealismo hegeliano, la obra quedó sumida durante treinta y tres años en un silencio casi absoluto.
+        </p>
+        <p>
+          En diciembre de 1850 culminó en Fráncfort del Meno la obra con la que pretendía cerrar su producción literaria: <em>Parerga y paralipómena</em>. El título griego distingue entre los <em>parerga</em> (de <em>πάρεργον</em>, cosas accesorias y apéndices sobre asuntos diversos) y los <em>paralipomena</em> (de <em>παραλείπω</em>, reflexiones omitidas o surgidas demasiado tarde para entrar en sus obras sistemáticas). Destinada al gran público como su «filosofía para el mundo», no exige conocimientos filosóficos previos, aunque toda ella recibe su sentido último de la arquitectura schopenhaueriana: la Tebas de las cien puertas donde los <em>Parerga</em> constituyen la entrada más amplia.
+        </p>
+      </div>
+
+      <!-- Interactive Timeline -->
+      <div class="parchment-panel timeline-shell" aria-label="Línea de tiempo interactiva de Schopenhauer y los Parerga">
+        <div class="explorer-item-head">
+          <div>
+            <span class="label-voice">Cronología interactiva · 1818–1855</span>
+            <h3>Del rechazo de Brockhaus a la «Iconoclasia» de Oxenford</h3>
+          </div>
+          <span class="tag" id="timeline-counter">Hito 1 de 7</span>
+        </div>
+
+        <div class="timeline-rail" role="tablist" aria-label="Hitos cronológicos">
+          <button type="button" class="timeline-node" role="tab" aria-selected="true" onclick="selectTimeline(0)" id="tl-tab-0">
+            <span class="timeline-year">1818</span>
+            <span class="timeline-short">Pensamiento único</span>
+          </button>
+          <button type="button" class="timeline-node" role="tab" aria-selected="false" onclick="selectTimeline(1)" id="tl-tab-1">
+            <span class="timeline-year">1840</span>
+            <span class="timeline-short">Censura danesa</span>
+          </button>
+          <button type="button" class="timeline-node" role="tab" aria-selected="false" onclick="selectTimeline(2)" id="tl-tab-2">
+            <span class="timeline-year">1849</span>
+            <span class="timeline-short">El barbero</span>
+          </button>
+          <button type="button" class="timeline-node" role="tab" aria-selected="false" onclick="selectTimeline(3)" id="tl-tab-3">
+            <span class="timeline-year">1850</span>
+            <span class="timeline-short">Negativa editorial</span>
+          </button>
+          <button type="button" class="timeline-node" role="tab" aria-selected="false" onclick="selectTimeline(4)" id="tl-tab-4">
+            <span class="timeline-year">1851</span>
+            <span class="timeline-short">Edición Hayn</span>
+          </button>
+          <button type="button" class="timeline-node" role="tab" aria-selected="false" onclick="selectTimeline(5)" id="tl-tab-5">
+            <span class="timeline-year">1853</span>
+            <span class="timeline-short">Oxenford</span>
+          </button>
+          <button type="button" class="timeline-node" role="tab" aria-selected="false" onclick="selectTimeline(6)" id="tl-tab-6">
+            <span class="timeline-year">1854–55</span>
+            <span class="timeline-short">Comedia de la fama</span>
+          </button>
+        </div>
+
+        <div class="timeline-stage" id="timeline-stage" aria-live="polite">
+          <div>
+            <span class="label-voice" id="tl-date">1818–1819 · Treinta años de edad</span>
+            <h3 id="tl-title" style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">Conclusión de «El mundo como voluntad y representación»</h3>
+            <p id="tl-body">
+              Schopenhauer entrega ya maduro todo su sistema filosófico, rompiendo con el intelectualismo que ponía al logos o a la Idea en el origen y relegando la inteligencia a instrumento de una Voluntad ciega e irracional. Frente al auge hegeliano, la obra fracasa en resonancia durante treinta y tres años.
+            </p>
+          </div>
+          <div class="inset-panel">
+            <span class="label-voice">Eco en las fuentes</span>
+            <blockquote class="verse" id="tl-quote" style="margin-block: var(--space-sm);">
+              «El enfant terrible de la filosofía que venía a demolerlo todo se convirtió en el Kaspar Hauser de la filosofía: solo, aislado del mundo.»
+            </blockquote>
+            <p class="label-muted" id="tl-note" style="font-size: 0.95rem; margin: 0;">
+              Contexto: Pilar López de Santa María, «La filosofía para el mundo».
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-controls">
+          <button type="button" class="btn btn-secondary" id="tl-prev" onclick="stepTimeline(-1)">Anterior</button>
+          <button type="button" class="btn btn-primary" id="tl-next" onclick="stepTimeline(1)">Siguiente hito</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: CONCEPT EXPLORER & ESSAY FILTER -->
+    <section id="explorador" class="chapter-section reveal">
+      <div class="section-header">
+        <span class="label-voice">II · Cartografía de la obra</span>
+        <h2>Explorador de ensayos, conceptos clave y glosario alemán</h2>
+        <p class="section-subtitle">
+          Filtra los seis tratados del primer volumen y los términos fundamentales de la traducción de Pilar López de Santa María, o despliega cada núcleo teórico.
+        </p>
+      </div>
+
+      <div class="explorer-controls">
+        <div class="field-group">
+          <label for="concept-search" class="field-label">Buscar ensayo, concepto o término alemán</label>
+          <input type="search" id="concept-search" class="line-input" oninput="filterExplorer()" placeholder="Ej.: Eudemonología, Vorstellung, Hegel, sueño, Kant…">
+        </div>
+        <div class="filter-row" role="group" aria-label="Filtrar por categoría">
+          <button type="button" class="btn btn-secondary" aria-pressed="true" onclick="setExplorerCategory('todos', this)">Todos</button>
+          <button type="button" class="btn btn-secondary" aria-pressed="false" onclick="setExplorerCategory('historia', this)">Ideal y Real</button>
+          <button type="button" class="btn btn-secondary" aria-pressed="false" onclick="setExplorerCategory('polemica', this)">Universidad</button>
+          <button type="button" class="btn btn-secondary" aria-pressed="false" onclick="setExplorerCategory('metafisica', this)">Destino y Espectros</button>
+          <button type="button" class="btn btn-secondary" aria-pressed="false" onclick="setExplorerCategory('eudemonologia', this)">Eudemonología</button>
+          <button type="button" class="btn btn-secondary" aria-pressed="false" onclick="setExplorerCategory('glosario', this)">Glosario</button>
+        </div>
+      </div>
+
+      <p class="label-voice label-muted" id="explorer-count" aria-live="polite">Mostrando 14 entradas del volumen I</p>
+
+      <div class="explorer-list" id="explorer-list"></div>
+
+      <!-- Expandable Deep-Dive Concepts -->
+      <div class="inset-panel" style="margin-top: var(--space-md);">
+        <span class="label-voice">Núcleos conceptuales expandibles</span>
+        <div id="concept-accordions">
+          <div style="border-bottom: var(--gilt-rule-soft);">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="acc-idealismo" onclick="toggleAccordion(this)">
+              <span>Idealismo vs. Realismo e Identidad de lo Ideal y lo Real</span>
+              <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div id="acc-idealismo" class="accordion-panel" hidden>
+              <p>
+                El problema originario de la filosofía moderna consiste en trazar un corte limpio entre lo <strong>ideal</strong> (lo que pertenece exclusivamente a nuestro conocimiento y representación) y lo <strong>real</strong> (lo que existe con independencia de él). Mientras Locke y Kant dedicaron su sagacidad a separar ambos órdenes —culminando en la idealidad del espacio y el tiempo—, Schelling propuso una «filosofía de la identidad» absoluta que volvió a mezclar «en una papilla» lo que había sido separado: identificó lo ideal con lo real, cuerpo y alma, Dios y mundo, y la metafísica con la física. Para Schopenhauer, lo ideal es mera representación fenoménica (velo de Maya), mientras que lo verdaderamente real —la cosa en sí— es la <strong>Voluntad</strong> irracional.
+              </p>
+            </div>
+          </div>
+
+          <div style="border-bottom: var(--gilt-rule-soft);">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="acc-universidad" onclick="toggleAccordion(this)">
+              <span>Filosofía universitaria: «vivir de» frente a «vivir para» la verdad</span>
+              <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div id="acc-universidad" class="accordion-panel" hidden>
+              <p>
+                Para Schopenhauer, hacer de la filosofía un oficio remunerado —y más aún a sueldo de un Ministerio estatal— es incompatible con el compromiso absoluto hacia la verdad. Quien busca sustento para sí, su mujer e hijos se ve obligado a respetar la «religión nacional» y los fines del Estado (como el profesor que declaró en 1840 que toda filosofía contraria al cristianismo es falsa o inservible). Frente a esta filosofía <em>ad normam conventionis</em>, el auténtico filósofo profesa una vocación ascética e independiente: piensa para sí mismo para poder iluminar después a todos.
+              </p>
+            </div>
+          </div>
+
+          <div style="border-bottom: var(--gilt-rule-soft);">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="acc-fatalismo" onclick="toggleAccordion(this)">
+              <span>Fatalismo demostrable frente a Fatalismo transcendente</span>
+              <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div id="acc-fatalismo" class="accordion-panel" hidden>
+              <p>
+                El <strong>fatalismo demostrable</strong> afirma <em>a priori</em> que todo acontecimiento fenoménico —incluidos los actos humanos— ocurre con estricta necesidad bajo el principio de razón suficiente: nada es absolutamente casual. El <strong>fatalismo transcendente</strong> va un paso más allá y sostiene que esa necesidad no es ciega; al contemplar la propia vida retrospectivamente, sus giros aparentemente fortuitos revelan una congruencia y finalidad secreta, comparable a una epopeya o a la manera en que nuestra propia voluntad organiza obstáculos en un sueño desde fuera de la conciencia representante.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="acc-eudemonologia" onclick="toggleAccordion(this)">
+              <span>Eudemonología: el arte paradójico de ser menos infeliz</span>
+              <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div id="acc-eudemonologia" class="accordion-panel" hidden>
+              <p>
+                En sentido estricto, el pesimismo metafísico de Schopenhauer niega que la existencia humana pueda ser preferible a la inexistencia, pues todo querer brota de la carencia y oscila entre el dolor y el aburrimiento. Por eso, la eudemonología de los <em>Aforismos</em> se presenta como una «acomodación» al punto de vista empírico habitual y un eufemismo: dado que el placer es meramente negativo (ausencia de dolor) y solo el sufrimiento es positivo, ser feliz equivale a <em>vivir menos infeliz</em> mediante una prudencia racional que sacrifica placeres quiméricos para evitar males reales.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: SCHEMA OF THE IDEAL AND THE REAL -->
+    <section id="ideal-real" class="chapter-section reveal">
+      <div class="section-header">
+        <span class="label-voice">III · Primer y segundo ensayo</span>
+        <h2>Esquema de una historia de la teoría de lo ideal y lo real</h2>
+        <p class="section-subtitle">
+          El itinerario de la conciencia moderna desde la duda cartesiana hasta la identificación kantiano-schopenhaueriana de la Voluntad.
+        </p>
+      </div>
+
+      <div class="prose-measure">
+        <p class="drop-cap">
+          Ni los filósofos antiguos ni los escolásticos llegaron a plantear con plena nitidez el problema originario de lo ideal y lo real —con el notable destello de Plotino en las <em>Enéadas</em> sobre la idealidad del tiempo, o los atisbos presocráticos de los eleatas y de Empédocles, quien puso el amor y el odio (una voluntad ciega) como principios ordenadores y describió el mundo como un valle de lágrimas—. Fue Descartes quien abrió la filosofía moderna al situar al sujeto ante la evidencia inmediata de su propia conciencia y preguntar cómo se relacionan nuestras imágenes mentales con cosas independientes de nosotros.
+        </p>
+      </div>
+
+      <!-- Interactive Genealogy Explorer -->
+      <div class="genealogy-grid">
+        <div class="thinker-strip" role="group" aria-label="Seleccionar pensador de la genealogía filosófica">
+          <button type="button" class="thinker-btn" aria-pressed="true" onclick="selectThinker(0, this)">
+            <span class="thinker-name">Descartes</span>
+            <span class="thinker-era">Inmanencia</span>
+          </button>
+          <button type="button" class="thinker-btn" aria-pressed="false" onclick="selectThinker(1, this)">
+            <span class="thinker-name">Malebranche</span>
+            <span class="thinker-era">Ocasionalismo</span>
+          </button>
+          <button type="button" class="thinker-btn" aria-pressed="false" onclick="selectThinker(2, this)">
+            <span class="thinker-name">Spinoza</span>
+            <span class="thinker-era">Panteísmo</span>
+          </button>
+          <button type="button" class="thinker-btn" aria-pressed="false" onclick="selectThinker(3, this)">
+            <span class="thinker-name">Locke</span>
+            <span class="thinker-era">Cualidades</span>
+          </button>
+          <button type="button" class="thinker-btn" aria-pressed="false" onclick="selectThinker(4, this)">
+            <span class="thinker-name">Berkeley</span>
+            <span class="thinker-era">Idealismo</span>
+          </button>
+          <button type="button" class="thinker-btn" aria-pressed="false" onclick="selectThinker(5, this)">
+            <span class="thinker-name">Kant</span>
+            <span class="thinker-era">Fenómeno</span>
+          </button>
+          <button type="button" class="thinker-btn" aria-pressed="false" onclick="selectThinker(6, this)">
+            <span class="thinker-name">Schopenhauer</span>
+            <span class="thinker-era">Voluntad</span>
+          </button>
+          <button type="button" class="thinker-btn" aria-pressed="false" onclick="selectThinker(7, this)">
+            <span class="thinker-name">Idealismo alemán</span>
+            <span class="thinker-era">El desvío</span>
+          </button>
+        </div>
+
+        <div class="genealogy-detail" id="thinker-detail" aria-live="polite">
+          <div>
+            <span class="label-voice" id="tk-role">Padre de la filosofía moderna · Siglo XVII</span>
+            <h3 id="tk-title" style="margin-top: var(--space-xs); margin-bottom: var(--space-sm);">René Descartes: el abismo entre sujeto y mundo</h3>
+            <p id="tk-desc">
+              Enseñó a los hombres a usar su propia mente en lugar de la Biblia o Aristóteles. Su principio «dubito, cogito, ergo sum» resalta la inmediatez del sujeto y equivale, visto desde el reverso, al «El mundo es mi representación» de Schopenhauer. Sin embargo, su solución al mundo externo —que el buen Dios no nos engaña— invirtió el argumento cosmológico y dejó abierto el enigma.
+            </p>
+          </div>
+          <div class="inset-panel">
+            <span class="label-voice">Corte Ideal / Real</span>
+            <p id="tk-cut" style="margin-top: var(--space-xs); font-weight: 600;">
+              Lo ideal: la autoconciencia cierta. Lo real: el mundo externo garantizado solo por la veracidad divina.
+            </p>
+            <span class="label-voice label-muted">Juicio schopenhaueriano</span>
+            <p id="tk-verdict" style="margin-top: var(--space-xs); margin-bottom: 0; font-style: italic; color: var(--on-surface-variant);">
+              «Descubrió el abismo entre lo subjetivo o ideal y lo objetivo o real; con su insuficiente solución mostró cuán profundo es el problema.»
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Schematic SVG summarizing the separation and Schopenhauer's synthesis -->
+      <div class="inset-panel" aria-label="Esquema visual del corte entre Representación y Voluntad">
+        <span class="label-voice">Síntesis del sistema schopenhaueriano</span>
+        <svg viewBox="0 0 820 190" class="svg-stage" style="min-height: 170px; margin-top: var(--space-sm);" role="img" aria-label="Diagrama de la transformación kantiana hacia la Voluntad como cosa en sí">
+          <line x1="20" y1="95" x2="800" y2="95" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="4 4"/>
+          <rect x="20" y="34" width="215" height="122" fill="var(--background)" stroke="var(--outline)" stroke-width="1.2"/>
+          <text x="127" y="64" text-anchor="middle" fill="var(--primary)" font-family="Cormorant Garamond, serif" font-size="13" font-weight="600" letter-spacing="1.5">LOCKE · BERKELEY</text>
+          <text x="127" y="92" text-anchor="middle" fill="var(--on-surface)" font-family="Cormorant Garamond, serif" font-size="19" font-style="italic" font-weight="600">Subjetividad sensorial</text>
+          <text x="127" y="118" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Crimson Pro, serif" font-size="14">Cualidades secundarias</text>
+          <text x="127" y="138" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Crimson Pro, serif" font-size="14">y «esse est percipi»</text>
+
+          <path d="M242 95 L286 95" stroke="var(--primary)" stroke-width="1.5" marker-end="url(#arrow-oxblood)"/>
+
+          <rect x="294" y="34" width="225" height="122" fill="var(--background)" stroke="var(--outline)" stroke-width="1.2"/>
+          <text x="406" y="64" text-anchor="middle" fill="var(--primary)" font-family="Cormorant Garamond, serif" font-size="13" font-weight="600" letter-spacing="1.5">IMMANUEL KANT</text>
+          <text x="406" y="92" text-anchor="middle" fill="var(--on-surface)" font-family="Cormorant Garamond, serif" font-size="19" font-style="italic" font-weight="600">Idealidad espacio-temporal</text>
+          <text x="406" y="118" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Crimson Pro, serif" font-size="14">Mundo = Fenómeno</text>
+          <text x="406" y="138" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Crimson Pro, serif" font-size="14">Cosa en sí = Incógnita</text>
+
+          <path d="M526 95 L570 95" stroke="var(--primary)" stroke-width="1.5"/>
+
+          <rect x="578" y="24" width="222" height="142" fill="var(--surface-container)" stroke="var(--primary)" stroke-width="1.5"/>
+          <text x="689" y="54" text-anchor="middle" fill="var(--primary)" font-family="Cormorant Garamond, serif" font-size="13" font-weight="600" letter-spacing="1.5">SCHOPENHAUER</text>
+          <text x="689" y="84" text-anchor="middle" fill="var(--on-surface)" font-family="Cormorant Garamond, serif" font-size="20" font-style="italic" font-weight="600">Llave del enigma</text>
+          <text x="689" y="112" text-anchor="middle" fill="var(--secondary)" font-family="Crimson Pro, serif" font-size="15" font-weight="600">Fenómeno = Representación</text>
+          <text x="689" y="134" text-anchor="middle" fill="var(--primary)" font-family="Crimson Pro, serif" font-size="15" font-weight="600">Cosa en sí = Voluntad</text>
+          <text x="689" y="154" text-anchor="middle" fill="var(--on-surface-variant)" font-family="Crimson Pro, serif" font-size="13" font-style="italic">Vía de acceso: el propio cuerpo</text>
+
+          <defs>
+            <marker id="arrow-oxblood" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+              <path d="M0,1 L7,4 L0,7 Z" fill="var(--primary)"/>
+            </marker>
+          </defs>
+        </svg>
+      </div>
+    </section>
+
+    <!-- SECTION 4: UNIVERSITY PHILOSOPHY -->
+    <section id="universidad" class="chapter-section reveal">
+      <div class="section-header">
+        <span class="label-voice">IV · Tercer ensayo</span>
+        <h2>Sobre la filosofía de la universidad</h2>
+        <p class="section-subtitle">
+          La denuncia contra los «Philosophieprofessoren» y la antítesis irreconciliable entre profesar la verdad y cobrar un sueldo del Estado.
+        </p>
+      </div>
+
+      <div class="prose-measure">
+        <p class="drop-cap">
+          El tercer ensayo concentra toda la hostilidad de Schopenhauer hacia la filosofía institucional de Alemania y contra Hegel en particular. Ningún Estado pagará un sueldo para que se contradiga desde la cátedra lo que miles de sacerdotes proclaman desde los púlpitos. Por ello, los profesores de filosofía caen bajo la regla <em>improbant secus docentes</em>: están obligados a hacer coincidir sus sistemas con la religión nacional y la apoteosis del Estado, convirtiendo el pensamiento en una «filosofía de rueca» o en una «bufonada filosófica» revestida de palabras ampulosas e incomprensibles que paralizan la mente de los jóvenes.
+        </p>
+        <p>
+          Frente a quienes viven <em>de</em> la filosofía buscando cátedras, luises de oro de honorarios y títulos de consejeros de corte, el auténtico filósofo vive <em>para</em> ella como una planta alpina que solo crece al aire libre de la montaña y degenera bajo cuidados artificiales. Así como Sócrates se enfrentó a los sofistas, Schopenhauer reivindica el estudio directo de las obras originales frente a las historias de segunda mano —que son como «pretender que otro mastique la propia comida»—.
+        </p>
+      </div>
+
+      <!-- Comparison Table -->
+      <div class="prose-measure" style="max-width: 100%; width: 100%;">
+        <table class="ruled-table">
+          <thead>
+            <tr>
+              <th>Criterio</th>
+              <th>Vivir para la filosofía</th>
+              <th>Vivir de la filosofía</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Finalidad última</strong></td>
+              <td>Búsqueda exclusiva y desinteresada de la verdad («dedicar la vida a la verdad»).</td>
+              <td>Sustento propio y familiar, aprobación ministerial, notoriedad y sueldos públicos.</td>
+            </tr>
+            <tr>
+              <td><strong>Analogía clásica</strong></td>
+              <td>La muchacha que se entrega por amor; los <em>lettrés isolés</em> elogiados por Voltaire.</td>
+              <td>La prostituta; los sofistas combatidos por Sócrates y ridiculizados por Platón.</td>
+            </tr>
+            <tr>
+              <td><strong>Dirección del pensamiento</strong></td>
+              <td>Pensadores autónomos que piensan para sí mismos (<em>tibi cogites oportet</em>) e iluminan a otros.</td>
+              <td>Pensadores de rebaño pendientes de la moda del quinquenio y del favor de los estudiantes.</td>
+            </tr>
+            <tr>
+              <td><strong>Estilo y método</strong></td>
+              <td>Claridad y nitidez directa; estudio directo de las fuentes originales y de la experiencia.</td>
+              <td>Galimatías especulativo e ininteligible (Hegel) para aparentar profundidad ante el público.</td>
+            </tr>
+            <tr>
+              <td><strong>Relación con el Estado</strong></td>
+              <td>Independencia radical; el genio es excéntrico y suele recibir reconocimiento póstumo o tardío.</td>
+              <td>Subordinación a la «Religión absoluta» y justificación del Estado como organismo ético perfecto.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 3 Biographical Dossiers (Container Query) -->
+      <div class="card-wrapper">
+        <span class="label-voice">Trasfondo biográfico de la polémica</span>
+        <div class="dossier-grid" style="margin-top: var(--space-sm);">
+          <article class="pillar-card">
+            <span class="label-voice label-muted">Episodio 1 · Habilitación</span>
+            <h3>El choque en el tribunal</h3>
+            <p style="margin: 0; font-size: 1rem;">
+              En su único encuentro personal conocido, durante la prueba de habilitación en Berlín, Hegel planteó una objeción sobre las funciones animales. El profesor de medicina Lichtenstein dio la razón a Schopenhauer frente a Hegel, cerrando la disputa con la única victoria directa de aquel sobre su rival.
+            </p>
+          </article>
+          <article class="pillar-card">
+            <span class="label-voice label-muted">Episodio 2 · Cátedra en Berlín</span>
+            <h3>Cinco alumnos frente a cientos</h3>
+            <p style="margin: 0; font-size: 1rem;">
+              Amenazado económicamente por la quiebra del banquero Muhl de Danzig, Schopenhauer intentó la docencia y pidió al decano August Boeckh coincidir exactamente en horario con el curso principal de Hegel. El aula de Hegel se abarrotó; Schopenhauer no reunió más de cinco oyentes.
+            </p>
+          </article>
+          <article class="pillar-card">
+            <span class="label-voice label-muted">Episodio 3 · 1840</span>
+            <h3>La censura de Dinamarca</h3>
+            <p style="margin: 0; font-size: 1rem;">
+              Tras ganar en 1839 el premio de la Real Sociedad Noruega con <em>Sobre la libertad de la voluntad</em>, presentó <em>Sobre el fundamento de la moral</em> en Dinamarca. Pese a ser el único aspirante, la Academia danesa rechazó premiarlo y lo censuró por ofender a los <em>summi philosophi</em> (Hegel y los idealistas).
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: METAPHYSICAL FANTASIES & SPECTRES -->
+    <section id="espectros" class="chapter-section reveal">
+      <div class="section-header">
+        <span class="label-voice">V · Cuarto y quinto ensayo</span>
+        <h2>Destino individual, fatalismo transcendente y visión de espectros</h2>
+        <p class="section-subtitle">
+          Cómo la red universal de causas, la analogía del sueño y el «órgano del sueño» explican tanto la trama de la vida como los fenómenos extraordinarios.
+        </p>
+      </div>
+
+      <div class="prose-measure">
+        <p class="drop-cap">
+          Los ensayos cuarto y quinto abordan cuestiones fronterizas desde la premisa de que una filosofía verdadera debe dar razón de toda la experiencia, incluso de lo más asombroso. En las «especulaciones transcendentes», Schopenhauer distingue entre el <strong>fatalismo demostrable</strong> —todo cuanto acontece en el mundo fenoménico ocurre con necesidad estricta por el principio de razón suficiente— y el <strong>fatalismo transcendente</strong>: la convicción de que la vida de cada individuo, lejos de ser puro caos, conforma una totalidad instructiva semejante a una epopeya, dirigida en último término por la misma Voluntad que constituye su ser en sí.
+        </p>
+      </div>
+
+      <!-- Interactive Causal Web SVG Diagram -->
+      <div class="causal-layout">
+        <div>
+          <svg viewBox="0 0 460 300" class="svg-stage" role="img" aria-label="Diagrama de meridianos causales y círculos paralelos de simultaneidad">
+            <!-- Parallel circles (Simultaneity) -->
+            <line x1="30" y1="80" x2="430" y2="80" stroke="var(--outline-variant)" stroke-width="1.2" stroke-dasharray="5 4"/>
+            <line x1="30" y1="155" x2="430" y2="155" stroke="var(--primary)" stroke-width="2" id="svg-parallel-line"/>
+            <line x1="30" y1="230" x2="430" y2="230" stroke="var(--outline-variant)" stroke-width="1.2" stroke-dasharray="5 4"/>
+
+            <!-- Causal Meridians -->
+            <path d="M90 25 C105 90, 95 160, 120 275" fill="none" stroke="var(--secondary)" stroke-width="2"/>
+            <path d="M225 25 C210 95, 240 165, 225 275" fill="none" stroke="var(--secondary)" stroke-width="2"/>
+            <path d="M360 25 C340 100, 355 165, 335 275" fill="none" stroke="var(--secondary)" stroke-width="2"/>
+
+            <!-- Hidden indirect cross-threads (visible in transcendent mode) -->
+            <g id="svg-transcendent-links" style="opacity: 1; transition: opacity var(--dur-short) var(--ease-out);">
+              <path d="M97 80 Q160 115 227 155" fill="none" stroke="var(--outline)" stroke-width="1.4" stroke-dasharray="3 3"/>
+              <path d="M348 80 Q290 115 227 155" fill="none" stroke="var(--outline)" stroke-width="1.4" stroke-dasharray="3 3"/>
+              <circle cx="227" cy="155" r="9" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2"/>
+            </g>
+
+            <!-- Intersection nodes -->
+            <circle cx="101" cy="155" r="5" fill="var(--secondary)"/>
+            <circle cx="227" cy="155" r="5" fill="var(--primary)"/>
+            <circle cx="348" cy="155" r="5" fill="var(--secondary)"/>
+
+            <!-- Direct SVG Labels -->
+            <text x="35" y="70" fill="var(--on-surface-variant)" font-family="Cormorant Garamond, serif" font-size="12" font-weight="600" letter-spacing="1">PASADO REMOTO (CAUSAS COMUNES)</text>
+            <text x="35" y="145" fill="var(--primary)" font-family="Cormorant Garamond, serif" font-size="13" font-weight="700" letter-spacing="1">CÍRCULO PARALELO · SIMULTANEIDAD</text>
+            <text x="88" y="292" fill="var(--secondary)" font-family="Crimson Pro, serif" font-size="13" font-style="italic">Meridiano A</text>
+            <text x="195" y="292" fill="var(--primary)" font-family="Crimson Pro, serif" font-size="13" font-style="italic">Meridiano B (Individuo)</text>
+            <text x="305" y="292" fill="var(--secondary)" font-family="Crimson Pro, serif" font-size="13" font-style="italic">Meridiano C</text>
+          </svg>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+          <div>
+            <span class="label-voice">Simulador conceptual</span>
+            <h3>La red de meridianos y paralelos</h3>
+          </div>
+          <div class="filter-row" role="group" aria-label="Alternar perspectiva sobre el azar y el destino">
+            <button type="button" class="btn btn-secondary" aria-pressed="true" onclick="setCausalMode('transcendente', this)">Fatalismo transcendente</button>
+            <button type="button" class="btn btn-secondary" aria-pressed="false" onclick="setCausalMode('azar', this)">Perspectiva del azar</button>
+          </div>
+          <div id="causal-explanation" class="inset-panel" aria-live="polite">
+            <p style="margin-bottom: var(--space-sm);">
+              <strong>«Todo resuena en todo» (Hipócrates):</strong> «Casual» designa solo la coincidencia en el tiempo de cadenas causales (<em>meridianos</em>) no vinculadas directamente entre sí. Sin embargo, al situarse sobre el mismo <em>círculo paralelo</em>, su simultaneidad fue fijada desde causas comunes en el pasado remoto.
+            </p>
+            <p style="margin: 0; font-style: italic; color: var(--on-surface-variant);">
+              Ejemplos citados por Schopenhauer: el retraso providencial de Fridolin al asistir a Misa en <em>Camino a la herrería</em> de Schiller, o las obras maestras griegas (el <em>Laocoonte</em> y el <em>Apolo</em> vaticano) ocultas bajo tierra durante un milenio hasta el Renacimiento.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Essay 5: Spectres & Dream Organ -->
+      <div class="prose-measure">
+        <h3>El «órgano del sueño» y el orden sobrenatural en la visión de espectros</h3>
+        <p>
+          En el quinto ensayo, Schopenhauer aborda visiones, sueños fatídicos, sonambulismo magnético, curas simpatéticas, segunda visión y apariciones de muertos sin recurrir a supersticiones dualistas ni negar los hechos por prejuicio materialista. Su explicación combina dos planos:
+        </p>
+      </div>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <span class="label-voice">1. Plano fisiológico</span>
+          <h3>El «órgano del sueño»</h3>
+          <p style="margin: 0;">
+            Así como en la vigilia intuimos objetos espaciales mediante la afección externa de nuestros sentidos, poseemos una facultad interior capaz de excitar el aparato perceptivo desde dentro del organismo, produciendo imágenes con idéntica objetividad espacial sin presencia física del objeto.
+          </p>
+        </div>
+        <div class="pillar-card">
+          <span class="label-voice">2. Plano kantiano</span>
+          <h3>Idealidad de espacio y tiempo</h3>
+          <p style="margin: 0;">
+            Espacio, tiempo y causalidad son meras formas cerebrales del fenómeno, no determinaciones de la cosa en sí. En el orden metafísico originario desaparecen las distancias, haciendo concebibles tanto la clarividencia (<em>conocimiento in distans</em>) como el influjo mágico (<em>actio in distans</em>).
+          </p>
+        </div>
+        <div class="pillar-card">
+          <span class="label-voice">3. Plano metafísico</span>
+          <h3>Unidad de la Voluntad</h3>
+          <p style="margin: 0;">
+            Más allá del <em>principium individuationis</em>, la Voluntad es una y la misma en todos los seres —e indestructible tras la muerte—. Todos estos fenómenos refutan fácticamente al materialismo y al naturalismo («la física sentada en el trono de la metafísica»).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: EUDEMONOLOGY / APHORISMS -->
+    <section id="eudemonologia" class="chapter-section reveal">
+      <div class="section-header">
+        <span class="label-voice">VI · Sexto ensayo (el corazón popular de la obra)</span>
+        <h2>Aforismos sobre la sabiduría de la vida</h2>
+        <p class="section-subtitle">
+          Una eudemonología práctica basada en la prudencia, la autosuficiencia y el arte de reducir el dolor en un mundo donde la dicha es negativa.
+        </p>
+      </div>
+
+      <blockquote class="verse">
+        «La felicidad no es cosa fácil; es muy difícil encontrarla en nosotros, e imposible encontrarla en otra parte.»
+        <span class="verse-source">Chamfort, Caractères et anecdotes — Lema de los «Aforismos»</span>
+      </blockquote>
+
+      <div class="prose-measure">
+        <p class="drop-cap">
+          El tratado más extenso del volumen —y el que cimentó la celebridad mundial de Schopenhauer— encarna una paradoja deliberada. Su filosofía estricta sostiene que la vida es «un negocio que no cubre los costes», pues todo querer nace de la carencia y oscila entre el dolor de la privación y el tedio de la saciedad; y su ética fundamenta el valor moral en la <strong>compasión</strong> (<em>Mitleid</em>), no en la razón. Aquí, en cambio, Schopenhauer desciende por acomodación al punto de vista empírico y despliega la <strong>razón práctica</strong> en sentido extramoral: máximas abstractas de egoísmo lúcido para vivir de la manera menos infeliz posible.
+        </p>
+      </div>
+
+      <!-- Interactive Hedonic Asymmetry Calculator / Visualizer -->
+      <div class="parchment-panel" aria-label="Asimetría entre dolor positivo y placer negativo">
+        <div class="explorer-item-head" style="margin-bottom: var(--space-md);">
+          <div>
+            <span class="label-voice">La regla suprema de Aristóteles y Voltaire</span>
+            <h3>«El hombre razonable persigue la ausencia de dolor, no el placer»</h3>
+          </div>
+          <span class="tag">Máxima general n.º 1</span>
+        </div>
+
+        <div class="field-group" style="max-width: 46ch; margin-bottom: var(--space-lg);">
+          <label for="pain-slider" class="field-label">Intensidad de una pequeña contrariedad o herida (0–10)</label>
+          <input type="range" id="pain-slider" min="0" max="10" value="3" oninput="updateHedonicBalance(this.value)" style="accent-color: var(--primary); min-height: 44px;">
+        </div>
+
+        <div class="hedonic-bar-row">
+          <span class="label-voice">Salud / placeres</span>
+          <div class="bar-track" aria-hidden="true">
+            <div class="bar-fill" id="bar-pleasure" style="width: 70%; background-color: var(--secondary);"></div>
+          </div>
+          <span class="tabular-nums" id="val-pleasure">Bienestar percibido: 70%</span>
+        </div>
+        <div class="hedonic-bar-row">
+          <span class="label-voice">Dolor sentido</span>
+          <div class="bar-track" aria-hidden="true">
+            <div class="bar-fill" id="bar-pain" style="width: 30%; background-color: var(--primary);"></div>
+          </div>
+          <span class="tabular-nums" id="val-pain">Atención capturada: 30%</span>
+        </div>
+
+        <p id="hedonic-comment" style="margin-top: var(--space-md); margin-bottom: 0; font-style: italic; color: var(--on-surface-variant);">
+          Como observa Schopenhauer: cuando todo el cuerpo está sano salvo un pequeño punto doloroso, la salud del conjunto desaparece de la conciencia y toda la atención se concentra en la herida. Por eso «vivir feliz» es un eufemismo que significa procurarse un «aposento ignífugo» evitando males reales, sin pagar placeres quiméricos al precio del dolor.
+        </p>
+      </div>
+
+      <!-- Architecture of the Aphorisms: What one IS, HAS, REPRESENTS & Ages -->
+      <div class="prose-measure">
+        <h3>Los pilares del bienestar y el curso de las edades</h3>
+        <p>
+          La arquitectura de los <em>Aforismos</em> organiza el arte de vivir en torno a las fuentes del bienestar humano y a los consejos prácticos de su último capítulo (<em>Parénesis y máximas</em>), divididos en máximas generales y en nuestra conducta con nosotros mismos, con los demás y con el destino:
+        </p>
+      </div>
+
+      <div class="pillars-grid">
+        <article class="pillar-card">
+          <span class="label-voice">1. Lo que uno es</span>
+          <h3>Interioridad, actividad y libre ocio</h3>
+          <p style="margin: 0;">
+            La fuente principal de la felicidad nace en nuestro interior. Citando la <em>Ética a Nicómaco</em> de Aristóteles, todo placer exige el libre ejercicio de una capacidad prominente; de ahí el inmenso valor del libre ocio (<em>σχολή</em>) para los espíritus elevados y el ideal de la autosuficiencia (<em>omnia mea mecum porto</em>).
+          </p>
+        </article>
+        <article class="pillar-card">
+          <span class="label-voice">2. Lo que uno tiene</span>
+          <h3>Resguardo contra la necesidad y el tedio</h3>
+          <p style="margin: 0;">
+            Las fuerzas humanas están destinadas ante todo a luchar contra la necesidad material; mas una vez satisfecha esta con la riqueza, las fuerzas desocupadas se vuelven una carga y precipitan en la otra fuente del tormento humano: el aburrimiento, ya retratado por Lucrecio en las grandes ciudades.
+          </p>
+        </article>
+        <article class="pillar-card">
+          <span class="label-voice">3. Lo que uno representa</span>
+          <h3>Las «nueces huecas» de la opinión</h3>
+          <p style="margin: 0;">
+            La sociedad, los salones y los honores exteriores son descritos con Chamfort como una «ópera miserable» sostenida por decorados y vestuario: «nueces huecas» cuya carne es rarísima. Contar con seguridad solo consigo mismo evita las molestias inevitables del comercio mundano.
+          </p>
+        </article>
+        <article class="pillar-card">
+          <span class="label-voice">4. Las fases de la vida</span>
+          <h3>De la ilusión juvenil a la prudencia senil</h3>
+          <p style="margin: 0;">
+            La vida no existe para ser disfrutada sino para superarla (<em>vita defungi</em>). La experiencia acumulada compra prudencia —incluso a través de los desengaños— hasta alcanzar en la vejez el consuelo de haber dejado atrás el arduo trabajo de la existencia.
+          </p>
+        </article>
+      </div>
+
+      <!-- Interactive Parenesis & Maxims Selector -->
+      <div class="inset-panel" aria-label="Selector de parénesis y máximas">
+        <div class="explorer-item-head" style="margin-bottom: var(--space-md);">
+          <div>
+            <span class="label-voice">Capítulo V · Parénesis y máximas</span>
+            <h3>Oráculos de prudencia práctica</h3>
+          </div>
+          <div class="filter-row">
+            <button type="button" class="btn btn-secondary" aria-pressed="true" onclick="selectMaxim(0, this)">Máxima 1</button>
+            <button type="button" class="btn btn-secondary" aria-pressed="false" onclick="selectMaxim(1, this)">Máxima 9</button>
+            <button type="button" class="btn btn-secondary" aria-pressed="false" onclick="selectMaxim(2, this)">Máxima 43</button>
+            <button type="button" class="btn btn-secondary" aria-pressed="false" onclick="selectMaxim(3, this)">Voltaire y Chamfort</button>
+          </div>
+        </div>
+        <div id="maxim-display" aria-live="polite">
+          <blockquote class="verse" id="maxim-quote">
+            «No al placer, a la ausencia de dolor aspira el hombre razonable.»
+            <span class="verse-source" id="maxim-source">Aristóteles, Ética a Nicómaco VII, 12 — Regla suprema n.º 1</span>
+          </blockquote>
+          <p id="maxim-comment" style="margin: 0; max-width: 65ch;">
+            Quien evalúa su existencia desde el punto de vista eudemonológico debe hacer la cuenta no por las alegrías disfrutadas, sino por los males a los que logró sustraerse.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: SELF-ASSESSMENT QUIZ -->
+    <section id="autoevaluacion" class="chapter-section reveal">
+      <div class="section-header">
+        <span class="label-voice">VII · Ejercicio práctico</span>
+        <h2>Autoevaluación: sabiduría práctica y claves de los «Parerga I»</h2>
+        <p class="section-subtitle">
+          Pon a prueba tu criterio frente a seis dilemas eudemonológicos y doctrinales extraídos directamente del texto. Tus respuestas quedan guardadas automáticamente.
+        </p>
+      </div>
+
+      <div class="quiz-shell" id="quiz-container">
+        <div class="quiz-meta">
+          <span class="label-voice" id="quiz-progress">Pregunta 1 de 6</span>
+          <span class="tag" id="quiz-score-badge">Aciertos: 0 / 6</span>
+        </div>
+
+        <h3 id="quiz-question" style="font-size: clamp(1.35rem, 1.15rem + 0.6vw, 1.65rem);"></h3>
+
+        <div class="quiz-options" id="quiz-options" role="radiogroup" aria-label="Opciones de respuesta"></div>
+
+        <div class="quiz-feedback" id="quiz-feedback" hidden aria-live="polite"></div>
+
+        <div class="timeline-controls">
+          <button type="button" class="btn btn-secondary" id="quiz-reset-btn" onclick="resetQuiz(this)">Reiniciar cuestionario</button>
+          <div class="filter-row">
+            <button type="button" class="btn btn-secondary" id="quiz-prev-btn" onclick="moveQuiz(-1)" disabled>Anterior</button>
+            <button type="button" class="btn btn-primary" id="quiz-next-btn" onclick="moveQuiz(1)">Siguiente</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: FAQ -->
+    <section id="faq" class="chapter-section reveal">
+      <div class="section-header">
+        <span class="label-voice">VIII · Preguntas frecuentes</span>
+        <h2>Dudas esenciales sobre «Parerga y paralipómena I»</h2>
+        <p class="section-subtitle">
+          Aclaraciones estrictamente respaldadas en el prólogo, los ensayos y la introducción crítica de Pilar López de Santa María.
+        </p>
+      </div>
+
+      <div class="prose-measure" style="max-width: 100%; width: 100%;">
+        <div style="border-top: var(--gilt-rule);">
+          <div style="border-bottom: var(--gilt-rule-soft);">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="faq-1" onclick="toggleAccordion(this)">
+              <span>¿Qué significan exactamente los términos griegos «Parerga» y «Paralipomena»?</span>
+              <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div id="faq-1" class="accordion-panel" hidden>
+              <p>
+                <em>Parerga</em> procede del griego <em>πάρεργον</em> y significa «cosa accesoria» o «apéndice»: textos sobre temas muy variados (<em>de omnibus rebus &amp; quibusdam aliis</em>) que por su materia no cabían en sus obras sistemáticas. <em>Paralipomena</em> proviene de <em>παραλείπω</em> («lo dejado a un lado» u «omitido») y reúne reflexiones y adiciones que surgieron demasiado tarde para incorporarse a su obra principal.
+              </p>
+            </div>
+          </div>
+
+          <div style="border-bottom: var(--gilt-rule-soft);">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="faq-2" onclick="toggleAccordion(this)">
+              <span>Si Schopenhauer es un pesimista radical, ¿cómo escribe un tratado para buscar la felicidad?</span>
+              <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div id="faq-2" class="accordion-panel" hidden>
+              <p>
+                Él mismo advierte en la introducción a los <em>Aforismos</em> que la palabra «eudemonología» es un simple eufemismo basado en una acomodación al punto de vista empírico habitual, prescindiendo temporalmente de su perspectiva metafísico-ética superior. Dado que el placer es negativo y el dolor positivo, «ser feliz» significa únicamente «ser menos infeliz» y vivir soportablemente previniendo males futuros mediante la razón práctica.
+              </p>
+            </div>
+          </div>
+
+          <div style="border-bottom: var(--gilt-rule-soft);">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="faq-3" onclick="toggleAccordion(this)">
+              <span>¿Contradicen los «Aforismos» su ética de la compasión?</span>
+              <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div id="faq-3" class="accordion-panel" hidden>
+              <p>
+                Son su contrapunto explícito. En <em>Sobre el fundamento de la moral</em>, la ética nace de la compasión (captación intuitiva de que el otro es «otra vez yo») y niega que la razón pueda prescribir la virtud. Los <em>Aforismos</em>, en cambio, muestran el uso extramoral de la razón práctica: máximas abstractas de un egoísmo racionalmente calculado y prudente orientadas al propio bienestar.
+              </p>
+            </div>
+          </div>
+
+          <div style="border-bottom: var(--gilt-rule-soft);">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="faq-4" onclick="toggleAccordion(this)">
+              <span>¿Por qué fracasó su obra principal durante 33 años y triunfaron los «Parerga»?</span>
+              <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div id="faq-4" class="accordion-panel" hidden>
+              <p>
+                Además del carácter asequible y divulgativo de los <em>Parerga</em>, cambió la época: <em>El mundo como voluntad y representación</em> apareció en pleno auge del idealismo hegeliano optimista, mientras que 1851 coincide con el derrumbe del idealismo (izquierda hegeliana, Feuerbach y Marx) y el giro hacia el realismo y la sospecha. El artículo de John Oxenford en la <em>Westminster Review</em> (abril de 1853), traducido en Alemania un mes después, detonó su fama europea.
+              </p>
+            </div>
+          </div>
+
+          <div style="border-bottom: var(--gilt-rule-soft);">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="faq-5" onclick="toggleAccordion(this)">
+              <span>¿Realmente defendía Schopenhauer la existencia de fenómenos paranormales y espectros?</span>
+              <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div id="faq-5" class="accordion-panel" hidden>
+              <p>
+                Sí: consideraba científicamente constatados hechos como el sonambulismo magnético, la segunda visión, los sueños fatídicos y ciertas apariciones. Sin embargo, rechazaba explicaciones ingenuamente espiritistas o supersticiosas, integrándolos en su sistema mediante el «órgano del sueño», la idealidad kantiana del espacio y el tiempo y la unidad metafísica de la Voluntad más allá del individuo.
+              </p>
+            </div>
+          </div>
+
+          <div style="border-bottom: var(--gilt-rule);">
+            <button type="button" class="accordion-trigger" aria-expanded="false" aria-controls="faq-6" onclick="toggleAccordion(this)">
+              <span>¿Pueden entenderse los «Parerga y paralipómena I» sin haber leído antes a Schopenhauer?</span>
+              <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div id="faq-6" class="accordion-panel" hidden>
+              <p>
+                Sí. En el prólogo de diciembre de 1850 el propio autor afirma que su contenido puede comprenderlo y disfrutarlo cualquiera sin conocimiento previo de sus obras sistemáticas, salvo pasajes puntuales; aunque quien conozca su filosofía tendrá ventaja porque toda la obra refleja su luz y, a la vez, la esclarece.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOPHON -->
+    <footer class="colophon">
+      <p class="label-voice" style="margin-bottom: var(--space-xs);">Fuentes y edición de referencia</p>
+      <p style="font-size: 0.98rem; margin: 0;">
+        Contenido íntegramente fundamentado en Arthur Schopenhauer, <em>Parerga y paralipómena I</em> (1851), traducción, introducción y notas de Pilar López de Santa María sobre la edición alemana de Arthur Hübscher (Brockhaus, Mannheim, 1988).
+      </p>
+    </footer>
+
+  </main>
+
+  <api-shim></api-shim>
+  <script>
+    /* ============================================================
+       DATA STORES (all strings in backtick template literals)
+       ============================================================ */
+    const TIMELINE_DATA = [
+      {
+        date: `1818–1819 · Treinta años de edad`,
+        title: `Conclusión de «El mundo como voluntad y representación»`,
+        body: `Schopenhauer entrega ya maduro todo su sistema filosófico: su «pensamiento único» que identifica la cosa en sí con la Voluntad y relega la inteligencia a mero instrumento. Frente al triunfo del idealismo hegeliano, la obra permanece treinta y tres años casi ignorada.`,
+        quote: `«El enfant terrible de la filosofía que venía a demolerlo todo se convirtió en el Kaspar Hauser de la filosofía: solo, aislado del mundo.»`,
+        note: `Fuente: Introducción de Pilar López de Santa María.`
+      },
+      {
+        date: `1839–1840 · Noruega y Dinamarca`,
+        title: `Premio en Noruega y censura de la Academia Danesa`,
+        body: `En 1839 gana el concurso de la Real Sociedad Noruega de las Ciencias con «Sobre la libertad de la voluntad». Al año siguiente presenta «Sobre el fundamento de la moral» en Dinamarca: siendo el único concursante, no recibe premio y sufre una severa censura por su trato ofensivo a los «sumos filósofos» (Hegel y los idealistas).`,
+        quote: `«Dedicó los prólogos de sus escritos de ética a abundar en sus ataques a Hegel, y con él a la Academia danesa, extendiéndolos a todas sus obras.»`,
+        note: `Fuente: Sección «La filosofía como profesión».`
+      },
+      {
+        date: `1849 · Primeros atisbos en Fráncfort`,
+        title: `El artículo de Frauenstädt y el respeto del barbero`,
+        body: `Julius Frauenstädt —su fiel «evangelista»— publica «Comentarios sobre Arthur Schopenhauer» en los Plätter für litterarische Unterhaltung. Aunque modesto, el texto empieza a dar a conocer al pensador en su ciudad.`,
+        quote: `«Hizo que el filósofo comenzara a ser conocido en Frankfurt, de tal modo que hasta su barbero le trataba desde entonces con un especial respeto.»`,
+        note: `Fuente: Conversaciones (Gespräche) citadas en la Introducción.`
+      },
+      {
+        date: `26 de junio – 3 de septiembre de 1850`,
+        title: `El rechazo de la editorial Brockhaus`,
+        body: `Tras seis años de redacción (y treinta de preparativos), ofrece el manuscrito a Brockhaus pidiendo un luis de oro por pliego y anunciando que no escribirá más para no engendrar «débiles hijos de la vejez». Escarmentado por las pérdidas de «El mundo», Brockhaus rechaza publicarlo incluso cuando Schopenhauer renuncia a cobrar derechos.`,
+        quote: `«Si no acepta, comete usted un error. Piense de mí lo que quiera: yo digo que mis escritos son lo mejor que ha producido el siglo.»`,
+        note: `Fuente: Carta de Schopenhauer a Brockhaus, 3 de septiembre de 1850.`
+      },
+      {
+        date: `Noviembre de 1851 · Berlín`,
+        title: `Publicación en la librería Adolph Wilhelm Hayn`,
+        body: `Gracias a las gestiones de Frauenstädt, los dos volúmenes ven la luz en Berlín con una tirada de 750 ejemplares. Schopenhauer renuncia a todo honorario y recibe únicamente diez ejemplares gratuitos. El volumen I ocupa 455 páginas con seis ensayos; el volumen II, 531 páginas con treinta y un ensayos.`,
+        quote: `«En ellos se esconde bastante sabiduría y experiencia, el résumé de mi vida.»`,
+        note: `Fuente: Conversación de Schopenhauer con A. von Doß.`
+      },
+      {
+        date: `Abril – Mayo de 1853 · Londres y Berlín`,
+        title: `«Iconoclasia en la filosofía alemana» de John Oxenford`,
+        body: `John Oxenford publica anónimamente un resonante artículo sobre Schopenhauer en la Westminster Review británica; un mes después aparece traducido al alemán por Lindner en la Vossische Zeitung. La obra deja de pasar inadvertida porque el idealismo hegeliano se ha derrumbado.`,
+        quote: `«Con él Schopenhauer se convierte en un punto de referencia de la filosofía alemana y europea.»`,
+        note: `Fuente: Introducción, «La filosofía para el mundo».`
+      },
+      {
+        date: `1854–1855 · Fráncfort y Leipzig`,
+        title: `Wagner, el Englischer Hof y la «comedia de la fama»`,
+        body: `Frauenstädt publica «Cartas sobre la filosofía de Schopenhauer»; se reeditan sus tratados anteriores; Richard Wagner le envía «El anillo del Nibelungo» en gratitud; Leipzig convoca un concurso sobre su pensamiento y curiosos acuden al hotel Englischer Hof a verlo comer. Él acoge este triunfo tardío con ironía.`,
+        quote: `«Se comparaba a un encendedor de lámparas del teatro al que el levantamiento del telón le sorprende en medio del escenario.»`,
+        note: `Fuente: Comentarios de Schopenhauer sobre la «comedia de la fama».`
+      }
+    ];
+
+    const EXPLORER_DATA = [
+      {
+        cat: `historia`,
+        catLabel: `Ideal y Real · Ensayo I`,
+        title: `Esquema de una historia de la teoría de lo ideal y lo real`,
+        german: `Skizze einer Geschichte der Lehre vom Idealen und Realen`,
+        summary: `Recorrido desde Descartes, Malebranche y Spinoza hasta Locke, Berkeley, Kant y el propio Schopenhauer para delimitar qué pertenece al sujeto cognoscente y qué a la cosa en sí. Incluye un apéndice mordaz contra Fichte, Schelling y Hegel.`
+      },
+      {
+        cat: `historia`,
+        catLabel: `Ideal y Real · Ensayo II`,
+        title: `Fragmentos sobre la historia de la filosofía`,
+        german: `Fragmente zur Geschichte der Philosophie`,
+        summary: `Exposición selectiva desde los presocráticos (eleatas, Empédocles y pitagóricos), Platón, estoicos y cínicos hasta Kant y Schopenhauer. Sostiene que leer compendios en vez de obras originales es «como pretender que otro mastique la propia comida».`
+      },
+      {
+        cat: `polemica`,
+        catLabel: `Universidad · Ensayo III`,
+        title: `Sobre la filosofía de la universidad`,
+        german: `Über die Universitäts-Philosophie`,
+        summary: `Crítica implacable de la filosofía remunerada por el Estado y de los Philosophieprofessoren. Contrasta el vivir «para» la filosofía frente al vivir «de» ella y denuncia la sujeción de las cátedras a la «Religión absoluta» y al hegelianismo.`
+      },
+      {
+        cat: `metafisica`,
+        catLabel: `Destino y Espectros · Ensayo IV`,
+        title: `Especulación transcendente sobre la aparente intencionalidad en el destino del individuo`,
+        german: `Transscendente Spekulation über die anscheinende Absichtlichkeit im Schicksale des Einzelnen`,
+        summary: `Conciliación entre causalidad necesaria y aparente finalidad vital: propone el «fatalismo transcendente», ilustrado con la red de meridianos y paralelos y la analogía del sueño dirigido por nuestra propia voluntad.`
+      },
+      {
+        cat: `metafisica`,
+        catLabel: `Destino y Espectros · Ensayo V`,
+        title: `Ensayo sobre la visión de espectros y lo que se relaciona con ella`,
+        german: `Versuch über das Geistersehn und was damit zusammenhängt`,
+        summary: `Explicación fisiológica (el «órgano del sueño») y metafísica (idealidad del espacio y tiempo, y unidad de la Voluntad más allá del principium individuationis) de la clarividencia, el magnetismo animal y las apariciones.`
+      },
+      {
+        cat: `eudemonologia`,
+        catLabel: `Eudemonología · Ensayo VI`,
+        title: `Aforismos sobre la sabiduría de la vida`,
+        german: `Aphorismen zur Lebensweisheit`,
+        summary: `Tratado práctico —y el más extenso del volumen— sobre el arte de llevar una existencia lo menos infeliz posible. Desarrolla la negatividad del placer frente a la positividad del dolor, la primacía de la vida interior y las Parénesis y máximas.`
+      },
+      {
+        cat: `glosario`,
+        catLabel: `Glosario de traducción`,
+        title: `Voluntad`,
+        german: `Wille`,
+        summary: `La cosa en sí, esencia interna e irracional de todos los fenómenos, una y la misma en todos los seres; clave única del sistema schopenhaueriano y fundamento tanto del sufrimiento del mundo como del misterio de la compasión.`
+      },
+      {
+        cat: `glosario`,
+        catLabel: `Glosario de traducción`,
+        title: `Representación y Fenómeno`,
+        german: `Vorstellung / Erscheinung`,
+        summary: `Schopenhauer esclarece el «fenómeno» kantiano denominándolo directamente «representación»: todo objeto dado en la percepción de nuestro intelecto bajo las formas subjetivas de espacio, tiempo y causalidad.`
+      },
+      {
+        cat: `glosario`,
+        catLabel: `Glosario de traducción`,
+        title: `Cosa en sí`,
+        german: `Ding an sich`,
+        summary: `La realidad originaria independiente de las formas cognoscitivas del sujeto. Mantenida por Kant como incógnita inalcanzable e identificada por Schopenhauer con la Voluntad.`
+      },
+      {
+        cat: `glosario`,
+        catLabel: `Glosario de traducción`,
+        title: `Entendimiento e Intelecto`,
+        german: `Verstand / Intellekt`,
+        summary: `En la terminología rigurosa de Schopenhauer, «entendimiento» designa exclusivamente la facultad de la causalidad (común a hombres y animales), mientras que «intelecto» refiere la facultad de conocimiento en general.`
+      },
+      {
+        cat: `glosario`,
+        catLabel: `Glosario de traducción`,
+        title: `Razón (como facultad) y Principio de razón suficiente`,
+        german: `Vernunft / Satz vom (zureichenden) Grunde`,
+        summary: `La Razón es la facultad exclusiva humana de formar conceptos abstractos (que en los Aforismos permite la prudencia práctica); el principio de razón suficiente rige toda explicación causal y funda el fatalismo demostrable.`
+      },
+      {
+        cat: `glosario`,
+        catLabel: `Glosario de traducción`,
+        title: `Compasión y Sufrimiento`,
+        german: `Mitleid / Leiden`,
+        summary: `El sufrimiento (Leiden) brota de toda carencia inherente al querer; la compasión (Mitleid) es el único móvil moral auténtico, basado en la intuición de que el otro es «otra vez yo».`
+      },
+      {
+        cat: `glosario`,
+        catLabel: `Glosario de traducción`,
+        title: `Intuición y Reflexión`,
+        german: `Anschauung / Besonnenheit · Besinnung`,
+        summary: `La intuición es el conocimiento inmediato (donde para Schopenhauer radica la verdad antes de la abstracción conceptual), mientras que la reflexión permite distanciarse de la impresión presente.`
+      },
+      {
+        cat: `glosario`,
+        catLabel: `Glosario de traducción`,
+        title: `Materia prima y Materia determinada`,
+        german: `Materie / Stoff`,
+        summary: `Pilar López de Santa María distingue «Materie» (materia prima o sin forma) de «Stoff» (materia con forma o sustancia, siempre material en Schopenhauer).`
+      }
+    ];
+
+    const THINKERS_DATA = [
+      {
+        role: `Padre de la filosofía moderna · Siglo XVII`,
+        title: `René Descartes: el abismo entre sujeto y mundo`,
+        desc: `Liberó a la razón de la tutela de la Biblia y Aristóteles. Con su «dubito, cogito, ergo sum» destacó lo único incondicionadamente cierto de la autoconciencia subjetiva, equivalente inverso del «El mundo es mi representación» de Schopenhauer. Al fundar la realidad del mundo externo en que «el buen Dios no nos engaña», invirtió el argumento cosmológico.`,
+        cut: `Lo ideal: la autoconciencia inmediata del sujeto. Lo real: las cosas externas asumidas sobre el crédito de la veracidad divina.`,
+        verdict: `«Descubrió el abismo que se encuentra entre lo subjetivo o ideal y lo objetivo o real; la cuestión no pudo ya ser eludida.»`
+      },
+      {
+        role: `Ocasionalismo francés · Siglo XVII`,
+        title: `Nicolas Malebranche: ver todas las cosas en Dios`,
+        desc: `Captó el problema de forma más profunda que Descartes en las «Recherches de la vérité». Enseñó que vemos todas las cosas inmediatamente en Dios mismo y que Él es el único que actúa en ellas, haciendo de las causas físicas meras «causes occasionelles».`,
+        cut: `Lo ideal: las ideas contempladas en Dios. Lo real: la eficacia divina única detrás de causas físicas aparentes.`,
+        verdict: `«Eso quiere decir explicar algo desconocido mediante algo todavía más desconocido; aquí está ya en lo esencial el panteísmo de Spinoza.»`
+      },
+      {
+        role: `Panteísmo europeo · Siglo XVII`,
+        title: `Baruch Spinoza: identidad de sustancia pensante y extensa`,
+        desc: `Junto a Bruno y Escoto Erígena (aunque eclipsados todos por las Upanishads de los Vedas), llevó el panteísmo a su forma clásica al identificar sustancia pensante y sustancia extensa, suprimiendo tres diferencias: Dios y mundo, cuerpo y alma, e ideal y real.`,
+        cut: `Suprime el corte entre lo ideal y lo real dentro de una única sustancia divina.`,
+        verdict: `«La diferencia entre lo ideal y lo real dentro del mundo intuitivo no depende de las otras dos; suprimirla fue la falta que luego imitó Schelling.»`
+      },
+      {
+        role: `Empirismo inglés · Siglo XVII`,
+        title: `John Locke: cualidades primarias y secundarias`,
+        desc: `Dio un paso decisivo hacia la distinción kantiana al separar en los cuerpos las cualidades secundarias (color, sonido, sabor), declarándolas puramente subjetivas y dependientes de nuestros órganos sensoriales, frente a las primarias (extensión, solidez).`,
+        cut: `Lo ideal: cualidades secundarias subjetivas. Lo real: materia despojada con cualidades primarias.`,
+        verdict: `«Allanó el camino de la estética transcendental kantiana al demostrar la subjetividad parcial de nuestra percepción.»`
+      },
+      {
+        role: `Idealismo genuino · Siglo XVIII`,
+        title: `George Berkeley: «esse est percipi»`,
+        desc: `Comprendió que sin las cualidades secundarias tampoco queda nada objetivo independiente de la mente perceptora: ser es ser percibido. Fue el creador del auténtico idealismo al sostener que todo el mundo intuitivo es mera representación.`,
+        cut: `Todo el mundo intuitivo y material queda subsumido en la representación percibida.`,
+        verdict: `«Creador del auténtico idealismo que Kant se encargará de desarrollar y fundamentar sólidamente.»`
+      },
+      {
+        role: `Revolución copernicana · Crítica de la razón pura`,
+        title: `Immanuel Kant: el mundo como fenómeno y la incógnita`,
+        desc: `Arrebató al objeto realista su primado sobre la conciencia al probar que el espacio y el tiempo —y con ellos las cualidades primarias— son también formas subjetivas de nuestra sensibilidad. Así todo el mundo empírico devino mero fenómeno, conservando la cosa en sí tras él.`,
+        cut: `Lo ideal/fenoménico: espacio, tiempo, causalidad y experiencia entera. Lo real: la cosa en sí inalcanzable.`,
+        verdict: `«Su principal mérito fue hacer idealista la filosofía, aunque mantuvo la cosa en sí por una inferencia defectuosa y oscurecida.»`
+      },
+      {
+        role: `El paso definitivo · Sistema de la Voluntad`,
+        title: `Arthur Schopenhauer: la Voluntad como cosa en sí`,
+        desc: `Esclarece el fenómeno kantiano llamándolo «representación» y resuelve la incógnita de la cosa en sí identificándola con la Voluntad. Reivindica el propio cuerpo no como mera conciencia cartesiana, sino como objetivación de la Voluntad y puerta privilegiada hacia el interior del mundo.`,
+        cut: `Lo ideal: el mundo como representación fenoménica. Lo real: la Voluntad una e irracional, conocida inmediatamente en nosotros.`,
+        verdict: `«La humanidad ha aprendido de mí algunas cosas que no olvidará, y mis escritos nunca se perderán.»`
+      },
+      {
+        role: `Apéndice polémico · Fichte, Schelling y Hegel`,
+        title: `Los «tres sofistas» del idealismo alemán`,
+        desc: `Excluidos del cuerpo de la historia filosófica por faltarles seriedad y honestidad investigadora: Fichte eliminó lo real dejando solo lo ideal; Schelling volvió a mezclar en papilla lo ideal y lo real en su filosofía de la identidad; Hegel puso el mundo cabeza abajo convirtiendo conceptos abstractos vacíos en la realidad originaria.`,
+        cut: `Anulación artificiosa del corte entre lo ideal y lo real mediante oscuridad verbal e «intuición intelectual».`,
+        verdict: `«Un monstruoso ύστερον πρότερον revestido de galimatías en la confianza ilimitada en la candidez alemana.»`
+      }
+    ];
+
+    const MAXIMS_DATA = [
+      {
+        quote: `«No al placer, a la ausencia de dolor aspira el hombre razonable.»`,
+        source: `Aristóteles, Ética a Nicómaco VII, 12 — Máxima general n.º 1`,
+        comment: `Todo placer es de naturaleza negativa y el dolor es de naturaleza positiva. Quien mide su vida eudemonológicamente debe contar los males evitados, no las alegrías disfrutadas, sacrificando placeres si conllevan el menor riesgo de dolor.`
+      },
+      {
+        quote: `«Bastarse a sí mismo, ser para uno mismo todo en todo y poder decir omnia mea mecum porto es la cualidad necesaria para nuestra felicidad.»`,
+        source: `Aristóteles (ή ευδαιμονία των αύτάρκων έστιν) — Máxima general n.º 9`,
+        comment: `Uno no puede contar con seguridad con nadie más que consigo mismo; las molestias, peligros y disgustos que trae consigo la sociedad son innumerables e inevitables.`
+      },
+      {
+        quote: `«Ningún dinero se ha empleado con más provecho que aquel que nos han estafado: pues con él hemos comprado inmediatamente prudencia.»`,
+        source: `Máxima n.º 43 (destacada por Pilar López de Santa María en la Introducción)`,
+        comment: `Frente a los desengaños inevitables de la vida práctica, la razón convierte el perjuicio inmediato en experiencia preventiva duradera para el resto del curso vital.`
+      },
+      {
+        quote: `«Le bonheur n'est qu'un rêve, et la douleur est réelle» · «La sociedad es una ópera miserable sostenida por decorados.»`,
+        source: `Voltaire y Chamfort (citados en el Capítulo V de los «Aforismos»)`,
+        comment: `Ambos autores confirman la tesis central de Schopenhauer: la dicha exterior y la pompa mundana son ilusiones de escena («nueces huecas»), mientras que el dolor y la serenidad interior constituyen lo único real.`
+      }
+    ];
+
+    const QUIZ_DATA = [
+      {
+        q: `1. Según la regla suprema de la eudemonología schopenhaueriana (inspirada en Aristóteles), ¿cómo debe medirse el éxito de una vida práctica?`,
+        options: [
+          `Por la suma total de placeres intensos y triunfos sociales acumulados.`,
+          `Por los males y dolores evitados, entendiendo «vivir feliz» como «vivir menos infeliz».`,
+          `Por el cumplimiento estricto de deberes racionales universales al modo del imperativo categórico.`
+        ],
+        correct: 1,
+        explanation: `Correcto. Para Schopenhauer el placer es meramente negativo (ausencia de dolor) y solo el dolor es positivo y sentido. Por ello aconseja procurarse un «aposento ignífugo» evitando dolores antes que perseguir alegrías quiméricas.`
+      },
+      {
+        q: `2. ¿Por qué afirma Schopenhauer que los «Aforismos sobre la sabiduría de la vida» contrastan con su propia ética de «Sobre el fundamento de la moral»?`,
+        options: [
+          `Porque los Aforismos despliegan la razón práctica como egoísmo lúcido y calculado, mientras su ética se funda en la compasión intuitiva.`,
+          `Porque en 1851 Schopenhauer abandonó su pesimismo y se volvió optimista.`,
+          `Porque los Aforismos están escritos únicamente para profesores universitarios de moral.`
+        ],
+        correct: 0,
+        explanation: `Exacto. La compasión (Mitleid) no proviene de conceptos racionales sino de intuir que el otro es «otra vez yo». Los Aforismos, en cambio, muestran el uso extramoral de la razón práctica al servicio de un egoísmo prudente.`
+      },
+      {
+        q: `3. ¿Qué diferencia fundamental establece Schopenhauer en el título entre «Parerga» y «Paralipomena»?`,
+        options: [
+          `Parerga significa tratados sistemáticos principales y Paralipomena significa poemas juveniles.`,
+          `Parerga son escritos accesorios por su temática; Paralipomena es lo omitido o llegado tarde para entrar en sus obras sistemáticas.`,
+          `Parerga alude a la filosofía antigua y Paralipomena a la crítica contra Hegel.`
+        ],
+        correct: 1,
+        explanation: `Así es. Del griego πάρεργον (cosa accesoria, apéndice) y παραλείπω (lo dejado a un lado, omitido), recogiendo tanto asuntos diversos como adiciones tardías a su obra principal.`
+      },
+      {
+        q: `4. En su «Esquema de una historia de la teoría de lo ideal y lo real», ¿cuál fue el avance decisivo de Schopenhauer respecto a Kant?`,
+        options: [
+          `Negar que el espacio y el tiempo sean subjetivos y restaurar el realismo ingenuo de Descartes.`,
+          `Identificar la incógnita kantiana de la cosa en sí con la Voluntad, aclarando el fenómeno como representación.`,
+          `Fundir lo ideal y lo real en una identidad absoluta como propuso Schelling.`
+        ],
+        correct: 1,
+        explanation: `Correcto. Kant demostró la idealidad del espacio y del tiempo dejando la cosa en sí como una incógnita; Schopenhauer identificó esa cosa en sí con la Voluntad accesible inmediatamente en nuestro propio cuerpo.`
+      },
+      {
+        q: `5. En «Sobre la filosofía de la universidad», ¿por qué rechaza Schopenhauer que la filosofía sea un oficio remunerado por el Estado?`,
+        options: [
+          `Porque ningún Estado paga a alguien para contradecir la religión nacional y sus consignas, subordinando así la verdad al interés del cargo.`,
+          `Porque consideraba que la filosofía es demasiado fácil y no merece salario.`,
+          `Porque prefería que solo los sacerdotes enseñaran metafísica en las cátedras.`
+        ],
+        correct: 0,
+        explanation: `Exacto. La filosofía universitaria se vuelve ancilla de la «Religión absoluta» y del Estado; el auténtico filósofo vive «para» la filosofía, no «de» ella.`
+      },
+      {
+        q: `6. En la analogía de los «meridianos» y «círculos paralelos» del cuarto ensayo, ¿cómo explica el fatalismo transcendente el aparente azar?`,
+        options: [
+          `Afirma que existen milagros que rompen por completo la cadena causal de la naturaleza.`,
+          `Sostiene que nada es absolutamente casual: cadenas causales independientes (meridianos) coinciden simultáneamente (paralelos) por causas remotas comunes al servicio del ser en sí.`,
+          `Declara que el destino está escrito únicamente en la historia mundial de los Estados, no en el individuo.`
+        ],
+        correct: 1,
+        explanation: `Correcto. Para Schopenhauer, la historia mundial es una configuración casual; el verdadero sentido y congruencia se dan en la vida del individuo, donde todo resuena en todo.`
+      }
+    ];
+
+    /* ============================================================
+       STATE & PERSISTENCE
+       ============================================================ */
+    let appState = {
+      timelineIndex: 0,
+      explorerCategory: `todos`,
+      explorerQuery: ``,
+      thinkerIndex: 0,
+      causalMode: `transcendente`,
+      sliderValue: 3,
+      maximIndex: 0,
+      quizIndex: 0,
+      quizAnswers: [null, null, null, null, null, null]
+    };
+
+    async function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+        } catch (err) {
+          /* Silent fallback if host rejects transient update */
+        }
+      }
+    }
+
+    /* ============================================================
+       MODULE 1: TIMELINE FUNCTIONS (hoisted declarations)
+       ============================================================ */
+    function renderTimeline() {
+      const idx = appState.timelineIndex;
+      const item = TIMELINE_DATA[idx];
+      if (!item) return;
+
+      const dateEl = document.getElementById('tl-date');
+      const titleEl = document.getElementById('tl-title');
+      const bodyEl = document.getElementById('tl-body');
+      const quoteEl = document.getElementById('tl-quote');
+      const noteEl = document.getElementById('tl-note');
+      const counterEl = document.getElementById('timeline-counter');
+      const prevBtn = document.getElementById('tl-prev');
+      const nextBtn = document.getElementById('tl-next');
+
+      if (dateEl) dateEl.textContent = item.date;
+      if (titleEl) titleEl.textContent = item.title;
+      if (bodyEl) bodyEl.textContent = item.body;
+      if (quoteEl) quoteEl.textContent = item.quote;
+      if (noteEl) noteEl.textContent = item.note;
+      if (counterEl) counterEl.textContent = `Hito ${idx + 1} de ${TIMELINE_DATA.length}`;
+      if (prevBtn) prevBtn.disabled = idx === 0;
+      if (nextBtn) nextBtn.disabled = idx === TIMELINE_DATA.length - 1;
+
+      for (let i = 0; i < TIMELINE_DATA.length; i++) {
+        const tab = document.getElementById(`tl-tab-${i}`);
+        if (tab) tab.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+      }
+    }
+
+    function selectTimeline(index) {
+      if (index < 0 || index >= TIMELINE_DATA.length) return;
+      appState.timelineIndex = index;
+      renderTimeline();
+      persistState();
+    }
+
+    function stepTimeline(delta) {
+      const next = appState.timelineIndex + delta;
+      if (next >= 0 && next < TIMELINE_DATA.length) {
+        selectTimeline(next);
+      }
+    }
+
+    /* ============================================================
+       MODULE 2: EXPLORER & ACCORDIONS
+       ============================================================ */
+    function renderExplorer() {
+      const listEl = document.getElementById('explorer-list');
+      const countEl = document.getElementById('explorer-count');
+      if (!listEl) return;
+
+      const q = (appState.explorerQuery || ``).trim().toLowerCase();
+      const cat = appState.explorerCategory || `todos`;
+
+      const filtered = EXPLORER_DATA.filter(function (entry) {
+        const matchesCat = cat === `todos` || entry.cat === cat;
+        if (!matchesCat) return false;
+        if (!q) return true;
+        const haystack = `${entry.title} ${entry.german} ${entry.summary} ${entry.catLabel}`.toLowerCase();
+        return haystack.indexOf(q) !== -1;
+      });
+
+      if (countEl) {
+        countEl.textContent = filtered.length === 1
+          ? `Mostrando 1 entrada del volumen I`
+          : `Mostrando ${filtered.length} entradas del volumen I`;
+      }
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = `<div class="inset-panel" style="margin-block: var(--space-md);"><p style="margin-bottom: var(--space-sm);">No hay entradas que coincidan con «${escapeHtml(appState.explorerQuery)}» en esta categoría.</p><button type="button" class="btn btn-secondary" onclick="clearExplorerFilters()">Restablecer filtros</button></div>`;
+        return;
+      }
+
+      listEl.innerHTML = filtered.map(function (entry) {
+        return `<article class="explorer-item">
+          <div class="explorer-item-head">
+            <h3 style="margin: 0;">${escapeHtml(entry.title)}</h3>
+            <span class="tag">${escapeHtml(entry.catLabel)}</span>
+          </div>
+          <div class="explorer-german">${escapeHtml(entry.german)}</div>
+          <p style="margin-top: var(--space-xs); margin-bottom: 0; max-width: 65ch;">${escapeHtml(entry.summary)}</p>
+        </article>`;
+      }).join('');
+    }
+
+    function setExplorerCategory(category, btnEl) {
+      appState.explorerCategory = category;
+      const group = btnEl ? btnEl.parentElement : null;
+      if (group) {
+        const btns = group.querySelectorAll('button');
+        btns.forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+      }
+      if (btnEl) btnEl.setAttribute('aria-pressed', 'true');
+      renderExplorer();
+      persistState();
+    }
+
+    function filterExplorer() {
+      const input = document.getElementById('concept-search');
+      appState.explorerQuery = input ? input.value : ``;
+      renderExplorer();
+      persistState();
+    }
+
+    function clearExplorerFilters() {
+      appState.explorerQuery = ``;
+      appState.explorerCategory = `todos`;
+      const input = document.getElementById('concept-search');
+      if (input) input.value = ``;
+      const filterBtns = document.querySelectorAll('#explorador .filter-row button');
+      filterBtns.forEach(function (b, i) {
+        b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+      });
+      renderExplorer();
+      persistState();
+    }
+
+    function toggleAccordion(btn) {
+      if (!btn) return;
+      const targetId = btn.getAttribute('aria-controls');
+      const panel = targetId ? document.getElementById(targetId) : null;
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      if (panel) panel.hidden = expanded;
+    }
+
+    /* ============================================================
+       MODULE 3: THINKERS GENEALOGY
+       ============================================================ */
+    function renderThinker() {
+      const item = THINKERS_DATA[appState.thinkerIndex];
+      if (!item) return;
+      const roleEl = document.getElementById('tk-role');
+      const titleEl = document.getElementById('tk-title');
+      const descEl = document.getElementById('tk-desc');
+      const cutEl = document.getElementById('tk-cut');
+      const verdictEl = document.getElementById('tk-verdict');
+
+      if (roleEl) roleEl.textContent = item.role;
+      if (titleEl) titleEl.textContent = item.title;
+      if (descEl) descEl.textContent = item.desc;
+      if (cutEl) cutEl.textContent = item.cut;
+      if (verdictEl) verdictEl.textContent = item.verdict;
+
+      const btns = document.querySelectorAll('.thinker-strip .thinker-btn');
+      btns.forEach(function (b, i) {
+        b.setAttribute('aria-pressed', i === appState.thinkerIndex ? 'true' : 'false');
+      });
+    }
+
+    function selectThinker(idx, btnEl) {
+      if (idx < 0 || idx >= THINKERS_DATA.length) return;
+      appState.thinkerIndex = idx;
+      renderThinker();
+      persistState();
+    }
+
+    /* ============================================================
+       MODULE 5: CAUSAL WEB MODE
+       ============================================================ */
+    function renderCausalMode() {
+      const links = document.getElementById('svg-transcendent-links');
+      const box = document.getElementById('causal-explanation');
+      const line = document.getElementById('svg-parallel-line');
+      if (!box) return;
+
+      if (appState.causalMode === `azar`) {
+        if (links) links.style.opacity = '0.12';
+        if (line) line.setAttribute('stroke', 'var(--outline-variant)');
+        box.innerHTML = `<p style="margin-bottom: var(--space-sm);"><strong>La ilusión del mero azar (το είκή φερόμενα):</strong> Desde el punto de vista fragmentario de la conciencia cotidiana, los acontecimientos de los meridianos A, B y C parecen cruzarse sin razón ni vínculo directo entre sí.</p><p style="margin: 0; font-style: italic; color: var(--on-surface-variant);">Sin embargo, como demuestra el fatalismo demostrable, incluso el suceso más fortuito es el eslabón necesario de una cadena causal rigurosa que se remonta al infinito.</p>`;
+      } else {
+        if (links) links.style.opacity = '1';
+        if (line) line.setAttribute('stroke', 'var(--primary)');
+        box.innerHTML = `<p style="margin-bottom: var(--space-sm);"><strong>«Todo resuena en todo» (Hipócrates):</strong> «Casual» designa solo la coincidencia en el tiempo de cadenas causales (<em>meridianos</em>) no vinculadas directamente entre sí. Sin embargo, al situarse sobre el mismo <em>círculo paralelo</em>, su simultaneidad fue fijada desde causas comunes en el pasado remoto.</p><p style="margin: 0; font-style: italic; color: var(--on-surface-variant);">Ejemplos citados por Schopenhauer: el retraso providencial de Fridolin al asistir a Misa en <em>Camino a la herrería</em> de Schiller, o las obras maestras griegas (el <em>Laocoonte</em> y el <em>Apolo</em> vaticano) ocultas bajo tierra durante un milenio hasta el Renacimiento.</p>`;
+      }
+
+      const btns = document.querySelectorAll('#espectros .filter-row button');
+      btns.forEach(function (b, i) {
+        const isTarget = (i === 0 && appState.causalMode === `transcendente`) || (i === 1 && appState.causalMode === `azar`);
+        b.setAttribute('aria-pressed', isTarget ? 'true' : 'false');
+      });
+    }
+
+    function setCausalMode(mode) {
+      appState.causalMode = mode;
+      renderCausalMode();
+      persistState();
+    }
+
+    /* ============================================================
+       MODULE 6: HEDONIC BALANCE & MAXIMS
+       ============================================================ */
+    function renderHedonicBalance() {
+      const val = Number(appState.sliderValue);
+      const painPct = Math.min(100, Math.max(0, val * 10));
+      const pleasurePct = Math.max(0, 100 - painPct);
+
+      const slider = document.getElementById('pain-slider');
+      const barPl = document.getElementById('bar-pleasure');
+      const barPa = document.getElementById('bar-pain');
+      const valPl = document.getElementById('val-pleasure');
+      const valPa = document.getElementById('val-pain');
+      const comment = document.getElementById('hedonic-comment');
+
+      if (slider && Number(slider.value) !== val) slider.value = String(val);
+      if (barPl) barPl.style.width = `${pleasurePct}%`;
+      if (barPa) barPa.style.width = `${painPct}%`;
+      if (valPl) valPl.textContent = `Bienestar percibido: ${pleasurePct}%`;
+      if (valPa) valPa.textContent = `Atención capturada: ${painPct}%`;
+
+      if (comment) {
+        if (val === 0) {
+          comment.textContent = `Estado indoloro: cuando no hay dolor ni aburrimiento, se alcanza en esencia toda la felicidad terrenal posible; la salud general pasa casi inadvertida porque es negativa.`;
+        } else if (val <= 4) {
+          comment.textContent = `Una sola espina o contrariedad menor (${val}/10) basta para eclipsar numerosos bienes presentes: el dolor es positivo y reclama de inmediato nuestra atención.`;
+        } else {
+          comment.textContent = `Con un dolor intenso (${val}/10), ningún placer externo compensa la balanza: pagar un placer quimérico al precio o riesgo de este sufrimiento es el mayor error contra la prudencia.`;
+        }
+      }
+    }
+
+    function updateHedonicBalance(val) {
+      appState.sliderValue = Number(val);
+      renderHedonicBalance();
+      persistState();
+    }
+
+    function renderMaxim() {
+      const item = MAXIMS_DATA[appState.maximIndex];
+      if (!item) return;
+      const qEl = document.getElementById('maxim-quote');
+      const cEl = document.getElementById('maxim-comment');
+      if (qEl) {
+        qEl.innerHTML = `${escapeHtml(item.quote)}<span class="verse-source">${escapeHtml(item.source)}</span>`;
+      }
+      if (cEl) cEl.textContent = item.comment;
+
+      const btns = document.querySelectorAll('#eudemonologia .inset-panel .filter-row button');
+      btns.forEach(function (b, i) {
+        b.setAttribute('aria-pressed', i === appState.maximIndex ? 'true' : 'false');
+      });
+    }
+
+    function selectMaxim(idx) {
+      if (idx < 0 || idx >= MAXIMS_DATA.length) return;
+      appState.maximIndex = idx;
+      renderMaxim();
+      persistState();
+    }
+
+    /* ============================================================
+       MODULE 7: SELF-ASSESSMENT QUIZ
+       ============================================================ */
+    function renderQuiz() {
+      const idx = appState.quizIndex;
+      const item = QUIZ_DATA[idx];
+      if (!item) return;
+
+      const progEl = document.getElementById('quiz-progress');
+      const scoreEl = document.getElementById('quiz-score-badge');
+      const qEl = document.getElementById('quiz-question');
+      const optWrap = document.getElementById('quiz-options');
+      const fbEl = document.getElementById('quiz-feedback');
+      const prevBtn = document.getElementById('quiz-prev-btn');
+      const nextBtn = document.getElementById('quiz-next-btn');
+
+      let score = 0;
+      let answeredCount = 0;
+      appState.quizAnswers.forEach(function (ans, qIdx) {
+        if (ans !== null) {
+          answeredCount++;
+          if (ans === QUIZ_DATA[qIdx].correct) score++;
+        }
+      });
+
+      if (progEl) progEl.textContent = `Pregunta ${idx + 1} de ${QUIZ_DATA.length}`;
+      if (scoreEl) scoreEl.textContent = `Aciertos: ${score} / ${QUIZ_DATA.length}`;
+      if (qEl) qEl.textContent = item.q;
+      if (prevBtn) prevBtn.disabled = idx === 0;
+      if (nextBtn) {
+        nextBtn.textContent = idx === QUIZ_DATA.length - 1 ? `Ver balance final` : `Siguiente`;
+      }
+
+      const chosen = appState.quizAnswers[idx];
+      if (optWrap) {
+        optWrap.innerHTML = item.options.map(function (optText, optIdx) {
+          let cls = 'quiz-option';
+          if (chosen !== null) {
+            if (optIdx === item.correct) cls += ' is-correct';
+            else if (optIdx === chosen) cls += ' is-wrong';
+          }
+          const letter = ['A', 'B', 'C'][optIdx] || String(optIdx + 1);
+          const disabledAttr = chosen !== null ? 'disabled' : '';
+          return `<button type="button" class="${cls}" ${disabledAttr} onclick="answerQuiz(${optIdx})">
+            <span class="label-voice" style="flex-shrink: 0; padding-top: var(--space-xs);">${letter}</span>
+            <span>${escapeHtml(optText)}</span>
+          </button>`;
+        }).join('');
+      }
+
+      if (fbEl) {
+        if (chosen !== null) {
+          fbEl.hidden = false;
+          const isRight = chosen === item.correct;
+          fbEl.className = isRight ? 'quiz-feedback' : 'quiz-feedback is-error-note';
+          let html = `<p style="margin: 0;"><strong>${isRight ? 'Respuesta acertada.' : 'Revisión doctrinal:'}</strong> ${escapeHtml(item.explanation)}</p>`;
+          if (answeredCount === QUIZ_DATA.length && idx === QUIZ_DATA.length - 1) {
+            const rank = score >= 5
+              ? `Arquitecto del aposento ignífugo: dominas tanto la prudencia eudemonológica como los cimientos idealistas de los Parerga I.`
+              : score >= 3
+                ? `Lector atento de Fráncfort: captas la ironía y las reglas prácticas, aunque conviene repasar la distinción entre Voluntad y Representación.`
+                : `Aprendiz en el umbral: los Parerga son la puerta más amplia a la Tebas de las cien puertas; te recomendamos explorar la sección de Lo Ideal y lo Real.`;
+            html += `<p style="margin-top: var(--space-sm); margin-bottom: 0; color: var(--primary);"><strong>Balance final (${score}/${QUIZ_DATA.length}):</strong> ${escapeHtml(rank)}</p>`;
+          }
+          fbEl.innerHTML = html;
+        } else {
+          fbEl.hidden = true;
+          fbEl.innerHTML = ``;
+        }
+      }
+    }
+
+    function answerQuiz(optIdx) {
+      if (appState.quizAnswers[appState.quizIndex] !== null) return;
+      appState.quizAnswers[appState.quizIndex] = optIdx;
+      const resetBtn = document.getElementById('quiz-reset-btn');
+      if (resetBtn) {
+        resetBtn.dataset.armed = 'false';
+        resetBtn.textContent = `Reiniciar cuestionario`;
+      }
+      renderQuiz();
+      persistState();
+    }
+
+    function moveQuiz(delta) {
+      const target = appState.quizIndex + delta;
+      if (target >= 0 && target < QUIZ_DATA.length) {
+        appState.quizIndex = target;
+        renderQuiz();
+        persistState();
+      } else if (delta > 0 && appState.quizIndex === QUIZ_DATA.length - 1) {
+        /* Stay on last card and ensure summary shows if all answered */
+        const fbEl = document.getElementById('quiz-feedback');
+        if (fbEl && fbEl.hidden) {
+          fbEl.hidden = false;
+          fbEl.className = 'quiz-feedback is-error-note';
+          fbEl.innerHTML = `<p style="margin: 0;">Selecciona una opción antes de consultar el balance final.</p>`;
+        }
+      }
+    }
+
+    function resetQuiz(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = `Pulsa otra vez para reiniciar`;
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = `Reiniciar cuestionario`;
+      appState.quizIndex = 0;
+      appState.quizAnswers = [null, null, null, null, null, null];
+      renderQuiz();
+      persistState();
+    }
+
+    /* ============================================================
+       UTILITIES & INITIALIZATION
+       ============================================================ */
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function setupRevealObserver() {
+      const nodes = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) return;
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('is-pending');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      nodes.forEach(function (el) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top > window.innerHeight * 0.95) {
+          el.classList.add('is-pending');
+          observer.observe(el);
+        }
+      });
+    }
+
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            if (typeof saved.timelineIndex === 'number') appState.timelineIndex = saved.timelineIndex;
+            if (typeof saved.explorerCategory === 'string') appState.explorerCategory = saved.explorerCategory;
+            if (typeof saved.explorerQuery === 'string') appState.explorerQuery = saved.explorerQuery;
+            if (typeof saved.thinkerIndex === 'number') appState.thinkerIndex = saved.thinkerIndex;
+            if (typeof saved.causalMode === 'string') appState.causalMode = saved.causalMode;
+            if (typeof saved.sliderValue === 'number') appState.sliderValue = saved.sliderValue;
+            if (typeof saved.maximIndex === 'number') appState.maximIndex = saved.maximIndex;
+            if (typeof saved.quizIndex === 'number') appState.quizIndex = saved.quizIndex;
+            if (Array.isArray(saved.quizAnswers) && saved.quizAnswers.length === QUIZ_DATA.length) {
+              appState.quizAnswers = saved.quizAnswers;
+            }
+          }
+        } catch (err) {
+          /* Keep defaults */
+        }
+      }
+
+      /* Sync input and filter UI with restored state */
+      const searchInput = document.getElementById('concept-search');
+      if (searchInput) searchInput.value = appState.explorerQuery || ``;
+      const filterBtns = document.querySelectorAll('#explorador .filter-row button');
+      const catOrder = ['todos', 'historia', 'polemica', 'metafisica', 'eudemonologia', 'glosario'];
+      filterBtns.forEach(function (btn, idx) {
+        btn.setAttribute('aria-pressed', catOrder[idx] === appState.explorerCategory ? 'true' : 'false');
+      });
+
+      renderTimeline();
+      renderExplorer();
+      renderThinker();
+      renderCausalMode();
+      renderHedonicBalance();
+      renderMaxim();
+      renderQuiz();
+      setupRevealObserver();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>

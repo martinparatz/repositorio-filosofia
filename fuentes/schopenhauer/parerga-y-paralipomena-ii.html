@@ -1,0 +1,2121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="sonnet">
+  <title>Parerga y paralipómena II — El legado final de Arthur Schopenhauer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Sonnet style tokens */
+      --background: #f5efe0;
+      --surface-container-low: #f8f3e7;
+      --surface-container: #ece3cf;
+      --surface-container-high: #e4d8bf;
+
+      --on-surface: #1f1a17;
+      --on-surface-variant: #4a3f38;
+
+      --outline: #a8843f;
+      --outline-variant: #d8c7a3;
+
+      --primary: #6b1424;
+      --on-primary: #f5efe0;
+      --primary-container: #efe0dc;
+      --on-primary-container: #4a0d18;
+      --secondary: #2f4a3a;
+      --tertiary: #a8843f;
+      --error: #9b2c1f;
+      --on-error: #f5efe0;
+
+      --data-1: #6b1424;
+      --data-2: #2f4a3a;
+      --data-3: #a8843f;
+      --data-4: #3d5a73;
+      --data-context: #b9ad9c;
+
+      --font-headline: 'Cormorant Garamond', serif;
+      --font-body: 'Crimson Pro', serif;
+      --font-label: 'Cormorant Garamond', serif;
+
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 9999px;
+
+      --gilt-rule: 1px solid var(--outline);
+      --gilt-rule-soft: 1px solid var(--outline-variant);
+      --gilt-frame-inset: 5px;
+      --paper-vignette: inset 0 0 90px rgb(120 90 40 / 0.16);
+
+      /* 3. Shared tokens */
+      --positive: #2f4a3a;
+      --warning: #7a4c12;
+      --focus: var(--primary);
+
+      /* Narrative type scale (stepped slightly up for Cormorant's x-height) */
+      --display-size: clamp(2.5rem, 1.4rem + 4.2vw, 4.75rem);
+      --headline-size: clamp(1.95rem, 1.3rem + 2.1vw, 2.85rem);
+      --subhead-size: clamp(1.3rem, 1.12rem + 0.65vw, 1.65rem);
+      --body-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.14vw, 0.85rem);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.68;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-shell {
+      box-shadow: var(--paper-vignette);
+      min-height: 100vh;
+      padding-bottom: var(--space-3xl);
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg);
+      max-width: 1080px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Typography helpers */
+    .label-voice {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .muted-label {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    h1 {
+      font-weight: 500;
+      font-style: italic;
+      font-size: var(--display-size);
+      line-height: 1.08;
+      letter-spacing: -0.005em;
+    }
+
+    h2 {
+      font-weight: 500;
+      font-style: italic;
+      font-size: var(--headline-size);
+      line-height: 1.15;
+      letter-spacing: -0.004em;
+    }
+
+    h3 {
+      font-weight: 600;
+      font-style: normal;
+      font-size: var(--subhead-size);
+      line-height: 1.25;
+    }
+
+    p {
+      margin: 0 0 var(--space-md);
+      font-variant-numeric: oldstyle-nums;
+    }
+
+    .prose-measure {
+      max-width: 65ch;
+      margin-inline: auto;
+      text-align: left;
+    }
+
+    .drop-cap::first-letter {
+      float: left;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 3.6em;
+      line-height: 0.84;
+      padding: 0.06em 0.09em 0 0;
+      color: var(--primary);
+    }
+
+    /* Sonnet defining treatments */
+    .gilt-frame {
+      border: var(--gilt-rule);
+      outline: var(--gilt-rule);
+      outline-offset: calc(-1 * var(--gilt-frame-inset));
+      padding: var(--space-xl) var(--space-lg);
+      text-align: center;
+      background-color: var(--surface-container-low);
+    }
+
+    .ruled {
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-md);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 44rem;
+      margin-inline: auto;
+      margin-bottom: var(--space-xl);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--gilt-rule-soft);
+    }
+
+    .section-header .label-voice {
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    .section-subtitle {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: clamp(1.125rem, 1rem + 0.45vw, 1.35rem);
+      color: var(--on-surface-variant);
+      margin: var(--space-sm) auto 0;
+      max-width: 52ch;
+    }
+
+    .verse {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.2em;
+      line-height: 1.5;
+      color: var(--secondary);
+      border-left: var(--gilt-rule);
+      padding-left: var(--space-md);
+      max-width: 42ch;
+      margin: var(--space-lg) auto;
+      text-align: left;
+    }
+
+    .verse cite {
+      display: block;
+      margin-top: var(--space-xs);
+      font-style: normal;
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+
+    /* Navigation */
+    .masthead-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-sm) var(--space-md);
+      padding-block: var(--space-md);
+      border-bottom: var(--gilt-rule-soft);
+      margin-bottom: var(--space-lg);
+    }
+
+    .masthead-nav a {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-block: var(--space-xs);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+
+    .masthead-nav a:hover {
+      color: var(--on-primary-container);
+      border-bottom-color: var(--outline);
+    }
+
+    .nav-sep {
+      color: var(--on-surface-variant);
+      user-select: none;
+    }
+
+    /* Key figures row */
+    .figures-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+      gap: var(--space-lg);
+      text-align: center;
+      border-block: var(--gilt-rule);
+      padding-block: var(--space-lg);
+      margin-block: var(--space-xl);
+    }
+
+    .figure-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .figure-value {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.9rem, 1.5rem + 1.2vw, 2.5rem);
+      line-height: 1.1;
+      color: var(--on-surface);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    .figure-caption {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 0.98rem;
+      color: var(--on-surface-variant);
+      max-width: 24ch;
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-radius: var(--rounded);
+      min-height: 44px;
+      padding: 0.65rem 1.25rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      border: 1px solid var(--primary);
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--on-primary-container);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary);
+    }
+
+    .btn-secondary:hover:not(:disabled),
+    .btn-secondary[aria-pressed="true"],
+    .btn-secondary.is-active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-block: var(--space-md);
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      border: 1px solid var(--secondary);
+      border-radius: var(--rounded-full);
+      padding: 0.15rem 0.7rem;
+      line-height: 1.4;
+    }
+
+    .tag-oxblood {
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    /* Interactive Stage Panels */
+    .interactive-panel {
+      background-color: var(--surface-container-low);
+      border-block: var(--gilt-rule);
+      padding: var(--space-xl) var(--space-lg);
+      margin-block: var(--space-xl);
+    }
+
+    .panel-head {
+      text-align: center;
+      margin-bottom: var(--space-lg);
+    }
+
+    .panel-head h3 {
+      margin-top: var(--space-xs);
+    }
+
+    .split-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: center;
+    }
+
+    .stage-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 290px;
+      padding: var(--space-md);
+    }
+
+    .stage-readout {
+      border-left: var(--gilt-rule-soft);
+      padding-left: var(--space-lg);
+      text-align: left;
+    }
+
+    /* Concentric Diagram SVG */
+    .concentric-svg {
+      width: 100%;
+      max-width: 380px;
+      height: auto;
+      display: block;
+    }
+
+    .orbit-ring {
+      cursor: pointer;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    .orbit-node {
+      cursor: pointer;
+    }
+
+    /* Tables */
+    .sonnet-table-wrap {
+      overflow-x: auto;
+      margin-block: var(--space-lg);
+    }
+
+    table.sonnet-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-variant-numeric: lining-nums tabular-nums;
+      text-align: left;
+    }
+
+    table.sonnet-table thead th {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+      border-top: var(--gilt-rule);
+      border-bottom: var(--gilt-rule);
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    table.sonnet-table tbody td {
+      padding: var(--space-md);
+      border-bottom: var(--gilt-rule-soft);
+      vertical-align: top;
+    }
+
+    /* Stepper / Stage Tabs (inline within section) */
+    .stage-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .step-btn {
+      background-color: transparent;
+      border: var(--gilt-rule-soft);
+      border-bottom: 2px solid var(--outline-variant);
+      padding: var(--space-md);
+      text-align: left;
+      cursor: pointer;
+      min-height: 44px;
+      transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+
+    .step-btn:hover {
+      background-color: var(--surface-container);
+    }
+
+    .step-btn[aria-selected="true"] {
+      background-color: var(--primary-container);
+      border-color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .step-btn .step-num {
+      display: block;
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .step-btn .step-title {
+      display: block;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: var(--on-surface);
+      margin-top: var(--space-xs);
+    }
+
+    /* Side-by-side comparator */
+    .comparator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+
+    .compare-col {
+      padding: var(--space-lg);
+      border-top: var(--gilt-rule);
+      border-bottom: var(--gilt-rule);
+      background-color: var(--background);
+    }
+
+    .compare-col-alt {
+      background-color: var(--surface-container);
+    }
+
+    /* Explorer Controls & List */
+    .explorer-controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: end;
+      margin-bottom: var(--space-lg);
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .field-group label {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .field-input,
+    .field-select {
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      color: var(--on-surface);
+      background-color: transparent;
+      border: 0;
+      border-bottom: 1px solid var(--on-surface);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-xs);
+      min-height: 44px;
+      width: 100%;
+    }
+
+    .field-select {
+      padding-right: var(--space-xl);
+      cursor: pointer;
+    }
+
+    .field-input:focus,
+    .field-select:focus {
+      border-bottom-color: var(--primary);
+    }
+
+    .essay-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    .essay-card {
+      border-top: var(--gilt-rule);
+      border-bottom: var(--gilt-rule-soft);
+      padding: var(--space-md) 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .essay-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .essay-detail {
+      border-left: var(--gilt-rule);
+      padding-left: var(--space-md);
+      margin-top: var(--space-sm);
+      font-size: 0.98rem;
+      color: var(--on-surface-variant);
+      background-color: var(--surface-container-low);
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .essay-detail[hidden] {
+      display: none;
+    }
+
+    /* Quiz */
+    .quiz-card {
+      background-color: var(--surface-container-low);
+      border-block: var(--gilt-rule);
+      padding: var(--space-xl) var(--space-lg);
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+      margin-block: var(--space-md);
+    }
+
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      color: var(--on-surface);
+      background-color: var(--background);
+      border: var(--gilt-rule-soft);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+
+    .quiz-option:hover:not(:disabled) {
+      background-color: var(--surface-container);
+      border-color: var(--outline);
+    }
+
+    .quiz-option.is-correct {
+      background-color: var(--surface-container);
+      border-color: var(--positive);
+      color: var(--positive);
+      font-weight: 600;
+    }
+
+    .quiz-option.is-wrong {
+      background-color: var(--primary-container);
+      border-color: var(--error);
+      color: var(--error);
+    }
+
+    .quiz-feedback {
+      border-left: 2px solid var(--secondary);
+      padding-left: var(--space-md);
+      margin-top: var(--space-md);
+      color: var(--on-surface);
+    }
+
+    .quiz-feedback.is-error {
+      border-left-color: var(--error);
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      max-width: 70ch;
+      margin-inline: auto;
+      border-top: var(--gilt-rule);
+    }
+
+    .faq-item {
+      border-bottom: var(--gilt-rule-soft);
+    }
+
+    .faq-item summary {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.2rem, 1.05rem + 0.4vw, 1.4rem);
+      color: var(--on-surface);
+      padding: var(--space-md) 0;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      min-height: 44px;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-marker {
+      font-family: var(--font-label);
+      font-size: 1.2rem;
+      color: var(--primary);
+      transition: transform var(--dur-short) var(--ease-out);
+      flex-shrink: 0;
+    }
+
+    .faq-item[open] .faq-marker {
+      transform: rotate(45deg);
+    }
+
+    .faq-body {
+      padding-bottom: var(--space-md);
+      color: var(--on-surface-variant);
+    }
+
+    /* Reveal animation */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Footer */
+    footer.colophon {
+      text-align: center;
+      border-top: var(--gilt-rule);
+      padding-top: var(--space-xl);
+      margin-top: var(--space-xl);
+    }
+
+    /* Mobile breakpoint */
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .gilt-frame {
+        padding: var(--space-lg) var(--space-md);
+      }
+      .split-stage,
+      .explorer-controls {
+        grid-template-columns: 1fr;
+      }
+      .stage-readout {
+        border-left: 0;
+        border-top: var(--gilt-rule-soft);
+        padding-left: 0;
+        padding-top: var(--space-md);
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <main class="page-grid">
+
+      <!-- HEADER & OPENING TITLE BLOCK -->
+      <header id="inicio">
+        <nav class="masthead-nav" aria-label="Navegación principal">
+          <a href="#legado">I. El Legado</a>
+          <span class="nav-sep" aria-hidden="true">·</span>
+          <a href="#metodo-naturaleza">II. Método y Naturaleza</a>
+          <span class="nav-sep" aria-hidden="true">·</span>
+          <a href="#ser-voluntad">III. Ser y Voluntad</a>
+          <span class="nav-sep" aria-hidden="true">·</span>
+          <a href="#etica-religion">IV. Ética y Religión</a>
+          <span class="nav-sep" aria-hidden="true">·</span>
+          <a href="#luces-sombras">V. Luces y Sombras</a>
+          <span class="nav-sep" aria-hidden="true">·</span>
+          <a href="#explorador">VI. Explorador</a>
+          <span class="nav-sep" aria-hidden="true">·</span>
+          <a href="#aprendizaje">VII. Taller y FAQ</a>
+        </nav>
+
+        <div class="gilt-frame">
+          <p class="label-voice">Arthur Schopenhauer · Volumen Postrero · 1851</p>
+          <h1>Parerga y paralipómena II</h1>
+          <p class="section-subtitle">
+            «Pensamientos aislados, pero sistemáticamente ordenados, acerca de múltiples objetos»
+          </p>
+          <blockquote class="verse">
+            «Vitam impendere vero» — Dedicar la vida a la verdad.
+            <cite>Juvenal, Sátiras, IV, 91 — Lema del volumen</cite>
+          </blockquote>
+          <blockquote class="verse">
+            «Eleusis guarda misterios que muestra a los que la visitan por segunda vez.»
+            <cite>Séneca, Cuestiones naturales, VII, 30</cite>
+          </blockquote>
+        </div>
+
+        <div class="figures-row" aria-label="Cifras clave del volumen">
+          <div class="figure-item">
+            <span class="muted-label">Publicación original</span>
+            <span class="figure-value">1851</span>
+            <span class="figure-caption">Obra postrera dirigida a la posteridad</span>
+          </div>
+          <div class="figure-item">
+            <span class="muted-label">Tiempo de redacción</span>
+            <span class="figure-value">6 años</span>
+            <span class="figure-caption">Frente a 25 años dedicados a los Complementos</span>
+          </div>
+          <div class="figure-item">
+            <span class="muted-label">Estructura temática</span>
+            <span class="figure-value">31+ cap.</span>
+            <span class="figure-caption">Filosofía estricta (1–15, 19) y parerga literarios</span>
+          </div>
+          <div class="figure-item">
+            <span class="muted-label">Carácter dual</span>
+            <span class="figure-value">Luces / Sombras</span>
+            <span class="figure-caption">El filósofo de la compasión y el hombre irritable</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- SECCIÓN I: EL LEGADO FINAL -->
+      <section id="legado" class="reveal-on-scroll">
+        <div class="section-header">
+          <span class="label-voice">I. El Legado Final</span>
+          <h2>Por qué un autor enemigo de la verborrea escribió un volumen monumental</h2>
+          <p class="section-subtitle">
+            La estructura concéntrica de un sistema pensado a los treinta años y recapitulado en el umbral de la vejez.
+          </p>
+        </div>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            Arthur Schopenhauer gozó de una libertad filosófica excepcional: libre de imperativos económicos, libre de consignas ministeriales y pronto resignado a la indiferencia del público y a la resistencia de los editores. Fiel a su lema <em>simplex sigillum veri</em> («lo bueno, si breve, dos veces bueno»), censuraba con acritud a los escritores a sueldo que disimulan su vacío bajo giros ampulosos. Para él, la única condición del buen estilo era tener algo pensado de antemano que decir.
+          </p>
+          <p>
+            Resulta por ello paradójico que el segundo tomo de <em>Parerga y paralipómena</em> —título griego que designa «lo accesorio y lo omitido»— alcance la misma extensión que su obra capital, <em>El mundo como voluntad y representación</em>. Como señala Pilar López de Santa María en su introducción, Schopenhauer ya había dicho todo lo esencial hacia los treinta años. Si dedicó un cuarto de siglo a pulir los <em>Complementos</em>, redactó en cambio los <em>Parerga</em> en apenas seis años, apremiado por el final de su vida y deseoso de no dejar nada en el tintero para los lectores futuros.
+          </p>
+          <p>
+            El resultado es un libro sin igual en su bibliografía: junto a la primera mitad de ensayos estrictamente filosóficos (capítulos 1 al 15 y el 19), afloran sin freno sus confesiones intelectuales, su retrato psicológico y sus juicios personales más ásperos. Aquí conviven, en relieve constante, la lucidez del idealismo transcendental y las sombras humanas de un pensador solitario e irrepetible.
+          </p>
+        </div>
+
+        <!-- INTERACTIVE 1: CONCENTRIC SYSTEM -->
+        <div class="interactive-panel" aria-labelledby="title-concentric">
+          <div class="panel-head">
+            <span class="label-voice">Esquema Interactivo</span>
+            <h3 id="title-concentric">La arquitectura concéntrica de la obra de Schopenhauer</h3>
+            <p class="section-subtitle">
+              Seleccione cualquier anillo o tratado para examinar cómo gravita en torno a su «pensamiento único».
+            </p>
+          </div>
+
+          <div class="split-stage">
+            <div class="stage-visual">
+              <svg class="concentric-svg" viewBox="0 0 360 360" role="img" aria-label="Diagrama concéntrico de las obras de Schopenhauer">
+                <!-- Orbit rings -->
+                <circle id="ring-parerga" class="orbit-ring" cx="180" cy="180" r="158" fill="none" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="4 4" onclick="selectWork('parerga')" />
+                <circle id="ring-complementos" class="orbit-ring" cx="180" cy="180" r="118" fill="none" stroke="var(--outline)" stroke-width="1.5" onclick="selectWork('complementos')" />
+                <circle id="ring-naturaleza" class="orbit-ring" cx="180" cy="180" r="80" fill="none" stroke="var(--outline-variant)" stroke-width="1.5" onclick="selectWork('naturaleza')" />
+                <circle id="ring-mundo" class="orbit-ring" cx="180" cy="180" r="44" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2" onclick="selectWork('mundo')" />
+
+                <!-- Center label -->
+                <text x="180" y="176" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" font-weight="600" fill="var(--primary)" onclick="selectWork('mundo')" style="cursor:pointer;">El mundo</text>
+                <text x="180" y="191" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" font-style="italic" fill="var(--on-primary-container)" onclick="selectWork('mundo')" style="cursor:pointer;">Vol. I (Núcleo)</text>
+
+                <!-- Orbit nodes -->
+                <g class="orbit-node" onclick="selectWork('razon')" onkeydown="handleOrbitKey(event, 'razon')" tabindex="0" role="button" aria-label="Sobre el principio de razón y los escritos de ética">
+                  <circle cx="180" cy="100" r="10" fill="var(--secondary)" stroke="var(--background)" stroke-width="2" />
+                  <text x="180" y="84" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" font-weight="600" fill="var(--secondary)">RAZÓN Y ÉTICA</text>
+                </g>
+
+                <g class="orbit-node" onclick="selectWork('naturaleza')" onkeydown="handleOrbitKey(event, 'naturaleza')" tabindex="0" role="button" aria-label="Sobre la voluntad en la naturaleza y colores">
+                  <circle cx="260" cy="180" r="10" fill="var(--secondary)" stroke="var(--background)" stroke-width="2" />
+                  <text x="276" y="176" text-anchor="start" font-family="Cormorant Garamond, serif" font-size="11" font-weight="600" fill="var(--secondary)">NATURALEZA</text>
+                  <text x="276" y="189" text-anchor="start" font-family="Cormorant Garamond, serif" font-size="10" font-style="italic" fill="var(--on-surface-variant)">y colores</text>
+                </g>
+
+                <g class="orbit-node" onclick="selectWork('complementos')" onkeydown="handleOrbitKey(event, 'complementos')" tabindex="0" role="button" aria-label="Complementos (El mundo Vol. II)">
+                  <circle cx="96" cy="264" r="10" fill="var(--primary)" stroke="var(--background)" stroke-width="2" />
+                  <text x="80" y="268" text-anchor="end" font-family="Cormorant Garamond, serif" font-size="11" font-weight="600" fill="var(--primary)">COMPLEMENTOS</text>
+                </g>
+
+                <g class="orbit-node" onclick="selectWork('parerga')" onkeydown="handleOrbitKey(event, 'parerga')" tabindex="0" role="button" aria-label="Parerga y paralipómena II">
+                  <circle cx="292" cy="68" r="12" fill="var(--primary)" stroke="var(--outline)" stroke-width="2" />
+                  <text x="292" y="48" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="12" font-weight="600" fill="var(--primary)">PARERGA II (1851)</text>
+                </g>
+              </svg>
+
+              <div class="btn-group" role="group" aria-label="Selector de obras del sistema">
+                <button type="button" class="btn btn-secondary is-active" id="btn-work-parerga" onclick="selectWork('parerga')">Parerga II</button>
+                <button type="button" class="btn btn-secondary" id="btn-work-mundo" onclick="selectWork('mundo')">El mundo I</button>
+                <button type="button" class="btn btn-secondary" id="btn-work-complementos" onclick="selectWork('complementos')">Complementos</button>
+                <button type="button" class="btn btn-secondary" id="btn-work-razon" onclick="selectWork('razon')">Razón y Ética</button>
+                <button type="button" class="btn btn-secondary" id="btn-work-naturaleza" onclick="selectWork('naturaleza')">Naturaleza</button>
+              </div>
+            </div>
+
+            <div class="stage-readout" id="concentric-readout" aria-live="polite">
+              <span class="tag tag-oxblood" id="work-badge">Órbita exterior · 1851</span>
+              <h3 id="work-title" style="margin-top: var(--space-sm);">Parerga y paralipómena II</h3>
+              <p id="work-desc" style="margin-top: var(--space-sm);">
+                Su volumen postrero, redactado en seis años. Reúne ensayos filosóficos complementarios (capítulos 1–15 y 19) junto a textos literarios, psicológicos y polémicos. Su propia extensión rompe el ideal habitual de brevedad porque Schopenhauer quiere anticipar toda pregunta futura antes de morir.
+              </p>
+              <p class="muted-label" id="work-relation">Vínculo: Legado final y clarificación última del sistema.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN II: METODOLOGÍA FILOSÓFICA Y NATURALEZA -->
+      <section id="metodo-naturaleza" class="reveal-on-scroll">
+        <div class="section-header">
+          <span class="label-voice">II. Filosofía, Método y Naturaleza</span>
+          <h2>No guardarse ninguna pregunta en el corazón y leer en el libro del mundo</h2>
+          <p class="section-subtitle">
+            De la intuición empírica al péndulo entre racionalismo e iluminismo, y de la ciencia natural a la teoría fisiológica de los colores.
+          </p>
+        </div>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            El capítulo primero abre con una premisa radical: toda ciencia termina remitiendo a lo inexplicable, al igual que la sonda marina toca siempre el fondo; ese elemento irreductible pertenece a la metafísica. Para filosofar genuinamente se exigen dos cosas: tener la valentía de no guardarse ninguna pregunta en el corazón y convertir en problema aquello que todos dan por supuesto. Además, el espíritu debe hallarse «verdaderamente ocioso», liberado de la voluntad personal —a diferencia de los profesores de filosofía, atentos a su provecho y a la aprobación estatal.
+          </p>
+          <p>
+            Schopenhauer rechaza la definición kantiana de la filosofía como ciencia construida a partir de meros conceptos. Los conceptos no poseen más riqueza que la que les suministra la intuición empírica. Por ello, los sistemas combinatorios de Fichte, Schelling y Hegel no pasan de ser «sofistería» hueca. A diferencia del poeta —que entrega las flores de la vida—, el filósofo ofrece su quintaesencia abstracta, pero la cabeza fría no impide la conmoción íntima: como decía Vauvenargues, <em>les grandes pensées viennent du coeur</em>.
+          </p>
+          <p>
+            Esta exigencia separa radicalmente al genio del hombre corriente. Mientras que el intelecto común sirve como esclavo a la voluntad y apenas capta objetos particulares para sobrevivir, el genio disfruta de un exceso de intelecto emancipado capaz de aprehender lo universal (la idea platónica) en cada cosa cotidiana. El genio es, así, su propia recompensa; el hombre corriente, en cambio, procura arreglárselas con la menor inversión posible de pensamientos.
+          </p>
+        </div>
+
+        <!-- INTERACTIVE 2: THE PHILOSOPHICAL PENDULUM (§ 10) -->
+        <div class="interactive-panel" aria-labelledby="title-pendulum">
+          <div class="panel-head">
+            <span class="label-voice">Mecanismo Conceptual · Capítulo 1, § 10</span>
+            <h3 id="title-pendulum">El péndulo de la historia de la filosofía</h3>
+            <p class="section-subtitle">
+              Desplace el péndulo para explorar la oscilación entre el conocimiento objetivo y la iluminación interior, y el punto de equilibrio de Schopenhauer.
+            </p>
+          </div>
+
+          <div class="split-stage">
+            <div class="stage-visual">
+              <svg viewBox="0 0 320 230" width="320" height="230" role="img" aria-label="Diagrama del péndulo entre racionalismo e iluminismo">
+                <!-- Pivot & Frame -->
+                <line x1="40" y1="26" x2="280" y2="26" stroke="var(--outline)" stroke-width="1.5" />
+                <circle cx="160" cy="26" r="5" fill="var(--on-surface)" />
+                <!-- Arc guide -->
+                <path d="M 65 155 A 150 150 0 0 0 255 155" fill="none" stroke="var(--outline-variant)" stroke-width="1.5" stroke-dasharray="4 4" />
+                <!-- Labels on arc -->
+                <text x="52" y="198" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" font-weight="600" fill="var(--primary)">RACIONALISMO</text>
+                <text x="160" y="214" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" font-weight="600" fill="var(--on-surface)">SCHOPENHAUER</text>
+                <text x="268" y="198" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" font-weight="600" fill="var(--secondary)">ILUMINISMO</text>
+                <!-- Pendulum Arm & Bob (updated by JS) -->
+                <line id="pendulum-arm" x1="160" y1="26" x2="160" y2="176" stroke="var(--on-surface)" stroke-width="2" />
+                <circle id="pendulum-bob" cx="160" cy="176" r="14" fill="var(--primary)" stroke="var(--outline)" stroke-width="2" />
+              </svg>
+
+              <div class="btn-group" role="group" aria-label="Posiciones del péndulo filosófico">
+                <button type="button" class="btn btn-secondary" id="btn-pend-rat" onclick="setPendulum('racionalismo')">Racionalismo</button>
+                <button type="button" class="btn btn-secondary is-active" id="btn-pend-schop" onclick="setPendulum('schopenhauer')">Vía de Schopenhauer</button>
+                <button type="button" class="btn btn-secondary" id="btn-pend-ilum" onclick="setPendulum('iluminismo')">Iluminismo</button>
+              </div>
+            </div>
+
+            <div class="stage-readout" id="pendulum-readout" aria-live="polite">
+              <span class="tag tag-oxblood" id="pend-badge">Síntesis crítica</span>
+              <h3 id="pend-title" style="margin-top: var(--space-sm);">Racionalismo fundado en el hecho interno</h3>
+              <p id="pend-body" style="margin-top: var(--space-sm);">
+                La filosofía debe ser conocimiento comunicable y, por tanto, racionalismo. Sin apelar a intuiciones místicas ni invadir el terreno del iluminismo, Schopenhauer capta el hecho empírico inmediato de la voluntad en nuestro interior y lo aplica como clave para descifrar el mundo objetivo externo.
+              </p>
+              <p class="muted-label" id="pend-figures">Referentes: De la conciencia empírica a la cosa en sí.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="prose-measure">
+          <h3>Ciencia de la naturaleza y teoría fisiológica de los colores (Capítulos 6 y 7)</h3>
+          <p>
+            En la filosofía de la naturaleza, Schopenhauer continúa la tesis de <em>Sobre la voluntad en la naturaleza</em>: la naturaleza entera es la voluntad contemplada desde fuera por un intelecto individual. Así como las pasiones alteran el cuerpo, el estado fisiológico de los órganos —la bilis, los intestinos o las glándulas— suscita inclinaciones y pensamientos, pues el cuerpo entero no es sino la visibilidad objetiva de la voluntad individual.
+          </p>
+        </div>
+
+        <div class="sonnet-table-wrap prose-measure">
+          <table class="sonnet-table" aria-label="Comparación de la división filosófica y la teoría de los colores">
+            <thead>
+              <tr>
+                <th>Ámbito del volumen</th>
+                <th>Tesis o aporte central</th>
+                <th>Contraste polémico</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Philosophia prima (§ 21)</strong></td>
+                <td>Investiga la facultad de conocer: dianología (entendimiento intuitivo) y lógica (razón abstracta). Sustituye a la antigua ontología.</td>
+                <td>Rechaza la psicología racional: el alma es una hipóstasis transcendente indemostrada (Kant).</td>
+              </tr>
+              <tr>
+                <td><strong>Metafísica tripartita (§ 21)</strong></td>
+                <td>Metafísica de la naturaleza, de lo bello y de las costumbres; une experiencia externa e interna como quien descifra caracteres enigmáticos.</td>
+                <td>Excluye los sistemas puramente conceptuales sin base intuitiva (Fichte, Schelling, Hegel).</td>
+              </tr>
+              <tr>
+                <td><strong>Teoría de los colores (Cap. 7)</strong></td>
+                <td>Teoría fisiológica y subjetiva del fenómeno cromático que complementa y confirma la de Goethe.</td>
+                <td>Defiende a su admirado Goethe frente a la teoría newtoniana, a la que tilda de radicalmente falsa.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECCIÓN III: INDESTRUCTIBILIDAD DEL SER Y NEGACIÓN DE LA VOLUNTAD -->
+      <section id="ser-voluntad" class="reveal-on-scroll">
+        <div class="section-header">
+          <span class="label-voice">III. Metafísica de la Existencia</span>
+          <h2>La indestructibilidad de nuestro verdadero ser y la nihilidad del mundo</h2>
+          <p class="section-subtitle">
+            Por qué temer la muerte es tan absurdo como temer el tiempo anterior al nacimiento, y por qué el suicidio no resuelve el dolor.
+          </p>
+        </div>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            Los capítulos 10, 11, 12, 13 y 14 despliegan el corazón metafísico y pesimista de <em>Parerga II</em>. El presente posee dos mitades: una objetiva que rueda implacablemente en el tiempo y otra subjetiva, inmóvil, donde reside la certeza íntima de nuestro carácter imperecedero. La muerte apaga la conciencia cerebral —como ya ocurre en el sueño o en cualquier desmayo—, pero no aniquila la esencia de la voluntad. Querer conservar la propia conciencia individual tras morir equivale a rechazar la curación por añorar la muleta, o a los groenlandeses convertidos que rehusaban el cielo al saber que allí no había focas.
+          </p>
+        </div>
+
+        <blockquote class="verse">
+          «El tiempo es aquello en virtud de lo cual a cada instante todo se nos convierte en nada entre las manos; con lo cual pierde todo valor verdadero.»
+          <cite>Arthur Schopenhauer, Parerga y paralipómena II, Capítulo 11, § 142</cite>
+        </blockquote>
+
+        <div class="prose-measure">
+          <p>
+            Esta fugacidad desnuda la nihilidad de la existencia fenoménica. Como todo querer nace de la carencia y la voluntad es una ansia ciega e insaciable, la vida oscila sin tregua entre el dolor y el aburrimiento. La vida no es un regalo, sino una tarea ardua en la que trabajar. Sin embargo, ni la muerte natural ni el suicidio ofrecen una verdadera salida: la única liberación radica en negar directamente la raíz del tormento mediante el <em>nolle</em>, el cesar de querer.
+          </p>
+        </div>
+
+        <!-- INTERACTIVE 3: 4-STEP METAPHYSICAL PROGRESSION -->
+        <div class="interactive-panel" aria-labelledby="title-will-steps">
+          <div class="panel-head">
+            <span class="label-voice">Recorrido Interactivo · Capítulos 10–14</span>
+            <h3 id="title-will-steps">Del individuo efímero a la negación de la voluntad</h3>
+            <p class="section-subtitle">
+              Recorra los cuatro estadios conceptuales con los que Schopenhauer desarma la ilusión individual.
+            </p>
+          </div>
+
+          <div class="stage-steps" role="tablist" aria-label="Estadios metafísicos">
+            <button type="button" class="step-btn" role="tab" aria-selected="true" id="tab-step-0" onclick="selectWillStep(0)">
+              <span class="step-num">Estadio I · Cap. 10</span>
+              <span class="step-title">Muerte y conciencia</span>
+            </button>
+            <button type="button" class="step-btn" role="tab" aria-selected="false" id="tab-step-1" onclick="selectWillStep(1)">
+              <span class="step-num">Estadio II · § 140</span>
+              <span class="step-title">Palingenesia vs. Alma</span>
+            </button>
+            <button type="button" class="step-btn" role="tab" aria-selected="false" id="tab-step-2" onclick="selectWillStep(2)">
+              <span class="step-num">Estadio III · Cap. 13</span>
+              <span class="step-title">La paradoja del suicidio</span>
+            </button>
+            <button type="button" class="step-btn" role="tab" aria-selected="false" id="tab-step-3" onclick="selectWillStep(3)">
+              <span class="step-num">Estadio IV · Cap. 14</span>
+              <span class="step-title">El «nolle» o sístole</span>
+            </button>
+          </div>
+
+          <div class="prose-measure" id="will-step-panel" role="tabpanel" aria-live="polite">
+            <span class="tag tag-oxblood" id="will-step-tag">Indestructibilidad</span>
+            <h3 id="will-step-heading" style="margin-top: var(--space-sm);">Tras la muerte seremos lo que éramos antes de nacer</h3>
+            <p id="will-step-text" style="margin-top: var(--space-sm);">
+              La muerte solo destruye el fenómeno individual y su conciencia cerebral animal. Lo que muere retorna a la misma fuente de vida de la que mana todo ser: por mucho que cambien las obras y máscaras en el escenario del mundo, los actores siguen siendo los mismos. Como responde Filatetes a Trasímaco en el § 141, tras la muerte somos «todo y nada».
+            </p>
+            <p class="muted-label" id="will-step-key">Claves: Velo de Maya · Presente subjetivo fijo · Horco Amenthes</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN IV: ÉTICA Y RELIGIÓN -->
+      <section id="etica-religion" class="reveal-on-scroll">
+        <div class="section-header">
+          <span class="label-voice">IV. Ética, Compasión y Religión</span>
+          <h2>Del «tat twam asi» en defensa de los animales al ocaso de la metafísica del pueblo</h2>
+          <p class="section-subtitle">
+            El bajo fundamental moral frente a la ferocidad humana, y la ruptura con la religión en el diálogo de Demófeles y Filatetes.
+          </p>
+        </div>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            Para Schopenhauer, el significado moral del mundo es el «bajo fundamental» de su filosofía. En su estado natural, el ser humano se revela egoísta y cruel —un animal salvaje no inferior al tigre o la hiena—. Sin embargo, entre ese océano de maldad brotan las acciones de auténtico valor moral: aquellas que nacen de la compasión al rasgar el principio de individuación y reconocer la identidad esencial de todos los seres, resumida en la fórmula védica <em>tat twam asi</em> («eso eres tú»).
+          </p>
+          <p>
+            De ese principio deriva su papel pionero en la defensa de los animales. Schopenhauer denuncia sin ambages la tradición occidental, de raíz judía, que reduce los animales a simples cosas y legitima la vivisección o la crueldad inútil, reprochando incluso a Kant haber negado deberes morales hacia ellos. En cuanto a la libertad de la voluntad, reitera que todas las acciones siguen necesariamente del carácter y los motivos (<em>operari sequitur esse</em>), aunque introduce una confesión llamativa: la individualidad del carácter parece echar raíces más allá del <em>principium individuationis</em>, en la cosa en sí, un enigma que no se atreve a resolver. La doctrina del derecho y la política (capítulo 9) queda reducida a una noción negativa: la justicia no es sino ausencia de injusticia.
+          </p>
+        </div>
+
+        <!-- INTERACTIVE 4: DEMOFELES VS FILATETES -->
+        <div class="interactive-panel" aria-labelledby="title-dialogue">
+          <div class="panel-head">
+            <span class="label-voice">Diálogo Dramático · Capítulo 15</span>
+            <h3 id="title-dialogue">Demófeles y Filatetes: el giro crítico sobre la religión</h3>
+            <p class="section-subtitle">
+              Contraste la visión conciliadora de los Complementos con el áspero debate de Parerga II entre la verdad alegórica y la verdad desnuda.
+            </p>
+          </div>
+
+          <div class="btn-group" role="group" aria-label="Selector de perspectiva del diálogo sobre la religión">
+            <button type="button" class="btn btn-secondary is-active" id="btn-rel-demofeles" onclick="setReligionView('demofeles')">Voz de Demófeles</button>
+            <button type="button" class="btn btn-secondary" id="btn-rel-filatetes" onclick="setReligionView('filatetes')">Voz de Filatetes</button>
+            <button type="button" class="btn btn-secondary" id="btn-rel-giro" onclick="setReligionView('giro')">El giro respecto a Complementos</button>
+          </div>
+
+          <div class="prose-measure" id="religion-readout" aria-live="polite" style="margin-top: var(--space-md);">
+            <span class="tag" id="rel-badge">Verdad alegórica</span>
+            <h3 id="rel-title" style="margin-top: var(--space-sm);">Demófeles: la religión como «metafísica del pueblo»</h3>
+            <p id="rel-text" style="margin-top: var(--space-sm);">
+              Demófeles defiende la religión en cuanto verdadera en sentido alegórico, argumentando repetidamente que constituye el único medio para mostrar al vulgo un sentido elevado de la existencia cuando su instrucción o inteligencia no alcanzan la filosofía. En el diálogo, sin embargo, Schopenhauer lo presenta pobre y débil de razones.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN V: LUCES Y SOMBRAS -->
+      <section id="luces-sombras" class="reveal-on-scroll">
+        <div class="section-header">
+          <span class="label-voice">V. Estética, Letras y Retrato Psicológico</span>
+          <h2>Luces y sombras: entre la agudeza literaria y la misantropía sin filtros</h2>
+          <p class="section-subtitle">
+            La segunda mitad del volumen reúne piezas maestras sobre el estilo y la lectura junto a páginas marcadas por la intolerancia y el prejuicio.
+          </p>
+        </div>
+
+        <div class="prose-measure">
+          <p class="drop-cap">
+            La segunda mitad de <em>Parerga y paralipómena II</em> contiene los auténticos <em>parerga</em>. Brilla en primer término la estética del capítulo 19: frente al mundo como voluntad (dolor), el mundo como representación ofrece una alegría estética indolora al convertirnos en puro sujeto del conocimiento. La vegetación nos alegra porque vence verticalmente la ley de la gravedad, mientras que la arquitectura y los utensilios bellos deben imitar el espíritu funcional de la naturaleza sin copiar servilmente sus formas. En los capítulos 20 al 25, Schopenhauer despliega su crítica literaria más certera: el elogio de quien piensa por sí mismo, la condena de la lectura excesiva que asfixia el juicio propio, la defensa de la firma frente a las reseñas anónimas («¡Di tu nombre, bribón, o cállate!») y la célebre parábola de los puercoespines del capítulo 31.
+          </p>
+          <p>
+            Pero junto a esas luces irrumpe sin disimulo el Schopenhauer hombre, envejecido, frustrado por el silencio de sus contemporáneos y privado de inhibiciones. Como advierte Pilar López de Santa María, aquí aparecen páginas que habría hecho mejor en no escribir: afirmaciones pseudocientíficas sobre las capacidades intelectuales y medidas craneales de los negros; desprecio hacia la lengua francesa y un purismo alemán obsesivo e incapaz de entender la evolución viva del idioma; elitismo extremo; el célebre y misógino ensayo sobre las mujeres (capítulo 27); y la diatriba interminable contra el chasquido de los látigos en <em>Sobre ruido y barullo</em> (capítulo 30). Aun así, como ocurre en los relieves, las sombras acentúan la fuerza de sus luces.
+          </p>
+        </div>
+
+        <!-- INTERACTIVE 5: ANTITHESES COMPARATOR -->
+        <div class="interactive-panel" aria-labelledby="title-comparator">
+          <div class="panel-head">
+            <span class="label-voice">Comparador Dialéctico</span>
+            <h3 id="title-comparator">Las cinco antítesis centrales del volumen</h3>
+            <p class="section-subtitle">
+              Seleccione un eje para contraponer los polos que estructuran el pensamiento y el carácter de Schopenhauer.
+            </p>
+          </div>
+
+          <div class="btn-group" role="group" aria-label="Selector de antítesis">
+            <button type="button" class="btn btn-secondary is-active" id="cmp-btn-0" onclick="selectComparison(0)">Genio vs. Hombre corriente</button>
+            <button type="button" class="btn btn-secondary" id="cmp-btn-1" onclick="selectComparison(1)">Pensador vs. Erudito de libros</button>
+            <button type="button" class="btn btn-secondary" id="cmp-btn-2" onclick="selectComparison(2)">Estrellas fijas vs. Fugaces</button>
+            <button type="button" class="btn btn-secondary" id="cmp-btn-3" onclick="selectComparison(3)">Educación natural vs. Artificial</button>
+            <button type="button" class="btn btn-secondary" id="cmp-btn-4" onclick="selectComparison(4)">Luces vs. Sombras de la obra</button>
+          </div>
+
+          <div class="comparator-grid" aria-live="polite">
+            <div class="compare-col">
+              <span class="tag" id="cmp-left-tag">Polo luminoso</span>
+              <h3 id="cmp-left-title" style="margin-top: var(--space-sm);">El genio (vida de la inteligencia)</h3>
+              <p id="cmp-left-body" style="margin-top: var(--space-sm);">
+                Surge de un exceso de intelecto que se emancipa del servicio de la voluntad. Capta lo universal (la idea platónica) en cada objeto y lee directamente en el libro del mundo. La actividad intelectual es su placer y su propia recompensa.
+              </p>
+            </div>
+            <div class="compare-col compare-col-alt">
+              <span class="tag tag-oxblood" id="cmp-right-tag">Polo opuesto</span>
+              <h3 id="cmp-right-title" style="margin-top: var(--space-sm);">El hombre común (vida de la voluntad)</h3>
+              <p id="cmp-right-body" style="margin-top: var(--space-sm);">
+                Su intelecto permanece atado a fines prácticos y objetos individuales. Incluso cuando la voluntad le da tregua, su existencia se consume en el mero existir o en el aburrimiento; pensar le supone una carga y busca arreglárselas con la mínima inversión de ideas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN VI: EXPLORADOR INTERACTIVO DE ENSAYOS MISCELÁNEOS -->
+      <section id="explorador" class="reveal-on-scroll">
+        <div class="section-header">
+          <span class="label-voice">VI. Archivo Analítico</span>
+          <h2>Explorador interactivo de los ensayos y parágrafos de Parerga II</h2>
+          <p class="section-subtitle">
+            Filtre por ámbito temático o busque conceptos clave —desde la dialéctica erística hasta la parábola de los puercoespines—.
+          </p>
+        </div>
+
+        <div class="explorer-controls">
+          <div class="field-group">
+            <label for="essay-search">Buscar tema, capítulo, metáfora o concepto</label>
+            <input type="search" id="essay-search" class="field-input" placeholder="Ej.: puercoespines, peluca, Goethe, suicidio, ruido…" oninput="filterEssays()">
+          </div>
+          <div class="field-group">
+            <label for="essay-category">Filtrar por ámbito del volumen</label>
+            <select id="essay-category" class="field-select" onchange="filterEssays()">
+              <option value="todos">Todos los capítulos y ensayos</option>
+              <option value="metodo">Método, Intelecto y Ciencia</option>
+              <option value="metafisica">Ser, Tiempo, Muerte y Voluntad</option>
+              <option value="etica">Ética, Derecho y Religión</option>
+              <option value="letras">Estética, Letras y Educación</option>
+              <option value="sombras">Crítica Social y Sombras Personales</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btn-group" role="group" aria-label="Filtro rápido por valoración">
+          <button type="button" class="btn btn-secondary is-active" id="tone-all" onclick="setToneFilter('todos')">Todo el volumen</button>
+          <button type="button" class="btn btn-secondary" id="tone-luz" onclick="setToneFilter('luz')">Luces filosóficas y literarias</button>
+          <button type="button" class="btn btn-secondary" id="tone-sombra" onclick="setToneFilter('sombra')">Sombras e invectivas personales</button>
+        </div>
+
+        <p class="muted-label" id="explorer-count" style="text-align:center; margin-bottom: var(--space-md);" aria-live="polite"></p>
+
+        <div id="essay-grid" class="essay-list"></div>
+
+        <div id="explorer-empty" class="interactive-panel" hidden style="text-align:center;">
+          <p><strong>Ningún ensayo coincide con su búsqueda actual.</strong></p>
+          <p>Pruebe a limpiar el término de búsqueda o seleccionar otra categoría del volumen.</p>
+          <button type="button" class="btn btn-primary" onclick="resetExplorer()">Restablecer filtros</button>
+        </div>
+      </section>
+
+      <!-- SECCIÓN VII: TALLER DE APRENDIZAJE Y PREGUNTAS FRECUENTES -->
+      <section id="aprendizaje" class="reveal-on-scroll">
+        <div class="section-header">
+          <span class="label-voice">VII. Comprensión y Preguntas Frecuentes</span>
+          <h2>Comprobación de lectura y cuestiones esenciales</h2>
+          <p class="section-subtitle">
+            Ponga a prueba su dominio del legado final de Schopenhauer y consulte las respuestas a las dudas más habituales sobre la obra.
+          </p>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-card" aria-labelledby="title-quiz">
+          <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:var(--space-md); border-bottom:var(--gilt-rule-soft); padding-bottom:var(--space-md);">
+            <div>
+              <span class="label-voice">Autoevaluación · 6 Cuestiones</span>
+              <h3 id="title-quiz">Cuestionario sobre Parerga y paralipómena II</h3>
+            </div>
+            <div style="text-align:right;">
+              <span class="muted-label" id="quiz-progress">Pregunta 1 de 6</span><br>
+              <strong id="quiz-score" style="font-family:var(--font-headline); font-size:1.3rem; color:var(--primary);">Aciertos: 0</strong>
+            </div>
+          </div>
+
+          <div id="quiz-body" style="margin-top:var(--space-lg);">
+            <h3 id="quiz-question" style="font-family:var(--font-headline); font-weight:600;"></h3>
+            <div id="quiz-options" class="quiz-options"></div>
+            <div id="quiz-feedback" class="quiz-feedback" hidden aria-live="polite"></div>
+            <div class="btn-group" style="justify-content:space-between; margin-top:var(--space-lg);">
+              <button type="button" class="btn btn-secondary" id="quiz-reset-btn" onclick="handleQuizReset(this)">Reiniciar cuestionario</button>
+              <button type="button" class="btn btn-primary" id="quiz-next-btn" onclick="nextQuizQuestion()" disabled>Siguiente pregunta</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div style="margin-top: var(--space-2xl);">
+          <div class="section-header" style="border-bottom:0; margin-bottom:var(--space-md);">
+            <span class="label-voice">Preguntas Frecuentes</span>
+            <h3>Claves editoriales y filosóficas del volumen</h3>
+          </div>
+
+          <div class="faq-list">
+            <details class="faq-item">
+              <summary>
+                ¿Qué significa «Parerga y paralipómena» y por qué contradice en extensión la brevedad habitual de Schopenhauer?
+                <span class="faq-marker" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-body">
+                <p>
+                  El título significa literalmente «lo accesorio y lo omitido». Mientras sus demás escritos menores nunca superan las trescientas páginas, este segundo volumen iguala en amplitud a su obra principal. Ello obedece a que Schopenhauer, sintiendo cerca el final de su vida, lo concibió como su legado definitivo en apenas seis años: quiso esclarecer hasta el último detalle, anticipar preguntas futuras de la posteridad y no dejar nada en el tintero, sumando a ello cierta reiteración propia de la edad.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                ¿Qué diferencia establece Schopenhauer entre metempsicosis y palingenesia?
+                <span class="faq-marker" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-body">
+                <p>
+                  En el § 140 distingue la metempsicosis (tránsito de una supuesta «alma» intacta a otro cuerpo) de la palingenesia (desintegración y reconstitución del individuo). En la muerte, el individuo se descompone como una sal neutra: el intelecto —función física del cerebro— se extingue, mientras la voluntad indestructible permanece y, al combinarse en un nuevo ser, recibe un nuevo intelecto sin recordar sus existencias previas.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                ¿Por qué se opone Schopenhauer al suicidio si considera la vida un tormento?
+                <span class="faq-marker" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-body">
+                <p>
+                  En el capítulo 13 rechaza la condena religiosa y la penalización criminal del suicidio, pero formula una única objeción moral sólida: su ineficacia. Al destruir solo el fenómeno individual y dejar intacta la voluntad como cosa en sí, el suicida no niega la voluntad de vivir sino que la afirma con fuerza: «quiere la vida, simplemente está insatisfecho con las condiciones en que se le presenta». Solo el <em>nolle</em> (negación directa de la voluntad) suprime la fuente del sufrimiento.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                ¿En qué difiere su postura sobre la religión respecto a los Complementos de El mundo?
+                <span class="faq-marker" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-body">
+                <p>
+                  En los <em>Complementos</em> (capítulo 17), pese a su ateísmo declarado, Schopenhauer valoraba las religiones como «metafísica del pueblo», un sucedáneo alegórico para quienes no accedían a la filosofía. En el capítulo 15 de <em>Parerga II</em>, mediante el diálogo entre Demófeles y Filatetes, endurece su juicio: Demófeles queda debilitado en sus razones y Filatetes demuestra que la religión ha estorbado teóricamente la verdad propia y ha legitimado abusos prácticos de todo tipo.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                ¿Cómo complementa Schopenhauer la teoría de los colores de Goethe?
+                <span class="faq-marker" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-body">
+                <p>
+                  En el capítulo 7 defiende con vehemencia a Goethe frente a la teoría newtoniana, pero considera que la explicación goetheana es parcial porque aborda el color solo desde el punto de vista objetivo y físico. Schopenhauer aporta una teoría fisiológica que explica los colores en su aspecto subjetivo —la actividad de la retina—, completando y confirmando así la obra de Goethe.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                ¿Cómo recomienda abordar las páginas polémicas y los prejuicios del volumen?
+                <span class="faq-marker" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-body">
+                <p>
+                  Pilar López de Santa María subraya que el volumen mezcla dos figuras: el filósofo del idealismo transcendental y de la ética de la compasión, frente al hombre misógino, racista, purista en exceso e intolerante al ruido. Con todo, las luces superan ampliamente a las sombras y, como en un relieve, estas ayudan a destacar las primeras, permitiendo al lector separar lo anecdótico de lo esencial.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- COLOFÓN Y FUENTES -->
+      <footer class="colophon">
+        <blockquote class="verse" style="text-align:center; border-left:0; border-block:var(--gilt-rule); padding:var(--space-md); margin-inline:auto;">
+          «…miro contento lo que he hecho / Siempre impertérrito por lo que otros digan.»
+          <cite>Versos finales de Arthur Schopenhauer en Parerga y paralipómena II</cite>
+        </blockquote>
+        <p class="muted-label" style="margin-top: var(--space-lg);">
+          Fuente exclusiva: Arthur Schopenhauer, <em>Parerga y paralipómena II</em> (1851) · Traducción, introducción y notas de Pilar López de Santa María (edición basada en el vol. 6 de la <em>Jubiläumausgabe</em>, Brockhaus, Mannheim, 1988).
+        </p>
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    /* 1. Concentric System Data */
+    const WORKS_DATA = {
+      parerga: {
+        badge: `Órbita exterior · 1851`,
+        title: `Parerga y paralipómena II`,
+        desc: `Su volumen postrero, redactado en apenas seis años. Reúne ensayos filosóficos complementarios (capítulos 1–15 y 19) junto a textos literarios, biografía intelectual, retrato psicológico y polémicas personales. Su amplitud rompe su habitual ideal de brevedad por la urgencia de no dejar nada sin decir a la posteridad.`,
+        relation: `Vínculo: Legado final y clarificación última de todo el sistema.`
+      },
+      mundo: {
+        badge: `Centro del sistema · ~30 años`,
+        title: `El mundo como voluntad y representación (Vol. I)`,
+        desc: `Núcleo absoluto de la arquitectura concéntrica. En él quedó ya expuesta la filosofía completa —el mundo como representación y como voluntad, la contemplación de las ideas y la ética de la renuncia— antes de que Schopenhauer cumpliera los treinta años.`,
+        relation: `Vínculo: Punto de referencia central al que remiten todas las obras posteriores.`
+      },
+      complementos: {
+        badge: `Primera órbita · 25 años de labor`,
+        title: `Complementos (Vol. II de El mundo)`,
+        desc: `Fruto de veinticinco años de elaboración paciente, conforme a la máxima de escribir poco pero con cuidado y en mucho tiempo. Amplía y profundiza los cuatro libros de la obra capital, incluida la doctrina sobre la necesidad metafísica del hombre y la muerte.`,
+        relation: `Vínculo: Desarrollo sistemático directo del primer volumen.`
+      },
+      razon: {
+        badge: `Cimientos presupuestos`,
+        title: `Sobre el principio de razón y Los dos problemas de la ética`,
+        desc: `Únicas obras, además de los Complementos, que no son meros añadidos externos: el tratado sobre la cuádruple raíz del principio de razón suficiente precede a El mundo, y los dos escritos de ética se dan por supuestos para comprender el libro cuarto y el capítulo 8 de Parerga II.`,
+        relation: `Vínculo: Presupuestos gnoseológicos y morales indispensables del sistema.`
+      },
+      naturaleza: {
+        badge: `Confirmación empírica · 1854 (2.ª ed. Colores)`,
+        title: `Sobre la voluntad en la naturaleza y Sobre la visión y los colores`,
+        desc: `Tratados orientados a confirmar la metafísica de la voluntad mediante los descubrimientos científicos de la época y a ofrecer una teoría fisiológica subjetiva del fenómeno cromático que respalde y complete la de Goethe. Los capítulos 6 y 7 de Parerga II prolongan directamente esta labor.`,
+        relation: `Vínculo: Puente entre la metafísica de la voluntad y las ciencias empíricas.`
+      }
+    };
+
+    function handleOrbitKey(evt, key) {
+      if (evt && (evt.key === `Enter` || evt.key === ` `)) {
+        evt.preventDefault();
+        selectWork(key);
+      }
+    }
+
+    function selectWork(key) {
+      const data = WORKS_DATA[key];
+      if (!data) return;
+      const badge = document.getElementById('work-badge');
+      const title = document.getElementById('work-title');
+      const desc = document.getElementById('work-desc');
+      const rel = document.getElementById('work-relation');
+      if (badge) badge.textContent = data.badge;
+      if (title) title.textContent = data.title;
+      if (desc) desc.textContent = data.desc;
+      if (rel) rel.textContent = data.relation;
+
+      const keys = [`parerga`, `mundo`, `complementos`, `razon`, `naturaleza`];
+      keys.forEach(function(k) {
+        const btn = document.getElementById(`btn-work-` + k);
+        if (btn) {
+          if (k === key) btn.classList.add('is-active');
+          else btn.classList.remove('is-active');
+        }
+      });
+    }
+
+    /* 2. Pendulum Data (§ 10) */
+    const PENDULUM_DATA = {
+      racionalismo: {
+        x: 74,
+        y: 150,
+        color: `var(--primary)`,
+        badge: `Polos objetivos · Intelecto hacia fuera`,
+        title: `Racionalismo (Dogmatismo → Escepticismo → Criticismo)`,
+        body: `Tiene por órgano el intelecto orientado hacia fuera. Empieza como dogmatismo ingenuo, choca con el escepticismo y desemboca en el criticismo o filosofía transcendental (que parte de la conciencia humana de las cosas). Sin embargo, descubre que su órgano solo alcanza el fenómeno, jamás la esencia última en sí.`,
+        figures: `Referentes: Filosofía moderna transcendental y método objetivo.`
+      },
+      schopenhauer: {
+        x: 160,
+        y: 176,
+        color: `var(--primary)`,
+        badge: `Síntesis comunicable`,
+        title: `La vía de Schopenhauer: el hecho empírico interior`,
+        body: `La filosofía debe ser conocimiento comunicable y, por tanto, racionalismo. Sin apelar a revelaciones inefables, Schopenhauer capta el hecho empírico de la voluntad que se manifiesta en nuestro propio interior —el único acceso a la cosa en sí— y lo aplica para descifrar el conocimiento objetivo externo.`,
+        figures: `Referentes: Unión de experiencia interna y externa sin caer en el misticismo.`
+      },
+      iluminismo: {
+        x: 246,
+        y: 150,
+        color: `var(--secondary)`,
+        badge: `Polo subjetivo · Mirada interior`,
+        title: `Iluminismo y misticismo`,
+        body: `Orientado hacia dentro, apela a la iluminación interior, la intuición intelectual o la conciencia de Dios. Su defecto insalvable es que resulta incomunicable e indemostrable mediante el lenguaje (nacido para objetos externos), lo que vuelve a impulsar el péndulo hacia el escepticismo y el racionalismo.`,
+        figures: `Referentes: Neoplatónicos, sufíes, Vedanta, Mimansa, Jakob Böhme, Tauler; y abusos en Jacobi, Schelling y Fichte.`
+      }
+    };
+
+    function setPendulum(mode) {
+      const state = PENDULUM_DATA[mode];
+      if (!state) return;
+      const arm = document.getElementById('pendulum-arm');
+      const bob = document.getElementById('pendulum-bob');
+      if (arm) {
+        arm.setAttribute('x2', String(state.x));
+        arm.setAttribute('y2', String(state.y));
+      }
+      if (bob) {
+        bob.setAttribute('cx', String(state.x));
+        bob.setAttribute('cy', String(state.y));
+        bob.setAttribute('fill', state.color);
+      }
+
+      const badge = document.getElementById('pend-badge');
+      const title = document.getElementById('pend-title');
+      const body = document.getElementById('pend-body');
+      const figures = document.getElementById('pend-figures');
+      if (badge) badge.textContent = state.badge;
+      if (title) title.textContent = state.title;
+      if (body) body.textContent = state.body;
+      if (figures) figures.textContent = state.figures;
+
+      const mapBtns = {
+        racionalismo: `btn-pend-rat`,
+        schopenhauer: `btn-pend-schop`,
+        iluminismo: `btn-pend-ilum`
+      };
+      Object.keys(mapBtns).forEach(function(k) {
+        const b = document.getElementById(mapBtns[k]);
+        if (b) {
+          if (k === mode) b.classList.add('is-active');
+          else b.classList.remove('is-active');
+        }
+      });
+    }
+
+    /* 3. Will & Death 4-Step Progression */
+    const WILL_STEPS = [
+      {
+        tag: `Indestructibilidad · Cap. 10, §§ 139–141`,
+        heading: `Tras la muerte seremos lo que éramos antes de nacer`,
+        text: `La muerte solo destruye el fenómeno individual y su conciencia cerebral animal. Lo que muere retorna a la misma fuente de vida de la que mana todo ser: por mucho que cambien las obras y máscaras en el escenario del mundo, los actores siguen siendo los mismos. Como responde Filatetes a Trasímaco en el § 141, tras la muerte somos «todo y nada».`,
+        key: `Claves: Velo de Maya · Presente subjetivo fijo · Horco Amenthes`
+      },
+      {
+        tag: `Desintegración individual · Cap. 10, § 140`,
+        heading: `Palingenesia frente a metempsicosis: la metáfora de la sal neutra`,
+        text: `Frente a la metempsicosis (tránsito de una supuesta «alma» intacta a otro cuerpo), la palingenesia describe la disolución y reconstitución del individuo: como una sal neutra cuya base se combina con otro ácido para formar una nueva sal, en la muerte permanece la voluntad mientras se extingue el intelecto cerebral; el nuevo ser recibe un intelecto nuevo (el Leteo de la voluntad).`,
+        key: `Claves: Voluntad indestructible · Intelecto cerebral perecedero · Leteo`
+      },
+      {
+        tag: `Ineficacia fenoménica · Cap. 13`,
+        heading: `Por qué el suicidio afirma la voluntad en lugar de negarla`,
+        text: `Schopenhauer combate la condena religiosa y la penalización jurídica del suicidio, pero señala su única objeción moral real: su ineficacia. Los problemas de la cosa en sí no se resuelven con actos meramente fenoménicos. «El suicida quiere la vida, simplemente está insatisfecho con las condiciones en que se le presenta»; así destruye el individuo, pero deja intacta la voluntad que sufre en millones de seres.`,
+        key: `Claves: Voluntad de vivir · Futilidad del acto · Crítica al código penal`
+      },
+      {
+        tag: `Redención metafísica · Cap. 14, § 161`,
+        heading: `El «nolle»: diástole del querer y sístole del no-querer`,
+        text: `El dolor solo desaparece cuando se niega su fuente. Así como hay una diástole (el fenómeno del querer vivir), cabe una sístole: el simple acto de dejar de querer (el nolle), coincidente con el magnum Sakkepat de los Vedas, el nirvana budista y el epékeina neoplatónico. No es destrucción de una sustancia, sino cesación del acto de querer, que a nuestros ojos fenoménicos parece nada.`,
+        key: `Claves: Nolle · Nirvana · Sístole frente a diástole`
+      }
+    ];
+
+    function selectWillStep(idx) {
+      const step = WILL_STEPS[idx];
+      if (!step) return;
+      const tag = document.getElementById('will-step-tag');
+      const heading = document.getElementById('will-step-heading');
+      const text = document.getElementById('will-step-text');
+      const key = document.getElementById('will-step-key');
+      if (tag) tag.textContent = step.tag;
+      if (heading) heading.textContent = step.heading;
+      if (text) text.textContent = step.text;
+      if (key) key.textContent = step.key;
+
+      for (let i = 0; i < WILL_STEPS.length; i++) {
+        const tab = document.getElementById(`tab-step-` + i);
+        if (tab) tab.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+      }
+    }
+
+    /* 4. Religion Dialogue View */
+    const RELIGION_VIEWS = {
+      demofeles: {
+        badge: `Verdad alegórica`,
+        title: `Demófeles: la religión como «metafísica del pueblo»`,
+        text: `Demófeles defiende la religión en cuanto verdadera en sentido alegórico, argumentando repetidamente que constituye el único medio para mostrar al vulgo un sentido elevado de la existencia cuando su instrucción o inteligencia no alcanzan la filosofía. En el diálogo, sin embargo, Schopenhauer lo presenta pobre y débil de razones.`
+      },
+      filatetes: {
+        badge: `Verdad en sentido propio`,
+        title: `Filatetes: estorbo teórico y abusos prácticos`,
+        text: `Bien armado de recursos dialécticos, Filatetes sostiene que la religión ha obstaculizado históricamente la conquista de la verdad filosófica desnuda (entumeciendo desde la infancia la disposición metafísica, como señala también el § 14) y que en el terreno práctico ha originado y legitimado abusos de toda clase. Aunque el diálogo aparenta acabar en tablas, la victoria filosófica es clara.`
+      },
+      giro: {
+        badge: `Evolución respecto a 1844`,
+        title: `El cambio de tono frente al capítulo 17 de los Complementos`,
+        text: `En los Complementos a El mundo, el ateo Schopenhauer reconocía todavía la utilidad pedagógica de las religiones como sucedáneo popular de la filosofía. En Parerga II el tono se endurece de forma patente: carga las tintas en los aspectos negativos del dogma y subraya la superioridad ética de las tradiciones orientales (Vedas y budismo) en la compasión hacia todos los seres vivos.`
+      }
+    };
+
+    function setReligionView(key) {
+      const v = RELIGION_VIEWS[key];
+      if (!v) return;
+      const badge = document.getElementById('rel-badge');
+      const title = document.getElementById('rel-title');
+      const text = document.getElementById('rel-text');
+      if (badge) badge.textContent = v.badge;
+      if (title) title.textContent = v.title;
+      if (text) text.textContent = v.text;
+
+      const btns = {
+        demofeles: `btn-rel-demofeles`,
+        filatetes: `btn-rel-filatetes`,
+        giro: `btn-rel-giro`
+      };
+      Object.keys(btns).forEach(function(k) {
+        const b = document.getElementById(btns[k]);
+        if (b) {
+          if (k === key) b.classList.add('is-active');
+          else b.classList.remove('is-active');
+        }
+      });
+    }
+
+    /* 5. Dialectical Comparator */
+    const COMPARISONS = [
+      {
+        leftTag: `Polo luminoso`,
+        leftTitle: `El genio (vida de la inteligencia)`,
+        leftBody: `Surge de un exceso de intelecto que se emancipa del servicio de la voluntad. Capta lo universal (la idea platónica) en cada objeto y lee directamente en el libro del mundo. La actividad intelectual es su placer y su propia recompensa.`,
+        rightTag: `Polo opuesto`,
+        rightTitle: `El hombre común (vida de la voluntad)`,
+        rightBody: `Su intelecto permanece atado a fines prácticos y objetos individuales. Incluso cuando la voluntad le da tregua, su existencia se consume en el mero existir o en el aburrimiento; pensar le supone una carga y busca arreglárselas con la mínima inversión de ideas.`
+      },
+      {
+        leftTag: `Espontaneidad propia`,
+        leftTitle: `Pensar por sí mismo (Cap. 22)`,
+        leftBody: `Equivale al testigo ocular frente al historiador o a una bella pintura con armonía de luces y sombras. Piensa para sí y desde su propia intuición; lo adquirido por reflexión propia es como un miembro natural que realmente nos pertenece.`,
+        rightTag: `Pensamiento prestado`,
+        rightTitle: `El filósofo de libros y erudito (§§ 248, 261)`,
+        rightBody: `Leer es pensar con una mente ajena. La peluca es el símbolo del puro erudito, que adorna su cabeza con cabellos ajenos como una paleta llena de colores sin armonía, o un herbario seco frente al mundo vivo de las plantas.`
+      },
+      {
+        leftTag: `Literatura permanente`,
+        leftTitle: `Estrellas fijas (§§ 237, 296)`,
+        leftBody: `Cultivada por quienes viven para la ciencia o la poesía. Apenas produce en Europa una docena de obras por siglo, pero su luz es propia y perdura ante el tribunal de la posteridad, lejos de la fama ruidosa.`,
+        rightTag: `Literatura efímera`,
+        rightTitle: `Estrellas fugaces y planetas (§§ 237, 296)`,
+        rightBody: `Cultivada por quienes viven de las letras. Las estrellas fugaces buscan un golpe teatral momentáneo; los planetas brillan con luz prestada solo por cercanía temporal, pero desaparecen pronto entre el griterío del mercado.`
+      },
+      {
+        leftTag: `Educación natural (Cap. 28)`,
+        leftTitle: `Intuición antes que concepto (§§ 372–373)`,
+        leftBody: `Respeta el orden del intelecto: primero la experiencia intuitiva y luego el concepto abstraído de ella, pasando de lo más restringido a lo más amplio. Aprovecha selectivamente el vigor de la memoria juvenil con un canon riguroso.`,
+        rightTag: `Educación defectuosa`,
+        rightTitle: `Saltarse la intuición (§ 373)`,
+        rightBody: `Inculcar palabras y conceptos vacíos antes de conocer las cosas engendra nociones defectuosas y falsas: una visión embrollada del mundo con puntos oscuros que solo en la madurez, y a veces de golpe, llegan a aclararse.`
+      },
+      {
+        leftTag: `El filósofo`,
+        leftTitle: `Luces de Parerga II`,
+        rightTag: `El hombre`,
+        rightTitle: `Sombras y retrato psicológico`,
+        leftBody: `Idealismo transcendental, metafísica de la voluntad, ética de la compasión fundada en el tat twam asi, defensa pionera de los animales, estética de la contemplación pura, lucidez sobre el estilo y combate contra las reseñas anónimas.`,
+        rightBody: `Falta de inhibiciones seniles y frustración ante el olvido: prejuicios raciales sobre medidas craneales, desprecio del francés y purismo lingüístico rígido, elitismo extremo, el ensayo misógino sobre las mujeres (Cap. 27) y la obsesión por el ruido del látigo (Cap. 30).`
+      }
+    ];
+
+    function selectComparison(idx) {
+      const c = COMPARISONS[idx];
+      if (!c) return;
+      const lt = document.getElementById('cmp-left-tag');
+      const lti = document.getElementById('cmp-left-title');
+      const lb = document.getElementById('cmp-left-body');
+      const rt = document.getElementById('cmp-right-tag');
+      const rti = document.getElementById('cmp-right-title');
+      const rb = document.getElementById('cmp-right-body');
+      if (lt) lt.textContent = c.leftTag;
+      if (lti) lti.textContent = c.leftTitle;
+      if (lb) lb.textContent = c.leftBody;
+      if (rt) rt.textContent = c.rightTag;
+      if (rti) rti.textContent = c.rightTitle;
+      if (rb) rb.textContent = c.rightBody;
+
+      for (let i = 0; i < COMPARISONS.length; i++) {
+        const b = document.getElementById(`cmp-btn-` + i);
+        if (b) {
+          if (i === idx) b.classList.add('is-active');
+          else b.classList.remove('is-active');
+        }
+      }
+    }
+
+    /* 6. Miscellaneous Essays Explorer */
+    const ESSAYS = [
+      {
+        id: `cap1`,
+        ref: `Cap. 1 · §§ 1–21`,
+        title: `Sobre la filosofía y su método`,
+        category: `metodo`,
+        tone: `luz`,
+        summary: `Exige no guardarse ninguna pregunta en el corazón, fundar la filosofía en la intuición y no en meros conceptos, y distingue racionalismo e iluminismo.`,
+        detail: `Incluye la división de la filosofía en philosophia prima (dianología y lógica) y metafísica (naturaleza, lo bello y costumbres), así como la célebre metáfora de los sistemas filosóficos tan insociables como arañas o guerreros brotados de los dientes de dragón de Jasón.`
+      },
+      {
+        id: `eristica`,
+        ref: `Cap. 2 · Dialéctica erística`,
+        title: `Anatomía de las tretas y argucias en la disputa`,
+        category: `metodo`,
+        tone: `luz`,
+        summary: `Aísla la pura forma de los artificios fraudulentos de las discusiones humanas como un preparado anatómico, proponiendo defensas frente a cada estratagema.`,
+        detail: `Se apoya en los Tópicos de Aristóteles, el perdido tratado de Teofrasto y la antilogiké téchne platónica, superando el tratado académico de Friedemann Schneider.`
+      },
+      {
+        id: `cap3`,
+        ref: `Cap. 3 · Intelecto y memoria`,
+        title: `El genio frente al hombre corriente y la disciplina de la memoria`,
+        category: `metodo`,
+        tone: `luz`,
+        summary: `Contrapone el exceso de intelecto liberado del genio a la servidumbre práctica del hombre común; aconseja en el § 37 ejercitar la memoria sin muletas mnemotécnicas.`,
+        detail: `Advierte que anotar lo leído equivale a entregarlo al olvido: conviene exigir a la memoria durante semanas hasta extraer el recuerdo de sus profundidades.`
+      },
+      {
+        id: `cap5`,
+        ref: `Cap. 5 · § 68`,
+        title: `Algunas palabras sobre el panteísmo`,
+        category: `metafisica`,
+        tone: `luz`,
+        summary: `Alegoriza la disputa entre teísmo y panteísmo mediante dos espectadores en un teatro de Milán: marionetas de Girolamo frente a actores de La Scala.`,
+        detail: `En la segunda interpretación, el director, sus compañeros y el poeta mismo actúan dentro de los personajes que el espectador contempla.`
+      },
+      {
+        id: `cap6`,
+        ref: `Cap. 6 · §§ 70–75+`,
+        title: `Sobre la filosofía y la ciencia de la naturaleza`,
+        category: `metodo`,
+        tone: `luz`,
+        summary: `Interpreta la naturaleza como la voluntad vista fuera de sí y vincula las pasiones psíquicas con la fisiología del organismo y sus órganos.`,
+        detail: `Destaca el valor instructivo de contemplar fuerzas naturales a escala colosal (eclipses, grandes cataratas, los canales de Saint Ferriol o el tumulto de témpanos).`
+      },
+      {
+        id: `cap7`,
+        ref: `Cap. 7`,
+        title: `Sobre la teoría de los colores`,
+        category: `metodo`,
+        tone: `luz`,
+        summary: `Rompe una lanza a favor de Goethe frente a Newton y presenta su teoría fisiológica subjetiva como complemento necesario del enfoque físico goetheano.`,
+        detail: `Antecede a la segunda edición corregida de su tratado Sobre la visión y los colores (1854).`
+      },
+      {
+        id: `cap8`,
+        ref: `Cap. 8`,
+        title: `Sobre la ética`,
+        category: `etica`,
+        tone: `luz`,
+        summary: `Expone el egoísmo natural humano junto al misterio de la compasión fundada en el tat twam asi y reconoce la raíz individual del carácter en la cosa en sí.`,
+        detail: `Documenta ejemplos extremos de crueldad humana —como el maltrato a los esclavos negros en Norteamérica o el asesinato por el seguro de sepelio— frente a la piedad genuina.`
+      },
+      {
+        id: `cap9`,
+        ref: `Cap. 9`,
+        title: `Doctrina del derecho y la política`,
+        category: `etica`,
+        tone: `sombra`,
+        summary: `Define la justicia y la libertad de modo meramente negativo (ausencia de injusticia) y añade observaciones sobre propiedad, gobierno, juramento y judíos.`,
+        detail: `El derecho positivo del Estado convierte las acciones que nadie puede cometer sin injusticia en aquellas que nadie tiene por qué sufrir.`
+      },
+      {
+        id: `cap10`,
+        ref: `Cap. 10 · §§ 139–141`,
+        title: `Carácter indestructible de nuestro verdadero ser`,
+        category: `metafisica`,
+        tone: `luz`,
+        summary: `Distingue presente objetivo y subjetivo, expone la palingenesia frente a la metempsicosis y cierra con el diálogo humorístico entre Trasímaco y Filatetes.`,
+        detail: `Introduce también su controvertida tesis biológica sobre la herencia paterna de la voluntad y materna del intelecto.`
+      },
+      {
+        id: `cap11_12`,
+        ref: `Caps. 11–12 · § 142`,
+        title: `Nihilidad de la existencia y sufrimiento del mundo`,
+        category: `metafisica`,
+        tone: `luz`,
+        summary: `Condensa el pesimismo schopenhaueriano: la vanidad del devenir, el tiempo que todo lo convierte en nada entre las manos y el dolor consustancial al querer.`,
+        detail: `Presenta la existencia como tarea penosa (defunctus) frente a la idea platónica de lo que permanece siempre igual, sin cambio ni tiempo.`
+      },
+      {
+        id: `cap13_14`,
+        ref: `Caps. 13–14 · § 161`,
+        title: `Sobre el suicidio y sobre la afirmación y negación de la voluntad`,
+        category: `metafisica`,
+        tone: `luz`,
+        summary: `Defiende la despenalización del suicidio mostrando a la vez su futilidad metafísica, y contrapone al querer la sístole del nolle (negación de la voluntad).`,
+        detail: `Critica además el estoicismo afectado o nacido de la mera insensibilidad y lentitud flemática.`
+      },
+      {
+        id: `cap15`,
+        ref: `Cap. 15`,
+        title: `Sobre la religión (Demófeles y Filatetes) y defensa de los animales`,
+        category: `etica`,
+        tone: `luz`,
+        summary: `Somete la «metafísica del pueblo» a una crítica mucho más severa que en los Complementos y elogia las religiones orientales por proteger a los animales.`,
+        detail: `Denuncia con vigor las vivisecciones y la visión occidental heredada que trata a los animales como simples objetos.`
+      },
+      {
+        id: `cap19`,
+        ref: `Cap. 19 · §§ 213–214`,
+        title: `Sobre la metafísica de lo bello`,
+        category: `letras`,
+        tone: `luz`,
+        summary: `Explica la alegría estética indolora, la superación vegetal de la gravedad frente a lo inorgánico, la funcionalidad en arquitectura y el arte como espejo cóncavo.`,
+        detail: `Contrasta la arquitectura antigua (adecuación ingenua al fin) con el ornamento enigmático del gótico y observa que en cada decenio la moda del sastre actúa como reloj histórico.`
+      },
+      {
+        id: `cap20_25`,
+        ref: `Caps. 20–25 · §§ 237–296`,
+        title: `Vida intelectual, Pensar por sí mismo, lenguaje y literatura`,
+        category: `letras`,
+        tone: `luz`,
+        summary: `Reúne sus célebres metáforas sobre la peluca del erudito, las estrellas fijas y fugaces, la literatura permanente frente a la efímera y la condena del anonimato crítico.`,
+        detail: `Aunque incluye aquí sus invectivas más pesadas contra escritores alemanes y alteraciones gramaticales (notas interminables sobre el uso del imperfecto en el § 289a).`
+      },
+      {
+        id: `cap27`,
+        ref: `Cap. 27 · § 45 y notas`,
+        title: `Escrito sobre las mujeres y juicios personales extremos`,
+        category: `sombras`,
+        tone: `sombra`,
+        summary: `Reúne las páginas más controvertidas y rechazables del autor: su ensayo misógino, junto a prejuicios raciales y un elitismo que iguala lo común a lo vulgar (§ 335).`,
+        detail: `La propia traductora Pilar López de Santa María confiesa que estas páginas casi la hicieron desistir, viendo en las investigadoras actuales la mejor refutación práctica.`
+      },
+      {
+        id: `cap28`,
+        ref: `Cap. 28 · §§ 372–373`,
+        title: `Sobre educación`,
+        category: `letras`,
+        tone: `luz`,
+        summary: `Propone que la intuición preceda siempre al concepto y diseña un canon selectivo de enseñanza adaptado al vigor mnemónico de la juventud.`,
+        detail: `Sugiere revisar ese canon enciclopédico cada diez años para transmitir un material depurado al juicio maduro.`
+      },
+      {
+        id: `cap30`,
+        ref: `Cap. 30`,
+        title: `Sobre ruido y barullo`,
+        category: `sombras`,
+        tone: `sombra`,
+        summary: `Diatriba intolerante centrada casi en exclusiva contra el chasquido de los látigos en las calles, reveladora del temperamento irritable del autor.`,
+        detail: `Según la introducción, su lectura ayuda a comprender episodios biográficos tempestuosos como el célebre caso Marquet.`
+      },
+      {
+        id: `cap31`,
+        ref: `Cap. 31 · §§ 384–385 y Versos`,
+        title: `Comparaciones, parábola de los puercoespines y poemas finales`,
+        category: `letras`,
+        tone: `luz`,
+        summary: `Aforismos plásticos sobre la distancia humana (puercoespines), las gotas de mercurio como natura naturans (§ 384) y la rosa sin frutos (§ 385), cerrando con sus versos.`,
+        detail: `Concluye afirmando que contempla satisfecho su obra sin inquietarse por la opinión ajena.`
+      }
+    ];
+
+    let activeTone = `todos`;
+
+    function setToneFilter(tone) {
+      activeTone = tone;
+      const map = {
+        todos: `tone-all`,
+        luz: `tone-luz`,
+        sombra: `tone-sombra`
+      };
+      Object.keys(map).forEach(function(k) {
+        const b = document.getElementById(map[k]);
+        if (b) {
+          if (k === tone) b.classList.add('is-active');
+          else b.classList.remove('is-active');
+        }
+      });
+      filterEssays();
+    }
+
+    function toggleEssayDetail(id) {
+      const box = document.getElementById(`detail-` + id);
+      const btn = document.getElementById(`btn-detail-` + id);
+      if (!box || !btn) return;
+      const isHidden = box.hasAttribute('hidden');
+      if (isHidden) {
+        box.removeAttribute('hidden');
+        btn.textContent = `Ocultar detalle`;
+        btn.setAttribute('aria-expanded', 'true');
+      } else {
+        box.setAttribute('hidden', '');
+        btn.textContent = `Ver análisis y claves`;
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function resetExplorer() {
+      const searchEl = document.getElementById('essay-search');
+      const catEl = document.getElementById('essay-category');
+      if (searchEl) searchEl.value = ``;
+      if (catEl) catEl.value = `todos`;
+      setToneFilter(`todos`);
+    }
+
+    function filterEssays() {
+      const searchEl = document.getElementById('essay-search');
+      const catEl = document.getElementById('essay-category');
+      const grid = document.getElementById('essay-grid');
+      const empty = document.getElementById('explorer-empty');
+      const countEl = document.getElementById('explorer-count');
+      if (!grid || !empty || !countEl) return;
+
+      const q = searchEl ? searchEl.value.trim().toLowerCase() : ``;
+      const cat = catEl ? catEl.value : `todos`;
+
+      const filtered = ESSAYS.filter(function(item) {
+        const matchCat = cat === `todos` || item.category === cat;
+        const matchTone = activeTone === `todos` || item.tone === activeTone;
+        const haystack = (item.title + ` ` + item.ref + ` ` + item.summary + ` ` + item.detail).toLowerCase();
+        const matchQuery = q === `` || haystack.indexOf(q) !== -1;
+        return matchCat && matchTone && matchQuery;
+      });
+
+      countEl.textContent = `Mostrando ` + filtered.length + ` de ` + ESSAYS.length + ` núcleos del volumen`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = ``;
+        empty.removeAttribute('hidden');
+        return;
+      }
+
+      empty.setAttribute('hidden', '');
+      grid.innerHTML = filtered.map(function(item) {
+        const toneTag = item.tone === `luz`
+          ? `<span class="tag">Luz del sistema</span>`
+          : `<span class="tag tag-oxblood">Sombra o polémica</span>`;
+        return `<article class="essay-card">
+          <div class="essay-meta">
+            <span class="label-voice">` + item.ref + `</span>
+            ` + toneTag + `
+          </div>
+          <h3>` + item.title + `</h3>
+          <p>` + item.summary + `</p>
+          <div>
+            <button type="button" class="btn btn-secondary" id="btn-detail-` + item.id + `" aria-expanded="false" onclick="toggleEssayDetail('` + item.id + `')">Ver análisis y claves</button>
+          </div>
+          <div class="essay-detail" id="detail-` + item.id + `" hidden>
+            ` + item.detail + `
+          </div>
+        </article>`;
+      }).join(``);
+    }
+
+    /* 7. Interactive Quiz */
+    const QUIZ_QUESTIONS = [
+      {
+        q: `1. ¿Por qué resulta sorprendente la enorme extensión de Parerga y paralipómena II frente al resto de obras breves de Schopenhauer?`,
+        options: [
+          `Porque fue un encargo ministerial que exigía un compendio universitario extenso.`,
+          `Porque lo redactó en seis años como legado final antes de morir, queriendo no dejar nada en el tintero ni preguntas sin responder.`,
+          `Porque incluye íntegramente el primer volumen de El mundo como voluntad y representación.`
+        ],
+        correct: 1,
+        explanation: `Correcto. Aunque su lema era «lo bueno, si breve, dos veces bueno», Schopenhauer redactó Parerga en seis años —frente a los veinticinco años invertidos en los Complementos— apremiado por dejar su legado íntegro a la posteridad.`
+      },
+      {
+        q: `2. Según el § 10 del capítulo 1, ¿cuál es el defecto fundamental del iluminismo o misticismo frente al racionalismo?`,
+        options: [
+          `Que su conocimiento interior es incomunicable e indemostrable mediante el lenguaje.`,
+          `Que niega la existencia de los fenómenos naturales.`,
+          `Que depende exclusivamente de las matemáticas y del principio de razón.`
+        ],
+        correct: 0,
+        explanation: `Exacto. El iluminismo carece de criterio objetivo para verificar estados internos en distintos sujetos y el lenguaje —forjado para el mundo externo— no puede transmitirlos.`
+      },
+      {
+        q: `3. ¿Qué diferencia establece Schopenhauer en el § 140 entre metempsicosis y palingenesia?`,
+        options: [
+          `La metempsicosis pertenece a Kant y la palingenesia a Hegel.`,
+          `En la metempsicosis sobrevive solo el cerebro; en la palingenesia sobrevive solo la memoria personal.`,
+          `La metempsicosis supone el tránsito de un «alma» entera; la palingenesia implica la disolución del individuo, donde permanece la voluntad y se forma un intelecto nuevo.`
+        ],
+        correct: 2,
+        explanation: `Así es. Como una sal neutra cuya base se combina con otro ácido, en la muerte el intelecto cerebral desaparece y la voluntad indestructible toma un nuevo intelecto en otro ser.`
+      },
+      {
+        q: `4. ¿Cuál es la única razón moral sólida que opone Schopenhauer al suicidio en el capítulo 13?`,
+        options: [
+          `Que viola los mandamientos religiosos positivos y debe ser castigado por la justicia criminal.`,
+          `Su ineficacia: el suicida quiere la vida y afirma la voluntad, destruyendo solo el fenómeno sin tocar la cosa en sí.`,
+          `Que destruye la esencia indestructible de la voluntad de vivir en todo el universo.`
+        ],
+        correct: 1,
+        explanation: `Correcto. Para Schopenhauer los problemas de la cosa en sí no se resuelven con soluciones fenoménicas; solo la negación directa de la voluntad (el nolle) libera del sufrimiento.`
+      },
+      {
+        q: `5. En el capítulo 15 (Demófeles y Filatetes), ¿cómo cambia la postura de Schopenhauer respecto a la religión frente a los Complementos?`,
+        options: [
+          `Pasa de reconocerla como «metafísica del pueblo» alegóricamente útil a cargar las tintas contra sus estorbos teóricos y abusos prácticos.`,
+          `Adopta por primera vez la defensa del teísmo clásico y la teología racional.`,
+          `Equipara plenamente la religión revelada con la verdad literal de la filosofía.`
+        ],
+        correct: 0,
+        explanation: `Exacto. Demófeles aparece débil de razones y Filatetes domina dialécticamente el debate, señalando cómo los dogmas entumecen la disposición metafísica humana.`
+      },
+      {
+        q: `6. ¿Qué simboliza «la peluca» en el § 248 de Parerga y paralipómena II?`,
+        options: [
+          `La elegancia clásica de la arquitectura antigua frente al estilo gótico.`,
+          `Al puro erudito que adorna su cabeza con pensamientos ajenos por carecer de pensamiento propio.`,
+          `La falsa fama universitaria de los poetas frente a los filósofos.`
+        ],
+        correct: 1,
+        explanation: `Muy bien. Como la peluca respecto al cabello natural, la mera erudición de segunda mano no queda arraigada ni brota de un suelo propio.`
+      }
+    ];
+
+    let quizIdx = 0;
+    let quizScore = 0;
+    let quizAnswered = false;
+
+    function renderQuiz() {
+      const qObj = QUIZ_QUESTIONS[quizIdx];
+      const qEl = document.getElementById('quiz-question');
+      const optWrap = document.getElementById('quiz-options');
+      const fbEl = document.getElementById('quiz-feedback');
+      const progEl = document.getElementById('quiz-progress');
+      const scoreEl = document.getElementById('quiz-score');
+      const nextBtn = document.getElementById('quiz-next-btn');
+      if (!qObj || !qEl || !optWrap || !fbEl || !progEl || !scoreEl || !nextBtn) return;
+
+      quizAnswered = false;
+      progEl.textContent = `Pregunta ` + (quizIdx + 1) + ` de ` + QUIZ_QUESTIONS.length;
+      scoreEl.textContent = `Aciertos: ` + quizScore;
+      qEl.textContent = qObj.q;
+      fbEl.setAttribute('hidden', '');
+      fbEl.textContent = ``;
+      fbEl.classList.remove('is-error');
+      nextBtn.disabled = true;
+      nextBtn.textContent = quizIdx === QUIZ_QUESTIONS.length - 1 ? `Ver resultado final` : `Siguiente pregunta`;
+
+      optWrap.innerHTML = qObj.options.map(function(opt, idx) {
+        return `<button type="button" class="quiz-option" id="quiz-opt-` + idx + `" onclick="answerQuiz(` + idx + `)">` + opt + `</button>`;
+      }).join(``);
+    }
+
+    function answerQuiz(chosenIdx) {
+      if (quizAnswered) return;
+      quizAnswered = true;
+      const qObj = QUIZ_QUESTIONS[quizIdx];
+      const fbEl = document.getElementById('quiz-feedback');
+      const scoreEl = document.getElementById('quiz-score');
+      const nextBtn = document.getElementById('quiz-next-btn');
+      if (!qObj || !fbEl || !scoreEl || !nextBtn) return;
+
+      const isRight = chosenIdx === qObj.correct;
+      if (isRight) quizScore += 1;
+      scoreEl.textContent = `Aciertos: ` + quizScore;
+
+      qObj.options.forEach(function(_, i) {
+        const b = document.getElementById(`quiz-opt-` + i);
+        if (!b) return;
+        b.disabled = true;
+        if (i === qObj.correct) b.classList.add('is-correct');
+        else if (i === chosenIdx) b.classList.add('is-wrong');
+      });
+
+      fbEl.removeAttribute('hidden');
+      if (!isRight) fbEl.classList.add('is-error');
+      fbEl.textContent = (isRight ? `Respuesta acertada. ` : `Respuesta incorrecta. `) + qObj.explanation;
+      nextBtn.disabled = false;
+    }
+
+    function nextQuizQuestion() {
+      if (quizIdx < QUIZ_QUESTIONS.length - 1) {
+        quizIdx += 1;
+        renderQuiz();
+      } else {
+        const qEl = document.getElementById('quiz-question');
+        const optWrap = document.getElementById('quiz-options');
+        const fbEl = document.getElementById('quiz-feedback');
+        const nextBtn = document.getElementById('quiz-next-btn');
+        if (!qEl || !optWrap || !fbEl || !nextBtn) return;
+
+        qEl.textContent = `Comprobación completada: ` + quizScore + ` de ` + QUIZ_QUESTIONS.length + ` aciertos`;
+        optWrap.innerHTML = ``;
+        fbEl.classList.remove('is-error');
+        fbEl.removeAttribute('hidden');
+        fbEl.textContent = quizScore >= 5
+          ? `Dominio sobresaliente de las tesis centrales, las metáforas y la estructura dual de Parerga y paralipómena II.`
+          : `Puede repasar las secciones anteriores o el explorador de ensayos y reiniciar el cuestionario para afianzar los conceptos.`;
+        nextBtn.disabled = true;
+      }
+    }
+
+    function handleQuizReset(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = `Confirmar reinicio`;
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = `Reiniciar cuestionario`;
+      quizIdx = 0;
+      quizScore = 0;
+      renderQuiz();
+    }
+
+    /* 8. Scroll-triggered reveals */
+    function initScrollReveals() {
+      const targets = document.querySelectorAll('.reveal-on-scroll');
+      if (!('IntersectionObserver' in window)) {
+        targets.forEach(function(el) { el.classList.add('is-visible'); });
+        return;
+      }
+      const observer = new IntersectionObserver(function(entries, obs) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      targets.forEach(function(el) { observer.observe(el); });
+    }
+
+    /* Initialize */
+    document.addEventListener('DOMContentLoaded', function() {
+      filterEssays();
+      renderQuiz();
+      initScrollReveals();
+    });
+  </script>
+</body>
+</html>
